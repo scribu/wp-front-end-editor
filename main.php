@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.5.1
+Version: 0.5.2a
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -46,7 +46,9 @@ class frontEditor {
 		if ( !current_user_can('edit_posts') && !current_user_can('edit_pages') )
 			return;
 
-		wp_enqueue_script('front-editor', $this->_get_plugin_url() . '/editor.js', array('jquery'));
+		$url = $this->_get_plugin_url() . '/js';
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'));
+		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
 
 		add_action('wp_head', array($this, 'pass_to_js'));
 		add_action('wp_head', array($this, 'add_filters'));
@@ -63,7 +65,7 @@ class frontEditor {
 		if( !$this->_check_perm($post->ID) )
 			return $content;
 
-		$class = 'front-ed-' . $this->_get_field('filter', current_filter());
+		$class = 'front-ed-' . $this->_get_field('filter', current_filter()) . ' front-ed';
 
 		return "<span rel='{$post->ID}' class='{$class}'>{$content}</span>";
 	}
@@ -80,7 +82,7 @@ class frontEditor {
 		);
 ?>
 <style type='text/css'>
-textarea.front-editor {width: 100%; height: 200px}
+textarea.front-editor-content {width: 100%}
 button.front-editor-cancel {font-weight: bold; color:red}
 </style>
 <script type='text/javascript'>window.frontEd_data = <?php echo json_encode($data) ?>;</script>
@@ -102,7 +104,7 @@ button.front-editor-cancel {font-weight: bold; color:red}
 			die(-1);
 
 		$name = $_POST['name'];
-		$type = $_POST['method'];
+		$type = $_POST['callback'];
 
 		if( !$callback = $c_field[$type . '_callback'] )
 			$callback = array($this, $type . '_callback');

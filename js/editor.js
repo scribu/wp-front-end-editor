@@ -6,27 +6,30 @@ $(document).ready(function() {
 	// Get element content through AJAX
 	var get_data = function(el, container, args) {
 		var get_data = {
-			action: 'front-editor',
-			method: 'get',
-			name: args[0],
 			nonce: vars['nonce'],
+			action: 'front-editor',
+			callback: 'get',
+			name: args[0],
 			post_id: el.attr('rel')
 		};
 
 		jQuery.post(vars['request'], get_data, function(response) {
 			container.val(response);
+			
+			if (args[1] == 'textarea')
+				container.autogrow({expand_tolerance: 10});
 		});
 	}
 
 	// Update element content through AJAX
-	var send_data = function(el, content, args) {
+	var send_data = function(el, container, args) {
 		var post_data = {
-			action: 'front-editor',
-			method: 'save',
-			name: args[0],
 			nonce: vars['nonce'],
+			action: 'front-editor',
+			callback: 'save',
+			name: args[0],
 			post_id: el.attr('rel'),
-			content: content
+			content: container.val()
 		};
 
 		jQuery.post(vars['request'], post_data, function(response) {
@@ -72,9 +75,9 @@ $(document).ready(function() {
 			var form_html = '<form id="' + form_id + '" method="post" action="">';
 
 			if (args[1] == 'textarea')
-				form_html += '<textarea class="front-editor"></textarea>';
+				form_html += '<textarea class="front-editor-content"></textarea>';
 			else
-				form_html += '<input type="text" class="front-editor" value="" />';
+				form_html += '<input type="text" class="front-editor-content" value="" />';
 
 			form_html +=
 				'<input class="front-editor-save" type="submit" value="Save" />' +
@@ -91,7 +94,9 @@ $(document).ready(function() {
 			target.after(form_html);
 
 			var form = $('#' + form_id);
-			get_data(el, form.find('.front-editor'), args);
+			var container = form.find('.front-editor-content');
+			
+			get_data(el, container, args);
 
 			// Set form behaviour
 			var remove_form = function() {
@@ -105,9 +110,7 @@ $(document).ready(function() {
 			form.find('.front-editor-cancel').click(remove_form);
 
 			form.submit(function() {
-				var content = form.find('.front-editor').val();
-
-				send_data(el, content, args);
+				send_data(el, container, args);
 				remove_form();
 
 				return false;
