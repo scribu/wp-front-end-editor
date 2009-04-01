@@ -100,7 +100,7 @@
 			var html = this.textarea.val().replace(/(<|>)/g, '');
 			
 			// IE is different, as per usual
-			if ($.browser.msie)
+			if (jQuery.browser.msie)
 			{
 				html = html.replace(/\n/g, '<BR>new');
 			}
