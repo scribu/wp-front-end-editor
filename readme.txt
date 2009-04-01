@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place
 Requires at least: 2.0
 Tested up to: 2.8
-Stable tag: trunk
+Stable tag: 0.5.2.1
 
 Enable "edit in place" functionality on your site. Compatible with any theme.
 
