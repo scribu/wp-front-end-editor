@@ -82,7 +82,7 @@ class frontEditor {
 		);
 ?>
 <style type='text/css'>
-textarea.front-editor-content {width: 100%}
+textarea.front-editor-content {width: 100%; height: 250px}
 button.front-editor-cancel {font-weight: bold; color:red}
 </style>
 <script type='text/javascript'>window.frontEd_data = <?php echo json_encode($data) ?>;</script>
