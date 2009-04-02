@@ -1,5 +1,9 @@
 <?php
+
+// All field classes should extend from this one
 class frontEd_field {
+
+	// Mark the field as editable
 	function wrap($content, $filter = '') {
 		global $post, $frontEditor;
 
@@ -9,35 +13,54 @@ class frontEd_field {
 		if ( ! $frontEditor->check_perm($post->ID) )
 			return $content;
 
-		$class = 'front-ed-' . $frontEditor->get_field($filter) . ' front-ed';
+		$class = 'front-ed-' . $filter . ' front-ed';
 
 		return "<span rel='{$post->ID}' class='{$class}'>{$content}</span>";
 	}
 
-	function get($id, $name) {
+	// Retrieve the current data for the field
+	function get($post_id, $name, $args) {
+		trigger_error("This method must be implemented in a subclass", E_USER_ERROR);
+	}
+
+	// Save the data retrieved from the field
+	function save($post_id, $content, $name, $args) {
+		trigger_error("This method must be implemented in a subclass", E_USER_ERROR);
+	}
+}
+
+// Handles the_title and the_content fields
+class frontEd_basic extends frontEd_field {
+
+	function get($id, $filter) {
 		global $wpdb;
 
-		$field = 'post_' . $name;
+		$field = frontEd_basic::_get_col($filter);
 
 		$post = (array) get_post($id);
 
 		echo $post[$field];
 	}
 
-	function save($id, $content, $name, $args) {
+	function save($id, $content, $filter, $args) {
 		global $wpdb;
 
-		$field = 'post_' . $name;
+		$field = frontEd_basic::_get_col($filter);
 
 		$wpdb->update($wpdb->posts, array($field => $content), array('ID' => $id));
 
-		return apply_filters($args['filter'][0], $content);
+		return apply_filters($filter, $content);
+	}
+
+	// Get wp_posts column
+	function _get_col($filter) {
+		return str_replace('the_', 'post_', $filter);
 	}
 }
 
 class frontEd_tags extends frontEd_field {
 	function wrap($content, $before = 'Tags: ', $sep = ', ', $after = '') {
-/*
+/* TODO: this will be needed in WP < 2.8
 		// Figure out $before arg
 		$before = substr($content, 0, strpos($content, '<a'));
 
@@ -52,7 +75,7 @@ class frontEd_tags extends frontEd_field {
 		return $before . parent::wrap($content, current_filter()) . $after;
 	}
 
-	function get($id, $name) {
+	function get($id) {
 		$tagsObj = get_the_tags($id);
 
 		foreach ( $tagsObj as $tag )
@@ -61,9 +84,9 @@ class frontEd_tags extends frontEd_field {
 		echo implode(', ', $tags);
 	}
 
-	function save($id, $tags, $name) {
+	function save($id, $tags) {
 		wp_set_post_tags($id, $tags);
-		
+
 		return get_the_term_list($id, 'post_tag', '', ', ');
 	}
 }

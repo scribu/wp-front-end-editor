@@ -28,9 +28,9 @@ class frontEditor {
 	var $fields;
 
 	function __construct() {
-		$this->register('title', array('type' => 'input', 'filter' => 'the_title'));
-		$this->register('content', array('type' => 'textarea', 'filter' => 'the_content'));
-		$this->register('tags', array('type' => 'input', 'filter' => array('the_tags', 10, 4)), 'frontEd_tags');
+		$this->register('the_title', 'input', 'frontEd_basic');
+		$this->register('the_content', 'textarea', 'frontEd_basic');
+		$this->register('the_tags', 'input', 'frontEd_tags', 'args=4');
 
 		// Give other plugins a chance to register new fields
 //		do_action('front_ed_fields');
@@ -41,14 +41,18 @@ class frontEditor {
 	}
 
 	// Register a new editable field
-	function register($name, $args, $class = 'frontEd_field') {
-		$args['filter'] = $this->_set_filter($args['filter']);
-
-		$this->fields[$name] = wp_parse_args($args, array(
-			'wrap_callback' => array($class, 'wrap'),
-			'get_callback' => array($class, 'get'),
-			'save_callback' => array($class, 'save'),
+	function register($filter, $type, $class, $filter_args = '') {
+		$filter_args = wp_parse_args($filter_args, array(
+			'priority' => 10,
+			'args' => 1
 		));
+
+//		$this->fields[$filter] = compact($type, $class, $filter_args); // Doesn't work here
+		$this->fields[$filter] = array(
+			'type' => $type,
+			'class' => $class,
+			'filter_args' => $filter_args
+		);
 	}
 
 	// PHP < 4
@@ -69,16 +73,16 @@ class frontEditor {
 	}
 
 	function add_filters() {
-		foreach ( $this->fields as $args ) {
+		foreach ( $this->fields as $name => $args ) {
 			extract($args);
-			add_filter($filter[0], $wrap_callback, $filter[1], $filter[2]);
+			add_filter($name, array($class, 'wrap'), $filter_args['priority'], $filter_args['args']);
 		}
 	}
 
 	// Send necesarry info to JS land
 	function pass_to_js() {
-		foreach( $this->fields as $name => $args )
-			$fields[] = array($name, $args['type']);
+		foreach( $this->fields as $filter => $args )
+			$fields[] = array($filter, $args['type']);
 
 		$data = array(
 			'fields' => $fields,
@@ -111,39 +115,24 @@ button.front-editor-cancel {font-weight: bold; color:red}
 		if ( ! $args = $this->fields[$name] )
 			die(-1);
 
-		$callback = $args[$type . '_callback'];
+		$callback = array($args['class'], $type);
 
 		if ( $type == 'save' ) {
 			$content = stripslashes_deep($_POST['content']);
 			echo call_user_func($callback, $post_id, $content, $name, $args);
 		} elseif ( $type == 'get' ) {
-			call_user_func($callback, $post_id, $name);
+			call_user_func($callback, $post_id, $name, $args);
 		}
 
 		die;
 	}
 
+	function get_args($filter) {
+		return $this->fields[$filter];
+	}
+
 	function check_perm($id) {
 		return current_user_can('edit_post', $id) || current_user_can('edit_page', $id);
-	}
-
-	// Return field $name given the filter name
-	function get_field($value) {
-		foreach ( $this->fields as $name => $args )
-			if ( $args['filter'][0] == $value )
-				return $name;
-	}
-
-	function _set_filter($filter) {
-		$filter = (array) $filter;
-
-		if ( !isset($filter[1]) )
-			$filter[1] = 10;	// default priority
-
-		if ( !isset($filter[2]) )
-			$filter[2] = 1;	// default nr. of. args
-			
-		return $filter;
 	}
 
 	function _get_plugin_url() {
@@ -165,9 +154,9 @@ function fee_init() {
 	$GLOBALS['frontEditor'] = new frontEditor();
 }
 
-function register_fronted_field($class, $name, $args) {
+function register_fronted_field($filter, $type, $class, $filter_args = '') {
 	global $frontEditor;
 
-	$frontEditor->register($class, $name, $args);
+	$frontEditor->register($filter, $type, $class, $filter_args);
 }
 
