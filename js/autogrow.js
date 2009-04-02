@@ -19,8 +19,7 @@
 		
 	var self = null;
 
-	jQuery.fn.autogrow = function(o)
-	{
+	jQuery.fn.autogrow = function(o) {
 		return this.each(function() {
 			new jQuery.autogrow(this, o);
 		});
@@ -37,8 +36,7 @@
 	 * @cat Plugins/autogrow
 	 */
 
-	jQuery.autogrow = function (e, o)
-	{
+	jQuery.autogrow = function (e, o) {
 		this.options		  	= o || {};
 		this.dummy			  	= null;
 		this.interval	 	  	= null;
@@ -63,9 +61,9 @@
 
 	jQuery.autogrow.fn = jQuery.autogrow.prototype = {
 		autogrow: '1.2.4'
-  	}
+	}
 
- 	jQuery.autogrow.fn.extend = jQuery.autogrow.extend = jQuery.extend;
+	jQuery.autogrow.fn.extend = jQuery.autogrow.extend = jQuery.extend;
 
 	jQuery.autogrow.fn.extend({
 						
@@ -77,7 +75,7 @@
 		},
 
 		startExpand: function() {
-		  	var self = this;
+			var self = this;
 			// while focused, leave an extra line.  The cursor can never actually reach
 			// this extra line, but it makes the gesture for select-all much easier to perform
 			// (or, _possible_ to perform, if the last line is overflow-x-hidden)
@@ -91,7 +89,6 @@
 		},
 
 		checkExpand: function(extraspace, forcecheck) {
-
 			if (this.dummy == null)
 			{
 				this.dummy = jQuery('<div></div>');
@@ -120,14 +117,11 @@
 				.replace(/  /g, ' &nbsp;') + ".";
 
 			// IE is different, as per usual
-			if (jQuery.support.leadingWhitespace)
-			{
+//			if (jQuery.support.leadingWhitespace)
+			if (jQuery.browser.msie)
 				html = html.replace(/\n/g, '<br>');
-			}
 			else
-			{
 				html = html.replace(/\n/g, '<BR>');
-			}
 
 			if (forcecheck || this.dummy.html() != html)
 			{
@@ -147,6 +141,6 @@
 					}
 				}
 			}
-		}			
+		}	
 	 });
 })(jQuery);
