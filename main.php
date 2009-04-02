@@ -115,8 +115,7 @@ button.front-editor-cancel {font-weight: bold; color:red}
 
 		if ( $type == 'save' ) {
 			$content = stripslashes_deep($_POST['content']);
-			call_user_func($callback, $post_id, $content, $name);
-			echo apply_filters($args['filter'], $content);
+			echo call_user_func($callback, $post_id, $content, $name, $args);
 		} elseif ( $type == 'get' ) {
 			call_user_func($callback, $post_id, $name);
 		}

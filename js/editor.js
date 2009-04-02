@@ -34,11 +34,9 @@ $(document).ready(function() {
 
 		jQuery.post(vars['request'], post_data, function(response) {
 			el.fadeOut('fast', function() {
-				if (args[1] == 'textarea') {
-					el.html(response);
+				el.html(response);
+				if (args[1] == 'textarea')
 					el.css('display', 'block');
-				} else
-					el.text(response);
 			}).fadeIn('fast');
 		});
 	}

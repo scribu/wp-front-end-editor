@@ -24,12 +24,14 @@ class frontEd_field {
 		echo $post[$field];
 	}
 
-	function save($id, $content, $name) {
+	function save($id, $content, $name, $args) {
 		global $wpdb;
 
 		$field = 'post_' . $name;
 
-		return $wpdb->update($wpdb->posts, array($field => $content), array('ID' => $id));
+		$wpdb->update($wpdb->posts, array($field => $content), array('ID' => $id));
+
+		return apply_filters($args['filter'][0], $content);
 	}
 }
 
@@ -59,8 +61,10 @@ class frontEd_tags extends frontEd_field {
 		echo implode(', ', $tags);
 	}
 
-	function save($id, $content, $name) {
-
+	function save($id, $tags, $name) {
+		wp_set_post_tags($id, $tags);
+		
+		return get_the_term_list($id, 'post_tag', '', ', ');
 	}
 }
 
