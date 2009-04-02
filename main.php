@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.5.2.1
+Version: 0.6a
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -25,16 +25,30 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class frontEditor {
 	var $nonce_action = 'front-editor';
-	var $fields = array(
-		'title' => array('filter' => 'the_title', 'type' => 'input'),
-		'content' => array('filter' => 'the_content', 'type' => 'textarea')
-	);
+	var $fields;
 
 	function __construct() {
-		$this->fields = apply_filters('front_ed_fields', $this->fields);
+		$this->register('title', array('type' => 'input', 'filter' => 'the_title'));
+		$this->register('content', array('type' => 'textarea', 'filter' => 'the_content'));
+		$this->register('tags', array('type' => 'input', 'filter' => array('the_tags', 10, 4)), 'frontEd_tags');
 
+		// Give other plugins a chance to register new fields
+//		do_action('front_ed_fields');
+
+		// Set default callbacks
 		add_action('template_redirect', array($this, 'add_scripts'));
 		add_action('wp_ajax_front-editor', array($this, 'ajax_response'));
+	}
+
+	// Register a new editable field
+	function register($name, $args, $class = 'frontEd_field') {
+		$args['filter'] = $this->_set_filter($args['filter']);
+
+		$this->fields[$name] = wp_parse_args($args, array(
+			'wrap_callback' => array($class, 'wrap'),
+			'get_callback' => array($class, 'get'),
+			'save_callback' => array($class, 'save'),
+		));
 	}
 
 	// PHP < 4
@@ -55,19 +69,10 @@ class frontEditor {
 	}
 
 	function add_filters() {
-		foreach( $this->fields as $field )
-			add_filter($field['filter'], array($this, 'wrap'));
-	}
-
-	function wrap($content) {
-		global $post;
-
-		if( !$this->_check_perm($post->ID) )
-			return $content;
-
-		$class = 'front-ed-' . $this->_get_field('filter', current_filter()) . ' front-ed';
-
-		return "<span rel='{$post->ID}' class='{$class}'>{$content}</span>";
+		foreach ( $this->fields as $args ) {
+			extract($args);
+			add_filter($filter[0], $wrap_callback, $filter[1], $filter[2]);
+		}
 	}
 
 	// Send necesarry info to JS land
@@ -94,25 +99,24 @@ button.front-editor-cancel {font-weight: bold; color:red}
 		// Is user trusted?
 		check_ajax_referer($this->nonce_action, 'nonce');
 
-		// Can user edit current post?
 		$post_id = $_POST['post_id'];
-		if( !$this->_check_perm($post_id) )
-			die(-1);
-
-		// Is the current field defined?
-		if ( !$c_field = $this->fields[$_POST['name']] )
-			die(-1);
-
 		$name = $_POST['name'];
 		$type = $_POST['callback'];
 
-		if( !$callback = $c_field[$type . '_callback'] )
-			$callback = array($this, $type . '_callback');
+		// Can user edit current post?
+		if ( ! $this->check_perm($post_id) )
+			die(-1);
+
+		// Is the current field defined?
+		if ( ! $args = $this->fields[$name] )
+			die(-1);
+
+		$callback = $args[$type . '_callback'];
 
 		if ( $type == 'save' ) {
 			$content = stripslashes_deep($_POST['content']);
 			call_user_func($callback, $post_id, $content, $name);
-			echo apply_filters($this->fields[$name]['filter'], $content);
+			echo apply_filters($args['filter'], $content);
 		} elseif ( $type == 'get' ) {
 			call_user_func($callback, $post_id, $name);
 		}
@@ -120,33 +124,27 @@ button.front-editor-cancel {font-weight: bold; color:red}
 		die;
 	}
 
-	function get_callback($id, $name) {
-		global $wpdb;
-
-		$field = 'post_' . $name;
-
-		$post = (array) get_post($id);
-
-		echo $post[$field];
+	function check_perm($id) {
+		return current_user_can('edit_post', $id) || current_user_can('edit_page', $id);
 	}
 
-	function save_callback($id, $content, $name) {
-		global $wpdb;
-
-		$field = 'post_' . $name;
-
-		return $wpdb->update($wpdb->posts, array($field => $content), array('ID' => $id));
-	}
-
-	// Return $name where $args[key] = $value
-	function _get_field($key, $value) {
+	// Return field $name given the filter name
+	function get_field($value) {
 		foreach ( $this->fields as $name => $args )
-			if ( $args[$key] == $value )
+			if ( $args['filter'][0] == $value )
 				return $name;
 	}
 
-	function _check_perm($id) {
-		return current_user_can('edit_post', $id) || current_user_can('edit_page', $id);
+	function _set_filter($filter) {
+		$filter = (array) $filter;
+
+		if ( !isset($filter[1]) )
+			$filter[1] = 10;	// default priority
+
+		if ( !isset($filter[2]) )
+			$filter[2] = 1;	// default nr. of. args
+			
+		return $filter;
 	}
 
 	function _get_plugin_url() {
@@ -158,64 +156,19 @@ button.front-editor-cancel {font-weight: bold; color:red}
 	}
 }
 
+// Init
+fee_init();
 
-// PHP < 5.2
-if( !function_exists('json_encode') ) :
-function json_encode($array) {
-	if( !is_array( $array ) )
-		return false;
+function fee_init() {
+	require_once(dirname(__FILE__) . '/compat.php');
+	require_once(dirname(__FILE__) . '/fields.php');
 
-	$associative = count( array_diff( array_keys($array), array_keys( array_keys( $array )) ));
-
-	if( $associative ) {
-		$construct = array();
-		foreach( $array as $key => $value ) {
-			// We first copy each key/value pair into a staging array,
-			// formatting each key and value properly as we go.
-
-			// Format the key:
-			if( is_numeric($key) ){
-				$key = "key_$key";
-			}
-			$key = "'".addslashes($key)."'";
-
-			// Format the value:
-			if( is_array( $value )) {
-				$value = json_encode($value);
-			} else if( !is_numeric( $value ) || is_string( $value ) ) {
-				$value = "'".addslashes($value)."'";
-			}
-
-			// Add to staging array:
-			$construct[] = "$key: $value";
-		}
-
-		// Then we collapse the staging array into the JSON form:
-		$result = "{ " . implode( ", ", $construct ) . " }";
-
-	} else { // If the array is a vector (not associative):
-
-		$construct = array();
-		foreach( $array as $value ){
-
-			// Format the value:
-			if( is_array( $value )){
-				$value = json_encode($value);
-			} else if( !is_numeric( $value ) || is_string( $value ) ){
-				$value = "'".addslashes($value)."'";
-			}
-
-			// Add to staging array:
-			$construct[] = $value;
-		}
-
-		// Then we collapse the staging array into the JSON form:
-		$result = "[ " . implode( ", ", $construct ) . " ]";
-	}
-
-	return $result;
+	$GLOBALS['frontEditor'] = new frontEditor();
 }
-endif;
 
-new frontEditor();
+function register_fronted_field($class, $name, $args) {
+	global $frontEditor;
+
+	$frontEditor->register($class, $name, $args);
+}
 
