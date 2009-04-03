@@ -122,6 +122,7 @@ $(document).ready(function() {
 			});
 		});
 
+		// Fires on the second click
 		el.click(function(ev) {
 			if (ev.detail == 1) {
 				first_click_handler(el);
@@ -139,7 +140,6 @@ $(document).ready(function() {
 	// Widget fix: Add rel attr to each element
 	$('span.front-ed-widget_text').each(function() {
 		id = $(this).parents('.widget_text').attr('id');
-		console.log(id);
 		$(this).attr('rel', id);
 	});
 
