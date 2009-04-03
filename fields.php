@@ -3,18 +3,16 @@
 class frontEd_field {
 
 	// Mark the field as editable
-	function wrap($content, $filter = '') {
-		global $post, $frontEditor;
-
+	function wrap($content, $filter = '', $id = NULL) {
 		if ( empty($filter) )
 			$filter = current_filter();
 
-		if ( ! $frontEditor->check_perm($post->ID) )
-			return $content;
+		if ( ! isset($id) )
+			$id = $GLOBALS['post']->ID;
 
 		$class = 'front-ed-' . $filter . ' front-ed';
 
-		return "<span rel='{$post->ID}' class='{$class}'>{$content}</span>";
+		return "<span rel='{$id}' class='{$class}'>{$content}</span>";
 	}
 
 	// Retrieve the current data for the field
@@ -26,10 +24,22 @@ class frontEd_field {
 	function save($post_id, $content, $name, $args) {
 		trigger_error("This method must be implemented in a subclass", E_USER_ERROR);
 	}
+
+	function check($id) {
+		return current_user_can('edit_post', $id) || current_user_can('edit_page', $id);
+	}
 }
 
 // Handles the_title and the_content fields
 class frontEd_basic extends frontEd_field {
+	function wrap($content) {
+		global $post;
+
+		if ( ! frontEd_basic::check($post->ID) )
+			return $content;
+
+		return frontEd_field::wrap($content, current_filter(), $post->ID);
+	}
 
 	function get($id, $filter) {
 		global $wpdb;
@@ -59,6 +69,14 @@ class frontEd_basic extends frontEd_field {
 
 // Handles widget_text
 class frontEd_widget extends frontEd_field {
+	function wrap($content) {
+		global $post;
+
+		if ( ! frontEd_widget::check($post->ID) )
+			return $content;
+
+		return frontEd_field::wrap($content, current_filter(), $post->ID);
+	}
 
 	function get($id, $filter) {
 		$id = str_replace('text-', '', $id);
@@ -77,6 +95,10 @@ class frontEd_widget extends frontEd_field {
 		update_option('widget_text', $widgets);
 
 		echo apply_filters($filter, $content);
+	}
+
+	function check() {
+		return current_user_can('edit_themes');
 	}
 }
 

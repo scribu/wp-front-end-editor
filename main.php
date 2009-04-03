@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.6.1
+Version: 0.6.1.1
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -60,7 +60,7 @@ class frontEditor {
 	}
 
 	function add_scripts() {
-		if ( !current_user_can('edit_posts') && !current_user_can('edit_pages') )
+		if ( !is_user_logged_in() )
 			return;
 
 		$url = $this->_get_plugin_url() . '/js';
@@ -109,12 +109,12 @@ button.front-editor-cancel {font-weight: bold; color:red}
 		$name = $_POST['name'];
 		$action = $_POST['callback'];
 
-		// Can user edit current post?
-		if ( ! $this->check_perm($post_id) )
-			die(-1);
-
 		// Is the current field defined?
 		if ( ! $args = $this->fields[$name] )
+			die(-1);
+
+		// Does the user have the right to do this?
+		if ( ! call_user_func(array($args['class'], 'check'), $id) )
 			die(-1);
 
 		$callback = array($args['class'], $action);
@@ -131,10 +131,6 @@ button.front-editor-cancel {font-weight: bold; color:red}
 
 	function get_args($filter) {
 		return $this->fields[$filter];
-	}
-
-	function check_perm($id) {
-		return current_user_can('edit_post', $id) || current_user_can('edit_page', $id);
 	}
 
 	function _get_plugin_url() {
