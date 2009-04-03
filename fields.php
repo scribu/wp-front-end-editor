@@ -1,5 +1,4 @@
 <?php
-
 // All field classes should extend from this one
 class frontEd_field {
 
@@ -58,16 +57,18 @@ class frontEd_basic extends frontEd_field {
 	}
 }
 
+// Handles the_tags field
 class frontEd_tags extends frontEd_field {
 	function wrap($content, $before = 'Tags: ', $sep = ', ', $after = '') {
-/* TODO: this will be needed in WP < 2.8
-		// Figure out $before arg
-		$before = substr($content, 0, strpos($content, '<a'));
+		// Reverse engineer args for WP < 2.8
+		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') ) {
+			// Figure out $before arg
+			$before = substr($content, 0, strpos($content, '<a'));
 
-		// Figure out $after arg
-		$tmp = explode('</a>', $content);
-		$after = $tmp[count($tmp)-1];
-*/
+			// Figure out $after arg
+			$tmp = explode('</a>', $content);
+			$after = $tmp[count($tmp)-1];
+		}
 
 		// Get the actual tags
 		$content = str_replace(array($before, $after), '', $content);

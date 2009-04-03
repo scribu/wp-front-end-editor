@@ -33,11 +33,16 @@ $(document).ready(function() {
 		};
 
 		jQuery.post(vars['request'], post_data, function(response) {
-			el.fadeOut('fast', function() {
+			var speed = 'fast';
+
+			if (args[1] == 'textarea') {
+				el.css('display', 'block');
+				speed = 'normal';
+			}
+
+			el.fadeOut(speed, function() {
 				el.html(response);
-				if (args[1] == 'textarea')
-					el.css('display', 'block');
-			}).fadeIn('fast');
+			}).fadeIn(speed);
 		});
 	}
 

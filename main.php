@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.6a
+Version: 0.6
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -28,31 +28,29 @@ class frontEditor {
 	var $fields;
 
 	function __construct() {
-		$this->register('the_title', 'input', 'frontEd_basic');
-		$this->register('the_content', 'textarea', 'frontEd_basic');
-		$this->register('the_tags', 'input', 'frontEd_tags', 'args=4');
+		$this->register('the_title', 'frontEd_basic');
+		$this->register('the_content', 'frontEd_basic', 'type=textarea');
+		$this->register('the_tags', 'frontEd_tags', 'argc=4');
 
 		// Give other plugins a chance to register new fields
-//		do_action('front_ed_fields');
+		do_action('front_ed_fields');
 
-		// Set default callbacks
+		// Set core hooks
 		add_action('template_redirect', array($this, 'add_scripts'));
 		add_action('wp_ajax_front-editor', array($this, 'ajax_response'));
 	}
 
 	// Register a new editable field
-	function register($filter, $type, $class, $filter_args = '') {
-		$filter_args = wp_parse_args($filter_args, array(
+	function register($filter, $class, $args = '') {
+		$args = wp_parse_args($args, array(
+			'type' => 'input',
 			'priority' => 10,
-			'args' => 1
+			'argc' => 1
 		));
 
-//		$this->fields[$filter] = compact($type, $class, $filter_args); // Doesn't work here
-		$this->fields[$filter] = array(
-			'type' => $type,
-			'class' => $class,
-			'filter_args' => $filter_args
-		);
+		$args['class'] = $class;
+
+		$this->fields[$filter] = $args;
 	}
 
 	// PHP < 4
@@ -75,14 +73,14 @@ class frontEditor {
 	function add_filters() {
 		foreach ( $this->fields as $name => $args ) {
 			extract($args);
-			add_filter($name, array($class, 'wrap'), $filter_args['priority'], $filter_args['args']);
+			add_filter($name, array($class, 'wrap'), $priority, $argc);
 		}
 	}
 
 	// Send necesarry info to JS land
 	function pass_to_js() {
-		foreach( $this->fields as $filter => $args )
-			$fields[] = array($filter, $args['type']);
+		foreach( $this->fields as $name => $args )
+			$fields[] = array($name, $args['type']);
 
 		$data = array(
 			'fields' => $fields,
@@ -105,7 +103,7 @@ button.front-editor-cancel {font-weight: bold; color:red}
 
 		$post_id = $_POST['post_id'];
 		$name = $_POST['name'];
-		$type = $_POST['callback'];
+		$action = $_POST['callback'];
 
 		// Can user edit current post?
 		if ( ! $this->check_perm($post_id) )
@@ -115,12 +113,12 @@ button.front-editor-cancel {font-weight: bold; color:red}
 		if ( ! $args = $this->fields[$name] )
 			die(-1);
 
-		$callback = array($args['class'], $type);
+		$callback = array($args['class'], $action);
 
-		if ( $type == 'save' ) {
+		if ( $action == 'save' ) {
 			$content = stripslashes_deep($_POST['content']);
 			echo call_user_func($callback, $post_id, $content, $name, $args);
-		} elseif ( $type == 'get' ) {
+		} elseif ( $action == 'get' ) {
 			call_user_func($callback, $post_id, $name, $args);
 		}
 
@@ -154,9 +152,9 @@ function fee_init() {
 	$GLOBALS['frontEditor'] = new frontEditor();
 }
 
-function register_fronted_field($filter, $type, $class, $filter_args = '') {
+function register_fronted_field($filter, $class, $args = '') {
 	global $frontEditor;
 
-	$frontEditor->register($filter, $type, $class, $filter_args);
+	$frontEditor->register($filter, $class, $args = '');
 }
 

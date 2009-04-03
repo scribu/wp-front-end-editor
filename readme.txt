@@ -2,9 +2,9 @@
 Contributors: scribu
 Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place
-Requires at least: 2.0
+Requires at least: 2.2
 Tested up to: 2.8
-Stable tag: 0.5.2.1
+Stable tag: trunk
 
 Enable "edit in place" functionality on your site. Compatible with any theme.
 
@@ -14,12 +14,12 @@ Front-end Editor is a plugin that lets you edit posts or pages *directly* from y
 
 To edit something, just double-click it.
 
-Current Features
+*Current Features*
 
-    * edit title or content
-    * works for posts and pages
-    * should work with any theme
-    * lightweight
+* edit title, content and tags
+* works with posts and pages
+* should work with any theme
+* lightweight
 
 == Installation ==
 
