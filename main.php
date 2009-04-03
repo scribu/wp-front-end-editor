@@ -148,7 +148,7 @@ button.front-editor-cancel {font-weight: bold; color:red}
 }
 
 // Init
-fee_init();
+add_action('plugins_loaded', 'fee_init');
 
 function fee_init() {
 	require_once(dirname(__FILE__) . '/compat.php');
