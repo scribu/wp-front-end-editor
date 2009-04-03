@@ -136,15 +136,16 @@ $(document).ready(function() {
 		});
 	}
 
-	// Add rel attr to each element
-	widget_fix = function(el, args) {
-		id = el.parents('.widget_text').attr('id');
-		el.attr('rel', id);
-	}
+	// Widget fix: Add rel attr to each element
+	$('span.front-ed-widget_text').each(function() {
+		id = $(this).parents('.widget_text').attr('id');
+		console.log(id);
+		$(this).attr('rel', id);
+	});
 
+	// Start click handler
 	$.each(vars['fields'], function(i, args) {
 		$('span.front-ed-' + args[0]).each(function() {
-			widget_fix($(this), args);
 			click_handler($(this), args);
 		});
 	});
