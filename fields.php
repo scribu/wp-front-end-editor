@@ -41,7 +41,7 @@ class frontEd_basic extends frontEd_field {
 		echo $post[$field];
 	}
 
-	function save($id, $content, $filter, $args) {
+	function save($id, $content, $filter) {
 		global $wpdb;
 
 		$field = frontEd_basic::_get_col($filter);
@@ -54,6 +54,29 @@ class frontEd_basic extends frontEd_field {
 	// Get wp_posts column
 	function _get_col($filter) {
 		return str_replace('the_', 'post_', $filter);
+	}
+}
+
+// Handles widget_text
+class frontEd_widget extends frontEd_field {
+
+	function get($id, $filter) {
+		$id = str_replace('text-', '', $id);
+		$field = str_replace('widget_', '', $filter);
+
+		$widgets = get_option('widget_text');
+		echo $widgets[$id][$field];
+	}
+
+	function save($id, $content, $filter) {
+		$id = str_replace('text-', '', $id);
+		$field = str_replace('widget_', '', $filter);
+
+		$widgets = get_option('widget_text');
+		$widgets[$id][$field] = $content;
+		update_option('widget_text', $widgets);
+
+		echo apply_filters($filter, $content);
 	}
 }
 

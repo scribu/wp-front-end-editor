@@ -10,14 +10,16 @@ $(document).ready(function() {
 			action: 'front-editor',
 			callback: 'get',
 			name: args[0],
-			post_id: el.attr('rel')
+			item_id: el.attr('rel')
 		};
 
 		jQuery.post(vars['request'], get_data, function(response) {
 			container.val(response);
 			
-			if (args[1] == 'textarea')
+			if (args[1] == 'textarea') {
+//				container.wysiwyg();
 				container.autogrow();
+			}
 		});
 	}
 
@@ -28,7 +30,7 @@ $(document).ready(function() {
 			action: 'front-editor',
 			callback: 'save',
 			name: args[0],
-			post_id: el.attr('rel'),
+			item_id: el.attr('rel'),
 			content: container.val()
 		};
 
@@ -134,8 +136,15 @@ $(document).ready(function() {
 		});
 	}
 
+	// Add rel attr to each element
+	widget_fix = function(el, args) {
+		id = el.parents('.widget_text').attr('id');
+		el.attr('rel', id);
+	}
+
 	$.each(vars['fields'], function(i, args) {
 		$('span.front-ed-' + args[0]).each(function() {
+			widget_fix($(this), args);
 			click_handler($(this), args);
 		});
 	});

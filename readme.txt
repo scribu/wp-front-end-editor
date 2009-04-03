@@ -10,16 +10,18 @@ Enable "edit in place" functionality on your site. Compatible with any theme.
 
 == Description ==
 
-Front-end Editor is a plugin that lets you edit posts or pages *directly* from your site. No need to load the admin backend just to correct a typo.
+Front-end Editor is a plugin that lets you make changes to your content *directly* from your site. No need to load the admin backend just to correct a typo.
 
 To edit something, just double-click it.
 
-*Current Features*
+The main goals are to be *fast* and to be *compatible with any theme*.
 
-* edit title, content and tags
-* works with posts and pages
-* should work with any theme
-* lightweight
+= Default editable fields =
+
+* post/page title
+* post/page content
+* post tags
+* text widgets
 
 == Installation ==
 

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.6
+Version: 0.6.1
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -28,8 +28,9 @@ class frontEditor {
 	var $fields;
 
 	function __construct() {
-		$this->register('the_title', 'frontEd_basic');
 		$this->register('the_content', 'frontEd_basic', 'type=textarea');
+		$this->register('widget_text', 'frontEd_widget', 'type=textarea');
+		$this->register('the_title', 'frontEd_basic');
 		$this->register('the_tags', 'frontEd_tags', 'argc=4');
 
 		// Give other plugins a chance to register new fields
@@ -63,8 +64,11 @@ class frontEditor {
 			return;
 
 		$url = $this->_get_plugin_url() . '/js';
+
+//		wp_enqueue_style('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.css');
+//		wp_enqueue_script('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
 		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'));
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.6.1');
 
 		add_action('wp_head', array($this, 'pass_to_js'));
 		add_action('wp_head', array($this, 'add_filters'));
@@ -101,7 +105,7 @@ button.front-editor-cancel {font-weight: bold; color:red}
 		// Is user trusted?
 		check_ajax_referer($this->nonce_action, 'nonce');
 
-		$post_id = $_POST['post_id'];
+		$id = $_POST['item_id'];
 		$name = $_POST['name'];
 		$action = $_POST['callback'];
 
@@ -117,9 +121,9 @@ button.front-editor-cancel {font-weight: bold; color:red}
 
 		if ( $action == 'save' ) {
 			$content = stripslashes_deep($_POST['content']);
-			call_user_func($callback, $post_id, $content, $name, $args);
+			call_user_func($callback, $id, $content, $name, $args);
 		} elseif ( $action == 'get' ) {
-			call_user_func($callback, $post_id, $name, $args);
+			call_user_func($callback, $id, $name, $args);
 		}
 
 		die;
