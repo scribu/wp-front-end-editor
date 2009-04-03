@@ -20,8 +20,9 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 
 * post/page title
 * post/page content
+* post/page comment text
 * post tags
-* text widgets
+* text widgets (title & content)
 
 == Installation ==
 
