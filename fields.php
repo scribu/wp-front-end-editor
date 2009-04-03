@@ -48,7 +48,7 @@ class frontEd_basic extends frontEd_field {
 
 		$wpdb->update($wpdb->posts, array($field => $content), array('ID' => $id));
 
-		return apply_filters($filter, $content);
+		echo apply_filters($filter, $content);
 	}
 
 	// Get wp_posts column
@@ -88,7 +88,7 @@ class frontEd_tags extends frontEd_field {
 	function save($id, $tags) {
 		wp_set_post_tags($id, $tags);
 
-		return get_the_term_list($id, 'post_tag', '', ', ');
+		echo get_the_term_list($id, 'post_tag', '', ', ');
 	}
 }
 
