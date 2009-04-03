@@ -16,7 +16,7 @@ To edit something, just double-click it.
 
 The main goals are to be *fast* and to be *compatible with any theme*.
 
-= Default editable fields =
+**Editable fields:**
 
 * post/page title
 * post/page content
