@@ -37,9 +37,6 @@ class frontEditor {
 		$this->register('widget_title', 'frontEd_widget');
 		$this->register('widget_text', 'frontEd_widget', 'type=textarea');
 
-		// Give other plugins a chance to register new fields
-		do_action('front_ed_fields');
-
 		// Set core hooks
 		add_action('template_redirect', array($this, 'add_scripts'));
 		add_action('wp_ajax_front-editor', array($this, 'ajax_response'));
@@ -155,6 +152,9 @@ function fee_init() {
 	require_once(dirname(__FILE__) . '/fields.php');
 
 	$GLOBALS['frontEditor'] = new frontEditor();
+	
+	// Give other plugins a chance to register new fields
+	do_action('front_ed_fields');
 }
 
 function register_fronted_field($filter, $class, $args = '') {
