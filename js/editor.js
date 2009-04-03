@@ -137,10 +137,13 @@ $(document).ready(function() {
 		});
 	}
 
-	// Widget fix: Add rel attr to each element
-	$('span.front-ed-widget_text').each(function() {
+	// Widget text fix: Add rel attr to each element
+	$('span.front-ed-widget_text, span.front-ed-widget_title').each(function() {
 		id = $(this).parents('.widget_text').attr('id');
-		$(this).attr('rel', id);
+		if (id)
+			$(this).attr('rel', id);
+		else
+			$(this).attr('class', '');	//not a text widget
 	});
 
 	// Start click handler

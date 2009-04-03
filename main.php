@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.6.1.1
+Version: 0.6.2
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -28,10 +28,14 @@ class frontEditor {
 	var $fields;
 
 	function __construct() {
-		$this->register('the_content', 'frontEd_basic', 'type=textarea');
-		$this->register('widget_text', 'frontEd_widget', 'type=textarea');
 		$this->register('the_title', 'frontEd_basic');
+		$this->register('the_content', 'frontEd_basic', 'type=textarea');
 		$this->register('the_tags', 'frontEd_tags', 'argc=4');
+
+		$this->register('comment_text', 'frontEd_comment', 'type=textarea');
+
+		$this->register('widget_title', 'frontEd_widget');
+		$this->register('widget_text', 'frontEd_widget', 'type=textarea');
 
 		// Give other plugins a chance to register new fields
 		do_action('front_ed_fields');
@@ -68,7 +72,7 @@ class frontEditor {
 //		wp_enqueue_style('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.css');
 //		wp_enqueue_script('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
 		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.6.1');
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.6.2');
 
 		add_action('wp_head', array($this, 'pass_to_js'));
 		add_action('wp_head', array($this, 'add_filters'));
@@ -77,7 +81,8 @@ class frontEditor {
 	function add_filters() {
 		foreach ( $this->fields as $name => $args ) {
 			extract($args);
-			add_filter($name, array($class, 'wrap'), $priority, $argc);
+			if ( call_user_func(array($class, 'check')) )
+				add_filter($name, array($class, 'wrap'), $priority, $argc);
 		}
 	}
 
