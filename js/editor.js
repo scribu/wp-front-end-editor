@@ -18,7 +18,7 @@ $(document).ready(function() {
 			
 			if (args[1] == 'textarea') {
 //				container.wysiwyg();
-				container.autogrow();
+				container.autogrow({lineHeight: 16});
 			}
 		});
 	}

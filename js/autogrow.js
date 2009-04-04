@@ -46,14 +46,10 @@
 		this.textarea		  	= jQuery(e);
 
 		if (isNaN(this.line_height))
-		{
-		this.line_height = 0;
-		}
+			this.line_height = 0;
 
 		if (isNaN(this.min_height) || this.min_height == 0)
-		{
 			this.min_height == this.textarea.height();
-		}
 
 		// Only one textarea activated at a time, the one being used
 		this.init();
@@ -66,11 +62,13 @@
 	jQuery.autogrow.fn.extend = jQuery.autogrow.extend = jQuery.extend;
 
 	jQuery.autogrow.fn.extend({
-						
+
 		init: function() {
 			var self = this;
 			this.textarea.css({overflow: 'hidden', display: 'block'});
-			this.textarea.bind('focus', function() { self.startExpand() } ).bind('blur', function() { self.stopExpand() });
+			this.textarea
+				.focus(function() { self.startExpand() })
+				.blur(function() { self.stopExpand() });
 			this.checkExpand(0, true);
 		},
 
@@ -126,8 +124,9 @@
 			if (forcecheck || this.dummy.html() != html)
 			{
 				this.dummy.html(html);
-
-				if (this.max_height > 0 && (this.dummy.height() + extraspace + 1 > this.max_height))
+				
+				var should_be_height = this.dummy.height() + extraspace + 1;
+				if (this.max_height > 0 && (should_be_height > this.max_height))
 				{
 					this.textarea.height(this.max_height);
 					this.textarea.css('overflow-y', 'auto');
@@ -135,10 +134,8 @@
 				else
 				{
 					this.textarea.css('overflow-y', 'hidden');
-					if (this.textarea.height() != this.dummy.height() + extraspace + 1)
-					{
-						this.textarea.animate({height: (this.dummy.height() + extraspace + 1) + 'px'}, 100);
-					}
+					if (this.textarea.height() != should_be_height)
+						this.textarea.animate({height: should_be_height + 'px'}, 100);
 				}
 			}
 		}	
