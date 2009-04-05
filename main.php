@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.6.2.1
+Version: 0.7
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -42,6 +42,11 @@ class frontEditor {
 		add_action('wp_ajax_front-editor', array($this, 'ajax_response'));
 	}
 
+	// PHP < 4
+	function frontEditor() {
+		$this->__construct();
+	}
+
 	// Register a new editable field
 	function register($filter, $class, $args = '') {
 		$args = wp_parse_args($args, array(
@@ -55,28 +60,26 @@ class frontEditor {
 		$this->fields[$filter] = $args;
 	}
 
-	// PHP < 4
-	function frontEditor() {
-		$this->__construct();
-	}
-
 	function add_scripts() {
 		if ( !is_user_logged_in() )
 			return;
 
-		$url = $this->_get_plugin_url() . '/js';
+		$url = $this->_get_plugin_url() . '/inc/js';
 
 //		wp_enqueue_style('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.css');
 //		wp_enqueue_script('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
 		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.6.2');
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.6.2.1');
 
-		add_action('wp_head', array($this, 'pass_to_js'));
 		add_action('wp_head', array($this, 'add_filters'));
+		add_action('wp_head', array($this, 'pass_to_js'));
 	}
 
 	function add_filters() {
 		foreach ( $this->fields as $name => $args ) {
+			if ( @in_array($name, $GLOBALS['FEE_options']->get('disabled')) )
+				continue;
+
 			extract($args);
 			if ( call_user_func(array($class, 'check')) )
 				add_filter($name, array($class, 'wrap'), $priority, $argc);
@@ -144,22 +147,31 @@ button.front-editor-cancel {font-weight: bold; color:red}
 	}
 }
 
-// Init
-add_action('plugins_loaded', 'fee_init');
-
-function fee_init() {
-	require_once(dirname(__FILE__) . '/compat.php');
-	require_once(dirname(__FILE__) . '/fields.php');
-
-	$GLOBALS['frontEditor'] = new frontEditor();
-	
-	// Give other plugins a chance to register new fields
-	do_action('front_ed_fields');
-}
-
 function register_fronted_field($filter, $class, $args = '') {
 	global $frontEditor;
 
 	$frontEditor->register($filter, $class, $args = '');
+}
+
+
+// Init
+add_action('plugins_loaded', 'fee_init', 20);
+
+function fee_init() {
+	// Load scbFramework
+	require_once(dirname(__FILE__) . '/inc/scb/load.php');
+
+	require_once(dirname(__FILE__) . '/inc/compat.php');
+	require_once(dirname(__FILE__) . '/fields.php');
+	require_once(dirname(__FILE__) . '/admin.php');
+
+	$GLOBALS['FEE_options'] = new scbOptions('front-end-editor');
+	$GLOBALS['frontEditor'] = new frontEditor();
+
+	// Give other plugins a chance to register new fields
+	do_action('front_ed_fields');
+
+	if ( is_admin() )
+		new settingsFEE();
 }
 

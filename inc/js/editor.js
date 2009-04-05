@@ -3,58 +3,59 @@ jQuery(function($) {
 $(document).ready(function() {
 	var vars = window.frontEd_data;
 
-	// Get element content through AJAX
-	get_data = function(el, container, args) {
+	// AJAX handling
+	get_data = function(el, container) {
 		var get_data = {
 			nonce: vars['nonce'],
 			action: 'front-editor',
 			callback: 'get',
-			name: args[0],
-			item_id: el.attr('rel')
+			name: el.frontEdArgs[0],
+			item_id: $(el).attr('rel')
 		};
 
 		jQuery.post(vars['request'], get_data, function(response) {
 			container.val(response);
 			
-			if (args[1] == 'textarea') {
+			if (el.frontEdArgs[1] == 'textarea') {
 //				container.wysiwyg();
 				container.autogrow({lineHeight: 16});
 			}
 		});
 	}
 
-	// Update element content through AJAX
-	send_data = function(el, container, args) {
+	send_data = function(el, container) {
 		var post_data = {
 			nonce: vars['nonce'],
 			action: 'front-editor',
 			callback: 'save',
-			name: args[0],
-			item_id: el.attr('rel'),
+			name: el.frontEdArgs[0],
+			item_id: $(el).attr('rel'),
 			content: container.val()
 		};
 
 		jQuery.post(vars['request'], post_data, function(response) {
 			var speed = 'fast';
 
-			if (args[1] == 'textarea') {
-				el.css('display', 'block');
+			if (el.frontEdArgs[1] == 'textarea') {
+				$(el).css('display', 'block');
 				speed = 'normal';
 			}
 
-			el.fadeOut(speed, function() {
-				el.html(response);
+			$(el).fadeOut(speed, function() {
+				$(el).html(response);
 			}).fadeIn(speed);
 		});
 	}
 
-	form_handler = function(el, args) {
+
+	// Form handling
+	form_handler = function(el) {
 		// Set up form html
-		var form_id = 'front-editor-' + el.attr('rel') + '-' + args[0];
+		var form_id = 'front-editor-' + $(el).attr('rel') + '-' + el.frontEdArgs[0];
 
 		var form_html = '<form id="' + form_id + '" method="post" action="">';
 	
-		if (args[1] == 'textarea')
+		if (el.frontEdArgs[1] == 'textarea')
 			form_html += '<textarea class="front-editor-content"></textarea>';
 		else
 			form_html += '<input type="text" class="front-editor-content" value="" />';
@@ -65,21 +66,20 @@ $(document).ready(function() {
 			'</form>';
 
 		// Add form
-		if ( el.parents('a').length == 0 )
-			target = el;
-		else
-			target = el.parents('a');
+		var target = $(el).parents('a');
+		if ( target.length == 0 )
+			target = $(el);
 
-		el.hide();
+		$(el).hide();
 		target.after(form_html);
 
 		var form = $('#' + form_id);
 		var container = form.find('.front-editor-content');
 
-		get_data(el, container, args);
+		get_data(el, container);
 
 		remove_form = function() {
-			el.show();
+			$(el).show();
 			form.remove();
 			window.frontEd_trap = false;
 
@@ -88,19 +88,20 @@ $(document).ready(function() {
 
 		form.find('.front-editor-cancel').click(remove_form);
 
-		form.submit(function() {
-			send_data(el, container, args);
+		form.submit(function(ev) {
+			ev.preventDefault();
+			send_data(el, container);
 			remove_form();
-
-			return false;
 		});
 	}
 
-	first_click_handler = function(el) {
-		// Disable parent link
-		el.parents('a').click(function() {
-			return false;
-		});
+
+	// Click handling
+	single_click = function(ev) {
+		ev.preventDefault();
+		ev.stopPropagation();
+
+		el = this;
 
 		setTimeout(function() {
 			if ( window.frontEd_trap )
@@ -108,32 +109,35 @@ $(document).ready(function() {
 
 			if ( typeof(window.frontEd_url) != 'undefined' )
 				window.location = window.frontEd_url;
-			else if ( el.parents('a').length > 0 )
-				window.location = el.parents('a').attr('href');
-		}, 400);
+			else if ( $(el).parents('a').length > 0 )
+				window.location = $(el).parents('a').attr('href');
+		}, 350);
 	}
 
-	click_handler = function(el, args) {
-		// Capture inside link clicks
-		el.find('a').each(function() {
-			$(this).click(function() {
-				window.frontEd_url = $(this).attr('href');
-				return true;
-			});
+	double_click = function(ev) {
+		ev.preventDefault();
+		ev.stopPropagation();
+
+		window.frontEd_trap = true;
+
+		form_handler(this);
+	}
+
+	click_handler = function(el) {
+		$(el).click(single_click);
+		$(el).dblclick(double_click);
+
+		$(el).find('a').click(function(ev) {
+			window.frontEd_url = $(this).attr('href');
+			ev.preventDefault();
+			ev.stopPropagation();
+			$(el).click();
 		});
 
-		// Fires on the second click
-		el.click(function(ev) {
-			if (ev.detail == 1) {
-				first_click_handler(el);
-				return false;
-			}
-
-			window.frontEd_trap = true;
-
-			form_handler(el, args);
-
-			return false;
+		$(el).find('a').dblclick(function(ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			$(el).dblclick();
 		});
 	}
 
@@ -143,13 +147,14 @@ $(document).ready(function() {
 		if (id)
 			$(this).attr('rel', id);
 		else
-			$(this).attr('class', '');	//not a text widget
+			$(this).attr('class', '');	// not a text widget
 	});
 
-	// Start click handler
+	// Start click handling
 	$.each(vars['fields'], function(i, args) {
 		$('span.front-ed-' + args[0]).each(function() {
-			click_handler($(this), args);
+			this.frontEdArgs = args;
+			click_handler(this);
 		});
 	});
 });

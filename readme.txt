@@ -24,9 +24,21 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 * post tags
 * text widgets (title & content)
 
+There is a settings page where you can disable editable fields that you don't want.
+
 == Installation ==
 
 You can either install it automatically from the WordPress admin, or do it manually:
 
 1. Unzip "Front-end Editor" archive and put the folder into your plugins folder (/wp-content/plugins/).
 1. Activate the plugin from the Plugins menu.
+
+== Frequently Asked Questions ==
+
+= If I use this plugin, won't everybody be able to edit my content? =
+
+No. To edit a field, a user must be logged in and have the right permissions. For example, to edit the post content from the front-end, a user must be able to edit the post content from the regular back-end editor.
+
+= Can I make my own editable fields? =
+
+Yes, but you have to know your way around WordPress' internals. Here is the [developer guide](http://scribu.net/wordpress/front-end-editor/developer-guide.html) to get you started.
