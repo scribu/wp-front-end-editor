@@ -18,8 +18,8 @@ class scbOptions {
 	function setup($file, $defaults) {
 		$this->defaults = $defaults;
 
-		register_activation_hook($file, array(&$this, 'reset'), false);
-		register_uninstall_hook($file, array(&$this, 'delete'));
+		register_activation_hook($file, array($this, 'reset'), false);
+		register_uninstall_hook($file, array($this, 'delete'));
 	}
 
 	// Get all data or a certain field
@@ -56,7 +56,7 @@ class scbOptions {
 
 	// Reset option to defaults
 	function reset($override = true) {
-		if ( !$override && is_array(&$this->defaults) && is_array(&$this->data) )
+		if ( !$override && is_array($this->defaults) && is_array($this->data) )
 			$newdata = array_merge($this->defaults, $this->data);
 		else
 			$newdata = $this->defaults;

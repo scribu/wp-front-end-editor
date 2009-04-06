@@ -38,7 +38,7 @@ class scbOptionsPage extends scbForms {
 		if ( isset($this->options) )
 			$this->options->setup($file, $this->defaults);
 
-		add_action('admin_menu', array(&$this, 'page_init'));
+		add_action('admin_menu', array($this, 'page_init'));
 	}
 
 	// PHP < 5
@@ -146,13 +146,13 @@ class scbOptionsPage extends scbForms {
 		extract($this->args);
 
 		if ( 'settings' == $type )
-			$this->pagehook = add_options_page($short_title, $short_title, 8, $page_slug, array(&$this, 'page_content'));
+			$this->pagehook = add_options_page($short_title, $short_title, 8, $page_slug, array($this, 'page_content'));
 		elseif ( 'tools' == $type )
-			$this->pagehook = add_management_page($short_title, $short_title, 8, $page_slug, array(&$this, 'page_content'));
+			$this->pagehook = add_management_page($short_title, $short_title, 8, $page_slug, array($this, 'page_content'));
 		else
 			trigger_error("Unknown page type: $page", E_USER_WARNING);
 
-		add_action('admin_print_styles-' . $this->pagehook, array(&$this, 'page_head'));
+		add_action('admin_print_styles-' . $this->pagehook, array($this, 'page_head'));
 	}
 
 	// Update options
