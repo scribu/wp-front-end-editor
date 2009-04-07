@@ -15,11 +15,19 @@ $(document).ready(function() {
 
 		jQuery.post(vars['request'], get_data, function(response) {
 			container.val(response);
-			
-			if (el.frontEdArgs[1] == 'textarea') {
-//				container.wysiwyg();
+
+			var type = el.frontEdArgs[1];
+
+			if (type == 'rich')
+				container.wysiwyg({
+					controls : {
+						separator04         : { visible : true },
+						insertOrderedList   : { visible : true },
+						insertUnorderedList : { visible : true }
+					}
+				});
+			else if (type == 'textarea')
 				container.autogrow({lineHeight: 16});
-			}
 		});
 	}
 
@@ -36,7 +44,7 @@ $(document).ready(function() {
 		jQuery.post(vars['request'], post_data, function(response) {
 			var speed = 'fast';
 
-			if (el.frontEdArgs[1] == 'textarea') {
+			if (el.frontEdArgs[1] != 'input') {
 				$(el).css('display', 'block');
 				speed = 'normal';
 			}
@@ -50,20 +58,22 @@ $(document).ready(function() {
 
 	// Form handling
 	form_handler = function(el) {
-		// Set up form html
-		var form_id = 'front-editor-' + $(el).attr('rel') + '-' + el.frontEdArgs[0];
-
-		var form_html = '<form id="' + form_id + '" method="post" action="">';
-	
-		if (el.frontEdArgs[1] == 'textarea')
-			form_html += '<textarea class="front-editor-content"></textarea>';
+		// Set up data container
+		if (el.frontEdArgs[1] != 'input')
+			container = $('<textarea>');
 		else
-			form_html += '<input type="text" class="front-editor-content" value="" />';
+			container = $('<input>').attr('type', 'text');
 
-		form_html +=
-			'<input class="front-editor-save" type="submit" value="Save" />' +
-			'<button class="front-editor-cancel" title="Cancel">X</button>' +
-			'</form>';
+		container.attr('class', 'front-editor-content');
+
+		// Set up form buttons
+		var save_button = $('<input>').attr({'type': 'submit', 'class': 'front-editor-save', 'value': vars.save_text});
+		var cancel_button = $('<button>').attr({'class': 'front-editor-cancel', 'title': vars.cancel_text}).text('X');
+
+		// Create form
+		var form_id = 'front-editor-' + $(el).attr('rel') + '-' + el.frontEdArgs[0];
+		var form = $('<form>').attr({'id': form_id, 'method': 'post', 'action': ''});
+		form.append(container).append(save_button).append(cancel_button);
 
 		// Add form
 		var target = $(el).parents('a');
@@ -71,10 +81,7 @@ $(document).ready(function() {
 			target = $(el);
 
 		$(el).hide();
-		target.after(form_html);
-
-		var form = $('#' + form_id);
-		var container = form.find('.front-editor-content');
+		target.after(form);
 
 		get_data(el, container);
 
@@ -86,19 +93,19 @@ $(document).ready(function() {
 			return false;
 		}
 
-		form.find('.front-editor-cancel').click(remove_form);
+		cancel_button.click(remove_form);
 
-		form.submit(function(ev) {
-			ev.preventDefault();
+		form.submit(function() {
 			send_data(el, container);
 			remove_form();
+
+			return false;
 		});
 	}
 
 
 	// Click handling
 	single_click = function(ev) {
-		ev.preventDefault();
 		ev.stopPropagation();
 
 		el = this;
@@ -112,15 +119,17 @@ $(document).ready(function() {
 			else if ( $(el).parents('a').length > 0 )
 				window.location = $(el).parents('a').attr('href');
 		}, 350);
+
+		return false;
 	}
 
 	double_click = function(ev) {
-		ev.preventDefault();
 		ev.stopPropagation();
 
 		window.frontEd_trap = true;
 
 		form_handler(this);
+		return false;
 	}
 
 	click_handler = function(el) {
@@ -135,9 +144,10 @@ $(document).ready(function() {
 		});
 
 		$(el).find('a').dblclick(function(ev) {
-			ev.preventDefault();
 			ev.stopPropagation();
 			$(el).dblclick();
+
+			return false;
 		});
 	}
 

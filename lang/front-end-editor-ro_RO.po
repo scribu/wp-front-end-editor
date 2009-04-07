@@ -1,0 +1,74 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR scribu
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Front-end Editor 0.7.0.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2009-04-07 17:11+0300\n"
+"PO-Revision-Date: 2009-04-07 17:12+0200\n"
+"Last-Translator: scribu <scribu@gmail.com>\n"
+"Language-Team: ROMANIAN <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.php:35
+msgid "Settings saved"
+msgstr "Setări salvate"
+
+#: admin.php:41
+msgid "Enable or disable editable fields"
+msgstr "Activează sau dezactivează câmpurile editabile"
+
+#: admin.php:47
+msgid "Field name"
+msgstr "Nume câmp"
+
+#: admin.php:64
+#: admin.php:77
+msgid "Save changes"
+msgstr "Salvează schimbările"
+
+#: admin.php:69
+msgid "Rich text editor"
+msgstr "Editor de text avansat"
+
+#: admin.php:70
+msgid "Enable the WYSIWYG editor"
+msgstr "Activează editorul WYSIWYG"
+
+#: admin.php:76
+msgid "Settings"
+msgstr "Setări"
+
+#: front-end-editor.php:106
+msgid "Save"
+msgstr "Salvează"
+
+#: front-end-editor.php:107
+msgid "Cancel"
+msgstr "Anulează"
+
+#. Plugin Name of an extension
+msgid "Front-end Editor"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://scribu.net/wordpress/front-end-editor"
+msgstr ""
+
+#. Description of an extension
+msgid "Allows you to edit your posts without going through the admin interface"
+msgstr "Permite editarea posturilor fără a merge în interfața de administrare"
+
+#. Author of an extension
+msgid "scribu"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://scribu.net/"
+msgstr ""
+

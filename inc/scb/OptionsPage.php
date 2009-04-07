@@ -1,8 +1,8 @@
 <?php
 
-class scbOptionsPage extends scbForms {
+abstract class scbOptionsPage extends scbForms {
 	// Page args
-	var $args = array(
+	protected $args = array(
 		'page_title' => '',
 		'short_title' => '',
 		'page_slug' => '',
@@ -10,54 +10,45 @@ class scbOptionsPage extends scbForms {
 	);
 
 	// Hook string created at page init
-	var $pagehook;
+	protected $pagehook;
 
 	// Nonce string
-	var $nonce;
+	protected $nonce;
 
 	// Plugin dir url
-	var $plugin_url;
+	protected $plugin_url;
 
-	// scbOptions object holder
-	var $options;
+	// scbOptions object
+	protected $options;
 
 	// Form actions
-	var $actions = array();
+	protected $actions = array();
 
 
 //_____MAIN METHODS_____
 
 
 	// Constructor
-	function __construct($file = '') {
+	function __construct($file, $options = NULL) {
 		$this->setup();
-		$this->_check_args();
 
+		$this->_check_args();
 		$this->_set_url($file);
 
-		if ( isset($this->options) )
-			$this->options->setup($file, $this->defaults);
+		if ( ! empty($options) )
+			$this->options = $options;
 
 		add_action('admin_menu', array($this, 'page_init'));
 	}
 
-	// PHP < 5
-	function scbOptionsPage($file = '') {
-		$this->__construct($file);
-	}
-
 	// This is where all the page args goes
-	function setup() {
-		trigger_error( "setup() must be over-ridden in a sub-class", E_USER_ERROR );
-	}
+	abstract function setup();
 
 	// This is where the css and js go
 	function page_head() {}
 
 	// This is where the page content goes
-	function page_content() {
-		trigger_error( "page_content() must be over-ridden in a sub-class", E_USER_ERROR );
-	}
+	abstract function page_content();
 
 	// To be used in ::page_head()
 	function admin_msg($msg, $class = "updated") {
@@ -97,7 +88,7 @@ class scbOptionsPage extends scbForms {
 	}
 
 	// Generates multiple rows and wraps them in a form table
-	function form_table($rows, $action = 'Save Changes') {
+	function form_table($rows, $action = 'action', $value = 'Save Changes') {
 		$output .= "\n<table class='form-table'>";
 
 		$options = $this->options->get();
@@ -111,14 +102,15 @@ class scbOptionsPage extends scbForms {
 	}
 
 	// Generates a submit form button
-	function submit_button($action = 'Save Changes', $class = "button") {
+	function submit_button($action = 'action', $value = 'Save Changes', $class = "button") {
 		if ( in_array($action, $this->actions) )
 			trigger_error("Duplicate action for submit button: {$action}", E_USER_WARNING);
+		$this->actions[] = $action;
 
 		$args = array(
 			'type' => 'submit',
-			'names' => 'action',
-			'values' => $action,
+			'names' => $action,
+			'values' => $value,
 			'extra' => '',
 			'desc_pos' => 'none'
 		);
@@ -126,7 +118,6 @@ class scbOptionsPage extends scbForms {
 		if ( ! empty($class) )
 			$args['extra'] = "class='{$class}'";
 
-		$this->actions[] = $action;
 		$output .= "<p class='submit'>\n";
 		$output .= parent::input($args);
 		$output .= "</p>\n";

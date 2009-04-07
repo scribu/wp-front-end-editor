@@ -1,11 +1,12 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.7.0.1
+Version: 0.8
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
 Plugin URI: http://scribu.net/wordpress/front-end-editor
+Text Domain: front-end-editor
 
 Copyright (C) 2009 scribu.net (scribu AT gmail DOT com)
 
@@ -24,27 +25,28 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 class frontEditor {
-	var $nonce_action = 'front-editor';
-	var $fields;
+	public $fields;
+	private $nonce_action = 'front-editor';
+	private $options;
 
-	function __construct() {
-		$this->register('the_title', 'frontEd_basic');
-		$this->register('the_content', 'frontEd_basic', 'type=textarea');
-		$this->register('the_tags', 'frontEd_tags', 'argc=4');
-
-		$this->register('comment_text', 'frontEd_comment', 'type=textarea');
-
-		$this->register('widget_title', 'frontEd_widget');
-		$this->register('widget_text', 'frontEd_widget', 'type=textarea');
+	function __construct($options) {
+		$this->register_default_fields();
+		$this->options = $options;
 
 		// Set core hooks
 		add_action('template_redirect', array($this, 'add_scripts'));
 		add_action('wp_ajax_front-editor', array($this, 'ajax_response'));
 	}
 
-	// PHP < 4
-	function frontEditor() {
-		$this->__construct();
+	function register_default_fields() {
+		$this->register('the_title', 'frontEd_basic');
+		$this->register('the_content', 'frontEd_basic', 'type=rich');
+		$this->register('the_tags', 'frontEd_tags', 'argc=4');
+
+		$this->register('comment_text', 'frontEd_comment', 'type=textarea');
+
+		$this->register('widget_title', 'frontEd_widget');
+		$this->register('widget_text', 'frontEd_widget', 'type=textarea');
 	}
 
 	// Register a new editable field
@@ -66,10 +68,13 @@ class frontEditor {
 
 		$url = $this->_get_plugin_url() . '/inc/js';
 
-//		wp_enqueue_style('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.css');
-//		wp_enqueue_script('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
+		if ( $this->options->rich ) {
+			wp_enqueue_style('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.css');
+			wp_enqueue_script('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
+		}
+
 		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.6.2.1');
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.8');
 
 		add_action('wp_head', array($this, 'add_filters'));
 		add_action('wp_head', array($this, 'pass_to_js'));
@@ -77,7 +82,7 @@ class frontEditor {
 
 	function add_filters() {
 		foreach ( $this->fields as $name => $args ) {
-			if ( @in_array($name, $GLOBALS['FEE_options']->get('disabled')) )
+			if ( @in_array($name, $this->options->disabled) )
 				continue;
 
 			extract($args);
@@ -88,10 +93,18 @@ class frontEditor {
 
 	// Send necesarry info to JS land
 	function pass_to_js() {
-		foreach( $this->fields as $name => $args )
-			$fields[] = array($name, $args['type']);
+		foreach( $this->fields as $name => $args ) {
+			$type = $args['type'];
+
+			if ( $type == 'rich' && ! $this->options->rich )
+				$type = 'textarea';
+
+			$fields[] = array($name, $type);
+		}
 
 		$data = array(
+			'save_text' => __('Save', 'front-end-editor'),
+			'cancel_text' => __('Cancel', 'front-end-editor'),
 			'fields' => $fields,
 			'request' => get_bloginfo('wpurl') . '/wp-admin/admin-ajax.php',
 			'nonce' => wp_create_nonce($this->nonce_action)
@@ -100,8 +113,12 @@ class frontEditor {
 <style type='text/css'>
 textarea.front-editor-content {width: 100%; height: 250px}
 button.front-editor-cancel {font-weight: bold; color:red}
+.wysiwyg .panel li:before {content:'' !important}
+.wysiwyg .panel li a {width:14px !important; height: 14px !important}
 </style>
-<script type='text/javascript'>window.frontEd_data = <?php echo json_encode($data) ?>;</script>
+<script type='text/javascript'>
+window.frontEd_data = <?php echo json_encode($data) ?>;
+</script>
 <?php
 	}
 
@@ -153,11 +170,14 @@ function register_fronted_field($filter, $class, $args = '') {
 	$frontEditor->register($filter, $class, $args = '');
 }
 
-
 // Init
 add_action('plugins_loaded', 'fee_init', 20);
 
 function fee_init() {
+	// Load translations
+	$plugin_dir = basename(dirname(__FILE__));
+	load_plugin_textdomain('front-end-editor', 'wp-content/plugins/'. $plugin_dir . '/lang', $plugin_dir.'/lang');
+
 	// Load scbFramework
 	require_once(dirname(__FILE__) . '/inc/scb/load.php');
 
@@ -165,13 +185,18 @@ function fee_init() {
 	require_once(dirname(__FILE__) . '/fields.php');
 	require_once(dirname(__FILE__) . '/admin.php');
 
-	$GLOBALS['FEE_options'] = new scbOptions('front-end-editor');
-	$GLOBALS['frontEditor'] = new frontEditor();
+	// Load options
+	$options = new scbOptions('front-end-editor', __FILE__, array(
+		'disable' => array(),
+		'rich' => true
+	));
+
+	$GLOBALS['frontEditor'] = new frontEditor($options);
 
 	// Give other plugins a chance to register new fields
 	do_action('front_ed_fields');
 
 	if ( is_admin() )
-		new settingsFEE();
+		new frontEditorAdmin(__FILE__, $options);
 }
 

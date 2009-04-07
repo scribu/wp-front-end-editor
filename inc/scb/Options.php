@@ -1,46 +1,44 @@
 <?php
 
 class scbOptions {
-	var $key;
-	var $defaults;
-	var $data;
+	private $key;
+	private $defaults;
+	private $data;
 
-	function __construct($key) {
+	function __construct($key, $file, $defaults) {
 		$this->key = $key;
-		$this->data = get_option($this->key);
-	}
-
-	// PHP < 5
-	function scbOptions($key) {
-		$this->__construct($key);
-	}
-
-	function setup($file, $defaults) {
 		$this->defaults = $defaults;
+		$this->data = get_option($this->key);
 
 		register_activation_hook($file, array($this, 'reset'), false);
 		register_uninstall_hook($file, array($this, 'delete'));
 	}
 
-	// Get all data or a certain field
-	function get($field = '') {
-		if ( empty($field) )
-			return $this->data;
-
-		return @$this->data[$field];
-	}
-
 	function __get($field) {
-		return $this->get($field);
+		return $this->data[$field];
 	}
 
 	function __set($field, $data) {
 		$this->data[$field] = $data;
 	}
 
+	// Get all data, certain fields or a single field
+	function get($field = '') {
+		if ( empty($field) )
+			return $this->data;
+
+		if ( !is_array($field) )
+			return $this->data[$field];
+
+		foreach ( $field as $key )
+			$result[] = $this->data[$key];
+
+		return $result;
+	}
+
 	// Update a portion of the data
 	function update_part($newdata) {
-		$this->update(array_merge((array) $this->data, (array) $newdata));
+		$this->update(array_merge($this->data, $newdata));
 	}
 
 	// Update option
@@ -50,16 +48,17 @@ class scbOptions {
 
 		$this->data = $newdata;
 
-		   add_option($this->key, $this->data) or
-		update_option($this->key, $this->data);
+		update_option($this->key, $this->data) or
+		   add_option($this->key, $this->data);
 	}
 
 	// Reset option to defaults
 	function reset($override = true) {
-		if ( !$override && is_array($this->defaults) && is_array($this->data) )
-			$newdata = array_merge($this->defaults, $this->data);
-		else
+		if ( $override || !is_array($this->defaults) || !is_array($this->data) )
 			$newdata = $this->defaults;
+		else
+			foreach ( $this->defaults as $key => $value )
+				$newdata[$key] = $this->data[$key] ? $this->data[$key] : $this->defaults[$key];
 
 		$this->update($newdata);
 	}
