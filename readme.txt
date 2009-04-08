@@ -42,3 +42,11 @@ No. To edit a field, a user must be logged in and have the right permissions. Fo
 = Can I make my own editable fields? =
 
 Yes, but you have to know your way around WordPress' internals. Here is the [developer guide](http://scribu.net/wordpress/front-end-editor/developer-guide.html) to get you started.
+
+= Title attributes =
+In some themes, links get weird title atributes. A workaround is to disable "The title" editable field.
+
+= Lightbox compatibility =
+Works with: Slimbox, WP Jquery Lightbox
+Doesn't work with: Lightbox 2, Lightbox plus
+

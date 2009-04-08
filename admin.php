@@ -55,7 +55,7 @@ class frontEditorAdmin extends scbOptionsPage {
 						<?php if ( ! @in_array($field, $this->options->disabled) ) echo "checked='checked' "; ?>
 					/>
 				</th>
-				<td><?php _e(ucfirst(str_replace('_', ' ', $field)), 'front-end-editor') ?></td>
+				<td><?php echo ucfirst(str_replace('_', ' ', $field)) ?></td>
 			</tr>
 <?php } ?>
 		</tbody>
