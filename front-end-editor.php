@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.8
+Version: 0.8.0.1
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -74,7 +74,7 @@ class frontEditor {
 		}
 
 		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.8');
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.8.0.1');
 
 		add_action('wp_head', array($this, 'add_filters'));
 		add_action('wp_head', array($this, 'pass_to_js'));

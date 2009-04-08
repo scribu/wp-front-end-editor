@@ -23,7 +23,8 @@ $(document).ready(function() {
 					controls : {
 						separator04         : { visible : true },
 						insertOrderedList   : { visible : true },
-						insertUnorderedList : { visible : true }
+						insertUnorderedList : { visible : true },
+						html				: { visible : true }
 					}
 				});
 			else if (type == 'textarea')
@@ -62,12 +63,12 @@ $(document).ready(function() {
 		if (el.frontEdArgs[1] != 'input')
 			container = $('<textarea>');
 		else
-			container = $('<input>').attr('type', 'text');
+			container = $('<input type="text">');
 
 		container.attr('class', 'front-editor-content');
 
 		// Set up form buttons
-		var save_button = $('<input>').attr({'type': 'submit', 'class': 'front-editor-save', 'value': vars.save_text});
+		var save_button = $('<input type="submit">').attr({'class': 'front-editor-save', 'value': vars.save_text});
 		var cancel_button = $('<button>').attr({'class': 'front-editor-cancel', 'title': vars.cancel_text}).text('X');
 
 		// Create form
