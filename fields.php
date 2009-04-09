@@ -166,3 +166,18 @@ class frontEd_widget extends frontEd_field {
 	}
 }
 
+add_action('plugins_loaded', 'fee_register_defaults');
+function fee_register_defaults() {
+	register_fronted_field('the_title', 'frontEd_basic');
+	register_fronted_field('the_content', 'frontEd_basic', 'type=rich');
+	register_fronted_field('the_tags', 'frontEd_tags', 'argc=4');
+
+	register_fronted_field('comment_text', 'frontEd_comment', 'type=textarea');
+
+	register_fronted_field('widget_title', 'frontEd_widget');
+	register_fronted_field('widget_text', 'frontEd_widget', 'type=textarea');
+
+	// Safe hook for new editable fields to be registered
+	do_action('front_ed_fields');
+}
+

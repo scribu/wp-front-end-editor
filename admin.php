@@ -2,15 +2,7 @@
 
 class frontEditorAdmin extends scbOptionsPage {
 	function setup() {
-		$this->fields = array_keys($GLOBALS['frontEditor']->fields);
-
-		$this->args = array(
-			'page_title' => 'Front-end Editor',
-			'short_title' => 'Front-end Editor',
-			'page_slug' => 'front-end-editor'
-		);
-
-		$this->nonce = 'fee-settings';
+		$this->args = array('page_title' => 'Front-end Editor');
 	}
 
 	function page_head() {
@@ -22,7 +14,7 @@ class frontEditorAdmin extends scbOptionsPage {
 			return;
 
 		if ( isset($_POST['manage_fields']) ) {
-			foreach($this->fields as $field)
+			foreach(array_keys($GLOBALS['frontEditor']->fields) as $field)
 				if ( !isset($_POST[$field]) )
 					$disabled[] = $field;
 
@@ -48,7 +40,7 @@ class frontEditorAdmin extends scbOptionsPage {
 		</tr>
 		</thead>
 		<tbody>
-<?php foreach ( $this->fields as $field ) { ?>
+<?php foreach ( array_keys($GLOBALS['frontEditor']->fields) as $field ) { ?>
 			<tr>
 				<th scope='row' class='check-column'>
 					<input type="checkbox" name="<?php echo $field ?>"

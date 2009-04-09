@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.8.1
+Version: 0.8.2
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -65,6 +65,9 @@ class frontEditor {
 	function add_scripts() {
 		if ( !is_user_logged_in() )
 			return;
+
+// DEBUG
+// wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
 		$url = $this->_get_plugin_url() . '/inc/js';
 

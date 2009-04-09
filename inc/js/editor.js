@@ -72,9 +72,10 @@ $(document).ready(function() {
 		var cancel_button = $('<button>').attr({'class': 'front-editor-cancel', 'title': vars.cancel_text}).text('X');
 
 		// Create form
-		var form_id = 'front-editor-' + $(el).attr('rel') + '-' + el.frontEdArgs[0];
-		var form = $('<form>').attr({'id': form_id, 'method': 'post', 'action': ''});
-		form.append(container).append(save_button).append(cancel_button);
+		var form = $('<div>').attr('class', 'front-editor-container')
+			.append(container)
+			.append(save_button)
+			.append(cancel_button);
 
 		// Add form
 		var target = $(el).parents('a');
@@ -86,27 +87,29 @@ $(document).ready(function() {
 
 		get_data(el, container);
 
-		remove_form = function() {
-			$(el).show();
-			form.remove();
+		remove_form = function(ev) {
+			ev.preventDefault();
+
 			window.frontEd_trap = false;
 
-			return false;
+			$(el).show();
+			form.remove();
 		}
 
 		cancel_button.click(remove_form);
 
-		save_button.click(function() {
+		save_button.click(function(ev) {
+			ev.preventDefault();
+
 			send_data(el, container);
 			remove_form();
-
-			return false;
 		});
 	}
 
 	// Click handling
 	single_click = function(ev) {
 		ev.stopPropagation();
+		ev.preventDefault();
 
 		el = this;
 
@@ -119,17 +122,15 @@ $(document).ready(function() {
 			else if ( $(el).parents('a').length > 0 )
 				window.location = $(el).parents('a').attr('href');
 		}, 300);
-
-		return false;
 	}
 
 	double_click = function(ev) {
 		ev.stopPropagation();
+		ev.preventDefault();
 
 		window.frontEd_trap = true;
 
 		form_handler(this);
-		return false;
 	}
 
 	click_handler = function(el) {
@@ -144,19 +145,19 @@ $(document).ready(function() {
 		}
 
 		child_single_click = function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+
 			window.frontEd_url = $(this).attr('href');
 
-			ev.stopPropagation();
 			$(el).click();
-
-			return false;
 		}
 
 		child_double_click = function(ev) {
 			ev.stopPropagation();
-			$(el).dblclick();
+			ev.preventDefault();
 
-			return false;
+			$(el).dblclick();
 		}
 
 		$(el).find('a')
@@ -178,7 +179,7 @@ $(document).ready(function() {
 	$.each(vars['fields'], function(i, args) {
 		$('span.front-ed-' + args[0]).each(function() {
 			this.frontEdArgs = args;
-			click_handler(this);
+			click_handler(this, args);
 		});
 	});
 });

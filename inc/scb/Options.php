@@ -5,12 +5,12 @@ class scbOptions {
 	private $defaults;
 	private $data;
 
-	function __construct($key, $file, $defaults) {
+	function __construct($key, $file = '', $defaults = '') {
 		$this->key = $key;
 		$this->defaults = $defaults;
 		$this->data = get_option($this->key);
 
-		register_activation_hook($file, array($this, 'reset'), false);
+		register_activation_hook($file, array($this, 'update_merge'));
 		register_uninstall_hook($file, array($this, 'delete'));
 	}
 
@@ -36,11 +36,6 @@ class scbOptions {
 		return $result;
 	}
 
-	// Update a portion of the data
-	function update_part($newdata) {
-		$this->update(array_merge($this->data, $newdata));
-	}
-
 	// Update option
 	function update($newdata) {
 		if ( $this->data === $newdata )
@@ -52,15 +47,21 @@ class scbOptions {
 		   add_option($this->key, $this->data);
 	}
 
-	// Reset option to defaults
-	function reset($override = true) {
-		if ( $override || !is_array($this->defaults) || !is_array($this->data) )
-			$newdata = $this->defaults;
-		else
-			foreach ( $this->defaults as $key => $value )
-				$newdata[$key] = $this->data[$key] ? $this->data[$key] : $this->defaults[$key];
+	// Update a portion of the data
+	function update_part($newdata) {
+		$this->update(array_merge($this->data, $newdata));
+	}
 
-		$this->update($newdata);
+	// Reset option to defaults
+	function reset() {
+		$this->update($this->defaults);
+	}
+
+	function update_merge() {
+		if ( ! is_array($this->data) || ! is_array($this->defaults) )
+			return;
+
+		$this->update(array_merge($this->defaults, $this->data));
 	}
 
 	// Delete option

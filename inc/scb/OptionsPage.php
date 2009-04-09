@@ -2,18 +2,10 @@
 
 abstract class scbOptionsPage extends scbForms {
 	// Page args
-	protected $args = array(
-		'page_title' => '',
-		'short_title' => '',
-		'page_slug' => '',
-		'type' => 'settings'
-	);
+	protected $args;
 
 	// Hook string created at page init
 	protected $pagehook;
-
-	// Nonce string
-	protected $nonce;
 
 	// Plugin dir url
 	protected $plugin_url;
@@ -166,16 +158,17 @@ abstract class scbOptionsPage extends scbForms {
 		if ( empty($this->args['page_title']) )
 			trigger_error('Page title cannot be empty', E_USER_ERROR);
 
-		if ( empty($this->args['type']) )
-			$this->args['type'] = 'settings';
-
-		if ( empty($this->args['short_title']) )
-			$this->args['short_title'] = $this->args['page_title'];
+		$this->args = wp_parse_args($this->args, array(
+			'short_title' => $this->args['page_title'],
+			'page_slug' => '',
+			'type' => 'settings',
+			'nonce' => ''
+		));
 
 		if ( empty($this->args['page_slug']) )
 			$this->args['page_slug'] = sanitize_title_with_dashes($this->args['short_title']);
 			
-		if ( empty($this->nonce) )
+		if ( empty($this->args['nonce']) )
 			$this->nonce = $this->args['page_slug'];
 	}
 
@@ -184,7 +177,7 @@ abstract class scbOptionsPage extends scbForms {
 		if ( function_exists('plugins_url') )
 			$this->plugin_url = plugins_url(plugin_basename(dirname($file)));
 		else
-			// < WP 2.6
+			// WP < 2.6
 			$this->plugin_url = get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname($file));
 	}
 }
