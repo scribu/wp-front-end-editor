@@ -1,3 +1,5 @@
+msgid ""
+msgstr ""
 "Project-Id-Version: Front-end Editor v0.8\n"
 "PO-Revision-Date: 2009-04-08 15:13+0200\n"
 "Last-Translator: lian <lian00@gmail.com>\n"

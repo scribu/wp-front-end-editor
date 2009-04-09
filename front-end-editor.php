@@ -77,7 +77,7 @@ class frontEditor {
 		}
 
 		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.8.1');
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.8.2');
 
 		add_action('wp_head', array($this, 'add_filters'));
 		add_action('wp_head', array($this, 'pass_to_js'));
