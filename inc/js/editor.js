@@ -87,13 +87,13 @@ $(document).ready(function() {
 
 		get_data(el, container);
 
-		remove_form = function(ev) {
-			ev.preventDefault();
-
+		remove_form = function() {
 			window.frontEd_trap = false;
 
 			$(el).show();
 			form.remove();
+
+			return false;
 		}
 
 		cancel_button.click(remove_form);
