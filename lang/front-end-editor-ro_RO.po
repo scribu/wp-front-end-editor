@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-10 16:05+0300\n"
-"PO-Revision-Date: 2009-04-10 16:07+0200\n"
+"POT-Creation-Date: 2009-04-10 17:05+0300\n"
+"PO-Revision-Date: 2009-04-10 17:06+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,35 +44,35 @@ msgstr "Activează editorul WYSIWYG"
 msgid "Settings"
 msgstr "Setări"
 
-#: fields.php:173
+#: fields.php:176
 msgid "Post/page title"
 msgstr "Titlu post/pagină"
 
-#: fields.php:178
+#: fields.php:181
 msgid "Post/page content"
 msgstr "Conținut post/pagină"
 
-#: fields.php:183
+#: fields.php:186
 msgid "Post tags"
 msgstr "Etichete post"
 
-#: fields.php:188
+#: fields.php:191
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: fields.php:193
+#: fields.php:196
 msgid "Text widget content"
 msgstr "Conținut widget text"
 
-#: fields.php:197
+#: fields.php:200
 msgid "Text widget title"
 msgstr "Titlu widget text"
 
-#: front-end-editor.php:110
+#: front-end-editor.php:111
 msgid "Save"
 msgstr "Salvează"
 
-#: front-end-editor.php:111
+#: front-end-editor.php:112
 msgid "Cancel"
 msgstr "Anulează"
 
