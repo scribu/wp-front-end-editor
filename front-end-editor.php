@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.8.3
+Version: 0.8.4
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -52,6 +52,7 @@ class frontEditor {
 	// Register a new editable field
 	function register($filter, $class, $args = '') {
 		$args = wp_parse_args($args, array(
+			'title' => ucfirst(str_replace('_', ' ', $filter)),
 			'type' => 'input',
 			'priority' => 99,
 			'argc' => 1
@@ -170,7 +171,7 @@ window.frontEd_data = <?php echo json_encode($data) ?>;
 function register_fronted_field($filter, $class, $args = '') {
 	global $frontEditor;
 
-	$frontEditor->register($filter, $class, $args = '');
+	$frontEditor->register($filter, $class, $args);
 }
 
 // Init

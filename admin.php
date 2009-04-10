@@ -40,14 +40,14 @@ class frontEditorAdmin extends scbOptionsPage {
 		</tr>
 		</thead>
 		<tbody>
-<?php foreach ( array_keys($GLOBALS['frontEditor']->fields) as $field ) { ?>
+<?php foreach ( $GLOBALS['frontEditor']->fields as $field => $args ) { ?>
 			<tr>
 				<th scope='row' class='check-column'>
 					<input type="checkbox" name="<?php echo $field ?>"
 						<?php if ( ! @in_array($field, $this->options->disabled) ) echo "checked='checked' "; ?>
 					/>
 				</th>
-				<td><?php echo ucfirst(str_replace('_', ' ', $field)) ?></td>
+				<td><?php echo $args['title'] ?></td>
 			</tr>
 <?php } ?>
 		</tbody>

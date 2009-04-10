@@ -7,48 +7,72 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-07 17:11+0300\n"
-"PO-Revision-Date: 2009-04-07 17:12+0200\n"
+"POT-Creation-Date: 2009-04-10 16:05+0300\n"
+"PO-Revision-Date: 2009-04-10 16:07+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.php:35
+#: admin.php:27
 msgid "Settings saved"
 msgstr "Setări salvate"
 
-#: admin.php:41
+#: admin.php:33
 msgid "Enable or disable editable fields"
 msgstr "Activează sau dezactivează câmpurile editabile"
 
-#: admin.php:47
+#: admin.php:39
 msgid "Field name"
 msgstr "Nume câmp"
 
-#: admin.php:64
-#: admin.php:77
+#: admin.php:56
+#: admin.php:69
 msgid "Save changes"
 msgstr "Salvează schimbările"
 
-#: admin.php:69
+#: admin.php:61
 msgid "Rich text editor"
 msgstr "Editor de text avansat"
 
-#: admin.php:70
+#: admin.php:62
 msgid "Enable the WYSIWYG editor"
 msgstr "Activează editorul WYSIWYG"
 
-#: admin.php:76
+#: admin.php:68
 msgid "Settings"
 msgstr "Setări"
 
-#: front-end-editor.php:106
+#: fields.php:173
+msgid "Post/page title"
+msgstr "Titlu post/pagină"
+
+#: fields.php:178
+msgid "Post/page content"
+msgstr "Conținut post/pagină"
+
+#: fields.php:183
+msgid "Post tags"
+msgstr "Etichete post"
+
+#: fields.php:188
+msgid "Comment text"
+msgstr "Text comentariu"
+
+#: fields.php:193
+msgid "Text widget content"
+msgstr "Conținut widget text"
+
+#: fields.php:197
+msgid "Text widget title"
+msgstr "Titlu widget text"
+
+#: front-end-editor.php:110
 msgid "Save"
 msgstr "Salvează"
 
-#: front-end-editor.php:107
+#: front-end-editor.php:111
 msgid "Cancel"
 msgstr "Anulează"
 

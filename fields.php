@@ -4,6 +4,9 @@
 class frontEd_field {
 	// Mark the field as editable
 	function wrap($content, $filter = '', $id = NULL) {
+		if ( is_feed() )
+			return $content;
+
 		if ( empty($filter) )
 			$filter = current_filter();
 
@@ -168,14 +171,34 @@ class frontEd_widget extends frontEd_field {
 
 add_action('plugins_loaded', 'fee_register_defaults');
 function fee_register_defaults() {
-	register_fronted_field('the_title', 'frontEd_basic');
-	register_fronted_field('the_content', 'frontEd_basic', 'type=rich');
-	register_fronted_field('the_tags', 'frontEd_tags', 'argc=4');
+	register_fronted_field('the_title', 'frontEd_basic', array(
+		'type' => 'input',
+		'title' => __('Post/page title', 'front-end-editor')
+	));
 
-	register_fronted_field('comment_text', 'frontEd_comment', 'type=textarea');
+	register_fronted_field('the_content', 'frontEd_basic', array(
+		'type' => 'rich',
+		'title' => __('Post/page content', 'front-end-editor')
+	));
 
-	register_fronted_field('widget_title', 'frontEd_widget');
-	register_fronted_field('widget_text', 'frontEd_widget', 'type=textarea');
+	register_fronted_field('the_tags', 'frontEd_tags', array(
+		'argc' => 4,
+		'title' => __('Post tags', 'front-end-editor')
+	));
+
+	register_fronted_field('comment_text', 'frontEd_comment', array(
+		'type' => 'textarea',
+		'title' => __('Comment text', 'front-end-editor')
+	));
+
+	register_fronted_field('widget_text', 'frontEd_widget', array(
+		'type' => 'textarea',
+		'title' => __('Text widget content', 'front-end-editor')
+	));
+
+	register_fronted_field('widget_title', 'frontEd_widget', array(
+		'title' => __('Text widget title', 'front-end-editor')
+	));
 
 	// Safe hook for new editable fields to be registered
 	do_action('front_ed_fields');

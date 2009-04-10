@@ -1,25 +1,31 @@
 jQuery(function($) {
 
+// constructor
+function editableField(el, args) {
+	this.el = $(el);
+	this.name = args[0];
+	this.type = args[1];
+	this.has_parent = this.el.parents('a').length > 0;
+}
+
 $(document).ready(function() {
 	var vars = window.frontEd_data;
 
 	// AJAX handling
-	get_data = function(el, container) {
+	get_data = function(field) {
 		var get_data = {
 			nonce: vars['nonce'],
 			action: 'front-editor',
 			callback: 'get',
-			name: el.frontEdArgs[0],
-			item_id: $(el).attr('rel')
+			name: field.name,
+			item_id: field.el.attr('rel')
 		};
 
 		jQuery.post(vars['request'], get_data, function(response) {
-			container.val(response);
+			field.container.val(response);
 
-			var type = el.frontEdArgs[1];
-
-			if (type == 'rich')
-				container.wysiwyg({
+			if (field.type == 'rich')
+				field.container.wysiwyg({
 					controls : {
 						separator04         : { visible : true },
 						insertOrderedList   : { visible : true },
@@ -27,45 +33,45 @@ $(document).ready(function() {
 						html				: { visible : true }
 					}
 				});
-			else if (type == 'textarea')
-				container.autogrow({lineHeight: 16});
+			else if (field.type == 'textarea')
+				field.container.autogrow({lineHeight: 16});
 		});
 	}
 
-	send_data = function(el, container) {
+	send_data = function(field) {
 		var post_data = {
 			nonce: vars['nonce'],
 			action: 'front-editor',
 			callback: 'save',
-			name: el.frontEdArgs[0],
-			item_id: $(el).attr('rel'),
-			content: container.val()
+			name: field.name,
+			item_id: field.el.attr('rel'),
+			content: field.container.val()
 		};
 
 		jQuery.post(vars['request'], post_data, function(response) {
 			var speed = 'fast';
 
-			if (el.frontEdArgs[1] != 'input') {
-				$(el).css('display', 'block');
+			if (field.type != 'input') {
+				field.el.css('display', 'block');
 				speed = 'normal';
 			}
 
-			$(el).fadeOut(speed, function() {
-				$(el).html(response);
+			field.el.fadeOut(speed, function() {
+				field.el.html(response);
 			}).fadeIn(speed);
 		});
 	}
 
 
 	// Form handling
-	form_handler = function(el) {
+	form_handler = function(field) {
 		// Set up data container
-		if (el.frontEdArgs[1] != 'input')
-			container = $('<textarea>');
+		if (field.type != 'input')
+			field.container = $('<textarea>');
 		else
-			container = $('<input type="text">');
+			field.container = $('<input type="text">');
 
-		container.attr('class', 'front-editor-content');
+		field.container.attr('class', 'front-editor-content');
 
 		// Set up form buttons
 		var save_button = $('<button>').attr({'class': 'front-editor-save', 'title': vars.save_text}).text(vars.save_text);
@@ -73,69 +79,69 @@ $(document).ready(function() {
 
 		// Create form
 		var form = $('<div>').attr('class', 'front-editor-container')
-			.append(container)
+			.append(field.container)
 			.append(save_button)
 			.append(cancel_button);
 
 		// Add form
-		var target = $(el).parents('a');
-		if ( target.length == 0 )
-			target = $(el);
+		if ( field.has_parent )
+			target = field.el.parents('a');
+		else
+			target = field.el;
 
-		$(el).hide();
+		field.el.hide();
 		target.after(form);
 
-		get_data(el, container);
+		get_data(field);
 
 		remove_form = function() {
 			window.frontEd_trap = false;
 
-			$(el).show();
+			field.el.show();
 			form.remove();
-
-			return false;
 		}
 
 		cancel_button.click(remove_form);
 
 		save_button.click(function(ev) {
-			ev.preventDefault();
-
-			send_data(el, container);
+			send_data(field);
 			remove_form();
 		});
 	}
 
 	// Click handling
-	single_click = function(ev) {
-		el = this;
+	click_handler = function(field) {
+		single_click = function(ev) {
+			if ( field.has_parent ) {
+				ev.stopPropagation();
+				ev.preventDefault();
+			}	
 
-		setTimeout(function() {
-			if ( window.frontEd_trap )
-				return;
+			setTimeout(function() {
+				if ( window.frontEd_trap )
+					return;
 
-			if ( typeof(window.frontEd_url) != 'undefined' )
-				window.location = window.frontEd_url;
-			else if ( $(el).parents('a').length > 0 )
-				window.location = $(el).parents('a').attr('href');
-		}, 300);
-	}
+				if ( typeof(window.frontEd_url) != 'undefined' )
+					window.location = window.frontEd_url;
+				else if ( field.has_parent )
+					window.location = field.el.parents('a').attr('href');
+			}, 300);
+		}
 
-	double_click = function(ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
+		double_click = function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
 
-		window.frontEd_trap = true;
+			window.frontEd_trap = true;
 
-		form_handler(this);
-	}
+			form_handler(field);
+		}
 
-	click_handler = function(el) {
-		$(el)
+		field.el
 			.click(single_click)
 			.dblclick(double_click);
 
-		// Handle child links
+		// Child links handling
 		lightbox_check = function() {
 			return $(this).attr("rel").indexOf('lightbox') == -1;
 		}
@@ -146,17 +152,17 @@ $(document).ready(function() {
 
 			window.frontEd_url = $(this).attr('href');
 
-			$(el).click();
+			field.el.click();
 		}
 
 		child_double_click = function(ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 
-			$(el).dblclick();
+			field.el.dblclick();
 		}
 
-		$(el).find('a')
+		field.el.find('a')
 			.filter(lightbox_check)
 			.click(child_single_click)
 			.dblclick(child_double_click);
@@ -174,8 +180,7 @@ $(document).ready(function() {
 	// Start click handling
 	$.each(vars['fields'], function(i, args) {
 		$('span.front-ed-' + args[0]).each(function() {
-			this.frontEdArgs = args;
-			click_handler(this, args);
+			click_handler(new editableField(this, args));
 		});
 	});
 });
