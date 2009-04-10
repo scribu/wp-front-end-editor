@@ -26,6 +26,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class frontEditor {
 	public $fields;
+	private $version = '0.8.4';
 	private $nonce_action = 'front-editor';
 	private $options;
 
@@ -78,7 +79,7 @@ class frontEditor {
 		}
 
 		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), '0.8.3');
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), $this->version);
 
 		add_action('wp_head', array($this, 'add_filters'));
 		add_action('wp_head', array($this, 'pass_to_js'));
