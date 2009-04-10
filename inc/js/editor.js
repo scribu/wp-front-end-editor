@@ -108,9 +108,6 @@ $(document).ready(function() {
 
 	// Click handling
 	single_click = function(ev) {
-		ev.stopPropagation();
-		ev.preventDefault();
-
 		el = this;
 
 		setTimeout(function() {
@@ -139,7 +136,6 @@ $(document).ready(function() {
 			.dblclick(double_click);
 
 		// Handle child links
-
 		lightbox_check = function() {
 			return $(this).attr("rel").indexOf('lightbox') == -1;
 		}

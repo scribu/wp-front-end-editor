@@ -46,7 +46,3 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 = Title attributes =
 In some themes, links get weird title atributes. A workaround is to disable "The title" editable field.
 
-= Lightbox compatibility =
-Works with: Slimbox, WP Jquery Lightbox
-Doesn't work with: Lightbox 2, Lightbox plus
-
