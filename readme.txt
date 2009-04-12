@@ -20,6 +20,7 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 
 * post/page title
 * post/page content
+* post/page custom fields
 * post/page comment text
 * post tags
 * text widgets (title & content)
@@ -38,6 +39,18 @@ You can either install it automatically from the WordPress admin, or do it manua
 = If I use this plugin, won't everybody be able to edit my content? =
 
 No. To edit a field, a user must be logged in and have the right permissions. For example, to edit the post content from the front-end, a user must be able to edit the post content from the regular back-end editor.
+
+= How can I edit custom fields? =
+
+Since custom fields can be used in so many ways, you have to edit your theme and replace code like this:
+
+`echo get_post_meta($post->ID, 'my_key', true);`
+
+with
+
+`editable_post_meta($post->ID, 'my_key', 'textarea');`
+
+The third parameter is optional and allows you to pick which type of field you want: *input*, *textarea* or *rich*.
 
 = Can I make my own editable fields? =
 
