@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Front-end Editor v0.8.4\n"
+"PO-Revision-Date: 2009-04-10 23:37+0200\n"
+"Last-Translator: admin <ron@fr-fanatic.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Dutch\n"
+"X-Poedit-Country: NETHERLANDS\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: ."
+
+#: admin.php:27
+msgid "Settings saved"
+msgstr "Instellingen opgeslagen"
+
+#: admin.php:33
+msgid "Enable or disable editable fields"
+msgstr "Inschakelen of uitschakelen bewerkbare velden"
+
+#: admin.php:39
+msgid "Field name"
+msgstr "Veldnaam"
+
+#: admin.php:56
+#: admin.php:69
+msgid "Save changes"
+msgstr "Sla de wijzigingen op"
+
+#: admin.php:61
+msgid "Rich text editor"
+msgstr "Rich text editor"
+
+#: admin.php:62
+msgid "Enable the WYSIWYG editor"
+msgstr "Schakel de WYSIWYG-editor in"
+
+#: admin.php:68
+msgid "Settings"
+msgstr "Instellingen"
+
+#: fields.php:176
+msgid "Post/page title"
+msgstr "Artikel/pagina titel"
+
+#: fields.php:181
+msgid "Post/page content"
+msgstr "Artikel/pagina inhoud"
+
+#: fields.php:186
+msgid "Post tags"
+msgstr "Artikel tags"
+
+#: fields.php:191
+msgid "Comment text"
+msgstr "Commentaar tekst"
+
+#: fields.php:196
+msgid "Text widget content"
+msgstr "Tekst widget inhoud"
+
+#: fields.php:200
+msgid "Text widget title"
+msgstr "Tekst widget titel"
+
+#: front-end-editor.php:111
+msgid "Save"
+msgstr "Bewaar"
+
+#: front-end-editor.php:112
+msgid "Cancel"
+msgstr "Annuleren"
+

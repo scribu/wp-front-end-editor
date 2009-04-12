@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 0.8.4\n"
+"Project-Id-Version: Front-end Editor 0.9\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-10 17:05+0300\n"
+"POT-Creation-Date: 2009-04-12 13:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,35 +44,39 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: fields.php:176
+#: fields.php:211
 msgid "Post/page title"
 msgstr ""
 
-#: fields.php:181
+#: fields.php:216
 msgid "Post/page content"
 msgstr ""
 
-#: fields.php:186
+#: fields.php:221
 msgid "Post tags"
 msgstr ""
 
-#: fields.php:191
+#: fields.php:226
+msgid "Post/page custom fields"
+msgstr ""
+
+#: fields.php:231
 msgid "Comment text"
 msgstr ""
 
-#: fields.php:196
+#: fields.php:236
 msgid "Text widget content"
 msgstr ""
 
-#: fields.php:200
+#: fields.php:240
 msgid "Text widget title"
 msgstr ""
 
-#: front-end-editor.php:111
+#: front-end-editor.php:114
 msgid "Save"
 msgstr ""
 
-#: front-end-editor.php:112
+#: front-end-editor.php:115
 msgid "Cancel"
 msgstr ""
 

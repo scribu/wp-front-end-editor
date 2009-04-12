@@ -10,16 +10,8 @@ class scbOptions {
 		$this->defaults = $defaults;
 		$this->data = get_option($this->key);
 
-		register_activation_hook($file, array($this, 'update_merge'));
+		register_activation_hook($file, array($this, 'update_reset'));
 		register_uninstall_hook($file, array($this, 'delete'));
-	}
-
-	function __get($field) {
-		return $this->data[$field];
-	}
-
-	function __set($field, $data) {
-		$this->data[$field] = $data;
 	}
 
 	// Get all data, certain fields or a single field
@@ -36,7 +28,33 @@ class scbOptions {
 		return $result;
 	}
 
-	// Update option
+	function __get($field) {
+		return $this->data[$field];
+	}
+
+	function __set($field, $data) {
+		$this->update_part(array($field => $data));
+	}
+
+	// Update one or more fields, leaving the others intact
+	function update_part($newdata) {
+		$this->update(array_merge((array) $this->data, $newdata));
+	}
+
+	// Reset option to defaults
+	function reset() {
+		$this->update($this->defaults);
+	}
+
+	// A combination of reset and update
+	function update_reset() {
+		if ( ! is_array($this->defaults) )
+			return;
+
+		$this->update(array_merge($this->defaults, $this->data));
+	}
+
+	// Update data
 	function update($newdata) {
 		if ( $this->data === $newdata )
 			return;
@@ -45,23 +63,6 @@ class scbOptions {
 
 		update_option($this->key, $this->data) or
 		   add_option($this->key, $this->data);
-	}
-
-	// Update a portion of the data
-	function update_part($newdata) {
-		$this->update(array_merge($this->data, $newdata));
-	}
-
-	// Reset option to defaults
-	function reset() {
-		$this->update($this->defaults);
-	}
-
-	function update_merge() {
-		if ( ! is_array($this->data) || ! is_array($this->defaults) )
-			return;
-
-		$this->update(array_merge($this->defaults, $this->data));
 	}
 
 	// Delete option

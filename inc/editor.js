@@ -4,7 +4,15 @@ jQuery(function($) {
 function editableField(el, args) {
 	this.el = $(el);
 	this.name = args[0];
-	this.type = args[1];
+
+	// Set type, based on rel attribute
+	rel = this.el.attr('rel').split('#', 3);
+
+	if (rel.length == 3)
+		this.type = rel[2];
+	else
+		this.type = args[1];
+
 	this.has_parent = this.el.parents('a').length > 0;
 }
 
@@ -141,11 +149,6 @@ $(document).ready(function() {
 			.click(single_click)
 			.dblclick(double_click);
 
-		// Child links handling
-		lightbox_check = function() {
-			return $(this).attr("rel").indexOf('lightbox') == -1;
-		}
-
 		child_single_click = function(ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -162,8 +165,20 @@ $(document).ready(function() {
 			field.el.dblclick();
 		}
 
+		popup_check = function() {
+			// Lightbox
+			if ( $(this).attr("rel").indexOf('lightbox') != -1 )
+				return false;
+
+			// Shutter
+			if ( $(this).attr("rel").indexOf('shutter') != -1 )
+				return false;
+
+			return true;
+		}
+
 		field.el.find('a')
-			.filter(lightbox_check)
+			.filter(popup_check)
 			.click(child_single_click)
 			.dblclick(child_double_click);
 	}

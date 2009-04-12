@@ -1,8 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor v0.8\n"
-"PO-Revision-Date: 2009-04-08 15:13+0200\n"
-"Last-Translator: lian <lian00@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2009-04-11 21:41+0300\n"
+"PO-Revision-Date: 2009-04-11 21:43+0200\n"
+"Last-Translator: scribu <scribu@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,42 +15,90 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
 "X-Poedit-Basepath: ../\n"
-"X-Poedit-SearchPath-0: ."
+"X-Poedit-SearchPath-0: .\n"
 
-#: admin.php:35
+#: admin.php:27
 msgid "Settings saved"
 msgstr "Réglages sauvegardés"
 
-#: admin.php:41
+#: admin.php:33
 msgid "Enable or disable editable fields"
 msgstr "Activer ou désactiver les champs éditables"
 
-#: admin.php:47
+#: admin.php:39
 msgid "Field name"
 msgstr "Nom du champ"
 
-#: admin.php:64
-#: admin.php:77
+#: admin.php:56
+#: admin.php:69
 msgid "Save changes"
 msgstr "Sauvegarder les modifications"
 
-#: admin.php:69
+#: admin.php:61
 msgid "Rich text editor"
 msgstr ""
 
-#: admin.php:70
+#: admin.php:62
 msgid "Enable the WYSIWYG editor"
 msgstr "Activer l'éditeur WYSIWYG"
 
-#: admin.php:76
+#: admin.php:68
 msgid "Settings"
 msgstr "Réglages"
 
-#: front-end-editor.php:106
+#: fields.php:211
+msgid "Post/page title"
+msgstr "Titre du billet/page"
+
+#: fields.php:216
+msgid "Post/page content"
+msgstr "Contenu du billet/page"
+
+#: fields.php:221
+msgid "Post tags"
+msgstr "Tags du billet"
+
+#: fields.php:226
+msgid "Post/page meta"
+msgstr "Meta du billet/page"
+
+#: fields.php:231
+msgid "Comment text"
+msgstr "Commentaire"
+
+#: fields.php:236
+msgid "Text widget content"
+msgstr "Contenu des widgets texte"
+
+#: fields.php:240
+msgid "Text widget title"
+msgstr "Titre des widgets texte"
+
+#: front-end-editor.php:114
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: front-end-editor.php:107
+#: front-end-editor.php:115
 msgid "Cancel"
 msgstr "Annuler"
+
+#. Plugin Name of an extension
+msgid "Front-end Editor"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://scribu.net/wordpress/front-end-editor"
+msgstr ""
+
+#. Description of an extension
+msgid "Allows you to edit your posts without going through the admin interface"
+msgstr ""
+
+#. Author of an extension
+msgid "scribu"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://scribu.net/"
+msgstr ""
 

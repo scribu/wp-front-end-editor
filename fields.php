@@ -169,6 +169,41 @@ class frontEd_widget extends frontEd_field {
 	}
 }
 
+class frontEd_meta extends frontEd_field {
+	function wrap($content, $post_id, $key, $type) {
+		if ( ! isset($post_id) )
+			$post_id = $GLOBALS['post']->ID;
+
+		$id = implode('#', array($post_id, $key, $type));
+
+		return parent::wrap($content, current_filter(), $id);
+	}
+
+	function get($id) {
+		$args = explode('#', $id);
+		$post_id = $args[0];
+		$key = $args[1];
+
+		echo get_post_meta($post_id, $key, true);
+	}
+
+	function save($id, $content, $filter) {
+		$args = explode('#', $id);
+		$post_id = $args[0];
+		$key = $args[1];
+
+		update_post_meta($post_id, $key, $content);
+
+		echo apply_filters($filter, $content);
+	}
+}
+
+function editable_post_meta($post_id, $key, $type = 'input') {
+	$data = get_post_meta($post_id, $key, true);
+
+	echo apply_filters('post_meta', $data, $post_id, $key, $type);
+}
+
 add_action('plugins_loaded', 'fee_register_defaults');
 function fee_register_defaults() {
 	register_fronted_field('the_title', 'frontEd_basic', array(
@@ -184,6 +219,11 @@ function fee_register_defaults() {
 	register_fronted_field('the_tags', 'frontEd_tags', array(
 		'argc' => 4,
 		'title' => __('Post tags', 'front-end-editor')
+	));
+
+	register_fronted_field('post_meta', 'frontEd_meta', array(
+		'argc' => 4,
+		'title' => __('Post/page custom fields', 'front-end-editor')
 	));
 
 	register_fronted_field('comment_text', 'frontEd_comment', array(

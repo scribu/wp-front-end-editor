@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.8.4
+Version: 0.9
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -26,7 +26,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class frontEditor {
 	public $fields;
-	private $version = '0.8.4';
+	private $version = '0.9';
 	private $nonce_action = 'front-editor';
 	private $options;
 
@@ -71,14 +71,17 @@ class frontEditor {
 // DEBUG
 // wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
-		$url = $this->_get_plugin_url() . '/inc/js';
+		$url = $this->_get_plugin_url() . '/inc';
 
 		if ( $this->options->rich ) {
-			wp_enqueue_style('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.css');
-			wp_enqueue_script('jwysiwyg', $url . '/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
+			wp_enqueue_style('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.css');
+			wp_enqueue_script('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
 		}
 
-		wp_enqueue_script('autogrow', $url . '/autogrow.js', array('jquery'));
+		wp_enqueue_script('autogrow', $url . '/js/autogrow.js', array('jquery'));
+
+		// Core scripts
+		wp_enqueue_style('front-editor', $url . '/editor.css', $this->version);
 		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), $this->version);
 
 		add_action('wp_head', array($this, 'add_filters'));
@@ -115,12 +118,6 @@ class frontEditor {
 			'nonce' => wp_create_nonce($this->nonce_action)
 		);
 ?>
-<style type='text/css'>
-textarea.front-editor-content {width: 100%; height: 250px}
-button.front-editor-cancel {font-weight: bold; color:red}
-.wysiwyg .panel li:before {content:'' !important}
-.wysiwyg .panel li a {width:14px !important; height: 14px !important}
-</style>
 <script type='text/javascript'>
 window.frontEd_data = <?php echo json_encode($data) ?>;
 </script>
@@ -176,7 +173,7 @@ function register_fronted_field($filter, $class, $args = '') {
 }
 
 // Init
-add_action('plugins_loaded', 'fee_init', 20);
+add_action('plugins_loaded', 'fee_init', 9);
 
 function fee_init() {
 	// Load translations

@@ -1,0 +1,6 @@
+.front-editor-container {display: block !important; clear: both !important}
+textarea.front-editor-content {width: 100%; height: 250px}
+button.front-editor-cancel {font-weight: bold; color:red}
+
+.wysiwyg .panel li:before {content:'' !important}
+.wysiwyg .panel li a {width:14px !important; height: 14px !important}

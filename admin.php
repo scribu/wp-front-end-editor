@@ -18,11 +18,11 @@ class frontEditorAdmin extends scbOptionsPage {
 				if ( !isset($_POST[$field]) )
 					$disabled[] = $field;
 
-			$this->options->update_part(array('disabled' => $disabled));
+			$this->options->disabled = $disabled;
 		}
 
 		if ( isset($_POST['save_settings']) )
-			$this->options->update_part(array('rich' => (bool) $_POST['rich']));
+			$this->options->rich = (bool) $_POST['rich'];
 
 		$this->admin_msg(__('Settings saved', 'front-end-editor'));
 	}
