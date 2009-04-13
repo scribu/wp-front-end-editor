@@ -1,23 +1,20 @@
-jQuery(function($) {
+function front_ed_init(vars) {
 
-// constructor
-function editableField(el, args) {
-	this.el = $(el);
-	this.name = args[0];
+	// constructor
+	function editableField(el, args) {
+		this.el = jQuery(el);
+		this.name = args[0];
 
-	// Set type, based on rel attribute
-	rel = this.el.attr('rel').split('#', 3);
+		// Set type, based on rel attribute
+		rel = this.el.attr('rel').split('#', 3);
 
-	if (rel.length == 3)
-		this.type = rel[2];
-	else
-		this.type = args[1];
+		if (rel.length == 3)
+			this.type = rel[2];
+		else
+			this.type = args[1];
 
-	this.has_parent = this.el.parents('a').length > 0;
-}
-
-$(document).ready(function() {
-	var vars = window.frontEd_data;
+		this.has_parent = this.el.parents('a').length > 0;
+	}
 
 	// AJAX handling
 	get_data = function(field) {
@@ -75,18 +72,18 @@ $(document).ready(function() {
 	form_handler = function(field) {
 		// Set up data container
 		if (field.type != 'input')
-			field.container = $('<textarea>');
+			field.container = jQuery('<textarea>');
 		else
-			field.container = $('<input type="text">');
+			field.container = jQuery('<input type="text">');
 
 		field.container.attr('class', 'front-editor-content');
 
 		// Set up form buttons
-		var save_button = $('<button>').attr({'class': 'front-editor-save', 'title': vars.save_text}).text(vars.save_text);
-		var cancel_button = $('<button>').attr({'class': 'front-editor-cancel', 'title': vars.cancel_text}).text('X');
+		var save_button = jQuery('<button>').attr({'class': 'front-editor-save', 'title': vars.save_text}).text(vars.save_text);
+		var cancel_button = jQuery('<button>').attr({'class': 'front-editor-cancel', 'title': vars.cancel_text}).text('X');
 
 		// Create form
-		var form = $('<div>').attr('class', 'front-editor-container')
+		var form = jQuery('<div>').attr('class', 'front-editor-container')
 			.append(field.container)
 			.append(save_button)
 			.append(cancel_button);
@@ -153,7 +150,7 @@ $(document).ready(function() {
 			ev.stopPropagation();
 			ev.preventDefault();
 
-			window.frontEd_url = $(this).attr('href');
+			window.frontEd_url = jQuery(this).attr('href');
 
 			field.el.click();
 		}
@@ -166,12 +163,17 @@ $(document).ready(function() {
 		}
 
 		popup_check = function() {
+			var rel = jQuery(this).attr("rel");
+
+			if ( typeof rel == 'undefined' )
+				return true;
+
 			// Lightbox
-			if ( $(this).attr("rel").indexOf('lightbox') != -1 )
+			if ( rel.indexOf('lightbox') != -1 )
 				return false;
 
 			// Shutter
-			if ( $(this).attr("rel").indexOf('shutter') != -1 )
+			if ( rel.indexOf('shutter') != -1 )
 				return false;
 
 			return true;
@@ -183,21 +185,20 @@ $(document).ready(function() {
 			.dblclick(child_double_click);
 	}
 
-	// Widget text fix: Add rel attr to each element
-	$('span.front-ed-widget_text, span.front-ed-widget_title').each(function() {
-		id = $(this).parents('.widget_text').attr('id');
+	// Widget text hack: Add rel attr to each element
+	jQuery('span.front-ed-widget_text, span.front-ed-widget_title').each(function() {
+		id = jQuery(this).parents('.widget_text').attr('id');
 		if (id)
-			$(this).attr('rel', id);
+			jQuery(this).attr('rel', id);
 		else
-			$(this).attr('class', '');	// not a text widget
+			jQuery(this).attr('class', '');	// not a text widget
 	});
 
 	// Start click handling
-	$.each(vars['fields'], function(i, args) {
-		$('span.front-ed-' + args[0]).each(function() {
+	jQuery.each(vars['fields'], function(i, args) {
+		jQuery('span.front-ed-' + args[0]).each(function() {
 			click_handler(new editableField(this, args));
 		});
 	});
-});
+}
 
-});

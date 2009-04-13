@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.9
+Version: 0.9.1
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -26,28 +26,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class frontEditor {
 	public $fields;
-	private $version = '0.9';
+	private $version = '0.9.1';
 	private $nonce_action = 'front-editor';
 	private $options;
 
 	function __construct($options) {
-		$this->register_default_fields();
 		$this->options = $options;
 
 		// Set core hooks
 		add_action('template_redirect', array($this, 'add_scripts'));
 		add_action('wp_ajax_front-editor', array($this, 'ajax_response'));
-	}
-
-	function register_default_fields() {
-		$this->register('the_title', 'frontEd_basic');
-		$this->register('the_content', 'frontEd_basic', 'type=rich');
-		$this->register('the_tags', 'frontEd_tags', 'argc=4');
-
-		$this->register('comment_text', 'frontEd_comment', 'type=textarea');
-
-		$this->register('widget_title', 'frontEd_widget');
-		$this->register('widget_text', 'frontEd_widget', 'type=textarea');
 	}
 
 	// Register a new editable field
@@ -119,7 +107,9 @@ class frontEditor {
 		);
 ?>
 <script type='text/javascript'>
-window.frontEd_data = <?php echo json_encode($data) ?>;
+jQuery(document).ready(function() {
+	front_ed_init(<?php echo json_encode($data) ?>);
+});
 </script>
 <?php
 	}
@@ -140,6 +130,9 @@ window.frontEd_data = <?php echo json_encode($data) ?>;
 		// Does the user have the right to do this?
 		if ( ! call_user_func(array($args['class'], 'check'), $id) )
 			die(-1);
+
+		// Make sure the charset is set correctly
+		header('Content-Type: text/html; charset=' . get_option('blog_charset'));
 
 		$callback = array($args['class'], $action);
 
@@ -173,7 +166,7 @@ function register_fronted_field($filter, $class, $args = '') {
 }
 
 // Init
-add_action('plugins_loaded', 'fee_init', 9);
+fee_init();
 
 function fee_init() {
 	// Load translations
@@ -194,9 +187,6 @@ function fee_init() {
 	));
 
 	$GLOBALS['frontEditor'] = new frontEditor($options);
-
-	// Give other plugins a chance to register new fields
-	do_action('front_ed_fields');
 
 	if ( is_admin() )
 		new frontEditorAdmin(__FILE__, $options);

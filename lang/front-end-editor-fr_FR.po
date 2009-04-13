@@ -16,6 +16,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
+": "
 
 #: admin.php:27
 msgid "Settings saved"
@@ -58,13 +59,9 @@ msgstr "Contenu du billet/page"
 msgid "Post tags"
 msgstr "Tags du billet"
 
-#: fields.php:226
-msgid "Post/page meta"
-msgstr "Meta du billet/page"
-
 #: fields.php:231
 msgid "Comment text"
-msgstr "Commentaire"
+msgstr "Commentaires"
 
 #: fields.php:236
 msgid "Text widget content"
@@ -82,23 +79,7 @@ msgstr "Sauvegarder"
 msgid "Cancel"
 msgstr "Annuler"
 
-#. Plugin Name of an extension
-msgid "Front-end Editor"
-msgstr ""
-
-#. Plugin URI of an extension
-msgid "http://scribu.net/wordpress/front-end-editor"
-msgstr ""
-
-#. Description of an extension
-msgid "Allows you to edit your posts without going through the admin interface"
-msgstr ""
-
-#. Author of an extension
-msgid "scribu"
-msgstr ""
-
-#. Author URI of an extension
-msgid "http://scribu.net/"
-msgstr ""
+#: fields.php:226
+msgid "Post/page custom fields"
+msgstr "Custom fields (champs personnalisés) des billets/pages"
 

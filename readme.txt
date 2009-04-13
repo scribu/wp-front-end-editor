@@ -48,7 +48,7 @@ Since custom fields can be used in so many ways, you have to edit your theme and
 
 with
 
-`editable_post_meta($post->ID, 'my_key', 'textarea');`
+`editable_post_meta(get_the_ID(), 'my_key', 'textarea');`
 
 The third parameter is optional and allows you to pick which type of field you want: *input*, *textarea* or *rich*.
 
