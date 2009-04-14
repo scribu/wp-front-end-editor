@@ -23,6 +23,7 @@ function front_ed_init(vars) {
 			action: 'front-editor',
 			callback: 'get',
 			name: field.name,
+			type: field.type,
 			item_id: field.el.attr('rel')
 		};
 
@@ -49,6 +50,7 @@ function front_ed_init(vars) {
 			action: 'front-editor',
 			callback: 'save',
 			name: field.name,
+			type: field.type,
 			item_id: field.el.attr('rel'),
 			content: field.container.val()
 		};

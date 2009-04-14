@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.9.1
+Version: 0.9.2
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -121,6 +121,7 @@ jQuery(document).ready(function() {
 
 		$id = $_POST['item_id'];
 		$name = $_POST['name'];
+		$type = $_POST['type'];
 		$action = $_POST['callback'];
 
 		// Is the current field defined?
@@ -138,12 +139,15 @@ jQuery(document).ready(function() {
 
 		if ( $action == 'save' ) {
 			$content = stripslashes_deep($_POST['content']);
-			call_user_func($callback, $id, $content, $name, $args);
+			$result = call_user_func($callback, $id, $content, $name, $args);
+			$result = apply_filters($name, $result);
 		} elseif ( $action == 'get' ) {
-			call_user_func($callback, $id, $name, $args);
+			$result = call_user_func($callback, $id, $name, $args);
+			if ( $type == 'rich' )
+				$result = wpautop($result);
 		}
 
-		die;
+		die($result);
 	}
 
 	function get_args($filter) {

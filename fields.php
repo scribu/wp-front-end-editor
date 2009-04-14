@@ -51,7 +51,7 @@ class frontEd_basic extends frontEd_field {
 
 		$post = get_post($id, ARRAY_A);
 
-		echo $post[$field];
+		return $post[$field];
 	}
 
 	function save($id, $content, $filter) {
@@ -61,8 +61,8 @@ class frontEd_basic extends frontEd_field {
 			'ID' => $id,
 			$field => $content
 		));
-		
-		echo apply_filters($filter, $content);
+
+		return $content;
 	}
 
 	function check($id = NULL) {
@@ -105,13 +105,13 @@ class frontEd_tags extends frontEd_basic {
 		foreach ( $tagsObj as $tag )
 			$tags[] = $tag->name;
 			
-		echo implode(', ', $tags);
+		return implode(', ', $tags);
 	}
 
 	function save($id, $tags) {
 		wp_set_post_tags($id, $tags);
 
-		echo get_the_term_list($id, 'post_tag', '', ', ');
+		return get_the_term_list($id, 'post_tag', '', ', ');
 	}
 }
 
@@ -125,7 +125,7 @@ class frontEd_comment extends frontEd_field {
 
 	function get($id) {
 		$comment = get_comment($id);
-		echo $comment->comment_content;
+		return $comment->comment_content;
 	}
 
 	function save($id, $content, $filter) {
@@ -134,7 +134,7 @@ class frontEd_comment extends frontEd_field {
 			'comment_content' => $content
 		));
 
-		echo apply_filters($filter, $content);
+		return $content;
 	}
 
 	function check() {
@@ -150,7 +150,7 @@ class frontEd_widget extends frontEd_field {
 		$field = str_replace('widget_', '', $filter);
 
 		$widgets = get_option('widget_text');
-		echo $widgets[$id][$field];
+		return $widgets[$id][$field];
 	}
 
 	function save($id, $content, $filter) {
@@ -161,7 +161,7 @@ class frontEd_widget extends frontEd_field {
 		$widgets[$id][$field] = $content;
 		update_option('widget_text', $widgets);
 
-		echo apply_filters($filter, $content);
+		return $content;
 	}
 
 	function check() {
@@ -184,7 +184,7 @@ class frontEd_meta extends frontEd_field {
 		$post_id = $args[0];
 		$key = $args[1];
 
-		echo get_post_meta($post_id, $key, true);
+		return get_post_meta($post_id, $key, true);
 	}
 
 	function save($id, $content, $filter) {
@@ -194,7 +194,7 @@ class frontEd_meta extends frontEd_field {
 
 		update_post_meta($post_id, $key, $content);
 
-		echo apply_filters($filter, $content);
+		return $content;
 	}
 }
 

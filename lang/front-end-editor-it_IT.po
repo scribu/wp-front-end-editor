@@ -1,101 +1,97 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR scribu
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: Front-end Editor 0.9.2\n"
+"Project-Id-Version: Front-end Editor in italiano\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-14 14:06+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2009-04-13 21:20+0300\n"
+"PO-Revision-Date: 2009-04-13 22:02+0100\n"
+"Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
+"Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
 
 #: admin.php:27
 msgid "Settings saved"
-msgstr ""
+msgstr "Le impostazioni sono state salvate"
 
 #: admin.php:33
 msgid "Enable or disable editable fields"
-msgstr ""
+msgstr "Attiva o disattiva i campi modificabili"
 
 #: admin.php:39
 msgid "Field name"
-msgstr ""
+msgstr "Nome campo"
 
-#: admin.php:56 admin.php:69
+#: admin.php:56
+#: admin.php:69
 msgid "Save changes"
-msgstr ""
+msgstr "Salva le modifiche"
 
 #: admin.php:61
 msgid "Rich text editor"
-msgstr ""
+msgstr "Editor avanzato"
 
 #: admin.php:62
 msgid "Enable the WYSIWYG editor"
-msgstr ""
+msgstr "Attiva l'editor WYSIWYG"
 
 #: admin.php:68
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 #: fields.php:211
 msgid "Post/page title"
-msgstr ""
+msgstr "Titolo articolo/pagina"
 
 #: fields.php:216
 msgid "Post/page content"
-msgstr ""
+msgstr "Contenuto articolo/pagina"
 
 #: fields.php:221
 msgid "Post tags"
-msgstr ""
+msgstr "Tag articolo"
 
 #: fields.php:226
 msgid "Post/page custom fields"
-msgstr ""
+msgstr "Campi personalizzati articolo/pagina"
 
 #: fields.php:231
 msgid "Comment text"
-msgstr ""
+msgstr "Testo commenti"
 
 #: fields.php:236
 msgid "Text widget content"
-msgstr ""
+msgstr "Contenuto widget di testo"
 
 #: fields.php:240
 msgid "Text widget title"
-msgstr ""
+msgstr "Titolo widget di testo"
 
 #: front-end-editor.php:102
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 #: front-end-editor.php:103
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 #. Plugin Name of an extension
 msgid "Front-end Editor"
-msgstr ""
+msgstr "Front-end Editor"
 
 #. Plugin URI of an extension
 msgid "http://scribu.net/wordpress/front-end-editor"
-msgstr ""
+msgstr "http://scribu.net/wordpress/front-end-editor"
 
 #. Description of an extension
 msgid "Allows you to edit your posts without going through the admin interface"
-msgstr ""
+msgstr "Ti permette la modifica dei tuoi articoli senza utilizzare l'interfaccia di amministrazione"
 
 #. Author of an extension
 msgid "scribu"
-msgstr ""
+msgstr "scribu"
 
 #. Author URI of an extension
 msgid "http://scribu.net/"
-msgstr ""
+msgstr "http://scribu.net/"
+
