@@ -26,7 +26,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class frontEditor {
 	public $fields;
-	private $version = '0.9.1';
+	private $version = '0.9.2';
 	private $nonce_action = 'front-editor';
 	private $options;
 
