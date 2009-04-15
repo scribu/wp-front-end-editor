@@ -216,6 +216,11 @@ function fee_register_defaults() {
 		'title' => __('Post/page content', 'front-end-editor')
 	));
 
+	register_fronted_field('the_excerpt', 'frontEd_basic', array(
+		'type' => 'rich',
+		'title' => __('Post/page excerpt', 'front-end-editor')
+	));
+
 	register_fronted_field('the_tags', 'frontEd_tags', array(
 		'argc' => 4,
 		'title' => __('Post tags', 'front-end-editor')

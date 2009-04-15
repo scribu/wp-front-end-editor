@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.9.2
+Version: 0.9.3
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -26,7 +26,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class frontEditor {
 	public $fields;
-	private $version = '0.9.2';
+	private $version = '0.9.3';
 	private $nonce_action = 'front-editor';
 	private $options;
 

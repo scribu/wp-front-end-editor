@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-14 14:06+0300\n"
-"PO-Revision-Date: 2009-04-14 14:07+0200\n"
+"POT-Creation-Date: 2009-04-16 01:06+0300\n"
+"PO-Revision-Date: 2009-04-16 01:10+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -46,29 +46,33 @@ msgstr "Setări"
 
 #: fields.php:211
 msgid "Post/page title"
-msgstr "Titlu post/pagină"
+msgstr "Titlu articol/pagină"
 
 #: fields.php:216
 msgid "Post/page content"
-msgstr "Conținut post/pagină"
+msgstr "Conținut articol/pagină"
 
 #: fields.php:221
-msgid "Post tags"
-msgstr "Etichete post"
+msgid "Post/page excerpt"
+msgstr "Extras articol/pagină"
 
 #: fields.php:226
-msgid "Post/page custom fields"
-msgstr "Câmpuri personalizate post/pagină"
+msgid "Post tags"
+msgstr "Etichete articol"
 
 #: fields.php:231
+msgid "Post/page custom fields"
+msgstr "Câmpuri personalizate articol/pagină"
+
+#: fields.php:236
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: fields.php:236
+#: fields.php:241
 msgid "Text widget content"
 msgstr "Conținut widget text"
 
-#: fields.php:240
+#: fields.php:245
 msgid "Text widget title"
 msgstr "Titlu widget text"
 
@@ -90,7 +94,7 @@ msgstr ""
 
 #. Description of an extension
 msgid "Allows you to edit your posts without going through the admin interface"
-msgstr "Permite editarea posturilor fără a merge în interfața de administrare"
+msgstr "Permite editarea articolelor fără a merge în interfața de administrare"
 
 #. Author of an extension
 msgid "scribu"

@@ -1,7 +1,7 @@
 === Front-end Editor ===
 Contributors: scribu
 Donate link: http://scribu.net/wordpress
-Tags: inline, editor, edit-in-place
+Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.2
 Tested up to: 2.8
 Stable tag: trunk
@@ -20,9 +20,10 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 
 * post/page title
 * post/page content
+* post/page excerpt
+* post tags
 * post/page custom fields
 * post/page comment text
-* post tags
 * text widgets (title & content)
 
 There is a settings page where you can disable editable fields that you don't want.
