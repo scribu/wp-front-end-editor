@@ -1,14 +1,14 @@
-"Project-Id-Version: Front-end Editor in italiano\n"
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-13 21:20+0300\n"
-"PO-Revision-Date: 2009-04-13 22:02+0100\n"
+"POT-Creation-Date: 2009-04-16 17:41+0300\n"
+"PO-Revision-Date: \n"
 "Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
-"Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Italian\n"
-"X-Poedit-Country: ITALY\n"
 
 #: admin.php:27
 msgid "Settings saved"
@@ -39,31 +39,35 @@ msgstr "Attiva l'editor WYSIWYG"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: fields.php:211
+#: fields.php:257
 msgid "Post/page title"
 msgstr "Titolo articolo/pagina"
 
-#: fields.php:216
+#: fields.php:262
 msgid "Post/page content"
 msgstr "Contenuto articolo/pagina"
 
-#: fields.php:221
+#: fields.php:267
+msgid "Post/page excerpt"
+msgstr "Estratto articolo/pagina"
+
+#: fields.php:272
 msgid "Post tags"
 msgstr "Tag articolo"
 
-#: fields.php:226
+#: fields.php:277
 msgid "Post/page custom fields"
 msgstr "Campi personalizzati articolo/pagina"
 
-#: fields.php:231
+#: fields.php:282
 msgid "Comment text"
 msgstr "Testo commenti"
 
-#: fields.php:236
+#: fields.php:287
 msgid "Text widget content"
 msgstr "Contenuto widget di testo"
 
-#: fields.php:240
+#: fields.php:291
 msgid "Text widget title"
 msgstr "Titolo widget di testo"
 
