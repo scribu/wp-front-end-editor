@@ -70,7 +70,11 @@ class frontEd_basic extends frontEd_field {
 		if ( !isset($id) )
 			return true;
 
-		return current_user_can('edit_post', $id) or current_user_can('edit_page', $id);
+		$post = get_post($id);
+
+		return
+			( $post->post_type == 'post' and current_user_can('edit_post', $id) ) or
+			( $post->post_type == 'page' and current_user_can('edit_page', $id) )
 	}
 
 	// Get wp_posts column
