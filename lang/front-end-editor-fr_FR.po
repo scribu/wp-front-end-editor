@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor v0.8\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-11 21:41+0300\n"
-"PO-Revision-Date: 2009-04-11 21:43+0200\n"
+"POT-Creation-Date: 2009-04-16 17:41+0300\n"
+"PO-Revision-Date: 2009-04-16 17:42+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,8 +15,8 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
 "X-Poedit-Basepath: ../\n"
+": \n"
 "X-Poedit-SearchPath-0: .\n"
-": "
 
 #: admin.php:27
 msgid "Settings saved"
@@ -47,39 +47,63 @@ msgstr "Activer l'éditeur WYSIWYG"
 msgid "Settings"
 msgstr "Réglages"
 
-#: fields.php:211
+#: fields.php:257
 msgid "Post/page title"
 msgstr "Titre du billet/page"
 
-#: fields.php:216
+#: fields.php:262
 msgid "Post/page content"
 msgstr "Contenu du billet/page"
 
-#: fields.php:221
+#: fields.php:267
+msgid "Post/page excerpt"
+msgstr "Extrait des billets/page"
+
+#: fields.php:272
 msgid "Post tags"
 msgstr "Tags du billet"
 
-#: fields.php:231
+#: fields.php:277
+msgid "Post/page custom fields"
+msgstr "Custom fields (champs personnalisés) des billets/pages"
+
+#: fields.php:282
 msgid "Comment text"
 msgstr "Commentaires"
 
-#: fields.php:236
+#: fields.php:287
 msgid "Text widget content"
 msgstr "Contenu des widgets texte"
 
-#: fields.php:240
+#: fields.php:291
 msgid "Text widget title"
 msgstr "Titre des widgets texte"
 
-#: front-end-editor.php:114
+#: front-end-editor.php:102
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: front-end-editor.php:115
+#: front-end-editor.php:103
 msgid "Cancel"
 msgstr "Annuler"
 
-#: fields.php:226
-msgid "Post/page custom fields"
-msgstr "Custom fields (champs personnalisés) des billets/pages"
+#. Plugin Name of an extension
+msgid "Front-end Editor"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://scribu.net/wordpress/front-end-editor"
+msgstr ""
+
+#. Description of an extension
+msgid "Allows you to edit your posts without going through the admin interface"
+msgstr ""
+
+#. Author of an extension
+msgid "scribu"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://scribu.net/"
+msgstr ""
 

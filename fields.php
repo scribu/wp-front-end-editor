@@ -29,7 +29,7 @@ class frontEd_field {
 	}
 
 	function check() {
-		return current_user_can('edit_posts') || current_user_can('edit_pages');
+		return current_user_can('edit_posts') or current_user_can('edit_pages');
 	}
 }
 
@@ -37,7 +37,7 @@ class frontEd_field {
 // Handles the_title and the_content fields
 class frontEd_basic extends frontEd_field {
 	function wrap($content, $filter = '') {
-		if ( !frontEd_basic::check($GLOBALS['post']->ID) )
+		if ( ! self::check($GLOBALS['post']->ID) )
 			return $content;
 
 		if ( empty($filter) )
@@ -47,7 +47,7 @@ class frontEd_basic extends frontEd_field {
 	}
 
 	function get($id, $filter) {
-		$field = frontEd_basic::_get_col($filter);
+		$field = self::get_col($filter);
 
 		$post = get_post($id, ARRAY_A);
 
@@ -55,7 +55,7 @@ class frontEd_basic extends frontEd_field {
 	}
 
 	function save($id, $content, $filter) {
-		$field = frontEd_basic::_get_col($filter);
+		$field = self::get_col($filter);
 
 		wp_update_post(array(
 			'ID' => $id,
@@ -70,15 +70,61 @@ class frontEd_basic extends frontEd_field {
 		if ( !isset($id) )
 			return true;
 
-		return current_user_can('edit_post', $id) || current_user_can('edit_page', $id);
+		return current_user_can('edit_post', $id) or current_user_can('edit_page', $id);
 	}
 
 	// Get wp_posts column
-	function _get_col($filter) {
+	private function get_col($filter) {
 		return str_replace('the_', 'post_', $filter);
 	}
 }
 
+// Handles the_excerpt field
+class frontEd_excerpt extends frontEd_basic {
+	function get($id) {
+		$post = get_post($id);
+
+		$excerpt = $post->post_excerpt;
+
+		if ( empty($excerpt) )
+			$excerpt = self::trim_excerpt($post->post_content);
+
+		return $excerpt;
+	}
+
+	function save($id, $excerpt) {
+		$default_excerpt = self::get($id);
+
+		if ( $excerpt == $default_excerpt )
+			return $excerpt;
+
+		wp_update_post(array(
+			'ID' => $id,
+			$field => $content
+		));
+
+		if ( empty($excerpt) )
+			return $default_excerpt;
+
+		return $excerpt;
+	}
+
+	// Copy-paste from wp_trim_excerpt()
+	private function trim_excerpt($text) {
+		$text = apply_filters('the_content', $text);
+		$text = str_replace(']]>', ']]&gt;', $text);
+		$text = strip_tags($text);
+		$excerpt_length = apply_filters('excerpt_length', 55);
+		$words = explode(' ', $text, $excerpt_length + 1);
+		if (count($words) > $excerpt_length) {
+			array_pop($words);
+			array_push($words, '[...]');
+			$text = implode(' ', $words);
+		}
+
+		return $text;
+	}
+}
 
 // Handles the_tags field
 class frontEd_tags extends frontEd_basic {
@@ -216,8 +262,8 @@ function fee_register_defaults() {
 		'title' => __('Post/page content', 'front-end-editor')
 	));
 
-	register_fronted_field('the_excerpt', 'frontEd_basic', array(
-		'type' => 'rich',
+	register_fronted_field('the_excerpt', 'frontEd_excerpt', array(
+		'type' => 'textarea',
 		'title' => __('Post/page excerpt', 'front-end-editor')
 	));
 

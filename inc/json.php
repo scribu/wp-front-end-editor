@@ -1,6 +1,4 @@
 <?php
-// PHP < 5.2
-if( !function_exists('json_encode') ) :
 function json_encode($array) {
 	if( !is_array( $array ) )
 		return false;
@@ -55,5 +53,4 @@ function json_encode($array) {
 
 	return $result;
 }
-endif;
 

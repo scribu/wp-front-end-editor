@@ -1,4 +1,4 @@
-.front-editor-container {display: inline !important}
+.front-editor-container {display: block !important}
 textarea.front-editor-content {width: 100%; height: 200px}
 button.front-editor-cancel {font-weight: bold; color:red}
 
