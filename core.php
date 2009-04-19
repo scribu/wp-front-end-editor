@@ -51,7 +51,6 @@ class frontEditor {
 		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), $this->version);
 
 		add_action('wp_head', array($this, 'add_filters'));
-		add_action('wp_head', array($this, 'pass_to_js'));
 	}
 
 	function add_filters() {
@@ -63,6 +62,8 @@ class frontEditor {
 			if ( call_user_func(array($class, 'check')) )
 				add_filter($name, array($class, 'wrap'), $priority, $argc);
 		}
+
+		$this->pass_to_js();
 	}
 
 	// Send necesarry info to JS land

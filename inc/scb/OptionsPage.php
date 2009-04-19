@@ -129,9 +129,9 @@ abstract class scbOptionsPage extends scbForms {
 		extract($this->args);
 
 		if ( 'settings' == $type )
-			$this->pagehook = add_options_page($short_title, $short_title, 8, $page_slug, array($this, 'page_content'));
+			$this->pagehook = add_options_page($short_title, $short_title, 8, $page_slug, array($this, 'page_content_hook'));
 		elseif ( 'tools' == $type )
-			$this->pagehook = add_management_page($short_title, $short_title, 8, $page_slug, array($this, 'page_content'));
+			$this->pagehook = add_management_page($short_title, $short_title, 8, $page_slug, array($this, 'page_content_hook'));
 		else
 			trigger_error("Unknown page type: $page", E_USER_WARNING);
 
@@ -151,6 +151,12 @@ abstract class scbOptionsPage extends scbForms {
 		$this->options->update($new_options);
 
 		$this->admin_msg('Settings <strong>saved</strong>.');
+	}
+
+	function page_content_hook() {
+		$this->page_header();
+		$this->page_content();
+		$this->page_footer();
 	}
 
 	// Checks and sets default args

@@ -144,10 +144,6 @@ function front_ed_init(vars) {
 			form_handler(field);
 		}
 
-		field.el
-			.click(single_click)
-			.dblclick(double_click);
-
 		child_single_click = function(ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
@@ -164,25 +160,26 @@ function front_ed_init(vars) {
 			field.el.dblclick();
 		}
 
-		popup_check = function() {
-			var rel = jQuery(this).attr("rel");
+		overlay_check = function() {
+			var attr = jQuery(this).attr("rel") + ' ' + jQuery(this).attr("class");
+			attr = jQuery.trim(attr).split(' ');
 
-			if ( typeof rel == 'undefined' )
-				return true;
+			var tokens = ['lightbox', 'shutter', 'thickbox'];
 
-			// Lightbox
-			if ( rel.indexOf('lightbox') != -1 )
-				return false;
-
-			// Shutter
-			if ( rel.indexOf('shutter') != -1 )
-				return false;
+			for ( i in tokens )
+				for ( j in attr )
+					if ( attr[j].indexOf(tokens[i]) != -1 )
+						return false;
 
 			return true;
 		}
 
+		field.el
+			.click(single_click)
+			.dblclick(double_click);
+
 		field.el.find('a')
-			.filter(popup_check)
+			.filter(overlay_check)
 			.click(child_single_click)
 			.dblclick(child_double_click);
 	}
@@ -197,10 +194,11 @@ function front_ed_init(vars) {
 	});
 
 	// Start click handling
-	jQuery.each(vars['fields'], function(i, args) {
+	for ( i in vars['fields'] ) {
+		args = vars['fields'][i];
 		jQuery('span.front-ed-' + args[0]).each(function() {
 			click_handler(new editableField(this, args));
 		});
-	});
+	}
 }
 

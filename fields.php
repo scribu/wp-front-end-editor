@@ -126,7 +126,7 @@ class frontEd_excerpt extends frontEd_basic {
 			$text = implode(' ', $words);
 		}
 
-		return $text;
+		return apply_filters('get_the_excerpt', $text);
 	}
 }
 
@@ -254,7 +254,7 @@ function editable_post_meta($post_id, $key, $type = 'input') {
 	echo apply_filters('post_meta', $data, $post_id, $key, $type);
 }
 
-add_action('plugins_loaded', 'fee_register_defaults', 9);
+add_action('plugins_loaded', 'fee_register_defaults');
 function fee_register_defaults() {
 	register_fronted_field('the_title', 'frontEd_basic', array(
 		'type' => 'input',

@@ -28,7 +28,6 @@ class frontEditorAdmin extends scbOptionsPage {
 	}
 
 	function page_content() {
-		$this->page_header();
 ?>
 <p><?php _e('Enable or disable editable fields', 'front-end-editor'); ?>:</p>
 <?php ob_start(); ?>
@@ -67,8 +66,6 @@ class frontEditorAdmin extends scbOptionsPage {
 
 		echo "<h3>" . __('Settings', 'front-end-editor') . "</h3>\n";
 		echo $this->form_table($rows, 'save_settings', __('Save changes', 'front-end-editor'));
-
-		$this->page_footer();
 	}
 }
 
