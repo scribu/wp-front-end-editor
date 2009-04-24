@@ -18,13 +18,25 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 
 **Editable fields:**
 
-* post/page title
-* post/page content
-* post/page excerpt
-* post tags
-* post/page custom fields
-* post/page comment text
-* text widgets (title & content)
+<ul>
+	<li><strong>posts & pages</strong>
+	<ul>
+		<li>title</li>
+		<li>content</li>
+		<li>excerpt</li>
+		<li>tags</li>
+		<li>custom fields</li>
+	</ul></li>
+	<li><strong>comments</strong>
+	<ul>
+		<li>content</li>
+	</ul></li>
+	<li><strong>text widgets</strong>
+	<ul>
+		<li>title</li>
+		<li>content</li>
+	</ul></li>
+</ul>
 
 There is a settings page where you can disable editable fields that you don't want.
 
