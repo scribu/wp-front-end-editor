@@ -40,6 +40,8 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 
 There is a settings page where you can disable editable fields that you don't want.
 
+*PHP5 required!*
+
 == Installation ==
 
 You can either install it automatically from the WordPress admin, or do it manually:
