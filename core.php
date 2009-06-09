@@ -1,23 +1,37 @@
 <?php
 
-class frontEditor {
-	public $fields;
-	private $version;
-	private $nonce_action = 'front-editor';
-	private $options;
+abstract class frontEditor 
+{
+	static $fields;
+	static $version;
+	static $nonce_action = 'front-editor';
+	static $options;
 
-	function __construct($options, $version) {
-		$this->options = $options;
-
-		$this->version = $version;
+	static function init($options, $version)
+	{
+		self::$options = $options;
+		self::$version = $version;
 
 		// Set core hooks
-		add_action('template_redirect', array($this, 'add_scripts'));
-		add_action('wp_ajax_front-editor', array($this, 'ajax_response'));
+		add_action('template_redirect', array(__CLASS__, 'add_scripts'));
+		add_action('wp_ajax_front-editor', array(__CLASS__, 'ajax_response'));
 	}
 
 	// Register a new editable field
-	function register($filter, $class, $args = '') {
+	static function register()
+	{
+		$fargs = func_get_args();
+		
+		$filter = $fargs[0];
+
+		if ( !is_array($fargs[1]) )
+		{
+			$args['class'] = $fargs[1];
+
+			if ( isset($fargs[2]) )
+				$args = $args + $fargs[2];
+		}
+
 		$args = wp_parse_args($args, array(
 			'title' => ucfirst(str_replace('_', ' ', $filter)),
 			'type' => 'input',
@@ -25,21 +39,21 @@ class frontEditor {
 			'argc' => 1
 		));
 
-		$args['class'] = $class;
-
-		$this->fields[$filter] = $args;
+		self::$fields[$filter] = $args;
 	}
 
-	function add_scripts() {
+	static function add_scripts()
+	{
 		if ( !is_user_logged_in() )
 			return;
 
 // DEBUG
 // wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
-		$url = $this->_get_plugin_url() . '/inc';
+		$url = self::$_get_plugin_url() . '/inc';
 
-		if ( $this->options->rich ) {
+		if ( self::$options->rich )
+		{
 			wp_enqueue_style('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.css');
 			wp_enqueue_script('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
 		}
@@ -47,15 +61,17 @@ class frontEditor {
 		wp_enqueue_script('autogrow', $url . '/js/autogrow.js', array('jquery'));
 
 		// Core scripts
-		wp_enqueue_style('front-editor', $url . '/editor.css', $this->version);
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), $this->version);
+		wp_enqueue_style('front-editor', $url . '/editor.css', self::$version);
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), self::$version);
 
-		add_action('wp_head', array($this, 'add_filters'));
+		add_action('wp_head', array(__CLASS__, 'add_filters'));
 	}
 
-	function add_filters() {
-		foreach ( $this->fields as $name => $args ) {
-			if ( @in_array($name, $this->options->disabled) )
+	static function add_filters()
+	{
+		foreach ( self::$fields as $name => $args )
+		{
+			if ( @in_array($name, self::$options->disabled) )
 				continue;
 
 			extract($args);
@@ -63,19 +79,21 @@ class frontEditor {
 				add_filter($name, array($class, 'wrap'), $priority, $argc);
 		}
 
-		$this->pass_to_js();
+		self::$pass_to_js();
 	}
 
 	// Send necesarry info to JS land
-	function pass_to_js() {
+	static function pass_to_js()
+	{
 		// PHP < 5.2
 		if ( !function_exists('json_encode') )
 			require_once(dirname(__FILE__) . '/inc/json.php');
 
-		foreach( $this->fields as $name => $args ) {
+		foreach( self::$fields as $name => $args )
+		{
 			$type = $args['type'];
 
-			if ( $type == 'rich' && ! $this->options->rich )
+			if ( $type == 'rich' && ! self::$options->rich )
 				$type = 'textarea';
 
 			$fields[] = array($name, $type);
@@ -86,11 +104,12 @@ class frontEditor {
 			'cancel_text' => __('Cancel', 'front-end-editor'),
 			'fields' => $fields,
 			'request' => get_bloginfo('wpurl') . '/wp-admin/admin-ajax.php',
-			'nonce' => wp_create_nonce($this->nonce_action)
+			'nonce' => wp_create_nonce(self::$nonce_action)
 		);
 ?>
 <script type='text/javascript'>
-jQuery(document).ready(function() {
+jQuery(document).ready(function()
+	{
 	front_ed_init(<?php echo json_encode($data) ?>);
 });
 </script>
@@ -98,9 +117,10 @@ jQuery(document).ready(function() {
 	}
 
 	// Common response procedures
-	function ajax_response() {
+	static function ajax_response()
+	{
 		// Is user trusted?
-		check_ajax_referer($this->nonce_action, 'nonce');
+		check_ajax_referer(self::$nonce_action, 'nonce');
 
 		$id = $_POST['item_id'];
 		$name = $_POST['name'];
@@ -108,7 +128,7 @@ jQuery(document).ready(function() {
 		$action = $_POST['callback'];
 
 		// Is the current field defined?
-		if ( ! $args = $this->fields[$name] )
+		if ( ! $args = self::$fields[$name] )
 			die(-1);
 
 		// Does the user have the right to do this?
@@ -120,11 +140,14 @@ jQuery(document).ready(function() {
 
 		$callback = array($args['class'], $action);
 
-		if ( $action == 'save' ) {
+		if ( $action == 'save' )
+		{
 			$content = stripslashes_deep($_POST['content']);
 			$result = call_user_func($callback, $id, $content, $name, $args);
 			$result = apply_filters($name, $result);
-		} elseif ( $action == 'get' ) {
+		} 
+		elseif ( $action == 'get' )
+		{
 			$result = call_user_func($callback, $id, $name, $args);
 			if ( $type == 'rich' )
 				$result = wpautop($result);
@@ -133,11 +156,13 @@ jQuery(document).ready(function() {
 		die($result);
 	}
 
-	function get_args($filter) {
-		return $this->fields[$filter];
+	static function get_args($filter)
+	{
+		return self::$fields[$filter];
 	}
 
-	function _get_plugin_url() {
+	static function _get_plugin_url()
+	{
 		// WP < 2.6
 		if ( !function_exists('plugins_url') )
 			return get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__));
@@ -146,9 +171,19 @@ jQuery(document).ready(function() {
 	}
 }
 
-function register_fronted_field($filter, $class, $args = '') {
-	global $frontEditor;
+/*
+Registers a new editable field
 
-	$frontEditor->register($filter, $class, $args);
+@param string $filter
+@param array $args(
+	'class' => string (mandatory)
+	'type' => string: 'input' | 'textarea' | 'rich' (default: input)
+	'priority' => integer (default: 99)
+	'argc' => integer (default: 1)
+)
+*/
+function register_fronted_field()
+{
+	frontEditor::register(func_get_args());
 }
 

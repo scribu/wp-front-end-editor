@@ -1,9 +1,11 @@
 <?php
 
 // All field classes should extend from this one
-class frontEd_field {
+abstract class frontEd_field 
+{
 	// Mark the field as editable
-	function wrap($content, $filter = '', $id = NULL) {
+	function wrap($content, $filter = '', $id = NULL)
+	{
 		if ( is_feed() )
 			return $content;
 
@@ -19,24 +21,23 @@ class frontEd_field {
 	}
 
 	// Retrieve the current data for the field
-	function get($post_id, $name, $args) {
-		trigger_error("This method must be implemented in a subclass", E_USER_ERROR);
-	}
+	abstract function get($post_id, $name, $args);
 
 	// Save the data retrieved from the field
-	function save($post_id, $content, $name, $args) {
-		trigger_error("This method must be implemented in a subclass", E_USER_ERROR);
-	}
+	abstract function save($post_id, $content, $name, $args);
 
-	function check() {
+	function check()
+	{
 		return current_user_can('edit_posts') or current_user_can('edit_pages');
 	}
 }
 
 
 // Handles the_title and the_content fields
-class frontEd_basic extends frontEd_field {
-	function wrap($content, $filter = '') {
+class frontEd_basic extends frontEd_field 
+{
+	function wrap($content, $filter = '')
+	{
 		if ( ! self::check($GLOBALS['post']->ID) )
 			return $content;
 
@@ -46,15 +47,23 @@ class frontEd_basic extends frontEd_field {
 		return parent::wrap($content, $filter);
 	}
 
-	function get($id, $filter) {
+	function get($id, $filter)
+	{
 		$field = self::get_col($filter);
 
-		$post = get_post($id, ARRAY_A);
+		$post = get_post($id);
 
-		return $post[$field];
+		if ('post_content' == $field)
+		{
+			the_editor(htmlspecialchars_decode($post->$field), "fee-$id");
+			die;
+		}
+
+		return $post->$field;
 	}
 
-	function save($id, $content, $filter) {
+	function save($id, $content, $filter)
+	{
 		$field = self::get_col($filter);
 
 		wp_update_post(array(
@@ -65,7 +74,8 @@ class frontEd_basic extends frontEd_field {
 		return $content;
 	}
 
-	function check($id = NULL) {
+	function check($id = NULL)
+	{
 		// will be checked again from self::wrap
 		if ( !isset($id) )
 			return true;
@@ -78,14 +88,17 @@ class frontEd_basic extends frontEd_field {
 	}
 
 	// Get wp_posts column
-	private function get_col($filter) {
+	private function get_col($filter)
+	{
 		return str_replace('the_', 'post_', $filter);
 	}
 }
 
 // Handles the_excerpt field
-class frontEd_excerpt extends frontEd_basic {
-	function get($id) {
+class frontEd_excerpt extends frontEd_basic 
+{
+	function get($id)
+	{
 		$post = get_post($id);
 
 		$excerpt = $post->post_excerpt;
@@ -96,7 +109,8 @@ class frontEd_excerpt extends frontEd_basic {
 		return $excerpt;
 	}
 
-	function save($id, $excerpt) {
+	function save($id, $excerpt)
+	{
 		$default_excerpt = self::get($id);
 
 		if ( $excerpt == $default_excerpt )
@@ -114,13 +128,15 @@ class frontEd_excerpt extends frontEd_basic {
 	}
 
 	// Copy-paste from wp_trim_excerpt()
-	private function trim_excerpt($text) {
+	private function trim_excerpt($text)
+	{
 		$text = apply_filters('the_content', $text);
 		$text = str_replace(']]>', ']]&gt;', $text);
 		$text = strip_tags($text);
 		$excerpt_length = apply_filters('excerpt_length', 55);
 		$words = explode(' ', $text, $excerpt_length + 1);
-		if (count($words) > $excerpt_length) {
+		if (count($words) > $excerpt_length)
+		{
 			array_pop($words);
 			array_push($words, '[...]');
 			$text = implode(' ', $words);
@@ -131,10 +147,13 @@ class frontEd_excerpt extends frontEd_basic {
 }
 
 // Handles the_tags field
-class frontEd_tags extends frontEd_basic {
-	function wrap($content, $before = 'Tags: ', $sep = ', ', $after = '') {
+class frontEd_tags extends frontEd_basic 
+{
+	function wrap($content, $before = 'Tags: ', $sep = ', ', $after = '')
+	{
 		// Reverse engineer args for WP < 2.8
-		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') ) {
+		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') )
+		{
 			// Figure out $before arg
 			$before = substr($content, 0, strpos($content, '<a'));
 
@@ -149,7 +168,8 @@ class frontEd_tags extends frontEd_basic {
 		return $before . parent::wrap($content, current_filter()) . $after;
 	}
 
-	function get($id) {
+	function get($id)
+	{
 		$tagsObj = get_the_tags($id);
 
 		foreach ( $tagsObj as $tag )
@@ -158,7 +178,8 @@ class frontEd_tags extends frontEd_basic {
 		return implode(', ', $tags);
 	}
 
-	function save($id, $tags) {
+	function save($id, $tags)
+	{
 		wp_set_post_tags($id, $tags);
 
 		return get_the_term_list($id, 'post_tag', '', ', ');
@@ -167,18 +188,22 @@ class frontEd_tags extends frontEd_basic {
 
 
 // Handles comment_text field
-class frontEd_comment extends frontEd_field {
-	function wrap($content) {
+class frontEd_comment extends frontEd_field 
+{
+	function wrap($content)
+	{
 		global $comment;
 		return parent::wrap($content, current_filter(), $comment->comment_ID);
 	}
 
-	function get($id) {
+	function get($id)
+	{
 		$comment = get_comment($id);
 		return $comment->comment_content;
 	}
 
-	function save($id, $content, $filter) {
+	function save($id, $content, $filter)
+	{
 		wp_update_comment(array(
 			'comment_ID' => $id,
 			'comment_content' => $content
@@ -187,15 +212,18 @@ class frontEd_comment extends frontEd_field {
 		return $content;
 	}
 
-	function check() {
+	function check()
+	{
 		return current_user_can('moderate_comments');
 	}
 }
 
 
 // Handles widget_text
-class frontEd_widget extends frontEd_field {
-	function get($id, $filter) {
+class frontEd_widget extends frontEd_field 
+{
+	function get($id, $filter)
+	{
 		$id = str_replace('text-', '', $id);
 		$field = str_replace('widget_', '', $filter);
 
@@ -203,7 +231,8 @@ class frontEd_widget extends frontEd_field {
 		return $widgets[$id][$field];
 	}
 
-	function save($id, $content, $filter) {
+	function save($id, $content, $filter)
+	{
 		$id = str_replace('text-', '', $id);
 		$field = str_replace('widget_', '', $filter);
 
@@ -214,13 +243,16 @@ class frontEd_widget extends frontEd_field {
 		return $content;
 	}
 
-	function check() {
+	function check()
+	{
 		return current_user_can('edit_themes');
 	}
 }
 
-class frontEd_meta extends frontEd_field {
-	function wrap($content, $post_id, $key, $type) {
+class frontEd_meta extends frontEd_field 
+{
+	function wrap($content, $post_id, $key, $type)
+	{
 		if ( ! isset($post_id) )
 			$post_id = $GLOBALS['post']->ID;
 
@@ -229,7 +261,8 @@ class frontEd_meta extends frontEd_field {
 		return parent::wrap($content, current_filter(), $id);
 	}
 
-	function get($id) {
+	function get($id)
+	{
 		$args = explode('#', $id);
 		$post_id = $args[0];
 		$key = $args[1];
@@ -237,7 +270,8 @@ class frontEd_meta extends frontEd_field {
 		return get_post_meta($post_id, $key, true);
 	}
 
-	function save($id, $content, $filter) {
+	function save($id, $content, $filter)
+	{
 		$args = explode('#', $id);
 		$post_id = $args[0];
 		$key = $args[1];
@@ -248,52 +282,67 @@ class frontEd_meta extends frontEd_field {
 	}
 }
 
-function editable_post_meta($post_id, $key, $type = 'input') {
+function editable_post_meta($post_id, $key, $type = 'input')
+{
 	$data = get_post_meta($post_id, $key, true);
 
 	echo apply_filters('post_meta', $data, $post_id, $key, $type);
 }
 
 add_action('plugins_loaded', 'fee_register_defaults');
-function fee_register_defaults() {
-	register_fronted_field('the_title', 'frontEd_basic', array(
-		'type' => 'input',
-		'title' => __('Post/page title', 'front-end-editor')
-	));
+function fee_register_defaults()
+{
+	$fields = array(
+		'the_title' => array(
+			'class' => 'frontEd_basic',
+			'type' => 'input',
+			'title' => __('Post/page title', 'front-end-editor')
+		),
+		
+		'the_content' => array(
+			'class' => 'frontEd_basic',
+			'type' => 'rich',
+			'title' => __('Post/page content', 'front-end-editor')
+		),
 
-	register_fronted_field('the_content', 'frontEd_basic', array(
-		'type' => 'rich',
-		'title' => __('Post/page content', 'front-end-editor')
-	));
+		'the_excerpt' => array(
+			'class' => 'frontEd_excerpt',
+			'type' => 'textarea',
+			'title' => __('Post/page excerpt', 'front-end-editor')
+		),
 
-	register_fronted_field('the_excerpt', 'frontEd_excerpt', array(
-		'type' => 'textarea',
-		'title' => __('Post/page excerpt', 'front-end-editor')
-	));
+		'the_tags' => array(
+			'class' => 'frontEd_basic',
+			'argc' => 4,
+			'title' => __('Post tags', 'front-end-editor')
+		),
 
-	register_fronted_field('the_tags', 'frontEd_tags', array(
-		'argc' => 4,
-		'title' => __('Post tags', 'front-end-editor')
-	));
+		'post_meta' => array(
+			'class' => 'frontEd_meta',
+			'argc' => 4,
+			'title' => __('Post/page custom fields', 'front-end-editor')
+		),
 
-	register_fronted_field('post_meta', 'frontEd_meta', array(
-		'argc' => 4,
-		'title' => __('Post/page custom fields', 'front-end-editor')
-	));
+		'comment_text' => array(
+			'class' => 'frontEd_comment',
+			'type' => 'textarea',
+			'title' => __('Comment text', 'front-end-editor')
+		),
 
-	register_fronted_field('comment_text', 'frontEd_comment', array(
-		'type' => 'textarea',
-		'title' => __('Comment text', 'front-end-editor')
-	));
+		'widget_text' => array(
+			'class' => 'frontEd_widget',
+			'type' => 'textarea',
+			'title' => __('Text widget content', 'front-end-editor')
+		),
 
-	register_fronted_field('widget_text', 'frontEd_widget', array(
-		'type' => 'textarea',
-		'title' => __('Text widget content', 'front-end-editor')
-	));
+		'widget_title' => array(
+			'class' => 'frontEd_widget',
+			'title' => __('Text widget title', 'front-end-editor')
+		),
+	);
 
-	register_fronted_field('widget_title', 'frontEd_widget', array(
-		'title' => __('Text widget title', 'front-end-editor')
-	));
+	foreach ( $fields as $filter => $args )
+		register_fronted_field($filter, $args);
 
 	// Safe hook for new editable fields to be registered
 	do_action('front_ed_fields');

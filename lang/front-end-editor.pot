@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 0.9.4\n"
+"Project-Id-Version: Front-end Editor 0.9.6a\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-16 20:57+0300\n"
+"POT-Creation-Date: 2009-06-06 20:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,67 +20,67 @@ msgstr ""
 msgid "Settings saved"
 msgstr ""
 
-#: admin.php:33
+#: admin.php:32
 msgid "Enable or disable editable fields"
 msgstr ""
 
-#: admin.php:39
+#: admin.php:38
 msgid "Field name"
 msgstr ""
 
-#: admin.php:56 admin.php:69
+#: admin.php:55 admin.php:68
 msgid "Save changes"
 msgstr ""
 
-#: admin.php:61
+#: admin.php:60
 msgid "Rich text editor"
 msgstr ""
 
-#: admin.php:62
+#: admin.php:61
 msgid "Enable the WYSIWYG editor"
 msgstr ""
 
-#: admin.php:68
+#: admin.php:67
 msgid "Settings"
 msgstr ""
 
-#: core.php:84
+#: core.php:85
 msgid "Save"
 msgstr ""
 
-#: core.php:85
+#: core.php:86
 msgid "Cancel"
 msgstr ""
 
-#: fields.php:261
+#: fields.php:266
 msgid "Post/page title"
 msgstr ""
 
-#: fields.php:266
+#: fields.php:271
 msgid "Post/page content"
 msgstr ""
 
-#: fields.php:271
+#: fields.php:276
 msgid "Post/page excerpt"
 msgstr ""
 
-#: fields.php:276
+#: fields.php:281
 msgid "Post tags"
 msgstr ""
 
-#: fields.php:281
+#: fields.php:286
 msgid "Post/page custom fields"
 msgstr ""
 
-#: fields.php:286
+#: fields.php:291
 msgid "Comment text"
 msgstr ""
 
-#: fields.php:291
+#: fields.php:296
 msgid "Text widget content"
 msgstr ""
 
-#: fields.php:295
+#: fields.php:300
 msgid "Text widget title"
 msgstr ""
 

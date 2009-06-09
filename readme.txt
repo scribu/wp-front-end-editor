@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.2
 Tested up to: 2.8
-Stable tag: trunk
+Stable tag: 0.9.5
 
 Enable "edit in place" functionality on your site. Compatible with any theme.
 
@@ -39,8 +39,6 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 </ul>
 
 There is a settings page where you can disable editable fields that you don't want.
-
-*PHP5 required!*
 
 == Installation ==
 

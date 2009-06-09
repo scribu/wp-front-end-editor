@@ -1,19 +1,24 @@
 <?php
 
-class frontEditorAdmin extends scbOptionsPage {
-	function setup() {
+class frontEditorAdmin extends scbOptionsPage 
+{
+	function setup() 
+	{
 		$this->args = array('page_title' => 'Front-end Editor');
 	}
 
-	function page_head() {
+	function page_head() 
+	{
 		echo $this->css_wrap('.widefat tbody th.check-column {padding-bottom: 7px !important}');
 	}
 
-	function form_handler() {
+	function form_handler()
+	{
 		if ( empty($_POST) )
 			return;
 
-		if ( isset($_POST['manage_fields']) ) {
+		if ( isset($_POST['manage_fields']) )
+		{
 			foreach(array_keys($GLOBALS['frontEditor']->fields) as $field)
 				if ( !isset($_POST[$field]) )
 					$disabled[] = $field;
@@ -27,7 +32,8 @@ class frontEditorAdmin extends scbOptionsPage {
 		$this->admin_msg(__('Settings saved', 'front-end-editor'));
 	}
 
-	function page_content() {
+	function page_content()
+	{
 ?>
 <p><?php _e('Enable or disable editable fields', 'front-end-editor'); ?>:</p>
 <?php ob_start(); ?>
@@ -39,7 +45,8 @@ class frontEditorAdmin extends scbOptionsPage {
 		</tr>
 		</thead>
 		<tbody>
-<?php foreach ( $GLOBALS['frontEditor']->fields as $field => $args ) { ?>
+<?php foreach ( $GLOBALS['frontEditor']->fields as $field => $args )
+	{ ?>
 			<tr>
 				<th scope='row' class='check-column'>
 					<input type="checkbox" name="<?php echo $field ?>"
