@@ -20,11 +20,13 @@ abstract class frontEditor
 	// Register a new editable field
 	static function register()
 	{
-		$fargs = func_get_args();
+		$fargs = func_get_arg(0);
 		
 		$filter = $fargs[0];
 
-		if ( !is_array($fargs[1]) )
+		if ( is_array($fargs[1]) )
+			$args = $fargs[1];
+		else
 		{
 			$args['class'] = $fargs[1];
 
@@ -50,7 +52,7 @@ abstract class frontEditor
 // DEBUG
 // wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
-		$url = self::$_get_plugin_url() . '/inc';
+		$url = self::get_plugin_url() . '/inc';
 
 		if ( self::$options->rich )
 		{
@@ -79,7 +81,7 @@ abstract class frontEditor
 				add_filter($name, array($class, 'wrap'), $priority, $argc);
 		}
 
-		self::$pass_to_js();
+		self::pass_to_js();
 	}
 
 	// Send necesarry info to JS land
@@ -161,13 +163,13 @@ jQuery(document).ready(function()
 		return self::$fields[$filter];
 	}
 
-	static function _get_plugin_url()
+	static function get_plugin_url()
 	{
+		if ( function_exists('plugins_url') )
+			return plugins_url(plugin_basename(dirname(__FILE__)));
+	
 		// WP < 2.6
-		if ( !function_exists('plugins_url') )
-			return get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__));
-
-		return plugins_url(plugin_basename(dirname(__FILE__)));
+		return get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__));
 	}
 }
 

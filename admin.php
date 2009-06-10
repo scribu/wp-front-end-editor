@@ -1,13 +1,13 @@
 <?php
 
-class frontEditorAdmin extends scbOptionsPage 
+class frontEditorAdmin extends scbAdminPage
 {
-	function setup() 
+	function setup()
 	{
 		$this->args = array('page_title' => 'Front-end Editor');
 	}
 
-	function page_head() 
+	function page_head()
 	{
 		echo $this->css_wrap('.widefat tbody th.check-column {padding-bottom: 7px !important}');
 	}
@@ -19,7 +19,7 @@ class frontEditorAdmin extends scbOptionsPage
 
 		if ( isset($_POST['manage_fields']) )
 		{
-			foreach(array_keys($GLOBALS['frontEditor']->fields) as $field)
+			foreach(array_keys(frontEditor::$fields) as $field)
 				if ( !isset($_POST[$field]) )
 					$disabled[] = $field;
 
@@ -45,13 +45,16 @@ class frontEditorAdmin extends scbOptionsPage
 		</tr>
 		</thead>
 		<tbody>
-<?php foreach ( $GLOBALS['frontEditor']->fields as $field => $args )
-	{ ?>
+<?php foreach ( frontEditor::$fields as $field => $args ) { ?>
 			<tr>
 				<th scope='row' class='check-column'>
-					<input type="checkbox" name="<?php echo $field ?>"
-						<?php if ( ! @in_array($field, $this->options->disabled) ) echo "checked='checked' "; ?>
-					/>
+					<?php
+						echo $this->input(array(
+							'type' => 'checkbox',
+							'name' => $field,
+							'checked' => ! @in_array($field, $this->options->disabled)
+						));
+					?>
 				</th>
 				<td><?php echo $args['title'] ?></td>
 			</tr>
@@ -59,20 +62,20 @@ class frontEditorAdmin extends scbOptionsPage
 		</tbody>
 	</table>
 <?php
-		echo $this->submit_button('manage_fields', __('Save changes', 'front-end-editor'));
-		echo $this->form_wrap(ob_get_clean());
+		echo $this->form_wrap(ob_get_clean(), $this->submit_button('manage_fields', __('Save changes', 'front-end-editor')));
+
+		echo "<h3>" . __('Settings', 'front-end-editor') . "</h3>\n";
 
 		$rows = array(
 			array(
 				'title' => __('Rich text editor', 'front-end-editor'),
 				'desc' => __('Enable the WYSIWYG editor', 'front-end-editor'),
 				'type' => 'checkbox',
-				'names' => 'rich',
+				'name' => 'rich',
 			)
 		);
 
-		echo "<h3>" . __('Settings', 'front-end-editor') . "</h3>\n";
-		echo $this->form_table($rows, 'save_settings', __('Save changes', 'front-end-editor'));
+		echo $this->form_table($rows, $this->options->get(), $this->submit_button('save_settings', __('Save changes', 'front-end-editor')));
 	}
 }
 

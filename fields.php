@@ -21,10 +21,16 @@ abstract class frontEd_field
 	}
 
 	// Retrieve the current data for the field
-	abstract function get($post_id, $name, $args);
+	function get($post_id, $name, $args)
+	{
+		trigger_error("This method must be implemented in a subclass", E_USER_ERROR); 
+	}
 
 	// Save the data retrieved from the field
-	abstract function save($post_id, $content, $name, $args);
+	function save($post_id, $content, $name, $args)
+	{
+		trigger_error("This method must be implemented in a subclass", E_USER_ERROR); 
+	}
 
 	function check()
 	{
