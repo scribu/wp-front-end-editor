@@ -1,38 +1,48 @@
 <?php
 
-class frontEditorAdmin extends scbAdminPage
+class frontEditorAdmin extends scbBoxesPage
 {
 	function setup()
 	{
 		$this->args = array('page_title' => 'Front-end Editor');
+		
+		$this->boxes = array(
+			array('settings', __('Settings', 'front-end-editor'), 'normal'),
+			array('fields', __('Fields', 'front-end-editor'), 'advanced'),
+		);
 	}
 
 	function page_head()
 	{
-		echo $this->css_wrap('.widefat tbody th.check-column {padding-bottom: 7px !important}');
+		wp_enqueue_style('fee-css', $this->plugin_url . '/inc/admin.css', array(), '1.0');
 	}
 
-	function form_handler()
+	function settings_handler()
 	{
-		if ( empty($_POST) )
+		if ( !isset($_POST['save_settings']) )
 			return;
 
-		if ( isset($_POST['manage_fields']) )
-		{
-			foreach(array_keys(frontEditor::$fields) as $field)
-				if ( !isset($_POST[$field]) )
-					$disabled[] = $field;
+		foreach ( array('rich', 'chunks') as $key )
+			$this->options->$key = (bool) $_POST[$key];
 
-			$this->options->disabled = $disabled;
-		}
-
-		if ( isset($_POST['save_settings']) )
-			$this->options->rich = (bool) $_POST['rich'];
-
-		$this->admin_msg(__('Settings saved', 'front-end-editor'));
+		$this->admin_msg(__('Settings <strong>saved</strong>.'));
 	}
 
-	function page_content()
+	function fields_handler()
+	{
+		if ( !isset($_POST['manage_fields']) )
+			return;
+
+		foreach(array_keys(frontEditor::$fields) as $field)
+			if ( !isset($_POST[$field]) )
+				$disabled[] = $field;
+
+		$this->options->disabled = $disabled;
+
+		$this->admin_msg(__('Settings <strong>saved</strong>.'));
+	}
+
+	function fields_box()
 	{
 ?>
 <p><?php _e('Enable or disable editable fields', 'front-end-editor'); ?>:</p>
@@ -63,15 +73,23 @@ class frontEditorAdmin extends scbAdminPage
 	</table>
 <?php
 		echo $this->form_wrap(ob_get_clean(), $this->submit_button('manage_fields', __('Save changes', 'front-end-editor')));
+	}
 
-		echo "<h3>" . __('Settings', 'front-end-editor') . "</h3>\n";
-
+	function settings_box()
+	{
 		$rows = array(
 			array(
 				'title' => __('Rich text editor', 'front-end-editor'),
 				'desc' => __('Enable the WYSIWYG editor', 'front-end-editor'),
 				'type' => 'checkbox',
 				'name' => 'rich',
+			),
+
+			array(
+				'title' => __('Edit paragraphs', 'front-end-editor'),
+				'desc' => __('Edit one paragraph at a time, instead of an entire post', 'front-end-editor'),
+				'type' => 'checkbox',
+				'name' => 'chunks',
 			)
 		);
 

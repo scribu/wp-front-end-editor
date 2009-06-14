@@ -4,7 +4,7 @@ abstract class frontEditor
 {
 	static $fields;
 	static $version;
-	static $nonce_action = 'front-editor';
+	static $nonce = 'front-editor';
 	static $options;
 
 	static function init($options, $version)
@@ -57,10 +57,10 @@ abstract class frontEditor
 		if ( self::$options->rich )
 		{
 			wp_enqueue_style('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.css');
-			wp_enqueue_script('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.js', array('jquery'));
+			wp_enqueue_script('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.js', array('jquery'), self::$version);
 		}
 
-		wp_enqueue_script('autogrow', $url . '/js/autogrow.js', array('jquery'));
+		wp_enqueue_script('autogrow', $url . '/js/autogrow.js', array('jquery'), self::$version);
 
 		// Core scripts
 		wp_enqueue_style('front-editor', $url . '/editor.css', self::$version);
@@ -92,26 +92,18 @@ abstract class frontEditor
 			require_once(dirname(__FILE__) . '/inc/json.php');
 
 		foreach( self::$fields as $name => $args )
-		{
-			$type = $args['type'];
-
-			if ( $type == 'rich' && ! self::$options->rich )
-				$type = 'textarea';
-
-			$fields[] = array($name, $type);
-		}
+			$fields[] = array($name, $args['type']);
 
 		$data = array(
 			'save_text' => __('Save', 'front-end-editor'),
 			'cancel_text' => __('Cancel', 'front-end-editor'),
 			'fields' => $fields,
 			'request' => get_bloginfo('wpurl') . '/wp-admin/admin-ajax.php',
-			'nonce' => wp_create_nonce(self::$nonce_action)
+			'nonce' => wp_create_nonce(self::$nonce)
 		);
 ?>
 <script type='text/javascript'>
-jQuery(document).ready(function()
-	{
+jQuery(document).ready(function() {
 	front_ed_init(<?php echo json_encode($data) ?>);
 });
 </script>
@@ -122,7 +114,7 @@ jQuery(document).ready(function()
 	static function ajax_response()
 	{
 		// Is user trusted?
-		check_ajax_referer(self::$nonce_action, 'nonce');
+		check_ajax_referer(self::$nonce, 'nonce');
 
 		$id = $_POST['item_id'];
 		$name = $_POST['name'];
@@ -163,13 +155,13 @@ jQuery(document).ready(function()
 		return self::$fields[$filter];
 	}
 
-	static function get_plugin_url()
+	private static function get_plugin_url()
 	{
-		if ( function_exists('plugins_url') )
-			return plugins_url(plugin_basename(dirname(__FILE__)));
-	
 		// WP < 2.6
-		return get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__));
+		if ( !function_exists('plugins_url') )
+			return get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__));
+
+		return plugins_url(plugin_basename(dirname(__FILE__)));
 	}
 }
 

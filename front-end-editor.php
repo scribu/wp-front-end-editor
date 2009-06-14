@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 0.9.6a
+Version: 1.0a
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -25,32 +25,34 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 // Init
+
 require_once dirname(__FILE__) . '/inc/scb-check.php';
-if ( !scb_check(__FILE__) ) return;
+if ( ! scb_check(__FILE__) ) return;
 
 _fee_init();
 
-function _fee_init() 
-{
+function _fee_init() {
 	// Load translations
 	$plugin_dir = basename(dirname(__FILE__));
-	load_plugin_textdomain('front-end-editor', "wp-content/plugins/$plugin_dir/lang", "$plugin_dir/lang");
+	load_plugin_textdomain('front-end-editor', 'wp-content/plugins/'. $plugin_dir . '/lang', $plugin_dir.'/lang');
 
 	// Load files
-	foreach ( array('core', 'fields') as $path )
-		require_once(dirname(__FILE__) . "/$path.php");
+	$files = array('/core.php', '/fields.php');
+	foreach ( $files as $path )
+		require_once dirname(__FILE__) . $path;
 
 	// Load options
 	$options = new scbOptions('front-end-editor', __FILE__, array(
 		'disable' => array(),
-		'rich' => true
+		'rich' => true,
+		'chunks' => true,
 	));
 
-	frontEditor::init($options, '0.9.6');
+	frontEditor::init($options, '0.9.5');
 
-	if ( is_admin() )
+	if ( is_admin() ) 
 	{
-		require_once(dirname(__FILE__) . '/admin.php');
+		require_once dirname(__FILE__) . '/admin.php';
 		new frontEditorAdmin(__FILE__, $options);
 	}
 }

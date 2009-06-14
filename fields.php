@@ -1,7 +1,7 @@
 <?php
 
 // All field classes should extend from this one
-abstract class frontEd_field 
+class frontEd_field 
 {
 	// Mark the field as editable
 	function wrap($content, $filter = '', $id = NULL)
@@ -23,13 +23,13 @@ abstract class frontEd_field
 	// Retrieve the current data for the field
 	function get($post_id, $name, $args)
 	{
-		trigger_error("This method must be implemented in a subclass", E_USER_ERROR); 
+		trigger_error("This method must be implemented in a subclass", E_USER_ERROR);
 	}
 
 	// Save the data retrieved from the field
 	function save($post_id, $content, $name, $args)
 	{
-		trigger_error("This method must be implemented in a subclass", E_USER_ERROR); 
+		trigger_error("This method must be implemented in a subclass", E_USER_ERROR);
 	}
 
 	function check()
@@ -40,7 +40,7 @@ abstract class frontEd_field
 
 
 // Handles the_title and the_content fields
-class frontEd_basic extends frontEd_field 
+class frontEd_basic extends frontEd_field
 {
 	function wrap($content, $filter = '')
 	{
@@ -58,12 +58,6 @@ class frontEd_basic extends frontEd_field
 		$field = self::get_col($filter);
 
 		$post = get_post($id);
-
-		if ('post_content' == $field)
-		{
-			the_editor(htmlspecialchars_decode($post->$field), "fee-$id");
-			die;
-		}
 
 		return $post->$field;
 	}
@@ -94,9 +88,93 @@ class frontEd_basic extends frontEd_field
 	}
 
 	// Get wp_posts column
-	private function get_col($filter)
+	protected function get_col($filter)
 	{
 		return str_replace('the_', 'post_', $filter);
+	}
+}
+
+class frontEd_chunks extends frontEd_basic 
+{
+	function wrap($content, $filter = '')
+	{
+		if ( ! self::check($GLOBALS['post']->ID) )
+			return $content;
+
+		if ( empty($filter) )
+			$filter = current_filter();
+
+		$id = $GLOBALS['post']->ID;
+
+		$chunks = self::split($content);
+
+		foreach ( $chunks as $i => $chunk )
+			$chunks[$i] = '<p>' . frontEd_field::wrap($chunk, $filter, "$id#$i") . '</p>';
+
+		return implode('', $chunks);
+	}
+
+	function get($id, $filter)
+	{
+		list($post_id, $chunk_id) = explode('#', $id);
+		$post = get_post($post_id);
+		$field = self::get_col($filter);
+		$chunks = self::split($post->$field, true);
+
+		return $chunks[$chunk_id];
+	}
+
+	function save($id, $content, $filter)
+	{
+		list($post_id, $chunk_id) = explode('#', $id);
+		$post = get_post($post_id);
+		$field = self::get_col($filter);
+		$chunks = self::split($post->$field, true);
+
+		$content = trim($content);
+
+		if ( empty($content) )
+			unset($chunks[$chunk_id]);
+		else
+			$chunks[$chunk_id] = $content;
+
+		$new_content = implode("\n\n", $chunks);
+
+		wp_update_post(array(
+			'ID' => $id,
+			$field => $new_content
+		));
+
+		// Refresh the page if a new chunk is added
+		if ( empty($content) || FALSE !== strpos($content, "\n\n") )
+			self::force_refresh();
+
+		return $content;
+	}
+
+	protected function force_refresh()
+	{
+		die("<script language='javascript'>location.reload(true)</script>");	
+	}
+
+	// Split content into chunks
+	protected function split($content, $autop = false)
+	{
+		if ( $autop )
+			$content = wpautop($content);
+
+		$chunks = explode('<p>', $content);
+
+		$new_content = array();
+		foreach ( $chunks as $chunk )
+		{
+			$chunk = trim(str_replace('</p>', '', $chunk));
+
+			if ( !empty($chunk) )
+				$new_content[] = $chunk . "\n";
+		}
+
+		return $new_content;
 	}
 }
 
@@ -230,23 +308,35 @@ class frontEd_widget extends frontEd_field
 {
 	function get($id, $filter)
 	{
-		$id = str_replace('text-', '', $id);
-		$field = str_replace('widget_', '', $filter);
+		$id = self::get_id($id);
+		$field = self::get_col($filter);
 
 		$widgets = get_option('widget_text');
+
 		return $widgets[$id][$field];
 	}
 
 	function save($id, $content, $filter)
 	{
-		$id = str_replace('text-', '', $id);
-		$field = str_replace('widget_', '', $filter);
+		$id = self::get_id($id);
+		$field = self::get_col($filter);
 
 		$widgets = get_option('widget_text');
 		$widgets[$id][$field] = $content;
+
 		update_option('widget_text', $widgets);
 
 		return $content;
+	}
+
+	protected function get_id($id)
+	{
+		return str_replace('text-', '', $id);
+	}
+
+	protected function get_col($filter)
+	{
+		return str_replace('widget_', '', $filter);
 	}
 
 	function check()
@@ -269,18 +359,14 @@ class frontEd_meta extends frontEd_field
 
 	function get($id)
 	{
-		$args = explode('#', $id);
-		$post_id = $args[0];
-		$key = $args[1];
+		list($post_id, $key) = explode('#', $id);
 
 		return get_post_meta($post_id, $key, true);
 	}
 
 	function save($id, $content, $filter)
 	{
-		$args = explode('#', $id);
-		$post_id = $args[0];
-		$key = $args[1];
+		list($post_id, $key) = explode('#', $id);
 
 		update_post_meta($post_id, $key, $content);
 
@@ -306,8 +392,8 @@ function fee_register_defaults()
 		),
 		
 		'the_content' => array(
-			'class' => 'frontEd_basic',
-			'type' => 'rich',
+			'class' => frontEditor::$options->chunks ? 'frontEd_chunks' : 'frontEd_basic',
+			'type' => frontEditor::$options->rich ? 'rich' : 'textarea',
 			'title' => __('Post/page content', 'front-end-editor')
 		),
 
