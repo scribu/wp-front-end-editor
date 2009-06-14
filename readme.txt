@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.2
 Tested up to: 2.8
-Stable tag: 0.9.5
+Stable tag: trunk
 
 Enable "edit in place" functionality on your site. Compatible with any theme.
 
@@ -73,4 +73,9 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 
 = Title attributes =
 In some themes, links get weird title atributes. A workaround is to disable "The title" editable field.
+
+== Screenshots ==
+
+1. The inline WYSIWYG editor
+2. The settings page
 

@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 1.0a
+Version: 1.0
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -26,12 +26,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 // Init
 
-require_once dirname(__FILE__) . '/inc/scb-check.php';
-if ( ! scb_check(__FILE__) ) return;
-
 _fee_init();
 
-function _fee_init() {
+function _fee_init()
+{
+	// Load scbFramework
+	require_once dirname(__FILE__) . '/inc/scb/load.php';
+
 	// Load translations
 	$plugin_dir = basename(dirname(__FILE__));
 	load_plugin_textdomain('front-end-editor', 'wp-content/plugins/'. $plugin_dir . '/lang', $plugin_dir.'/lang');
@@ -48,7 +49,7 @@ function _fee_init() {
 		'chunks' => true,
 	));
 
-	frontEditor::init($options, '0.9.5');
+	frontEditor::init($options, '1.0');
 
 	if ( is_admin() ) 
 	{
