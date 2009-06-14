@@ -5,16 +5,20 @@ class frontEditorAdmin extends scbBoxesPage
 	function setup()
 	{
 		$this->args = array('page_title' => 'Front-end Editor');
-		
+
 		$this->boxes = array(
 			array('settings', __('Settings', 'front-end-editor'), 'normal'),
-			array('fields', __('Fields', 'front-end-editor'), 'advanced'),
+			array('fields', __('Fields', 'front-end-editor'), 'normal'),
 		);
 	}
 
 	function page_head()
 	{
-		wp_enqueue_style('fee-css', $this->plugin_url . '/inc/admin.css', array(), '1.0');
+		echo $this->css_wrap(<<<EOB
+.widefat tbody th.check-column {padding-bottom: 7px !important}
+#fields table {margin: 0 0 10px 10px}
+EOB
+		);
 	}
 
 	function settings_handler()
@@ -33,7 +37,7 @@ class frontEditorAdmin extends scbBoxesPage
 		if ( !isset($_POST['manage_fields']) )
 			return;
 
-		foreach(array_keys(frontEditor::$fields) as $field)
+		foreach ( array_keys(frontEditor::$fields) as $field )
 			if ( !isset($_POST[$field]) )
 				$disabled[] = $field;
 
