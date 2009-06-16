@@ -146,32 +146,49 @@ abstract class scbAdminPage extends scbForms
 		return parent::table_row($row, $options);
 	}
 
-	// See scbForms::table_wrap()
+	/* 
+	Mimics scbForms::form_wrap()
+	Second argument can be:
+		- bool: 
+			true	- add a submit button with the default arguments
+			false	- don't add a submit button at all
+		- string:
+			- <input ... />	(backwards compat)
+			- the value of the submit button
+			  In this last case, additional arguments will be transmitted to the
+			  submit_button() method
+	*/
 	function form_wrap($content, $submit_button = true)
 	{
-		if ( $submit_button === true )
-			$submit_button = $this->submit_button();
-
-		$content .= $submit_button;
+		if ( true === $submit_button )
+			$content .= $this->submit_button();
+		elseif ( false !== strpos($submit_button, '<input') )
+			$content .= $submit_button;
+		else
+		{
+			$button_args = array_slice(func_get_args(), 1);
+			$content .= call_user_func_array(array($this, 'submit_button'), $button_args);
+		}
 
 		return parent::form_wrap($content, $this->nonce);
 	}
 
-	// See scbForms::form_table()
-	function form_table($rows, $options = NULL, $submit_button = true)
+	// Mimics scbForms::form_table()
+	function form_table($rows, $options = NULL)
 	{
 		$output = $this->table($rows, $options);
 
-		return $this->form_wrap($output, $submit_button);
+		$args = array_slice(func_get_args(), 2);
+		array_unshift($args, $output);
+
+		return call_user_func_array(array($this, 'form_wrap'), $args);
 	}
 
 	// Generates a form submit button
-	function submit_button($action = 'action', $value = 'Save Changes', $class = "button")
+	function submit_button($value = 'Save Changes', $action = 'action', $class = "button")
 	{
-		if ( in_array($action, (array) $this->_actions) )
-			trigger_error("Duplicate action for submit button: {$action}", E_USER_WARNING);
-
-		$this->_actions[] = $action;
+		if ( empty($value) )
+			return;
 
 		$args = array(
 			'type' => 'submit',
@@ -189,7 +206,7 @@ abstract class scbAdminPage extends scbForms
 		return $output;
 	}
 
-	// To be used in page_head()
+	// Generates a standard admin notice
 	function admin_msg($msg, $class = "updated")
 	{
 		echo "<div class='$class fade'><p>$msg</p></div>\n";

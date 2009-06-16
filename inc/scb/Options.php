@@ -2,11 +2,12 @@
 
 class scbOptions 
 {
-	public $key;
-	public $defaults;
+	public $key;			// the option name
+	public $defaults;		// the default value(s)
+
 	public $wp_filter_id;	// used by WP hooks
 
-	private $data;
+	protected $data;
 
 	function __construct($key, $file = '', $defaults = '')
 	{
@@ -16,8 +17,7 @@ class scbOptions
 
 		if ( is_array($this->defaults) )
 		{
-
-			if ( $this->data === FALSE )
+			if ( $this->data === NULL )
 				$this->data = array();
 
 			register_activation_hook($file, array($this, 'update_reset'));
@@ -26,7 +26,7 @@ class scbOptions
 		register_uninstall_hook($file, array($this, 'delete'));
 	}
 
-	// Get all data, certain fields or a single field
+	// Get all data fields, certain fields or a single field
 	function get($field = '')
 	{
 		if ( empty($field) )
@@ -60,7 +60,7 @@ class scbOptions
 		$this->update(array_merge($this->data, $newdata));
 	}
 
-	// Update data
+	// Update all data fields
 	function update($newdata)
 	{
 		if ( $this->data === $newdata )
@@ -72,7 +72,7 @@ class scbOptions
 		   add_option($this->key, $this->data);
 	}
 
-	// A combination of reset and update
+	// Add new fields with their default values
 	function update_reset()
 	{
 		$this->update(array_merge($this->defaults, $this->data));

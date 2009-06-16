@@ -7,29 +7,24 @@ class frontEditorAdmin extends scbBoxesPage
 		$this->args = array('page_title' => 'Front-end Editor');
 
 		$this->boxes = array(
-			array('settings', __('Settings', 'front-end-editor'), 'normal'),
 			array('fields', __('Fields', 'front-end-editor'), 'normal'),
+			array('settings', __('Settings', 'front-end-editor'), 'side'),
 		);
 	}
 
-	function page_head()
-	{
-		echo $this->css_wrap(<<<EOB
-.widefat tbody th.check-column {padding-bottom: 7px !important}
-#fields table {margin: 0 0 10px 10px}
-EOB
-		);
-	}
-
-	function settings_handler()
-	{
-		if ( !isset($_POST['save_settings']) )
-			return;
-
-		foreach ( array('rich', 'chunks') as $key )
-			$this->options->$key = (bool) $_POST[$key];
-
-		$this->admin_msg(__('Settings <strong>saved</strong>.'));
+	function page_head() 
+	{ 
+?>
+<style type="text/css">
+#fields thead th {
+	background: #F1F1F1;
+	padding: 5px 8px 8px;
+	line-height: 1;
+	font-size: 11px;
+}
+#fields .check-column, #fields th, #fields td {padding-left: 0 !important}
+</style>
+<?php
 	}
 
 	function fields_handler()
@@ -76,7 +71,18 @@ EOB
 		</tbody>
 	</table>
 <?php
-		echo $this->form_wrap(ob_get_clean(), $this->submit_button('manage_fields', __('Save changes', 'front-end-editor')));
+		echo $this->form_wrap(ob_get_clean(), __('Save changes', 'front-end-editor'), 'manage_fields');
+	}
+
+	function settings_handler()
+	{
+		if ( !isset($_POST['save_settings']) )
+			return;
+
+		foreach ( array('rich', 'chunks') as $key )
+			$this->options->$key = (bool) $_POST[$key];
+
+		$this->admin_msg(__('Settings <strong>saved</strong>.'));
 	}
 
 	function settings_box()
@@ -97,7 +103,7 @@ EOB
 			)
 		);
 
-		echo $this->form_table($rows, $this->options->get(), $this->submit_button('save_settings', __('Save changes', 'front-end-editor')));
+		echo $this->form_table($rows, $this->options->get(),  __('Save changes', 'front-end-editor'), 'save_settings');
 	}
 }
 

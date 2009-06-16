@@ -16,94 +16,89 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
 "X-Poedit-Basepath: ../\n"
 ": \n"
-"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-0: ."
 
-#: admin.php:27
-msgid "Settings saved"
-msgstr "Réglages sauvegardés"
-
-#: admin.php:33
+#: admin.php:52
 msgid "Enable or disable editable fields"
 msgstr "Activer ou désactiver les champs éditables"
 
-#: admin.php:39
+#: admin.php:58
 msgid "Field name"
 msgstr "Nom du champ"
 
-#: admin.php:56
-#: admin.php:69
+#: admin.php:79
+#: admin.php:100
 msgid "Save changes"
 msgstr "Sauvegarder les modifications"
 
-#: admin.php:61
+#: admin.php:86
 msgid "Rich text editor"
 msgstr ""
 
-#: admin.php:62
+#: admin.php:87
 msgid "Enable the WYSIWYG editor"
 msgstr "Activer l'éditeur WYSIWYG"
 
-#: admin.php:68
+#: admin.php:10
+#: inc/scb/AdminPage.php:246
 msgid "Settings"
 msgstr "Réglages"
 
-#: fields.php:257
+#: fields.php:391
 msgid "Post/page title"
 msgstr "Titre du billet/page"
 
-#: fields.php:262
+#: fields.php:397
 msgid "Post/page content"
 msgstr "Contenu du billet/page"
 
-#: fields.php:267
+#: fields.php:403
 msgid "Post/page excerpt"
 msgstr "Extrait des billets/page"
 
-#: fields.php:272
+#: fields.php:409
 msgid "Post tags"
 msgstr "Tags du billet"
 
-#: fields.php:277
+#: fields.php:415
 msgid "Post/page custom fields"
 msgstr "Custom fields (champs personnalisés) des billets/pages"
 
-#: fields.php:282
+#: fields.php:421
 msgid "Comment text"
 msgstr "Commentaires"
 
-#: fields.php:287
+#: fields.php:427
 msgid "Text widget content"
 msgstr "Contenu des widgets texte"
 
-#: fields.php:291
+#: fields.php:432
 msgid "Text widget title"
 msgstr "Titre des widgets texte"
 
-#: front-end-editor.php:102
+#: core.php:98
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: front-end-editor.php:103
+#: core.php:99
 msgid "Cancel"
 msgstr "Annuler"
 
-#. Plugin Name of an extension
-msgid "Front-end Editor"
-msgstr ""
+#: admin.php:11
+msgid "Fields"
+msgstr "Champs"
 
-#. Plugin URI of an extension
-msgid "http://scribu.net/wordpress/front-end-editor"
-msgstr ""
+#: admin.php:32
+#: admin.php:46
+#: inc/scb/AdminPage.php:103
+msgid "Settings <strong>saved</strong>."
+msgstr "Réglages <strong>sauvegardés</strong>."
 
-#. Description of an extension
-msgid "Allows you to edit your posts without going through the admin interface"
-msgstr ""
+#: admin.php:93
+msgid "Edit paragraphs"
+msgstr "Editer les paragraphes"
 
-#. Author of an extension
-msgid "scribu"
-msgstr ""
-
-#. Author URI of an extension
-msgid "http://scribu.net/"
-msgstr ""
+#: admin.php:94
+msgid "Edit one paragraph at a time, instead of an entire post"
+msgstr "Éditer paragraphe par paragraphe plutôt que le contenu entier du billet."
 
