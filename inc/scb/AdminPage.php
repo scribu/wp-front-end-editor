@@ -117,15 +117,12 @@ abstract class scbAdminPage extends scbForms
 	}
 
 	// See scbForms::form()
-	function form($rows, $options = NULL, $nonce = NULL)
+	function form($rows, $options = NULL)
 	{
-		if ( $nonce === NULL )
-			$nonce = $this->nonce;
-
 		if ( $options === NULL )
 			$options = $this->formdata;
 
-		return parent::form($rows, $options, $nonce);
+		return parent::form($rows, $options, $this->nonce);
 	}
 
 	// See scbForms::table()
@@ -144,33 +141,6 @@ abstract class scbAdminPage extends scbForms
 			$options = $this->formdata;
 
 		return parent::table_row($row, $options);
-	}
-
-	/* 
-	Mimics scbForms::form_wrap()
-	Second argument can be:
-		- bool: 
-			true	- add a submit button with the default arguments
-			false	- don't add a submit button at all
-		- string:
-			- <input ... />	(backwards compat)
-			- the value of the submit button
-			  In this last case, additional arguments will be transmitted to the
-			  submit_button() method
-	*/
-	function form_wrap($content, $submit_button = true)
-	{
-		if ( true === $submit_button )
-			$content .= $this->submit_button();
-		elseif ( false !== strpos($submit_button, '<input') )
-			$content .= $submit_button;
-		else
-		{
-			$button_args = array_slice(func_get_args(), 1);
-			$content .= call_user_func_array(array($this, 'submit_button'), $button_args);
-		}
-
-		return parent::form_wrap($content, $this->nonce);
 	}
 
 	// Mimics scbForms::form_table()
@@ -204,6 +174,44 @@ abstract class scbAdminPage extends scbForms
 		$output = "<p class='submit'>\n" . parent::input($args) . "</p>\n";
 
 		return $output;
+	}
+
+	/* 
+	Mimics scbForms::form_wrap()
+	Second argument can be:
+		- bool: 
+			true	- add a submit button with the default arguments
+			false	- don't add a submit button at all
+		- string:
+			- <input ... />	(backwards compat)
+			- the value of the submit button
+			  In this last case, additional arguments will be transmitted to the
+			  submit_button() method
+	*/
+	function form_wrap($content, $submit_button = true)
+	{
+		if ( true === $submit_button )
+			$content .= $this->submit_button();
+		elseif ( false !== strpos($submit_button, '<input') )
+			$content .= $submit_button;
+		else
+		{
+			$button_args = array_slice(func_get_args(), 1);
+			$content .= call_user_func_array(array($this, 'submit_button'), $button_args);
+		}
+
+		return parent::form_wrap($content, $this->nonce);
+	}
+
+	// Mimics scbForms::form_table_wrap()
+	function form_table_wrap($content)
+	{
+		$output = self::table_wrap($content);
+
+		$args = array_slice(func_get_args(), 1);
+		array_unshift($args, $output);
+
+		return call_user_func_array(array($this, 'form_wrap'), $args);
 	}
 
 	// Generates a standard admin notice

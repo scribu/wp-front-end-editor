@@ -17,8 +17,7 @@ class scbOptions
 
 		if ( is_array($this->defaults) )
 		{
-			if ( $this->data === NULL )
-				$this->data = array();
+			$this->data = (array) $this->data;
 
 			register_activation_hook($file, array($this, 'update_reset'));
 		}
