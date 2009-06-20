@@ -85,7 +85,7 @@ In some themes, links get weird title atributes. A workaround is to disable "The
 * bugfix
 
 = 1.0.2 = 
-* added swedish translation
+* swedish translation
 
 = 1.0 =
 * single paragraph editing
