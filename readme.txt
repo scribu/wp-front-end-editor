@@ -79,3 +79,36 @@ In some themes, links get weird title atributes. A workaround is to disable "The
 1. The inline WYSIWYG editor
 2. The settings page
 
+== Changelog ==
+
+= 1.0.3 =
+* bugfix
+
+= 1.0.2 = 
+* added swedish translation
+
+= 1.0 =
+* single paragraph editing
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-0.html)
+
+= 0.9 =
+* editable custom fields
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-0-9.html)
+
+= 0.8 =
+* rich text editor (jWYSIWYG)
+* l10n
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-0-8.html)
+
+= 0.7 =
+* settings page
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-0-7.html)
+
+= 0.6 =
+* editable post tags
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-0-6.html)
+
+= 0.5 =
+* initial release
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-0-5.html)
+
