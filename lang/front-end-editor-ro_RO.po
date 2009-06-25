@@ -7,48 +7,55 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-06-14 18:58+0300\n"
-"PO-Revision-Date: 2009-06-14 18:59+0200\n"
+"POT-Creation-Date: 2009-06-25 22:28+0300\n"
+"PO-Revision-Date: 2009-06-25 22:29+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.php:32
-msgid "Settings <strong>saved</strong>."
-msgstr "Setări <strong>salvate</strong>."
+#: admin.php:10
+msgid "Fields"
+msgstr "Câmpuri"
 
-#: admin.php:38
-msgid "Enable or disable editable fields"
-msgstr "Activează sau dezactivează câmpurile editabile"
-
-#: admin.php:44
-msgid "Field name"
-msgstr "Nume câmp"
-
-#: admin.php:65
-#: admin.php:85
-msgid "Save changes"
-msgstr "Salvează schimbările"
-
-#: admin.php:67
+#: admin.php:11
+#: inc/scb/AdminPage.php:272
 msgid "Settings"
 msgstr "Setări"
 
-#: admin.php:71
+#: admin.php:41
+#: admin.php:85
+#: inc/scb/AdminPage.php:104
+msgid "Settings <strong>saved</strong>."
+msgstr "Setări <strong>salvate</strong>."
+
+#: admin.php:47
+msgid "Enable or disable editable fields"
+msgstr "Activează sau dezactivează câmpurile editabile"
+
+#: admin.php:53
+msgid "Field name"
+msgstr "Nume câmp"
+
+#: admin.php:74
+#: admin.php:106
+msgid "Save changes"
+msgstr "Salvează schimbările"
+
+#: admin.php:92
 msgid "Rich text editor"
 msgstr "Editor de text avansat"
 
-#: admin.php:72
+#: admin.php:93
 msgid "Enable the WYSIWYG editor"
 msgstr "Activează editorul WYSIWYG"
 
-#: admin.php:78
+#: admin.php:99
 msgid "Edit paragraphs"
 msgstr "Editează paragrafe"
 
-#: admin.php:79
+#: admin.php:100
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Editează câte un singur paragraf, în loc de articolul întreg"
 
@@ -60,41 +67,41 @@ msgstr "Salvează"
 msgid "Cancel"
 msgstr "Anulează"
 
-#: fields.php:391
+#: fields.php:241
+msgid "[none]"
+msgstr "[niciuna]"
+
+#: fields.php:397
 msgid "Post/page title"
 msgstr "Titlu articol/pagină"
 
-#: fields.php:397
+#: fields.php:403
 msgid "Post/page content"
 msgstr "Conținut articol/pagină"
 
-#: fields.php:403
+#: fields.php:409
 msgid "Post/page excerpt"
 msgstr "Extras articol/pagină"
 
-#: fields.php:409
+#: fields.php:415
 msgid "Post tags"
 msgstr "Etichete articol"
 
-#: fields.php:415
+#: fields.php:421
 msgid "Post/page custom fields"
 msgstr "Câmpuri personalizate articol/pagină"
 
-#: fields.php:421
+#: fields.php:427
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: fields.php:427
+#: fields.php:433
 msgid "Text widget content"
 msgstr "Conținut widget text"
 
-#: fields.php:432
+#: fields.php:438
 msgid "Text widget title"
 msgstr "Titlu widget text"
-
-#: inc/scb-check.php:45
-msgid "Install now"
-msgstr ""
 
 #. Plugin Name of an extension
 msgid "Front-end Editor"

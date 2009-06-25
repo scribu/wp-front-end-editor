@@ -1,7 +1,7 @@
 <?php
 
 // All field classes should extend from this one
-class frontEd_field 
+class frontEd_field
 {
 	// Mark the field as editable
 	function wrap($content, $filter = '', $id = NULL)
@@ -95,7 +95,7 @@ class frontEd_basic extends frontEd_field
 }
 
 // Handles <p> in the_content
-class frontEd_chunks extends frontEd_basic 
+class frontEd_chunks extends frontEd_basic
 {
 	function wrap($content, $filter = '')
 	{
@@ -180,7 +180,7 @@ class frontEd_chunks extends frontEd_basic
 }
 
 // Handles the_excerpt field
-class frontEd_excerpt extends frontEd_basic 
+class frontEd_excerpt extends frontEd_basic
 {
 	function get($id)
 	{
@@ -231,12 +231,15 @@ class frontEd_excerpt extends frontEd_basic
 	}
 }
 
+
 // Handles the_tags field
-class frontEd_tags extends frontEd_basic 
+class frontEd_tags extends frontEd_basic
 {
 	function wrap($content, $before, $sep, $after)
 	{
-		// Reverse engineer args for WP < 2.8
+		if ( empty($content) )
+			$content = __('[none]', 'front-end-editor');
+
 		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') )
 		{
 			// Figure out $before arg
@@ -247,7 +250,6 @@ class frontEd_tags extends frontEd_basic
 			$after = $tmp[count($tmp)-1];
 		}
 
-		// Get the actual tags
 		$content = str_replace(array($before, $after), '', $content);
 
 		return $before . parent::wrap($content, current_filter()) . $after;
@@ -255,11 +257,14 @@ class frontEd_tags extends frontEd_basic
 
 	function get($id)
 	{
-		$tagsObj = get_the_tags($id);
+		$tags = get_the_tags($id);
 
-		foreach ( $tagsObj as $tag )
-			$tags[] = $tag->name;
-			
+		if ( empty($tags) )
+			return;
+
+		foreach ( $tags as &$tag )
+			$tag = $tag->name;
+
 		return implode(', ', $tags);
 	}
 
@@ -273,7 +278,7 @@ class frontEd_tags extends frontEd_basic
 
 
 // Handles comment_text field
-class frontEd_comment extends frontEd_field 
+class frontEd_comment extends frontEd_field
 {
 	function wrap($content)
 	{
@@ -305,7 +310,7 @@ class frontEd_comment extends frontEd_field
 
 
 // Handles widget_text
-class frontEd_widget extends frontEd_field 
+class frontEd_widget extends frontEd_field
 {
 	function get($id, $filter)
 	{
@@ -346,7 +351,7 @@ class frontEd_widget extends frontEd_field
 	}
 }
 
-class frontEd_meta extends frontEd_field 
+class frontEd_meta extends frontEd_field
 {
 	function wrap($content, $post_id, $key, $type)
 	{

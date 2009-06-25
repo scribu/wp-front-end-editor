@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.0a\n"
+"Project-Id-Version: Front-end Editor 1.0.4a\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-06-14 18:58+0300\n"
+"POT-Creation-Date: 2009-06-25 22:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,39 +16,43 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin.php:32
-msgid "Settings <strong>saved</strong>."
+#: admin.php:10
+msgid "Fields"
 msgstr ""
 
-#: admin.php:38
-msgid "Enable or disable editable fields"
-msgstr ""
-
-#: admin.php:44
-msgid "Field name"
-msgstr ""
-
-#: admin.php:65 admin.php:85
-msgid "Save changes"
-msgstr ""
-
-#: admin.php:67
+#: admin.php:11 inc/scb/AdminPage.php:272
 msgid "Settings"
 msgstr ""
 
-#: admin.php:71
+#: admin.php:41 admin.php:85 inc/scb/AdminPage.php:104
+msgid "Settings <strong>saved</strong>."
+msgstr ""
+
+#: admin.php:47
+msgid "Enable or disable editable fields"
+msgstr ""
+
+#: admin.php:53
+msgid "Field name"
+msgstr ""
+
+#: admin.php:74 admin.php:106
+msgid "Save changes"
+msgstr ""
+
+#: admin.php:92
 msgid "Rich text editor"
 msgstr ""
 
-#: admin.php:72
+#: admin.php:93
 msgid "Enable the WYSIWYG editor"
 msgstr ""
 
-#: admin.php:78
+#: admin.php:99
 msgid "Edit paragraphs"
 msgstr ""
 
-#: admin.php:79
+#: admin.php:100
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr ""
 
@@ -60,40 +64,40 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: fields.php:391
-msgid "Post/page title"
+#: fields.php:241
+msgid "[none]"
 msgstr ""
 
 #: fields.php:397
-msgid "Post/page content"
+msgid "Post/page title"
 msgstr ""
 
 #: fields.php:403
-msgid "Post/page excerpt"
+msgid "Post/page content"
 msgstr ""
 
 #: fields.php:409
-msgid "Post tags"
+msgid "Post/page excerpt"
 msgstr ""
 
 #: fields.php:415
-msgid "Post/page custom fields"
+msgid "Post tags"
 msgstr ""
 
 #: fields.php:421
-msgid "Comment text"
+msgid "Post/page custom fields"
 msgstr ""
 
 #: fields.php:427
+msgid "Comment text"
+msgstr ""
+
+#: fields.php:433
 msgid "Text widget content"
 msgstr ""
 
-#: fields.php:432
+#: fields.php:438
 msgid "Text widget title"
-msgstr ""
-
-#: inc/scb-check.php:45
-msgid "Install now"
 msgstr ""
 
 #. Plugin Name of an extension
