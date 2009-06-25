@@ -1,23 +1,41 @@
-function front_ed_init(vars) {
-
+function front_ed_init(vars)
+{
 	// constructor
-	function editableField(el, args) {
+	function editableField(el, args)
+	{
 		this.el = jQuery(el);
 		this.name = args[0];
 
 		// Set type, based on rel attribute
-		rel = this.el.attr('rel').split('#', 3);
+		rel = this.el.attr('rel').split('#');
 
 		if (rel.length == 3)
 			this.type = rel[2];
 		else
 			this.type = args[1];
 
-		this.has_parent = this.el.parents('a').length > 0;
+		// From a -> span -> content
+		// To span -> a -> content
+		$parent = this.el.parents('a');
+		if ( $parent.length > 0 )
+		{
+			$link = $parent.clone(true)
+				.html(this.el.html());
+
+			$wrap = this.el.clone(true)
+				.html($link);
+
+			$parent.replaceWith($wrap);
+
+			this.el = $wrap;
+			
+			console.log(this.el);
+		}
 	}
 
 	// AJAX handling
-	get_data = function(field) {
+	get_data = function(field)
+	{
 		var get_data = {
 			nonce: vars['nonce'],
 			action: 'front-editor',
@@ -27,7 +45,8 @@ function front_ed_init(vars) {
 			item_id: field.el.attr('rel')
 		};
 
-		jQuery.post(vars['request'], get_data, function(response) {
+		jQuery.post(vars['request'], get_data, function(response)
+		{
 			field.container.val(response);
 
 			if (field.type == 'rich')
@@ -44,7 +63,8 @@ function front_ed_init(vars) {
 		});
 	}
 
-	send_data = function(field) {
+	send_data = function(field)
+	{
 		var post_data = {
 			nonce: vars['nonce'],
 			action: 'front-editor',
@@ -55,15 +75,18 @@ function front_ed_init(vars) {
 			content: field.container.val()
 		};
 
-		jQuery.post(vars['request'], post_data, function(response) {
+		jQuery.post(vars['request'], post_data, function(response)
+		{
 			var speed = 'fast';
 
-			if (field.type != 'input') {
+			if (field.type != 'input')
+			{
 				field.el.css('display', 'block');
 				speed = 'normal';
 			}
 
-			field.el.fadeOut(speed, function() {
+			field.el.fadeOut(speed, function()
+			{
 				field.el.html(response);
 			}).fadeIn(speed);
 		});
@@ -71,7 +94,8 @@ function front_ed_init(vars) {
 
 
 	// Form handling
-	form_handler = function(field) {
+	form_handler = function(field)
+	{
 		// Set up data container
 		if (field.type != 'input')
 			field.container = jQuery('<textarea>');
@@ -101,7 +125,8 @@ function front_ed_init(vars) {
 
 		get_data(field);
 
-		remove_form = function() {
+		remove_form = function()
+		{
 			window.frontEd_trap = false;
 
 			field.el.show();
@@ -110,21 +135,28 @@ function front_ed_init(vars) {
 
 		cancel_button.click(remove_form);
 
-		save_button.click(function(ev) {
+		save_button.click(function(ev)
+		{
 			send_data(field);
 			remove_form();
 		});
 	}
 
 	// Click handling
-	click_handler = function(field) {
-		single_click = function(ev) {
-			if ( field.has_parent ) {
+	function click_handler(field)
+	{
+		single_click = function(ev)
+		{
+			$el = jQuery(ev.target);
+
+			if ( field.has_parent )
+			{
 				ev.stopPropagation();
 				ev.preventDefault();
-			}	
+			}
 
-			setTimeout(function() {
+			setTimeout(function()
+			{
 				if ( window.frontEd_trap )
 					return;
 
@@ -133,9 +165,13 @@ function front_ed_init(vars) {
 				else if ( field.has_parent )
 					window.location = field.el.parents('a').attr('href');
 			}, 300);
+			
+			if ( $el.is('a') && !overlay_check($el) )
+				child_single_click(ev);
 		}
 
-		double_click = function(ev) {
+		double_click = function(ev)
+		{
 			ev.stopPropagation();
 			ev.preventDefault();
 
@@ -144,7 +180,8 @@ function front_ed_init(vars) {
 			form_handler(field);
 		}
 
-		child_single_click = function(ev) {
+		child_single_click = function(ev)
+		{
 			ev.stopPropagation();
 			ev.preventDefault();
 
@@ -153,15 +190,17 @@ function front_ed_init(vars) {
 			field.el.click();
 		}
 
-		child_double_click = function(ev) {
+		child_double_click = function(ev)
+		{
 			ev.stopPropagation();
 			ev.preventDefault();
 
 			field.el.dblclick();
 		}
 
-		overlay_check = function() {
-			var attr = jQuery(this).attr("rel") + ' ' + jQuery(this).attr("class");
+		overlay_check = function($el)
+		{
+			var attr = $el.attr("rel") + ' ' + $el.attr("class");
 			attr = jQuery.trim(attr).split(' ');
 
 			var tokens = ['lightbox', 'shutter', 'thickbox'];
@@ -177,15 +216,11 @@ function front_ed_init(vars) {
 		field.el
 			.click(single_click)
 			.dblclick(double_click);
-
-		field.el.find('a')
-			.filter(overlay_check)
-			.click(child_single_click)
-			.dblclick(child_double_click);
 	}
 
 	// Widget text hack: Add rel attr to each element
-	jQuery('span.front-ed-widget_text, span.front-ed-widget_title').each(function() {
+	jQuery('span.front-ed-widget_text, span.front-ed-widget_title').each(function()
+	{
 		id = jQuery(this).parents('.widget_text').attr('id');
 		if (id)
 			jQuery(this).attr('rel', id);
@@ -194,9 +229,11 @@ function front_ed_init(vars) {
 	});
 
 	// Start click handling
-	for ( i in vars['fields'] ) {
+	for ( i in vars['fields'] )
+	{
 		args = vars['fields'][i];
-		jQuery('span.front-ed-' + args[0]).each(function() {
+		jQuery('span.front-ed-' + args[0]).each(function()
+		{
 			click_handler(new editableField(this, args));
 		});
 	}

@@ -153,7 +153,11 @@ class scbForms
 	// From multiple inputs to single inputs
 	private static function _input($args, $formdata)
 	{
-		extract($args, EXTR_SKIP);
+		extract(wp_parse_args($args, array(
+			'name' => NULL,
+			'value' => NULL,
+			'desc' => NULL,
+		)), EXTR_SKIP);
 
 		// Expand names or values
 		if ( !is_array($name) && !is_array($value) )
@@ -263,7 +267,11 @@ class scbForms
 	// Generate html with the final args
 	function _input_gen($args)
 	{
-		extract($args, EXTR_SKIP);
+		extract(wp_parse_args($args, array(
+			'name' => NULL,
+			'value' => NULL,
+			'desc' => NULL,
+		)), EXTR_SKIP);
 
 		$extra = implode(' ', $extra);
 

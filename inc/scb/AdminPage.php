@@ -34,8 +34,9 @@ abstract class scbAdminPage extends scbForms
 	function __construct($file, $options = NULL)
 	{
 		$this->setup();
-
 		$this->_check_args();
+
+		$this->file = $file;
 		$this->_set_url($file);
 
 		if ( $options !== NULL )
