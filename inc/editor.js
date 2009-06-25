@@ -14,10 +14,10 @@ function front_ed_init(vars)
 		else
 			this.type = args[1];
 
-		// From a -> span -> content
-		// To span -> a -> content
+		// From a span content
+		// To span a content
 		$parent = this.el.parents('a');
-		if ( $parent.length > 0 )
+		if ( $parent.length )
 		{
 			$link = $parent.clone(true)
 				.html(this.el.html());
@@ -28,10 +28,9 @@ function front_ed_init(vars)
 			$parent.replaceWith($wrap);
 
 			this.el = $wrap;
-			
-			console.log(this.el);
 		}
 	}
+
 
 	// AJAX handling
 	get_data = function(field)
@@ -105,23 +104,24 @@ function front_ed_init(vars)
 		field.container.attr('class', 'front-editor-content');
 
 		// Set up form buttons
-		var save_button = jQuery('<button>').attr({'class': 'front-editor-save', 'title': vars.save_text}).text(vars.save_text);
-		var cancel_button = jQuery('<button>').attr({'class': 'front-editor-cancel', 'title': vars.cancel_text}).text('X');
+		var save_button = jQuery('<button>')
+			.attr({'class': 'front-editor-save', 'title': vars.save_text})
+			.text(vars.save_text);
+
+		var cancel_button = jQuery('<button>')
+			.attr({'class': 'front-editor-cancel', 'title': vars.cancel_text})
+			.text('X');
 
 		// Create form
-		var form = jQuery('<div>').attr('class', 'front-editor-container')
+		var form = jQuery('<div>')
+			.attr('class', 'front-editor-container')
 			.append(field.container)
 			.append(save_button)
 			.append(cancel_button);
 
-		// Add form
-		if ( field.has_parent )
-			target = field.el.parents('a');
-		else
-			target = field.el;
-
+		// Add form	
 		field.el.hide();
-		target.after(form);
+		field.el.after(form);
 
 		get_data(field);
 
@@ -149,10 +149,13 @@ function front_ed_init(vars)
 		{
 			$el = jQuery(ev.target);
 
-			if ( field.has_parent )
+			// Child single click
+			if ( $el.is('a') && !is_overlay($el) )
 			{
 				ev.stopPropagation();
 				ev.preventDefault();
+
+				window.frontEd_url = $el.attr('href');
 			}
 
 			setTimeout(function()
@@ -162,12 +165,7 @@ function front_ed_init(vars)
 
 				if ( typeof(window.frontEd_url) != 'undefined' )
 					window.location = window.frontEd_url;
-				else if ( field.has_parent )
-					window.location = field.el.parents('a').attr('href');
 			}, 300);
-			
-			if ( $el.is('a') && !overlay_check($el) )
-				child_single_click(ev);
 		}
 
 		double_click = function(ev)
@@ -180,25 +178,7 @@ function front_ed_init(vars)
 			form_handler(field);
 		}
 
-		child_single_click = function(ev)
-		{
-			ev.stopPropagation();
-			ev.preventDefault();
-
-			window.frontEd_url = jQuery(this).attr('href');
-
-			field.el.click();
-		}
-
-		child_double_click = function(ev)
-		{
-			ev.stopPropagation();
-			ev.preventDefault();
-
-			field.el.dblclick();
-		}
-
-		overlay_check = function($el)
+		is_overlay = function($el)
 		{
 			var attr = $el.attr("rel") + ' ' + $el.attr("class");
 			attr = jQuery.trim(attr).split(' ');
@@ -208,9 +188,9 @@ function front_ed_init(vars)
 			for ( i in tokens )
 				for ( j in attr )
 					if ( attr[j].indexOf(tokens[i]) != -1 )
-						return false;
+						return true;
 
-			return true;
+			return false;
 		}
 
 		field.el

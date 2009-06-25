@@ -94,6 +94,7 @@ class frontEd_basic extends frontEd_field
 	}
 }
 
+// Handles <p> in the_content
 class frontEd_chunks extends frontEd_basic 
 {
 	function wrap($content, $filter = '')
@@ -233,7 +234,7 @@ class frontEd_excerpt extends frontEd_basic
 // Handles the_tags field
 class frontEd_tags extends frontEd_basic 
 {
-	function wrap($content, $before = 'Tags: ', $sep = ', ', $after = '')
+	function wrap($content, $before, $sep, $after)
 	{
 		// Reverse engineer args for WP < 2.8
 		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') )
@@ -404,7 +405,7 @@ function fee_register_defaults()
 		),
 
 		'the_tags' => array(
-			'class' => 'frontEd_basic',
+			'class' => 'frontEd_tags',
 			'argc' => 4,
 			'title' => __('Post tags', 'front-end-editor')
 		),
