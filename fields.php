@@ -44,7 +44,7 @@ class frontEd_basic extends frontEd_field
 {
 	function wrap($content, $filter = '')
 	{
-		if ( ! self::check($GLOBALS['post']->ID) )
+		if ( ! self::post_check($GLOBALS['post']->ID) )
 			return $content;
 
 		if ( empty($filter) )
@@ -74,11 +74,11 @@ class frontEd_basic extends frontEd_field
 		return $content;
 	}
 
-	function check($id = NULL)
+	// To be called only from self::wrap()
+	protected function post_check($id)
 	{
-		// will be checked again from self::wrap
-		if ( !isset($id) )
-			return true;
+		if ( !in_the_loop() )
+			return false;
 
 		$post = get_post($id);
 
