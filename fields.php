@@ -4,7 +4,7 @@
 class frontEd_field
 {
 	// Mark the field as editable
-	function wrap($content, $filter = '', $id = NULL)
+	function wrap($content, $filter = '', $id = '')
 	{
 		if ( is_feed() )
 			return $content;
@@ -12,7 +12,7 @@ class frontEd_field
 		if ( empty($filter) )
 			$filter = current_filter();
 
-		if ( ! isset($id) )
+		if ( empty($id) )
 			$id = $GLOBALS['post']->ID;
 
 		$class = 'front-ed-' . $filter . ' front-ed';
@@ -57,9 +57,7 @@ class frontEd_basic extends frontEd_field
 	{
 		$field = self::get_col($filter);
 
-		$post = get_post($id);
-
-		return $post->$field;
+		return get_post_field($field, $id);
 	}
 
 	function save($id, $content, $filter)
@@ -80,11 +78,9 @@ class frontEd_basic extends frontEd_field
 		if ( !in_the_loop() )
 			return false;
 
-		$post = get_post($id);
+		$type = get_post_field('post_type', $id);
 
-		return
-			( $post->post_type == 'post' and current_user_can('edit_post', $id) ) or
-			( $post->post_type == 'page' and current_user_can('edit_page', $id) );
+		return current_user_can("edit_$type", $id);
 	}
 
 	// Get wp_posts column
@@ -97,9 +93,11 @@ class frontEd_basic extends frontEd_field
 // Handles <p> in the_content
 class frontEd_chunks extends frontEd_basic
 {
+	const delim = "\n\n";
+
 	function wrap($content, $filter = '')
 	{
-		if ( ! self::check($GLOBALS['post']->ID) )
+		if ( ! self::post_check($GLOBALS['post']->ID) )
 			return $content;
 
 		if ( empty($filter) )
@@ -118,9 +116,10 @@ class frontEd_chunks extends frontEd_basic
 	function get($id, $filter)
 	{
 		list($post_id, $chunk_id) = explode('#', $id);
-		$post = get_post($post_id);
-		$field = self::get_col($filter);
-		$chunks = self::split($post->$field, true);
+
+		$field = get_post_field('post_content', $post_id);
+
+		$chunks = self::split($field, true);
 
 		return $chunks[$chunk_id];
 	}
@@ -128,9 +127,10 @@ class frontEd_chunks extends frontEd_basic
 	function save($id, $content, $filter)
 	{
 		list($post_id, $chunk_id) = explode('#', $id);
-		$post = get_post($post_id);
-		$field = self::get_col($filter);
-		$chunks = self::split($post->$field, true);
+
+		$field = get_post_field('post_content', $post_id);
+
+		$chunks = self::split($field, true);
 
 		$content = trim($content);
 
@@ -139,23 +139,18 @@ class frontEd_chunks extends frontEd_basic
 		else
 			$chunks[$chunk_id] = $content;
 
-		$new_content = implode("\n\n", $chunks);
+		$new_content = implode(self::delim, $chunks);
 
 		wp_update_post(array(
 			'ID' => $id,
-			$field => $new_content
+			'post_content' => $new_content
 		));
 
 		// Refresh the page if a new chunk is added
-		if ( empty($content) || FALSE !== strpos($content, "\n\n") )
+		if ( empty($content) || FALSE !== strpos($content, self::delim) )
 			self::force_refresh();
 
 		return $content;
-	}
-
-	protected function force_refresh()
-	{
-		die("<script language='javascript'>location.reload(true)</script>");	
 	}
 
 	// Split content into chunks
@@ -176,6 +171,11 @@ class frontEd_chunks extends frontEd_basic
 		}
 
 		return $new_content;
+	}
+
+	protected function force_refresh()
+	{
+		die("<script language='javascript'>location.reload(true)</script>");	
 	}
 }
 
