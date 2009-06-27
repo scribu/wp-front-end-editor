@@ -1,51 +1,55 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-End Editor in italiano\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-06-14 18:58+0300\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
-"Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
+"Last-Translator: scribu <scribu@gmail.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Italian\n"
-"X-Poedit-Country: ITALY\n"
 
-#: admin.php:32
-msgid "Settings <strong>saved</strong>."
-msgstr "Le impostazioni sono state <strong>salvate</strong>."
+#: admin.php:10
+msgid "Fields"
+msgstr "Campi"
 
-#: admin.php:38
-msgid "Enable or disable editable fields"
-msgstr "Attiva o disattiva i campi modificabili"
-
-#: admin.php:44
-msgid "Field name"
-msgstr "Nome campo"
-
-#: admin.php:65
-#: admin.php:85
-msgid "Save changes"
-msgstr "Salva le modifiche"
-
-#: admin.php:67
+#: admin.php:11
+#: inc/scb/AdminPage.php:272
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: admin.php:71
+#: admin.php:41
+#: admin.php:85
+#: inc/scb/AdminPage.php:104
+msgid "Settings <strong>saved</strong>."
+msgstr "Le impostazioni sono state <strong>salvate</strong>."
+
+#: admin.php:47
+msgid "Enable or disable editable fields"
+msgstr "Attiva o disattiva i campi modificabili"
+
+#: admin.php:53
+msgid "Field name"
+msgstr "Nome campo"
+
+#: admin.php:74
+#: admin.php:106
+msgid "Save changes"
+msgstr "Salva le modifiche"
+
+#: admin.php:92
 msgid "Rich text editor"
 msgstr "Editor avanzato"
 
-#: admin.php:72
+#: admin.php:93
 msgid "Enable the WYSIWYG editor"
 msgstr "Attiva l'editor WYSIWYG"
 
-#: admin.php:78
+#: admin.php:99
 msgid "Edit paragraphs"
 msgstr "Modifica paragrafi"
 
-#: admin.php:79
+#: admin.php:100
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Modifica un paragrafo alla volta invece di operare su tutto l'articolo"
 
@@ -57,41 +61,41 @@ msgstr "Salva"
 msgid "Cancel"
 msgstr "Annulla"
 
-#: fields.php:391
+#: fields.php:241
+msgid "[none]"
+msgstr "[nessuno]"
+
+#: fields.php:397
 msgid "Post/page title"
 msgstr "Titolo articolo/pagina"
 
-#: fields.php:397
+#: fields.php:403
 msgid "Post/page content"
 msgstr "Contenuto articolo/pagina"
 
-#: fields.php:403
+#: fields.php:409
 msgid "Post/page excerpt"
 msgstr "Estratto articolo/pagina"
 
-#: fields.php:409
+#: fields.php:415
 msgid "Post tags"
 msgstr "Tag articolo"
 
-#: fields.php:415
+#: fields.php:421
 msgid "Post/page custom fields"
 msgstr "Campi personalizzati articolo/pagina"
 
-#: fields.php:421
+#: fields.php:427
 msgid "Comment text"
 msgstr "Testo commenti"
 
-#: fields.php:427
+#: fields.php:433
 msgid "Text widget content"
 msgstr "Contenuto widget di testo"
 
-#: fields.php:432
+#: fields.php:438
 msgid "Text widget title"
 msgstr "Titolo widget di testo"
-
-#: inc/scb-check.php:45
-msgid "Install now"
-msgstr "Installa subito"
 
 #. Plugin Name of an extension
 msgid "Front-end Editor"
@@ -112,4 +116,7 @@ msgstr "scribu"
 #. Author URI of an extension
 msgid "http://scribu.net/"
 msgstr "http://scribu.net/"
+
+#~ msgid "Install now"
+#~ msgstr "Installa subito"
 
