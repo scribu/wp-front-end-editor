@@ -81,6 +81,9 @@ In some themes, links get weird title atributes. A workaround is to disable "The
 
 == Changelog ==
 
+= 1.0.5 =
+* added align buttons, fixed autogrow issue
+
 = 1.0.4 =
 * the_title and the_tags improvements
 

@@ -23,6 +23,9 @@ abstract class scbAdminPage extends scbForms
 	// Normally, it's used for storing formdata
 	protected $options;
 
+	// l10n
+	protected $textdomain;
+
 	// Formdata used for filling the form elements
 	protected $formdata = array();
 
@@ -101,7 +104,7 @@ abstract class scbAdminPage extends scbForms
 		if ( isset($this->options) )
 			$this->options->update($this->formdata);
 
-		$this->admin_msg(__('Settings <strong>saved</strong>.'));
+		$this->admin_msg(__('Settings <strong>saved</strong>.', $this->textdomain));
 	}
 
 
@@ -224,7 +227,7 @@ abstract class scbAdminPage extends scbForms
 	// Wraps a string in a <script> tag
 	function js_wrap($string)
 	{
-		return "\n<script language='javascript' type='text/javascript'>\n" . $string . "\n</script>\n";
+		return "\n<script type='text/javascript'>\n" . $string . "\n</script>\n";
 	}
 
 	// Wraps a string in a <style> tag
@@ -269,7 +272,7 @@ abstract class scbAdminPage extends scbForms
 		$this->args = wp_parse_args($this->args, array(
 			'menu_title' => $this->args['page_title'],
 			'page_slug' => '',
-			'action_link' => __('Settings'),
+			'action_link' => __('Settings', $this->textdomain),
 			'parent' => 'options-general.php',
 			'capability' => 'manage_options',
 			'nonce' => ''

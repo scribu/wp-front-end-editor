@@ -103,9 +103,7 @@ abstract class frontEditor
 		);
 ?>
 <script type='text/javascript'>
-jQuery(document).ready(function() {
-	front_ed_init(<?php echo json_encode($data) ?>);
-});
+frontEditorData = <?php echo json_encode($data) ?>;
 </script>
 <?php
 	}

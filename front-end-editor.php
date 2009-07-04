@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 1.0.4
+Version: 1.0.5
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -38,9 +38,8 @@ function _fee_init()
 	load_plugin_textdomain('front-end-editor', 'wp-content/plugins/'. $plugin_dir . '/lang', $plugin_dir.'/lang');
 
 	// Load files
-	$files = array('/core.php', '/fields.php');
-	foreach ( $files as $path )
-		require_once dirname(__FILE__) . $path;
+	foreach ( array('core.php', 'fields.php') as $file )
+		require_once dirname(__FILE__) . '/' . $file;
 
 	// Load options
 	$options = new scbOptions('front-end-editor', __FILE__, array(
@@ -49,9 +48,9 @@ function _fee_init()
 		'chunks' => false,
 	));
 
-	frontEditor::init($options, '1.0.4');
+	frontEditor::init($options, '1.0.5');
 
-	if ( is_admin() ) 
+	if ( is_admin() )
 	{
 		require_once dirname(__FILE__) . '/admin.php';
 		new frontEditorAdmin(__FILE__, $options);

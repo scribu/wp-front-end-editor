@@ -68,7 +68,8 @@
 			this.textarea.css({overflow: 'hidden', display: 'block'});
 			this.textarea
 				.focus(function() { self.startExpand() })
-				.blur(function() { self.stopExpand() });
+//				.blur(function() { self.stopExpand() });
+// the user has to click the Save button twice, otherwise
 			this.checkExpand(0, true);
 		},
 
