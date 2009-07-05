@@ -58,7 +58,7 @@ jQuery(document).ready(function($)
 			var is_overlay = function($el)
 			{
 				var attr = $el.attr("rel") + ' ' + $el.attr("class");
-				attr = jQuery.trim(attr).split(' ');
+				attr = $.trim(attr).split(' ');
 
 				var tokens = ['lightbox', 'shutter', 'thickbox'];
 
@@ -138,7 +138,7 @@ jQuery(document).ready(function($)
 		get_data : function()
 		{
 			var data = {
-				nonce: frontEditorData['nonce'],
+				nonce: frontEditorData.nonce,
 				action: 'front-editor',
 				callback: 'get',
 				name: this.name,
@@ -147,7 +147,7 @@ jQuery(document).ready(function($)
 			};
 
 			var field = this;
-			jQuery.post(frontEditorData['request'], data, function(response)
+			$.post(frontEditorData.request, data, function(response)
 			{
 				field.container.val(response);
 
@@ -171,7 +171,7 @@ jQuery(document).ready(function($)
 		send_data : function()
 		{
 			var data = {
-				nonce: frontEditorData['nonce'],
+				nonce: frontEditorData.nonce,
 				action: 'front-editor',
 				callback: 'save',
 				name: this.name,
@@ -181,7 +181,7 @@ jQuery(document).ready(function($)
 			};
 
 			var field = this;
-			jQuery.post(frontEditorData['request'], data, function(response)
+			$.post(frontEditorData.request, data, function(response)
 			{
 				var speed = 'fast';
 
@@ -211,9 +211,9 @@ jQuery(document).ready(function($)
 	});
 
 	// Start click handling
-	for ( var i in frontEditorData['fields'] )
+	for ( var i in frontEditorData.fields )
 	{
-		var args = frontEditorData['fields'][i];
+		var args = frontEditorData.fields[i];
 		$('.front-ed-' + args[0]).each(function()
 		{
 			new editableField(this, args);
