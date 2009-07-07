@@ -1,11 +1,5 @@
 <?php
 
-add_action('template_redirect', 'front_editor_single', 1);
-function front_editor_single() {
-	if ( !is_single() )
-		remove_action('template_redirect', array('frontEditor', 'add_scripts'));
-}
-
 abstract class frontEditor 
 {
 	static $fields;
