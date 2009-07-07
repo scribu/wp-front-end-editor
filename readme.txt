@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.5
 Tested up to: 2.8
-Stable tag: trunk
+Stable tag: 1.0.5
 
 Enable "edit in place" functionality on your site. Compatible with any theme.
 
@@ -71,8 +71,12 @@ The third parameter is optional and allows you to pick which type of field you w
 
 Yes, but you have to know your way around WordPress' internals. Here is the [developer guide](http://scribu.net/wordpress/front-end-editor/developer-guide.html) to get you started.
 
+= How can I mark the fields as editable? =
+
+The easiest way is with CSS. You can use the *.front-ed* selector to style all editable fields on a page.
+
 = Title attributes =
-In some themes, links get weird title atributes. A workaround is to disable "The title" editable field.
+In some themes, links get weird title atributes. If this messes up your theme, just disable "The title" field.
 
 == Screenshots ==
 

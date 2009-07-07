@@ -1,5 +1,11 @@
 <?php
 
+add_action('template_redirect', 'front_editor_single', 1);
+function front_editor_single() {
+	if ( !is_single() )
+		remove_action('template_redirect', array('frontEditor', 'add_scripts'));
+}
+
 abstract class frontEditor 
 {
 	static $fields;
@@ -52,19 +58,19 @@ abstract class frontEditor
 // DEBUG
 // wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
-		$url = self::get_plugin_url() . '/inc';
+		$url = plugins_dir_url(__FILE__) . 'inc';
 
 		if ( self::$options->rich )
 		{
 			wp_enqueue_style('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.css');
-			wp_enqueue_script('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.js', array('jquery'), self::$version);
+			wp_enqueue_script('jwysiwyg', $url . '/js/jwysiwyg/jquery.wysiwyg.js', array('jquery'), self::$version, true);
 		}
 
-		wp_enqueue_script('autogrow', $url . '/js/autogrow.js', array('jquery'), self::$version);
+		wp_enqueue_script('autogrow', $url . '/js/autogrow.js', array('jquery'), '1.2.4', true);
 
 		// Core scripts
 		wp_enqueue_style('front-editor', $url . '/editor.css', self::$version);
-		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), self::$version);
+		wp_enqueue_script('front-editor', $url . '/editor.js', array('jquery'), self::$version, true);
 
 		add_action('wp_head', array(__CLASS__, 'add_filters'));
 	}
@@ -152,16 +158,19 @@ frontEditorData = <?php echo json_encode($data) ?>;
 	{
 		return self::$fields[$filter];
 	}
-
-	private static function get_plugin_url()
-	{
-		// WP < 2.6
-		if ( !function_exists('plugins_url') )
-			return get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__));
-
-		return plugins_url(plugin_basename(dirname(__FILE__)));
-	}
 }
+
+// WP < 2.8
+if ( !function_exists('plugins_dir_url') ) :
+function plugins_dir_url($file) 
+{
+	// WP < 2.6
+	if ( !function_exists('plugins_url') )
+		return trailingslashit(get_option('siteurl') . '/wp-content/plugins/' . plugin_basename($file));
+
+	return trailingslashit(plugins_url(plugin_basename(dirname($file))));
+}
+endif;
 
 /*
 Registers a new editable field

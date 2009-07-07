@@ -42,14 +42,14 @@
 		this.interval	 	  	= null;
 		this.line_height	  	= this.options.lineHeight || parseInt(jQuery(e).css('line-height'));
 		this.min_height		  	= this.options.minHeight || parseInt(jQuery(e).css('min-height'));
-		this.max_height		  	= this.options.maxHeight || parseInt(jQuery(e).css('max-height'));;
+		this.max_height		  	= this.options.maxHeight || parseInt(jQuery(e).css('max-height'));
 		this.textarea		  	= jQuery(e);
 
 		if (isNaN(this.line_height))
 			this.line_height = 0;
 
 		if (isNaN(this.min_height) || this.min_height == 0)
-			this.min_height == this.textarea.height();
+			this.min_height = this.textarea.height();
 
 		// Only one textarea activated at a time, the one being used
 		this.init();
@@ -65,7 +65,7 @@
 
 		init: function() {
 			var self = this;
-			this.textarea.css({overflow: 'hidden', display: 'block'});
+			this.textarea.css({overflow: 'hidden', display: 'block', height: this.min_height + 'px'});
 			this.textarea
 				.focus(function() { self.startExpand() })
 //				.blur(function() { self.stopExpand() });
@@ -94,12 +94,14 @@
 				this.dummy.css({
 					'font-size'  : this.textarea.css('font-size'),
 					'font-family': this.textarea.css('font-family'),
-					'width'	  : this.textarea.css('width'),
-					'padding'	: this.textarea.css('padding'),
+					'width'	     : this.textarea.css('width'),
+					'padding'	 : this.textarea.css('padding'),
 					'line-height': this.line_height + 'px',
+					'min-height' : this.min_height + 'px',
+					'max-height' : this.max_height + 'px',
 					'overflow-x' : 'hidden',
 					'position'   : 'absolute',
-					'top'		: 0,
+					'top'		 : 0,
 					'left'		 : -9999
 				}).appendTo('body');
 			}
@@ -117,6 +119,7 @@
 
 			// IE is different, as per usual
 //			if (jQuery.support.leadingWhitespace)
+// compatibility with jQuery 1.2.x
 			if (jQuery.browser.msie)
 				html = html.replace(/\n/g, '<br>');
 			else
