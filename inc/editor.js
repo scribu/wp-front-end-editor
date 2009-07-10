@@ -2,18 +2,18 @@ jQuery(document).ready(function($)
 {
 	var editableField = function(el, args)
 	{
-		this.set_el(el);
-		this.name = args[0];
+		var field = this;
+
+		field.set_el(el);
+		field.name = args[0];
 
 		// Set type, based on rel attribute
-		var rel = this.el.attr('rel').split('#');
+		var rel = field.el.attr('rel').split('#');
 
 		if (rel.length == 3)
-			this.type = rel[2];
+			field.type = rel[2];
 		else
-			this.type = args[1];
-
-		var field = this;
+			field.type = args[1];
 
 		field.el.click(field.click);
 
@@ -76,7 +76,7 @@ jQuery(document).ready(function($)
 				ev.stopPropagation();
 				ev.preventDefault();
 
-				frontEditorData.clicked = $el.attr('href');
+				frontEditorData.to_click = $el;
 			}
 
 			setTimeout(function()
@@ -84,8 +84,13 @@ jQuery(document).ready(function($)
 				if ( frontEditorData.trap )
 					return;
 
-				if ( typeof(frontEditorData.clicked) != 'undefined' )
-					window.location = frontEditorData.clicked;
+				var $el = frontEditorData.to_click;
+
+				if ( typeof($el) != 'undefined' )
+					if ( $el.attr('target') == '_blank' )
+						window.open($el.attr('href'));
+					else
+						window.location.href = $el.attr('href');
 			}, 300);
 		},
 

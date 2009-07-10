@@ -157,6 +157,7 @@ class scbForms
 			'name' => NULL,
 			'value' => NULL,
 			'desc' => NULL,
+			'checked' => NULL,
 		)), EXTR_SKIP);
 
 		// Expand names or values
@@ -206,9 +207,14 @@ class scbForms
 				$cur_args['desc'] = $desc;
 
 			// Find relevant formdata
-			$match = @$formdata[str_replace('[]', '', $$i1)];
-			if ( is_array($match) )
-				$match = $match[$i];
+			if ( $checked === NULL )
+			{
+				$match = @$formdata[str_replace('[]', '', $$i1)];
+				if ( is_array($match) )
+					$match = $match[$i];
+			}
+			else if ( is_array($checked) )
+				$cur_args['checked'] = $checked[$i];
 
 			$output[] = self::$func($cur_args, $match);
 
