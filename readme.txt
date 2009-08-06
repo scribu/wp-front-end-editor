@@ -88,6 +88,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 = 1.0.6 =
 * fixed links with target="_blank"
 * inputs and textareas are focused after double-clicking
+* added Russian translation
 
 = 1.0.5 =
 * added align buttons, fixed autogrow issue
