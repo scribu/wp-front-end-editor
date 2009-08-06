@@ -1,5 +1,5 @@
 /*
- * Auto Expanding Text Area (1.2.4)
+ * Auto Expanding Text Area (1.2.5)
  * by Chrys Bader (www.chrysbader.com)
  * chrysb@gmail.com
  *
@@ -16,9 +16,6 @@
  */
 
 (function(jQuery) {
-		
-	var self = null;
-
 	jQuery.fn.autogrow = function(o) {
 		return this.each(function() {
 			new jQuery.autogrow(this, o);
@@ -45,8 +42,8 @@
 		this.max_height		  	= this.options.maxHeight || parseInt(jQuery(e).css('max-height'));
 		this.textarea		  	= jQuery(e);
 
-		if (isNaN(this.line_height))
-			this.line_height = 0;
+		if (isNaN(this.line_height) || this.line_height == 0)
+			this.line_height = 14;	// IE thinks 'normal' is a helpful value
 
 		if (isNaN(this.min_height) || this.min_height == 0)
 			this.min_height = this.textarea.height();
@@ -56,7 +53,7 @@
 	}
 
 	jQuery.autogrow.fn = jQuery.autogrow.prototype = {
-		autogrow: '1.2.4'
+		autogrow: '1.2.5'
 	}
 
 	jQuery.autogrow.fn.extend = jQuery.autogrow.extend = jQuery.extend;
@@ -65,12 +62,11 @@
 
 		init: function() {
 			var self = this;
-			this.textarea.css({overflow: 'hidden', display: 'block', height: this.min_height + 'px'});
-			this.textarea
-				.focus(function() { self.startExpand() })
-//				.blur(function() { self.stopExpand() });
-// the user has to click the Save button twice, otherwise
-			this.checkExpand(0, true);
+			self.textarea
+				.css({overflow: 'hidden', display: 'block'})
+				.focus(function() { self.startExpand() });
+
+			self.checkExpand(0, true);
 		},
 
 		startExpand: function() {
@@ -78,8 +74,8 @@
 			// while focused, leave an extra line.  The cursor can never actually reach
 			// this extra line, but it makes the gesture for select-all much easier to perform
 			// (or, _possible_ to perform, if the last line is overflow-x-hidden)
-			this.checkExpand(this.line_height, true);
-			this.interval = window.setInterval(function() {self.checkExpand(self.line_height, false)}, 400);
+			self.checkExpand(self.line_height, true);
+			self.interval = window.setInterval(function() {self.checkExpand(self.line_height, false)}, 400);
 		},
 
 		stopExpand: function() {
@@ -128,7 +124,7 @@
 			if (forcecheck || this.dummy.html() != html)
 			{
 				this.dummy.html(html);
-				
+
 				var should_be_height = this.dummy.height() + extraspace + 1;
 				if (this.max_height > 0 && (should_be_height > this.max_height))
 				{
