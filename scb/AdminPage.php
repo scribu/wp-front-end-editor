@@ -40,7 +40,7 @@ abstract class scbAdminPage extends scbForms
 		$this->_check_args();
 
 		$this->file = $file;
-		$this->plugin_url = plugins_dir_url($file);
+		$this->plugin_url = plugin_dir_url($file);
 
 		if ( $options !== NULL )
 		{
@@ -83,9 +83,9 @@ abstract class scbAdminPage extends scbForms
 
 
 	// This is where the form data is validated
-	function validate($formdata)
+	function validate($new_data, $old_data)
 	{
-		return $formdata;
+		return $new_data;
 	}
 
 	// A generic form handler
@@ -99,7 +99,7 @@ abstract class scbAdminPage extends scbForms
 		foreach ( $this->formdata as $name => $value )
 			$new_data[$name] = $_POST[$name];
 
-		$this->formdata = $this->validate($new_data);
+		$this->formdata = $this->validate($new_data, $this->formdata);
 
 		if ( isset($this->options) )
 			$this->options->update($this->formdata);
@@ -287,8 +287,8 @@ abstract class scbAdminPage extends scbForms
 }
 
 // WP < 2.8
-if ( !function_exists('plugins_dir_url') ) :
-function plugins_dir_url($file) 
+if ( !function_exists('plugin_dir_url') ) :
+function plugin_dir_url($file) 
 {
 	// WP < 2.6
 	if ( !function_exists('plugins_url') )

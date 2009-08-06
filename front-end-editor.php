@@ -7,6 +7,7 @@ Author: scribu
 Author URI: http://scribu.net/
 Plugin URI: http://scribu.net/wordpress/front-end-editor
 Text Domain: front-end-editor
+Domain Path: /lang
 
 Copyright (C) 2009 scribu.net (scribu AT gmail DOT com)
 
@@ -31,7 +32,7 @@ _fee_init();
 function _fee_init()
 {
 	// Load scbFramework
-	require_once dirname(__FILE__) . '/inc/scb/load.php';
+	require_once dirname(__FILE__) . '/scb/load.php';
 
 	// Load translations
 	$plugin_dir = basename(dirname(__FILE__));

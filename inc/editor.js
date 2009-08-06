@@ -170,6 +170,9 @@ jQuery(document).ready(function($)
 					});
 				else if (field.type == 'textarea')
 					field.container.autogrow({lineHeight: 16});
+
+				if (field.type != 'rich')
+					field.container.focus();
 			});
 		},
 
