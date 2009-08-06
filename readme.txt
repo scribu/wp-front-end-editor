@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.5
 Tested up to: 2.8
-Stable tag: 1.0.5
+Stable tag: trunk
 
 Enable "edit in place" functionality on your site. Compatible with any theme.
 
@@ -84,6 +84,10 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 2. The settings page
 
 == Changelog ==
+
+= 1.0.6 =
+* fixed links with target="_blank"
+* inputs and textareas are focused after double-clicking
 
 = 1.0.5 =
 * added align buttons, fixed autogrow issue
