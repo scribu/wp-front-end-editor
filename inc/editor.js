@@ -148,8 +148,6 @@ jQuery(document).ready(function($)
 
 			field.el.hide().after(form);
 
-			form.before(spinner.show());
-
 			field.get_data(form);
 		},
 
@@ -165,6 +163,8 @@ jQuery(document).ready(function($)
 				type: field.type,
 				item_id: field.el.attr('rel')
 			};
+
+			form.before(spinner.show());
 
 			$.post(frontEditorData.request, data, function(response)
 			{
@@ -195,19 +195,24 @@ jQuery(document).ready(function($)
 
 		send_data : function()
 		{
+			var field = this;
+
+			field.el.before(spinner.show());
+
 			var data = {
 				nonce: frontEditorData.nonce,
 				action: 'front-editor',
 				callback: 'save',
-				name: this.name,
-				type: this.type,
-				item_id: this.el.attr('rel'),
-				content: this.container.val()
+				name: field.name,
+				type: field.type,
+				item_id: field.el.attr('rel'),
+				content: field.container.val()
 			};
 
-			var field = this;
 			$.post(frontEditorData.request, data, function(response)
 			{
+				spinner.hide();
+
 				var speed = 'fast';
 
 				if (field.type != 'input')
