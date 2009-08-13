@@ -98,13 +98,12 @@ jQuery(document).ready(function($)
 		{
 			var field = this;
 
-			if (field.type != 'input')
-				field.container = $('<textarea>');
-			else
-				field.container = $('<input type="text">');
-
-			field.container.addClass('front-editor-content');
-
+			var submit_form = function()
+			{
+				field.send_data();
+				remove_form();
+			};
+		
 			var remove_form = function()
 			{
 				frontEditorData.trap = false;
@@ -113,15 +112,25 @@ jQuery(document).ready(function($)
 				form.remove();
 			};
 
+			if (field.type != 'input')
+				field.container = $('<textarea>');
+			else
+			{
+				field.container = $('<input type="text">');
+				field.container.keypress(function(ev){
+					var code = (ev.keyCode ? ev.keyCode : ev.which);
+					if (code == 13)
+						submit_form();
+				});
+			}
+
+			field.container.addClass('front-editor-content');
+
 			// Set up form buttons
 			var save_button = $('<button>')
 				.attr({'class': 'front-editor-save', 'title': frontEditorData.save_text})
 				.text(frontEditorData.save_text)
-				.click(function(ev)
-				{
-					field.send_data();
-					remove_form();
-				});
+				.click(submit_form);
 
 			var cancel_button = $('<button>')
 				.attr({'class': 'front-editor-cancel', 'title': frontEditorData.cancel_text})
@@ -142,37 +151,39 @@ jQuery(document).ready(function($)
 
 		get_data : function()
 		{
+			var field = this;
+
 			var data = {
 				nonce: frontEditorData.nonce,
 				action: 'front-editor',
 				callback: 'get',
-				name: this.name,
-				type: this.type,
-				item_id: this.el.attr('rel')
+				name: field.name,
+				type: field.type,
+				item_id: field.el.attr('rel')
 			};
 
-			var field = this;
 			$.post(frontEditorData.request, data, function(response)
 			{
+				var jwysiwyg_args = {
+					controls : {
+						justifyLeft         : { visible : true },
+						justifyCenter       : { visible : true },
+						justifyRight        : { visible : true },
+						separator04         : { visible : true },
+						insertOrderedList   : { visible : true },
+						insertUnorderedList : { visible : true },
+						html				: { visible : true },
+					}
+				};
+
 				field.container.val(response);
 
 				if (field.type == 'rich')
-					field.container.wysiwyg({
-						controls : {
-							justifyLeft         : { visible : true },
-							justifyCenter       : { visible : true },
-							justifyRight        : { visible : true },
-							separator04         : { visible : true },
-							insertOrderedList   : { visible : true },
-							insertUnorderedList : { visible : true },
-							html				: { visible : true },
-						}
-					});
+					field.container.wysiwyg(jwysiwyg_args);
 				else if (field.type == 'textarea')
 					field.container.autogrow({lineHeight: 16});
 
-				if (field.type != 'rich')
-					field.container.focus();
+				field.container.focus();
 			});
 		},
 

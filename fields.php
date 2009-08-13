@@ -1,6 +1,6 @@
 <?php
 
-// All field classes should extend from this one
+// All field classes should extend from this one or one of it's descendants
 class frontEd_field
 {
 	// Mark the field as editable
@@ -42,7 +42,7 @@ class frontEd_field
 // Handles the_title and the_content fields
 class frontEd_basic extends frontEd_field
 {
-	function wrap($content, $filter = '')
+	function wrap($content, $filter = '', $id = '')
 	{
 		if ( ! self::post_check($GLOBALS['post']->ID) )
 			return $content;
@@ -50,7 +50,7 @@ class frontEd_basic extends frontEd_field
 		if ( empty($filter) )
 			$filter = current_filter();
 
-		return parent::wrap($content, $filter);
+		return parent::wrap($content, $filter, $id);
 	}
 
 	function get($id, $filter)
@@ -231,52 +231,6 @@ class frontEd_excerpt extends frontEd_basic
 	}
 }
 
-
-// Handles the_tags field
-class frontEd_tags extends frontEd_basic
-{
-	function wrap($content, $before, $sep, $after)
-	{
-		if ( empty($content) )
-			$content = __('[none]', 'front-end-editor');
-
-		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') )
-		{
-			// Figure out $before arg
-			$before = substr($content, 0, strpos($content, '<a'));
-
-			// Figure out $after arg
-			$tmp = explode('</a>', $content);
-			$after = $tmp[count($tmp)-1];
-		}
-
-		$content = str_replace(array($before, $after), '', $content);
-
-		return $before . parent::wrap($content, current_filter()) . $after;
-	}
-
-	function get($id)
-	{
-		$tags = get_the_tags($id);
-
-		if ( empty($tags) )
-			return;
-
-		foreach ( $tags as &$tag )
-			$tag = $tag->name;
-
-		return implode(', ', $tags);
-	}
-
-	function save($id, $tags)
-	{
-		wp_set_post_tags($id, $tags);
-
-		return get_the_term_list($id, 'post_tag', '', ', ');
-	}
-}
-
-
 // Handles comment_text field
 class frontEd_comment extends frontEd_field
 {
@@ -351,6 +305,92 @@ class frontEd_widget extends frontEd_field
 	}
 }
 
+// Handles the_tags field
+class frontEd_tags extends frontEd_basic
+{
+	function wrap($content, $before, $sep, $after)
+	{
+		if ( empty($content) )
+			$content = __('[none]', 'front-end-editor');
+
+		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') )
+		{
+			// Figure out $before arg
+			$before = substr($content, 0, strpos($content, '<a'));
+
+			// Figure out $after arg
+			$tmp = explode('</a>', $content);
+			$after = $tmp[count($tmp)-1];
+		}
+
+		$content = str_replace(array($before, $after), '', $content);
+
+		return $before . parent::wrap($content, current_filter()) . $after;
+	}
+
+	function get($id)
+	{
+		$tags = get_the_tags($id);
+
+		if ( empty($tags) )
+			return;
+
+		foreach ( $tags as &$tag )
+			$tag = $tag->name;
+
+		return implode(', ', $tags);
+	}
+
+	function save($id, $tags)
+	{
+		wp_set_post_tags($id, $tags);
+
+		$response = get_the_term_list($id, 'post_tag', '', ', ');
+
+		if ( empty($response) )
+			return __('[none]', 'front-end-editor');
+
+		return $response;
+	}
+}
+
+// Handles custom taxonomies
+class frontEd_terms extends frontEd_basic
+{
+	function wrap($content, $taxonomy, $before, $sep, $after)
+	{
+		if ( empty($content) )
+			$content = __('[none]', 'front-end-editor');
+
+		$id = implode('#', array($GLOBALS['post']->ID, $taxonomy));
+
+		$content = str_replace(array($before, $after), '', $content);
+
+		return $before . parent::wrap($content, current_filter(), $id) . $after;
+	}
+
+	function get($id)
+	{
+		list($post_id, $taxonomy) = explode('#', $id);
+
+		return get_terms_to_edit($post_id, $taxonomy);
+	}
+
+	function save($id, $terms)
+	{
+		list($post_id, $taxonomy) = explode('#', $id);
+
+		wp_set_post_terms($post_id, $terms, $taxonomy);
+
+		$response = get_the_term_list($id, $taxonomy, '', ', ');
+
+		if ( empty($response) )
+			return __('[none]', 'front-end-editor');
+
+		return $response;
+	}
+}
+
 class frontEd_meta extends frontEd_field
 {
 	function wrap($content, $post_id, $key, $type)
@@ -413,6 +453,12 @@ function fee_register_defaults()
 			'class' => 'frontEd_tags',
 			'argc' => 4,
 			'title' => __('Post tags', 'front-end-editor')
+		),
+
+		'the_terms' => array(
+			'class' => 'frontEd_terms',
+			'argc' => 5,
+			'title' => __('Post terms', 'front-end-editor')
 		),
 
 		'post_meta' => array(

@@ -160,6 +160,13 @@ class scbForms
 			'checked' => NULL,
 		)), EXTR_SKIP);
 
+		// Correct name
+		if ( !is_array($name) && is_array($value)
+			&& $type == 'checkbox'
+			&& false === strpos($name, '[')
+		)
+			$args['name'] = $name = $name . '[]';
+
 		// Expand names or values
 		if ( !is_array($name) && !is_array($value) )
 			$a = array($name => $value);
