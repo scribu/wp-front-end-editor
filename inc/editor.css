@@ -1,5 +1,5 @@
 .front-editor-container {display: block !important}
-textarea.front-editor-content {width: 100% !important}
+.front-editor-container, textarea.front-editor-content {width: 100% !important}
 button.front-editor-cancel {font-weight: bold; color:red}
 
 .wysiwyg .panel li:before {content:'' !important}

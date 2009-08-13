@@ -103,15 +103,19 @@ jQuery(document).ready(function($)
 			var submit_form = function()
 			{
 				field.send_data();
-				remove_form();
+				remove_form(true);
 			};
-		
-			var remove_form = function()
+
+			var remove_form = function(with_spinner)
 			{
 				frontEditorData.trap = false;
 
-				field.el.show();
 				form.remove();
+
+				if (with_spinner === true)
+					field.el.before(spinner.show());
+				else
+					field.el.show();
 			};
 
 			if (field.type != 'input')
@@ -140,13 +144,13 @@ jQuery(document).ready(function($)
 				.click(remove_form);
 
 			// Create form
-			var form = $('<div>').hide()
+			var form = $('<div>')
 				.addClass('front-editor-container')
 				.append(field.container)
 				.append(save_button)
 				.append(cancel_button);
 
-			field.el.hide().after(form);
+			field.el.hide().after(spinner.show());
 
 			field.get_data(form);
 		},
@@ -164,8 +168,6 @@ jQuery(document).ready(function($)
 				item_id: field.el.attr('rel')
 			};
 
-			form.before(spinner.show());
-
 			$.post(frontEditorData.request, data, function(response)
 			{
 				var jwysiwyg_args = {
@@ -182,13 +184,13 @@ jQuery(document).ready(function($)
 
 				field.container.val(response);
 
+				spinner.hide().replaceWith(form);
+
 				if (field.type == 'rich')
 					field.container.wysiwyg(jwysiwyg_args);
 				else if (field.type == 'textarea')
 					field.container.autogrow({lineHeight: 16});
 
-				spinner.hide();
-				form.show();
 				field.container.focus();
 			});
 		},
@@ -212,6 +214,7 @@ jQuery(document).ready(function($)
 			$.post(frontEditorData.request, data, function(response)
 			{
 				spinner.hide();
+				field.el.show();
 
 				var speed = 'fast';
 
