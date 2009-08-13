@@ -1,5 +1,7 @@
 jQuery(document).ready(function($)
 {
+	var spinner = $(new Image()).attr('src', frontEditorData.spinner);
+
 	var editableField = function(el, args)
 	{
 		var field = this;
@@ -138,7 +140,7 @@ jQuery(document).ready(function($)
 				.click(remove_form);
 
 			// Create form
-			var form = $('<div>')
+			var form = $('<div>').hide()
 				.addClass('front-editor-container')
 				.append(field.container)
 				.append(save_button)
@@ -146,10 +148,12 @@ jQuery(document).ready(function($)
 
 			field.el.hide().after(form);
 
-			field.get_data();
+			form.before(spinner.show());
+
+			field.get_data(form);
 		},
 
-		get_data : function()
+		get_data : function(form)
 		{
 			var field = this;
 
@@ -183,6 +187,8 @@ jQuery(document).ready(function($)
 				else if (field.type == 'textarea')
 					field.container.autogrow({lineHeight: 16});
 
+				spinner.hide();
+				form.show();
 				field.container.focus();
 			});
 		},

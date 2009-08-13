@@ -99,7 +99,8 @@ abstract class frontEditor
 			'cancel_text' => __('Cancel', 'front-end-editor'),
 			'fields' => $fields,
 			'request' => admin_url('admin-ajax.php'),
-			'nonce' => wp_create_nonce(self::$nonce)
+			'nonce' => wp_create_nonce(self::$nonce),
+			'spinner' => admin_url('images/loading.gif'),
 		);
 ?>
 <script type='text/javascript'>
