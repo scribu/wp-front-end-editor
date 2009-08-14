@@ -213,21 +213,9 @@ jQuery(document).ready(function($)
 
 			$.post(frontEditorData.request, data, function(response)
 			{
+				field.el.html(response);
 				spinner.hide();
 				field.el.show();
-
-				var speed = 'fast';
-
-				if (field.type != 'input')
-				{
-					field.el.css('display', 'block');
-					speed = 'normal';
-				}
-
-				field.el.fadeOut(speed, function()
-				{
-					field.el.html(response).fadeIn(speed);
-				});
 			});
 		}
 	};
