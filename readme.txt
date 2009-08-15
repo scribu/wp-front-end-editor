@@ -25,6 +25,7 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 		<li>content</li>
 		<li>excerpt</li>
 		<li>tags</li>
+		<li>custom taxonomies</li>
 		<li>custom fields</li>
 	</ul></li>
 	<li><strong>comments</strong>
