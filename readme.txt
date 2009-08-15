@@ -85,7 +85,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
-= 1.0 =
+= 1.1 =
 * custom taxonomies editing
 * usability improvements
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-1.html)
