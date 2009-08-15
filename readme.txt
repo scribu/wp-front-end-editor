@@ -88,6 +88,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 = 1.1 =
 * custom taxonomies editing
 * usability improvements
+* added turkish translation
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-1.html)
 
 = 1.0.6 =
