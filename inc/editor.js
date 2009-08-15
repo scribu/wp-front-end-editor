@@ -117,30 +117,19 @@ jQuery(document).ready(function($){
 			};
 
 			if (field.type != 'input')
-				field.container = $('<textarea>');
+				field.input = $('<textarea>');
 			else
-				field.container = $('<input type="text">');
+				field.input = $('<input type="text">');
 
-			field.container.keypress(function(ev){
-				// ENTER: 13, ESCAPE: 27
-
-				var code = (ev.keyCode || ev.which || ev.charCode || 0);
-
-				if (code == 13 && field.type == 'input')
-					submit_form();
-				else if (code == 27 && field.type != 'rich')
-					remove_form();
-			});
-
-			field.container.addClass('front-editor-content');
+			field.input.addClass('front-editor-content');
 
 			// Set up form buttons
-			var save_button = $('<button>')
+			field.save_button = $('<button>')
 				.attr({'class': 'front-editor-save', 'title': frontEditorData.save_text})
 				.text(frontEditorData.save_text)
 				.click(submit_form);
 
-			var cancel_button = $('<button>')
+			field.cancel_button = $('<button>')
 				.attr({'class': 'front-editor-cancel', 'title': frontEditorData.cancel_text})
 				.text('X')
 				.click(remove_form);
@@ -148,13 +137,29 @@ jQuery(document).ready(function($){
 			// Create form
 			var form = $('<div>')
 				.addClass('front-editor-container')
-				.append(field.container)
-				.append(save_button)
-				.append(cancel_button);
+				.append(field.input)
+				.append(field.save_button)
+				.append(field.cancel_button);
 
 			field.el.hide().after(spinner.show());
 
+			form.keypress(function(ev) { field.keypress(ev); });
+			
 			field.get_data(form);
+		},
+
+		keypress : function(ev)
+		{
+			var field = this;
+
+			var keys = {ENTER: 13, ESCAPE: 27};
+
+			var code = (ev.keyCode || ev.which || ev.charCode || 0);
+
+			if (code == keys.ENTER && field.type == 'input')
+				field.save_button.click();
+			else if (code == keys.ESCAPE)
+				field.cancel_button.click();
 		},
 
 		get_data : function(form)
@@ -184,16 +189,19 @@ jQuery(document).ready(function($){
 					}
 				};
 
-				field.container.val(response);
+				field.input.val(response);
 
 				spinner.hide().replaceWith(form);
 
 				if (field.type == 'rich')
-					field.container.wysiwyg(jwysiwyg_args);
+				{
+					field.input.wysiwyg(jwysiwyg_args);
+					form.find('#IFrame').contents().keypress(function(ev) { field.keypress(ev); });
+				}
 				else if (field.type == 'textarea')
-					field.container.autogrow({lineHeight: 16});
+					field.input.autogrow({lineHeight: 16});
 
-				field.container.focus();
+				field.input.focus();
 			});
 		},
 
@@ -210,7 +218,7 @@ jQuery(document).ready(function($){
 				name: field.name,
 				type: field.type,
 				item_id: field.el.attr('rel'),
-				content: field.container.val()
+				content: field.input.val()
 			};
 
 			$.post(frontEditorData.request, data, function(response)
