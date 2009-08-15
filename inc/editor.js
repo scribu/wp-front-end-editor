@@ -1,11 +1,13 @@
 jQuery(document).ready(function($){
 	var spinner = $('<img>').attr('src', frontEditorData.spinner);
 
-	var editableField = function(el, args){
+	var editableField = function(el, args)
+	{
 		var field = this;
 
 		field.set_el(el);
 		field.name = args[0];
+		field.spinner = spinner.clone();
 
 		// Set type, based on rel attribute
 		var rel = field.el.attr('rel').split('#');
@@ -98,6 +100,8 @@ jQuery(document).ready(function($){
 		{
 			var field = this;
 
+			field.get_data();
+
 			var submit_form = function()
 			{
 				field.send_data();
@@ -108,22 +112,15 @@ jQuery(document).ready(function($){
 			{
 				frontEditorData.trap = false;
 
-				form.remove();
+				field.form.remove();
 
 				if (with_spinner === true)
-					field.el.before(spinner.show());
+					field.el.before(field.spinner.show());
 				else
 					field.el.show();
 			};
 
-			if (field.type != 'input')
-				field.input = $('<textarea>');
-			else
-				field.input = $('<input type="text">');
-
-			field.input.addClass('front-editor-content');
-
-			// Set up form buttons
+			// Setup form buttons
 			field.save_button = $('<button>')
 				.attr({'class': 'front-editor-save', 'title': frontEditorData.save_text})
 				.text(frontEditorData.save_text)
@@ -135,17 +132,14 @@ jQuery(document).ready(function($){
 				.click(remove_form);
 
 			// Create form
-			var form = $('<div>')
+			field.form = $('<div>')
 				.addClass('front-editor-container')
-				.append(field.input)
 				.append(field.save_button)
 				.append(field.cancel_button);
 
-			field.el.hide().after(spinner.show());
+			field.el.hide().after(field.spinner.show());
 
-			form.keypress(function(ev) { field.keypress(ev); });
-			
-			field.get_data(form);
+			field.form.keypress(function(ev) { field.keypress(ev); });
 		},
 
 		keypress : function(ev)
@@ -162,7 +156,43 @@ jQuery(document).ready(function($){
 				field.cancel_button.click();
 		},
 
-		get_data : function(form)
+		setup_input : function(content)
+		{
+			var field = this;
+
+			var jwysiwyg_args = {
+				controls : {
+					justifyLeft         : { visible : true },
+					justifyCenter       : { visible : true },
+					justifyRight        : { visible : true },
+					separator04         : { visible : true },
+					insertOrderedList   : { visible : true },
+					insertUnorderedList : { visible : true },
+					html				: { visible : true }
+				}
+			};
+
+			field.input = (field.type == 'input') ? $('<input type="text">') : $('<textarea>');
+
+			field.input
+				.addClass('front-editor-content')
+				.val(content)
+				.prependTo(field.form);
+
+			field.spinner.hide().replaceWith(field.form);
+
+			if (field.type == 'rich')
+			{
+				field.input.wysiwyg(jwysiwyg_args);
+				field.form.find('#IFrame').contents().keypress(function(ev) { field.keypress(ev); });
+			}
+			else if (field.type == 'textarea')
+				field.input.autogrow({lineHeight: 16});
+
+			field.input.focus();
+		},
+
+		get_data : function()
 		{
 			var field = this;
 
@@ -175,33 +205,8 @@ jQuery(document).ready(function($){
 				item_id: field.el.attr('rel')
 			};
 
-			$.post(frontEditorData.request, data, function(response)
-			{
-				var jwysiwyg_args = {
-					controls : {
-						justifyLeft         : { visible : true },
-						justifyCenter       : { visible : true },
-						justifyRight        : { visible : true },
-						separator04         : { visible : true },
-						insertOrderedList   : { visible : true },
-						insertUnorderedList : { visible : true },
-						html				: { visible : true }
-					}
-				};
-
-				field.input.val(response);
-
-				spinner.hide().replaceWith(form);
-
-				if (field.type == 'rich')
-				{
-					field.input.wysiwyg(jwysiwyg_args);
-					form.find('#IFrame').contents().keypress(function(ev) { field.keypress(ev); });
-				}
-				else if (field.type == 'textarea')
-					field.input.autogrow({lineHeight: 16});
-
-				field.input.focus();
+			$.post(frontEditorData.request, data, function(response){
+				field.setup_input(response);
 			});
 		},
 
@@ -209,7 +214,7 @@ jQuery(document).ready(function($){
 		{
 			var field = this;
 
-			field.el.before(spinner.show());
+			field.el.before(field.spinner.show());
 
 			var data = {
 				nonce: frontEditorData.nonce,
@@ -221,10 +226,9 @@ jQuery(document).ready(function($){
 				content: field.input.val()
 			};
 
-			$.post(frontEditorData.request, data, function(response)
-			{
+			$.post(frontEditorData.request, data, function(response){
 				field.el.html(response);
-				spinner.hide();
+				field.spinner.hide();
 				field.el.show();
 			});
 		}
