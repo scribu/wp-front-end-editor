@@ -85,6 +85,11 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.0 =
+* custom taxonomies editing
+* usability improvements
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-1.html)
+
 = 1.0.6 =
 * fixed links with target="_blank"
 * inputs and textareas are focused after double-clicking

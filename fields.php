@@ -36,6 +36,11 @@ class frontEd_field
 	{
 		return current_user_can('edit_posts') or current_user_can('edit_pages');
 	}
+	
+	static function placeholder()
+	{
+		return '[' . __('empty', 'front-end-editor') . ']';
+	}
 }
 
 
@@ -311,7 +316,7 @@ class frontEd_tags extends frontEd_basic
 	function wrap($content, $before, $sep, $after)
 	{
 		if ( empty($content) )
-			$content = __('[empty]', 'front-end-editor');
+			$content = self::placeholder();
 
 		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') )
 		{
@@ -348,7 +353,7 @@ class frontEd_tags extends frontEd_basic
 		$response = get_the_term_list($id, 'post_tag', '', ', ');
 
 		if ( empty($response) )
-			return __('[empty]', 'front-end-editor');
+			return self::placeholder();
 
 		return $response;
 	}
@@ -360,7 +365,7 @@ class frontEd_terms extends frontEd_basic
 	function wrap($content, $taxonomy, $before, $sep, $after)
 	{
 		if ( empty($content) )
-			$content = __('[empty]', 'front-end-editor');
+			$content = self::placeholder();
 
 		$id = implode('#', array($GLOBALS['post']->ID, $taxonomy));
 
@@ -385,7 +390,7 @@ class frontEd_terms extends frontEd_basic
 		$response = get_the_term_list($id, $taxonomy, '', ', ');
 
 		if ( empty($response) )
-			return __('[empty]', 'front-end-editor');
+			return self::placeholder();
 
 		return $response;
 	}

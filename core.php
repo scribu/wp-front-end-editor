@@ -50,7 +50,7 @@ abstract class frontEditor
 			return;
 
 // DEBUG
-// wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
+# wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
 		$url = plugin_dir_url(__FILE__) . 'inc/';
 

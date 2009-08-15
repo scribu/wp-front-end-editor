@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-06-25 22:28+0300\n"
-"PO-Revision-Date: 2009-06-25 22:29+0200\n"
+"POT-Creation-Date: 2009-08-15 15:41+0300\n"
+"PO-Revision-Date: 2009-08-15 15:41+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,13 +20,13 @@ msgid "Fields"
 msgstr "Câmpuri"
 
 #: admin.php:11
-#: inc/scb/AdminPage.php:272
+#: scb/AdminPage.php:275
 msgid "Settings"
 msgstr "Setări"
 
 #: admin.php:41
 #: admin.php:85
-#: inc/scb/AdminPage.php:104
+#: scb/AdminPage.php:107
 msgid "Settings <strong>saved</strong>."
 msgstr "Setări <strong>salvate</strong>."
 
@@ -67,39 +67,43 @@ msgstr "Salvează"
 msgid "Cancel"
 msgstr "Anulează"
 
-#: fields.php:241
-msgid "[none]"
-msgstr "[niciuna]"
+#: fields.php:42
+msgid "empty"
+msgstr "gol"
 
-#: fields.php:397
+#: fields.php:442
 msgid "Post/page title"
 msgstr "Titlu articol/pagină"
 
-#: fields.php:403
+#: fields.php:448
 msgid "Post/page content"
 msgstr "Conținut articol/pagină"
 
-#: fields.php:409
+#: fields.php:454
 msgid "Post/page excerpt"
 msgstr "Extras articol/pagină"
 
-#: fields.php:415
+#: fields.php:460
 msgid "Post tags"
 msgstr "Etichete articol"
 
-#: fields.php:421
+#: fields.php:466
+msgid "Post terms"
+msgstr "Termeni articol"
+
+#: fields.php:472
 msgid "Post/page custom fields"
 msgstr "Câmpuri personalizate articol/pagină"
 
-#: fields.php:427
+#: fields.php:478
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: fields.php:433
+#: fields.php:484
 msgid "Text widget content"
 msgstr "Conținut widget text"
 
-#: fields.php:438
+#: fields.php:489
 msgid "Text widget title"
 msgstr "Titlu widget text"
 
@@ -122,4 +126,7 @@ msgstr ""
 #. Author URI of an extension
 msgid "http://scribu.net/"
 msgstr ""
+
+#~ msgid "[none]"
+#~ msgstr "[niciuna]"
 

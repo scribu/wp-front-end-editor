@@ -1,9 +1,7 @@
-jQuery(document).ready(function($)
-{
-	var spinner = $(new Image()).attr('src', frontEditorData.spinner);
+jQuery(document).ready(function($){
+	var spinner = $('<img>').attr('src', frontEditorData.spinner);
 
-	var editableField = function(el, args)
-	{
+	var editableField = function(el, args){
 		var field = this;
 
 		field.set_el(el);
@@ -121,14 +119,18 @@ jQuery(document).ready(function($)
 			if (field.type != 'input')
 				field.container = $('<textarea>');
 			else
-			{
 				field.container = $('<input type="text">');
-				field.container.keypress(function(ev){
-					var code = (ev.keyCode ? ev.keyCode : ev.which);
-					if (code == 13)
-						submit_form();
-				});
-			}
+
+			field.container.keypress(function(ev){
+				// ENTER: 13, ESCAPE: 27
+
+				var code = (ev.keyCode || ev.which || ev.charCode || 0);
+
+				if (code == 13 && field.type == 'input')
+					submit_form();
+				else if (code == 27 && field.type != 'rich')
+					remove_form();
+			});
 
 			field.container.addClass('front-editor-content');
 
@@ -178,7 +180,7 @@ jQuery(document).ready(function($)
 						separator04         : { visible : true },
 						insertOrderedList   : { visible : true },
 						insertUnorderedList : { visible : true },
-						html				: { visible : true },
+						html				: { visible : true }
 					}
 				};
 
@@ -221,8 +223,7 @@ jQuery(document).ready(function($)
 	};
 
 	// Widget text hack: Add rel attr to each element
-	$('.front-ed-widget_text, .front-ed-widget_title').each(function()
-	{
+	$('.front-ed-widget_text, .front-ed-widget_title').each(function(){
 		var $el = $(this);
 		var id = $el.parents('.widget_text').attr('id');
 		if (id)
@@ -235,10 +236,8 @@ jQuery(document).ready(function($)
 	for ( var i in frontEditorData.fields )
 	{
 		var args = frontEditorData.fields[i];
-		$('.front-ed-' + args[0]).each(function()
-		{
+		$('.front-ed-' + args[0]).each(function(){
 			new editableField(this, args);
 		});
 	}
 });
-

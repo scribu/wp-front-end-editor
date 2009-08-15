@@ -18,6 +18,9 @@ class scbForms
 	*/
 	function input($args, $formdata = array())
 	{
+		$args = self::_validate_data($args);
+		$formdata = self::_validate_data($formdata);
+		
 		// Backwards compat
 		foreach ( array('name', 'value') as $key )
 		{
@@ -149,6 +152,21 @@ class scbForms
 
 // ____________PRIVATE METHODS____________
 
+	// Recursivly transform empty arrays to ''
+	private static function _validate_data($data)
+	{
+		if ( empty($data) )
+			return '';
+			
+		if ( ! is_array($data) )
+			return $data;
+
+		foreach ( $data as $key => &$value )
+			if ( is_array($value) )
+				$value = self::_validate_data($value);
+
+		return $data;
+	}
 
 	// From multiple inputs to single inputs
 	private static function _input($args, $formdata)
