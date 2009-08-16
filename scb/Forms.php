@@ -424,7 +424,12 @@ class scbForms
 
 	private static function array_slice_assoc($array, $keys)
 	{
- 	   return array_intersect_key($array,array_flip($keys));
+		$r = array();
+		foreach ( $keys as $key )
+			if ( isset($array[$key]) )
+				$r[$key] = $array[$key];
+
+		return $r;			
 	}
 
 	private static function debug() 

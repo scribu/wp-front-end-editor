@@ -1,26 +1,27 @@
-msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
+"Project-Id-Version: Front End Editor in italiano\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2009-08-15 15:41+0300\n"
 "PO-Revision-Date: \n"
-"Last-Translator: scribu <scribu@gmail.com>\n"
-"Language-Team: \n"
+"Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
+"Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
 
 #: admin.php:10
 msgid "Fields"
 msgstr "Campi"
 
 #: admin.php:11
-#: inc/scb/AdminPage.php:272
+#: scb/AdminPage.php:275
 msgid "Settings"
 msgstr "Impostazioni"
 
 #: admin.php:41
 #: admin.php:85
-#: inc/scb/AdminPage.php:104
+#: scb/AdminPage.php:107
 msgid "Settings <strong>saved</strong>."
 msgstr "Le impostazioni sono state <strong>salvate</strong>."
 
@@ -61,39 +62,43 @@ msgstr "Salva"
 msgid "Cancel"
 msgstr "Annulla"
 
-#: fields.php:241
-msgid "[none]"
-msgstr "[nessuno]"
+#: fields.php:42
+msgid "empty"
+msgstr "vuoto"
 
-#: fields.php:397
+#: fields.php:442
 msgid "Post/page title"
 msgstr "Titolo articolo/pagina"
 
-#: fields.php:403
+#: fields.php:448
 msgid "Post/page content"
 msgstr "Contenuto articolo/pagina"
 
-#: fields.php:409
+#: fields.php:454
 msgid "Post/page excerpt"
 msgstr "Estratto articolo/pagina"
 
-#: fields.php:415
+#: fields.php:460
 msgid "Post tags"
 msgstr "Tag articolo"
 
-#: fields.php:421
+#: fields.php:466
+msgid "Post terms"
+msgstr "Termini articolo"
+
+#: fields.php:472
 msgid "Post/page custom fields"
 msgstr "Campi personalizzati articolo/pagina"
 
-#: fields.php:427
+#: fields.php:478
 msgid "Comment text"
 msgstr "Testo commenti"
 
-#: fields.php:433
+#: fields.php:484
 msgid "Text widget content"
 msgstr "Contenuto widget di testo"
 
-#: fields.php:438
+#: fields.php:489
 msgid "Text widget title"
 msgstr "Titolo widget di testo"
 
@@ -117,6 +122,8 @@ msgstr "scribu"
 msgid "http://scribu.net/"
 msgstr "http://scribu.net/"
 
+#~ msgid "[none]"
+#~ msgstr "[nessuno]"
 #~ msgid "Install now"
 #~ msgstr "Installa subito"
 

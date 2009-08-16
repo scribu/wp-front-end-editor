@@ -1,6 +1,6 @@
+.front-editor-spinner {border: 0 !important; width: 16px !important; height: 16px !important}
 .front-editor-container {display: block !important}
 .front-editor-container, textarea.front-editor-content {width: 100% !important}
-button.front-editor-cancel {font-weight: bold; color:red}
-
+.front-editor-cancel {font-weight: bold !important; color:red !important}
 .wysiwyg .panel li:before {content:'' !important}
 .wysiwyg .panel a {width:14px !important; height: 14px !important}

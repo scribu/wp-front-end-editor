@@ -1,5 +1,8 @@
 jQuery(document).ready(function($){
-	var spinner = $('<img>').attr('src', frontEditorData.spinner);
+	var spinner = $('<img>').attr({
+		'src': frontEditorData.spinner,
+		'class': 'front-editor-spinner'
+	});
 
 	var editableField = function(el, args)
 	{

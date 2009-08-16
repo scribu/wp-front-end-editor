@@ -1,106 +1,110 @@
-msgid ""
-msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-07-04 19:18+0300\n"
-"PO-Revision-Date: \n"
-"Last-Translator: scribu <scribu@gmail.com>\n"
-"Language-Team: \n"
+"Project-Id-Version: Clean Options\n"
+"Report-Msgid-Bugs-To: <http://www.mittineague.com/blog/2009/06/clean-options-translations/>\n"
+"POT-Creation-Date: 2009-08-07 00:00+0000\n"
+"PO-Revision-Date: 2009-08-17 01:09+0300\n"
+"Last-Translator: Fat Cow <zhr@tut.by>\n"
+"Language-Team: Fat Cow <zhr@tut.by>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Belarusian\n"
+"X-Poedit-Country: BELARUS\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
 
 #: admin.php:10
 msgid "Fields"
-msgstr "ÐÐ¾Ð»Ñ"
+msgstr "Поля"
 
 #: admin.php:11
 #: inc/scb/AdminPage.php:275
 msgid "Settings"
-msgstr "ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ¸"
+msgstr "Настройки"
 
 #: admin.php:41
 #: admin.php:85
 #: inc/scb/AdminPage.php:107
 msgid "Settings <strong>saved</strong>."
-msgstr "ÐÐ°ÑÑÑÐ¾Ð¹ÐºÐ¸ <strong>ÑÐ¾ÑÑÐ°Ð½ÐµÐ½Ñ</strong>."
+msgstr "Настройки <strong>сохранены</strong>."
 
 #: admin.php:47
 msgid "Enable or disable editable fields"
-msgstr "ÐÐºÐ»ÑÑÐ¸ÑÑ Ð¸Ð»Ð¸ Ð²ÑÐºÐ»ÑÑÐ¸ÑÑ ÑÐµÐ´Ð°ÐºÑÐ¸ÑÑÐµÐ¼ÑÐµ Ð¿Ð¾Ð»Ñ"
+msgstr "Включить или отключить редактируемые поля"
 
 #: admin.php:53
 msgid "Field name"
-msgstr "ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð¿Ð¾Ð»Ñ"
+msgstr "Имя поля"
 
 #: admin.php:74
 #: admin.php:106
 msgid "Save changes"
-msgstr "Ð¡Ð¾ÑÑÐ°Ð½Ð¸ÑÑ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ"
+msgstr "Сохранить настройки"
 
 #: admin.php:92
 msgid "Rich text editor"
-msgstr "Ð ÐµÐ´Ð°ÐºÑÐ¾Ñ ÑÐµÐºÑÑÐ°"
+msgstr "RTE-редактор"
 
 #: admin.php:93
 msgid "Enable the WYSIWYG editor"
-msgstr "ÐÐºÐ»ÑÑÐ¸ÑÑ WYSIWYG ÑÐµÐ´Ð°ÐºÑÐ¾Ñ"
+msgstr "Включить WYSIWYG редактор"
 
 #: admin.php:99
 msgid "Edit paragraphs"
-msgstr "Ð ÐµÐ´Ð°ÐºÑÐ¸ÑÐ¾Ð²Ð°ÑÑ Ð¿Ð°ÑÐ°Ð³ÑÐ°ÑÑ"
+msgstr "Редактировать абзацы"
 
 #: admin.php:100
 msgid "Edit one paragraph at a time, instead of an entire post"
-msgstr "ÐÐ·Ð¼ÐµÐ½Ð¸ÑÑ Ð¾Ð´Ð¸Ð½ Ð¿Ð°ÑÐ°Ð³ÑÐ°Ñ Ð·Ð° ÑÐ°Ð·, Ð²Ð¼ÐµÑÑÐ¾ Ð²ÑÐµÐ³Ð¾ ÑÐ¾Ð¾Ð±ÑÐµÐ½Ð¸Ñ"
+msgstr "Редактировать абзац вместо целого поста"
 
 #: core.php:98
 msgid "Save"
-msgstr "Ð¡Ð¾ÑÑÐ°Ð½Ð¸ÑÑ"
+msgstr "Сохранить"
 
 #: core.php:99
 msgid "Cancel"
-msgstr "ÐÑÐ¼ÐµÐ½Ð¸ÑÑ"
+msgstr "Отмена"
 
 #: fields.php:241
 msgid "[none]"
-msgstr "[Ð½Ð¸ÑÐµÐ³Ð¾]"
+msgstr "[нет]"
 
 #: fields.php:397
 msgid "Post/page title"
-msgstr "ÐÐ°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ðº ÑÐ¾Ð¾ÑÐµÐ½Ð¸Ñ/ÑÑÑÐ°Ð½Ð¸ÑÑ"
+msgstr "Заглавие поста/страницы"
 
 #: fields.php:403
 msgid "Post/page content"
-msgstr "ÐÐ°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ ÑÐ¾Ð¾Ð±ÑÐµÐ½Ð¸Ñ/ÑÑÑÐ°Ð½Ð¸ÑÑ"
+msgstr "Содержание поста/страницы"
 
 #: fields.php:409
 msgid "Post/page excerpt"
-msgstr "ÐÑÐ´ÐµÑÐ¶ÐºÐ° ÑÐ¾Ð¾Ð±ÑÐµÐ½Ð¸Ñ/ÑÑÑÐ°Ð½Ð¸ÑÑ"
+msgstr "Выдержка поста/страницы"
 
 #: fields.php:415
 msgid "Post tags"
-msgstr "Ð¢ÐµÐ³Ð¸ ÑÐ¾Ð¾Ð±ÑÐµÐ½Ð¸Ñ"
+msgstr "Теги поста"
 
 #: fields.php:421
 msgid "Post/page custom fields"
-msgstr "ÐÐ°ÑÑÑÐ°Ð¸Ð²Ð°ÐµÐ¼ÑÐµ Ð¿Ð¾Ð»Ñ ÑÐ¾Ð¾Ð±ÑÐµÐ½Ð¸Ñ/ÑÑÑÐ°Ð½Ð¸ÑÑ"
+msgstr "Пользовательские поля поста/страницы"
 
 #: fields.php:427
 msgid "Comment text"
-msgstr "Ð¢ÐµÐºÑÑ ÐºÐ¾Ð¼Ð¼ÐµÐ½ÑÐ°ÑÐ¸Ñ"
+msgstr "Текст комментария"
 
 #: fields.php:433
 msgid "Text widget content"
-msgstr "ÐÐ°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ ÑÐµÐºÑÑÐ¾Ð²Ð¾Ð³Ð¾ Ð²Ð¸Ð´Ð¶ÐµÑÐ°"
+msgstr "Содержание текстового виджета"
 
 #: fields.php:438
 msgid "Text widget title"
-msgstr "ÐÐ°Ð³Ð¾Ð»Ð¾Ð²Ð¾Ð³Ð¾ ÑÐµÐºÑÑÐ¾Ð²Ð¾Ð³Ð¾ Ð²Ð¸Ð´Ð¶ÐµÑÐ°"
+msgstr "Заглавие текстового виджета"
 
 #. Plugin Name of an extension
 msgid "Front-end Editor"
-msgstr "Front-end Editor"
+msgstr "Front-end редактор"
 
 #. Plugin URI of an extension
 msgid "http://scribu.net/wordpress/front-end-editor"
@@ -108,7 +112,7 @@ msgstr "http://scribu.net/wordpress/front-end-editor"
 
 #. Description of an extension
 msgid "Allows you to edit your posts without going through the admin interface"
-msgstr "ÐÐ¾Ð·Ð²Ð¾Ð»ÑÐµÑ ÑÐµÐ´Ð°ÐºÑÐ¸ÑÐ¾Ð²Ð°ÑÑ Ð²Ð°ÑÐ¸ ÑÐ¾Ð¾Ð±ÑÐµÐ½Ð¸Ñ Ð±ÐµÐ· Ð·Ð°ÑÐ¾Ð´Ð° Ð² Ð¿Ð°Ð½ÐµÐ»Ñ Ð°Ð´Ð¼Ð¸Ð½Ð¸ÑÑÑÐ°ÑÐ¾ÑÐ°"
+msgstr "Разрешить вам редактировать пост без использования администраторской панели"
 
 #. Author of an extension
 msgid "scribu"
