@@ -86,6 +86,10 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.1.2 =
+* updated italian translation
+* added belarusian translation
+
 = 1.1 =
 * custom taxonomies editing
 * usability improvements
