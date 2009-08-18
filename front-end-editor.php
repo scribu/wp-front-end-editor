@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 1.1.2
+Version: 1.1.3
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -49,7 +49,7 @@ function _fee_init()
 		'chunks' => false,
 	));
 
-	frontEditor::init($options, '1.1.1');
+	frontEditor::init($options, '1.1.3');
 
 	if ( is_admin() )
 	{

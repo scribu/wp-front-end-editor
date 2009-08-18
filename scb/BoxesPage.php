@@ -112,7 +112,9 @@ abstract class scbBoxesPage extends scbAdminPage
 
 		check_admin_referer($this->nonce);
 
-		do_action('form-handler-' . $this->pagehook);
+		// Box handler
+		foreach ( $this->boxes as $box )
+			call_user_func(array($this, $box[0] . '_handler'));
 
 		if ( $this->options )
 			$this->formdata = $this->options->get();
@@ -154,13 +156,7 @@ abstract class scbBoxesPage extends scbAdminPage
 	function _add_boxes()
 	{
 		foreach($this->boxes as $i)
-		{
-			// Add boxes
 			add_meta_box($i[0], $i[1], array($this, "{$i[0]}_box"), $this->pagehook, $i[2]);
-
-			// Add handlers
-			add_action('form-handler-' . $this->pagehook, array($this, "{$i[0]}_handler"));
-		}
 	}
 
 	// Adds necesary code for JS to work

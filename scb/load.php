@@ -53,7 +53,7 @@ class scbLoad
 		else
 			// Load all classes manually (PHP < 5.1)
 			foreach ( array('scbForms', 'scbOptions', 'scbWidget', 'scbCron',
-				'scbAdminPage', 'scbBoxesPage') as $class )
+				'scbAdminPage', 'scbBoxesPage', 'scbTable', 'scbDependency') as $class )
 				$this->autoload($class);
 	}
 
@@ -88,5 +88,5 @@ class scbLoad
 }
 endif;
 
-new scbLoad(__FILE__, 48);
+new scbLoad(__FILE__, 51);
 

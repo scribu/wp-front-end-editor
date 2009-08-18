@@ -232,6 +232,7 @@ class scbForms
 				$cur_args['desc'] = $desc;
 
 			// Find relevant formdata
+			$match = NULL;
 			if ( $checked === NULL )
 			{
 				$match = @$formdata[str_replace('[]', '', $$i1)];
