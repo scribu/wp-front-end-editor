@@ -187,12 +187,31 @@ jQuery(document).ready(function($){
 			if (field.type == 'rich')
 			{
 				field.input.wysiwyg(jwysiwyg_args);
-				field.form.find('#IFrame').contents().keypress(function(ev) { field.keypress(ev); });
+				
+				field.wysiwyg_enhancements();
 			}
 			else if (field.type == 'textarea')
 				field.input.autogrow({lineHeight: 16});
 
 			field.input.focus();
+		},
+		
+		wysiwyg_enhancements : function()
+		{
+			var field = this;
+			var $i = field.form.find('#IFrame');
+			var $body = $i.contents().find('body');
+
+			$i.contents().keypress(function(e) { field.keypress(e); });
+
+			$i.css('overflow-y', 'hidden');
+
+			setInterval(function(){
+				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
+
+				if (should_be_height != $i.height())
+					$i.height(should_be_height);
+			}, 400);
 		},
 
 		get_data : function()

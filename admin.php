@@ -4,11 +4,13 @@ class frontEditorAdmin extends scbBoxesPage
 {
 	function setup()
 	{
-		$this->args = array('page_title' => 'Front-end Editor');
+		$this->textdomain = 'front-end-editor';
+
+		$this->args = array('page_title' => __('Front-end Editor', $this->textdomain));
 
 		$this->boxes = array(
-			array('fields', __('Fields', 'front-end-editor'), 'normal'),
-			array('settings', __('Settings', 'front-end-editor'), 'side'),
+			array('fields', __('Fields', $this->textdomain), 'normal'),
+			array('settings', __('Settings', $this->textdomain), 'side'),
 		);
 	}
 
@@ -44,13 +46,13 @@ class frontEditorAdmin extends scbBoxesPage
 	function fields_box()
 	{
 ?>
-<p><?php _e('Enable or disable editable fields', 'front-end-editor'); ?>:</p>
+<p><?php _e('Enable or disable editable fields', $this->textdomain); ?>:</p>
 <?php ob_start(); ?>
 	<table class="widefat" style="width:auto">
 		<thead>
 		<tr>
 			<th scope="col" class="check-column"><input type="checkbox" /></th>
-			<th scope="col"><?php _e('Field name', 'front-end-editor') ?></th>
+			<th scope="col"><?php _e('Field name', $this->textdomain) ?></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -71,7 +73,7 @@ class frontEditorAdmin extends scbBoxesPage
 		</tbody>
 	</table>
 <?php
-		echo $this->form_wrap(ob_get_clean(), __('Save changes', 'front-end-editor'), 'manage_fields');
+		echo $this->form_wrap(ob_get_clean(), __('Save changes', $this->textdomain), 'manage_fields');
 	}
 
 	function settings_handler()
@@ -89,21 +91,21 @@ class frontEditorAdmin extends scbBoxesPage
 	{
 		$rows = array(
 			array(
-				'title' => __('Rich text editor', 'front-end-editor'),
-				'desc' => __('Enable the WYSIWYG editor', 'front-end-editor'),
+				'title' => __('Rich text editor', $this->textdomain),
+				'desc' => __('Enable the WYSIWYG editor', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'rich',
 			),
 
 			array(
-				'title' => __('Edit paragraphs', 'front-end-editor'),
-				'desc' => __('Edit one paragraph at a time, instead of an entire post', 'front-end-editor'),
+				'title' => __('Edit paragraphs', $this->textdomain),
+				'desc' => __('Edit one paragraph at a time, instead of an entire post', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'chunks',
 			)
 		);
 
-		echo $this->form_table($rows, $this->options->get(),  __('Save changes', 'front-end-editor'), 'save_settings');
+		echo $this->form_table($rows, $this->options->get(),  __('Save changes', $this->textdomain), 'save_settings');
 	}
 }
 
