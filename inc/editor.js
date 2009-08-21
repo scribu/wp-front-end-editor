@@ -21,16 +21,7 @@ jQuery(document).ready(function($){
 			field.type = args[1];
 
 		field.el.click(field.click);
-
-		field.el.dblclick(function(ev)
-		{
-			ev.stopPropagation();
-			ev.preventDefault();
-
-			frontEditorData.trap = true;
-
-			field.form_handler();
-		});
+		field.el.dblclick(field.dblclick);
 	};
 
 	editableField.prototype = 
@@ -59,8 +50,9 @@ jQuery(document).ready(function($){
 
 		click : function(ev)
 		{
-			$el = $(ev.target);
-			var is_overlay = function($el)
+			var $el = $(ev.target);
+
+			var is_overlay = function()
 			{
 				var attr = $el.attr("rel") + ' ' + $el.attr("class");
 				attr = $.trim(attr).split(' ');
@@ -76,7 +68,7 @@ jQuery(document).ready(function($){
 			}
 
 			// Child single click
-			if ( $el.is('a') && !is_overlay($el) )
+			if ( $el.is('a') && !is_overlay() )
 			{
 				ev.stopPropagation();
 				ev.preventDefault();
@@ -98,6 +90,18 @@ jQuery(document).ready(function($){
 						window.location.href = $el.attr('href');
 			}, 300);
 		},
+
+		dblclick : function(ev)
+		{
+			var field = this;
+
+			ev.stopPropagation();
+			ev.preventDefault();
+
+			frontEditorData.trap = true;
+
+			field.form_handler();
+		});
 
 		form_handler : function()
 		{

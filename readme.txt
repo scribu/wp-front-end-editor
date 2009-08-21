@@ -56,6 +56,14 @@ You can either install it automatically from the WordPress admin, or do it manua
 
 No. To edit a field, a user must be logged in and have the right permissions. For example, to edit the post content from the front-end, a user must be able to edit the post content from the regular back-end editor.
 
+= How can I change the hover color? =
+
+You can add this line to *style.css* in your theme directory:
+
+`.front-ed:hover, .front-ed:hover * {background-color: color !important}`
+
+where *color* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
+
 = How can I edit custom fields? =
 
 Since custom fields can be used in so many ways, you have to edit your theme and replace code like this:

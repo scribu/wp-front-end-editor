@@ -372,7 +372,7 @@ class scbForms
 
 			$cur_extra = array();
 			if ( $key == $cur_val )
-				$cur_extra[] = "selected='selected'";
+				$cur_extra[] = " selected='selected'";
 
 			$cur_extra = implode(' ', $cur_extra);
 

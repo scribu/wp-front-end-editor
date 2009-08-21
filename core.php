@@ -155,17 +155,61 @@ frontEditorData = <?php echo json_encode($data) ?>;
 	}
 }
 
-// WP < 2.8
-if ( !function_exists('plugin_dir_url') ) :
-function plugin_dir_url($file) 
+// All field classes should extend from this one or one of it's descendants
+class frontEd_field
 {
-	// WP < 2.6
-	if ( !function_exists('plugins_url') )
-		return trailingslashit(get_option('siteurl') . '/wp-content/plugins/' . plugin_basename($file));
+	// Mark the field as editable
+	function wrap($content, $filter = '', $id)
+	{
+		if ( is_feed() )
+			return $content;
 
-	return trailingslashit(plugins_url(plugin_basename(dirname($file))));
+		if ( empty($filter) )
+			$filter = current_filter();
+
+		$class = 'front-ed-' . $filter . ' front-ed';
+
+		return "<span rel='{$id}' class='{$class}'>{$content}</span>";
+	}
+
+	// Retrieve the current data for the field
+	function get($object_id, $filter, $args)
+	{
+		if ( function_exists('get_called_class') )
+			$class = "<strong>" . get_called_class() . "</strong>";
+		else
+			$class = 'the child class';
+
+		trigger_error("The get() must be implemented in a subclass", E_USER_ERROR);
+	}
+
+	// Save the data retrieved from the field
+	function save($object_id, $content, $filter, $args)
+	{
+		if ( function_exists('get_called_class') )
+			$class = "<strong>" . get_called_class() . "</strong>";
+		else
+			$class = 'the child class';
+
+		trigger_error("The save() must be implemented in a subclass", E_USER_ERROR);
+	}
+
+	// Check user permissions
+	function check($object_id = 0)
+	{
+		if ( function_exists('get_called_class') )
+			$class = "<strong>" . get_called_class() . "</strong>";
+		else
+			$class = 'the child class';
+
+		trigger_error("The check() method must be implemented in $class", E_USER_ERROR);
+	}
+
+	function placeholder()
+	{
+		return '[' . __('empty', 'front-end-editor') . ']';
+	}
 }
-endif;
 
 /*
 Registers a new editable field
@@ -182,4 +226,17 @@ function register_fronted_field()
 {
 	frontEditor::register(func_get_args());
 }
+
+
+// WP < 2.8
+if ( !function_exists('plugin_dir_url') ) :
+function plugin_dir_url($file) 
+{
+	// WP < 2.6
+	if ( !function_exists('plugins_url') )
+		return trailingslashit(get_option('siteurl') . '/wp-content/plugins/' . plugin_basename($file));
+
+	return trailingslashit(plugins_url(plugin_basename(dirname($file))));
+}
+endif;
 
