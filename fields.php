@@ -36,11 +36,8 @@ class frontEd_basic extends frontEd_field
 		return $content;
 	}
 
-	function check($post_id = 0)
+	function check($post_id)
 	{
-		if ( ! $post_id )
-			return current_user_can('edit_posts') or current_user_can('edit_pages');
-
 		$type = get_post_field('post_type', $post_id);
 
 		return current_user_can("edit_$type", $post_id);
@@ -62,7 +59,7 @@ class frontEd_chunks extends frontEd_basic
 	{
 		$post_id = get_the_ID();
 
-		if ( ! self::post_check($post_id) )
+		if ( ! self::check($post_id) )
 			return $content;
 
 		$chunks = self::split($content);
@@ -197,6 +194,10 @@ class frontEd_comment extends frontEd_field
 	function wrap($content)
 	{
 		global $comment;
+		
+		if ( ! self::check($comment->comment_ID) )
+			return $content;
+
 		return parent::wrap($content, '', $comment->comment_ID);
 	}
 
@@ -216,14 +217,16 @@ class frontEd_comment extends frontEd_field
 		return $content;
 	}
 
-	function check($comment_id = 0)
+	function check($comment_id)
 	{
+		if ( current_user_can('moderate_comments') )
+			return true;
+
 		global $user_ID;
 
 		$comment = get_comment($comment_id);
 
-debug($user_ID, $comment->user_id);
-		return current_user_can('moderate_comments') || $user_ID == $comment->user_id;
+		return $user_ID == $comment->user_id;
 	}
 }
 
@@ -400,13 +403,13 @@ class frontEd_author_desc extends frontEd_field
 		if ( ! $author_id )
 			return $content;
 
-		if ( ! self::author_check($author_id) )
+		if ( ! self::check($author_id) )
 			return $content;
 
 		if ( empty($content) )
 			$content = self::placeholder();
 
-		parent::wrap($content, '', $author_id);
+		return parent::wrap($content, '', $author_id);
 	}
 
 	// Retrieve the current data for the field
@@ -422,14 +425,14 @@ class frontEd_author_desc extends frontEd_field
 		return $content;
 	}
 
-	function check($author_id = 0)
+	function check($author_id)
 	{
-		if ( ! $author_id )
+		if ( current_user_can('edit_users') )
 			return true;
 
 		global $user_ID;
 
-		return current_user_can('edit_users') || $user_ID == $author_id;
+		return $user_ID == $author_id;
 	}
 
 	// WP < 2.9 ?

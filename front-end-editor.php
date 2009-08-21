@@ -44,12 +44,12 @@ function _fee_init()
 
 	// Load options
 	$options = new scbOptions('front-end-editor', __FILE__, array(
-		'disable' => array(),
+		'disabled' => array(),
 		'rich' => true,
 		'chunks' => false,
 	));
 
-	frontEditor::init($options, '1.1.4');
+	frontEditor::init($options, '1.2');
 
 	if ( is_admin() )
 	{

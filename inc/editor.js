@@ -20,8 +20,8 @@ jQuery(document).ready(function($){
 		else
 			field.type = args[1];
 
-		field.el.click(field.click);
-		field.el.dblclick(field.dblclick);
+		field.el.click(function(ev) { field.click(ev) });
+		field.el.dblclick(function(ev) { field.dblclick(ev) });
 	};
 
 	editableField.prototype = 
@@ -101,7 +101,7 @@ jQuery(document).ready(function($){
 			frontEditorData.trap = true;
 
 			field.form_handler();
-		});
+		},
 
 		form_handler : function()
 		{

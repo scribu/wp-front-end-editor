@@ -73,12 +73,12 @@ abstract class frontEditor
 	{
 		foreach ( self::$fields as $name => $args )
 		{
-			if ( @in_array($name, self::$options->disabled) )
+			if ( in_array($name, self::$options->disabled) )
 				continue;
 
 			extract($args);
-			if ( call_user_func(array($class, 'check')) )
-				add_filter($name, array($class, 'wrap'), $priority, $argc);
+
+			add_filter($name, array($class, 'wrap'), $priority, $argc);
 		}
 
 		self::pass_to_js();
@@ -195,7 +195,7 @@ class frontEd_field
 	}
 
 	// Check user permissions
-	function check($object_id = 0)
+	function check($object_id)
 	{
 		if ( function_exists('get_called_class') )
 			$class = "<strong>" . get_called_class() . "</strong>";
