@@ -88,5 +88,5 @@ class scbLoad
 }
 endif;
 
-new scbLoad(__FILE__, 51);
+new scbLoad(__FILE__, 52);
 

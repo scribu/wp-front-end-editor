@@ -244,7 +244,12 @@ abstract class scbAdminPage extends scbForms
 		extract($this->args);
 
 		$this->pagehook = add_submenu_page($parent, $page_title, $menu_title, $capability, $page_slug, array($this, '_page_content_hook'));
+
+		if ( ! $this->pagehook )
+			return;
+
 		$this->ajax_response();
+
 		add_action('admin_footer', array($this, 'ajax_submit'), 20);
 		add_action('admin_print_styles-' . $this->pagehook, array($this, 'page_head'));
 	}
