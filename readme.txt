@@ -94,6 +94,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.1.4 =
+* fix white screen error for non-admins
+
 = 1.1.3 =
 * css bugfix
 * added belarusian translation
