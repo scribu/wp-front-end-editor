@@ -30,8 +30,8 @@ jQuery(document).ready(function($){
 		{
 			this.el = $(el);
 
-			// From a > span > content
-			// To span > a > content
+			// From a > .front-ed > content
+			// To .front-ed > a > content
 			var $parent = this.el.parents('a');
 
 			if ( !$parent.length )

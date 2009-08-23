@@ -1,11 +1,14 @@
 <?php
 
-abstract class frontEditor 
+abstract class frontEditor
 {
-	static $fields;
-	static $version;
-	static $nonce = 'front-editor';
 	static $options;
+
+	private static $fields;
+	private static $instances = array();
+
+	private static $version;
+	private static $nonce = 'front-editor';
 
 	static function init($options, $version)
 	{
@@ -37,7 +40,7 @@ abstract class frontEditor
 		$args = wp_parse_args($args, array(
 			'title' => ucfirst(str_replace('_', ' ', $filter)),
 			'type' => 'input',
-			'priority' => 99,
+			'priority' => 10,
 			'argc' => 1
 		));
 
@@ -78,7 +81,10 @@ abstract class frontEditor
 
 			extract($args);
 
-			add_filter($name, array($class, 'wrap'), $priority, $argc);
+			$instance = new $class($name, $type);
+			self::$instances[$class] = $instance;
+
+			add_filter($name, array($instance, 'wrap'), $priority, $argc);
 		}
 
 		self::pass_to_js();
@@ -125,23 +131,23 @@ frontEditorData = <?php echo json_encode($data) ?>;
 			die(-1);
 
 		// Does the user have the right to do this?
-		if ( ! call_user_func(array($args['class'], 'check'), $id) )
+		$instance = self::$instances[$args['class']];
+
+		if ( ! $instance->check($id) )
 			die(-1);
 
-		// Make sure the charset is set correctly
+		// WP < 2.8
 		header('Content-Type: text/html; charset=' . get_option('blog_charset'));
-
-		$callback = array($args['class'], $action);
 
 		if ( $action == 'save' )
 		{
 			$content = stripslashes_deep($_POST['content']);
-			$result = call_user_func($callback, $id, $content, $name, $args);
+			$result = $instance->save($id, $content, $args);
 			$result = apply_filters($name, $result);
-		} 
+		}
 		elseif ( $action == 'get' )
 		{
-			$result = call_user_func($callback, $id, $name, $args);
+			$result = $instance->get($id, $args);
 			if ( $type == 'rich' )
 				$result = wpautop($result);
 		}
@@ -158,18 +164,32 @@ frontEditorData = <?php echo json_encode($data) ?>;
 // All field classes should extend from this one or one of it's descendants
 class frontEd_field
 {
+	protected $filter;
+	protected $type;
+
+	function __construct($filter, $type)
+	{
+		$this->filter = $filter;
+		$this->type = $type;
+		
+		$this->setup();
+	}
+
+	// Optional actions to be done once per instance
+	function setup(){}
+
 	// Mark the field as editable
-	function wrap($content, $filter = '', $id)
+	function wrap($content, $id)
 	{
 		if ( is_feed() )
 			return $content;
 
-		if ( empty($filter) )
-			$filter = current_filter();
+		$class = 'front-ed-' . $this->filter . ' front-ed';
 
-		$class = 'front-ed-' . $filter . ' front-ed';
-
-		return "<span rel='{$id}' class='{$class}'>{$content}</span>";
+		if ( $this->type == 'input' )
+			return "<span rel='{$id}' class='{$class}'>{$content}</span>";
+		else
+			return "<div rel='{$id}' class='{$class}'>{$content}</div>";
 	}
 
 	// Retrieve the current data for the field
@@ -218,7 +238,7 @@ Registers a new editable field
 @param array $args(
 	'class' => string (mandatory)
 	'type' => string: 'input' | 'textarea' | 'rich' (default: input)
-	'priority' => integer (default: 99)
+	'priority' => integer (default: 10)
 	'argc' => integer (default: 1)
 )
 */

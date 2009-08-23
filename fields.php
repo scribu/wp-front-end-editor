@@ -3,7 +3,14 @@
 // Handles the_title and the_content fields
 class frontEd_basic extends frontEd_field
 {
-	function wrap($content, $filter = '', $post_id = 0)
+	protected $field;
+
+	function setup()
+	{
+		$this->field = str_replace('the_', 'post_', $this->filter);
+	}
+
+	function wrap($content, $post_id = 0)
 	{
 		if ( ! $post_id )
 			$post_id = get_the_ID();
@@ -14,23 +21,19 @@ class frontEd_basic extends frontEd_field
 		if ( ! self::check($post_id) )
 			return $content;
 
-		return parent::wrap($content, $filter, $post_id);
+		return parent::wrap($content, $post_id);
 	}
 
-	function get($post_id, $filter)
+	function get($post_id)
 	{
-		$field = self::get_col($filter);
-
-		return get_post_field($field, $post_id);
+		return get_post_field($this->field, $post_id);
 	}
 
-	function save($post_id, $content, $filter)
+	function save($post_id, $content)
 	{
-		$field = self::get_col($filter);
-
 		wp_update_post(array(
 			'ID' => $post_id,
-			$field => $content
+			$this->field => $content
 		));
 
 		return $content;
@@ -42,12 +45,6 @@ class frontEd_basic extends frontEd_field
 
 		return current_user_can("edit_$type", $post_id);
 	}
-
-	// Get wp_posts column
-	protected function get_col($filter)
-	{
-		return str_replace('the_', 'post_', $filter);
-	}
 }
 
 // Handles <p> in the_content
@@ -55,7 +52,7 @@ class frontEd_chunks extends frontEd_basic
 {
 	const delim = "\n\n";
 
-	function wrap($content, $filter = '')
+	function wrap($content)
 	{
 		$post_id = get_the_ID();
 
@@ -65,12 +62,12 @@ class frontEd_chunks extends frontEd_basic
 		$chunks = self::split($content);
 
 		foreach ( $chunks as $i => $chunk )
-			$chunks[$i] = '<p>' . frontEd_field::wrap($chunk, '', "$post_id#$i") . '</p>';
+			$chunks[$i] = '<p>' . frontEd_field::wrap($chunk, "$post_id#$i") . '</p>';
 
 		return implode('', $chunks);
 	}
 
-	function get($post_id, $filter)
+	function get($post_id)
 	{
 		list($post_id, $chunk_id) = explode('#', $post_id);
 
@@ -81,7 +78,7 @@ class frontEd_chunks extends frontEd_basic
 		return $chunks[$chunk_id];
 	}
 
-	function save($post_id, $content, $filter)
+	function save($post_id, $content)
 	{
 		list($post_id, $chunk_id) = explode('#', $post_id);
 
@@ -160,7 +157,7 @@ class frontEd_excerpt extends frontEd_basic
 
 		wp_update_post(array(
 			'ID' => $post_id,
-			$field => $content
+			'post_excerpt' => $excerpt
 		));
 
 		if ( empty($excerpt) )
@@ -198,7 +195,7 @@ class frontEd_comment extends frontEd_field
 		if ( ! self::check($comment->comment_ID) )
 			return $content;
 
-		return parent::wrap($content, '', $comment->comment_ID);
+		return parent::wrap($content, $comment->comment_ID);
 	}
 
 	function get($comment_id)
@@ -233,42 +230,40 @@ class frontEd_comment extends frontEd_field
 // Handles widget_text
 class frontEd_widget extends frontEd_field
 {
+	function setup()
+	{
+		$this->field = str_replace('widget_', '', $this->filter);
+	}
+
 	function get($id, $filter)
 	{
 		$widget_id = self::get_id($id);
-		$field = self::get_col($filter);
 
 		$widgets = get_option('widget_text');
 
-		return $widgets[$widget_id][$field];
+		return $widgets[$widget_id][$this->field];
 	}
 
 	function save($id, $content, $filter)
 	{
 		$widget_id = self::get_id($id);
-		$field = self::get_col($filter);
 
 		$widgets = get_option('widget_text');
-		$widgets[$widget_id][$field] = $content;
+		$widgets[$widget_id][$this->field] = $content;
 
 		update_option('widget_text', $widgets);
 
 		return $content;
 	}
 
-	protected function get_id($id)
-	{
-		return str_replace('text-', '', $id);
-	}
-
-	protected function get_col($filter)
-	{
-		return str_replace('widget_', '', $filter);
-	}
-
 	function check()
 	{
 		return current_user_can('edit_themes');
+	}
+
+	protected function get_id($id)
+	{
+		return str_replace('text-', '', $id);
 	}
 }
 
@@ -292,7 +287,7 @@ class frontEd_tags extends frontEd_basic
 		else
 			$content = str_replace(array($before, $after), '', $content);
 
-		return $before . parent::wrap($content, '') . $after;
+		return $before . parent::wrap($content) . $after;
 	}
 
 	function get($post_id)
@@ -333,7 +328,7 @@ class frontEd_terms extends frontEd_basic
 		else
 			$content = str_replace(array($before, $after), '', $content);
 
-		return $before . parent::wrap($content, '', $post_id) . $after;
+		return $before . parent::wrap($content, $post_id) . $after;
 	}
 
 	function get($id)
@@ -363,9 +358,11 @@ class frontEd_meta extends frontEd_basic
 {
 	function wrap($content, $post_id, $key, $type)
 	{
+		$this->type = $type;
+
 		$id = implode('#', array($post_id, $key, $type));
 
-		return parent::wrap($content, '', $id);
+		return parent::wrap($content, $id);
 	}
 
 	function get($id)
@@ -375,7 +372,7 @@ class frontEd_meta extends frontEd_basic
 		return get_post_meta($post_id, $key, true);
 	}
 
-	function save($id, $content, $filter)
+	function save($id, $content)
 	{
 		list($post_id, $key) = explode('#', $id);
 
@@ -409,7 +406,7 @@ class frontEd_author_desc extends frontEd_field
 		if ( empty($content) )
 			$content = self::placeholder();
 
-		return parent::wrap($content, '', $author_id);
+		return parent::wrap($content, $author_id);
 	}
 
 	// Retrieve the current data for the field
@@ -435,7 +432,7 @@ class frontEd_author_desc extends frontEd_field
 		return $user_ID == $author_id;
 	}
 
-	// WP < 2.9 ?
+	// WP < 2.9
 	function guess_author_id()
 	{
 		if ( function_exists('get_the_author_meta') )
@@ -453,63 +450,63 @@ function fee_register_defaults()
 {
 	$fields = array(
 		'the_title' => array(
+			'title' => __('Post/page title', 'front-end-editor')
 			'class' => 'frontEd_basic',
 			'type' => 'input',
-			'title' => __('Post/page title', 'front-end-editor')
 		),
 		
 		'the_content' => array(
+			'title' => __('Post/page content', 'front-end-editor'),
 			'class' => frontEditor::$options->chunks ? 'frontEd_chunks' : 'frontEd_basic',
 			'type' => frontEditor::$options->rich ? 'rich' : 'textarea',
-			'title' => __('Post/page content', 'front-end-editor')
 		),
 
 		'the_excerpt' => array(
+			'title' => __('Post/page excerpt', 'front-end-editor')
 			'class' => 'frontEd_excerpt',
 			'type' => 'textarea',
-			'title' => __('Post/page excerpt', 'front-end-editor')
 		),
 
 		'the_tags' => array(
+			'title' => __('Post tags', 'front-end-editor')
 			'class' => 'frontEd_tags',
 			'argc' => 4,
-			'title' => __('Post tags', 'front-end-editor')
 		),
 
 		'the_terms' => array(
+			'title' => __('Post terms', 'front-end-editor')
 			'class' => 'frontEd_terms',
 			'argc' => 5,
-			'title' => __('Post terms', 'front-end-editor')
 		),
 
 		'post_meta' => array(
+			'title' => __('Post/page custom fields', 'front-end-editor')
 			'class' => 'frontEd_meta',
 			'argc' => 4,
-			'title' => __('Post/page custom fields', 'front-end-editor')
 		),
 
 		'comment_text' => array(
+			'title' => __('Comment text', 'front-end-editor')
 			'class' => 'frontEd_comment',
 			'type' => 'textarea',
-			'title' => __('Comment text', 'front-end-editor')
 		),
 
 		'the_author_description' => array(
+			'title' => __('Author description', 'front-end-editor')
 			'class' => 'frontEd_author_desc',
 			'type' => 'textarea',
 			'argc' => 2,
-			'title' => __('Author description', 'front-end-editor')
 		),
 
 		'widget_text' => array(
+			'title' => __('Text widget content', 'front-end-editor')
 			'class' => 'frontEd_widget',
 			'type' => 'textarea',
-			'title' => __('Text widget content', 'front-end-editor')
 		),
 
 		'widget_title' => array(
-			'class' => 'frontEd_widget',
 			'title' => __('Text widget title', 'front-end-editor')
+			'class' => 'frontEd_widget',
 		),
 	);
 
