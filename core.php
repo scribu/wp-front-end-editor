@@ -17,7 +17,10 @@ abstract class frontEditor
 
 		// Set core hooks
 		add_action('template_redirect', array(__CLASS__, 'add_scripts'));
+		add_action('wp_head', array(__CLASS__, 'pass_to_js'));
 		add_action('wp_ajax_front-editor', array(__CLASS__, 'ajax_response'));
+		
+		add_action('front_ed_fields', array(__CLASS__, 'add_filters'), 100);
 	}
 
 	// Register a new editable field
@@ -68,8 +71,6 @@ abstract class frontEditor
 		// Core scripts
 		wp_enqueue_style('front-editor', $url . 'editor.css', self::$version);
 		wp_enqueue_script('front-editor', $url . 'editor.js', array('jquery'), self::$version, true);
-
-		add_action('wp_head', array(__CLASS__, 'add_filters'));
 	}
 
 	static function add_filters()
@@ -86,8 +87,6 @@ abstract class frontEditor
 
 			add_filter($name, array($instance, 'wrap'), $priority, $argc);
 		}
-
-		self::pass_to_js();
 	}
 
 	// Send necesarry info to JS land

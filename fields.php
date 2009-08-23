@@ -450,7 +450,7 @@ function fee_register_defaults()
 {
 	$fields = array(
 		'the_title' => array(
-			'title' => __('Post/page title', 'front-end-editor')
+			'title' => __('Post/page title', 'front-end-editor'),
 			'class' => 'frontEd_basic',
 			'type' => 'input',
 		),
@@ -462,50 +462,50 @@ function fee_register_defaults()
 		),
 
 		'the_excerpt' => array(
-			'title' => __('Post/page excerpt', 'front-end-editor')
+			'title' => __('Post/page excerpt', 'front-end-editor'),
 			'class' => 'frontEd_excerpt',
 			'type' => 'textarea',
 		),
 
 		'the_tags' => array(
-			'title' => __('Post tags', 'front-end-editor')
+			'title' => __('Post tags', 'front-end-editor'),
 			'class' => 'frontEd_tags',
 			'argc' => 4,
 		),
 
 		'the_terms' => array(
-			'title' => __('Post terms', 'front-end-editor')
+			'title' => __('Post terms', 'front-end-editor'),
 			'class' => 'frontEd_terms',
 			'argc' => 5,
 		),
 
 		'post_meta' => array(
-			'title' => __('Post/page custom fields', 'front-end-editor')
+			'title' => __('Post/page custom fields', 'front-end-editor'),
 			'class' => 'frontEd_meta',
 			'argc' => 4,
 		),
 
 		'comment_text' => array(
-			'title' => __('Comment text', 'front-end-editor')
+			'title' => __('Comment text', 'front-end-editor'),
 			'class' => 'frontEd_comment',
 			'type' => 'textarea',
 		),
 
 		'the_author_description' => array(
-			'title' => __('Author description', 'front-end-editor')
+			'title' => __('Author description', 'front-end-editor'),
 			'class' => 'frontEd_author_desc',
 			'type' => 'textarea',
 			'argc' => 2,
 		),
 
 		'widget_text' => array(
-			'title' => __('Text widget content', 'front-end-editor')
+			'title' => __('Text widget content', 'front-end-editor'),
 			'class' => 'frontEd_widget',
 			'type' => 'textarea',
 		),
 
 		'widget_title' => array(
-			'title' => __('Text widget title', 'front-end-editor')
+			'title' => __('Text widget title', 'front-end-editor'),
 			'class' => 'frontEd_widget',
 		),
 	);
