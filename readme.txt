@@ -56,6 +56,10 @@ You can either install it automatically from the WordPress admin, or do it manua
 
 == Frequently Asked Questions ==
 
+= I double click on a field and nothing happens. Why? =
+
+Because the javascript is not loaded. Make sure your theme has wp_footer() somewhere in footer.php
+
 = If I use this plugin, won't everybody be able to edit my content? =
 
 No. To edit a field, a user must be logged in and have the right permissions. For example, to edit the post content from the front-end, a user must be able to edit the post content from the regular back-end editor.
