@@ -88,7 +88,7 @@ abstract class frontEditor
 			extract($args);
 
 			$instance = new $class($name, $type);
-			self::$instances[$class] = $instance;
+			self::$instances[$name] = $instance;
 
 			if ( ! is_admin() )
 				add_filter($name, array($instance, 'wrap'), $priority, $argc);
@@ -132,14 +132,14 @@ frontEditorData = <?php echo json_encode($data) ?>;
 		$action = $_POST['callback'];
 
 		// Is the current field defined?
-		if ( ! $args = self::$fields[$name] )
+		if ( ! $instance = self::$instances[$name] )
 			die(-1);
 
 		// Does the user have the right to do this?
-		$instance = self::$instances[$args['class']];
-
 		if ( ! $instance->check($id) )
 			die(-1);
+
+		$args = self::$fields[$name];
 
 		// WP < 2.8
 		header('Content-Type: text/html; charset=' . get_option('blog_charset'));
