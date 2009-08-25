@@ -34,7 +34,7 @@ class frontEditorAdmin extends scbBoxesPage
 		if ( !isset($_POST['manage_fields']) )
 			return;
 
-		foreach ( array_keys(frontEditor::$fields) as $field )
+		foreach ( array_keys( frontEditor::get_fields() ) as $field )
 			if ( !isset($_POST[$field]) )
 				$disabled[] = $field;
 
@@ -56,7 +56,7 @@ class frontEditorAdmin extends scbBoxesPage
 		</tr>
 		</thead>
 		<tbody>
-<?php foreach ( frontEditor::$fields as $field => $args ) { ?>
+<?php foreach ( frontEditor::get_fields() as $field => $args ) { ?>
 			<tr>
 				<th scope='row' class='check-column'>
 					<?php

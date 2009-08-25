@@ -50,6 +50,11 @@ abstract class frontEditor
 		self::$fields[$filter] = $args;
 	}
 
+	static function get_fields()
+	{
+		return self::$fields;
+	}
+
 	static function add_scripts()
 	{
 		if ( !is_user_logged_in() )
