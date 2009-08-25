@@ -32,6 +32,10 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 	<ul>
 		<li>content</li>
 	</ul></li>
+	<li><strong>authors</strong>
+	<ul>
+		<li>description</li>
+	</ul></li>
 	<li><strong>text widgets</strong>
 	<ul>
 		<li>title</li>
