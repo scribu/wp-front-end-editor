@@ -103,7 +103,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * yellow background while hovering over editable field
 * experimental wysiwyg autogrow
 * hopefully valid xHTML
+* HTML code is cleaned up before saving
 * added Portuguese translation
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-2.html)
 
 = 1.1.4 =
 * fix white screen error for non-admins
