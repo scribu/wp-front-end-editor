@@ -203,15 +203,18 @@ jQuery(document).ready(function($){
 		wysiwyg_enhancements : function()
 		{
 			var field = this;
+			var $i = field.form.find('#IFrame');
 
 			// Hotkeys
 			$i.contents().keypress(function(e) { field.keypress(e); });
 
 			// Autogrow
-			if ( jQuery.browser.msie )
+			if ( $.browser.msie )
+			{
+				$i.css('height', '200px');
 				return;
+			}
 
-			var $i = field.form.find('#IFrame');
 			var $body = $i.contents().find('body');
 
 			$i.css('overflow-y', 'hidden');
@@ -254,7 +257,7 @@ jQuery(document).ready(function($){
 				name: field.name,
 				type: field.type,
 				item_id: field.el.attr('rel'),
-				content: field.input.val()
+				content: field.pre_wpautop(field.input.val())
 			};
 
 			$.post(frontEditorData.request, data, function(response){
@@ -262,6 +265,65 @@ jQuery(document).ready(function($){
 				field.spinner.hide();
 				field.el.show();
 			});
+		},
+
+		// Copied from wp-admin/js/editor.dev.js		
+		pre_wpautop : function(content) {
+			var blocklist1, blocklist2;
+
+			// Protect pre|script tags
+			content = content.replace(/<(pre|script)[^>]*>[\s\S]+?<\/\1>/g, function(a) {
+				a = a.replace(/<br ?\/?>[\r\n]*/g, '<wp_temp>');
+				return a.replace(/<\/?p( [^>]*)?>[\r\n]*/g, '<wp_temp>');
+			});
+
+			// Pretty it up for the source editor
+			blocklist1 = 'blockquote|ul|ol|li|table|thead|tbody|tr|th|td|div|h[1-6]|p';
+			content = content.replace(new RegExp('\\s*</('+blocklist1+')>\\s*', 'mg'), '</$1>\n');
+			content = content.replace(new RegExp('\\s*<(('+blocklist1+')[^>]*)>', 'mg'), '\n<$1>');
+
+			// Mark </p> if it has any attributes.
+			content = content.replace(new RegExp('(<p [^>]+>.*?)</p>', 'mg'), '$1</p#>');
+
+			// Sepatate <div> containing <p>
+			content = content.replace(new RegExp('<div([^>]*)>\\s*<p>', 'mgi'), '<div$1>\n\n');
+
+			// Remove <p> and <br />
+			content = content.replace(new RegExp('\\s*<p>', 'mgi'), '');
+			content = content.replace(new RegExp('\\s*</p>\\s*', 'mgi'), '\n\n');
+			content = content.replace(new RegExp('\\n\\s*\\n', 'mgi'), '\n\n');
+			content = content.replace(new RegExp('\\s*<br ?/?>\\s*', 'gi'), '\n');
+
+			// Fix some block element newline issues
+			content = content.replace(new RegExp('\\s*<div', 'mg'), '\n<div');
+			content = content.replace(new RegExp('</div>\\s*', 'mg'), '</div>\n');
+			content = content.replace(new RegExp('\\s*\\[caption([^\\[]+)\\[/caption\\]\\s*', 'gi'), '\n\n[caption$1[/caption]\n\n');
+			content = content.replace(new RegExp('caption\\]\\n\\n+\\[caption', 'g'), 'caption]\n\n[caption');
+
+			blocklist2 = 'blockquote|ul|ol|li|table|thead|tr|th|td|h[1-6]|pre';
+			content = content.replace(new RegExp('\\s*<(('+blocklist2+') ?[^>]*)\\s*>', 'mg'), '\n<$1>');
+			content = content.replace(new RegExp('\\s*</('+blocklist2+')>\\s*', 'mg'), '</$1>\n');
+			content = content.replace(new RegExp('<li([^>]*)>', 'g'), '\t<li$1>');
+
+			if ( content.indexOf('<object') != -1 ) {
+				content = content.replace(/<object[\s\S]+?<\/object>/g, function(a){
+					return a.replace(/[\r\n]+/g, '');
+				});
+			}
+
+			// Unmark special paragraph closing tags
+			content = content.replace(new RegExp('</p#>', 'g'), '</p>\n');
+			content = content.replace(new RegExp('\\s*(<p [^>]+>.*</p>)', 'mg'), '\n$1');
+
+			// Trim whitespace
+			content = content.replace(new RegExp('^\\s*', ''), '');
+			content = content.replace(new RegExp('[\\s\\u00a0]*$', ''), '');
+
+			// put back the line breaks in pre|script
+			content = content.replace(/<wp_temp>/g, '\n');
+
+			// Hope.
+			return content;
 		}
 	};
 
