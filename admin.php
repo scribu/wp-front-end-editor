@@ -73,7 +73,7 @@ class frontEditorAdmin extends scbBoxesPage
 		</tbody>
 	</table>
 <?php
-		echo $this->form_wrap(ob_get_clean(), __('Save changes', $this->textdomain), 'manage_fields');
+		echo $this->form_wrap(ob_get_clean(), '', 'manage_fields');
 	}
 
 	function settings_handler()
@@ -105,7 +105,7 @@ class frontEditorAdmin extends scbBoxesPage
 			)
 		);
 
-		echo $this->form_table($rows, $this->options->get(),  __('Save changes', $this->textdomain), 'save_settings');
+		echo $this->form_table($rows, $this->options->get(), '', 'save_settings');
 	}
 }
 
