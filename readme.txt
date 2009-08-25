@@ -94,6 +94,13 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.2 =
+* made author description editable
+* yellow background while hovering over editable field
+* experimental wysiwyg autogrow
+* hopefully valid xHTML
+* added Portuguese translation
+
 = 1.1.4 =
 * fix white screen error for non-admins
 
