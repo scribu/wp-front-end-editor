@@ -203,13 +203,18 @@ jQuery(document).ready(function($){
 		wysiwyg_enhancements : function()
 		{
 			var field = this;
+
+			// Hotkeys
+			$i.contents().keypress(function(e) { field.keypress(e); });
+
+			// Autogrow
+			if ( jQuery.browser.msie )
+				return;
+
 			var $i = field.form.find('#IFrame');
 			var $body = $i.contents().find('body');
 
-			$i.contents().keypress(function(e) { field.keypress(e); });
-
 			$i.css('overflow-y', 'hidden');
-
 			setInterval(function(){
 				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
 

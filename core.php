@@ -82,7 +82,7 @@ abstract class frontEditor
 	{
 		foreach ( self::$fields as $name => $args )
 		{
-			if ( in_array($name, self::$options->disabled) )
+			if ( in_array($name, (array) self::$options->disabled) )
 				continue;
 
 			extract($args);
