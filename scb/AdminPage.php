@@ -157,10 +157,10 @@ abstract class scbAdminPage extends scbForms
 	}
 
 	// Generates a form submit button
-	function submit_button($value = 'Save Changes', $action = 'action', $class = "button")
+	function submit_button($value = '', $action = 'action', $class = "button")
 	{
 		if ( empty($value) )
-			return;
+			$value = __('Save Changes', $this->textdomain);
 
 		$args = array(
 			'type' => 'submit',

@@ -85,7 +85,8 @@ abstract class frontEditor
 			$instance = new $class($name, $type);
 			self::$instances[$class] = $instance;
 
-			add_filter($name, array($instance, 'wrap'), $priority, $argc);
+			if ( ! is_admin() )
+				add_filter($name, array($instance, 'wrap'), $priority, $argc);
 		}
 	}
 
