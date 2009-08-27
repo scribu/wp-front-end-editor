@@ -1,5 +1,5 @@
 .front-ed:hover, .front-ed:hover * {background-color: #FFFFA5}
-.front-editor-container {display:block !important}
+div.front-ed {display:block}
 .front-editor-container, textarea.front-editor-content {width:100% !important}
 .front-editor-cancel {font-weight:bold !important; color:red !important}
 .front-editor-spinner {border:0 !important; width:16px !important; height:16px !important}

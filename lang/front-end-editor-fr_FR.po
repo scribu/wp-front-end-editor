@@ -9,96 +9,136 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
 "X-Poedit-Basepath: ../\n"
-": \n"
-"X-Poedit-SearchPath-0: ."
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
 
-#: admin.php:52
+#: admin.php:49
+#@ front-end-editor
 msgid "Enable or disable editable fields"
 msgstr "Activer ou désactiver les champs éditables"
 
-#: admin.php:58
+#: admin.php:55
+#@ front-end-editor
 msgid "Field name"
 msgstr "Nom du champ"
 
-#: admin.php:79
-#: admin.php:100
-msgid "Save changes"
-msgstr "Sauvegarder les modifications"
-
-#: admin.php:86
+#: admin.php:94
+#@ front-end-editor
 msgid "Rich text editor"
 msgstr ""
 
-#: admin.php:87
+#: admin.php:95
+#@ front-end-editor
 msgid "Enable the WYSIWYG editor"
 msgstr "Activer l'éditeur WYSIWYG"
 
-#: admin.php:10
-#: inc/scb/AdminPage.php:246
+#: admin.php:13
+#: scb/AdminPage.php:338
+#@ front-end-editor
 msgid "Settings"
 msgstr "Réglages"
 
-#: fields.php:391
+#: fields.php:453
+#@ front-end-editor
 msgid "Post/page title"
 msgstr "Titre du billet/page"
 
-#: fields.php:397
+#: fields.php:459
+#@ front-end-editor
 msgid "Post/page content"
 msgstr "Contenu du billet/page"
 
-#: fields.php:403
+#: fields.php:465
+#@ front-end-editor
 msgid "Post/page excerpt"
 msgstr "Extrait des billets/page"
 
-#: fields.php:409
+#: fields.php:471
+#@ front-end-editor
 msgid "Post tags"
 msgstr "Tags du billet"
 
-#: fields.php:415
+#: fields.php:483
+#@ front-end-editor
 msgid "Post/page custom fields"
 msgstr "Custom fields (champs personnalisés) des billets/pages"
 
-#: fields.php:421
+#: fields.php:489
+#@ front-end-editor
 msgid "Comment text"
 msgstr "Commentaires"
 
-#: fields.php:427
+#: fields.php:502
+#@ front-end-editor
 msgid "Text widget content"
 msgstr "Contenu des widgets texte"
 
-#: fields.php:432
+#: fields.php:508
+#@ front-end-editor
 msgid "Text widget title"
 msgstr "Titre des widgets texte"
 
-#: core.php:98
+#: core.php:109
+#@ front-end-editor
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: core.php:99
+#: core.php:110
+#@ front-end-editor
 msgid "Cancel"
 msgstr "Annuler"
 
-#: admin.php:11
+#: admin.php:12
+#@ front-end-editor
 msgid "Fields"
 msgstr "Champs"
 
-#: admin.php:32
-#: admin.php:46
-#: inc/scb/AdminPage.php:103
+#: admin.php:43
+#: admin.php:87
+#: scb/AdminPage.php:105
+#@ front-end-editor
 msgid "Settings <strong>saved</strong>."
 msgstr "Réglages <strong>sauvegardés</strong>."
 
-#: admin.php:93
+#: admin.php:101
+#@ front-end-editor
 msgid "Edit paragraphs"
 msgstr "Editer les paragraphes"
 
-#: admin.php:94
+#: admin.php:102
+#@ front-end-editor
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Éditer paragraphe par paragraphe plutôt que le contenu entier du billet."
+
+#: admin.php:9
+#@ front-end-editor
+msgid "Front-end Editor"
+msgstr ""
+
+#: core.php:235
+#@ front-end-editor
+msgid "empty"
+msgstr "vide "
+
+#: fields.php:477
+#@ front-end-editor
+msgid "Post terms"
+msgstr "Termes du billet "
+
+#: fields.php:495
+#@ front-end-editor
+msgid "Author description"
+msgstr "Description de l'auteur "
+
+#: scb/AdminPage.php:163
+#@ front-end-editor
+msgid "Save Changes"
+msgstr "Sauvegarder les modifications"
 

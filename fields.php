@@ -230,6 +230,11 @@ class frontEd_comment extends frontEd_field
 // Handles widget_text
 class frontEd_widget extends frontEd_field
 {
+	function wrap($content)
+	{
+		return parent::wrap($content, 0);
+	}
+
 	function setup()
 	{
 		$this->field = str_replace('widget_', '', $this->filter);

@@ -102,6 +102,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.2.1 =
+* widget bugfix
+
 = 1.2 =
 * made author description editable
 * yellow background while hovering over editable field
