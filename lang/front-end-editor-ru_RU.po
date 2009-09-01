@@ -1,110 +1,117 @@
-"Project-Id-Version: Clean Options\n"
-"Report-Msgid-Bugs-To: <http://www.mittineague.com/blog/2009/06/clean-options-translations/>\n"
-"POT-Creation-Date: 2009-08-07 00:00+0000\n"
-"PO-Revision-Date: 2009-08-17 01:09+0300\n"
-"Last-Translator: Fat Cow <zhr@tut.by>\n"
-"Language-Team: Fat Cow <zhr@tut.by>\n"
+msgid ""
+msgstr ""
+"Project-Id-Version: Front-end Editor\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2009-08-25 19:18+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: BoreS <BoreSer@gmail.com>\n"
+"Language-Team: BoreS <BoreSer@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Belarusian\n"
-"X-Poedit-Country: BELARUS\n"
-"X-Poedit-KeywordsList: __\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
 
-#: admin.php:10
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.2b)  #-#-#-#-#
+#. Plugin Name of an extension
+#: admin.php:9
+msgid "Front-end Editor"
+msgstr "Front-end Editor"
+
+#: admin.php:12
 msgid "Fields"
 msgstr "Поля"
 
-#: admin.php:11
-#: inc/scb/AdminPage.php:275
+#: admin.php:13
+#: scb/AdminPage.php:338
 msgid "Settings"
 msgstr "Настройки"
 
-#: admin.php:41
-#: admin.php:85
-#: inc/scb/AdminPage.php:107
+#: admin.php:43
+#: admin.php:87
+#: scb/AdminPage.php:105
 msgid "Settings <strong>saved</strong>."
 msgstr "Настройки <strong>сохранены</strong>."
 
-#: admin.php:47
+#: admin.php:49
 msgid "Enable or disable editable fields"
 msgstr "Включить или отключить редактируемые поля"
 
-#: admin.php:53
+#: admin.php:55
 msgid "Field name"
-msgstr "Имя поля"
+msgstr "Название поля"
 
-#: admin.php:74
-#: admin.php:106
-msgid "Save changes"
-msgstr "Сохранить настройки"
-
-#: admin.php:92
+#: admin.php:94
 msgid "Rich text editor"
-msgstr "RTE-редактор"
+msgstr "Расширенный редактор текста"
 
-#: admin.php:93
+#: admin.php:95
 msgid "Enable the WYSIWYG editor"
-msgstr "Включить WYSIWYG редактор"
+msgstr "Включить визуальный редактор"
 
-#: admin.php:99
+#: admin.php:101
 msgid "Edit paragraphs"
-msgstr "Редактировать абзацы"
+msgstr "Редактирвать абзацы"
 
-#: admin.php:100
+#: admin.php:102
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Редактировать абзац вместо целого поста"
 
-#: core.php:98
+#: core.php:109
 msgid "Save"
 msgstr "Сохранить"
 
-#: core.php:99
+#: core.php:110
 msgid "Cancel"
-msgstr "Отмена"
+msgstr "Отменить"
 
-#: fields.php:241
-msgid "[none]"
-msgstr "[нет]"
+#: core.php:235
+msgid "empty"
+msgstr "пусто"
 
-#: fields.php:397
+#: fields.php:453
 msgid "Post/page title"
-msgstr "Заглавие поста/страницы"
+msgstr "Заголовок сообщения/страницы"
 
-#: fields.php:403
+#: fields.php:459
 msgid "Post/page content"
-msgstr "Содержание поста/страницы"
+msgstr "Содержимое сообщения/страницы"
 
-#: fields.php:409
+#: fields.php:465
 msgid "Post/page excerpt"
-msgstr "Выдержка поста/страницы"
+msgstr "Выдержка сообщения/страницы"
 
-#: fields.php:415
+#: fields.php:471
 msgid "Post tags"
-msgstr "Теги поста"
+msgstr "Метки сообщения"
 
-#: fields.php:421
+#: fields.php:477
+msgid "Post terms"
+msgstr "Термины сообщения"
+
+#: fields.php:483
 msgid "Post/page custom fields"
-msgstr "Пользовательские поля поста/страницы"
+msgstr "Настраиваемые поля сообщения/страницы"
 
-#: fields.php:427
+#: fields.php:489
 msgid "Comment text"
 msgstr "Текст комментария"
 
-#: fields.php:433
+#: fields.php:495
+msgid "Author description"
+msgstr "Описание автора"
+
+#: fields.php:502
 msgid "Text widget content"
-msgstr "Содержание текстового виджета"
+msgstr "Содержимое текстового виджета"
 
-#: fields.php:438
+#: fields.php:508
 msgid "Text widget title"
-msgstr "Заглавие текстового виджета"
+msgstr "Заголовок текстового виджета"
 
-#. Plugin Name of an extension
-msgid "Front-end Editor"
-msgstr "Front-end редактор"
+#: scb/AdminPage.php:163
+msgid "Save Changes"
+msgstr "Сохранить изменения"
 
 #. Plugin URI of an extension
 msgid "http://scribu.net/wordpress/front-end-editor"
@@ -112,7 +119,7 @@ msgstr "http://scribu.net/wordpress/front-end-editor"
 
 #. Description of an extension
 msgid "Allows you to edit your posts without going through the admin interface"
-msgstr "Разрешить вам редактировать пост без использования администраторской панели"
+msgstr "Позволяет редактировать сообщения без использования администраторской панели"
 
 #. Author of an extension
 msgid "scribu"

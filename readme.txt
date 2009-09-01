@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.5
 Tested up to: 2.9-rare
-Stable tag: trunk
+Stable tag: 1.2.1
 
 Enable "edit in place" functionality on your site. Compatible with any theme.
 
@@ -101,6 +101,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 2. The settings page
 
 == Changelog ==
+
+= 1.2.2 = 
+* postThumbs compatibility
 
 = 1.2.1 =
 * widget bugfix

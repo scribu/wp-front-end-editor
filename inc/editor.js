@@ -83,11 +83,13 @@ jQuery(document).ready(function($){
 
 				var $el = frontEditorData.to_click;
 
-				if ( typeof($el) != 'undefined' )
-					if ( $el.attr('target') == '_blank' )
-						window.open($el.attr('href'));
-					else
-						window.location.href = $el.attr('href');
+				if ( typeof $el == 'undefined' || typeof $el.attr('href') == 'undefined' )
+					return;
+
+				if ( $el.attr('target') == '_blank' )
+					window.open($el.attr('href'));
+				else
+					window.location.href = $el.attr('href');
 			}, 300);
 		},
 
@@ -139,7 +141,12 @@ jQuery(document).ready(function($){
 				.click(remove_form);
 
 			// Create form
-			field.form = $('<div>')
+			if ( field.type == 'input' )
+				field.form = $('<span>');
+			else
+				field.form = $('<div>');
+
+			field.form
 				.addClass('front-editor-container')
 				.append(field.save_button)
 				.append(field.cancel_button);
