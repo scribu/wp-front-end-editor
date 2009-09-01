@@ -138,15 +138,8 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 = 1.0.5 =
 * added align buttons, fixed autogrow issue
-
-= 1.0.4 =
 * the_title and the_tags improvements
-
-= 1.0.3 =
-* bugfix
-
-= 1.0.2 = 
-* swedish translation
+* added Swedish translation
 
 = 1.0 =
 * single paragraph editing
