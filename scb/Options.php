@@ -53,7 +53,7 @@ class scbOptions
 	// Update one or more fields, leaving the others intact
 	function update_part($newdata)
 	{
-		if ( !is_array($newdata) )
+		if ( ! is_array($newdata) )
 			return trigger_error("Wrong data_type", E_USER_WARNING);
 
 		$this->update(array_merge($this->data, $newdata));

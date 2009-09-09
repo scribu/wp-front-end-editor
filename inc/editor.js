@@ -215,6 +215,17 @@ jQuery(document).ready(function($){
 			// Hotkeys
 			$i.contents().keypress(function(e) { field.keypress(e); });
 
+			// Extra CSS
+			if ( typeof frontEditorData.css != 'undefined' )
+				var css = "@import url('" + frontEditorData.css + "');\n";
+			else
+				var css = '';
+
+			css += 'img.alignleft {float:left; margin: 0 1em .5em 0} img.alignright {float:right; margin: 0 0 .5em 1em} img.aligncenter {display:block; margin:0 auto .5em auto}';
+
+			$('<style type="text/css">' + css + '</style>')
+				.appendTo($i.contents().find('head'));
+
 			// Autogrow
 			if ( $.browser.msie )
 			{

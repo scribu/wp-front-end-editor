@@ -240,7 +240,7 @@ class frontEd_widget extends frontEd_field
 		$this->field = str_replace('widget_', '', $this->filter);
 	}
 
-	function get($id, $filter)
+	function get($id)
 	{
 		$widget_id = self::get_id($id);
 
@@ -249,7 +249,7 @@ class frontEd_widget extends frontEd_field
 		return $widgets[$widget_id][$this->field];
 	}
 
-	function save($id, $content, $filter)
+	function save($id, $content)
 	{
 		$widget_id = self::get_id($id);
 

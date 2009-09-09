@@ -102,8 +102,10 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
-= 1.2.2 = 
+= 1.2.2 =
 * postThumbs compatibility
+* alignleft et co. work in the rich editor
+* ability to add extra css to the rich editor via front-end-editor.css
 
 = 1.2.1 =
 * widget bugfix

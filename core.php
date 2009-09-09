@@ -43,7 +43,7 @@ abstract class frontEditor
 		$args = wp_parse_args($args, array(
 			'title' => ucfirst(str_replace('_', ' ', $filter)),
 			'type' => 'input',
-			'priority' => 10,
+			'priority' => 11,
 			'argc' => 1
 		));
 
@@ -100,7 +100,7 @@ abstract class frontEditor
 	{
 		// PHP < 5.2
 		if ( !function_exists('json_encode') )
-			require_once(dirname(__FILE__) . '/inc/json.php');
+			require_once dirname(__FILE__) . '/inc/json.php';
 
 		foreach( self::$fields as $name => $args )
 			$fields[] = array($name, $args['type']);
@@ -113,6 +113,9 @@ abstract class frontEditor
 			'spinner' => admin_url('images/loading.gif'),
 			'nonce' => wp_create_nonce(self::$nonce),
 		);
+
+		if ( file_exists(TEMPLATEPATH . '/front-end-editor.css') )
+			$data['css'] = get_template_directory_uri() . '/front-end-editor.css';
 ?>
 <script type='text/javascript'>
 frontEditorData = <?php echo json_encode($data) ?>;
@@ -243,7 +246,7 @@ Registers a new editable field
 @param array $args(
 	'class' => string (mandatory)
 	'type' => string: 'input' | 'textarea' | 'rich' (default: input)
-	'priority' => integer (default: 10)
+	'priority' => integer (default: 11)
 	'argc' => integer (default: 1)
 )
 */

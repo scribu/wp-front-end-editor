@@ -5,6 +5,6 @@
 .front-editor-spinner {border:0 !important; width:16px !important; height:16px !important}
 .front-ed:hover, .front-ed:hover * {background-color: #FFFFA5}
 .wysiwyg {clear:both}
-.wysiwyg .panel li {list-style-type:none !important}
+.wysiwyg .panel li {list-style-type:none !important; list-style-image:none !important}
 .wysiwyg .panel li:before {content:'' !important}
 .wysiwyg .panel a {width:14px !important; height:14px !important}
