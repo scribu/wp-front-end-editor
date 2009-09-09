@@ -13,10 +13,12 @@ class frontEd_basic extends frontEd_field
 	function wrap($content, $post_id = 0)
 	{
 		if ( ! $post_id )
-			$post_id = get_the_ID();
+		{
+			if ( ! in_the_loop() )
+				return $content;
 
-		if ( ! $post_id )
-			return $content;
+			$post_id = get_the_ID();
+		}
 
 		if ( ! self::check($post_id) )
 			return $content;
