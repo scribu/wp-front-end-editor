@@ -38,7 +38,7 @@ class frontEditorAdmin extends scbBoxesPage
 			if ( !isset($_POST[$field]) )
 				$disabled[] = $field;
 
-		$this->options->disabled = $disabled;
+		$this->options->disable = $disable;
 
 		$this->admin_msg(__('Settings <strong>saved</strong>.'));
 	}
@@ -63,7 +63,7 @@ class frontEditorAdmin extends scbBoxesPage
 						echo $this->input(array(
 							'type' => 'checkbox',
 							'name' => $field,
-							'checked' => ! @in_array($field, $this->options->disabled)
+							'checked' => ! @in_array($field, $this->options->disable)
 						));
 					?>
 				</th>

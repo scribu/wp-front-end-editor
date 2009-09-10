@@ -15,51 +15,53 @@ abstract class frontEditor
 		self::$options = $options;
 		self::$version = $version;
 
-		// Set core hooks
-		add_action('template_redirect', array(__CLASS__, 'add_scripts'));
-		add_action('wp_head', array(__CLASS__, 'pass_to_js'));
+		add_action('front_ed_fields', array(__CLASS__, 'make_instances'), 100);
+
 		add_action('wp_ajax_front-editor', array(__CLASS__, 'ajax_response'));
-		
-		add_action('front_ed_fields', array(__CLASS__, 'add_filters'), 100);
+
+		add_action('template_redirect', array(__CLASS__, '_init'));
 	}
 
-	// Register a new editable field
-	static function register()
+	static function _init()
 	{
-		$fargs = func_get_arg(0);
-		
-		$filter = $fargs[0];
-
-		if ( is_array($fargs[1]) )
-			$args = $fargs[1];
-		else
-		{
-			$args['class'] = $fargs[1];
-
-			if ( isset($fargs[2]) )
-				$args = $args + $fargs[2];
-		}
-
-		$args = wp_parse_args($args, array(
-			'title' => ucfirst(str_replace('_', ' ', $filter)),
-			'type' => 'input',
-			'priority' => 11,
-			'argc' => 1
-		));
-
-		self::$fields[$filter] = $args;
-	}
-
-	static function get_fields()
-	{
-		return self::$fields;
-	}
-
-	static function add_scripts()
-	{
-		if ( !is_user_logged_in() )
+		if ( ! is_user_logged_in() )
 			return;
 
+		if ( apply_filters('front_ed_disable', false) )
+			return;
+
+		self::add_filters();
+		self::add_scripts();
+
+		add_action('wp_head', array(__CLASS__, 'pass_to_js'));
+	}
+
+	static function make_instances()
+	{
+		foreach ( self::$options->disable as $name )
+			unset(self::$fields[$name]);
+
+		foreach ( self::$fields as $name => $args )
+		{
+			extract($args);
+			self::$instances[$name] = new $class($name, $type);
+		}
+	}
+
+	private static function add_filters()
+	{
+		foreach ( self::$fields as $name => $args )
+		{
+			extract($args);
+
+			$instance = self::$instances[$name];
+
+			add_filter($name, array($instance, 'wrap'), $priority, $argc);
+		}
+	}
+
+	private static function add_scripts()
+	{
 // DEBUG
 # wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
@@ -78,24 +80,6 @@ abstract class frontEditor
 		wp_enqueue_script('front-editor', $url . 'editor.js', array('jquery'), self::$version, true);
 	}
 
-	static function add_filters()
-	{
-		foreach ( self::$fields as $name => $args )
-		{
-			if ( in_array($name, (array) self::$options->disabled) )
-				continue;
-
-			extract($args);
-
-			$instance = new $class($name, $type);
-			self::$instances[$name] = $instance;
-
-			if ( ! is_admin() )
-				add_filter($name, array($instance, 'wrap'), $priority, $argc);
-		}
-	}
-
-	// Send necesarry info to JS land
 	static function pass_to_js()
 	{
 		// PHP < 5.2
@@ -123,7 +107,6 @@ frontEditorData = <?php echo json_encode($data) ?>;
 <?php
 	}
 
-	// Common response procedures
 	static function ajax_response()
 	{
 		// Is user trusted?
@@ -161,6 +144,39 @@ frontEditorData = <?php echo json_encode($data) ?>;
 		}
 
 		die($result);
+	}
+
+
+	// Register a new editable field
+	static function register()
+	{
+		$fargs = func_get_arg(0);
+
+		$filter = $fargs[0];
+
+		if ( is_array($fargs[1]) )
+			$args = $fargs[1];
+		else
+		{
+			$args['class'] = $fargs[1];
+
+			if ( isset($fargs[2]) )
+				$args = $args + $fargs[2];
+		}
+
+		$args = wp_parse_args($args, array(
+			'title' => ucfirst(str_replace('_', ' ', $filter)),
+			'type' => 'input',
+			'priority' => 11,
+			'argc' => 1
+		));
+
+		self::$fields[$filter] = $args;
+	}
+
+	static function get_fields()
+	{
+		return self::$fields;
 	}
 
 	static function get_args($filter)

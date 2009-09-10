@@ -452,7 +452,7 @@ class frontEd_author_desc extends frontEd_field
 }
 
 
-add_action('plugins_loaded', 'fee_register_defaults');
+add_action('init', 'fee_register_defaults');
 function fee_register_defaults()
 {
 	$fields = array(
