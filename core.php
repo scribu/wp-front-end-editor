@@ -38,7 +38,7 @@ abstract class frontEditor
 
 	static function make_instances()
 	{
-		foreach ( self::$options->disable as $name )
+		foreach ( self::$options->disabled as $name )
 			unset(self::$fields[$name]);
 
 		foreach ( self::$fields as $name => $args )

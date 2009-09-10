@@ -44,7 +44,7 @@ function _fee_init()
 
 	// Load options
 	$options = new scbOptions('front-end-editor', __FILE__, array(
-		'disable' => array(),
+		'disabled' => array(),
 		'rich' => true,
 		'chunks' => false,
 	));
