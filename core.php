@@ -211,6 +211,7 @@ class frontEd_field
 			return $content;
 
 		$class = 'front-ed-' . $this->filter . ' front-ed';
+		$id = esc_attr($id);
 
 		if ( $this->type == 'input' )
 			return "<span rel='{$id}' class='{$class}'>{$content}</span>";
@@ -221,39 +222,32 @@ class frontEd_field
 	// Retrieve the current data for the field
 	function get($object_id, $filter, $args)
 	{
-		if ( function_exists('get_called_class') )
-			$class = "<strong>" . get_called_class() . "</strong>";
-		else
-			$class = 'the child class';
-
-		trigger_error("The get() must be implemented in a subclass", E_USER_ERROR);
+		trigger_error("The get() method must be implemented in " . self::get_class(), E_USER_ERROR);
 	}
 
 	// Save the data retrieved from the field
 	function save($object_id, $content, $filter, $args)
 	{
-		if ( function_exists('get_called_class') )
-			$class = "<strong>" . get_called_class() . "</strong>";
-		else
-			$class = 'the child class';
-
-		trigger_error("The save() must be implemented in a subclass", E_USER_ERROR);
+		trigger_error("The save() method must be implemented in " . self::get_class(), E_USER_ERROR);
 	}
 
 	// Check user permissions
 	function check($object_id)
 	{
-		if ( function_exists('get_called_class') )
-			$class = "<strong>" . get_called_class() . "</strong>";
-		else
-			$class = 'the child class';
-
-		trigger_error("The check() method must be implemented in $class", E_USER_ERROR);
+		trigger_error("The check() method must be implemented in " . self::get_class(), E_USER_ERROR);
 	}
 
 	function placeholder()
 	{
 		return '[' . __('empty', 'front-end-editor') . ']';
+	}
+	
+	private function get_class()
+	{
+		if ( function_exists('get_called_class') )
+			return "<strong>" . get_called_class() . "</strong>";
+		else
+			return 'the child class';
 	}
 }
 

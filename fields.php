@@ -229,51 +229,6 @@ class frontEd_comment extends frontEd_field
 	}
 }
 
-// Handles widget_text
-class frontEd_widget extends frontEd_field
-{
-	function wrap($content)
-	{
-		return parent::wrap($content, 0);
-	}
-
-	function setup()
-	{
-		$this->field = str_replace('widget_', '', $this->filter);
-	}
-
-	function get($id)
-	{
-		$widget_id = self::get_id($id);
-
-		$widgets = get_option('widget_text');
-
-		return $widgets[$widget_id][$this->field];
-	}
-
-	function save($id, $content)
-	{
-		$widget_id = self::get_id($id);
-
-		$widgets = get_option('widget_text');
-		$widgets[$widget_id][$this->field] = $content;
-
-		update_option('widget_text', $widgets);
-
-		return $content;
-	}
-
-	function check()
-	{
-		return current_user_can('edit_themes');
-	}
-
-	protected function get_id($id)
-	{
-		return str_replace('text-', '', $id);
-	}
-}
-
 // Handles the_tags field
 class frontEd_tags extends frontEd_basic
 {
@@ -451,6 +406,116 @@ class frontEd_author_desc extends frontEd_field
 	}
 }
 
+// Handles widget_text
+class frontEd_widget extends frontEd_field
+{
+	function wrap($content)
+	{
+		return parent::wrap($content, 0);
+	}
+
+	function setup()
+	{
+		$this->field = str_replace('widget_', '', $this->filter);
+	}
+
+	function get($id)
+	{
+		$widget_id = self::get_id($id);
+
+		$widgets = get_option('widget_text');
+
+		return $widgets[$widget_id][$this->field];
+	}
+
+	function save($id, $content)
+	{
+		$widget_id = self::get_id($id);
+
+		$widgets = get_option('widget_text');
+		$widgets[$widget_id][$this->field] = $content;
+
+		update_option('widget_text', $widgets);
+
+		return $content;
+	}
+
+	function check()
+	{
+		return current_user_can('edit_themes');
+	}
+
+	protected function get_id($id)
+	{
+		return str_replace('text-', '', $id);
+	}
+}
+
+// Handles bloginfo fields
+class frontEd_bloginfo extends frontEd_field
+{
+	private static $wraps = array();
+
+	function wrap($content, $show)
+	{
+		if ( ! self::check() )
+			return $content;
+
+		if ( $content == get_option('blogname') )
+			$show = 'name';
+
+		// Limit to only name and description
+		if ( $show != 'description' && $show != 'name' )
+			return $content;
+
+		$result = parent::wrap($content, $show);
+
+		self::$wraps[$show] = $result;
+
+		return $result;
+	}
+
+	function get($show)
+	{
+		return get_option('blog' . $show);
+	}
+
+	function save($show, $content)
+	{
+		update_option('blog' . $show, $content);
+
+		return $content;
+	}
+
+	function check()
+	{
+		return current_user_can('manage_options');
+	}
+
+	// Ugly fix for the <title> tag
+	function setup()
+	{
+		ob_start();
+		add_action('wp_head', array(__CLASS__, '_fix_title'));
+	}
+
+	function _fix_title()
+	{
+		$content = ob_get_clean();
+
+		if ( empty(self::$wraps) )
+			echo $content;
+
+		$title = explode('<title>', $content);
+		list($title) = explode('</title>', $title[1]);
+
+		$correct_title = $title;
+		foreach ( self::$wraps as $show => $wrap )
+			$correct_title = str_replace($wrap, self::get($show), $correct_title);
+
+		echo str_replace("<title>$title</title>", "<title>$correct_title</title>", $content);
+	}
+}
 
 add_action('init', 'fee_register_defaults');
 function fee_register_defaults()
@@ -514,6 +579,12 @@ function fee_register_defaults()
 		'widget_title' => array(
 			'title' => __('Text widget title', 'front-end-editor'),
 			'class' => 'frontEd_widget',
+		),
+		
+		'bloginfo' => array(
+			'title' => __('Site title and description', 'front-end-editor'),
+			'class' => 'frontEd_bloginfo',
+			'argc' => 2,
 		),
 	);
 
