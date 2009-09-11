@@ -38,7 +38,7 @@ abstract class frontEditor
 
 	static function make_instances()
 	{
-		foreach ( self::$options->disabled as $name )
+		foreach ( (array) self::$options->disabled as $name )
 			unset(self::$fields[$name]);
 
 		foreach ( self::$fields as $name => $args )
@@ -98,8 +98,10 @@ abstract class frontEditor
 			'nonce' => wp_create_nonce(self::$nonce),
 		);
 
-		if ( file_exists(TEMPLATEPATH . '/front-end-editor.css') )
-			$data['css'] = get_template_directory_uri() . '/front-end-editor.css';
+		$path = '/' . apply_filters('front_ed_wysiwyg_css', 'front-end-editor.css');
+
+		if ( file_exists(TEMPLATEPATH . $path) )
+			$data['css'] = get_template_directory_uri() . $path;
 ?>
 <script type='text/javascript'>
 frontEditorData = <?php echo json_encode($data) ?>;

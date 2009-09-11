@@ -1,4 +1,8 @@
 jQuery(document).ready(function($){
+	if ( frontEditorData._loaded )
+		return;
+	frontEditorData._loaded = true;
+
 	var spinner = $('<img>').attr({
 		'src': frontEditorData.spinner,
 		'class': 'front-editor-spinner'
@@ -176,15 +180,15 @@ jQuery(document).ready(function($){
 
 			var jwysiwyg_args = {
 				controls : {
-					justifyLeft         : { visible : true },
-					justifyCenter       : { visible : true },
-					justifyRight        : { visible : true },
-					separator04         : { visible : true },
-					insertOrderedList   : { visible : true },
-					insertUnorderedList : { visible : true },
+					justifyLeft			: { visible : true },
+					justifyCenter		: { visible : true },
+					justifyRight		: { visible : true },
+					separator04			: { visible : true },
+					insertOrderedList	: { visible : true },
+					insertUnorderedList	: { visible : true },
 					html				: { visible : true }
 				}
-			};
+			}
 
 			field.input = (field.type == 'input') ? $('<input type="text">') : $('<textarea>');
 
@@ -197,8 +201,10 @@ jQuery(document).ready(function($){
 
 			if (field.type == 'rich')
 			{
+				field.input.trigger('pre_wysiwyg_init');
+
 				field.input.wysiwyg(jwysiwyg_args);
-				
+
 				field.wysiwyg_enhancements();
 			}
 			else if (field.type == 'textarea')
@@ -210,10 +216,13 @@ jQuery(document).ready(function($){
 		wysiwyg_enhancements : function()
 		{
 			var field = this;
-			var $i = field.form.find('#IFrame');
+			var $iframe = field.form.find('#IFrame');
+			var $frame = $iframe.contents();
+
+			$iframe.trigger('wysiwyg_init');
 
 			// Hotkeys
-			$i.contents().keypress(function(e) { field.keypress(e); });
+			$frame.keypress(function(e) { field.keypress(e); });
 
 			// Extra CSS
 			if ( typeof frontEditorData.css != 'undefined' )
@@ -224,23 +233,23 @@ jQuery(document).ready(function($){
 			css += 'img.alignleft {float:left; margin: 0 1em .5em 0} img.alignright {float:right; margin: 0 0 .5em 1em} img.aligncenter {display:block; margin:0 auto .5em auto}';
 
 			$('<style type="text/css">' + css + '</style>')
-				.appendTo($i.contents().find('head'));
+				.appendTo($frame.find('head'));
 
 			// Autogrow
 			if ( $.browser.msie )
 			{
-				$i.css('height', '200px');
+				$iframe.css('height', '200px');
 				return;
 			}
 
-			var $body = $i.contents().find('body');
+			var $body = $frame.find('body');
 
-			$i.css('overflow-y', 'hidden');
+			$iframe.css('overflow-y', 'hidden');
 			setInterval(function(){
 				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
 
-				if (should_be_height != $i.height())
-					$i.height(should_be_height);
+				if (should_be_height != $iframe.height())
+					$iframe.height(should_be_height);
 			}, 400);
 		},
 
