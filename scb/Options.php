@@ -90,8 +90,3 @@ class scbOptions
 	}
 }
 
-// WP < 2.7
-if ( !function_exists('register_uninstall_hook') ) :
-	function register_uninstall_hook(){}
-endif;
-

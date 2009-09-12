@@ -349,14 +349,3 @@ jQuery(document).ready(function($){
 	}
 }
 
-// WP < 2.8
-if ( !function_exists('plugin_dir_url') ) :
-function plugin_dir_url($file) 
-{
-	// WP < 2.6
-	if ( !function_exists('plugins_url') )
-		return trailingslashit(get_option('siteurl') . '/wp-content/plugins/' . plugin_basename($file));
-
-	return trailingslashit(plugins_url(plugin_basename(dirname($file))));
-}
-endif;

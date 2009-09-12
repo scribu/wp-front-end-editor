@@ -49,7 +49,7 @@ function _fee_init()
 		'chunks' => false,
 	));
 
-	frontEditor::init($options, '1.2.2');
+	frontEditor::init($options, '1.3a');
 
 	if ( is_admin() )
 	{

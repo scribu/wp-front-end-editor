@@ -1,0 +1,10 @@
+.front-editor-container, .front-ed, .wysiwyg .panel {margin:0 !important; padding: 0 !important}
+.front-ed, .front-editor-container {border-width: 0 !important}
+.front-editor-container, textarea.front-editor-content {width:100% !important}
+.front-editor-cancel {font-weight:bold !important; color:red !important}
+.front-editor-spinner {border:0 !important; width:16px !important; height:16px !important}
+.front-ed:hover, .front-ed:hover * {background-color: #FFFFA5}
+.wysiwyg {clear:both}
+.wysiwyg .panel li {list-style-type:none !important; list-style-image:none !important}
+.wysiwyg .panel li:before {content:'' !important}
+.wysiwyg .panel a {width:14px !important; height:14px !important}

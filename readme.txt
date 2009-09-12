@@ -2,7 +2,7 @@
 Contributors: scribu
 Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place, wysiwyg
-Requires at least: 2.5
+Requires at least: 2.8
 Tested up to: 2.9-rare
 Stable tag: 1.2.1
 

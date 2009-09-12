@@ -69,15 +69,15 @@ abstract class frontEditor
 
 		if ( self::$options->rich )
 		{
-			wp_enqueue_style('jwysiwyg', $url . 'js/jwysiwyg/jquery.wysiwyg.css');
-			wp_enqueue_script('jwysiwyg', $url . 'js/jwysiwyg/jquery.wysiwyg.js', array('jquery'), self::$version, true);
+			wp_enqueue_style('jwysiwyg', $url . 'jwysiwyg/jquery.wysiwyg.css');
+			wp_enqueue_script('jwysiwyg', $url . 'jwysiwyg/jquery.wysiwyg.js', array('jquery'), self::$version, true);
 		}
 
-		wp_enqueue_script('autogrow', $url . 'js/autogrow.js', array('jquery'), '1.2.5', true);
+		wp_enqueue_script('autogrow', $url . 'autogrow.js', array('jquery'), '1.2.5', true);
 
 		// Core scripts
-		wp_enqueue_style('front-editor', $url . 'editor.css', self::$version);
-		wp_enqueue_script('front-editor', $url . 'editor.js', array('jquery'), self::$version, true);
+		wp_enqueue_style('front-editor', $url . 'editor/editor.css', self::$version);
+		wp_enqueue_script('front-editor', $url . 'editor/editor.js', array('jquery'), self::$version, true);
 	}
 
 	static function pass_to_js()
@@ -129,9 +129,6 @@ frontEditorData = <?php echo json_encode($data) ?>;
 
 		$args = self::$fields[$name];
 
-		// WP < 2.8
-		header('Content-Type: text/html; charset=' . get_option('blog_charset'));
-
 		if ( $action == 'save' )
 		{
 			$content = stripslashes_deep($_POST['content']);
@@ -152,26 +149,17 @@ frontEditorData = <?php echo json_encode($data) ?>;
 	// Register a new editable field
 	static function register()
 	{
-		$fargs = func_get_arg(0);
+		list ( $filter, $args ) = func_get_arg(0);
 
-		$filter = $fargs[0];
-
-		if ( is_array($fargs[1]) )
-			$args = $fargs[1];
+		if ( isset(self::$fields[$filter]) )
+			$args = wp_parse_args($args, self::$fields[$filter]);
 		else
-		{
-			$args['class'] = $fargs[1];
-
-			if ( isset($fargs[2]) )
-				$args = $args + $fargs[2];
-		}
-
-		$args = wp_parse_args($args, array(
-			'title' => ucfirst(str_replace('_', ' ', $filter)),
-			'type' => 'input',
-			'priority' => 11,
-			'argc' => 1
-		));
+			$args = wp_parse_args($args, array(
+				'title' => ucfirst(str_replace('_', ' ', $filter)),
+				'type' => 'input',
+				'priority' => 11,
+				'argc' => 1
+			));
 
 		self::$fields[$filter] = $args;
 	}
@@ -266,17 +254,4 @@ function register_fronted_field()
 {
 	frontEditor::register(func_get_args());
 }
-
-
-// WP < 2.8
-if ( !function_exists('plugin_dir_url') ) :
-function plugin_dir_url($file) 
-{
-	// WP < 2.6
-	if ( !function_exists('plugins_url') )
-		return trailingslashit(get_option('siteurl') . '/wp-content/plugins/' . plugin_basename($file));
-
-	return trailingslashit(plugins_url(plugin_basename(dirname($file))));
-}
-endif;
 
