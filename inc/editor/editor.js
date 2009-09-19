@@ -117,12 +117,6 @@ jQuery(document).ready(function($){
 
 			field.get_data();
 
-			var submit_form = function()
-			{
-				field.send_data();
-				remove_form(true);
-			};
-
 			var remove_form = function(with_spinner)
 			{
 				frontEditorData.trap = false;
@@ -135,6 +129,12 @@ jQuery(document).ready(function($){
 					field.el.show();
 					
 				field.el.trigger('fee_remove_form');
+			};
+
+			var submit_form = function()
+			{
+				field.send_data();
+				remove_form(true);
 			};
 
 			// Setup form buttons
