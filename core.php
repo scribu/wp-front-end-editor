@@ -205,7 +205,7 @@ class frontEd_field
 			return $content;
 
 		$class = 'front-ed-' . $this->filter . ' front-ed';
-		$id = esc_attr($id);
+		$id = 'fee_' . esc_attr($id);
 
 		if ( $this->type == 'input' )
 			return "<span id='{$id}' class='{$class}'>{$content}</span>";

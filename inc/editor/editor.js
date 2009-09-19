@@ -14,15 +14,17 @@ jQuery(document).ready(function($){
 
 		field.set_el(el);
 		field.name = args[0];
-		field.spinner = spinner.clone();
 
-		// Set type, based on id attribute
-		var id = field.el.attr('id').split('#');
+		// Set id, type attribute
+		field.id = field.el.attr('id').substr(4);
+		var parts = field.id.split('#');
 
-		if (id.length == 3)
-			field.type = id[2];
+		if (parts.length == 3)
+			field.type = parts[2];
 		else
 			field.type = args[1];
+
+		field.spinner = spinner.clone();
 
 		field.el.click(function(ev) { field.click(ev) });
 		field.el.dblclick(function(ev) { field.dblclick(ev) });
@@ -263,7 +265,7 @@ jQuery(document).ready(function($){
 				callback: 'get',
 				name: field.name,
 				type: field.type,
-				item_id: field.el.attr('id')
+				item_id: field.id
 			};
 
 			$.post(frontEditorData.request, data, function(response){
@@ -286,7 +288,7 @@ jQuery(document).ready(function($){
 				callback: 'save',
 				name: field.name,
 				type: field.type,
-				item_id: field.el.attr('id'),
+				item_id: field.id,
 				content: field.pre_wpautop(field.input.val())
 			};
 
@@ -362,7 +364,7 @@ jQuery(document).ready(function($){
 		var $el = $(this);
 		var id = $el.parents('.widget_text').attr('id');
 		if (id)
-			$el.attr('id', id);
+			$el.attr('id', 'fee_' + id);
 		else
 			$el.attr('class', '');	// not a text widget
 	});
