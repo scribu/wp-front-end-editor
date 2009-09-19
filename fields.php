@@ -437,7 +437,7 @@ class frontEd_widget extends frontEd_field
 
 		update_option('widget_text', $widgets);
 
-		return $content;
+		return wpautop($content);
 	}
 
 	function check()

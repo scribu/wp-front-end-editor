@@ -139,7 +139,7 @@ w?>
 		{
 			$content = stripslashes_deep($_POST['content']);
 			$result = $instance->save($id, $content, $args);
-			$result = apply_filters($name, $result);
+			$result = @apply_filters($name, $result);
 		}
 		elseif ( $action == 'get' )
 		{
