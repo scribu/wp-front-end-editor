@@ -107,6 +107,12 @@ abstract class frontEditor
 frontEditorData = <?php echo json_encode($data) ?>;
 </script>
 <?php
+		if ( ! self::$options->highlight )
+		{
+w?>
+<style type='text/css'>.front-ed:hover, .front-ed:hover * {background-color: inherit !important}</style>
+<?php
+		}
 	}
 
 	static function ajax_response()
@@ -202,9 +208,9 @@ class frontEd_field
 		$id = esc_attr($id);
 
 		if ( $this->type == 'input' )
-			return "<span rel='{$id}' class='{$class}'>{$content}</span>";
+			return "<span id='{$id}' class='{$class}'>{$content}</span>";
 		else
-			return "<div rel='{$id}' class='{$class}'>{$content}</div>";
+			return "<div id='{$id}' class='{$class}'>{$content}</div>";
 	}
 
 	// Retrieve the current data for the field

@@ -16,11 +16,11 @@ jQuery(document).ready(function($){
 		field.name = args[0];
 		field.spinner = spinner.clone();
 
-		// Set type, based on rel attribute
-		var rel = field.el.attr('rel').split('#');
+		// Set type, based on id attribute
+		var id = field.el.attr('id').split('#');
 
-		if (rel.length == 3)
-			field.type = rel[2];
+		if (id.length == 3)
+			field.type = id[2];
 		else
 			field.type = args[1];
 
@@ -58,7 +58,7 @@ jQuery(document).ready(function($){
 
 			var is_overlay = function()
 			{
-				var attr = $el.attr("rel") + ' ' + $el.attr("class");
+				var attr = $el.attr('id') + ' ' + $el.attr("class");
 				attr = $.trim(attr).split(' ');
 
 				var tokens = ['lightbox', 'shutter', 'thickbox'];
@@ -263,7 +263,7 @@ jQuery(document).ready(function($){
 				callback: 'get',
 				name: field.name,
 				type: field.type,
-				item_id: field.el.attr('rel')
+				item_id: field.el.attr('id')
 			};
 
 			$.post(frontEditorData.request, data, function(response){
@@ -277,13 +277,16 @@ jQuery(document).ready(function($){
 
 			field.el.before(field.spinner.show());
 
+			if (field.type == 'rich')
+				field.input.trigger('wysiwyg_save');
+
 			var data = {
 				nonce: frontEditorData.nonce,
 				action: 'front-editor',
 				callback: 'save',
 				name: field.name,
 				type: field.type,
-				item_id: field.el.attr('rel'),
+				item_id: field.el.attr('id'),
 				content: field.pre_wpautop(field.input.val())
 			};
 
@@ -354,12 +357,12 @@ jQuery(document).ready(function($){
 		}
 	};
 
-	// Widget text hack: Add rel attr to each element
+	// Widget text hack: Add id attr to each element
 	$('.front-ed-widget_text, .front-ed-widget_title').each(function(){
 		var $el = $(this);
 		var id = $el.parents('.widget_text').attr('id');
 		if (id)
-			$el.attr('rel', id);
+			$el.attr('id', id);
 		else
 			$el.attr('class', '');	// not a text widget
 	});

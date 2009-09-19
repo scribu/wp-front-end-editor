@@ -47,6 +47,7 @@ function _fee_init()
 		'disabled' => array(),
 		'rich' => true,
 		'chunks' => false,
+		'highlight' => true
 	));
 
 	frontEditor::init($options, '1.3a');

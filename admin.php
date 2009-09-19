@@ -81,7 +81,7 @@ class frontEditorAdmin extends scbBoxesPage
 		if ( !isset($_POST['save_settings']) )
 			return;
 
-		foreach ( array('rich', 'chunks') as $key )
+		foreach ( array('rich', 'chunks', 'highlight') as $key )
 			$this->options->$key = (bool) $_POST[$key];
 
 		$this->admin_msg(__('Settings <strong>saved</strong>.'));
@@ -102,7 +102,14 @@ class frontEditorAdmin extends scbBoxesPage
 				'desc' => __('Edit one paragraph at a time, instead of an entire post', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'chunks',
-			)
+			),
+			
+			array(
+				'title' => __('Highlighting', $this->textdomain),
+				'desc' => __('Highlight editable elements', $this->textdomain),
+				'type' => 'checkbox',
+				'name' => 'highlight',
+			),
 		);
 
 		echo $this->form_table($rows, $this->options->get(), '', 'save_settings');
