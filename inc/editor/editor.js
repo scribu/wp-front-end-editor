@@ -133,6 +133,8 @@ jQuery(document).ready(function($){
 					field.el.before(field.spinner.show());
 				else
 					field.el.show();
+					
+				field.el.trigger('fee_remove_form');
 			};
 
 			// Setup form buttons
@@ -239,20 +241,23 @@ jQuery(document).ready(function($){
 
 			// Autogrow
 			if ( $.browser.msie )
-			{
-				$iframe.css('height', '200px');
-				return;
-			}
+				return $iframe.css('height', '200px');
 
-			var $body = $frame.find('body');
+			var $body = $frame.find('body')
+				.css('overflow', 'hidden');
 
-			$iframe.css('overflow-y', 'hidden');
-			setInterval(function(){
+			var intid = setInterval(function() {
 				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
 
 				if (should_be_height != $iframe.height())
 					$iframe.height(should_be_height);
 			}, 400);
+
+			field.el.bind('fee_remove_form', function() {
+				clearInterval(intid);
+			});
+			
+			$iframe.trigger('wysiwyg_init');
 		},
 
 		get_data : function()

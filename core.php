@@ -63,7 +63,7 @@ abstract class frontEditor
 	private static function add_scripts()
 	{
 // DEBUG
-# wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
+// wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
 		$url = plugin_dir_url(__FILE__) . 'inc/';
 
@@ -107,10 +107,10 @@ abstract class frontEditor
 frontEditorData = <?php echo json_encode($data) ?>;
 </script>
 <?php
-		if ( ! self::$options->highlight )
+		if ( self::$options->highlight )
 		{
 w?>
-<style type='text/css'>.front-ed:hover, .front-ed:hover * {background-color: inherit !important}</style>
+<style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
 <?php
 		}
 	}
@@ -205,7 +205,7 @@ class frontEd_field
 			return $content;
 
 		$class = 'front-ed-' . $this->filter . ' front-ed';
-		$id = 'fee_' . esc_attr($id);
+		$id = esc_attr($id);
 
 		if ( $this->type == 'input' )
 			return "<span id='{$id}' class='{$class}'>{$content}</span>";
