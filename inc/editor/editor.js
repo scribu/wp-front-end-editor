@@ -26,8 +26,8 @@ jQuery(document).ready(function($){
 
 		field.spinner = spinner.clone();
 
-		field.el.click(function(ev) { field.click(ev) });
-		field.el.dblclick(function(ev) { field.dblclick(ev) });
+		field.bind(field.el, 'click', field.click);
+		field.bind(field.el, 'dblclick', field.dblclick);
 	}
 
 	editableField.prototype = 
@@ -117,6 +117,7 @@ jQuery(document).ready(function($){
 
 			field.get_data();
 
+			// Button actions
 			var remove_form = function(with_spinner)
 			{
 				frontEditorData.trap = false;
@@ -137,7 +138,7 @@ jQuery(document).ready(function($){
 				remove_form(true);
 			};
 
-			// Setup form buttons
+			// Button markup
 			field.save_button = $('<button>')
 				.attr({'class': 'front-editor-save', 'title': frontEditorData.save_text})
 				.text(frontEditorData.save_text)
@@ -149,19 +150,14 @@ jQuery(document).ready(function($){
 				.click(remove_form);
 
 			// Create form
-			if ( field.type == 'input' )
-				field.form = $('<span>');
-			else
-				field.form = $('<div>');
+			field.form = ( field.type == 'input' ) ? $('<span>') : $('<div>');
 
 			field.form
 				.addClass('front-editor-container')
 				.append(field.save_button)
 				.append(field.cancel_button);
 
-			field.el.hide().after(field.spinner.show());
-
-			field.form.keypress(function(ev) { field.keypress(ev); });
+			field.bind(field.form, 'keypress', field.keypress);
 		},
 
 		keypress : function(ev)
@@ -170,7 +166,7 @@ jQuery(document).ready(function($){
 
 			var keys = {ENTER: 13, ESCAPE: 27};
 
-			var code = (ev.keyCode || ev.which || ev.charCode || 0);
+			var code = (ev.keyCode || ev.which || ev.charCode || 0);field.form
 
 			if (code == keys.ENTER && field.type == 'input')
 				field.save_button.click();
@@ -178,91 +174,11 @@ jQuery(document).ready(function($){
 				field.cancel_button.click();
 		},
 
-		setup_input : function(content)
-		{
-			var field = this;
-
-			var jwysiwyg_args = {
-				controls : {
-					justifyLeft			: { visible : true },
-					justifyCenter		: { visible : true },
-					justifyRight		: { visible : true },
-					separator04			: { visible : true },
-					insertOrderedList	: { visible : true },
-					insertUnorderedList	: { visible : true },
-					html				: { visible : true }
-				}
-			}
-
-			field.input = (field.type == 'input') ? $('<input type="text">') : $('<textarea>');
-
-			field.input
-				.addClass('front-editor-content')
-				.val(content)
-				.prependTo(field.form);
-
-			field.spinner.hide().replaceWith(field.form);
-
-			if (field.type == 'rich')
-			{
-				field.input.trigger('pre_wysiwyg_init');
-
-				field.input.wysiwyg(jwysiwyg_args);
-
-				field.wysiwyg_enhancements();
-			}
-			else if (field.type == 'textarea')
-				field.input.autogrow({lineHeight: 16});
-
-			field.input.focus();
-		},
-		
-		wysiwyg_enhancements : function()
-		{
-			var field = this;
-			var $iframe = field.form.find('#IFrame');
-			var $frame = $iframe.contents();
-
-			$iframe.trigger('wysiwyg_init');
-
-			// Hotkeys
-			$frame.keypress(function(e) { field.keypress(e); });
-
-			// Extra CSS
-			if ( typeof frontEditorData.css != 'undefined' )
-				var css = "@import url('" + frontEditorData.css + "');\n";
-			else
-				var css = '';
-
-			css += 'img.alignleft {float:left; margin: 0 1em .5em 0} img.alignright {float:right; margin: 0 0 .5em 1em} img.aligncenter {display:block; margin:0 auto .5em auto}';
-
-			$('<style type="text/css">' + css + '</style>')
-				.appendTo($frame.find('head'));
-
-			// Autogrow
-			if ( $.browser.msie )
-				return $iframe.css('height', '200px');
-
-			var $body = $frame.find('body')
-				.css('overflow', 'hidden');
-
-			var intid = setInterval(function() {
-				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
-
-				if (should_be_height != $iframe.height())
-					$iframe.height(should_be_height);
-			}, 400);
-
-			field.el.bind('fee_remove_form', function() {
-				clearInterval(intid);
-			});
-			
-			$iframe.trigger('wysiwyg_init');
-		},
-
 		get_data : function()
 		{
 			var field = this;
+
+			field.el.hide().after(field.spinner.show());
 
 			var data = {
 				nonce: frontEditorData.nonce,
@@ -304,8 +220,99 @@ jQuery(document).ready(function($){
 			});
 		},
 
+		setup_input : function(content)
+		{
+			var field = this;
+
+			field.spinner.hide().replaceWith(field.form);
+
+			var jwysiwyg_args = {
+				controls : {
+					justifyLeft			: { visible : true },
+					justifyCenter		: { visible : true },
+					justifyRight		: { visible : true },
+					separator04			: { visible : true },
+					insertOrderedList	: { visible : true },
+					insertUnorderedList	: { visible : true },
+					html				: { visible : true }
+				}
+			}
+
+			field.input = (field.type == 'input') ? $('<input type="text">') : $('<textarea>');
+
+			field.input
+				.addClass('front-editor-content')
+				.val(content)
+				.prependTo(field.form);
+
+			if (field.type == 'rich')
+			{
+				field.input.trigger('pre_wysiwyg_init');
+
+				field.input.wysiwyg(jwysiwyg_args);
+
+				field.wysiwyg_enhancements();
+			}
+			else if (field.type == 'textarea')
+				field.input.autogrow({lineHeight: 16});
+
+			field.input.focus();
+		},
+		
+		wysiwyg_enhancements : function()
+		{
+			var field = this;
+			var $iframe = field.form.find('#IFrame');
+			var $frame = $iframe.contents();
+
+			// Extra CSS
+			if ( typeof frontEditorData.css != 'undefined' )
+				var css = "@import url('" + frontEditorData.css + "');\n";
+			else
+				var css = '';
+
+			css += 'img.alignleft {float:left; margin: 0 1em .5em 0} img.alignright {float:right; margin: 0 0 .5em 1em} img.aligncenter {display:block; margin:0 auto .5em auto}';
+
+			$('<style type="text/css">' + css + '</style>')
+				.appendTo($frame.find('head'));
+
+			// Hotkeys
+			field.bind($frame, 'keypress', field.keypress);
+
+			// Autogrow
+			if ( $.browser.msie )
+				return $iframe.css('height', '200px');
+
+			var $body = $frame.find('body')
+				.css('overflow', 'hidden');
+
+			var intid = setInterval(function() {
+				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
+
+				if (should_be_height != $iframe.height())
+					$iframe.height(should_be_height);
+			}, 400);
+
+			field.bind(field.el, 'fee_remove_form', function() {
+				clearInterval(intid);
+			});
+
+			$iframe.trigger('wysiwyg_init');
+		},
+
+		// Event utility: this = field
+		bind: function(element, event, callback)
+		{
+			var field = this;
+
+			element.bind(event, function(ev) {
+				callback.call(field, ev);
+			});
+		},
+
 		// Copied from wp-admin/js/editor.dev.js		
-		pre_wpautop : function(content) {
+		pre_wpautop : function(content)
+		{
 			var blocklist1, blocklist2;
 
 			// Protect pre|script tags
@@ -365,16 +372,17 @@ jQuery(document).ready(function($){
 	};
 
 	// Widget text hack: Add id attr to each element
-	$('.front-ed-widget_text, .front-ed-widget_title').each(function(){
+	$('.front-ed-widget_text, .front-ed-widget_title').each(function() {
 		var $el = $(this);
 		var id = $el.parents('.widget_text').attr('id');
+
 		if (id)
 			$el.attr('id', 'fee_' + id);
 		else
 			$el.attr('class', '');	// not a text widget
 	});
 
-	// Start click handling
+	// Create field instances
 	for ( var i in frontEditorData.fields )
 	{
 		var args = frontEditorData.fields[i];
