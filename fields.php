@@ -33,10 +33,26 @@ class frontEd_basic extends frontEd_field
 
 	function save($post_id, $content)
 	{
-		wp_update_post(array(
+		$fields = array(
 			'ID' => $post_id,
 			$this->field => $content
-		));
+		);
+
+		// check slug
+		if ( $this->field == 'title' )
+		{
+			$current_slug = get_post_field('post_type', $post_id);
+			$current_title = get_post_field('post_type', $post_id);
+
+			// update only if not explicitly set
+			if ( $current_slug == sanitize_title_with_dashes($current_title) )
+			{
+				$new_slug = sanitize_title_with_dashes($content);
+				$fields['post_name'] = $new_slug;
+			}
+		}
+
+		wp_update_post($fields);
 
 		return $content;
 	}
