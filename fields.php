@@ -45,7 +45,7 @@ class frontEd_basic extends frontEd_field
 			$current_title = get_post_field('post_title', $post_id);
 
 			// update only if not explicitly set
-			if ( $current_slug == sanitize_title_with_dashes($current_title) )
+			if ( empty($current_slug) || $current_slug == sanitize_title_with_dashes($current_title) )
 			{
 				$new_slug = sanitize_title_with_dashes($content);
 				$fields['post_name'] = $new_slug;
