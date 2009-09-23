@@ -39,10 +39,10 @@ class frontEd_basic extends frontEd_field
 		);
 
 		// check slug
-		if ( $this->field == 'title' )
+		if ( $this->field == 'post_title' )
 		{
-			$current_slug = get_post_field('post_type', $post_id);
-			$current_title = get_post_field('post_type', $post_id);
+			$current_slug = get_post_field('post_name', $post_id);
+			$current_title = get_post_field('post_title', $post_id);
 
 			// update only if not explicitly set
 			if ( $current_slug == sanitize_title_with_dashes($current_title) )
