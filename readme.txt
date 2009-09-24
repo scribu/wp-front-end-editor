@@ -4,17 +4,17 @@ Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.8
 Tested up to: 2.9-rare
-Stable tag: 1.2.1
+Stable tag: trunk
 
-Enable "edit in place" functionality on your site. Compatible with any theme.
+Want to edit something? Just double-click it!
 
 == Description ==
 
 Front-end Editor is a plugin that lets you make changes to your content *directly* from your site. No need to load the admin backend just to correct a typo.
 
-To edit something, just double-click it.
+To edit something, just double-click it!
 
-The main goals are to be *fast* and to be *compatible with any theme*.
+The main goals are to be as *fast* as possible and to be *compatible with any theme*.
 
 **Editable fields:**
 
@@ -41,6 +41,11 @@ The main goals are to be *fast* and to be *compatible with any theme*.
 		<li>title</li>
 		<li>content</li>
 	</ul></li>
+	<li><strong>site info</strong>
+	<ul>
+		<li>title</li>
+		<li>description</li>
+	</ul></li>
 </ul>
 
 There is a settings page where you can disable editable fields that you don't want.
@@ -58,7 +63,7 @@ You can either install it automatically from the WordPress admin, or do it manua
 
 = I double click on a field and nothing happens. Why? =
 
-Because the javascript is not loaded. Make sure your theme has wp_footer() somewhere in footer.php
+Probably because the javascript is not loaded. Make sure your theme has wp_footer() somewhere in footer.php
 
 = If I use this plugin, won't everybody be able to edit my content? =
 
@@ -68,17 +73,19 @@ No. To edit a field, a user must be logged in and have the right permissions. Fo
 
 You can add this line to *style.css* in your theme directory:
 
-`.front-ed:hover, .front-ed:hover * {background-color: color !important}`
+`.front-ed:hover, .front-ed:hover * {background-color: mycolor !important}`
 
-where *color* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
+where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
 
 = How can I edit custom fields? =
 
-Since custom fields can be used in so many ways, you have to edit your theme and replace code like this:
+Since custom fields can be used in so many ways, you have to make some code replacements in your theme:
+
+Replace something like this:
 
 `echo get_post_meta($post->ID, 'my_key', true);`
 
-with
+with this:
 
 `editable_post_meta(get_the_ID(), 'my_key', 'textarea');`
 
@@ -93,6 +100,7 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 The easiest way is with CSS. You can use the *.front-ed* selector to style all editable fields on a page.
 
 = Title attributes =
+
 In some themes, links get weird title atributes. If this messes up your theme, just disable "The title" field.
 
 == Screenshots ==
