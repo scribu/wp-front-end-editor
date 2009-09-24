@@ -109,6 +109,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * added Polish translation
 * use id="" instead of rel=""
 * postThumbs compatibility
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-3.html)
 
 = 1.2.1 =
 * widget bugfix
