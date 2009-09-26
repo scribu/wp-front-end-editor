@@ -1,12 +1,14 @@
-.wysiwyg {border: 1px solid #cccccc; padding: 5px; background-color: #ffffff}
-.wysiwyg * {margin: 0; padding: 0}
+.wysiwyg {clear:both; border: 1px solid #cccccc; padding: 5px; background-color: #ffffff}
+.wysiwyg * {margin: 0 !important; padding: 0 !important}
 
-.wysiwyg .panel {border-bottom: 1px solid #cccccc; float: left; width: 100%; padding: 0 0 4px 0}
-.wysiwyg .panel li {list-style-type: none; float: left; margin: 0 2px;  background: #ffffff;}
-.wysiwyg .panel li.separator {height: 16px; margin: 0 4px; border-left: 1px solid #cccccc}
-.wysiwyg .panel li a {opacity: 0.6; display: block; width: 16px; height: 16px; background: url('jquery.wysiwyg.gif') no-repeat -64px -80px; border: 0; cursor: pointer; padding: 1px}
+.wysiwyg .panel {border-bottom: 1px solid #cccccc; float: left; width: 100%; padding: 0 0 4px 0 !important}
+.wysiwyg .panel li {list-style-type: none !important; list-style-image:none !important; float: left; margin: 0 2px;  background: #ffffff}
+.wysiwyg .panel li + li {margin-left: 2px !important}
+.wysiwyg .panel li:before {content:'' !important}
+.wysiwyg .panel li.separator {height: 16px; margin: 0 4px !important; border-left: 1px solid #cccccc}
+.wysiwyg .panel li a {opacity: 0.6; display: block; width: 16px; height: 16px; background: url('jquery.wysiwyg.gif') no-repeat -64px -80px; border: 0; cursor: pointer; padding: 1px !important; width:14px !important; height:14px !important}
 .wysiwyg .panel li a:hover, .wysiwyg .panel li a.active {opacity: 0.99}
-.wysiwyg .panel li a.active {background-color: #f9f9f9; border: 1px solid #cccccc; border-left-color: #aaaaaa; border-top-color: #aaaaaa; padding: 0}
+.wysiwyg .panel li a.active {background-color: #f9f9f9; border: 1px solid #cccccc; border-left-color: #aaaaaa; border-top-color: #aaaaaa; padding: 0 !important}
 
 .wysiwyg .panel li a.bold {background-position: 0 -16px}
 .wysiwyg .panel li a.italic {background-position: -16px -16px}
@@ -53,4 +55,5 @@
 
 .wysiwyg .panel li a.empty {background-position: -64px -80px}
 
-.wysiwyg iframe {border: 0; margin: 5px 0 0 0; clear: left}
+.wysiwyg iframe {border: 0 !important; margin: 5px 0 0 0 !important; clear: left}
+
