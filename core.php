@@ -38,10 +38,11 @@ abstract class frontEditor
 
 	static function make_instances()
 	{
+		$fields = self::get_fields();
 		foreach ( (array) self::$options->disabled as $name )
-			unset(self::$fields[$name]);
+			unset($fields[$name]);
 
-		foreach ( self::$fields as $name => $args )
+		foreach ( $fields as $name => $args )
 		{
 			extract($args);
 			self::$instances[$name] = new $class($name, $type);

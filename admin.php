@@ -34,11 +34,12 @@ class frontEditorAdmin extends scbBoxesPage
 		if ( !isset($_POST['manage_fields']) )
 			return;
 
+		$disabled = array();
 		foreach ( array_keys( frontEditor::get_fields() ) as $field )
-			if ( !isset($_POST[$field]) )
+			if ( ! isset($_POST[$field]) )
 				$disabled[] = $field;
 
-		$this->options->disabled = $disable;
+		$this->options->disabled = $disabled;
 
 		$this->admin_msg(__('Settings <strong>saved</strong>.'));
 	}

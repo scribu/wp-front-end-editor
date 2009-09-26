@@ -1,6 +1,8 @@
-"Project-Id-Version: Front End Editor in italiano\n"
+msgid ""
+msgstr ""
+"Project-Id-Version: Front-end Editor in italiano\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-08-15 15:41+0300\n"
+"POT-Creation-Date: 2009-09-24 23:42+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
@@ -10,101 +12,118 @@
 "X-Poedit-Language: Italian\n"
 "X-Poedit-Country: ITALY\n"
 
-#: admin.php:10
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.3)  #-#-#-#-#
+#. Plugin Name of an extension
+#: admin.php:9
+msgid "Front-end Editor"
+msgstr "Front-end Editor"
+
+#: admin.php:12
 msgid "Fields"
 msgstr "Campi"
 
-#: admin.php:11
-#: scb/AdminPage.php:275
+#: admin.php:13
+#: scb/AdminPage.php:338
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: admin.php:41
-#: admin.php:85
-#: scb/AdminPage.php:107
+#: admin.php:43
+#: admin.php:87
+#: scb/AdminPage.php:105
 msgid "Settings <strong>saved</strong>."
 msgstr "Le impostazioni sono state <strong>salvate</strong>."
 
-#: admin.php:47
+#: admin.php:49
 msgid "Enable or disable editable fields"
 msgstr "Attiva o disattiva i campi modificabili"
 
-#: admin.php:53
+#: admin.php:55
 msgid "Field name"
 msgstr "Nome campo"
 
-#: admin.php:74
-#: admin.php:106
-msgid "Save changes"
-msgstr "Salva le modifiche"
-
-#: admin.php:92
+#: admin.php:94
 msgid "Rich text editor"
 msgstr "Editor avanzato"
 
-#: admin.php:93
+#: admin.php:95
 msgid "Enable the WYSIWYG editor"
 msgstr "Attiva l'editor WYSIWYG"
 
-#: admin.php:99
+#: admin.php:101
 msgid "Edit paragraphs"
 msgstr "Modifica paragrafi"
 
-#: admin.php:100
+#: admin.php:102
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Modifica un paragrafo alla volta invece di operare su tutto l'articolo"
 
-#: core.php:98
+#: admin.php:108
+msgid "Highlighting"
+msgstr "Evidenziatore"
+
+#: admin.php:109
+msgid "Highlight editable elements"
+msgstr "Evidenzia gli elementi modificabili"
+
+#: core.php:93
 msgid "Save"
 msgstr "Salva"
 
-#: core.php:99
+#: core.php:94
 msgid "Cancel"
 msgstr "Annulla"
 
-#: fields.php:42
+#: core.php:236
 msgid "empty"
 msgstr "vuoto"
 
-#: fields.php:442
+#: fields.php:541
 msgid "Post/page title"
 msgstr "Titolo articolo/pagina"
 
-#: fields.php:448
+#: fields.php:547
 msgid "Post/page content"
 msgstr "Contenuto articolo/pagina"
 
-#: fields.php:454
+#: fields.php:553
 msgid "Post/page excerpt"
 msgstr "Estratto articolo/pagina"
 
-#: fields.php:460
+#: fields.php:559
 msgid "Post tags"
 msgstr "Tag articolo"
 
-#: fields.php:466
+#: fields.php:565
 msgid "Post terms"
 msgstr "Termini articolo"
 
-#: fields.php:472
+#: fields.php:571
 msgid "Post/page custom fields"
 msgstr "Campi personalizzati articolo/pagina"
 
-#: fields.php:478
+#: fields.php:577
 msgid "Comment text"
 msgstr "Testo commenti"
 
-#: fields.php:484
+#: fields.php:583
+msgid "Author description"
+msgstr "Descrizione autore"
+
+#: fields.php:590
 msgid "Text widget content"
 msgstr "Contenuto widget di testo"
 
-#: fields.php:489
+#: fields.php:596
 msgid "Text widget title"
 msgstr "Titolo widget di testo"
 
-#. Plugin Name of an extension
-msgid "Front-end Editor"
-msgstr "Front-end Editor"
+#: fields.php:601
+msgid "Site title and description"
+msgstr "Nome e descrizione del sito"
+
+#: scb/AdminPage.php:163
+msgid "Save Changes"
+msgstr "Salva le modifiche"
 
 #. Plugin URI of an extension
 msgid "http://scribu.net/wordpress/front-end-editor"

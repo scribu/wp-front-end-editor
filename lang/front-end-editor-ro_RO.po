@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-08-25 19:18+0300\n"
-"PO-Revision-Date: 2009-08-25 19:18+0200\n"
+"POT-Creation-Date: 2009-09-24 23:42+0300\n"
+"PO-Revision-Date: 2009-09-25 00:01+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.2b)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.3)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:9
 msgid "Front-end Editor"
@@ -60,57 +60,69 @@ msgstr "Editează paragrafe"
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Editează câte un singur paragraf, în loc de articolul întreg"
 
-#: core.php:109
+#: admin.php:108
+msgid "Highlighting"
+msgstr "Evidențiere"
+
+#: admin.php:109
+msgid "Highlight editable elements"
+msgstr "Scoate în evidență elementele editabile"
+
+#: core.php:93
 msgid "Save"
 msgstr "Salvează"
 
-#: core.php:110
+#: core.php:94
 msgid "Cancel"
 msgstr "Anulează"
 
-#: core.php:235
+#: core.php:236
 msgid "empty"
 msgstr "gol"
 
-#: fields.php:453
+#: fields.php:541
 msgid "Post/page title"
 msgstr "Titlu articol/pagină"
 
-#: fields.php:459
+#: fields.php:547
 msgid "Post/page content"
 msgstr "Conținut articol/pagină"
 
-#: fields.php:465
+#: fields.php:553
 msgid "Post/page excerpt"
 msgstr "Extras articol/pagină"
 
-#: fields.php:471
+#: fields.php:559
 msgid "Post tags"
 msgstr "Etichete articol"
 
-#: fields.php:477
+#: fields.php:565
 msgid "Post terms"
 msgstr "Termeni articol"
 
-#: fields.php:483
+#: fields.php:571
 msgid "Post/page custom fields"
 msgstr "Câmpuri personalizate articol/pagină"
 
-#: fields.php:489
+#: fields.php:577
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: fields.php:495
+#: fields.php:583
 msgid "Author description"
 msgstr "Descriere autor"
 
-#: fields.php:502
+#: fields.php:590
 msgid "Text widget content"
 msgstr "Conținut widget text"
 
-#: fields.php:508
+#: fields.php:596
 msgid "Text widget title"
 msgstr "Titlu widget text"
+
+#: fields.php:601
+msgid "Site title and description"
+msgstr "Titlu și descriere site"
 
 #: scb/AdminPage.php:163
 msgid "Save Changes"

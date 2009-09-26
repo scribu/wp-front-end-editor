@@ -110,6 +110,10 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.3.1 =
+* settings page fix
+* updated translations
+
 = 1.3 =
 * new editable fields: site title & site description
 * the rich editor respects .alignleft etc.
