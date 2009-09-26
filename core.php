@@ -5,6 +5,7 @@ abstract class frontEditor
 	static $options;
 
 	private static $fields;
+	private static $active_fields;
 	private static $instances = array();
 
 	private static $version;
@@ -38,11 +39,11 @@ abstract class frontEditor
 
 	static function make_instances()
 	{
-		$fields = self::get_fields();
+		self::$active_fields = self::get_fields();
 		foreach ( (array) self::$options->disabled as $name )
-			unset($fields[$name]);
+			unset(self::$active_fields[$name]);
 
-		foreach ( $fields as $name => $args )
+		foreach ( self::$active_fields as $name => $args )
 		{
 			extract($args);
 			self::$instances[$name] = new $class($name, $type);
@@ -51,7 +52,7 @@ abstract class frontEditor
 
 	private static function add_filters()
 	{
-		foreach ( self::$fields as $name => $args )
+		foreach ( self::$active_fields as $name => $args )
 		{
 			extract($args);
 

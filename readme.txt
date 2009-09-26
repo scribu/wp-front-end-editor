@@ -110,8 +110,11 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.3.2 =
+* site title bugfix
+
 = 1.3.1 =
-* settings page fix
+* settings page bugfix
 * updated translations
 
 = 1.3 =

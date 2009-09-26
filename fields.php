@@ -512,14 +512,15 @@ class frontEd_bloginfo extends frontEd_field
 	function setup()
 	{
 		ob_start();
-		add_action('wp_head', array(__CLASS__, '_fix_title'));
+		add_action('wp_head', array(__CLASS__, '_fix_title'), 100);
 	}
 
 	function _fix_title()
 	{
 		$content = ob_get_clean();
 
-		if ( empty(self::$wraps) )
+		// nothing to fix
+		if ( empty(self::$wraps) || FALSE === strpos($content, '<title>') )
 			echo $content;
 
 		$title = explode('<title>', $content);
