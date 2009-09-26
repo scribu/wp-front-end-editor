@@ -61,6 +61,12 @@ You can either install it automatically from the WordPress admin, or do it manua
 
 == Frequently Asked Questions ==
 
+= "Parse error: syntax error, unexpected T_CLASS..." Help! =
+
+Make sure your new host is running PHP 5. Add this line to wp-config.php:
+
+`var_dump(PHP_VERSION);`
+
 = I double click on a field and nothing happens. Why? =
 
 Probably because the javascript is not loaded. Make sure your theme has wp_footer() somewhere in footer.php
