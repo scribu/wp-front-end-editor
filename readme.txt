@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.8
 Tested up to: 2.9-rare
-Stable tag: trunk
+Stable tag: 1.3.3
 
 Want to edit something? Just double-click it!
 

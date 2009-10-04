@@ -357,6 +357,54 @@ function editable_post_meta($post_id, $key, $type = 'input')
 	echo apply_filters('post_meta', $data, $post_id, $key, $type);
 }
 
+// Handles single_*_title fields
+class frontEd_single_title extends frontEd_field
+{
+	private $taxonomy;
+
+	function setup()
+	{
+		remove_filter($this->filter, 'strip_tags');
+
+		list($a, $tax, $b) = explode('_', $this->filter);
+
+		$translate = array(
+			'cat' => 'category',
+			'tag' => 'post_tag'
+		);
+
+		$this->taxonomy = $translate[$tax];
+	}
+
+	function wrap($title)
+	{
+		if ( ! self::check() )
+			return $title;
+
+		if ( ! $term = get_term_by('name', $title, $this->taxonomy) )
+			return $title;
+
+		return parent::wrap($title, $term->term_id);
+	}
+
+	function get($term_id)
+	{
+		return get_term_field('name', $term_id, $this->taxonomy, 'edit');
+	}
+
+	function save($term_id, $title)
+	{
+		wp_update_term($term_id, $this->taxonomy, array('name' => $title));
+
+		return $title;
+	}
+
+	function check()
+	{
+		return current_user_can('manage_categories');
+	}
+}
+
 // Handles the_author_description field
 class frontEd_author_desc extends frontEd_field
 {
@@ -543,6 +591,16 @@ function fee_register_defaults()
 			'title' => __('Comment text', 'front-end-editor'),
 			'class' => 'frontEd_comment',
 			'type' => 'textarea',
+		),
+
+		'single_cat_title' => array(
+			'title' => __('Category title', 'front-end-editor'),
+			'class' => 'frontEd_single_title',
+		),
+
+		'single_tag_title' => array(
+			'title' => __('Tag title', 'front-end-editor'),
+			'class' => 'frontEd_single_title',
 		),
 
 		'the_author_description' => array(
