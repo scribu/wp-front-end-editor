@@ -250,16 +250,6 @@ class frontEd_tags extends frontEd_basic
 {
 	function wrap($content, $before, $sep, $after)
 	{
-		if ( version_compare($GLOBALS['wp_version'], '2.7.1', '<') )
-		{
-			// Figure out $before arg
-			$before = substr($content, 0, strpos($content, '<a'));
-
-			// Figure out $after arg
-			$tmp = explode('</a>', $content);
-			$after = $tmp[count($tmp)-1];
-		}
-
 		if ( empty($content) )
 			$content = self::placeholder();
 		else
@@ -507,31 +497,6 @@ class frontEd_bloginfo extends frontEd_field
 	{
 		return current_user_can('manage_options');
 	}
-
-	// Ugly fix for the <title> tag
-	function setup()
-	{
-		ob_start();
-		add_action('wp_head', array(__CLASS__, '_fix_title'), 100);
-	}
-
-	function _fix_title()
-	{
-		$content = ob_get_clean();
-
-		// nothing to fix
-		if ( empty(self::$wraps) || FALSE === strpos($content, '<title>') )
-			echo $content;
-
-		$title = explode('<title>', $content);
-		list($title) = explode('</title>', $title[1]);
-
-		$correct_title = $title;
-		foreach ( self::$wraps as $show => $wrap )
-			$correct_title = str_replace($wrap, self::get($show), $correct_title);
-
-		echo str_replace("<title>$title</title>", "<title>$correct_title</title>", $content);
-	}
 }
 
 add_action('init', 'fee_register_defaults');
@@ -539,19 +504,19 @@ function fee_register_defaults()
 {
 	$fields = array(
 		'the_title' => array(
-			'title' => __('Post/page title', 'front-end-editor'),
+			'title' => __('Post title', 'front-end-editor'),
 			'class' => 'frontEd_basic',
 			'type' => 'input',
 		),
 		
 		'the_content' => array(
-			'title' => __('Post/page content', 'front-end-editor'),
+			'title' => __('Post content', 'front-end-editor'),
 			'class' => frontEditor::$options->chunks ? 'frontEd_chunks' : 'frontEd_basic',
 			'type' => frontEditor::$options->rich ? 'rich' : 'textarea',
 		),
 
 		'the_excerpt' => array(
-			'title' => __('Post/page excerpt', 'front-end-editor'),
+			'title' => __('Post excerpt', 'front-end-editor'),
 			'class' => 'frontEd_excerpt',
 			'type' => 'textarea',
 		),
@@ -569,7 +534,7 @@ function fee_register_defaults()
 		),
 
 		'post_meta' => array(
-			'title' => __('Post/page custom fields', 'front-end-editor'),
+			'title' => __('Post custom fields', 'front-end-editor'),
 			'class' => 'frontEd_meta',
 			'argc' => 4,
 		),

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-09-24 23:42+0300\n"
-"PO-Revision-Date: 2009-09-25 00:01+0200\n"
+"POT-Creation-Date: 2009-10-04 18:54+0300\n"
+"PO-Revision-Date: 2009-10-04 18:55+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.3)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.3.3)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:9
 msgid "Front-end Editor"
@@ -30,97 +30,97 @@ msgstr "Câmpuri"
 msgid "Settings"
 msgstr "Setări"
 
-#: admin.php:43
-#: admin.php:87
+#: admin.php:44
+#: admin.php:88
 #: scb/AdminPage.php:105
 msgid "Settings <strong>saved</strong>."
 msgstr "Setări <strong>salvate</strong>."
 
-#: admin.php:49
+#: admin.php:50
 msgid "Enable or disable editable fields"
 msgstr "Activează sau dezactivează câmpurile editabile"
 
-#: admin.php:55
+#: admin.php:56
 msgid "Field name"
 msgstr "Nume câmp"
 
-#: admin.php:94
+#: admin.php:95
 msgid "Rich text editor"
 msgstr "Editor de text avansat"
 
-#: admin.php:95
+#: admin.php:96
 msgid "Enable the WYSIWYG editor"
 msgstr "Activează editorul WYSIWYG"
 
-#: admin.php:101
+#: admin.php:102
 msgid "Edit paragraphs"
 msgstr "Editează paragrafe"
 
-#: admin.php:102
+#: admin.php:103
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Editează câte un singur paragraf, în loc de articolul întreg"
 
-#: admin.php:108
+#: admin.php:109
 msgid "Highlighting"
 msgstr "Evidențiere"
 
-#: admin.php:109
+#: admin.php:110
 msgid "Highlight editable elements"
 msgstr "Scoate în evidență elementele editabile"
 
-#: core.php:93
+#: core.php:95
 msgid "Save"
 msgstr "Salvează"
 
-#: core.php:94
+#: core.php:96
 msgid "Cancel"
 msgstr "Anulează"
 
-#: core.php:236
+#: core.php:238
 msgid "empty"
 msgstr "gol"
 
-#: fields.php:541
-msgid "Post/page title"
-msgstr "Titlu articol/pagină"
+#: fields.php:507
+msgid "Post title"
+msgstr "Titlu articol"
 
-#: fields.php:547
-msgid "Post/page content"
-msgstr "Conținut articol/pagină"
+#: fields.php:513
+msgid "Post content"
+msgstr "Conținut articol"
 
-#: fields.php:553
-msgid "Post/page excerpt"
-msgstr "Extras articol/pagină"
+#: fields.php:519
+msgid "Post excerpt"
+msgstr "Extras articol"
 
-#: fields.php:559
+#: fields.php:525
 msgid "Post tags"
 msgstr "Etichete articol"
 
-#: fields.php:565
+#: fields.php:531
 msgid "Post terms"
 msgstr "Termeni articol"
 
-#: fields.php:571
-msgid "Post/page custom fields"
-msgstr "Câmpuri personalizate articol/pagină"
+#: fields.php:537
+msgid "Post custom fields"
+msgstr "Câmpuri personalizate articol"
 
-#: fields.php:577
+#: fields.php:543
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: fields.php:583
+#: fields.php:549
 msgid "Author description"
 msgstr "Descriere autor"
 
-#: fields.php:590
+#: fields.php:556
 msgid "Text widget content"
 msgstr "Conținut widget text"
 
-#: fields.php:596
+#: fields.php:562
 msgid "Text widget title"
 msgstr "Titlu widget text"
 
-#: fields.php:601
+#: fields.php:567
 msgid "Site title and description"
 msgstr "Titlu și descriere site"
 

@@ -114,6 +114,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.3.3 =
+* fixed duplicate header error
+
 = 1.3.2 =
 * site title bugfix
 

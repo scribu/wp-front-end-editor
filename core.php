@@ -31,10 +31,10 @@ abstract class frontEditor
 		if ( apply_filters('front_ed_disable', false) )
 			return;
 
-		self::add_filters();
 		self::add_scripts();
 
 		add_action('wp_head', array(__CLASS__, 'pass_to_js'));
+		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
 	}
 
 	static function make_instances()
@@ -50,7 +50,7 @@ abstract class frontEditor
 		}
 	}
 
-	private static function add_filters()
+	static function add_filters()
 	{
 		foreach ( self::$active_fields as $name => $args )
 		{
@@ -85,7 +85,7 @@ abstract class frontEditor
 	static function pass_to_js()
 	{
 		// PHP < 5.2
-		if ( !function_exists('json_encode') )
+		if ( ! function_exists('json_encode') )
 			require_once dirname(__FILE__) . '/inc/json.php';
 
 		foreach( self::$fields as $name => $args )
