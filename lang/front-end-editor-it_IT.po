@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor in italiano\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-09-24 23:42+0300\n"
+"POT-Creation-Date: 2009-10-04 18:54+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "X-Poedit-Language: Italian\n"
 "X-Poedit-Country: ITALY\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.3)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.3.3)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:9
 msgid "Front-end Editor"
@@ -27,97 +27,97 @@ msgstr "Campi"
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: admin.php:43
-#: admin.php:87
+#: admin.php:44
+#: admin.php:88
 #: scb/AdminPage.php:105
 msgid "Settings <strong>saved</strong>."
 msgstr "Le impostazioni sono state <strong>salvate</strong>."
 
-#: admin.php:49
+#: admin.php:50
 msgid "Enable or disable editable fields"
 msgstr "Attiva o disattiva i campi modificabili"
 
-#: admin.php:55
+#: admin.php:56
 msgid "Field name"
 msgstr "Nome campo"
 
-#: admin.php:94
+#: admin.php:95
 msgid "Rich text editor"
 msgstr "Editor avanzato"
 
-#: admin.php:95
+#: admin.php:96
 msgid "Enable the WYSIWYG editor"
 msgstr "Attiva l'editor WYSIWYG"
 
-#: admin.php:101
+#: admin.php:102
 msgid "Edit paragraphs"
 msgstr "Modifica paragrafi"
 
-#: admin.php:102
+#: admin.php:103
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Modifica un paragrafo alla volta invece di operare su tutto l'articolo"
 
-#: admin.php:108
+#: admin.php:109
 msgid "Highlighting"
 msgstr "Evidenziatore"
 
-#: admin.php:109
+#: admin.php:110
 msgid "Highlight editable elements"
 msgstr "Evidenzia gli elementi modificabili"
 
-#: core.php:93
+#: core.php:95
 msgid "Save"
 msgstr "Salva"
 
-#: core.php:94
+#: core.php:96
 msgid "Cancel"
 msgstr "Annulla"
 
-#: core.php:236
+#: core.php:238
 msgid "empty"
 msgstr "vuoto"
 
-#: fields.php:541
-msgid "Post/page title"
-msgstr "Titolo articolo/pagina"
+#: fields.php:507
+msgid "Post title"
+msgstr "Titolo articolo"
 
-#: fields.php:547
-msgid "Post/page content"
-msgstr "Contenuto articolo/pagina"
+#: fields.php:513
+msgid "Post content"
+msgstr "Contenuto articolo"
 
-#: fields.php:553
-msgid "Post/page excerpt"
-msgstr "Estratto articolo/pagina"
+#: fields.php:519
+msgid "Post excerpt"
+msgstr "Riassunto articolo"
 
-#: fields.php:559
+#: fields.php:525
 msgid "Post tags"
 msgstr "Tag articolo"
 
-#: fields.php:565
+#: fields.php:531
 msgid "Post terms"
 msgstr "Termini articolo"
 
-#: fields.php:571
-msgid "Post/page custom fields"
-msgstr "Campi personalizzati articolo/pagina"
+#: fields.php:537
+msgid "Post custom fields"
+msgstr "Campi personalizzati articolo"
 
-#: fields.php:577
+#: fields.php:543
 msgid "Comment text"
 msgstr "Testo commenti"
 
-#: fields.php:583
+#: fields.php:549
 msgid "Author description"
 msgstr "Descrizione autore"
 
-#: fields.php:590
+#: fields.php:556
 msgid "Text widget content"
 msgstr "Contenuto widget di testo"
 
-#: fields.php:596
+#: fields.php:562
 msgid "Text widget title"
 msgstr "Titolo widget di testo"
 
-#: fields.php:601
+#: fields.php:567
 msgid "Site title and description"
 msgstr "Nome e descrizione del sito"
 
