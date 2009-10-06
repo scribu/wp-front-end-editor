@@ -114,6 +114,10 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.4 =
+* editable single_cat_title & single_tag_title
+* added $echo parameter to editable_post_meta()
+
 = 1.3.3 =
 * fixed duplicate header error
 
