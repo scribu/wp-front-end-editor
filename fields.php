@@ -350,11 +350,15 @@ class frontEd_meta extends frontEd_basic
 	}
 }
 
-function editable_post_meta($post_id, $key, $type = 'input')
+function editable_post_meta($post_id, $key, $type = 'input', $echo = true)
 {
 	$data = get_post_meta($post_id, $key, true);
+	$data = apply_filters('post_meta', $data, $post_id, $key, $type);
 
-	echo apply_filters('post_meta', $data, $post_id, $key, $type);
+	if ( ! $echo )
+		return $data;
+
+	echo $data;
 }
 
 // Handles single_*_title fields
