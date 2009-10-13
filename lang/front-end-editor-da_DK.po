@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 0.8.0.1 in Danish / på dansk\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-07 17:11+0300\n"
-"PO-Revision-Date: 2009-04-08 18:51+0200\n"
-"Last-Translator: scribu <scribu@gmail.com>\n"
+"Project-Id-Version: Front-end Editor 1.3.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-05 08:41+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Team Blogos <wordpress@blogos.dk>\n"
 "Language-Team: Team Blogos <wordpress@blogos.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,64 +13,132 @@ msgstr ""
 "X-Poedit-Language: Danish\n"
 "X-Poedit-Country: DENMARK\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_c;_e;__ngettext:1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_c;_e;__ngettext:1,2;__ngettext_noop:1,2;_n:1,2;_nc:1,2;_n_noop:1,2\n"
 "X-Poedit-Basepath: d:\\wordpress\\plugins\\front-end-editor\n"
 "X-Poedit-SearchPath-0: d:\\wordpress\\plugins\\front-end-editor\n"
 
-#: admin.php:35
-msgid "Settings saved"
-msgstr "Indstillingerne gemt"
-
-#: admin.php:41
-msgid "Enable or disable editable fields"
-msgstr "Aktivér eller deaktivér redigerbare felter"
-
-#: admin.php:47
-msgid "Field name"
-msgstr "Feltnavn"
-
-#: admin.php:64
-#: admin.php:77
-msgid "Save changes"
-msgstr "Gem ændringer"
-
-#: admin.php:69
-msgid "Rich text editor"
-msgstr ""
-
-#: admin.php:70
-msgid "Enable the WYSIWYG editor"
-msgstr "Aktivér WYSIWYG-editoren"
-
-#: admin.php:76
-msgid "Settings"
-msgstr "Indstillinger"
-
-#: front-end-editor.php:106
-msgid "Save"
-msgstr "Gem"
-
-#: front-end-editor.php:107
-msgid "Cancel"
-msgstr "Annullér"
-
-#. Plugin Name of an extension
+#: d:\wordpress\plugins\front-end-editor/admin.php:9
 msgid "Front-end Editor"
 msgstr "Front-end Editor"
 
-#. Plugin URI of an extension
-msgid "http://scribu.net/wordpress/front-end-editor"
-msgstr "http://scribu.net/wordpress/front-end-editor"
+#: d:\wordpress\plugins\front-end-editor/admin.php:12
+msgid "Fields"
+msgstr "Feltnavne"
 
-#. Description of an extension
-msgid "Allows you to edit your posts without going through the admin interface"
-msgstr "Lader dig redigere dine indlæg uden at skulle gøre gennem administrationspanelet"
+#: d:\wordpress\plugins\front-end-editor/admin.php:13
+#: d:\wordpress\plugins\front-end-editor/scb/AdminPage.php:338
+msgid "Settings"
+msgstr "Indstillinger"
 
-#. Author of an extension
-msgid "scribu"
-msgstr "scribu"
+#: d:\wordpress\plugins\front-end-editor/admin.php:44
+#: d:\wordpress\plugins\front-end-editor/admin.php:88
+#: d:\wordpress\plugins\front-end-editor/scb/AdminPage.php:105
+msgid "Settings <strong>saved</strong>."
+msgstr "Indstillingerne <strong>gemt</strong>."
 
-#. Author URI of an extension
-msgid "http://scribu.net/"
-msgstr "http://scribu.net/"
+#: d:\wordpress\plugins\front-end-editor/admin.php:50
+msgid "Enable or disable editable fields"
+msgstr "Aktivér eller deaktivér redigerbare felter"
+
+#: d:\wordpress\plugins\front-end-editor/admin.php:56
+msgid "Field name"
+msgstr "Feltnavn"
+
+#: d:\wordpress\plugins\front-end-editor/admin.php:95
+msgid "Rich text editor"
+msgstr "Rich text editor"
+
+#: d:\wordpress\plugins\front-end-editor/admin.php:96
+msgid "Enable the WYSIWYG editor"
+msgstr "Aktivér WYSIWYG-editoren"
+
+#: d:\wordpress\plugins\front-end-editor/admin.php:102
+msgid "Edit paragraphs"
+msgstr "Redigér afsnit"
+
+#: d:\wordpress\plugins\front-end-editor/admin.php:103
+msgid "Edit one paragraph at a time, instead of an entire post"
+msgstr "Redigér et afsnit ad gangen, i stedet for et helt indlæg"
+
+#: d:\wordpress\plugins\front-end-editor/admin.php:109
+msgid "Highlighting"
+msgstr "Fremhævelser"
+
+#: d:\wordpress\plugins\front-end-editor/admin.php:110
+msgid "Highlight editable elements"
+msgstr "Fremhæv redigerbare elementer"
+
+#: d:\wordpress\plugins\front-end-editor/core.php:95
+msgid "Save"
+msgstr "Gem"
+
+#: d:\wordpress\plugins\front-end-editor/core.php:96
+msgid "Cancel"
+msgstr "Annullér"
+
+#: d:\wordpress\plugins\front-end-editor/core.php:238
+msgid "empty"
+msgstr "tom"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:507
+msgid "Post title"
+msgstr "Titel på indlæg"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:513
+msgid "Post content"
+msgstr "Indhold af indlæg"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:519
+msgid "Post excerpt"
+msgstr "Indlægsuddrag"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:525
+msgid "Post tags"
+msgstr "Indlægs-tags"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:531
+msgid "Post terms"
+msgstr "Indlægs-terms"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:537
+msgid "Post custom fields"
+msgstr "Brugerdefinerede indlægsfelter"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:543
+msgid "Comment text"
+msgstr "Kommentartekst"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:549
+msgid "Author description"
+msgstr "Forfatterbeskrivelse"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:556
+msgid "Text widget content"
+msgstr "Indhold af tekst-widgets"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:562
+msgid "Text widget title"
+msgstr "Titel på tekst-widgets"
+
+#: d:\wordpress\plugins\front-end-editor/fields.php:567
+msgid "Site title and description"
+msgstr "Sitetitel og -beskrivelse"
+
+#: d:\wordpress\plugins\front-end-editor/scb/AdminPage.php:163
+msgid "Save Changes"
+msgstr "Gem ændringer"
+
+#~ msgid "[none]"
+#~ msgstr "[ingen]"
+#~ msgid "http://scribu.net/wordpress/front-end-editor"
+#~ msgstr "http://scribu.net/wordpress/front-end-editor"
+#~ msgid ""
+#~ "Allows you to edit your posts without going through the admin interface"
+#~ msgstr ""
+#~ "Lader dig redigere dine indlæg uden at skulle gøre gennem "
+#~ "administrationspanelet"
+#~ msgid "scribu"
+#~ msgstr "scribu"
+#~ msgid "http://scribu.net/"
+#~ msgstr "http://scribu.net/"
 

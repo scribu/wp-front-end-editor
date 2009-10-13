@@ -413,7 +413,7 @@ class scbForms
 		return $extra;
 	}
 
-// Utilities
+// Sugar
 
 	private static function is_associative($array)
 	{
