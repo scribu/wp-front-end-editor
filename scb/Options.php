@@ -68,8 +68,6 @@ class scbOptions
 		else
 			$newdata = array($field => $value);
 
-		debug($newdata);
-
 		$this->update(array_merge($this->data, $newdata));
 	}
 
