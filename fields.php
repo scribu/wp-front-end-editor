@@ -20,7 +20,7 @@ class frontEd_basic extends frontEd_field
 			$post_id = get_the_ID();
 		}
 
-		if ( ! self::check($post_id) )
+		if ( ! $this->check($post_id) )
 			return $content;
 
 		return parent::wrap($content, $post_id);
@@ -74,10 +74,10 @@ class frontEd_chunks extends frontEd_basic
 	{
 		$post_id = get_the_ID();
 
-		if ( ! self::check($post_id) )
+		if ( ! $this->check($post_id) )
 			return $content;
 
-		$chunks = self::split($content);
+		$chunks = $this->split($content);
 
 		foreach ( $chunks as $i => $chunk )
 			$chunks[$i] = '<p>' . frontEd_field::wrap($chunk, "$post_id#$i") . '</p>';
@@ -91,7 +91,7 @@ class frontEd_chunks extends frontEd_basic
 
 		$field = get_post_field('post_content', $post_id);
 
-		$chunks = self::split($field, true);
+		$chunks = $this->split($field, true);
 
 		return $chunks[$chunk_id];
 	}
@@ -102,7 +102,7 @@ class frontEd_chunks extends frontEd_basic
 
 		$field = get_post_field('post_content', $post_id);
 
-		$chunks = self::split($field, true);
+		$chunks = $this->split($field, true);
 
 		$content = trim($content);
 
@@ -120,7 +120,7 @@ class frontEd_chunks extends frontEd_basic
 
 		// Refresh the page if a new chunk is added
 		if ( empty($content) || FALSE !== strpos($content, self::delim) )
-			self::force_refresh();
+			$this->force_refresh();
 
 		return $content;
 	}
@@ -161,14 +161,14 @@ class frontEd_excerpt extends frontEd_basic
 		$excerpt = $post->post_excerpt;
 
 		if ( empty($excerpt) )
-			$excerpt = self::trim_excerpt($post->post_content);
+			$excerpt = $this->trim_excerpt($post->post_content);
 
 		return $excerpt;
 	}
 
 	function save($post_id, $excerpt)
 	{
-		$default_excerpt = self::get($post_id);
+		$default_excerpt = $this->get($post_id);
 
 		if ( $excerpt == $default_excerpt )
 			return $excerpt;
@@ -210,7 +210,7 @@ class frontEd_comment extends frontEd_field
 	{
 		global $comment;
 		
-		if ( ! self::check($comment->comment_ID) )
+		if ( ! $this->check($comment->comment_ID) )
 			return $content;
 
 		return parent::wrap($content, $comment->comment_ID);
@@ -251,7 +251,7 @@ class frontEd_tags extends frontEd_basic
 	function wrap($content, $before, $sep, $after)
 	{
 		if ( empty($content) )
-			$content = self::placeholder();
+			$content = $this->placeholder();
 		else
 			$content = str_replace(array($before, $after), '', $content);
 
@@ -278,7 +278,7 @@ class frontEd_tags extends frontEd_basic
 		$response = get_the_term_list($post_id, 'post_tag', '', ', ');
 
 		if ( empty($response) )
-			return self::placeholder();
+			return $this->placeholder();
 
 		return $response;
 	}
@@ -292,7 +292,7 @@ class frontEd_terms extends frontEd_basic
 		$post_id = implode('#', array(get_the_ID(), $taxonomy));
 
 		if ( empty($content) )
-			$content = self::placeholder();
+			$content = $this->placeholder();
 		else
 			$content = str_replace(array($before, $after), '', $content);
 
@@ -315,7 +315,7 @@ class frontEd_terms extends frontEd_basic
 		$response = get_the_term_list($post_id, $taxonomy, '', ', ');
 
 		if ( empty($response) )
-			return self::placeholder();
+			return $this->placeholder();
 
 		return $response;
 	}
@@ -382,7 +382,7 @@ class frontEd_single_title extends frontEd_field
 
 	function wrap($title)
 	{
-		if ( ! self::check() )
+		if ( ! $this->check() )
 			return $title;
 
 		if ( ! $term = get_term_by('name', $title, $this->taxonomy) )
@@ -415,16 +415,16 @@ class frontEd_author_desc extends frontEd_field
 	function wrap($content, $author_id = '')
 	{
 		if ( ! $author_id )
-			$author_id = self::guess_author_id();
+			$author_id = $this->guess_author_id();
 
 		if ( ! $author_id )
 			return $content;
 
-		if ( ! self::check($author_id) )
+		if ( ! $this->check($author_id) )
 			return $content;
 
 		if ( empty($content) )
-			$content = self::placeholder();
+			$content = $this->placeholder();
 
 		return parent::wrap($content, $author_id);
 	}
@@ -479,7 +479,7 @@ class frontEd_widget extends frontEd_field
 
 	function get($id)
 	{
-		$widget_id = self::get_id($id);
+		$widget_id = $this->get_id($id);
 
 		$widgets = get_option('widget_text');
 
@@ -488,7 +488,7 @@ class frontEd_widget extends frontEd_field
 
 	function save($id, $content)
 	{
-		$widget_id = self::get_id($id);
+		$widget_id = $this->get_id($id);
 
 		$widgets = get_option('widget_text');
 		$widgets[$widget_id][$this->field] = $content;
@@ -516,7 +516,7 @@ class frontEd_bloginfo extends frontEd_field
 
 	function wrap($content, $show)
 	{
-		if ( ! self::check() )
+		if ( ! $this->check() )
 			return $content;
 
 		if ( $content == get_option('blogname') )
