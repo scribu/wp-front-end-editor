@@ -45,42 +45,22 @@ msgstr "Activer l'éditeur WYSIWYG"
 msgid "Settings"
 msgstr "Réglages"
 
-#: fields.php:542
-#@ front-end-editor
-msgid "Post/page title"
-msgstr "Titre du billet/page"
-
-#: fields.php:548
-#@ front-end-editor
-msgid "Post/page content"
-msgstr "Contenu du billet/page"
-
-#: fields.php:554
-#@ front-end-editor
-msgid "Post/page excerpt"
-msgstr "Extrait des billets/page"
-
-#: fields.php:560
+#: fields.php:525
 #@ front-end-editor
 msgid "Post tags"
 msgstr "Tags du billet"
 
-#: fields.php:572
-#@ front-end-editor
-msgid "Post/page custom fields"
-msgstr "Custom fields (champs personnalisés) des billets/pages"
-
-#: fields.php:578
+#: fields.php:543
 #@ front-end-editor
 msgid "Comment text"
 msgstr "Commentaires"
 
-#: fields.php:591
+#: fields.php:556
 #@ front-end-editor
 msgid "Text widget content"
 msgstr "Contenu des widgets texte"
 
-#: fields.php:597
+#: fields.php:562
 #@ front-end-editor
 msgid "Text widget title"
 msgstr "Titre des widgets texte"
@@ -127,12 +107,12 @@ msgstr ""
 msgid "empty"
 msgstr "vide "
 
-#: fields.php:566
+#: fields.php:531
 #@ front-end-editor
 msgid "Post terms"
 msgstr "Termes du billet "
 
-#: fields.php:584
+#: fields.php:549
 #@ front-end-editor
 msgid "Author description"
 msgstr "Description de l'auteur "
@@ -152,8 +132,28 @@ msgstr "Surlignage"
 msgid "Highlight editable elements"
 msgstr "Surlignage des éléments éditables"
 
-#: fields.php:602
+#: fields.php:567
 #@ front-end-editor
 msgid "Site title and description"
 msgstr "Titre du site et description"
+
+#: fields.php:507
+#@ front-end-editor
+msgid "Post title"
+msgstr "Titre du billet"
+
+#: fields.php:513
+#@ front-end-editor
+msgid "Post content"
+msgstr "Contenu du billet"
+
+#: fields.php:519
+#@ front-end-editor
+msgid "Post excerpt"
+msgstr "Extrait du billet"
+
+#: fields.php:537
+#@ front-end-editor
+msgid "Post custom fields"
+msgstr "Champs personnalisés du billet"
 
