@@ -61,7 +61,7 @@ You can either install it automatically from the WordPress admin, or do it manua
 
 = "Parse error: syntax error, unexpected T_CLASS..." Help! =
 
-Make sure your new host is running PHP 5. Add this line to wp-config.php:
+Make sure your host is running PHP 5. Add this line to wp-config.php to check:
 
 `var_dump(PHP_VERSION);`
 
