@@ -254,15 +254,6 @@ class frontEd_field
 	}
 }
 
-add_filter('front_ed_allow_post', 'restrict_editable_posts', 10, 2);
-function restrict_editable_posts($allow, $post_id) {
-	$parents = get_post_ancestors($post_id);
-	$page_parent = 123;
-
-	return in_array($page_parent, $parents);
-}
-
-
 /*
 Registers a new editable field
 
