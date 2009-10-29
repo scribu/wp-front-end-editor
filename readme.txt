@@ -41,6 +41,11 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 		<li>title</li>
 		<li>content</li>
 	</ul></li>
+	<li><strong>titles</strong>
+	<ul>
+		<li>category</li>
+		<li>tag</li>
+	</ul></li>
 	<li><strong>site info</strong>
 	<ul>
 		<li>title</li>
