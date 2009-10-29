@@ -132,7 +132,7 @@ w?>
 			die(-1);
 
 		// Does the user have the right to do this?
-		if ( ! $instance->check($id) )
+		if ( ! $instance->check($id) || $instance->allow($id) )
 			die(-1);
 
 		$args = self::$fields[$name];
@@ -187,13 +187,14 @@ w?>
 class frontEd_field
 {
 	protected $filter;
-	protected $type;
+	protected $input_type;
+	protected $object_type;
 
 	function __construct($filter, $type)
 	{
 		$this->filter = $filter;
-		$this->type = $type;
-		
+		$this->object_type = $type;
+
 		$this->setup();
 	}
 
@@ -203,13 +204,13 @@ class frontEd_field
 	// Mark the field as editable
 	function wrap($content, $id)
 	{
-		if ( is_feed() )
+		if ( is_feed() || ! $this->allow($id) )
 			return $content;
 
 		$class = 'front-ed-' . $this->filter . ' front-ed';
 		$id = 'fee_' . esc_attr($id);
 
-		if ( $this->type == 'input' )
+		if ( $this->input_type == 'input' )
 			return "<span id='{$id}' class='{$class}'>{$content}</span>";
 		else
 			return "<div id='{$id}' class='{$class}'>{$content}</div>";
@@ -233,11 +234,17 @@ class frontEd_field
 		trigger_error("The check() method must be implemented in " . self::get_class(), E_USER_ERROR);
 	}
 
+	// Allow external code to block editing for certain objects
+	private function allow($obect_id)
+	{
+		return apply_filters('front_ed_allow_' . $this->object_type, true, $obect_id, $this->filter, $this->input_type);
+	}
+
 	function placeholder()
 	{
 		return '[' . __('empty', 'front-end-editor') . ']';
 	}
-	
+
 	private function get_class()
 	{
 		if ( function_exists('get_called_class') )
@@ -246,6 +253,15 @@ class frontEd_field
 			return 'the child class';
 	}
 }
+
+add_filter('front_ed_allow_post', 'restrict_editable_posts', 10, 2);
+function restrict_editable_posts($allow, $post_id) {
+	$parents = get_post_ancestors($post_id);
+	$page_parent = 123;
+
+	return in_array($page_parent, $parents);
+}
+
 
 /*
 Registers a new editable field

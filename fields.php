@@ -4,6 +4,7 @@
 class frontEd_basic extends frontEd_field
 {
 	protected $field;
+	protected $object_type = 'post';
 
 	function setup()
 	{
@@ -203,48 +204,6 @@ class frontEd_excerpt extends frontEd_basic
 	}
 }
 
-// Handles comment_text field
-class frontEd_comment extends frontEd_field
-{
-	function wrap($content)
-	{
-		global $comment;
-		
-		if ( ! $this->check($comment->comment_ID) )
-			return $content;
-
-		return parent::wrap($content, $comment->comment_ID);
-	}
-
-	function get($comment_id)
-	{
-		$comment = get_comment($comment_id);
-		return $comment->comment_content;
-	}
-
-	function save($comment_id, $content)
-	{
-		wp_update_comment(array(
-			'comment_ID' => $comment_id,
-			'comment_content' => $content
-		));
-
-		return $content;
-	}
-
-	function check($comment_id)
-	{
-		if ( current_user_can('moderate_comments') )
-			return true;
-
-		global $user_ID;
-
-		$comment = get_comment($comment_id);
-
-		return $user_ID == $comment->user_id;
-	}
-}
-
 // Handles the_tags field
 class frontEd_tags extends frontEd_basic
 {
@@ -326,7 +285,7 @@ class frontEd_meta extends frontEd_basic
 {
 	function wrap($content, $post_id, $key, $type)
 	{
-		$this->type = $type;
+		$this->input_type = $type;
 
 		$id = implode('#', array($post_id, $key, $type));
 
@@ -361,9 +320,55 @@ function editable_post_meta($post_id, $key, $type = 'input', $echo = true)
 	echo $data;
 }
 
+// Handles comment_text field
+class frontEd_comment extends frontEd_field
+{
+	protected $object_type = 'comment';
+
+	function wrap($content)
+	{
+		global $comment;
+		
+		if ( ! $this->check($comment->comment_ID) )
+			return $content;
+
+		return parent::wrap($content, $comment->comment_ID);
+	}
+
+	function get($comment_id)
+	{
+		$comment = get_comment($comment_id);
+		return $comment->comment_content;
+	}
+
+	function save($comment_id, $content)
+	{
+		wp_update_comment(array(
+			'comment_ID' => $comment_id,
+			'comment_content' => $content
+		));
+
+		return $content;
+	}
+
+	function check($comment_id)
+	{
+		if ( current_user_can('moderate_comments') )
+			return true;
+
+		global $user_ID;
+
+		$comment = get_comment($comment_id);
+
+		return $user_ID == $comment->user_id;
+	}
+}
+
 // Handles single_*_title fields
 class frontEd_single_title extends frontEd_field
 {
+	protected $object_type = 'term';
+
 	private $taxonomy;
 
 	function setup()
@@ -412,6 +417,8 @@ class frontEd_single_title extends frontEd_field
 // Handles the_author_description field
 class frontEd_author_desc extends frontEd_field
 {
+	protected $object_type = 'user';
+
 	function wrap($content, $author_id = '')
 	{
 		if ( ! $author_id )
@@ -464,9 +471,11 @@ class frontEd_author_desc extends frontEd_field
 	}
 }
 
-// Handles widget_text
+// Handles widget_text and widget_title fields
 class frontEd_widget extends frontEd_field
 {
+	protected $object_type = 'widget';
+
 	function wrap($content)
 	{
 		return parent::wrap($content, 0);
@@ -512,6 +521,8 @@ class frontEd_widget extends frontEd_field
 // Handles bloginfo fields
 class frontEd_bloginfo extends frontEd_field
 {
+	protected $object_type = 'option';
+
 	private static $wraps = array();
 
 	function wrap($content, $show)
