@@ -193,7 +193,7 @@ class frontEd_field
 	function __construct($filter, $type)
 	{
 		$this->filter = $filter;
-		$this->object_type = $type;
+		$this->input_type = $type;
 
 		$this->setup();
 	}
