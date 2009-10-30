@@ -140,12 +140,12 @@ frontEditorData = <?php echo json_encode($data) ?>;
 		if ( $action == 'save' )
 		{
 			$content = stripslashes_deep($_POST['content']);
-			$result = $instance->save($id, $content, $args);
+			$result = $instance->save($id, $content);
 			$result = @apply_filters($name, $result);
 		}
 		elseif ( $action == 'get' )
 		{
-			$result = $instance->get($id, $args);
+			$result = $instance->get($id);
 			if ( $type == 'rich' )
 				$result = wpautop($result);
 		}
@@ -183,12 +183,10 @@ frontEditorData = <?php echo json_encode($data) ?>;
 }
 
 // All field classes should extend from this one or one of it's descendants
-class frontEd_field
+abstract class frontEd_field
 {
 	private $filter;
 	private $input_type;
-
-	protected $object_type;
 
 	public function __construct($filter, $type)
 	{
@@ -202,6 +200,7 @@ class frontEd_field
 	protected function setup() {}
 
 	// Mark the field as editable
+	// @return string wrapped content
 	public function wrap($content, $id)
 	{
 		if ( is_feed() || ! $this->allow($id) )
@@ -217,22 +216,20 @@ class frontEd_field
 	}
 
 	// Retrieve the current data for the field
-	public function get($object_id, $filter, $args)
-	{
-		trigger_error("The get() method must be implemented in " . self::get_class(), E_USER_ERROR);
-	}
+	// @return string content
+	abstract public function get($object_id);
 
 	// Save the data retrieved from the field
-	public function save($object_id, $content, $filter, $args)
-	{
-		trigger_error("The save() method must be implemented in " . self::get_class(), E_USER_ERROR);
-	}
+	// @return string saved content
+	abstract public function save($object_id, $content);
 
 	// Check user permissions
-	public function check($object_id)
-	{
-		trigger_error("The check() method must be implemented in " . self::get_class(), E_USER_ERROR);
-	}
+	// @return bool
+	abstract public function check($object_id = 0);
+
+	// The type of object this field operates with
+	// @return string
+	abstract protected function get_object_type();
 
 	// Generate a standard placeholder
 	protected function placeholder()
@@ -241,23 +238,15 @@ class frontEd_field
 	}
 
 	// Allow external code to block editing for certain objects
-	final public function allow($obect_id)
+	final public function allow($object_id)
 	{
-		return apply_filters('front_ed_allow_' . $this->object_type, true, $obect_id, $this->filter, $this->input_type);
+		return apply_filters('front_ed_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type);
 	}
 
 	// Get the filter of the current instance
 	final protected function get_filter()
 	{
 		return $this->filter;
-	}
-
-	private function get_class()
-	{
-		if ( function_exists('get_called_class') )
-			return "<strong>" . get_called_class() . "</strong>";
-		else
-			return 'the child class';
 	}
 }
 

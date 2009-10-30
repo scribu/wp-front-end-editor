@@ -3,12 +3,16 @@
 // Handles the_title and the_content fields
 class frontEd_basic extends frontEd_field
 {
-	protected $object_type = 'post';
 	protected $field;
 
 	protected function setup()
 	{
 		$this->field = str_replace('the_', 'post_', $this->get_filter());
+	}
+
+	protected function get_object_type()
+	{
+		return 'post';
 	}
 
 	function wrap($content, $post_id = 0)
@@ -58,7 +62,7 @@ class frontEd_basic extends frontEd_field
 		return $content;
 	}
 
-	function check($post_id)
+	function check($post_id = 0)
 	{
 		$type = get_post_field('post_type', $post_id);
 
@@ -323,7 +327,10 @@ function editable_post_meta($post_id, $key, $type = 'input', $echo = true)
 // Handles comment_text field
 class frontEd_comment extends frontEd_field
 {
-	protected $object_type = 'comment';
+	protected function get_object_type()
+	{
+		return 'comment';
+	}
 
 	function wrap($content)
 	{
@@ -351,7 +358,7 @@ class frontEd_comment extends frontEd_field
 		return $content;
 	}
 
-	function check($comment_id)
+	function check($comment_id = 0)
 	{
 		if ( current_user_can('moderate_comments') )
 			return true;
@@ -367,7 +374,10 @@ class frontEd_comment extends frontEd_field
 // Handles single_*_title fields
 class frontEd_single_title extends frontEd_field
 {
-	protected $object_type = 'term';
+	protected function get_object_type()
+	{
+		return 'term';
+	}
 
 	private $taxonomy;
 
@@ -408,7 +418,7 @@ class frontEd_single_title extends frontEd_field
 		return $title;
 	}
 
-	function check()
+	function check($id = 0)
 	{
 		return current_user_can('manage_categories');
 	}
@@ -417,7 +427,10 @@ class frontEd_single_title extends frontEd_field
 // Handles the_author_description field
 class frontEd_author_desc extends frontEd_field
 {
-	protected $object_type = 'user';
+	protected function get_object_type()
+	{
+		return 'user';
+	}
 
 	function wrap($content, $author_id = '')
 	{
@@ -449,7 +462,7 @@ class frontEd_author_desc extends frontEd_field
 		return $content;
 	}
 
-	function check($author_id)
+	function check($author_id = 0)
 	{
 		if ( current_user_can('edit_users') )
 			return true;
@@ -474,8 +487,12 @@ class frontEd_author_desc extends frontEd_field
 // Handles widget_text and widget_title fields
 class frontEd_widget extends frontEd_field
 {
-	protected $object_type = 'widget';
 	protected $field;
+
+	protected function get_object_type()
+	{
+		return 'widget';
+	}
 
 	function wrap($content)
 	{
@@ -508,7 +525,7 @@ class frontEd_widget extends frontEd_field
 		return wpautop($content);
 	}
 
-	function check()
+	function check($id = 0)
 	{
 		return current_user_can('edit_themes');
 	}
@@ -522,9 +539,12 @@ class frontEd_widget extends frontEd_field
 // Handles bloginfo fields
 class frontEd_bloginfo extends frontEd_field
 {
-	protected $object_type = 'option';
-
 	private static $wraps = array();
+
+	protected function get_object_type()
+	{
+		return 'option';
+	}
 
 	function wrap($content, $show)
 	{
@@ -557,7 +577,7 @@ class frontEd_bloginfo extends frontEd_field
 		return $content;
 	}
 
-	function check()
+	function check($id = 0)
 	{
 		return current_user_can('manage_options');
 	}
