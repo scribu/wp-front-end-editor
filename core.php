@@ -3,6 +3,8 @@
 abstract class frontEditor
 {
 	static $options;
+	
+	const baseclass = 'frontEd_field';
 
 	private static $fields;
 	private static $active_fields;
@@ -35,31 +37,6 @@ abstract class frontEditor
 
 		add_action('wp_head', array(__CLASS__, 'pass_to_js'));
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
-	}
-
-	static function make_instances()
-	{
-		self::$active_fields = self::get_fields();
-		foreach ( (array) self::$options->disabled as $name )
-			unset(self::$active_fields[$name]);
-
-		foreach ( self::$active_fields as $name => $args )
-		{
-			extract($args);
-			self::$instances[$name] = new $class($name, $type);
-		}
-	}
-
-	static function add_filters()
-	{
-		foreach ( self::$active_fields as $name => $args )
-		{
-			extract($args);
-
-			$instance = self::$instances[$name];
-
-			add_filter($name, array($instance, 'wrap'), $priority, $argc);
-		}
 	}
 
 	private static function add_scripts()
@@ -158,6 +135,13 @@ frontEditorData = <?php echo json_encode($data) ?>;
 	{
 		list ( $filter, $args ) = func_get_arg(0);
 
+
+		if ( ! is_subclass_of($args['class'], self::baseclass) )
+		{
+			trigger_error($args['class'] . " must be a subclass of " . self::baseclass, E_USER_ERROR);
+			return false;
+		}
+
 		if ( isset(self::$fields[$filter]) )
 			$args = wp_parse_args($args, self::$fields[$filter]);
 		else
@@ -169,6 +153,34 @@ frontEditorData = <?php echo json_encode($data) ?>;
 			));
 
 		self::$fields[$filter] = $args;
+
+		return true;
+	}
+
+	static function make_instances()
+	{
+		self::$active_fields = self::get_fields();
+		foreach ( (array) self::$options->disabled as $name )
+			unset(self::$active_fields[$name]);
+
+		foreach ( self::$active_fields as $name => $args )
+		{
+			extract($args);
+
+			self::$instances[$name] = new $class($name, $type);
+		}
+	}
+
+	static function add_filters()
+	{
+		foreach ( self::$active_fields as $name => $args )
+		{
+			extract($args);
+
+			$instance = self::$instances[$name];
+
+			add_filter($name, array($instance, 'wrap'), $priority, $argc);
+		}
 	}
 
 	static function get_fields()
@@ -196,11 +208,15 @@ abstract class frontEd_field
 		$this->setup();
 	}
 
-	// Optional actions to be done once per instance
+	/**
+	 * Optional actions to be done once per instance
+	 */
 	protected function setup() {}
 
-	// Mark the field as editable
-	// @return string wrapped content
+	/**
+	 * Mark the field as editable
+	 * @return string wrapped content
+	 */
 	public function wrap($content, $id)
 	{
 		if ( is_feed() || ! $this->allow($id) )
@@ -215,20 +231,28 @@ abstract class frontEd_field
 			return "<div id='{$id}' class='{$class}'>{$content}</div>";
 	}
 
-	// Retrieve the current data for the field
-	// @return string content
+	/**
+	 * Retrieve the current data for the field
+	 * @return string Content
+	 */
 	abstract public function get($object_id);
 
-	// Save the data retrieved from the field
-	// @return string saved content
+	/**
+	 * Save the data retrieved from the field
+	 * @return string Saved content
+	 */
 	abstract public function save($object_id, $content);
 
-	// Check user permissions
-	// @return bool
+	/**
+	 * Check user permissions
+	 * @return bool
+	 */
 	abstract public function check($object_id = 0);
 
-	// The type of object this field operates with
-	// @return string
+	/**
+	 * The type of object this field operates with
+	 * @return string
+	 */
 	abstract protected function get_object_type();
 
 	// Generate a standard placeholder
@@ -256,6 +280,7 @@ Registers a new editable field
 @param string $filter
 @param array $args(
 	'class' => string (mandatory)
+	'title' => string (optional)
 	'type' => string: 'input' | 'textarea' | 'rich' (default: input)
 	'priority' => integer (default: 11)
 	'argc' => integer (default: 1)
@@ -263,6 +288,6 @@ Registers a new editable field
 */
 function register_fronted_field()
 {
-	frontEditor::register(func_get_args());
+	return frontEditor::register(func_get_args());
 }
 
