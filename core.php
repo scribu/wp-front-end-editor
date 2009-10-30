@@ -111,7 +111,7 @@ frontEditorData = <?php echo json_encode($data) ?>;
 <?php
 		if ( self::$options->highlight )
 		{
-w?>
+?>
 <style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
 <?php
 		}
@@ -132,7 +132,7 @@ w?>
 			die(-1);
 
 		// Does the user have the right to do this?
-		if ( ! $instance->check($id) || $instance->allow($id) )
+		if ( ! $instance->check($id) || ! $instance->allow($id) )
 			die(-1);
 
 		$args = self::$fields[$name];
@@ -152,7 +152,6 @@ w?>
 
 		die($result);
 	}
-
 
 	// Register a new editable field
 	static function register()
@@ -186,11 +185,12 @@ w?>
 // All field classes should extend from this one or one of it's descendants
 class frontEd_field
 {
-	protected $filter;
-	protected $input_type;
+	private $filter;
+	private $input_type;
+
 	protected $object_type;
 
-	function __construct($filter, $type)
+	public function __construct($filter, $type)
 	{
 		$this->filter = $filter;
 		$this->input_type = $type;
@@ -199,10 +199,10 @@ class frontEd_field
 	}
 
 	// Optional actions to be done once per instance
-	function setup(){}
+	protected function setup() {}
 
 	// Mark the field as editable
-	function wrap($content, $id)
+	public function wrap($content, $id)
 	{
 		if ( is_feed() || ! $this->allow($id) )
 			return $content;
@@ -217,32 +217,39 @@ class frontEd_field
 	}
 
 	// Retrieve the current data for the field
-	function get($object_id, $filter, $args)
+	public function get($object_id, $filter, $args)
 	{
 		trigger_error("The get() method must be implemented in " . self::get_class(), E_USER_ERROR);
 	}
 
 	// Save the data retrieved from the field
-	function save($object_id, $content, $filter, $args)
+	public function save($object_id, $content, $filter, $args)
 	{
 		trigger_error("The save() method must be implemented in " . self::get_class(), E_USER_ERROR);
 	}
 
 	// Check user permissions
-	function check($object_id)
+	public function check($object_id)
 	{
 		trigger_error("The check() method must be implemented in " . self::get_class(), E_USER_ERROR);
 	}
 
+	// Generate a standard placeholder
+	protected function placeholder()
+	{
+		return '[' . __('empty', 'front-end-editor') . ']';
+	}
+
 	// Allow external code to block editing for certain objects
-	private function allow($obect_id)
+	final public function allow($obect_id)
 	{
 		return apply_filters('front_ed_allow_' . $this->object_type, true, $obect_id, $this->filter, $this->input_type);
 	}
 
-	function placeholder()
+	// Get the filter of the current instance
+	final protected function get_filter()
 	{
-		return '[' . __('empty', 'front-end-editor') . ']';
+		return $this->filter;
 	}
 
 	private function get_class()

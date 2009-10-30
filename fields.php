@@ -3,12 +3,12 @@
 // Handles the_title and the_content fields
 class frontEd_basic extends frontEd_field
 {
-	protected $field;
 	protected $object_type = 'post';
+	protected $field;
 
-	function setup()
+	protected function setup()
 	{
-		$this->field = str_replace('the_', 'post_', $this->filter);
+		$this->field = str_replace('the_', 'post_', $this->get_filter());
 	}
 
 	function wrap($content, $post_id = 0)
@@ -371,11 +371,11 @@ class frontEd_single_title extends frontEd_field
 
 	private $taxonomy;
 
-	function setup()
+	protected function setup()
 	{
-		remove_filter($this->filter, 'strip_tags');
+		remove_filter($this->get_filter(), 'strip_tags');
 
-		list($a, $tax, $b) = explode('_', $this->filter);
+		list($a, $tax, $b) = explode('_', $this->get_filter());
 
 		$translate = array(
 			'cat' => 'category',
@@ -475,15 +475,16 @@ class frontEd_author_desc extends frontEd_field
 class frontEd_widget extends frontEd_field
 {
 	protected $object_type = 'widget';
+	protected $field;
 
 	function wrap($content)
 	{
 		return parent::wrap($content, 0);
 	}
 
-	function setup()
+	protected function setup()
 	{
-		$this->field = str_replace('widget_', '', $this->filter);
+		$this->field = str_replace('widget_', '', $this->get_filter());
 	}
 
 	function get($id)

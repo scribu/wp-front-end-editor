@@ -123,6 +123,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * editable single_cat_title & single_tag_title
 * added $echo parameter to editable_post_meta()
 * easier way to restrict editable content
+* added Georgian translation (Levani Melikishvili)
 
 = 1.3.3 =
 * fixed duplicate header error
