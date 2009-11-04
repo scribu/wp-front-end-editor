@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.4a2\n"
+"Project-Id-Version: Front-end Editor 1.4b\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-10-16 19:23+0300\n"
+"POT-Creation-Date: 2009-11-04 21:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.4a2)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.4b)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:9
 msgid "Front-end Editor"
@@ -66,76 +66,72 @@ msgstr ""
 msgid "Highlight editable elements"
 msgstr ""
 
-#: core.php:95
+#: core.php:146
 msgid "Save"
 msgstr ""
 
-#: core.php:96
+#: core.php:147
 msgid "Cancel"
 msgstr ""
 
-#: core.php:238
+#: core.php:272
 msgid "empty"
 msgstr ""
 
-#: fields.php:559
+#: fields.php:591
 msgid "Post title"
 msgstr ""
 
-#: fields.php:565
+#: fields.php:597
 msgid "Post content"
 msgstr ""
 
-#: fields.php:571
+#: fields.php:603
 msgid "Post excerpt"
 msgstr ""
 
-#: fields.php:577
+#: fields.php:609
 msgid "Post tags"
 msgstr ""
 
-#: fields.php:583
+#: fields.php:615
 msgid "Post terms"
 msgstr ""
 
-#: fields.php:589
+#: fields.php:621
 msgid "Post custom fields"
 msgstr ""
 
-#: fields.php:595
+#: fields.php:627
 msgid "Comment text"
 msgstr ""
 
-#: fields.php:601
+#: fields.php:633
 msgid "Category title"
 msgstr ""
 
-#: fields.php:606
+#: fields.php:638
 msgid "Tag title"
 msgstr ""
 
-#: fields.php:611
+#: fields.php:643
 msgid "Author description"
 msgstr ""
 
-#: fields.php:618
+#: fields.php:650
 msgid "Text widget content"
 msgstr ""
 
-#: fields.php:624
+#: fields.php:656
 msgid "Text widget title"
 msgstr ""
 
-#: fields.php:629
+#: fields.php:661
 msgid "Site title and description"
 msgstr ""
 
 #: scb/AdminPage.php:163
 msgid "Save Changes"
-msgstr ""
-
-#: scb/Dependency.php:46
-msgid "Install now"
 msgstr ""
 
 #. Plugin URI of an extension
