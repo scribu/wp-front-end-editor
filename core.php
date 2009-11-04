@@ -30,6 +30,9 @@ abstract class frontEditor
 		if ( ! is_user_logged_in() )
 			return;
 
+		if ( ! self::can_use_editor() )
+			return;
+
 		if ( apply_filters('front_ed_disable', false) )
 			return;
 
@@ -37,6 +40,15 @@ abstract class frontEditor
 
 		add_action('wp_head', array(__CLASS__, 'pass_to_js'));
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
+	}
+
+	private static function can_use_editor()
+	{
+		foreach ( self::$instances as $instance )
+			if ( $instance->check() )
+				return true;
+
+		return false;
 	}
 
 	private static function add_scripts()
@@ -57,6 +69,68 @@ abstract class frontEditor
 		// Core scripts
 		wp_enqueue_style('front-editor', $url . 'editor/editor.css', self::$version);
 		wp_enqueue_script('front-editor', $url . 'editor/editor.js', array('jquery'), self::$version, true);
+	}
+
+	// Register a new editable field
+	static function register()
+	{
+		list ( $filter, $args ) = func_get_arg(0);
+
+		if ( ! is_subclass_of($args['class'], self::baseclass) )
+		{
+			trigger_error($args['class'] . " must be a subclass of " . self::baseclass, E_USER_ERROR);
+			return false;
+		}
+
+		if ( isset(self::$fields[$filter]) )
+			$args = wp_parse_args($args, self::$fields[$filter]);
+		else
+			$args = wp_parse_args($args, array(
+				'title' => ucfirst(str_replace('_', ' ', $filter)),
+				'type' => 'input',
+				'priority' => 11,
+				'argc' => 1
+			));
+
+		self::$fields[$filter] = $args;
+
+		return true;
+	}
+
+	static function make_instances()
+	{
+		self::$active_fields = self::get_fields();
+		foreach ( (array) self::$options->disabled as $name )
+			unset(self::$active_fields[$name]);
+
+		foreach ( self::$active_fields as $name => $args )
+		{
+			extract($args);
+
+			self::$instances[$name] = new $class($name, $type);
+		}
+	}
+
+	static function add_filters()
+	{
+		foreach ( self::$active_fields as $name => $args )
+		{
+			extract($args);
+
+			$instance = self::$instances[$name];
+
+			add_filter($name, array($instance, 'wrap'), $priority, $argc);
+		}
+	}
+
+	static function get_fields()
+	{
+		return self::$fields;
+	}
+
+	static function get_args($filter)
+	{
+		return self::$fields[$filter];
 	}
 
 	static function pass_to_js()
@@ -128,69 +202,6 @@ frontEditorData = <?php echo json_encode($data) ?>;
 		}
 
 		die($result);
-	}
-
-	// Register a new editable field
-	static function register()
-	{
-		list ( $filter, $args ) = func_get_arg(0);
-
-
-		if ( ! is_subclass_of($args['class'], self::baseclass) )
-		{
-			trigger_error($args['class'] . " must be a subclass of " . self::baseclass, E_USER_ERROR);
-			return false;
-		}
-
-		if ( isset(self::$fields[$filter]) )
-			$args = wp_parse_args($args, self::$fields[$filter]);
-		else
-			$args = wp_parse_args($args, array(
-				'title' => ucfirst(str_replace('_', ' ', $filter)),
-				'type' => 'input',
-				'priority' => 11,
-				'argc' => 1
-			));
-
-		self::$fields[$filter] = $args;
-
-		return true;
-	}
-
-	static function make_instances()
-	{
-		self::$active_fields = self::get_fields();
-		foreach ( (array) self::$options->disabled as $name )
-			unset(self::$active_fields[$name]);
-
-		foreach ( self::$active_fields as $name => $args )
-		{
-			extract($args);
-
-			self::$instances[$name] = new $class($name, $type);
-		}
-	}
-
-	static function add_filters()
-	{
-		foreach ( self::$active_fields as $name => $args )
-		{
-			extract($args);
-
-			$instance = self::$instances[$name];
-
-			add_filter($name, array($instance, 'wrap'), $priority, $argc);
-		}
-	}
-
-	static function get_fields()
-	{
-		return self::$fields;
-	}
-
-	static function get_args($filter)
-	{
-		return self::$fields[$filter];
 	}
 }
 

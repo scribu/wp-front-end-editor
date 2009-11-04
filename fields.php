@@ -592,7 +592,7 @@ function fee_register_defaults()
 			'class' => 'frontEd_basic',
 			'type' => 'input',
 		),
-		
+
 		'the_content' => array(
 			'title' => __('Post content', 'front-end-editor'),
 			'class' => frontEditor::$options->chunks ? 'frontEd_chunks' : 'frontEd_basic',

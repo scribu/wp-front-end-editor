@@ -256,7 +256,7 @@ abstract class scbAdminPage extends scbForms
 
 	function ajax_response()
 	{
-		if ( $_POST['_ajax_submit'] != $this->pagehook )
+		if ( ! isset($_POST['_ajax_submit']) || $_POST['_ajax_submit'] != $this->pagehook )
 			return;
 
 		$this->form_handler();
