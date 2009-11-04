@@ -123,6 +123,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * editable single_cat_title & single_tag_title
 * added $echo parameter to editable_post_meta()
 * easier way to restrict editable content
+* don't load CSS & JS if the current user can't edit any of the fields
 * added Georgian translation (Levani Melikishvili)
 
 = 1.3.3 =
