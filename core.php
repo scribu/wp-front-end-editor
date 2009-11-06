@@ -64,7 +64,7 @@ abstract class frontEditor
 			wp_enqueue_script('jwysiwyg', $url . 'jwysiwyg/jquery.wysiwyg.js', array('jquery'), self::$version, true);
 		}
 
-		wp_enqueue_script('autogrow', $url . 'autogrow.js', array('jquery'), '1.2.5', true);
+		wp_enqueue_script('growfield', $url . 'growfield.js', array('jquery'), '2', true);
 
 		// Core scripts
 		wp_enqueue_style('front-editor', $url . 'editor/editor.css', self::$version);

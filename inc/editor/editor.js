@@ -254,7 +254,7 @@ jQuery(document).ready(function($){
 				field.wysiwyg_enhancements();
 			}
 			else if (field.type == 'textarea')
-				field.input.autogrow({lineHeight: 16});
+				field.input.growfield();
 
 			field.input.focus();
 		},

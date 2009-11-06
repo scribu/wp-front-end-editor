@@ -50,7 +50,7 @@ function _fee_init()
 		'highlight' => true
 	));
 
-	frontEditor::init($options, '1.3a');
+	frontEditor::init($options, '1.4');
 
 	if ( is_admin() )
 	{
