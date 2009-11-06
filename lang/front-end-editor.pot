@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.4b\n"
+"Project-Id-Version: Front-end Editor 1.4\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-11-04 21:37+0200\n"
+"POT-Creation-Date: 2009-11-06 16:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.4b)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.4)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:9
 msgid "Front-end Editor"

@@ -211,7 +211,7 @@ abstract class frontEd_field
 	private $filter;
 	private $input_type;
 
-	public function __construct($filter, $type)
+	final public function __construct($filter, $type)
 	{
 		$this->filter = $filter;
 		$this->input_type = $type;

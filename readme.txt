@@ -4,7 +4,7 @@ Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.8
 Tested up to: 2.9-rare
-Stable tag: 1.3.3
+Stable tag: trunk
 
 Want to edit something? Just double-click it!
 
@@ -124,7 +124,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * added $echo parameter to editable_post_meta()
 * easier way to restrict editable content
 * don't load CSS & JS if the current user can't edit any of the fields
+* switched from Autogrow to Growfield (fixes IE compatibility)
 * added Georgian translation (Levani Melikishvili)
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-4.html)
 
 = 1.3.3 =
 * fixed duplicate header error
