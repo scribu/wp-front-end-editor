@@ -45,32 +45,32 @@ msgstr "Activer l'éditeur WYSIWYG"
 msgid "Settings"
 msgstr "Réglages"
 
-#: fields.php:525
+#: fields.php:609
 #@ front-end-editor
 msgid "Post tags"
 msgstr "Tags du billet"
 
-#: fields.php:543
+#: fields.php:627
 #@ front-end-editor
 msgid "Comment text"
 msgstr "Commentaires"
 
-#: fields.php:556
+#: fields.php:650
 #@ front-end-editor
 msgid "Text widget content"
 msgstr "Contenu des widgets texte"
 
-#: fields.php:562
+#: fields.php:656
 #@ front-end-editor
 msgid "Text widget title"
 msgstr "Titre des widgets texte"
 
-#: core.php:95
+#: core.php:146
 #@ front-end-editor
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: core.php:96
+#: core.php:147
 #@ front-end-editor
 msgid "Cancel"
 msgstr "Annuler"
@@ -102,17 +102,17 @@ msgstr "Éditer paragraphe par paragraphe plutôt que le contenu entier du bille
 msgid "Front-end Editor"
 msgstr ""
 
-#: core.php:238
+#: core.php:272
 #@ front-end-editor
 msgid "empty"
 msgstr "vide "
 
-#: fields.php:531
+#: fields.php:615
 #@ front-end-editor
 msgid "Post terms"
 msgstr "Termes du billet "
 
-#: fields.php:549
+#: fields.php:643
 #@ front-end-editor
 msgid "Author description"
 msgstr "Description de l'auteur "
@@ -132,28 +132,38 @@ msgstr "Surlignage"
 msgid "Highlight editable elements"
 msgstr "Surlignage des éléments éditables"
 
-#: fields.php:567
+#: fields.php:661
 #@ front-end-editor
 msgid "Site title and description"
 msgstr "Titre du site et description"
 
-#: fields.php:507
+#: fields.php:591
 #@ front-end-editor
 msgid "Post title"
 msgstr "Titre du billet"
 
-#: fields.php:513
+#: fields.php:597
 #@ front-end-editor
 msgid "Post content"
 msgstr "Contenu du billet"
 
-#: fields.php:519
+#: fields.php:603
 #@ front-end-editor
 msgid "Post excerpt"
 msgstr "Extrait du billet"
 
-#: fields.php:537
+#: fields.php:621
 #@ front-end-editor
 msgid "Post custom fields"
 msgstr "Champs personnalisés du billet"
+
+#: fields.php:633
+#@ front-end-editor
+msgid "Category title"
+msgstr "Titre de catégorie"
+
+#: fields.php:638
+#@ front-end-editor
+msgid "Tag title"
+msgstr "Titre de tag"
 
