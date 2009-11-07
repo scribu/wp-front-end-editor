@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor in italiano\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-10-04 18:54+0300\n"
+"POT-Creation-Date: 2009-11-06 16:58+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gianni Diurno (aka gidibao) <gidibao@gmail.com>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "X-Poedit-Language: Italian\n"
 "X-Poedit-Country: ITALY\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.3.3)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.4)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:9
 msgid "Front-end Editor"
@@ -65,59 +65,67 @@ msgstr "Evidenziatore"
 msgid "Highlight editable elements"
 msgstr "Evidenzia gli elementi modificabili"
 
-#: core.php:95
+#: core.php:146
 msgid "Save"
 msgstr "Salva"
 
-#: core.php:96
+#: core.php:147
 msgid "Cancel"
 msgstr "Annulla"
 
-#: core.php:238
+#: core.php:272
 msgid "empty"
 msgstr "vuoto"
 
-#: fields.php:507
+#: fields.php:591
 msgid "Post title"
 msgstr "Titolo articolo"
 
-#: fields.php:513
+#: fields.php:597
 msgid "Post content"
 msgstr "Contenuto articolo"
 
-#: fields.php:519
+#: fields.php:603
 msgid "Post excerpt"
 msgstr "Riassunto articolo"
 
-#: fields.php:525
+#: fields.php:609
 msgid "Post tags"
 msgstr "Tag articolo"
 
-#: fields.php:531
+#: fields.php:615
 msgid "Post terms"
 msgstr "Termini articolo"
 
-#: fields.php:537
+#: fields.php:621
 msgid "Post custom fields"
 msgstr "Campi personalizzati articolo"
 
-#: fields.php:543
+#: fields.php:627
 msgid "Comment text"
 msgstr "Testo commenti"
 
-#: fields.php:549
+#: fields.php:633
+msgid "Category title"
+msgstr "Titolo categoria"
+
+#: fields.php:638
+msgid "Tag title"
+msgstr "Titolo tag"
+
+#: fields.php:643
 msgid "Author description"
 msgstr "Descrizione autore"
 
-#: fields.php:556
+#: fields.php:650
 msgid "Text widget content"
 msgstr "Contenuto widget di testo"
 
-#: fields.php:562
+#: fields.php:656
 msgid "Text widget title"
 msgstr "Titolo widget di testo"
 
-#: fields.php:567
+#: fields.php:661
 msgid "Site title and description"
 msgstr "Nome e descrizione del sito"
 

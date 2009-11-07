@@ -119,6 +119,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.4.1 =
+* don't remove blockquotes when editing a single paragraph
+
 = 1.4 =
 * editable single_cat_title & single_tag_title
 * added $echo parameter to editable_post_meta()
