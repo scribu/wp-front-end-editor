@@ -85,9 +85,9 @@ class frontEd_chunks extends frontEd_basic
 		$chunks = $this->split($content);
 
 		foreach ( $chunks as $i => $chunk )
-			$chunks[$i] = '<p>' . frontEd_field::wrap($chunk, "$post_id#$i") . '</p>';
+			$content = str_replace($chunk, frontEd_field::wrap($chunk, "$post_id#$i"), $content);
 
-		return implode('', $chunks);
+		return $content;
 	}
 
 	function get($post_id)
@@ -101,33 +101,28 @@ class frontEd_chunks extends frontEd_basic
 		return $chunks[$chunk_id];
 	}
 
-	function save($post_id, $content)
+	function save($post_id, $chunk_content)
 	{
 		list($post_id, $chunk_id) = explode('#', $post_id);
 
-		$field = get_post_field('post_content', $post_id);
+		$content = get_post_field('post_content', $post_id);
 
-		$chunks = $this->split($field, true);
+		$chunks = $this->split($content, true);
 
-		$content = trim($content);
+		$chunk_content = trim($chunk_content);
 
-		if ( empty($content) )
-			unset($chunks[$chunk_id]);
-		else
-			$chunks[$chunk_id] = $content;
-
-		$new_content = implode(self::delim, $chunks);
+		$content = str_replace($chunks[$chunk_id], $chunk_content, $content);
 
 		wp_update_post(array(
 			'ID' => $post_id,
-			'post_content' => $new_content
+			'post_content' => $content
 		));
 
 		// Refresh the page if a new chunk is added
-		if ( empty($content) || FALSE !== strpos($content, self::delim) )
+		if ( empty($chunk_content) || FALSE !== strpos($chunk_content, self::delim) )
 			$this->force_refresh();
 
-		return $content;
+		return $chunk_content;
 	}
 
 	// Split content into chunks
@@ -136,18 +131,9 @@ class frontEd_chunks extends frontEd_basic
 		if ( $autop )
 			$content = wpautop($content);
 
-		$chunks = explode('<p>', $content);
+		preg_match_all("#<p>(.*?)</p>#", $content, $matches);
 
-		$new_content = array();
-		foreach ( $chunks as $chunk )
-		{
-			$chunk = trim(str_replace('</p>', '', $chunk));
-
-			if ( !empty($chunk) )
-				$new_content[] = $chunk . "\n";
-		}
-
-		return $new_content;
+		return $matches[1];
 	}
 
 	protected function force_refresh()
