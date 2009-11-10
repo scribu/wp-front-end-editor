@@ -29,8 +29,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 _fee_init();
 
-function _fee_init()
-{
+function _fee_init() {
 	// Load scbFramework
 	require_once dirname(__FILE__) . '/scb/load.php';
 
@@ -52,8 +51,7 @@ function _fee_init()
 
 	frontEditor::init($options, '1.4');
 
-	if ( is_admin() )
-	{
+	if ( is_admin() ) {
 		require_once dirname(__FILE__) . '/admin.php';
 		new frontEditorAdmin(__FILE__, $options);
 	}

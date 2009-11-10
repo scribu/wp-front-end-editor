@@ -1,9 +1,7 @@
 <?php
 
-class frontEditorAdmin extends scbBoxesPage
-{
-	function setup()
-	{
+class frontEditorAdmin extends scbBoxesPage {
+	function setup() {
 		$this->textdomain = 'front-end-editor';
 
 		$this->args = array('page_title' => __('Front-end Editor', $this->textdomain));
@@ -14,8 +12,7 @@ class frontEditorAdmin extends scbBoxesPage
 		);
 	}
 
-	function page_head() 
-	{ 
+	function page_head() {
 ?>
 <style type="text/css">
 #fields thead th {
@@ -29,8 +26,7 @@ class frontEditorAdmin extends scbBoxesPage
 <?php
 	}
 
-	function fields_handler()
-	{
+	function fields_handler() {
 		if ( !isset($_POST['manage_fields']) )
 			return;
 
@@ -44,8 +40,7 @@ class frontEditorAdmin extends scbBoxesPage
 		$this->admin_msg(__('Settings <strong>saved</strong>.'));
 	}
 
-	function fields_box()
-	{
+	function fields_box() {
 ?>
 <p><?php _e('Enable or disable editable fields', $this->textdomain); ?>:</p>
 <?php ob_start(); ?>
@@ -77,8 +72,7 @@ class frontEditorAdmin extends scbBoxesPage
 		echo $this->form_wrap(ob_get_clean(), '', 'manage_fields');
 	}
 
-	function settings_handler()
-	{
+	function settings_handler() {
 		if ( !isset($_POST['save_settings']) )
 			return;
 
@@ -88,8 +82,7 @@ class frontEditorAdmin extends scbBoxesPage
 		$this->admin_msg(__('Settings <strong>saved</strong>.'));
 	}
 
-	function settings_box()
-	{
+	function settings_box() {
 		$rows = array(
 			array(
 				'title' => __('Rich text editor', $this->textdomain),

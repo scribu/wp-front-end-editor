@@ -1,7 +1,6 @@
 <?php
 
-abstract class frontEditor
-{
+abstract class frontEditor {
 	static $options;
 	
 	const baseclass = 'frontEd_field';
@@ -13,8 +12,7 @@ abstract class frontEditor
 	private static $version;
 	private static $nonce = 'front-editor';
 
-	static function init($options, $version)
-	{
+	static function init($options, $version) {
 		self::$options = $options;
 		self::$version = $version;
 
@@ -25,8 +23,7 @@ abstract class frontEditor
 		add_action('template_redirect', array(__CLASS__, '_init'));
 	}
 
-	static function _init()
-	{
+	static function _init() {
 		if ( ! is_user_logged_in() )
 			return;
 
@@ -42,8 +39,7 @@ abstract class frontEditor
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
 	}
 
-	private static function can_use_editor()
-	{
+	private static function can_use_editor() {
 		foreach ( self::$instances as $instance )
 			if ( $instance->check() )
 				return true;
@@ -51,15 +47,13 @@ abstract class frontEditor
 		return false;
 	}
 
-	private static function add_scripts()
-	{
+	private static function add_scripts() {
 // DEBUG
 // wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
 		$url = plugin_dir_url(__FILE__) . 'inc/';
 
-		if ( self::$options->rich )
-		{
+		if ( self::$options->rich ) {
 			wp_enqueue_style('jwysiwyg', $url . 'jwysiwyg/jquery.wysiwyg.css');
 			wp_enqueue_script('jwysiwyg', $url . 'jwysiwyg/jquery.wysiwyg.js', array('jquery'), self::$version, true);
 		}
@@ -72,12 +66,10 @@ abstract class frontEditor
 	}
 
 	// Register a new editable field
-	static function register()
-	{
+	static function register() {
 		list ( $filter, $args ) = func_get_arg(0);
 
-		if ( ! is_subclass_of($args['class'], self::baseclass) )
-		{
+		if ( ! is_subclass_of($args['class'], self::baseclass) ) {
 			trigger_error($args['class'] . " must be a subclass of " . self::baseclass, E_USER_ERROR);
 			return false;
 		}
@@ -97,24 +89,20 @@ abstract class frontEditor
 		return true;
 	}
 
-	static function make_instances()
-	{
+	static function make_instances() {
 		self::$active_fields = self::get_fields();
 		foreach ( (array) self::$options->disabled as $name )
 			unset(self::$active_fields[$name]);
 
-		foreach ( self::$active_fields as $name => $args )
-		{
+		foreach ( self::$active_fields as $name => $args ) {
 			extract($args);
 
 			self::$instances[$name] = new $class($name, $type);
 		}
 	}
 
-	static function add_filters()
-	{
-		foreach ( self::$active_fields as $name => $args )
-		{
+	static function add_filters() {
+		foreach ( self::$active_fields as $name => $args ) {
 			extract($args);
 
 			$instance = self::$instances[$name];
@@ -123,18 +111,15 @@ abstract class frontEditor
 		}
 	}
 
-	static function get_fields()
-	{
+	static function get_fields() {
 		return self::$fields;
 	}
 
-	static function get_args($filter)
-	{
+	static function get_args($filter) {
 		return self::$fields[$filter];
 	}
 
-	static function pass_to_js()
-	{
+	static function pass_to_js() {
 		// PHP < 5.2
 		if ( ! function_exists('json_encode') )
 			require_once dirname(__FILE__) . '/inc/json.php';
@@ -160,16 +145,14 @@ abstract class frontEditor
 frontEditorData = <?php echo json_encode($data) ?>;
 </script>
 <?php
-		if ( self::$options->highlight )
-		{
+		if ( self::$options->highlight ) {
 ?>
 <style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
 <?php
 		}
 	}
 
-	static function ajax_response()
-	{
+	static function ajax_response() {
 		// Is user trusted?
 		check_ajax_referer(self::$nonce, 'nonce');
 
@@ -188,14 +171,12 @@ frontEditorData = <?php echo json_encode($data) ?>;
 
 		$args = self::$fields[$name];
 
-		if ( $action == 'save' )
-		{
+		if ( $action == 'save' ) {
 			$content = stripslashes_deep($_POST['content']);
 			$result = $instance->save($id, $content);
 			$result = @apply_filters($name, $result);
 		}
-		elseif ( $action == 'get' )
-		{
+		elseif ( $action == 'get' ) {
 			$result = $instance->get($id);
 			if ( $type == 'rich' )
 				$result = wpautop($result);
@@ -206,13 +187,11 @@ frontEditorData = <?php echo json_encode($data) ?>;
 }
 
 // All field classes should extend from this one or one of it's descendants
-abstract class frontEd_field
-{
+abstract class frontEd_field {
 	private $filter;
 	private $input_type;
 
-	final public function __construct($filter, $type)
-	{
+	final public function __construct($filter, $type) {
 		$this->filter = $filter;
 		$this->input_type = $type;
 
@@ -228,8 +207,7 @@ abstract class frontEd_field
 	 * Mark the field as editable
 	 * @return string wrapped content
 	 */
-	public function wrap($content, $id)
-	{
+	public function wrap($content, $id) {
 		if ( is_feed() || ! $this->allow($id) )
 			return $content;
 
@@ -267,20 +245,17 @@ abstract class frontEd_field
 	abstract protected function get_object_type();
 
 	// Generate a standard placeholder
-	protected function placeholder()
-	{
+	protected function placeholder() {
 		return '[' . __('empty', 'front-end-editor') . ']';
 	}
 
 	// Allow external code to block editing for certain objects
-	final public function allow($object_id)
-	{
+	final public function allow($object_id) {
 		return apply_filters('front_ed_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type);
 	}
 
 	// Get the filter of the current instance
-	final protected function get_filter()
-	{
+	final protected function get_filter() {
 		return $this->filter;
 	}
 }
@@ -297,8 +272,7 @@ Registers a new editable field
 	'argc' => integer (default: 1)
 )
 */
-function register_fronted_field()
-{
+function register_fronted_field() {
 	return frontEditor::register(func_get_args());
 }
 
