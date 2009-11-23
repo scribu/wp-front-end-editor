@@ -49,7 +49,7 @@ function _fee_init() {
 		'highlight' => true
 	));
 
-	frontEditor::init($options, '1.4');
+	frontEditor::init($options, '1.4.1');
 
 	if ( is_admin() ) {
 		require_once dirname(__FILE__) . '/admin.php';
