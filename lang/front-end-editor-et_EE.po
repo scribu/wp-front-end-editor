@@ -1,0 +1,156 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR scribu
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Front-end Editor 1.4 / Estonian\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2009-11-06 16:58+0200\n"
+"PO-Revision-Date: 2009-11-11 21:31+0200\n"
+"Last-Translator: \n"
+"Language-Team: Aivar Luht <aivarluht@planet.ee>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Estonian\n"
+"X-Poedit-Country: ESTONIA\n"
+
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.4)  #-#-#-#-#
+#. Plugin Name of an extension
+#: admin.php:9
+msgid "Front-end Editor"
+msgstr "Front-end Editor"
+
+#: admin.php:12
+msgid "Fields"
+msgstr "Väljad"
+
+#: admin.php:13
+#: scb/AdminPage.php:338
+msgid "Settings"
+msgstr "Seaded"
+
+#: admin.php:44
+#: admin.php:88
+#: scb/AdminPage.php:105
+msgid "Settings <strong>saved</strong>."
+msgstr "Seaded <strong>salvestatud</strong>."
+
+#: admin.php:50
+msgid "Enable or disable editable fields"
+msgstr "Luba või keela muudetavad väljad"
+
+#: admin.php:56
+msgid "Field name"
+msgstr "Välja nimi"
+
+#: admin.php:95
+msgid "Rich text editor"
+msgstr "Visuaalredaktor"
+
+#: admin.php:96
+msgid "Enable the WYSIWYG editor"
+msgstr "Aktiveeri WYSIWYG redaktor"
+
+#: admin.php:102
+msgid "Edit paragraphs"
+msgstr "Lõikude toimetamine"
+
+#: admin.php:103
+msgid "Edit one paragraph at a time, instead of an entire post"
+msgstr "Toimeta üks lõik korraga, mitte kogu postitus"
+
+#: admin.php:109
+msgid "Highlighting"
+msgstr "Esile tõstmine"
+
+#: admin.php:110
+msgid "Highlight editable elements"
+msgstr "Tõsta muudetavad osad esile"
+
+#: core.php:146
+msgid "Save"
+msgstr "Salvesta"
+
+#: core.php:147
+msgid "Cancel"
+msgstr "Tühista"
+
+#: core.php:272
+msgid "empty"
+msgstr "tühjenda"
+
+#: fields.php:591
+msgid "Post title"
+msgstr "Postituse pealkiri"
+
+#: fields.php:597
+msgid "Post content"
+msgstr "Postituse sisu"
+
+#: fields.php:603
+msgid "Post excerpt"
+msgstr "Postituse väljavõte"
+
+#: fields.php:609
+msgid "Post tags"
+msgstr "Postituse sildid"
+
+#: fields.php:615
+msgid "Post terms"
+msgstr "Postituse tingimused"
+
+#: fields.php:621
+msgid "Post custom fields"
+msgstr "Postituse lisaväljad"
+
+#: fields.php:627
+msgid "Comment text"
+msgstr "Kommentaari tekst"
+
+#: fields.php:633
+msgid "Category title"
+msgstr "Rubriigi pealkiri"
+
+#: fields.php:638
+msgid "Tag title"
+msgstr "Sildi pealkiri"
+
+#: fields.php:643
+msgid "Author description"
+msgstr "Autori kirjeldus"
+
+#: fields.php:650
+msgid "Text widget content"
+msgstr "Tekstmooduli sisu"
+
+#: fields.php:656
+msgid "Text widget title"
+msgstr "Tekstmooduli pealkiri"
+
+#: fields.php:661
+msgid "Site title and description"
+msgstr "Veebilehe pealkiri ja kirjeldus"
+
+#: scb/AdminPage.php:163
+msgid "Save Changes"
+msgstr "Salvesta Muudatused"
+
+#. Plugin URI of an extension
+msgid "http://scribu.net/wordpress/front-end-editor"
+msgstr "http://scribu.net/wordpress/front-end-editor"
+
+#. Description of an extension
+msgid "Allows you to edit your posts without going through the admin interface"
+msgstr "Lubab postituste toimetamist haldusliidesest läbi käimata"
+
+#. Author of an extension
+msgid "scribu"
+msgstr "scribu"
+
+#. Author URI of an extension
+msgid "http://scribu.net/"
+msgstr "http://scribu.net/"
+

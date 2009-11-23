@@ -8,14 +8,69 @@ jQuery(document).ready(function($){
 		'class': 'front-editor-spinner'
 	});
 
-	var editableField = function(el, args)
-	{
+	var is_overlay = function($el) {
+		var attr = $el.attr('id') + ' ' + $el.attr("class");
+		attr = $.trim(attr).split(' ');
+
+		var tokens = ['lightbox', 'shutter', 'thickbox', 'awppost_link'];
+
+		for ( i in tokens )
+			for ( j in attr )
+				if ( attr[j].indexOf(tokens[i]) != -1 )
+					return true;
+
+		return false;
+	};
+
+	var resume = function() {
+		if ( frontEditorData._trap )
+			return;
+
+		var $link = frontEditorData._to_click;
+
+		if ( typeof $link == 'undefined' )
+			return;
+
+//console.log('resuming');
+
+/*
+		var ev_reference;
+		var ev_capture = function(ev) {	ev_reference = ev; }
+
+		var onClick = $link.attr('onclick');
+
+		$link.bind('click', ev_capture);
+
+		if ( typeof onClick == 'function' )
+			$link.bind('click', onClick);
+
+		$link.click();
+
+		$link.unbind('click', ev_capture);
+
+		if ( typeof onClick == 'function' )
+			$link.unbind('click', onClick);
+
+		if ( ev_reference.isDefaultPrevented() )
+			return;
+*/
+
+		if ( typeof $link.attr('href') != 'undefined' && $link.attr('href') != '#' ) {
+			if ( $link.attr('target') == '_blank' )
+				window.open($link.attr('href'));
+			else
+				window.location.href = $link.attr('href');
+		}
+
+		delete frontEditorData._to_click;
+	}
+
+	var editableField = function(el, args) {
 		var field = this;
 
 		field.set_el(el);
 		field.name = args[0];
 
-		// Set id, type attribute
 		field.id = field.el.attr('id').substr(4);
 		var parts = field.id.split('#');
 
@@ -30,10 +85,8 @@ jQuery(document).ready(function($){
 		field.bind(field.el, 'dblclick', field.dblclick);
 	}
 
-	editableField.prototype = 
-	{
-		set_el : function(el)
-		{
+	editableField.prototype =  {
+		set_el: function(el) {
 			this.el = $(el);
 
 			// From a > .front-ed > content
@@ -54,73 +107,45 @@ jQuery(document).ready(function($){
 			this.el = $wrap;
 		},
 
-		click : function(ev)
-		{
+		click: function(ev) {
+//			if ( typeof frontEditorData._to_click != 'undefined' )
+//				return;
+
+//console.log('clicking');
+
 			var $el = $(ev.target);
 
-			var is_overlay = function()
-			{
-				var attr = $el.attr('id') + ' ' + $el.attr("class");
-				attr = $.trim(attr).split(' ');
-
-				var tokens = ['lightbox', 'shutter', 'thickbox'];
-
-				for ( i in tokens )
-					for ( j in attr )
-						if ( attr[j].indexOf(tokens[i]) != -1 )
-							return true;
-
-				return false;
-			}
-
 			// Child single click
-			if ( $el.is('a') && !is_overlay() )
-			{
-				ev.stopPropagation();
-				ev.preventDefault();
+			if ( ! $el.is('a') || is_overlay($el) )
+				return;
 
-				frontEditorData.to_click = $el;
-			}
+			ev.stopImmediatePropagation();
+			ev.preventDefault();
 
-			setTimeout(function()
-			{
-				if ( frontEditorData.trap )
-					return;
+			frontEditorData._to_click = $el;
 
-				var $el = frontEditorData.to_click;
-
-				if ( typeof $el == 'undefined' || typeof $el.attr('href') == 'undefined' )
-					return;
-
-				if ( $el.attr('target') == '_blank' )
-					window.open($el.attr('href'));
-				else
-					window.location.href = $el.attr('href');
-			}, 300);
+			setTimeout(resume, 300);
 		},
 
-		dblclick : function(ev)
-		{
+		dblclick: function(ev) {
 			var field = this;
 
 			ev.stopPropagation();
 			ev.preventDefault();
 
-			frontEditorData.trap = true;
+			frontEditorData._trap = true;
 
 			field.form_handler();
 		},
 
-		form_handler : function()
-		{
+		form_handler: function() {
 			var field = this;
 
 			field.get_data();
 
 			// Button actions
-			var remove_form = function(with_spinner)
-			{
-				frontEditorData.trap = false;
+			var remove_form = function(with_spinner) {
+				frontEditorData._trap = false;
 
 				field.form.remove();
 
@@ -132,8 +157,7 @@ jQuery(document).ready(function($){
 				field.el.trigger('fee_remove_form');
 			};
 
-			var submit_form = function()
-			{
+			var submit_form = function() {
 				field.send_data();
 				remove_form(true);
 			};
@@ -160,8 +184,7 @@ jQuery(document).ready(function($){
 			field.bind(field.form, 'keypress', field.keypress);
 		},
 
-		keypress : function(ev)
-		{
+		keypress: function(ev) {
 			var field = this;
 
 			var keys = {ENTER: 13, ESCAPE: 27};
@@ -174,8 +197,7 @@ jQuery(document).ready(function($){
 				field.cancel_button.click();
 		},
 
-		get_data : function()
-		{
+		get_data: function() {
 			var field = this;
 
 			field.el.hide().after(field.spinner.show());
@@ -194,8 +216,7 @@ jQuery(document).ready(function($){
 			});
 		},
 
-		send_data : function()
-		{
+		send_data: function() {
 			var field = this;
 
 			field.el.before(field.spinner.show());
@@ -220,14 +241,13 @@ jQuery(document).ready(function($){
 			});
 		},
 
-		setup_input : function(content)
-		{
+		setup_input: function(content) {
 			var field = this;
 
 			field.spinner.hide().replaceWith(field.form);
 
 			var jwysiwyg_args = {
-				controls : {
+				controls: {
 					justifyLeft			: { visible : true },
 					justifyCenter		: { visible : true },
 					justifyRight		: { visible : true },
@@ -245,8 +265,7 @@ jQuery(document).ready(function($){
 				.val(content)
 				.prependTo(field.form);
 
-			if (field.type == 'rich')
-			{
+			if (field.type == 'rich') {
 				field.input.trigger('pre_wysiwyg_init');
 
 				field.input.wysiwyg(jwysiwyg_args);
@@ -259,8 +278,7 @@ jQuery(document).ready(function($){
 			field.input.focus();
 		},
 		
-		wysiwyg_enhancements : function()
-		{
+		wysiwyg_enhancements: function() {
 			var field = this;
 			var $iframe = field.form.find('#IFrame');
 			var $frame = $iframe.contents();
@@ -301,8 +319,7 @@ jQuery(document).ready(function($){
 		},
 
 		// Event utility: this = field
-		bind: function(element, event, callback)
-		{
+		bind: function(element, event, callback) {
 			var field = this;
 
 			element.bind(event, function(ev) {
@@ -311,8 +328,7 @@ jQuery(document).ready(function($){
 		},
 
 		// Copied from wp-admin/js/editor.dev.js		
-		pre_wpautop : function(content)
-		{
+		pre_wpautop: function(content) {
 			var blocklist1, blocklist2;
 
 			// Protect pre|script tags
@@ -383,8 +399,7 @@ jQuery(document).ready(function($){
 	});
 
 	// Create field instances
-	for ( var i in frontEditorData.fields )
-	{
+	for ( var i in frontEditorData.fields ) {
 		var args = frontEditorData.fields[i];
 
 		$('.front-ed-' + args[0]).each(function(){

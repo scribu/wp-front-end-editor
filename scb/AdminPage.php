@@ -1,14 +1,19 @@
 <?php
 
-abstract class scbAdminPage extends scbForms
-{
+/*
+Creates an admin page
+
+You must set $this->args and define the page_content() method
+*/
+abstract class scbAdminPage {
 	/** Page args
 	 * string $parent  (default: options-general.php)
 	 * string $page_title  (mandatory)
 	 * string $menu_title
 	 * string $page_slug
-	 * array $action_link  (default: Settings)
+	 * string $capability (default: 'manage_options')
 	 * string $nonce
+	 * array $action_link  (default: 'Settings')
 	 */
 	protected $args;
 
@@ -30,20 +35,18 @@ abstract class scbAdminPage extends scbForms
 	protected $formdata = array();
 
 
-//_____MAIN METHODS_____
+//  ____________MAIN METHODS____________
 
 
 	// Constructor
-	function __construct($file, $options = NULL)
-	{
+	function __construct($file, $options = NULL) {
 		$this->setup();
-		$this->_check_args();
+		$this->check_args();
 
 		$this->file = $file;
 		$this->plugin_url = plugin_dir_url($file);
 
-		if ( $options !== NULL )
-		{
+		if ( $options !== NULL ) {
 			$this->options = $options;
 			$this->formdata = $this->options->get();
 		}
@@ -54,7 +57,7 @@ abstract class scbAdminPage extends scbForms
 			add_filter('plugin_action_links_' . plugin_basename($file), array($this, '_action_link'));
 	}
 
-	// This is where all the page args are set (DEPRECATED)
+	// This is where all the page args can be set
 	function setup(){}
 
 	// This is where the css and js go
@@ -62,33 +65,26 @@ abstract class scbAdminPage extends scbForms
 	function page_head(){}
 
 	// A generic page header
-	function page_header()
-	{
+	function page_header() {
 		echo "<div class='wrap'>\n";
 		echo "<h2>" . $this->args['page_title'] . "</h2>\n";
 	}
 
-
 	// This is where the page content goes
 	abstract function page_content();
 
-
 	// A generic page footer
-	function page_footer()
-	{
+	function page_footer() {
 		echo "</div>\n";
 	}
 
-
-	// This is where the form data is validated
-	function validate($new_data, $old_data)
-	{
+	// This is where the form data should be validated
+	function validate($new_data, $old_data) {
 		return $new_data;
 	}
 
 	// A generic form handler
-	function form_handler()
-	{
+	function form_handler() {
 		if ( empty($_POST['action']) )
 			return false;
 
@@ -106,59 +102,11 @@ abstract class scbAdminPage extends scbForms
 	}
 
 
-//_____HELPER METHODS_____
+//  ____________UTILITIES____________
 
-
-	// See scbForms::input()
-	function input($args, $options = NULL)
-	{
-		if ( $options === NULL )
-			$options = $this->formdata;
-
-		return parent::input($args, $options);
-	}
-
-	// See scbForms::form()
-	function form($rows, $options = NULL)
-	{
-		if ( $options === NULL )
-			$options = $this->formdata;
-
-		return parent::form($rows, $options, $this->nonce);
-	}
-
-	// See scbForms::table()
-	function table($rows, $options = NULL)
-	{
-		if ( $options === NULL )
-			$options = $this->formdata;
-
-		return parent::table($rows, $options);
-	}
-
-	// See scbForms::table_row()
-	function table_row($row, $options = NULL)
-	{
-		if ( $options === NULL )
-			$options = $this->formdata;
-
-		return parent::table_row($row, $options);
-	}
-
-	// Mimics scbForms::form_table()
-	function form_table($rows, $options = NULL)
-	{
-		$output = $this->table($rows, $options);
-
-		$args = array_slice(func_get_args(), 2);
-		array_unshift($args, $output);
-
-		return call_user_func_array(array($this, 'form_wrap'), $args);
-	}
 
 	// Generates a form submit button
-	function submit_button($value = '', $action = 'action', $class = "button")
-	{
+	function submit_button($value = '', $action = 'action', $class = "button") {
 		if ( empty($value) )
 			$value = __('Save Changes', $this->textdomain);
 
@@ -173,41 +121,74 @@ abstract class scbAdminPage extends scbForms
 		if ( ! empty($class) )
 			$args['extra'] = "class='{$class}'";
 
-		$output = "<p class='submit'>\n" . parent::input($args) . "</p>\n";
+		$output = "<p class='submit'>\n" . scbForms::input($args) . "</p>\n";
 
 		return $output;
 	}
 
-	/* 
+	/*
 	Mimics scbForms::form_wrap()
-	Second argument can be:
-		- bool: 
-			true	- add a submit button with the default arguments
-			false	- don't add a submit button at all
-		- string:
-			- <input ... />	(backwards compat)
-			- the value of the submit button
-			  In this last case, additional arguments will be transmitted to the
-			  submit_button() method
+	$this->form_wrap($content);	// generates a form with a default submit button
+	$this->form_wrap($content, false); // generates a form with no submit button
+	$this->form_wrap($content, $text = 'Save changes', $name = 'action', $class = 'button');	// the last 3 arguments are sent to submit_button()
 	*/
-	function form_wrap($content, $submit_button = true)
-	{
-		if ( true === $submit_button )
+	function form_wrap($content, $submit_button = true) {
+		if ( true === $submit_button ) {
 			$content .= $this->submit_button();
-		elseif ( false !== strpos($submit_button, '<input') )
+		} elseif ( false !== strpos($submit_button, '<input') ) {
 			$content .= $submit_button;
-		else
-		{
+		} elseif ( false !== $submit_button ) {
 			$button_args = array_slice(func_get_args(), 1);
 			$content .= call_user_func_array(array($this, 'submit_button'), $button_args);
 		}
 
-		return parent::form_wrap($content, $this->nonce);
+		return scbForms::form_wrap($content, $this->nonce);
 	}
 
+	// See scbForms::input()
+	function input($args, $options = NULL) {
+		if ( $options === NULL )
+			$options = $this->formdata;
+
+		return scbForms::input($args, $options);
+	}
+
+	// See scbForms::form()
+	function form($rows, $options = NULL) {
+		if ( $options === NULL )
+			$options = $this->formdata;
+
+		return scbForms::form($rows, $options, $this->nonce);
+	}
+
+	// See scbForms::table()
+	function table($rows, $options = NULL) {
+		if ( $options === NULL )
+			$options = $this->formdata;
+
+		return scbForms::table($rows, $options);
+	}
+
+	// See scbForms::table_row()
+	function table_row($row, $options = NULL) {
+		if ( $options === NULL )
+			$options = $this->formdata;
+
+		return scbForms::table_row($row, $options);
+	}
+
+	// Mimics scbForms::form_table()
+	function form_table($rows, $options = NULL) {
+		$output = $this->table($rows, $options);
+
+		$args = array_slice(func_get_args(), 2);
+		array_unshift($args, $output);
+
+		return call_user_func_array(array($this, 'form_wrap'), $args);
+	}
+	
 	// Mimics scbForms::form_table_wrap()
-	function form_table_wrap($content)
-	{
+	function form_table_wrap($content) {
 		$output = self::table_wrap($content);
 
 		$args = array_slice(func_get_args(), 1);
@@ -217,30 +198,26 @@ abstract class scbAdminPage extends scbForms
 	}
 
 	// Generates a standard admin notice
-	function admin_msg($msg, $class = "updated")
-	{
+	function admin_msg($msg, $class = "updated") {
 		echo "<div class='$class fade'><p>$msg</p></div>\n";
 	}
 
 	// Wraps a string in a <script> tag
-	function js_wrap($string)
-	{
+	function js_wrap($string) {
 		return "\n<script type='text/javascript'>\n" . $string . "\n</script>\n";
 	}
 
 	// Wraps a string in a <style> tag
-	function css_wrap($string)
-	{
+	function css_wrap($string) {
 		return "\n<style type='text/css'>\n" . $string . "\n</style>\n";
 	}
 
 
-//_____INTERNAL METHODS (DON'T WORRY ABOUT THESE)_____
+//  ____________INTERNAL METHODS____________
 
 
 	// Registers a page
-	function page_init()
-	{
+	function page_init() {
 		extract($this->args);
 
 		$this->pagehook = add_submenu_page($parent, $page_title, $menu_title, $capability, $page_slug, array($this, '_page_content_hook'));
@@ -254,8 +231,7 @@ abstract class scbAdminPage extends scbForms
 		add_action('admin_print_styles-' . $this->pagehook, array($this, 'page_head'));
 	}
 
-	function ajax_response()
-	{
+	function ajax_response() {
 		if ( ! isset($_POST['_ajax_submit']) || $_POST['_ajax_submit'] != $this->pagehook )
 			return;
 
@@ -263,8 +239,7 @@ abstract class scbAdminPage extends scbForms
 		die;
 	}
 
-	function ajax_submit()
-	{
+	function ajax_submit() {
 		global $page_hook;
 
 		if ( $page_hook != $this->pagehook )
@@ -296,7 +271,7 @@ jQuery(document).ready(function($){
 				$prev.fadeOut('slow', function(){ $msg.fadeIn('slow'); });
 			else
 				$msg.fadeIn('slow');
-				
+
 			$this_spinner.hide();
 			$submit.show();
 		});
@@ -310,8 +285,7 @@ jQuery(document).ready(function($){
 		$this->page_head();
 	}
 
-	function _page_content_hook()
-	{
+	function _page_content_hook() {
 		$this->form_handler();
 
 		$this->page_header();
@@ -319,16 +293,14 @@ jQuery(document).ready(function($){
 		$this->page_footer();
 	}
 
-	function _action_link($links)
-	{
+	function _action_link($links) {
 		$url = add_query_arg('page', $this->args['page_slug'], admin_url($this->args['parent']));
 		$links[] = "<a href='$url'>" . $this->args['action_link'] . "</a>";
 
 		return $links;
 	}
 
-	function _check_args()
-	{
+	private function check_args() {
 		if ( empty($this->args['page_title']) )
 			trigger_error('Page title cannot be empty', E_USER_ERROR);
 
@@ -343,7 +315,7 @@ jQuery(document).ready(function($){
 
 		if ( empty($this->args['page_slug']) )
 			$this->args['page_slug'] = sanitize_title_with_dashes($this->args['menu_title']);
-			
+
 		if ( empty($this->args['nonce']) )
 			$this->nonce = $this->args['page_slug'];
 	}

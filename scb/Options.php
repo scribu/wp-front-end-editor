@@ -2,8 +2,7 @@
 
 // Usage: http://scribu.net/wordpress/scb-framework/scb-options.html
 
-class scbOptions
-{
+class scbOptions {
 	protected $defaults;	// the default value(s)
 
 	protected $key;			// the option name
@@ -18,14 +17,12 @@ class scbOptions
 	 * @param string Reference to main plugin file
 	 * @param array An associative array of default values
 	 */
-	function __construct($key, $file, $defaults = '')
-	{
+	function __construct($key, $file, $defaults = '') {
 		$this->key = $key;
 		$this->defaults = $defaults;
 		$this->data = get_option($this->key);
 
-		if ( is_array($this->defaults) )
-		{
+		if ( is_array($this->defaults) ) {
 			$this->data = (array) $this->data;
 
 			register_activation_hook($file, array($this, '_update_reset'));
@@ -40,8 +37,7 @@ class scbOptions
 	 * @param string|array $field The field to get or an array of fields
 	 * @return mixed Whatever is in those fields
 	 */
-	function get($field = '')
-	{
+	function get($field = '') {
 		if ( empty($field) )
 			return $this->data;
 
@@ -61,8 +57,7 @@ class scbOptions
 	 * @param mixed $value The new value (ignored if $field is array)
 	 * @return null
 	 */
-	function set($field, $value = '')
-	{
+	function set($field, $value = '') {
 		if ( is_array($field) )
 			$newdata = $field;
 		else
@@ -77,8 +72,7 @@ class scbOptions
 	 * @param mixed $newdata
 	 * @return null
 	 */
-	function update($newdata)
-	{
+	function update($newdata) {
 		if ( $this->data === $newdata )
 			return;
 
@@ -92,8 +86,7 @@ class scbOptions
 	 *
 	 * @return null
 	 */
-	function reset()
-	{
+	function reset() {
 		$this->update($this->defaults);
 	}
 
@@ -102,32 +95,27 @@ class scbOptions
 
 
 	// Magic method: $options->field
-	function __get($field)
-	{
+	function __get($field) {
 		return $this->data[$field];
 	}
 
 	// Magic method: $options->field = $value
-	function __set($field, $value)
-	{
+	function __set($field, $value) {
 		$this->set($field, $value);
 	}
 
 	// Add new fields with their default values
-	function _update_reset()
-	{
+	function _update_reset() {
 		$this->update(array_merge($this->defaults, $this->data));
 	}
 
 	// Delete option
-	function _delete()
-	{
+	function _delete() {
 		delete_option($this->key);
 	}
 
 	// DEPRECATED
-	function update_part($data)
-	{
+	function update_part($data) {
 		$this->set($data);
 	}
 }

@@ -3,7 +3,7 @@ Contributors: scribu
 Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, wysiwyg
 Requires at least: 2.8
-Tested up to: 2.9-rare
+Tested up to: 2.9-beta-1
 Stable tag: 1.4
 
 Want to edit something? Just double-click it!
@@ -121,6 +121,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 = 1.4.1 =
 * don't remove blockquotes when editing a single paragraph
+* added ES translation (Aivar Luht)
 
 = 1.4 =
 * editable single_cat_title & single_tag_title

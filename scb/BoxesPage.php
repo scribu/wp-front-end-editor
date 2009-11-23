@@ -1,31 +1,31 @@
 <?php
 
-/* 
+/*
 Creates an admin page with widgets, similar to the dashboard
 
 For example, if you defined the boxes like this:
 
 $this->boxes = array(
 	array('settings', 'Settings box', 'normal')
+	...
 );
 
-you must also define two methods in your class:
+You must also define two methods in your class for each box:
 
-	function settings_box() - this is where the box content is echoed
-	function settings_handler() - this is where the box settings are saved
+function settings_box() - this is where the box content is echoed
+function settings_handler() - this is where the box settings are saved
+...
 */
-abstract class scbBoxesPage extends scbAdminPage
-{
+abstract class scbBoxesPage extends scbAdminPage {
 	/*
 		A box definition looks like this:
 		array($slug, $title, $column);
 
 		Available columns: normal, side, column3, column4
 	*/
-	public $boxes;
+	protected $boxes;
 
-	function page_init()
-	{
+	function page_init() {
 		if ( !isset($this->args['columns']) )
 			$this->args['columns'] = 2;
 
@@ -37,8 +37,7 @@ abstract class scbBoxesPage extends scbAdminPage
 		register_uninstall_hook($this->file, array($this, 'uninstall'));
 	}
 
-	function default_css()
-	{
+	function default_css() {
 ?>
 <style type="text/css">
 .meta-box-sortables {margin: 0 5px !important}
@@ -54,14 +53,12 @@ abstract class scbBoxesPage extends scbAdminPage
 <?php
 	}
 
-	function page_content()
-	{
+	function page_content() {
 		$this->default_css();
 
 		global $screen_layout_columns;
 
-		if ( isset($screen_layout_columns) )
-		{
+		if ( isset($screen_layout_columns) ) {
 			$hide2 = $hide3 = $hide4 = '';
 			switch ( $screen_layout_columns ) {
 				case 4:
@@ -99,14 +96,12 @@ abstract class scbBoxesPage extends scbAdminPage
 <?php
 	}
 
-	function page_footer()
-	{
+	function page_footer() {
 		$this->_boxes_js_init();
 		parent::page_footer();
 	}
 
-	function form_handler()
-	{
+	function form_handler() {
 		if ( empty($_POST) )
 			return;
 
@@ -120,15 +115,13 @@ abstract class scbBoxesPage extends scbAdminPage
 			$this->formdata = $this->options->get();
 	}
 
-	function columns($columns)
-	{
+	function columns($columns) {
 		$columns[$this->pagehook] = $this->args['columns'];
 
 		return $columns;
 	}
 
-	function uninstall()
-	{
+	function uninstall() {
 		global $wpdb;
 
 		$hook = str_replace('-', '', $this->pagehook);
@@ -144,24 +137,21 @@ abstract class scbBoxesPage extends scbAdminPage
 		");
 	}
 
-	function boxes_init()
-	{
+	function boxes_init() {
 		wp_enqueue_script('common');
 		wp_enqueue_script('wp-lists');
 		wp_enqueue_script('postbox');
-		
+
 		$this->_add_boxes();
 	}
 
-	function _add_boxes()
-	{
+	function _add_boxes() {
 		foreach($this->boxes as $i)
 			add_meta_box($i[0], $i[1], array($this, "{$i[0]}_box"), $this->pagehook, $i[2]);
 	}
 
 	// Adds necesary code for JS to work
-	function _boxes_js_init()
-	{
+	function _boxes_js_init() {
 		echo $this->js_wrap(
 <<<EOT
 //<![CDATA[
