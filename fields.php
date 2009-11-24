@@ -448,7 +448,10 @@ class frontEd_widget extends frontEd_field {
 
 		update_option('widget_text', $widgets);
 
-		return wpautop($content);
+		if ( $this->field == 'text' && $widgets[$widget_id]['filter'] )
+			$content = wpautop($content);
+
+		return $content;
 	}
 
 	function check($id = 0) {

@@ -122,6 +122,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 = 1.4.1 =
 * don't remove blockquotes when editing a single paragraph
 * added ES translation (Aivar Luht)
+* better handling of text widgets
 
 = 1.4 =
 * editable single_cat_title & single_tag_title
