@@ -3,6 +3,69 @@ jQuery(document).ready(function($){
 		return;
 	frontEditorData._loaded = true;
 
+	// http://ejohn.org/blog/simple-javascript-inheritance/
+	// Inspired by base2 and Prototype
+	(function(){
+	  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+
+	  // The base Class implementation (does nothing)
+	  this.Class = function(){};
+
+	  // Create a new Class that inherits from this class
+	  Class.extend = function(prop) {
+		var _super = this.prototype;
+
+		// Instantiate a base class (but only create the instance,
+		// don't run the init constructor)
+		initializing = true;
+		var prototype = new this();
+		initializing = false;
+
+		// Copy the properties over onto the new prototype
+		for (var name in prop) {
+		  // Check if we're overwriting an existing function
+		  prototype[name] = typeof prop[name] == "function" &&
+		    typeof _super[name] == "function" && fnTest.test(prop[name]) ?
+		    (function(name, fn){
+		      return function() {
+		        var tmp = this._super;
+
+		        // Add a new ._super() method that is the same method
+		        // but on the super-class
+		        this._super = _super[name];
+
+		        // The method only need to be bound temporarily, so we
+		        // remove it when we're done executing
+		        var ret = fn.apply(this, arguments);
+		        this._super = tmp;
+
+		        return ret;
+		      };
+		    })(name, prop[name]) :
+		    prop[name];
+		}
+
+		// The dummy class constructor
+		function Class() {
+		  // All construction is actually done in the init method
+		  if ( !initializing && this.init )
+		    this.init.apply(this, arguments);
+		}
+
+		// Populate our constructed prototype object
+		Class.prototype = prototype;
+
+		// Enforce the constructor to be what we expect
+		Class.constructor = Class;
+
+		// And make this class extendable
+		Class.extend = arguments.callee;
+
+		return Class;
+	  };
+	})();
+
+
 	var spinner = $('<img>').attr({
 		'src': frontEditorData.spinner,
 		'class': 'front-editor-spinner'
@@ -65,46 +128,45 @@ jQuery(document).ready(function($){
 		delete frontEditorData._to_click;
 	}
 
-	var editableField = function(el, args) {
-		var field = this;
+	var classes = [];
 
-		field.set_el(el);
-		field.name = args[0];
+	classes['base'] = Class.extend({
+		init: function($el, type, name, id) {
+			var self = this;
 
-		field.id = field.el.attr('id').substr(4);
-		var parts = field.id.split('#');
+			self.set_el($el);
+			self.type = type;
+			self.name = name;
+			self.id = id;
 
-		if (parts.length == 3)
-			field.type = parts[2];
-		else
-			field.type = args[1];
+			self.bind(self.el, 'click', self.click);
+			self.bind(self.el, 'dblclick', self.dblclick);
+		},
 
-		field.spinner = spinner.clone();
+		get_content: null /* function() */,
+		set_content: null /* function(content) */,
 
-		field.bind(field.el, 'click', field.click);
-		field.bind(field.el, 'dblclick', field.dblclick);
-	}
+		set_el: function($el) {
+			var self = this;
 
-	editableField.prototype =  {
-		set_el: function(el) {
-			this.el = $(el);
+			self.el = $el;
 
 			// From a > .front-ed > content
 			// To .front-ed > a > content
-			var $parent = this.el.parents('a');
+			var $parent = self.el.parents('a');
 
 			if ( !$parent.length )
 				return;
 
 			var $link = $parent.clone(true)
-				.html(this.el.html());
+				.html(self.el.html());
 
-			var $wrap = this.el.clone(true)
+			var $wrap = self.el.clone(true)
 				.html($link);
 
 			$parent.replaceWith($wrap);
 
-			this.el = $wrap;
+			self.el = $wrap;
 		},
 
 		click: function(ev) {
@@ -128,206 +190,187 @@ jQuery(document).ready(function($){
 		},
 
 		dblclick: function(ev) {
-			var field = this;
+			var self = this;
 
 			ev.stopPropagation();
 			ev.preventDefault();
 
 			frontEditorData._trap = true;
 
-			field.form_handler();
+			self.form_handler();
 		},
 
-		form_handler: function() {
-			var field = this;
+		// Event utility: this = self
+		bind: function(element, event, callback) {
+			var self = this;
 
-			field.get_data();
-
-			// Button actions
-			var remove_form = function(with_spinner) {
-				frontEditorData._trap = false;
-
-				field.form.remove();
-
-				if (with_spinner === true)
-					field.el.before(field.spinner.show());
-				else
-					field.el.show();
-					
-				field.el.trigger('fee_remove_form');
-			};
-
-			var submit_form = function() {
-				field.send_data();
-				remove_form(true);
-			};
-
-			// Button markup
-			field.save_button = $('<button>')
-				.attr({'class': 'front-editor-save', 'title': frontEditorData.save_text})
-				.text(frontEditorData.save_text)
-				.click(submit_form);
-
-			field.cancel_button = $('<button>')
-				.attr({'class': 'front-editor-cancel', 'title': frontEditorData.cancel_text})
-				.text('X')
-				.click(remove_form);
-
-			// Create form
-			field.form = ( field.type == 'input' ) ? $('<span>') : $('<div>');
-
-			field.form
-				.addClass('front-editor-container')
-				.append(field.save_button)
-				.append(field.cancel_button);
-
-			field.bind(field.form, 'keypress', field.keypress);
+			element.bind(event, function(ev) {
+				callback.call(self, ev);
+			});
 		},
 
-		keypress: function(ev) {
-			var field = this;
-
-			var keys = {ENTER: 13, ESCAPE: 27};
-
-			var code = (ev.keyCode || ev.which || ev.charCode || 0);field.form
-
-			if (code == keys.ENTER && field.type == 'input')
-				field.save_button.click();
-			else if (code == keys.ESCAPE)
-				field.cancel_button.click();
-		},
-
-		get_data: function() {
-			var field = this;
-
-			field.el.hide().after(field.spinner.show());
+		ajax_get: function() {
+			var self = this;
 
 			var data = {
 				nonce: frontEditorData.nonce,
 				action: 'front-editor',
 				callback: 'get',
-				name: field.name,
-				type: field.type,
-				item_id: field.id
+				name: self.name,
+				type: self.type,
+				item_id: self.id
 			};
 
 			$.post(frontEditorData.request, data, function(response){
-				field.setup_input(response);
+				self.ajax_get_handler(response);
 			});
 		},
 
-		send_data: function() {
-			var field = this;
-
-			field.el.before(field.spinner.show());
-
-			if (field.type == 'rich')
-				field.input.trigger('wysiwyg_save');
+		ajax_set: function() {
+			var self = this;
 
 			var data = {
 				nonce: frontEditorData.nonce,
 				action: 'front-editor',
 				callback: 'save',
-				name: field.name,
-				type: field.type,
-				item_id: field.id,
-				content: field.pre_wpautop(field.input.val())
+				name: self.name,
+				type: self.type,
+				item_id: self.id,
+				content: self.get_content()
 			};
 
 			$.post(frontEditorData.request, data, function(response){
-				field.el.html(response);
-				field.spinner.hide();
-				field.el.show();
+				self.ajax_set_handler(response);
 			});
+		}
+	});
+
+	classes['input'] = classes['base'].extend({
+		init: function($el, type, name, id) {
+			var self = this;
+
+			self.spinner = spinner.clone();
+
+			self._super($el, type, name, id);
 		},
 
-		setup_input: function(content) {
-			var field = this;
+		get_content: function() {
+			return this.input.val();
+		},
 
-			field.spinner.hide().replaceWith(field.form);
+		ajax_get: function() {
+			var self = this;
 
-			var jwysiwyg_args = {
-				controls: {
-					justifyLeft			: { visible : true },
-					justifyCenter		: { visible : true },
-					justifyRight		: { visible : true },
-					separator04			: { visible : true },
-					insertOrderedList	: { visible : true },
-					insertUnorderedList	: { visible : true },
-					html				: { visible : true }
-				}
-			}
+			self.el.hide().after(self.spinner.show());
 
-			field.input = (field.type == 'input') ? $('<input type="text">') : $('<textarea>');
+			self._super();
+		},
 
-			field.input
+		ajax_set: function() {
+			var self = this;
+
+			self.el.before(self.spinner.show());
+
+			if ( self.type == 'rich' )
+				self.input.trigger('wysiwyg_save');
+
+			self._super();
+		},
+
+		ajax_set_handler: function(content) {
+			var self = this;
+
+			self.el.html(content);
+
+			self.spinner.hide();
+			self.el.show();
+		},
+
+		ajax_get_handler: function(content) {
+			var self = this;
+
+			self.spinner.hide().replaceWith(self.form);
+
+			self.input = ( self.type == 'input' ) ? $('<input type="text">') : $('<textarea>');
+
+			self.input
 				.addClass('front-editor-content')
 				.val(content)
-				.prependTo(field.form);
+				.prependTo(self.form);
 
-			if (field.type == 'rich') {
-				field.input.trigger('pre_wysiwyg_init');
+			if ( self.type == 'textarea' )
+				self.input.growfield();
 
-				field.input.wysiwyg(jwysiwyg_args);
-
-				field.wysiwyg_enhancements();
-			}
-			else if (field.type == 'textarea')
-				field.input.growfield();
-
-			field.input.focus();
-		},
-		
-		wysiwyg_enhancements: function() {
-			var field = this;
-			var $iframe = field.form.find('#IFrame');
-			var $frame = $iframe.contents();
-
-			// Extra CSS
-			if ( typeof frontEditorData.css != 'undefined' )
-				var css = "@import url('" + frontEditorData.css + "');\n";
-			else
-				var css = '';
-
-			css += 'img.alignleft {float:left; margin: 0 1em .5em 0} img.alignright {float:right; margin: 0 0 .5em 1em} img.aligncenter {display:block; margin:0 auto .5em auto}';
-
-			$('<style type="text/css">' + css + '</style>')
-				.appendTo($frame.find('head'));
-
-			// Hotkeys
-			field.bind($frame, 'keypress', field.keypress);
-
-			// Autogrow
-			if ( $.browser.msie )
-				return $iframe.css('height', '200px');
-
-			var $body = $frame.find('body')
-				.css('overflow', 'hidden');
-
-			var intid = setInterval(function() {
-				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
-
-				if (should_be_height != $iframe.height())
-					$iframe.height(should_be_height);
-			}, 400);
-
-			field.bind(field.el, 'fee_remove_form', function() {
-				clearInterval(intid);
-			});
-
-			$iframe.trigger('wysiwyg_init');
+			self.input.focus();
 		},
 
-		// Event utility: this = field
-		bind: function(element, event, callback) {
-			var field = this;
+		form_handler: function() {
+			var self = this;
 
-			element.bind(event, function(ev) {
-				callback.call(field, ev);
-			});
+			self.ajax_get();
+
+			// Button actions
+			var form_remove = function(with_spinner) {
+				frontEditorData._trap = false;
+
+				self.form.remove();
+
+				if ( with_spinner === true )
+					self.el.before(self.spinner.show());
+				else
+					self.el.show();
+
+				self.el.trigger('fee_remove_form');
+			};
+
+			var form_submit = function() {
+				self.ajax_set();
+				form_remove(true);
+			};
+
+			// Button markup
+			self.save_button = $('<button>')
+				.attr({'class': 'front-editor-save', 'title': frontEditorData.save_text})
+				.text(frontEditorData.save_text)
+				.click(form_submit);
+
+			self.cancel_button = $('<button>')
+				.attr({'class': 'front-editor-cancel', 'title': frontEditorData.cancel_text})
+				.text('X')
+				.click(form_remove);
+
+			// Create form
+			self.form = ( self.type == 'input' ) ? $('<span>') : $('<div>');
+
+			self.form
+				.addClass('front-editor-container')
+				.append(self.save_button)
+				.append(self.cancel_button);
+
+			self.bind(self.form, 'keypress', self.keypress);
 		},
 
-		// Copied from wp-admin/js/editor.dev.js		
+		keypress: function(ev) {
+			var self = this;
+
+			var keys = {ENTER: 13, ESCAPE: 27};
+			var code = (ev.keyCode || ev.which || ev.charCode || 0);
+
+			if ( code == keys.ENTER && self.type == 'input' )
+				self.save_button.click();
+
+			if ( code == keys.ESCAPE )
+				self.cancel_button.click();
+		},
+	});
+
+	classes['textarea'] = classes['input'].extend({
+		get_content: function() {
+			var self = this;
+			return self.pre_wpautop(self.input.val());
+		},
+
+		// Copied from wp-admin/js/editor.dev.js
 		pre_wpautop: function(content) {
 			var blocklist1, blocklist2;
 
@@ -385,25 +428,97 @@ jQuery(document).ready(function($){
 			// Hope.
 			return content;
 		}
-	};
+	});
+
+	classes['rich'] = classes['textarea'].extend({
+		ajax_get_handler: function(content) {
+			var self = this;
+
+			self.input.trigger('pre_wysiwyg_init');
+
+			self._super();
+
+			self.input.wysiwyg({
+				controls: {
+					justifyLeft			: { visible : true },
+					justifyCenter		: { visible : true },
+					justifyRight		: { visible : true },
+					separator04			: { visible : true },
+					insertOrderedList	: { visible : true },
+					insertUnorderedList	: { visible : true },
+					html				: { visible : true }
+				}
+			});
+
+			self.wysiwyg_enhancements();
+		},
+
+		wysiwyg_enhancements: function() {
+			var self = this;
+			var $iframe = self.form.find('#IFrame');
+			var $frame = $iframe.contents();
+
+			// Extra CSS
+			if ( typeof frontEditorData.css != 'undefined' )
+				var css = "@import url('" + frontEditorData.css + "');\n";
+			else
+				var css = '';
+
+			css += 'img.alignleft {float:left; margin: 0 1em .5em 0} img.alignright {float:right; margin: 0 0 .5em 1em} img.aligncenter {display:block; margin:0 auto .5em auto}';
+
+			$('<style type="text/css">' + css + '</style>')
+				.appendTo($frame.find('head'));
+
+			// Hotkeys
+			self.bind($frame, 'keypress', self.keypress);
+
+			// Autogrow
+			if ( $.browser.msie )
+				return $iframe.css('height', '200px');
+
+			var $body = $frame.find('body')
+				.css('overflow', 'hidden');
+
+			var intid = setInterval(function() {
+				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
+
+				if (should_be_height != $iframe.height())
+					$iframe.height(should_be_height);
+			}, 400);
+
+			self.bind(self.el, 'fee_remove_form', function() {
+				clearInterval(intid);
+			});
+
+			$iframe.trigger('wysiwyg_init');
+		}
+	});
+
 
 	// Widget text hack: Add id attr to each element
 	$('.front-ed-widget_text, .front-ed-widget_title').each(function() {
 		var $el = $(this);
 		var id = $el.parents('.widget_text').attr('id');
 
-		if (id)
+		if ( id )
 			$el.attr('id', 'fee_' + id);
-		else
-			$el.attr('class', '');	// not a text widget
+		else // undo wrap
+			$el.replaceWith($el.html());
 	});
 
 	// Create field instances
-	for ( var i in frontEditorData.fields ) {
-		var args = frontEditorData.fields[i];
+	$.each(frontEditorData.fields, function(name, type) {
+		$('.front-ed-' + name).each(function() {
+			var $el = $(this);
 
-		$('.front-ed-' + args[0]).each(function(){
-			new editableField(this, args);
+			var id = $el.attr('id').substr(4);
+
+			var parts = id.split('#');
+
+			if ( parts.length == 3 )
+				type = parts[2];
+
+			new classes[type]($el, type, name, id);
 		});
-	}
+	});
 });

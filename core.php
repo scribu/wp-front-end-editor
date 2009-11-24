@@ -124,8 +124,8 @@ abstract class frontEditor {
 		if ( ! function_exists('json_encode') )
 			require_once dirname(__FILE__) . '/inc/json.php';
 
-		foreach( self::$fields as $name => $args )
-			$fields[] = array($name, $args['type']);
+		foreach ( self::$fields as $name => $args )
+			$fields[$name] = $args['type'];
 
 		$data = array(
 			'save_text' => __('Save', 'front-end-editor'),
