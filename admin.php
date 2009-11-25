@@ -97,7 +97,7 @@ class frontEditorAdmin extends scbBoxesPage {
 				'type' => 'checkbox',
 				'name' => 'chunks',
 			),
-			
+
 			array(
 				'title' => __('Highlighting', $this->textdomain),
 				'desc' => __('Highlight editable elements', $this->textdomain),

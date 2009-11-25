@@ -122,7 +122,7 @@ class frontEd_chunks extends frontEd_basic {
 	}
 
 	protected function force_refresh() {
-		die("<script language='javascript'>location.reload(true)</script>");	
+		die("<script language='javascript'>location.reload(true)</script>");
 	}
 }
 
@@ -284,7 +284,7 @@ class frontEd_comment extends frontEd_field {
 
 	function wrap($content) {
 		global $comment;
-		
+
 		if ( ! $this->check($comment->comment_ID) )
 			return $content;
 
@@ -576,7 +576,7 @@ function fee_register_defaults() {
 			'title' => __('Text widget title', 'front-end-editor'),
 			'class' => 'frontEd_widget',
 		),
-		
+
 		'bloginfo' => array(
 			'title' => __('Site title and description', 'front-end-editor'),
 			'class' => 'frontEd_bloginfo',

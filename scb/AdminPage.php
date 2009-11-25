@@ -186,7 +186,7 @@ abstract class scbAdminPage {
 
 		return call_user_func_array(array($this, 'form_wrap'), $args);
 	}
-	
+
 	// Mimics scbForms::form_table_wrap()
 	function form_table_wrap($content) {
 		$output = self::table_wrap($content);

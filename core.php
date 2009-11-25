@@ -2,7 +2,7 @@
 
 abstract class frontEditor {
 	static $options;
-	
+
 	const baseclass = 'frontEd_field';
 
 	private static $fields;
