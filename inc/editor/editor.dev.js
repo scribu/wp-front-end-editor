@@ -143,9 +143,6 @@ jQuery(document).ready(function($){
 			self.bind(self.el, 'dblclick', self.dblclick);
 		},
 
-		get_content: null /* function() */,
-		set_content: null /* function(content) */,
-
 		set_el: function($el) {
 			var self = this;
 
@@ -198,6 +195,9 @@ jQuery(document).ready(function($){
 			frontEditorData._trap = true;
 		},
 
+		get_content: null /* function() */,
+		set_content: null /* function(content) */,
+
 		ajax_get_handler: null /* function(content) */,
 		ajax_set_handler: null /* function(content) */,
 
@@ -205,12 +205,12 @@ jQuery(document).ready(function($){
 			var self = this;
 
 			var data = {
-				nonce: frontEditorData.nonce,
-				action: 'front-editor',
-				callback: 'get',
-				name: self.name,
-				type: self.type,
-				item_id: self.id
+				'nonce': frontEditorData.nonce,
+				'action': 'front-editor',
+				'callback': 'get',
+				'name': self.name,
+				'type': self.type,
+				'item_id': self.id
 			};
 
 			$.post(frontEditorData.request, data, function(response){
@@ -218,17 +218,19 @@ jQuery(document).ready(function($){
 			});
 		},
 
-		ajax_set: function() {
+		ajax_set: function(content) {
 			var self = this;
 
+			content = content || self.get_content();
+
 			var data = {
-				nonce: frontEditorData.nonce,
-				action: 'front-editor',
-				callback: 'save',
-				name: self.name,
-				type: self.type,
-				item_id: self.id,
-				content: self.get_content()
+				'nonce': frontEditorData.nonce,
+				'action': 'front-editor',
+				'callback': 'save',
+				'name': self.name,
+				'type': self.type,
+				'item_id': self.id,
+				'content': content
 			};
 
 			$.post(frontEditorData.request, data, function(response){
@@ -243,6 +245,53 @@ jQuery(document).ready(function($){
 			element.bind(event, function(ev) {
 				callback.call(self, ev);
 			});
+		}
+	});
+
+	classes['image'] = classes['base'].extend({
+		dblclick: function(ev) {
+			var self = this;
+
+			self._super(ev);
+
+			self.open_box();
+		},
+
+		open_box: function() {
+			var self = this;
+
+			tb_show(frontEditorData.caption, frontEditorData.admin_url +
+				'/media-upload.php?type=image&TB_iframe=true&width=640&height=323&editable_image=1');
+
+			self.bind($('#TB_iframeContent'), 'load', self.replace_button);
+		},
+
+		replace_button: function(ev) {
+			var self = this;
+			var $frame  = $(ev.target).contents();
+
+			$('.media-item', $frame).livequery(function(){
+				var $button = $('<a class="button">').text(frontEditorData.caption);
+
+				self.bind($button, 'click', self.ajax_set);
+
+				$(this).find(':submit').replaceWith($button);
+			});
+		},
+
+		ajax_set_handler: function(url) {
+			var self = this;
+			self.el.find('img').attr('src', url);
+		},
+
+		ajax_set: function(ev) {
+			var self = this;
+
+			var url = $(ev.target).parents('.media-item').find('.urlfile').attr('title');
+
+			self._super(url);
+
+			tb_remove();	// close thickbox
 		}
 	});
 
@@ -268,6 +317,11 @@ jQuery(document).ready(function($){
 		get_content: function() {
 			var self = this;
 			return self.input.val();
+		},
+
+		set_content: function(content) {
+			var self = this;
+			self.el.html(content);
 		},
 
 		ajax_get: function() {
@@ -299,7 +353,7 @@ jQuery(document).ready(function($){
 		ajax_set_handler: function(content) {
 			var self = this;
 
-			self.el.html(content);
+			self.set_content(content);
 
 			self.spinner.hide();
 			self.el.show();

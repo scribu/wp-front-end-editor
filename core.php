@@ -30,7 +30,7 @@ abstract class frontEditor {
 		  or apply_filters('front_ed_disable', false) )
 			return;
 
-		self::register_scripts();
+		self::add_scripts();
 
 		add_action('wp_head', array(__CLASS__, 'add_css'));
 		add_action('wp_footer', array(__CLASS__, 'add_js'));
@@ -46,7 +46,7 @@ abstract class frontEditor {
 		return false;
 	}
 
-	private static function register_scripts() {
+	private static function add_scripts() {
 // DEBUG
 // wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
@@ -55,23 +55,31 @@ abstract class frontEditor {
 		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
 		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
+		// Thickbox
+		if ( in_array('image', self::$field_types) ) {
+			add_thickbox();
+
+			wp_enqueue_script('livequery', $url . 'livequery.js', array('jquery'), '1.0', true);
+		}
+
 		// Grofield
-		wp_register_script('growfield', $url . 'growfield.js', array('jquery'), '2', true);
+		if ( in_array('textarea', self::$field_types) ) {
+			wp_enqueue_script('growfield', $url . 'growfield.js', array('jquery'), '2', true);
+		}
 
 		// jWYSIWYG
-		wp_register_style('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$css_dev.css", self::$version);
-		wp_register_script('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$js_dev.js", array('jquery'), self::$version, true);
+		if ( in_array('rich', self::$field_types) ) {
+			wp_enqueue_style('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$css_dev.css", self::$version);
+			wp_enqueue_script('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$js_dev.js", array('jquery'), self::$version, true);
+		}
 
 		// Core scripts
-		wp_register_style('front-editor', $url . "editor/editor$css_dev.css", self::$version);
-		wp_register_script('front-editor', $url . "editor/editor$js_dev.js", array('jquery'), self::$version, true);
+		wp_enqueue_style('front-editor', $url . "editor/editor$css_dev.css", self::$version);
+		wp_enqueue_script('front-editor', $url . "editor/editor$js_dev.js", array('jquery'), self::$version, true);
 	}
 
 	static function add_css() {
 		global $wp_styles;
-
-		foreach ( self::$fields as $name => $args )
-			self::$field_types[$name] = $args['type'];
 
 		if ( in_array('rich', self::$field_types) )
 			$wp_styles->do_item('jwysiwyg');
@@ -90,16 +98,6 @@ abstract class frontEditor {
 		if ( ! function_exists('json_encode') )
 			require_once dirname(__FILE__) . '/inc/json.php';
 
-		global $wp_scripts;
-
-		if ( in_array('rich', self::$field_types) )
-			$wp_scripts->do_item('jwysiwyg');
-
-		if ( in_array('textarea', self::$field_types) )
-			$wp_scripts->do_item('growfield');
-
-		$wp_scripts->do_item('front-editor');
-
 		// Prepare data
 		$data = array(
 			'save_text' => __('Save', 'front-end-editor'),
@@ -110,7 +108,12 @@ abstract class frontEditor {
 			'nonce' => wp_create_nonce(self::$nonce),
 		);
 
-		// Load user CSS
+		if ( in_array('image', self::$field_types) ) {
+			$data['admin_url'] = admin_url();
+			$data['caption'] = __('Change Image', 'editable-images');
+		}
+
+		// Rich editor CSS
 		$path = '/' . apply_filters('front_ed_wysiwyg_css', 'front-end-editor.css');
 		if ( file_exists(TEMPLATEPATH . $path) )
 			$data['css'] = get_template_directory_uri() . $path;
@@ -148,6 +151,9 @@ abstract class frontEditor {
 		self::$active_fields = self::get_fields();
 		foreach ( (array) self::$options->disabled as $name )
 			unset(self::$active_fields[$name]);
+
+		foreach ( self::$active_fields as $name => $args )
+			self::$field_types[$name] = $args['type'];
 
 		foreach ( self::$active_fields as $name => $args ) {
 			extract($args);
@@ -191,7 +197,7 @@ abstract class frontEditor {
 		if ( ! $instance->check($id) || ! $instance->allow($id) )
 			die(-1);
 
-		$args = self::$fields[$name];
+		$args = self::get_args($name);
 
 		if ( $action == 'save' ) {
 			$content = stripslashes_deep($_POST['content']);
@@ -200,6 +206,7 @@ abstract class frontEditor {
 		}
 		elseif ( $action == 'get' ) {
 			$result = $instance->get($id);
+
 			if ( $type == 'rich' )
 				$result = wpautop($result);
 		}
