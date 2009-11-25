@@ -6,8 +6,8 @@ abstract class frontEditor {
 	const baseclass = 'frontEd_field';
 
 	private static $fields;
-	private static $field_types;
 	private static $active_fields;
+	private static $field_types;
 	private static $instances = array();
 
 	private static $version;
@@ -30,12 +30,12 @@ abstract class frontEditor {
 		  or apply_filters('front_ed_disable', false) )
 			return;
 
+		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
+
 		self::add_scripts();
 
 		add_action('wp_head', array(__CLASS__, 'add_css'));
 		add_action('wp_footer', array(__CLASS__, 'add_js'));
-
-		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
 	}
 
 	private static function can_use_editor() {
@@ -59,7 +59,7 @@ abstract class frontEditor {
 		if ( in_array('image', self::$field_types) ) {
 			add_thickbox();
 
-			wp_enqueue_script('livequery', $url . 'livequery.js', array('jquery'), '1.0', true);
+			wp_enqueue_script('livequery', $url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
 		}
 
 		// Grofield
@@ -70,7 +70,7 @@ abstract class frontEditor {
 		// jWYSIWYG
 		if ( in_array('rich', self::$field_types) ) {
 			wp_enqueue_style('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$css_dev.css", self::$version);
-			wp_enqueue_script('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$js_dev.js", array('jquery'), self::$version, true);
+			wp_enqueue_script('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg.js", array('jquery'), '0.5', true);
 		}
 
 		// Core scripts

@@ -1,7 +1,7 @@
 /*
  * jQuery Growfield Library 2
  *
- * http://code.google.com/p/jquery-dynamic/
+ * http://code.google.com/p/jquery-growfield/
  * licensed under the MIT license
  *
  * autor: john kuindji
