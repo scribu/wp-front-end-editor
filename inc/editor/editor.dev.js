@@ -196,18 +196,10 @@ jQuery(document).ready(function($){
 			ev.preventDefault();
 
 			frontEditorData._trap = true;
-
-			self.form_handler();
 		},
 
-		// Event utility: this = self
-		bind: function(element, event, callback) {
-			var self = this;
-
-			element.bind(event, function(ev) {
-				callback.call(self, ev);
-			});
-		},
+		ajax_get_handler: null /* function(content) */,
+		ajax_set_handler: null /* function(content) */,
 
 		ajax_get: function() {
 			var self = this;
@@ -242,6 +234,15 @@ jQuery(document).ready(function($){
 			$.post(frontEditorData.request, data, function(response){
 				self.ajax_set_handler(response);
 			});
+		},
+
+		// Event utility: this = self
+		bind: function(element, event, callback) {
+			var self = this;
+
+			element.bind(event, function(ev) {
+				callback.call(self, ev);
+			});
 		}
 	});
 
@@ -254,8 +255,19 @@ jQuery(document).ready(function($){
 			self._super($el, type, name, id);
 		},
 
+		set_input: function(content) {
+			var self = this;
+
+			self.input = (self.type == 'input') ? $('<input type="text">') : $('<textarea>');
+
+			self.input.addClass('front-editor-content').val(content);
+
+			self.input.prependTo(self.form);
+		},
+
 		get_content: function() {
-			return this.input.val();
+			var self = this;
+			return self.input.val();
 		},
 
 		ajax_get: function() {
@@ -271,10 +283,17 @@ jQuery(document).ready(function($){
 
 			self.el.before(self.spinner.show());
 
-			if ( self.type == 'rich' )
-				self.input.trigger('wysiwyg_save');
-
 			self._super();
+		},
+
+		ajax_get_handler: function(content) {
+			var self = this;
+
+			self.spinner.hide().replaceWith(self.form);
+
+			self.set_input(content);
+
+			self.input.focus();
 		},
 
 		ajax_set_handler: function(content) {
@@ -286,28 +305,16 @@ jQuery(document).ready(function($){
 			self.el.show();
 		},
 
-		ajax_get_handler: function(content) {
+		dblclick: function(ev) {
 			var self = this;
 
-			self.spinner.hide().replaceWith(self.form);
+			self._super(ev);
 
-			self.input = ( self.type == 'input' ) ? $('<input type="text">') : $('<textarea>');
-
-			self.input
-				.addClass('front-editor-content')
-				.val(content)
-				.prependTo(self.form);
-
-			if ( self.type == 'textarea' )
-				self.input.growfield();
-
-			self.input.focus();
+			self.form_handler();
 		},
 
 		form_handler: function() {
 			var self = this;
-
-			self.ajax_get();
 
 			// Button actions
 			var form_remove = function(with_spinner) {
@@ -348,6 +355,8 @@ jQuery(document).ready(function($){
 				.append(self.cancel_button);
 
 			self.bind(self.form, 'keypress', self.keypress);
+			
+			self.ajax_get();
 		},
 
 		keypress: function(ev) {
@@ -365,6 +374,15 @@ jQuery(document).ready(function($){
 	});
 
 	classes['textarea'] = classes['input'].extend({
+		set_input: function(content) {
+			var self = this;
+			
+			self._super(content);
+
+			if ( self.type == 'textarea' )
+				self.input.growfield();
+		},
+
 		get_content: function() {
 			var self = this;
 			return self.pre_wpautop(self.input.val());
@@ -431,12 +449,20 @@ jQuery(document).ready(function($){
 	});
 
 	classes['rich'] = classes['textarea'].extend({
-		ajax_get_handler: function(content) {
+		ajax_set: function() {
 			var self = this;
 
-			self.input.trigger('pre_wysiwyg_init');
+			self.input.trigger('wysiwyg_save');
 
 			self._super();
+		},
+
+		set_input: function(content) {
+			var self = this;
+
+			self._super(content);
+
+			self.input.trigger('pre_wysiwyg_init');
 
 			self.input.wysiwyg({
 				controls: {
@@ -455,6 +481,7 @@ jQuery(document).ready(function($){
 
 		wysiwyg_enhancements: function() {
 			var self = this;
+
 			var $iframe = self.form.find('#IFrame');
 			var $frame = $iframe.contents();
 

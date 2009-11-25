@@ -6,6 +6,7 @@ abstract class frontEditor {
 	const baseclass = 'frontEd_field';
 
 	private static $fields;
+	private static $field_types;
 	private static $active_fields;
 	private static $instances = array();
 
@@ -24,18 +25,16 @@ abstract class frontEditor {
 	}
 
 	static function _init() {
-		if ( ! is_user_logged_in() )
+		if ( ! is_user_logged_in()
+		  or ! self::can_use_editor()
+		  or apply_filters('front_ed_disable', false) )
 			return;
 
-		if ( ! self::can_use_editor() )
-			return;
+		self::register_scripts();
 
-		if ( apply_filters('front_ed_disable', false) )
-			return;
+		add_action('wp_head', array(__CLASS__, 'add_css'));
+		add_action('wp_footer', array(__CLASS__, 'add_js'));
 
-		self::add_scripts();
-
-		add_action('wp_head', array(__CLASS__, 'pass_to_js'));
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
 	}
 
@@ -47,22 +46,78 @@ abstract class frontEditor {
 		return false;
 	}
 
-	private static function add_scripts() {
+	private static function register_scripts() {
 // DEBUG
 // wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
 		$url = plugin_dir_url(__FILE__) . 'inc/';
 
-		if ( self::$options->rich ) {
-			wp_enqueue_style('jwysiwyg', $url . 'jwysiwyg/jquery.wysiwyg.css');
-			wp_enqueue_script('jwysiwyg', $url . 'jwysiwyg/jquery.wysiwyg.js', array('jquery'), self::$version, true);
-		}
+		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
+		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
-		wp_enqueue_script('growfield', $url . 'growfield.js', array('jquery'), '2', true);
+		// Grofield
+		wp_register_script('growfield', $url . 'growfield.js', array('jquery'), '2', true);
+
+		// jWYSIWYG
+		wp_register_style('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$css_dev.css", self::$version);
+		wp_register_script('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$js_dev.js", array('jquery'), self::$version, true);
 
 		// Core scripts
-		wp_enqueue_style('front-editor', $url . 'editor/editor.css', self::$version);
-		wp_enqueue_script('front-editor', $url . 'editor/editor.js', array('jquery'), self::$version, true);
+		wp_register_style('front-editor', $url . "editor/editor$css_dev.css", self::$version);
+		wp_register_script('front-editor', $url . "editor/editor$js_dev.js", array('jquery'), self::$version, true);
+	}
+
+	static function add_css() {
+		global $wp_styles;
+
+		foreach ( self::$fields as $name => $args )
+			self::$field_types[$name] = $args['type'];
+
+		if ( in_array('rich', self::$field_types) )
+			$wp_styles->do_item('jwysiwyg');
+
+		$wp_styles->do_item('front-editor');
+
+		if ( self::$options->highlight ) {
+?>
+<style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
+<?php
+		}
+	}
+
+	static function add_js() {
+		// PHP < 5.2
+		if ( ! function_exists('json_encode') )
+			require_once dirname(__FILE__) . '/inc/json.php';
+
+		global $wp_scripts;
+
+		if ( in_array('rich', self::$field_types) )
+			$wp_scripts->do_item('jwysiwyg');
+
+		if ( in_array('textarea', self::$field_types) )
+			$wp_scripts->do_item('growfield');
+
+		$wp_scripts->do_item('front-editor');
+
+		// Prepare data
+		$data = array(
+			'save_text' => __('Save', 'front-end-editor'),
+			'cancel_text' => __('Cancel', 'front-end-editor'),
+			'fields' => self::$field_types,
+			'request' => admin_url('admin-ajax.php'),
+			'spinner' => admin_url('images/loading.gif'),
+			'nonce' => wp_create_nonce(self::$nonce),
+		);
+
+		// Load user CSS
+		$path = '/' . apply_filters('front_ed_wysiwyg_css', 'front-end-editor.css');
+		if ( file_exists(TEMPLATEPATH . $path) )
+			$data['css'] = get_template_directory_uri() . $path;
+
+?>
+<script type='text/javascript'>frontEditorData = <?php echo json_encode($data) ?>;</script>
+<?php
 	}
 
 	// Register a new editable field
@@ -117,39 +172,6 @@ abstract class frontEditor {
 
 	static function get_args($filter) {
 		return self::$fields[$filter];
-	}
-
-	static function pass_to_js() {
-		// PHP < 5.2
-		if ( ! function_exists('json_encode') )
-			require_once dirname(__FILE__) . '/inc/json.php';
-
-		foreach ( self::$fields as $name => $args )
-			$fields[$name] = $args['type'];
-
-		$data = array(
-			'save_text' => __('Save', 'front-end-editor'),
-			'cancel_text' => __('Cancel', 'front-end-editor'),
-			'fields' => $fields,
-			'request' => admin_url('admin-ajax.php'),
-			'spinner' => admin_url('images/loading.gif'),
-			'nonce' => wp_create_nonce(self::$nonce),
-		);
-
-		$path = '/' . apply_filters('front_ed_wysiwyg_css', 'front-end-editor.css');
-
-		if ( file_exists(TEMPLATEPATH . $path) )
-			$data['css'] = get_template_directory_uri() . $path;
-?>
-<script type='text/javascript'>
-frontEditorData = <?php echo json_encode($data) ?>;
-</script>
-<?php
-		if ( self::$options->highlight ) {
-?>
-<style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
-<?php
-		}
 	}
 
 	static function ajax_response() {
