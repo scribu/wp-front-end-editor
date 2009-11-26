@@ -94,8 +94,6 @@ jQuery(document).ready(function($){
 		if ( typeof $link == 'undefined' )
 			return;
 
-//console.log('resuming');
-
 /*
 		var ev_reference;
 		var ev_capture = function(ev) {	ev_reference = ev; }
@@ -170,12 +168,15 @@ jQuery(document).ready(function($){
 //			if ( typeof frontEditorData._to_click != 'undefined' )
 //				return;
 
-//console.log('clicking');
-
 			var $el = $(ev.target);
 
-			// Child single click
-			if ( ! $el.is('a') || is_overlay($el) )
+			if ( ! $el.is('a') )
+				$el = $el.parents('a');
+
+			if ( ! $el.length )
+				return;
+
+			if ( is_overlay($el) )
 				return;
 
 			ev.stopImmediatePropagation();
@@ -268,31 +269,48 @@ jQuery(document).ready(function($){
 
 		replace_button: function(ev) {
 			var self = this;
+
 			var $frame  = $(ev.target).contents();
 
-			$('.media-item', $frame).livequery(function(){
-				var $button = $('<a class="button">').text(frontEditorData.caption);
+			$('.describe', $frame).livequery(function(){
+				var $item = $(this);
+				var $button = $('<a href="#" class="button">').text(frontEditorData.caption);
 
-				self.bind($button, 'click', self.ajax_set);
+				$button.click(function(ev){
+					self.ajax_set(self.get_content($item));
 
-				$(this).find(':submit').replaceWith($button);
+					tb_remove();
+				});
+
+				$(this).find(':submit, #go_button').replaceWith($button);
 			});
+		},
+
+		get_content: function($item) {
+			var $field;
+
+			// Media library
+			$field = $item.find('.urlfile');
+			if ( $field.length )
+				return $field.attr('title');
+
+			// From URL (embed)
+			$field = $item.find('#embed-src');
+			if ( $field.length )
+				return $field.val();
+
+			// From URL
+			$field = $item.find('#src');
+			if ( $field.length )
+				return $field.val();
+
+			return false;
 		},
 
 		ajax_set_handler: function(url) {
 			var self = this;
 			self.el.find('img').attr('src', url);
 		},
-
-		ajax_set: function(ev) {
-			var self = this;
-
-			var url = $(ev.target).parents('.media-item').find('.urlfile').attr('title');
-
-			self._super(url);
-
-			tb_remove();	// close thickbox
-		}
 	});
 
 	classes['input'] = classes['base'].extend({

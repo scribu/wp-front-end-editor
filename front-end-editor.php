@@ -142,7 +142,7 @@ function fee_register_defaults() {
 		),
 
 		'editable_image' => array(
-			'title' => __('Images', 'front-end-editor'),
+			'title' => __('Theme images', 'front-end-editor'),
 			'class' => 'frontEd_image',
 			'type' => 'image',
 			'argc' => 2,
