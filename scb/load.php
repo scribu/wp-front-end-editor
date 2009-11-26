@@ -16,12 +16,10 @@ This file needs to be in the same directory as the class files.
 if ( class_exists('scbFramework') ) return;	// Then standalone plugin is installed
 
 if ( !class_exists('scbLoad') ) :
-class scbLoad
-{
+class scbLoad {
 	private $data;
 
-	function __construct($file, $rev)
-	{
+	function __construct($file, $rev) {
 		$this->data = array(
 			'rev' => $rev,
 			'path' => dirname($file),
@@ -31,23 +29,20 @@ class scbLoad
 		$this->set_autoload();
 	}
 
-	function set_path()
-	{
+	function set_path() {
 		$data = get_option('scbFramework');
 
 		if ( empty($data) or $data['rev'] < $this->data['rev'] or !is_dir($data['path']) )
 			update_option('scbFramework', $this->data);
 	}
 
-	static function get_path()
-	{
+	static function get_path() {
 		$data = get_option('scbFramework');
 
 		return $data['path'];
 	}
 
-	function set_autoload()
-	{
+	function set_autoload() {
 		if ( function_exists('spl_autoload_register') )
 			spl_autoload_register(array($this, 'autoload'));
 		else
@@ -57,8 +52,7 @@ class scbLoad
 				$this->autoload($class);
 	}
 
-	function autoload($className)
-	{
+	function autoload($className) {
 		if ( class_exists($className) )
 			return false;
 
@@ -78,8 +72,7 @@ class scbLoad
 		return true;
 	}
 
-	static function get_file_path($className, $base = '')
-	{
+	static function get_file_path($className, $base = '') {
 		if ( empty($base) )
 			$base = self::get_path();
 
@@ -88,5 +81,5 @@ class scbLoad
 }
 endif;
 
-new scbLoad(__FILE__, 55);
+new scbLoad(__FILE__, 56);
 
