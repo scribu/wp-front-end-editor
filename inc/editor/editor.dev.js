@@ -268,8 +268,6 @@ jQuery(document).ready(function($){
 			
 			$revert.click(function(ev){
 				self.ajax_set(-1);
-
-//				window.location.reload();
 			});
 
 			$('#TB_ajaxWindowTitle').after($revert);
@@ -289,8 +287,6 @@ jQuery(document).ready(function($){
 
 				$button.click(function(ev){
 					self.ajax_set(self.get_content($item));
-
-					tb_remove();
 				});
 
 				$(this).find(':submit, #go_button').replaceWith($button);
@@ -320,8 +316,14 @@ jQuery(document).ready(function($){
 
 		ajax_set_handler: function(url) {
 			var self = this;
-			self.el.find('img').attr('src', url);
-		},
+
+			if ( url == -1 ) {
+				window.location.reload(true);
+			} else {
+				self.el.find('img').attr('src', url);
+				tb_remove();
+			}
+		}
 	});
 
 	classes['input'] = classes['base'].extend({
