@@ -1,5 +1,41 @@
-.front-editor-container, .front-ed {margin:0 !important; padding: 0 !important}
-.front-ed, .front-editor-container {border-width: 0 !important}
-.front-editor-container, textarea.front-editor-content {width:100% !important}
-.front-editor-cancel {font-weight:bold !important; color:red !important}
-.front-editor-spinner {border:0 !important; width:16px !important; height:16px !important}
+.front-editor-container, .front-ed {
+	margin: 0 !important; 
+	padding: 0 !important
+}
+.front-ed, .front-editor-container {
+	border-width: 0 !important
+}
+.front-editor-container, textarea.front-editor-content {
+	width: 100% !important
+}
+.front-editor-cancel {
+	font-weight: bold !important; 
+	color: red !important
+}
+.front-editor-spinner {
+	border: 0 !important; 
+	width: 16px !important; 
+	height: 16px !important
+}
+
+
+#TB_window #TB_title {
+	background-color: #222;
+	color: #CFCFCF;
+	height: 27px;
+}
+
+#fee_img_revert {
+	display: block;
+	float: left;
+	padding: 6px 10px 0;
+}
+
+#fee_img_revert:link, #fee_img_revert:active, #fee_img_revert:visited {
+	color: #21759B !important;
+}
+
+#fee_img_revert:hover {
+	color: #D54E21 !important;
+}
+

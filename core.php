@@ -79,13 +79,6 @@ abstract class frontEditor {
 	}
 
 	static function add_css() {
-		global $wp_styles;
-
-		if ( in_array('rich', self::$field_types) )
-			$wp_styles->do_item('jwysiwyg');
-
-		$wp_styles->do_item('front-editor');
-
 		if ( self::$options->highlight ) {
 ?>
 <style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
@@ -109,6 +102,8 @@ abstract class frontEditor {
 		);
 
 		if ( in_array('image', self::$field_types) ) {
+			$data['img_revert'] = '(' . __('Use default', 'front-end-editor') . ')';
+			$data['tb_close'] = get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png';
 			$data['admin_url'] = admin_url();
 			$data['caption'] = __('Change Image', 'editable-images');
 		}

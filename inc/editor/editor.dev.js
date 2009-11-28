@@ -24,8 +24,8 @@ jQuery(document).ready(function($){
 		// Copy the properties over onto the new prototype
 		for (var name in prop) {
 		  // Check if we're overwriting an existing function
-		  prototype[name] = typeof prop[name] == "function" &&
-		    typeof _super[name] == "function" && fnTest.test(prop[name]) ?
+		  prototype[name] = ( typeof prop[name] == "function" &&
+		    typeof _super[name] == "function" && fnTest.test(prop[name]) ) ?
 		    (function(name, fn){
 		      return function() {
 		        var tmp = this._super;
@@ -263,6 +263,17 @@ jQuery(document).ready(function($){
 
 			tb_show(frontEditorData.caption, frontEditorData.admin_url +
 				'/media-upload.php?type=image&TB_iframe=true&width=640&height=323&editable_image=1');
+
+			var $revert = $('<a id="fee_img_revert" href="#">').text(frontEditorData.img_revert);
+			
+			$revert.click(function(ev){
+				self.ajax_set(-1);
+
+//				window.location.reload();
+			});
+
+			$('#TB_ajaxWindowTitle').after($revert);
+			$('#TB_closeWindowButton img').attr('src', frontEditorData.tb_close);
 
 			self.bind($('#TB_iframeContent'), 'load', self.replace_button);
 		},

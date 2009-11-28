@@ -246,7 +246,10 @@ class frontEd_image extends frontEd_field {
 	}
 
 	function save($id, $url) {
-		update_option(self::get_key($id), $url);
+		if ( $url == -1 )
+			delete_option(self::get_key($id));
+		else
+			update_option(self::get_key($id), $url);
 
 		return $url;
 	}
@@ -265,7 +268,7 @@ class frontEd_image extends frontEd_field {
 
 		wp_enqueue_style('editable-image-box', plugins_url('style.css', FEE_PLUGIN_FILE));
 	}
-	
+
 	static function uninstall() {
 		global $wpdb;
 
