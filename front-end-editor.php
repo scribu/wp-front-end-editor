@@ -156,3 +156,12 @@ function fee_register_defaults() {
 	do_action('front_ed_fields');
 }
 
+if ( ! function_exists('html') ) :
+function html($tag, $content = '') {
+	$closing = explode(' ', $tag);
+	$closing = $closing[0];
+
+	return "<$tag>$content</$closing>\n";
+}
+endif;
+

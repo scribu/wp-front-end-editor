@@ -340,7 +340,9 @@ jQuery(document).ready(function($){
 
 			self.input = (self.type == 'input') ? $('<input type="text">') : $('<textarea>');
 
-			self.input.addClass('front-editor-content').val(content);
+			self.input
+				.attr('id', 'edit_' + self.el.attr('id'))
+				.addClass('front-editor-content').val(content);
 
 			self.input.prependTo(self.form);
 		},
@@ -484,32 +486,32 @@ jQuery(document).ready(function($){
 			});
 
 			// Pretty it up for the source editor
-			blocklist1 = 'blockquote|ul|ol|li|table|thead|tbody|tr|th|td|div|h[1-6]|p';
-			content = content.replace(new RegExp('\\s*</('+blocklist1+')>\\s*', 'mg'), '</$1>\n');
-			content = content.replace(new RegExp('\\s*<(('+blocklist1+')[^>]*)>', 'mg'), '\n<$1>');
+			blocklist1 = 'blockquote|ul|ol|li|table|thead|tbody|tfoot|tr|th|td|div|h[1-6]|p|fieldset';
+			content = content.replace(new RegExp('\\s*</('+blocklist1+')>\\s*', 'g'), '</$1>\n');
+			content = content.replace(new RegExp('\\s*<(('+blocklist1+')[^>]*)>', 'g'), '\n<$1>');
 
 			// Mark </p> if it has any attributes.
-			content = content.replace(new RegExp('(<p [^>]+>.*?)</p>', 'mg'), '$1</p#>');
+			content = content.replace(/(<p [^>]+>.*?)<\/p>/g, '$1</p#>');
 
 			// Sepatate <div> containing <p>
-			content = content.replace(new RegExp('<div([^>]*)>\\s*<p>', 'mgi'), '<div$1>\n\n');
+			content = content.replace(/<div([^>]*)>\s*<p>/gi, '<div$1>\n\n');
 
 			// Remove <p> and <br />
-			content = content.replace(new RegExp('\\s*<p>', 'mgi'), '');
-			content = content.replace(new RegExp('\\s*</p>\\s*', 'mgi'), '\n\n');
-			content = content.replace(new RegExp('\\n\\s*\\n', 'mgi'), '\n\n');
-			content = content.replace(new RegExp('\\s*<br ?/?>\\s*', 'gi'), '\n');
+			content = content.replace(/\s*<p>/gi, '');
+			content = content.replace(/\s*<\/p>\s*/gi, '\n\n');
+			content = content.replace(/\n[\s\u00a0]+\n/g, '\n\n');
+			content = content.replace(/\s*<br ?\/?>\s*/gi, '\n');
 
 			// Fix some block element newline issues
-			content = content.replace(new RegExp('\\s*<div', 'mg'), '\n<div');
-			content = content.replace(new RegExp('</div>\\s*', 'mg'), '</div>\n');
-			content = content.replace(new RegExp('\\s*\\[caption([^\\[]+)\\[/caption\\]\\s*', 'gi'), '\n\n[caption$1[/caption]\n\n');
-			content = content.replace(new RegExp('caption\\]\\n\\n+\\[caption', 'g'), 'caption]\n\n[caption');
+			content = content.replace(/\s*<div/g, '\n<div');
+			content = content.replace(/<\/div>\s*/g, '</div>\n');
+			content = content.replace(/\s*\[caption([^\[]+)\[\/caption\]\s*/gi, '\n\n[caption$1[/caption]\n\n');
+			content = content.replace(/caption\]\n\n+\[caption/g, 'caption]\n\n[caption');
 
-			blocklist2 = 'blockquote|ul|ol|li|table|thead|tr|th|td|h[1-6]|pre';
-			content = content.replace(new RegExp('\\s*<(('+blocklist2+') ?[^>]*)\\s*>', 'mg'), '\n<$1>');
-			content = content.replace(new RegExp('\\s*</('+blocklist2+')>\\s*', 'mg'), '</$1>\n');
-			content = content.replace(new RegExp('<li([^>]*)>', 'g'), '\t<li$1>');
+			blocklist2 = 'blockquote|ul|ol|li|table|thead|tbody|tfoot|tr|th|td|h[1-6]|pre|fieldset';
+			content = content.replace(new RegExp('\\s*<(('+blocklist2+') ?[^>]*)\\s*>', 'g'), '\n<$1>');
+			content = content.replace(new RegExp('\\s*</('+blocklist2+')>\\s*', 'g'), '</$1>\n');
+			content = content.replace(/<li([^>]*)>/g, '\t<li$1>');
 
 			if ( content.indexOf('<object') != -1 ) {
 				content = content.replace(/<object[\s\S]+?<\/object>/g, function(a){
@@ -518,26 +520,37 @@ jQuery(document).ready(function($){
 			}
 
 			// Unmark special paragraph closing tags
-			content = content.replace(new RegExp('</p#>', 'g'), '</p>\n');
-			content = content.replace(new RegExp('\\s*(<p [^>]+>.*</p>)', 'mg'), '\n$1');
+			content = content.replace(/<\/p#>/g, '</p>\n');
+			content = content.replace(/\s*(<p [^>]+>[\s\S]*?<\/p>)/g, '\n$1');
 
 			// Trim whitespace
-			content = content.replace(new RegExp('^\\s*', ''), '');
-			content = content.replace(new RegExp('[\\s\\u00a0]*$', ''), '');
+			content = content.replace(/^\s+/, '');
+			content = content.replace(/[\s\u00a0]+$/, '');
 
 			// put back the line breaks in pre|script
 			content = content.replace(/<wp_temp>/g, '\n');
 
-			// Hope.
 			return content;
 		}
 	});
 
 	classes['rich'] = classes['textarea'].extend({
+		panel_options: {
+			iconsPath: frontEditorData.nicedit_icons,
+			buttonList: [
+				'bold', 'italic', 'underline', 'strikethrough',
+				'left','center', 'right',
+				'ol', 'ul',
+				'fontFormat',
+				'link', 'unlink', 'image',
+				'xhtml'
+			]
+		},
+
 		ajax_set: function() {
 			var self = this;
 
-			self.input.trigger('wysiwyg_save');
+			self.editor.nicInstances[0].saveContent();
 
 			self._super();
 		},
@@ -547,65 +560,11 @@ jQuery(document).ready(function($){
 
 			self._super(content);
 
-			self.input.trigger('pre_wysiwyg_init');
+			self.editor = new nicEditor(self.panel_options).panelInstance(self.input.attr('id'));
 
-			self.input.wysiwyg({
-				controls: {
-					justifyLeft			: { visible : true },
-					justifyCenter		: { visible : true },
-					justifyRight		: { visible : true },
-					separator04			: { visible : true },
-					insertOrderedList	: { visible : true },
-					insertUnorderedList	: { visible : true },
-					html				: { visible : true }
-				}
-			});
-
-			self.wysiwyg_enhancements();
-		},
-
-		wysiwyg_enhancements: function() {
-			var self = this;
-
-			var $iframe = self.form.find('#IFrame');
-			var $frame = $iframe.contents();
-
-			// Extra CSS
-			if ( typeof frontEditorData.css != 'undefined' )
-				var css = "@import url('" + frontEditorData.css + "');\n";
-			else
-				var css = '';
-
-			css += 'img.alignleft {float:left; margin: 0 1em .5em 0} img.alignright {float:right; margin: 0 0 .5em 1em} img.aligncenter {display:block; margin:0 auto .5em auto}';
-
-			$('<style type="text/css">' + css + '</style>')
-				.appendTo($frame.find('head'));
-
-			// Hotkeys
-			self.bind($frame, 'keypress', self.keypress);
-
-			// Autogrow
-			if ( $.browser.msie )
-				return $iframe.css('height', '200px');
-
-			var $body = $frame.find('body')
-				.css('overflow', 'hidden');
-
-			var intid = setInterval(function() {
-				var should_be_height = $body.height() + 32 + 20;	// height + margin + space
-
-				if (should_be_height != $iframe.height())
-					$iframe.height(should_be_height);
-			}, 400);
-
-			self.bind(self.el, 'fee_remove_form', function() {
-				clearInterval(intid);
-			});
-
-			$iframe.trigger('wysiwyg_init');
+			self.form.find('.nicEdit-main').focus();
 		}
 	});
-
 
 	// Widget text hack: Add id attr to each element
 	$('.front-ed-widget_text, .front-ed-widget_title').each(function() {

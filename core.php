@@ -10,12 +10,15 @@ abstract class frontEditor {
 	private static $field_types;
 	private static $instances = array();
 
+	private static $plugin_url;
 	private static $version;
 	private static $nonce = 'front-editor';
 
 	static function init($options, $version) {
 		self::$options = $options;
 		self::$version = $version;
+
+		self::$plugin_url = plugin_dir_url(FEE_PLUGIN_FILE) . 'inc/';
 
 		add_action('front_ed_fields', array(__CLASS__, 'make_instances'), 100);
 
@@ -50,8 +53,6 @@ abstract class frontEditor {
 // DEBUG
 // wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
 
-		$url = plugin_dir_url(__FILE__) . 'inc/';
-
 		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
 		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
@@ -59,31 +60,30 @@ abstract class frontEditor {
 		if ( in_array('image', self::$field_types) ) {
 			add_thickbox();
 
-			wp_enqueue_script('livequery', $url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
+			wp_enqueue_script('livequery', self::$plugin_url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
 		}
 
-		// Grofield
+		// Autogrow
 		if ( in_array('textarea', self::$field_types) ) {
-			wp_enqueue_script('growfield', $url . 'growfield.js', array('jquery'), '2', true);
+			wp_enqueue_script('growfield', self::$plugin_url . 'growfield.js', array('jquery'), '2', true);
 		}
 
-		// jWYSIWYG
+		// Rich Editor
 		if ( in_array('rich', self::$field_types) ) {
-			wp_enqueue_style('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg$css_dev.css", self::$version);
-			wp_enqueue_script('jwysiwyg', $url . "jwysiwyg/jquery.wysiwyg.js", array('jquery'), '0.5', true);
+			wp_enqueue_script('nicedit', self::$plugin_url . "nicedit/nicEdit.js", '0.9r23');
 		}
 
 		// Core scripts
-		wp_enqueue_style('front-editor', $url . "editor/editor$css_dev.css", self::$version);
-		wp_enqueue_script('front-editor', $url . "editor/editor$js_dev.js", array('jquery'), self::$version, true);
+		wp_enqueue_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", self::$version);
+		wp_enqueue_script('front-editor', self::$plugin_url . "editor/editor$js_dev.js", array('jquery'), self::$version, true);
 	}
 
 	static function add_css() {
-		if ( self::$options->highlight ) {
+		if ( ! self::$options->highlight ) 
+			return;
 ?>
 <style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
 <?php
-		}
 	}
 
 	static function add_js() {
@@ -101,17 +101,16 @@ abstract class frontEditor {
 			'nonce' => wp_create_nonce(self::$nonce),
 		);
 
+		if ( in_array('rich', self::$field_types) ) {
+			$data['nicedit_icons'] = self::$plugin_url . 'nicedit/nicEditorIcons.gif';
+		}
+
 		if ( in_array('image', self::$field_types) ) {
 			$data['caption'] = __('Change Image', 'front-end-editor');
 			$data['img_revert'] = '(' . __('Use default', 'front-end-editor') . ')';
 			$data['tb_close'] = get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png';
 			$data['admin_url'] = admin_url();
 		}
-
-		// Rich editor CSS
-		$path = '/' . apply_filters('front_ed_wysiwyg_css', 'front-end-editor.css');
-		if ( file_exists(TEMPLATEPATH . $path) )
-			$data['css'] = get_template_directory_uri() . $path;
 
 ?>
 <script type='text/javascript'>frontEditorData = <?php echo json_encode($data) ?>;</script>
@@ -231,17 +230,16 @@ abstract class frontEd_field {
 	 * Mark the field as editable
 	 * @return string wrapped content
 	 */
-	public function wrap($content, $id) {
+	public function wrap($content, $id, $inline = false) {
 		if ( is_feed() || ! $this->allow($id) )
 			return $content;
 
 		$class = 'front-ed-' . $this->filter . ' front-ed';
 		$id = 'fee_' . esc_attr($id);
 
-		if ( $this->input_type == 'input' )
-			return "<span id='{$id}' class='{$class}'>{$content}</span>";
-		else
-			return "<div id='{$id}' class='{$class}'>{$content}</div>";
+		$wrap_in = ( 'input' == $this->input_type || $inline ) ? 'span' : 'div';
+
+		return html("$wrap_in id='{$id}' class='{$class}'", $content);
 	}
 
 	/**

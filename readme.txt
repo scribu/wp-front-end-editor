@@ -120,10 +120,13 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.5 =
+* switched to NicEdit
+* added theme image swapping
 * don't remove blockquotes when editing a single paragraph
 * better handling of text widgets
 * compress JS & CSS
 * added ES translation (Aivar Luht)
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-5.html)
 
 = 1.4 =
 * editable single_cat_title & single_tag_title

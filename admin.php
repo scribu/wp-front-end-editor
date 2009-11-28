@@ -133,12 +133,3 @@ class frontEditorAdmin extends scbBoxesPage {
 	}
 }
 
-if ( ! function_exists('html') ) :
-function html($tag, $content = '') {
-	$closing = explode(' ', $tag);
-	$closing = $closing[0];
-
-	return "<$tag>$content</$closing>\n";
-}
-endif;
-
