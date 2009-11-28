@@ -102,10 +102,10 @@ abstract class frontEditor {
 		);
 
 		if ( in_array('image', self::$field_types) ) {
+			$data['caption'] = __('Change Image', 'front-end-editor');
 			$data['img_revert'] = '(' . __('Use default', 'front-end-editor') . ')';
 			$data['tb_close'] = get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png';
 			$data['admin_url'] = admin_url();
-			$data['caption'] = __('Change Image', 'editable-images');
 		}
 
 		// Rich editor CSS
@@ -266,7 +266,7 @@ abstract class frontEd_field {
 	 * The type of object this field operates with
 	 * @return string
 	 */
-	abstract protected function get_object_type();
+	abstract static function get_object_type();
 
 	// Generate a standard placeholder
 	protected function placeholder() {

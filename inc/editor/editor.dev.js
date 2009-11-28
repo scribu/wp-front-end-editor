@@ -262,7 +262,7 @@ jQuery(document).ready(function($){
 			var self = this;
 
 			tb_show(frontEditorData.caption, frontEditorData.admin_url +
-				'/media-upload.php?type=image&TB_iframe=true&width=640&height=323&editable_image=1');
+				'/media-upload.php?type=image&TB_iframe=true&width=640&editable_image=1');
 
 			var $revert = $('<a id="fee_img_revert" href="#">').text(frontEditorData.img_revert);
 			

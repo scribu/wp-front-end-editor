@@ -2,7 +2,7 @@
 
 // Handles comment_text field
 class frontEd_comment extends frontEd_field {
-	protected function get_object_type() {
+	static function get_object_type() {
 		return 'comment';
 	}
 
@@ -43,7 +43,7 @@ class frontEd_comment extends frontEd_field {
 
 // Handles single_*_title fields
 class frontEd_single_title extends frontEd_field {
-	protected function get_object_type() {
+	static function get_object_type() {
 		return 'term';
 	}
 
@@ -89,7 +89,7 @@ class frontEd_single_title extends frontEd_field {
 
 // Handles the_author_description field
 class frontEd_author_desc extends frontEd_field {
-	protected function get_object_type() {
+	static function get_object_type() {
 		return 'user';
 	}
 
@@ -144,7 +144,7 @@ class frontEd_author_desc extends frontEd_field {
 class frontEd_widget extends frontEd_field {
 	protected $field;
 
-	protected function get_object_type() {
+	static function get_object_type() {
 		return 'widget';
 	}
 
@@ -189,7 +189,7 @@ class frontEd_widget extends frontEd_field {
 
 // Handles bloginfo fields
 class frontEd_bloginfo extends frontEd_field {
-	protected function get_object_type() {
+	static function get_object_type() {
 		return 'option';
 	}
 
@@ -230,7 +230,7 @@ class frontEd_image extends frontEd_field {
 		register_uninstall_hook(FEE_PLUGIN_FILE, array(__CLASS__, 'uninstall'));
 	}
 
-	protected function get_object_type() {
+	static function get_object_type() {
 		return 'option';
 	}
 

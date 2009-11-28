@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 1.5a\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-11-28 16:22+0200\n"
+"POT-Creation-Date: 2009-11-28 16:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,39 +30,43 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: admin.php:40 admin.php:82 scb/AdminPage.php:101
+#: admin.php:51 admin.php:105 scb/AdminPage.php:101
 msgid "Settings <strong>saved</strong>."
 msgstr ""
 
-#: admin.php:45
+#: admin.php:63
 msgid "Enable or disable editable fields"
 msgstr ""
 
-#: admin.php:51
-msgid "Field name"
+#: admin.php:66
+msgid "Post fields"
 msgstr ""
 
-#: admin.php:88
+#: admin.php:67
+msgid "Other fields"
+msgstr ""
+
+#: admin.php:111
 msgid "Rich text editor"
 msgstr ""
 
-#: admin.php:89
+#: admin.php:112
 msgid "Enable the WYSIWYG editor"
 msgstr ""
 
-#: admin.php:95
+#: admin.php:118
 msgid "Edit paragraphs"
 msgstr ""
 
-#: admin.php:96
+#: admin.php:119
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr ""
 
-#: admin.php:102
+#: admin.php:125
 msgid "Highlighting"
 msgstr ""
 
-#: admin.php:103
+#: admin.php:126
 msgid "Highlight editable elements"
 msgstr ""
 
@@ -144,10 +148,6 @@ msgstr ""
 
 #: scb/AdminPage.php:111
 msgid "Save Changes"
-msgstr ""
-
-#: scb/Dependency.php:43
-msgid "Install now"
 msgstr ""
 
 #. Plugin URI of an extension

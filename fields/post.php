@@ -8,7 +8,7 @@ class frontEd_basic extends frontEd_field {
 		$this->field = str_replace('the_', 'post_', $this->get_filter());
 	}
 
-	protected function get_object_type() {
+	static function get_object_type() {
 		return 'post';
 	}
 

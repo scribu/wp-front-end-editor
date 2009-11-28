@@ -15,6 +15,13 @@ class frontEditorAdmin extends scbBoxesPage {
 	function page_head() {
 ?>
 <style type="text/css">
+#fields table {
+	clear: none;
+	width: auto;
+	float: left;
+	margin-right: 1em !important;
+}
+
 #fields thead th {
 	background: #F1F1F1;
 	padding: 5px 8px 8px;
@@ -22,12 +29,16 @@ class frontEditorAdmin extends scbBoxesPage {
 	font-size: 11px;
 }
 #fields .check-column, #fields th, #fields td {padding-left: 0 !important}
+
+#fields .submit {
+	clear: both !important;
+}
 </style>
 <?php
 	}
 
 	function fields_handler() {
-		if ( !isset($_POST['manage_fields']) )
+		if ( ! isset($_POST['manage_fields']) )
 			return;
 
 		$disabled = array();
@@ -41,35 +52,47 @@ class frontEditorAdmin extends scbBoxesPage {
 	}
 
 	function fields_box() {
-?>
-<p><?php _e('Enable or disable editable fields', $this->textdomain); ?>:</p>
-<?php ob_start(); ?>
-	<table class="widefat" style="width:auto">
-		<thead>
-		<tr>
-			<th scope="col" class="check-column"><input type="checkbox" /></th>
-			<th scope="col"><?php _e('Field name', $this->textdomain) ?></th>
-		</tr>
-		</thead>
-		<tbody>
-<?php foreach ( frontEditor::get_fields() as $field => $args ) { ?>
-			<tr>
-				<th scope='row' class='check-column'>
-					<?php
-						echo $this->input(array(
-							'type' => 'checkbox',
-							'name' => $field,
-							'checked' => ! @in_array($field, $this->options->disabled)
-						));
-					?>
-				</th>
-				<td><?php echo $args['title'] ?></td>
-			</tr>
-<?php } ?>
-		</tbody>
-	</table>
-<?php
-		echo $this->form_wrap(ob_get_clean(), '', 'manage_fields');
+		// Separate fields
+		$post_fields = $other_fields = array();
+		foreach ( frontEditor::get_fields() as $field => $args )
+			if ( 'post' == call_user_func(array($args['class'], 'get_object_type') ) )
+				$post_fields[$field] = $args;
+			else
+				$other_fields[$field] = $args;
+
+		echo html('p', __('Enable or disable editable fields', $this->textdomain));
+
+		$tables = '';
+		$tables .= self::fields_table(__('Post fields', $this->textdomain), $post_fields);
+		$tables .= self::fields_table(__('Other fields', $this->textdomain), $other_fields);
+		
+		echo $this->form_wrap($tables, '', 'manage_fields');
+	}
+
+	private function fields_table($title, $fields) {
+		$thead = 
+		html('thead',
+			html('tr',
+				html('th scope="col" class="check-column"', '<input type="checkbox" />')
+				.html('th scope="col"', $title)
+			)
+		);
+
+		$tbody = '';
+		foreach ( $fields as $field => $args )
+			$tbody .=
+			html('tr', 
+				html('th scope="row" class="check-column"', 
+					$this->input(array(
+						'type' => 'checkbox',
+						'name' => $field,
+						'checked' => ! @in_array($field, $this->options->disabled)
+					))
+				)
+				.html('td', $args['title'])
+			);
+			
+		return html('table class="widefat"', $thead . $tbody);
 	}
 
 	function settings_handler() {
@@ -109,4 +132,13 @@ class frontEditorAdmin extends scbBoxesPage {
 		echo $this->form_table($rows, $this->options->get(), '', 'save_settings');
 	}
 }
+
+if ( ! function_exists('html') ) :
+function html($tag, $content = '') {
+	$closing = explode(' ', $tag);
+	$closing = $closing[0];
+
+	return "<$tag>$content</$closing>\n";
+}
+endif;
 
