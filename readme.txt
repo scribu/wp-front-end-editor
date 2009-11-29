@@ -58,29 +58,12 @@ There is a settings page where you can disable editable fields that you don't wa
 
 **Translations:**
 
-Danish – Georg
-Dutch – Ron Hartman
-French – Li-An
-Italian – Gianni Diurno
-Georgian – Levani Melikishvili
-German – Gottfried
-Japaneze – kzh
-Norwegian – John Myrstad
-Polish – Expromo
-Portuguese – Fernanda Foertter
-Belarusian – M. Comfi
-Russian – BoreS
-Spanish – Esteban
-Swedish – Müfit Kiper
-Turkish – Burak Gulbahce
-
-If you want to translate this plugin, read this.
-
 Danish - [Georg](http://wordpress.blogos.dk/)
 Dutch - [Ron Hartman](http://www.fr-fanatic.com/)
 French - [Li-An](http://www.li-an.fr)
 Italian - [Gianni Diurno](http://gidibao.net)
 Georgian - Levani Melikishvili
+German – Gottfried
 Japaneze - kzh
 Norwegian - John Myrstad
 Polish - [Expromo](http://expromo.pl)

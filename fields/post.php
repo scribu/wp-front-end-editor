@@ -20,6 +20,9 @@ class frontEd_basic extends frontEd_field {
 	}
 
 	protected function _get_id($post_id) {
+		if ( ! in_the_loop() )
+			return false;
+
 		if ( ! $post_id )
 			$post_id = get_the_ID();
 
