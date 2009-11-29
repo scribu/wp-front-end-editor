@@ -63,7 +63,7 @@ Dutch - [Ron Hartman](http://www.fr-fanatic.com/)
 French - [Li-An](http://www.li-an.fr)
 Italian - [Gianni Diurno](http://gidibao.net)
 Georgian - Levani Melikishvili
-German – Gottfried
+German - Gottfried
 Japaneze - kzh
 Norwegian - John Myrstad
 Polish - [Expromo](http://expromo.pl)
