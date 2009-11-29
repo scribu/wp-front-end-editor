@@ -1,7 +1,7 @@
 === Front-end Editor ===
 Contributors: scribu
 Donate link: http://scribu.net/paypal
-Tags: inline, editor, edit-in-place, wysiwyg
+Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 2.8
 Tested up to: 2.9-beta-1
 Stable tag: 1.4
@@ -115,7 +115,8 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Screenshots ==
 
 1. The inline WYSIWYG editor
-2. The settings page
+2. Changing a theme image
+3. The settings page
 
 == Changelog ==
 
@@ -125,6 +126,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * don't remove blockquotes when editing a single paragraph
 * better handling of text widgets
 * compress JS & CSS
+* compatibility with Ajaxed WordPress plugin
 * added ES translation (Aivar Luht)
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-5.html)
 

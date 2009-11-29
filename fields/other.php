@@ -172,7 +172,7 @@ class frontEd_widget extends frontEd_field {
 
 		update_option('widget_text', $widgets);
 
-		if ( $this->field == 'text' && $widgets[$widget_id]['filter'] )
+		if ( 'text' == $this->field && $widgets[$widget_id]['filter'] )
 			$content = wpautop($content);
 
 		return $content;
