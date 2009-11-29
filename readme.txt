@@ -93,13 +93,28 @@ Since custom fields can be used in so many ways, you have to make some code repl
 
 Replace something like this:
 
-`echo get_post_meta($post->ID, 'my_key', true);`
+`<?php echo get_post_meta($post->ID, 'my_key', true); ?>`
 
 with this:
 
-`editable_post_meta(get_the_ID(), 'my_key', 'textarea');`
+`<?php editable_post_meta(get_the_ID(), 'my_key', 'textarea'); ?>`
 
 The third parameter is optional and allows you to pick which type of field you want: *input*, *textarea* or *rich*.
+
+= How can I make theme images editable? =
+
+Again, you have to modify your theme's code. Replace something like this:
+
+`<img src="<?php bloginfo('template_url'); ?>/images/header_1.jpg" width="970" height="140" alt="<?php bloginfo('name'); ?> header image 1" title="<?php bloginfo('name'); ?> header image 1" />`
+
+with this:
+
+`<?php editable_image('header-1', 
+	get_bloginfo('template_url') . '/images/header_1.jpg', 
+	array('width' => 970, 'height' => 140, 'alt' => get_bloginfo('name'))); 
+?>`
+
+The editable_image() template tag is located in fields/other.php.
 
 = Can I make my own editable fields? =
 
