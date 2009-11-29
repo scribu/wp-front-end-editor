@@ -1,0 +1,170 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR scribu
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Front-end Editor 1.5a\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2009-11-28 16:53+0200\n"
+"PO-Revision-Date: 2009-11-29 17:36+0100\n"
+"Last-Translator: G F <gottfried@pips.at>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.5a)  #-#-#-#-#
+#. Plugin Name of an extension
+#: admin.php:7
+msgid "Front-end Editor"
+msgstr "Front-end Editor"
+
+#: admin.php:10
+msgid "Fields"
+msgstr "Felder"
+
+#: admin.php:11
+#: scb/AdminPage.php:310
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: admin.php:51
+#: admin.php:105
+#: scb/AdminPage.php:101
+msgid "Settings <strong>saved</strong>."
+msgstr "Einstellungen <strong>gespeichert</strong>."
+
+#: admin.php:63
+msgid "Enable or disable editable fields"
+msgstr "Editierbare Felder aktivieren"
+
+#: admin.php:66
+msgid "Post fields"
+msgstr "Post Felder"
+
+#: admin.php:67
+msgid "Other fields"
+msgstr "Andere Felder"
+
+#: admin.php:111
+msgid "Rich text editor"
+msgstr "Rich Text Editor"
+
+#: admin.php:112
+msgid "Enable the WYSIWYG editor"
+msgstr "WYSIWYG-Editor aktivieren"
+
+#: admin.php:118
+msgid "Edit paragraphs"
+msgstr "Absätze editieren"
+
+#: admin.php:119
+msgid "Edit one paragraph at a time, instead of an entire post"
+msgstr "Nur einen Absatz editieren statt den ganzen Text"
+
+#: admin.php:125
+msgid "Highlighting"
+msgstr "Hervorheben"
+
+#: admin.php:126
+msgid "Highlight editable elements"
+msgstr "Editierbare Elemente hervorheben"
+
+#: core.php:96
+msgid "Save"
+msgstr "OK"
+
+#: core.php:97
+msgid "Cancel"
+msgstr "abbrechen"
+
+#: core.php:105
+msgid "Use default"
+msgstr "Standardeinsetllungen verwenden"
+
+#: core.php:108
+msgid "Change Image"
+msgstr "Bild ändern"
+
+#: core.php:273
+msgid "empty"
+msgstr "leer"
+
+#: front-end-editor.php:69
+msgid "Post title"
+msgstr "Post Titel"
+
+#: front-end-editor.php:75
+msgid "Post content"
+msgstr "Post Inhalt"
+
+#: front-end-editor.php:81
+msgid "Post excerpt"
+msgstr "Post Exzerpt"
+
+#: front-end-editor.php:87
+msgid "Post tags"
+msgstr "Post Tags"
+
+#: front-end-editor.php:93
+msgid "Post terms"
+msgstr "Post Terms"
+
+#: front-end-editor.php:99
+msgid "Post custom fields"
+msgstr "Post Custom Felder"
+
+#: front-end-editor.php:105
+msgid "Comment text"
+msgstr "Kommentartext"
+
+#: front-end-editor.php:111
+msgid "Category title"
+msgstr "Kategorie"
+
+#: front-end-editor.php:116
+msgid "Tag title"
+msgstr "Tag"
+
+#: front-end-editor.php:121
+msgid "Author description"
+msgstr "Autor"
+
+#: front-end-editor.php:128
+msgid "Text widget content"
+msgstr "Text Widget Inhalt"
+
+#: front-end-editor.php:134
+msgid "Text widget title"
+msgstr "Text Widget Titel"
+
+#: front-end-editor.php:139
+msgid "Site title and description"
+msgstr "Titel und Beschreibung der Seite"
+
+#: front-end-editor.php:145
+msgid "Theme images"
+msgstr "Themen Bilder"
+
+#: scb/AdminPage.php:111
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#. Plugin URI of an extension
+msgid "http://scribu.net/wordpress/front-end-editor"
+msgstr "http://scribu.net/wordpress/front-end-editor"
+
+#. Description of an extension
+msgid "Allows you to edit your posts without going through the admin interface"
+msgstr "Erlaubt Posts und Seiten direkt zu ändern ohne Dashboard"
+
+#. Author of an extension
+msgid "scribu"
+msgstr "scribu"
+
+#. Author URI of an extension
+msgid "http://scribu.net/"
+msgstr "http://scribu.net/"
+
