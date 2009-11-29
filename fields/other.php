@@ -279,7 +279,7 @@ class frontEd_image extends frontEd_field {
 function editable_image($key, $default_url, $extra_attr = '', $echo = true) {
 	$attr = wp_parse_args($extra_attr, array(
 		'id' => $key
-	);
+	));
 
 	if ( ! $src = frontEd_image::get($key) )
 		$src = $default_url;
