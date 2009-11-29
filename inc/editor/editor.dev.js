@@ -342,7 +342,8 @@ jQuery(document).ready(function($){
 
 			self.input
 				.attr('id', 'edit_' + self.el.attr('id'))
-				.addClass('front-editor-content').val(content);
+				.addClass('front-editor-content')
+				.val(content);
 
 			self.input.prependTo(self.form);
 		},
@@ -538,9 +539,9 @@ jQuery(document).ready(function($){
 		panel_options: {
 			iconsPath: frontEditorData.nicedit_icons,
 			buttonList: [
-				'bold', 'italic', 'underline', 'strikethrough',
+				'bold', 'italic', 'strikethrough',
 				'left','center', 'right',
-				'ol', 'ul',
+				'ul', 'ol',
 				'fontFormat',
 				'link', 'unlink', 'image',
 				'xhtml'

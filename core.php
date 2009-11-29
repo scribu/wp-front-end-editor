@@ -237,7 +237,7 @@ abstract class frontEd_field {
 		$class = 'front-ed-' . $this->filter . ' front-ed';
 		$id = 'fee_' . esc_attr($id);
 
-		$wrap_in = ( 'input' == $this->input_type || $inline ) ? 'span' : 'div';
+		$wrap_in = ( $inline || in_array($this->input_type, array('input', 'image')) ) ? 'span' : 'div';
 
 		return html("$wrap_in id='{$id}' class='{$class}'", $content);
 	}

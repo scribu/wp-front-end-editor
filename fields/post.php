@@ -13,16 +13,20 @@ class frontEd_basic extends frontEd_field {
 	}
 
 	function wrap($content, $post_id = 0) {
-		if ( ! $post_id )
-			$post_id = get_the_ID();
-
-		if ( ! $post_id )
-			return $content;
-
-		if ( ! $this->check($post_id) )
+		if ( ! $post_id = $this->_get_id($post_id) )
 			return $content;
 
 		return parent::wrap($content, $post_id);
+	}
+
+	protected function _get_id($post_id) {
+		if ( ! $post_id )
+			$post_id = get_the_ID();
+
+		if ( ! $post_id || ! $this->check($post_id) )
+			return false;
+
+		return $post_id;
 	}
 
 	function get($post_id) {
@@ -63,16 +67,14 @@ class frontEd_basic extends frontEd_field {
 class frontEd_chunks extends frontEd_basic {
 	const delim = "\n\n";
 
-	function wrap($content) {
-		$post_id = get_the_ID();
-
-		if ( ! $this->check($post_id) )
+	function wrap($content, $post_id = 0) {
+		if ( ! $post_id = $this->_get_id($post_id) )
 			return $content;
 
 		$chunks = $this->split($content);
 
 		foreach ( $chunks as $i => $chunk )
-			$content = str_replace($chunk, frontEd_field::wrap($chunk, "$post_id#$i", 'span'), $content);
+			$content = str_replace($chunk, frontEd_field::wrap($chunk, "$post_id#$i", true), $content);
 
 		return $content;
 	}
