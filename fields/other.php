@@ -221,13 +221,11 @@ class frontEd_bloginfo extends frontEd_field {
 	}
 }
 
-frontEd_image::init();
-
 class frontEd_image extends frontEd_field {
-	static function init() {
+	static function init($file) {
 		add_action('admin_print_styles', array(__CLASS__, 'styles'));
 
-		register_uninstall_hook(FEE_PLUGIN_FILE, array(__CLASS__, 'uninstall'));
+		register_uninstall_hook($file, array(__CLASS__, 'uninstall'));
 	}
 
 	static function get_object_type() {

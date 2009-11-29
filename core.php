@@ -14,11 +14,11 @@ abstract class frontEditor {
 	private static $version;
 	private static $nonce = 'front-editor';
 
-	static function init($options, $version) {
+	static function init($file, $options, $version) {
 		self::$options = $options;
 		self::$version = $version;
 
-		self::$plugin_url = plugin_dir_url(FEE_PLUGIN_FILE) . 'inc/';
+		self::$plugin_url = plugin_dir_url($file) . 'inc/';
 
 		add_action('front_ed_fields', array(__CLASS__, 'make_instances'), 100);
 
