@@ -51,6 +51,7 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 		<li>title</li>
 		<li>description</li>
 	</ul></li>
+	<li><strong>theme images</strong>
 </ul>
 
 There is a settings page where you can disable editable fields that you don't want.
@@ -121,8 +122,8 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.5 =
-* switched to NicEdit
 * added theme image swapping
+* switched to NicEdit
 * don't remove blockquotes when editing a single paragraph
 * better handling of text widgets
 * compress JS & CSS

@@ -50,9 +50,6 @@ abstract class frontEditor {
 	}
 
 	private static function add_scripts() {
-// DEBUG
-// wp_enqueue_script('firebug-lite', 'http://getfirebug.com/releases/lite/1.2/firebug-lite-compressed.js');
-
 		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
 		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
@@ -70,7 +67,7 @@ abstract class frontEditor {
 
 		// Rich Editor
 		if ( in_array('rich', self::$field_types) ) {
-			wp_enqueue_script('nicedit', self::$plugin_url . "nicedit/nicEdit.js", '0.9r23');
+			wp_enqueue_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", '0.9r23');
 		}
 
 		// Core scripts
@@ -228,7 +225,7 @@ abstract class frontEd_field {
 
 	/**
 	 * Mark the field as editable
-	 * @return string wrapped content
+	 * @return string Wrapped content
 	 */
 	public function wrap($content, $id, $inline = false) {
 		if ( is_feed() || ! $this->allow($id) )
@@ -244,7 +241,7 @@ abstract class frontEd_field {
 
 	/**
 	 * Retrieve the current data for the field
-	 * @return string Content
+	 * @return string Unfiltered content
 	 */
 	abstract public function get($object_id);
 
@@ -266,17 +263,26 @@ abstract class frontEd_field {
 	 */
 	abstract static function get_object_type();
 
-	// Generate a standard placeholder
+	/**
+	 * Generate a standard placeholder
+	 * @return string
+	 */ 
 	protected function placeholder() {
 		return '[' . __('empty', 'front-end-editor') . ']';
 	}
 
-	// Allow external code to block editing for certain objects
+	/**
+	 * Allow external code to block editing for certain objects
+	 * @return bool
+	 */
 	final public function allow($object_id) {
 		return apply_filters('front_ed_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type);
 	}
 
-	// Get the filter of the current instance
+	/**
+	 * Get the filter of the current instance
+	 * @return string
+	 */
 	final protected function get_filter() {
 		return $this->filter;
 	}
@@ -287,9 +293,9 @@ Registers a new editable field
 
 @param string $filter
 @param array $args(
-	'class' => string (mandatory)
-	'title' => string (optional)
-	'type' => string: 'input' | 'textarea' | 'rich' (default: input)
+	'class' => string The name of the field handler class (mandatory)
+	'title' => string The user-friendly title (optional)
+	'type' => string: 'input' | 'textarea' | 'rich' | 'image' (default: input)
 	'priority' => integer (default: 11)
 	'argc' => integer (default: 1)
 )
