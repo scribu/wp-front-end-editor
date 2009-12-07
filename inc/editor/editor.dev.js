@@ -150,7 +150,7 @@ jQuery(document).ready(function($){
 			// To .front-ed > a > content
 			var $parent = self.el.parents('a');
 
-			if ( !$parent.length )
+			if ( ! $parent.length )
 				return;
 
 			var $link = $parent.clone(true)
@@ -168,10 +168,7 @@ jQuery(document).ready(function($){
 //			if ( typeof frontEditorData._to_click != 'undefined' )
 //				return;
 
-			var $el = $(ev.target);
-
-			if ( ! $el.is('a') )
-				$el = $el.parents('a');
+			var $el = $(ev.target).closest('a');
 
 			if ( ! $el.length )
 				return;

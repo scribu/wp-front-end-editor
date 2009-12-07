@@ -3,8 +3,8 @@ Contributors: scribu
 Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 2.8
-Tested up to: 2.9-beta-1
-Stable tag: trunk
+Tested up to: 2.9-beta-2
+Stable tag: 1.5.1
 
 Want to edit something? Just double-click it!
 

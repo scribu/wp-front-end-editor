@@ -71,7 +71,7 @@ abstract class frontEditor {
 		}
 
 		// Core scripts
-		wp_enqueue_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", self::$version);
+		wp_enqueue_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", array(), self::$version);
 		wp_enqueue_script('front-editor', self::$plugin_url . "editor/editor$js_dev.js", array('jquery'), self::$version, true);
 	}
 

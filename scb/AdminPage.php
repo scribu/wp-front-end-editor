@@ -215,6 +215,10 @@ abstract class scbAdminPage {
 
 //  ____________INTERNAL METHODS____________
 
+	function __call($method, $args) {
+		return call_user_func_array(array('scbForms', $method), $args);
+	}
+
 
 	// Registers a page
 	function page_init() {
