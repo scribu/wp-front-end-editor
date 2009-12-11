@@ -153,8 +153,7 @@ abstract class scbForms {
 			return $data;
 
 		foreach ( $data as $key => &$value )
-			if ( is_array($value) )
-				$value = self::_validate_data($value);
+			$value = self::_validate_data($value);
 
 		return $data;
 	}
@@ -197,7 +196,7 @@ abstract class scbForms {
 		$func = in_array($type, array('checkbox', 'radio')) ? '_checkbox_single' : '_input_single';
 
 		// Set constant args
-		$const_args = self::array_slice_assoc($args, array('type', 'desc_pos', 'checked'));
+		$const_args = self::array_extract($args, array('type', 'desc_pos', 'checked'));
 		if ( isset($extra) )
 			$const_args['extra'] = explode(' ', $extra);
 
@@ -326,9 +325,13 @@ abstract class scbForms {
 			'numeric' => false	// use numeric array instead of associative
 		)), EXTR_SKIP);
 
-		$cur_val = $selected;
 		if ( isset($formdata[$name]) )
 			$cur_val = $formdata[$name];
+		else
+			$cur_val = $selected;
+
+		if ( empty($value) )
+			$value = array();
 
 		if ( !is_array($value) )
 			return trigger_error("Second argument is expected to be an array", E_USER_WARNING);
@@ -404,7 +407,7 @@ abstract class scbForms {
 		return array_keys($keys) !== $keys;
 	}
 
-	private static function array_slice_assoc($array, $keys) {
+	private static function array_extract($array, $keys) {
 		$r = array();
 		foreach ( $keys as $key )
 			if ( isset($array[$key]) )

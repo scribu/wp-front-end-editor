@@ -62,10 +62,9 @@ class frontEditorAdmin extends scbBoxesPage {
 
 		echo html('p', __('Enable or disable editable fields', $this->textdomain));
 
-		$tables = '';
-		$tables .= self::fields_table(__('Post fields', $this->textdomain), $post_fields);
+		$tables  = self::fields_table(__('Post fields', $this->textdomain), $post_fields);
 		$tables .= self::fields_table(__('Other fields', $this->textdomain), $other_fields);
-		
+
 		echo $this->form_wrap($tables, '', 'manage_fields');
 	}
 

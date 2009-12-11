@@ -12,7 +12,7 @@ class frontEd_comment extends frontEd_field {
 		if ( ! $this->check($comment->comment_ID) )
 			return $content;
 
-		return parent::wrap($content, $comment->comment_ID);
+		return parent::wrap(wpautop($content), $comment->comment_ID);
 	}
 
 	function get($comment_id) {

@@ -31,12 +31,12 @@ abstract class scbLoad2 {
 		if ( class_exists($className) )
 			return false;
 
-		$fname = self::$path . substr($className, 3) . '.php';
+		$fpath = self::$path . substr($className, 3) . '.php';
 
-		if ( ! @file_exists($fname) )
+		if ( ! @file_exists($fpath) )
 			return false;
 
-		include_once($fname);
+		include $fpath;
 
 		return true;
 	}
@@ -45,6 +45,6 @@ endif;
 
 scbLoad2::init(__FILE__, array(
 	'scbOptions', 'scbForms', 'scbAdminPage', 'scbBoxesPage',
-	'scbWidget', 'scbCron', 'scbTable', 'scbUtil'
+	'scbWidget', 'scbCron', 'scbTable', 'scbUtil', 'scbRewrite',
 ));
 
