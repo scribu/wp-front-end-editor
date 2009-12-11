@@ -157,6 +157,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.6 =
+* fix issue with comment paragraphs
+
 = 1.5.1 =
 * fix auto-upgrade error
 * add German translations
