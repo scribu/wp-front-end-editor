@@ -258,27 +258,31 @@ class frontEd_meta extends frontEd_basic {
 
 		$r = array();
 		foreach ( $data as $i => $val ) {
-			$id = implode('#', array($post_id, $key, $i));
-			$r[$i] = parent::wrap($content, $id);
+			$id = implode('#', array($post_id, $key, $i, $type));
+			$r[$i] = parent::wrap($val, $id);
 		}
 
 		return $r;
 	}
 
 	function get($id) {
-		list($post_id, $key, $i) = explode('#', $id);
+		list($post_id, $key, $i, $type) = explode('#', $id);
 
 		$data = get_post_meta($post_id, $key);
 
 		return $data[$i];
 	}
 
-	function save($id, $content) {
-		$old_value = $this->get($id);
+	function save($id, $new_value) {
+		list($post_id, $key, $i, $type) = explode('#', $id);
 
-		update_post_meta($post_id, $key, $content, $old_value);
+		$data = get_post_meta($post_id, $key);
 
-		return $content;
+		$old_value = $data[$i];
+
+		update_post_meta($post_id, $key, $new_value, $old_value);
+
+		return $new_value;
 	}
 }
 

@@ -584,8 +584,8 @@ jQuery(document).ready(function($){
 
 			var parts = id.split('#');
 
-			if ( parts.length == 3 )
-				type = parts[2];
+			if ( parts.length == 4 )	// hack for frontEd_meta
+				type = parts[3];
 
 			new classes[type]($el, type, name, id);
 		});
