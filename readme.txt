@@ -158,6 +158,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.6 =
+* add support for custom fields with multiple values
 * fix issue with comment paragraphs
 
 = 1.5.1 =

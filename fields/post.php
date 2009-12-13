@@ -2,6 +2,7 @@
 
 // Handles the_title and the_content fields
 class frontEd_basic extends frontEd_field {
+
 	protected $field;
 
 	protected function setup() {
@@ -68,6 +69,7 @@ class frontEd_basic extends frontEd_field {
 
 // Handles <p> in the_content
 class frontEd_chunks extends frontEd_basic {
+
 	const delim = "\n\n";
 
 	function wrap($content, $post_id = 0) {
@@ -132,6 +134,7 @@ class frontEd_chunks extends frontEd_basic {
 
 // Handles the_excerpt field
 class frontEd_excerpt extends frontEd_basic {
+
 	function get($post_id) {
 		$post = get_post($post_id);
 
@@ -179,6 +182,7 @@ class frontEd_excerpt extends frontEd_basic {
 
 // Handles the_tags field
 class frontEd_tags extends frontEd_basic {
+
 	function wrap($content, $before, $sep, $after) {
 		if ( empty($content) )
 			$content = $this->placeholder();
@@ -214,6 +218,7 @@ class frontEd_tags extends frontEd_basic {
 
 // Handles the_terms field
 class frontEd_terms extends frontEd_basic {
+
 	function wrap($content, $taxonomy, $before, $sep, $after) {
 		$post_id = implode('#', array(get_the_ID(), $taxonomy));
 
@@ -247,36 +252,52 @@ class frontEd_terms extends frontEd_basic {
 
 // Handles post_meta field
 class frontEd_meta extends frontEd_basic {
-	function wrap($content, $post_id, $key, $type) {
+
+	function wrap($data, $post_id, $key, $type) {
 		$this->input_type = $type;
 
-		$id = implode('#', array($post_id, $key, $type));
+		$r = array();
+		foreach ( $data as $i => $val ) {
+			$id = implode('#', array($post_id, $key, $i));
+			$r[$i] = parent::wrap($content, $id);
+		}
 
-		return parent::wrap($content, $id);
+		return $r;
 	}
 
 	function get($id) {
-		list($post_id, $key) = explode('#', $id);
+		list($post_id, $key, $i) = explode('#', $id);
 
-		return get_post_meta($post_id, $key, true);
+		$data = get_post_meta($post_id, $key);
+
+		return $data[$i];
 	}
 
 	function save($id, $content) {
-		list($post_id, $key) = explode('#', $id);
+		$old_value = $this->get($id);
 
-		update_post_meta($post_id, $key, $content);
+		update_post_meta($post_id, $key, $content, $old_value);
 
 		return $content;
 	}
 }
 
 function editable_post_meta($post_id, $key, $type = 'input', $echo = true) {
-	$data = get_post_meta($post_id, $key, true);
-	$data = apply_filters('post_meta', $data, $post_id, $key, $type);
+	$data = get_editable_post_meta($post_id, $key, $type, true);
 
 	if ( ! $echo )
 		return $data;
 
 	echo $data;
+}
+
+function get_editable_post_meta($post_id, $key, $type = 'input', $single = false) {
+	$data = get_post_meta($post_id, $key, $single);
+	$data = apply_filters('post_meta', (array) $data, $post_id, $key, $type);
+
+	if ( $single )
+		return $data[0];
+
+	return $data;
 }
 
