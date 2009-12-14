@@ -1,25 +1,6 @@
 <?php
 
 class scbUtil {
-
-	// Extract $keys from $array
-	static function array_extract($array, $keys) {
-		$r = array();
-		foreach ( $keys as $key )
-			if ( isset($array[$key]) )
-				$r[$key] = $array[$key];
-
-	   return $r;
-	}
-
-	// Prepare an array for an IN statement
-	static function array_to_sql($values) {
-		foreach ( $values as &$val )
-			$val = "'" . esc_sql(trim($val)) . "'";
-
-		return implode(',', $values);
-	}
-
 	// Force script enqueue
 	static function do_scripts($handles) {
 		global $wp_scripts;
@@ -40,6 +21,17 @@ class scbUtil {
 		$wp_styles->do_items((array) $handles);
 	}
 
+	// Better debug function
+	static function debug() {
+		echo "<pre>";
+		foreach ( func_get_args() as $arg )
+			if ( is_array($arg) || is_object($arg) )
+				print_r($arg);
+			else
+				var_dump($arg);
+		echo "</pre>";
+	}
+
 	// Minimalist HTML framework
 	static function html($tag, $content = '', $indent = '') {
 		list($closing) = explode(' ', $tag);
@@ -55,15 +47,23 @@ class scbUtil {
 		return sprintf("<a href='%s'>%s</a>", $url, $title);
 	}
 
-	// Better debug function
-	static function debug() {
-		echo "<pre>";
-		foreach ( func_get_args() as $arg )
-			if ( is_array($arg) || is_object($arg) )
-				print_r($arg);
-			else
-				var_dump($arg);
-		echo "</pre>";
+
+	// Extract $keys from $array
+	static function array_extract($array, $keys) {
+		$r = array();
+		foreach ( $keys as $key )
+			if ( isset($array[$key]) )
+				$r[$key] = $array[$key];
+
+	   return $r;
+	}
+
+	// Prepare an array for an IN statement
+	static function array_to_sql($values) {
+		foreach ( $values as &$val )
+			$val = "'" . esc_sql(trim($val)) . "'";
+
+		return implode(',', $values);
 	}
 }
 

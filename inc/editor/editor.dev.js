@@ -466,8 +466,10 @@ jQuery(document).ready(function($){
 
 			if ( self.type == 'textarea' )
 				self.input.growfield();
-		},
+		}
+	});
 
+	classes['rich'] = classes['textarea'].extend({
 		get_content: function() {
 			var self = this;
 			return self.pre_wpautop(self.input.val());
@@ -530,9 +532,7 @@ jQuery(document).ready(function($){
 
 			return content;
 		}
-	});
 
-	classes['rich'] = classes['textarea'].extend({
 		panel_options: {
 			iconsPath: frontEditorData.nicedit_icons,
 			buttonList: [
