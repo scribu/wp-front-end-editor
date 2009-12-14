@@ -228,8 +228,11 @@ abstract class frontEd_field {
 	 * @return string Wrapped content
 	 */
 	public function wrap($content, $id, $inline = false) {
-		if ( is_feed() || ! $this->allow($id) )
+		if ( ! $this->allow($id) )
 			return $content;
+
+		if ( ! is_scalar($content) )
+			trigger_error("scalar expected. " . gettype($content) . " given", E_USER_WARNING);
 
 		$class = 'front-ed-' . $this->filter . ' front-ed';
 		$id = 'fee_' . esc_attr($id);

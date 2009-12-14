@@ -253,20 +253,30 @@ class frontEd_terms extends frontEd_basic {
 // Handles post_meta field
 class frontEd_meta extends frontEd_basic {
 
-	function wrap($data, $post_id, $key, $type) {
+	function wrap($data, $post_id, $key, $type, $single) {
 		$this->input_type = $type;
+
+		if ( $single ) {
+			if ( ! $data )
+				return false;
+
+			$data = array($data);
+		}
 
 		$r = array();
 		foreach ( $data as $i => $val ) {
-			$id = implode('#', array($post_id, $key, $i, $type));
+			$id = implode('#', array($post_id, $key, $type, $i));
 			$r[$i] = parent::wrap($val, $id);
 		}
+
+		if ( $single )
+			return $r[0];
 
 		return $r;
 	}
 
 	function get($id) {
-		list($post_id, $key, $i, $type) = explode('#', $id);
+		list($post_id, $key, $type, $i) = explode('#', $id);
 
 		$data = get_post_meta($post_id, $key);
 
@@ -274,7 +284,7 @@ class frontEd_meta extends frontEd_basic {
 	}
 
 	function save($id, $new_value) {
-		list($post_id, $key, $i, $type) = explode('#', $id);
+		list($post_id, $key, $type, $i) = explode('#', $id);
 
 		$data = get_post_meta($post_id, $key);
 
@@ -297,11 +307,7 @@ function editable_post_meta($post_id, $key, $type = 'input', $echo = true) {
 
 function get_editable_post_meta($post_id, $key, $type = 'input', $single = false) {
 	$data = get_post_meta($post_id, $key, $single);
-	$data = apply_filters('post_meta', (array) $data, $post_id, $key, $type);
 
-	if ( $single )
-		return $data[0];
-
-	return $data;
+	return apply_filters('post_meta', $data, $post_id, $key, $type, $single);
 }
 

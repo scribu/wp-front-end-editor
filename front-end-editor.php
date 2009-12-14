@@ -97,7 +97,7 @@ function fee_register_defaults() {
 		'post_meta' => array(
 			'title' => __('Post custom fields', 'front-end-editor'),
 			'class' => 'frontEd_meta',
-			'argc' => 4,
+			'argc' => 5,
 		),
 
 		'comment_text' => array(
