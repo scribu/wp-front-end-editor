@@ -531,7 +531,7 @@ jQuery(document).ready(function($){
 			content = content.replace(/<wp_temp>/g, '\n');
 
 			return content;
-		}
+		},
 
 		panel_options: {
 			iconsPath: frontEditorData.nicedit_icons,

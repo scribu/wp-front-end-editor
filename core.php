@@ -67,7 +67,7 @@ abstract class frontEditor {
 
 		// Rich Editor
 		if ( in_array('rich', self::$field_types) ) {
-			wp_enqueue_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", '0.9r23');
+			wp_enqueue_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23',true);
 		}
 
 		// Core scripts
@@ -191,9 +191,8 @@ abstract class frontEditor {
 		$args = self::get_args($name);
 
 		if ( $action == 'save' ) {
-			$content = stripslashes_deep($_POST['content']);
-			$result = $instance->save($id, $content);
-			$result = @apply_filters($name, $result);
+			$result = $instance->save($id, $_POST['content']);
+			$result = @apply_filters($name, stripslashes_deep($result));
 		}
 		elseif ( $action == 'get' ) {
 			$result = $instance->get($id);
