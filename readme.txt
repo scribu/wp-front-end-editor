@@ -160,10 +160,11 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 = 1.6 =
 * add support for custom fields with multiple values
 * fix issue with comment paragraphs
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-6.html)
 
 = 1.5.1 =
 * fix auto-upgrade error
-* add German translations
+* add German translation
 
 = 1.5 =
 * added theme image swapping

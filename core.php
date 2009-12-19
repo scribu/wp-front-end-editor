@@ -84,10 +84,6 @@ abstract class frontEditor {
 	}
 
 	static function add_js() {
-		// PHP < 5.2
-		if ( ! function_exists('json_encode') )
-			require_once dirname(__FILE__) . '/inc/json.php';
-
 		// Prepare data
 		$data = array(
 			'save_text' => __('Save', 'front-end-editor'),
