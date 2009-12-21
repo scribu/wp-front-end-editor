@@ -3,7 +3,7 @@ Contributors: scribu
 Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 2.8
-Tested up to: 2.9-beta-2
+Tested up to: 2.9
 Stable tag: 1.5.1
 
 Want to edit something? Just double-click it!
@@ -160,6 +160,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 = 1.6 =
 * add support for custom fields with multiple values
 * fix issue with comment paragraphs
+* allow editing of all widget titles
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-6.html)
 
 = 1.5.1 =

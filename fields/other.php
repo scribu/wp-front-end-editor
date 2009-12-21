@@ -157,33 +157,38 @@ class frontEd_widget extends frontEd_field {
 	}
 
 	function get($id) {
-		$widget_id = $this->get_id($id);
-
-		$widgets = get_option('widget_text');
-
-		return $widgets[$widget_id][$this->field];
+		return $this->do_('get', $id);
 	}
 
 	function save($id, $content) {
-		$widget_id = $this->get_id($id);
+		return $this->do_('save', $id, $content);
+	}
 
-		$widgets = get_option('widget_text');
-		$widgets[$widget_id][$this->field] = $content;
+	private function do_($action, $id, $content = '') {
+		list($widget_type, $widget_id) = explode('-', $id);
 
-		update_option('widget_text', $widgets);
+		$widget_key = 'widget_' . $widget_type;
+		$widgets = get_option($widget_key);
 
-		if ( 'text' == $this->field && $widgets[$widget_id]['filter'] )
-			$content = wpautop($content);
+		if ( 'get' == $action ) {
+			return $widgets[$widget_id][$this->field];
+		}
 
-		return $content;
+		if ( 'save' == $action ) {
+			$widgets[$widget_id][$this->field] = $content;
+
+			update_option($widget_key, $widgets);
+
+			// Text widget wpautop
+			if ( 'text' == $widget_type && 'text' == $this->field && $widgets[$widget_id]['filter'] )
+				$content = wpautop($content);
+
+			return $content;
+		}
 	}
 
 	function check($id = 0) {
 		return current_user_can('edit_themes');
-	}
-
-	protected function get_id($id) {
-		return str_replace('text-', '', $id);
 	}
 }
 

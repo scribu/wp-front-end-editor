@@ -564,14 +564,15 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	// Widget text hack: Add id attr to each element
-	$('.front-ed-widget_text, .front-ed-widget_title').each(function() {
+	// Widget fields hack: Add id attr to each element
+	$('.front-ed-widget_title, .front-ed-widget_text').each(function() {
 		var $el = $(this);
-		var id = $el.parents('.widget_text').attr('id');
+		var id = $el.parents('.widget').attr('id');
 
 		if ( id )
 			$el.attr('id', 'fee_' + id);
-		else // undo wrap
+		else
+			// undo wrap; can't find widget id
 			$el.replaceWith($el.html());
 	});
 

@@ -52,7 +52,7 @@ function _fee_init() {
 		'highlight' => true
 	));
 
-	frontEditor::init(__FILE__, $options, '1.5');
+	frontEditor::init(__FILE__, $options, '1.6a3');
 	frontEd_image::init(__FILE__);
 
 	if ( is_admin() ) {
@@ -123,15 +123,15 @@ function fee_register_defaults() {
 			'argc' => 2,
 		),
 
+		'widget_title' => array(
+			'title' => __('Widget title', 'front-end-editor'),
+			'class' => 'frontEd_widget',
+		),
+
 		'widget_text' => array(
 			'title' => __('Text widget content', 'front-end-editor'),
 			'class' => 'frontEd_widget',
 			'type' => 'textarea',
-		),
-
-		'widget_title' => array(
-			'title' => __('Text widget title', 'front-end-editor'),
-			'class' => 'frontEd_widget',
 		),
 
 		'bloginfo' => array(
