@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 1.6a3
+Version: 1.6a4
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -52,7 +52,7 @@ function _fee_init() {
 		'highlight' => true
 	));
 
-	frontEditor::init(__FILE__, $options, '1.6a3');
+	frontEditor::init(__FILE__, $options, '1.6a4');
 	frontEd_image::init(__FILE__);
 
 	if ( is_admin() ) {
