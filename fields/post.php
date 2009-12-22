@@ -61,9 +61,7 @@ class frontEd_basic extends frontEd_field {
 	}
 
 	function check($post_id = 0) {
-		$type = get_post_field('post_type', $post_id);
-
-		return current_user_can("edit_$type", $post_id);
+		return current_user_can('edit_' . get_post_type($post_id), $post_id);
 	}
 }
 
