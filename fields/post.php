@@ -178,42 +178,6 @@ class frontEd_excerpt extends frontEd_basic {
 	}
 }
 
-// Handles the_tags field
-class frontEd_tags extends frontEd_basic {
-
-	function wrap($content, $before, $sep, $after) {
-		if ( empty($content) )
-			$content = $this->placeholder();
-		else
-			$content = str_replace(array($before, $after), '', $content);
-
-		return $before . parent::wrap($content) . $after;
-	}
-
-	function get($post_id) {
-		$tags = get_the_tags($post_id);
-
-		if ( empty($tags) )
-			return;
-
-		foreach ( $tags as &$tag )
-			$tag = $tag->name;
-
-		return implode(', ', $tags);
-	}
-
-	function save($post_id, $tags) {
-		wp_set_post_tags($post_id, $tags);
-
-		$response = get_the_term_list($post_id, 'post_tag', '', ', ');
-
-		if ( empty($response) )
-			return $this->placeholder();
-
-		return $response;
-	}
-}
-
 // Handles the_terms field
 class frontEd_terms extends frontEd_basic {
 
@@ -238,6 +202,45 @@ class frontEd_terms extends frontEd_basic {
 		list($post_id, $taxonomy) = explode('#', $id);
 
 		wp_set_post_terms($post_id, $terms, $taxonomy);
+
+		$response = get_the_term_list($post_id, $taxonomy, '', ', ');	// todo: store $sep somehow
+
+		if ( empty($response) )
+			return $this->placeholder();
+
+		return $response;
+	}
+}
+
+// Handles the_tags field
+class frontEd_tags extends frontEd_terms {
+
+	function wrap($content, $before, $sep, $after) {
+		return parent::wrap($content, 'post_tag', $before, $sep, $after);
+	}
+}
+
+// Handles the_category field
+class frontEd_category extends frontEd_terms {
+
+	function wrap($content, $sep, $parents) {
+		return parent::wrap($content, 'category', '', $sep, '');
+	}
+
+	function save($id, $categories) {
+		list($post_id, $taxonomy) = explode('#', $id);
+
+		$cat_ids = array();
+		foreach ( explode(',', $categories) as $cat_name ) {
+			if ( ! $cat = get_cat_ID(trim($cat_name)) ) {
+				$args = wp_insert_term($cat_name, $taxonomy);
+				$cat = $args['term_id'];
+			}
+
+			$cat_ids[] = $cat;
+		}
+
+		wp_set_post_terms($post_id, $cat_ids, $taxonomy);
 
 		$response = get_the_term_list($post_id, $taxonomy, '', ', ');
 

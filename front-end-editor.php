@@ -82,6 +82,12 @@ function fee_register_defaults() {
 			'type' => 'textarea',
 		),
 
+		'the_category' => array(
+			'title' => __('Post category', 'front-end-editor'),
+			'class' => 'frontEd_category',
+			'argc' => 3,
+		),
+
 		'the_tags' => array(
 			'title' => __('Post tags', 'front-end-editor'),
 			'class' => 'frontEd_tags',
