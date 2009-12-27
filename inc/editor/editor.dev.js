@@ -211,7 +211,7 @@ jQuery(document).ready(function($){
 				'item_id': self.id
 			};
 
-			$.post(frontEditorData.request, data, function(response){
+			$.post(frontEditorData.ajax_url, data, function(response){
 				self.ajax_get_handler(response);
 			});
 		},
@@ -231,7 +231,7 @@ jQuery(document).ready(function($){
 				'content': content
 			};
 
-			$.post(frontEditorData.request, data, function(response){
+			$.post(frontEditorData.ajax_url, data, function(response){
 				self.ajax_set_handler(response);
 			});
 		},
@@ -332,10 +332,12 @@ jQuery(document).ready(function($){
 			self._super($el, type, name, id);
 		},
 
+		wrap_tag: '<input type="text">',
+
 		create_input: function() {
 			var self = this;
 
-			self.input = (self.type == 'input') ? $('<input type="text">') : $('<textarea>');
+			self.input = $(self.wrap_tag);
 
 			self.input
 				.attr('id', 'edit_' + self.el.attr('id'))
@@ -661,7 +663,24 @@ jQuery(document).ready(function($){
 		}
 	});
 
+	classes['terminput'] = classes['input'].extend({
+		set_input: function(content) {
+			var self = this;
+
+			self._super(content);
+
+			self.input.suggest(frontEditorData.ajax_url + '?action=ajax-tag-search&tax=' + self.id.split('#')[1], {
+				multiple: true,
+				resultsClass: 'fee_suggest_results',
+				selectClass: 'fee_suggest_over',
+				matchClass: 'fee_suggest_match'
+			});
+		}
+	});
+
 	classes['textarea'] = classes['input'].extend({
+		wrap_tag: '<textarea>',
+
 		set_input: function(content) {
 			var self = this;
 			

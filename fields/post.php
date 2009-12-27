@@ -195,7 +195,10 @@ class frontEd_terms extends frontEd_basic {
 	function get($id) {
 		list($post_id, $taxonomy) = explode('#', $id);
 
-		return get_terms_to_edit($post_id, $taxonomy);
+		$tags = get_terms_to_edit($post_id, $taxonomy);
+		$tags = str_replace(',', ', ', $tags);
+
+		return $tags;
 	}
 
 	function save($id, $terms) {
@@ -234,6 +237,10 @@ class frontEd_category extends frontEd_terms {
 		foreach ( explode(',', $categories) as $cat_name ) {
 			if ( ! $cat = get_cat_ID(trim($cat_name)) ) {
 				$args = wp_insert_term($cat_name, $taxonomy);
+
+				if ( is_wp_error($args) )
+					continue;
+
 				$cat = $args['term_id'];
 			}
 

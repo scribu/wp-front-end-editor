@@ -19,6 +19,27 @@
 	height: 16px !important;
 }
 
+/* Suggest */
+.fee_suggest_results {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	position: absolute;
+	display: none;
+	z-index: 10000;
+	border-width: 1px;
+	border-style: solid;
+}
+.fee_suggest_results li {padding: 2px 5px; white-space: nowrap;	text-align: left}
+.fee_suggest_match {text-decoration: underline}
+.fee_suggest_over {cursor: pointer}
+
+/* Suggest colors */
+.fee_suggest_results {background-color: #fff; border-color: #808080}
+.fee_suggest_results li {color: #101010}
+.fee_suggest_match {color: #000}
+.fee_suggest_over {background-color: #f0f0b8}
+
 /* Rich Editor */
 .nicEdit-selected:focus {
   outline: none;

@@ -53,21 +53,26 @@ abstract class frontEditor {
 		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
 		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
-		// Thickbox
-		if ( in_array('image', self::$field_types) ) {
-			add_thickbox();
-
-			wp_enqueue_script('livequery', self::$plugin_url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
-		}
-
 		// Autogrow
 		if ( in_array('textarea', self::$field_types) ) {
 			wp_enqueue_script('growfield', self::$plugin_url . 'growfield.js', array('jquery'), '2', true);
 		}
 
+		// Autosuggest
+		if ( in_array('terminput', self::$field_types) ) {
+			wp_enqueue_script('suggest');
+		}
+
 		// Rich Editor
 		if ( in_array('rich', self::$field_types) ) {
 			wp_enqueue_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23',true);
+		}
+
+		// Thickbox
+		if ( in_array('image', self::$field_types) ) {
+			add_thickbox();
+
+			wp_enqueue_script('livequery', self::$plugin_url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
 		}
 
 		// Core scripts
@@ -89,7 +94,7 @@ abstract class frontEditor {
 			'save_text' => __('Save', 'front-end-editor'),
 			'cancel_text' => __('Cancel', 'front-end-editor'),
 			'fields' => self::$field_types,
-			'request' => admin_url('admin-ajax.php'),
+			'ajax_url' => admin_url('admin-ajax.php'),
 			'spinner' => admin_url('images/loading.gif'),
 			'nonce' => wp_create_nonce(self::$nonce),
 		);
@@ -232,7 +237,7 @@ abstract class frontEd_field {
 		$class = 'front-ed-' . $this->filter . ' front-ed';
 		$id = 'fee_' . esc_attr($id);
 
-		$wrap_in = ( $inline || in_array($this->input_type, array('input', 'image')) ) ? 'span' : 'div';
+		$wrap_in = ( $inline || in_array($this->input_type, array('input', 'terminput', 'image')) ) ? 'span' : 'div';
 
 		return html("$wrap_in id='{$id}' class='{$class}'", $content);
 	}

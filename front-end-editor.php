@@ -86,18 +86,21 @@ function fee_register_defaults() {
 			'title' => __('Post category', 'front-end-editor'),
 			'class' => 'frontEd_category',
 			'argc' => 3,
+			'type' => 'terminput',
 		),
 
 		'the_tags' => array(
 			'title' => __('Post tags', 'front-end-editor'),
 			'class' => 'frontEd_tags',
 			'argc' => 4,
+			'type' => 'terminput',
 		),
 
 		'the_terms' => array(
 			'title' => __('Post terms', 'front-end-editor'),
 			'class' => 'frontEd_terms',
 			'argc' => 5,
+			'type' => 'terminput',
 		),
 
 		'post_meta' => array(
