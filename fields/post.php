@@ -182,14 +182,14 @@ class frontEd_excerpt extends frontEd_basic {
 class frontEd_terms extends frontEd_basic {
 
 	function wrap($content, $taxonomy, $before, $sep, $after) {
-		$post_id = implode('#', array(get_the_ID(), $taxonomy));
+		$id = implode('#', array(get_the_ID(), $taxonomy));
 
 		if ( empty($content) )
 			$content = $this->placeholder();
 		else
 			$content = str_replace(array($before, $after), '', $content);
 
-		return $before . parent::wrap($content, $post_id) . $after;
+		return $before . parent::wrap($content, $id) . $after;
 	}
 
 	function get($id) {

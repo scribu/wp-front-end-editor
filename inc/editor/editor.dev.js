@@ -332,12 +332,12 @@ jQuery(document).ready(function($){
 			self._super($el, type, name, id);
 		},
 
-		wrap_tag: '<input type="text">',
+		input_tag: '<input type="text">',
 
 		create_input: function() {
 			var self = this;
 
-			self.input = $(self.wrap_tag);
+			self.input = $(self.input_tag);
 
 			self.input
 				.attr('id', 'edit_' + self.el.attr('id'))
@@ -679,7 +679,7 @@ jQuery(document).ready(function($){
 	});
 
 	classes['textarea'] = classes['input'].extend({
-		wrap_tag: '<textarea>',
+		input_tag: '<textarea>',
 
 		set_input: function(content) {
 			var self = this;

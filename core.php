@@ -7,7 +7,6 @@ abstract class frontEditor {
 
 	private static $fields;
 	private static $active_fields;
-	private static $field_types;
 	private static $instances = array();
 
 	private static $plugin_url;
@@ -35,9 +34,7 @@ abstract class frontEditor {
 
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
 
-		self::add_scripts();
-
-		add_action('wp_head', array(__CLASS__, 'add_css'));
+		add_action('wp_print_styles', array(__CLASS__, 'add_css'));
 		add_action('wp_footer', array(__CLASS__, 'add_js'));
 	}
 
@@ -49,38 +46,11 @@ abstract class frontEditor {
 		return false;
 	}
 
-	private static function add_scripts() {
-		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
-		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
-
-		// Autogrow
-		if ( in_array('textarea', self::$field_types) ) {
-			wp_enqueue_script('growfield', self::$plugin_url . 'growfield.js', array('jquery'), '2', true);
-		}
-
-		// Autosuggest
-		if ( in_array('terminput', self::$field_types) ) {
-			wp_enqueue_script('suggest');
-		}
-
-		// Rich Editor
-		if ( in_array('rich', self::$field_types) ) {
-			wp_enqueue_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23',true);
-		}
-
-		// Thickbox
-		if ( in_array('image', self::$field_types) ) {
-			add_thickbox();
-
-			wp_enqueue_script('livequery', self::$plugin_url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
-		}
-
-		// Core scripts
-		wp_enqueue_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", array(), self::$version);
-		wp_enqueue_script('front-editor', self::$plugin_url . "editor/editor$js_dev.js", array('jquery'), self::$version, true);
-	}
-
 	static function add_css() {
+		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
+
+		wp_enqueue_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", array(), self::$version);
+
 		if ( ! self::$options->highlight ) 
 			return;
 ?>
@@ -89,27 +59,61 @@ abstract class frontEditor {
 	}
 
 	static function add_js() {
+		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
+
 		// Prepare data
+		$field_types = array();
+		foreach ( self::$active_fields as $name => $args )
+			$field_types[$name] = $args['type'];
+		
 		$data = array(
 			'save_text' => __('Save', 'front-end-editor'),
 			'cancel_text' => __('Cancel', 'front-end-editor'),
-			'fields' => self::$field_types,
+			'fields' => $field_types,
 			'ajax_url' => admin_url('admin-ajax.php'),
 			'spinner' => admin_url('images/loading.gif'),
 			'nonce' => wp_create_nonce(self::$nonce),
 		);
 
-		if ( in_array('rich', self::$field_types) ) {
-			$data['nicedit_icons'] = self::$plugin_url . 'nicedit/nicEditorIcons.gif';
+		$wrapped = frontEd_field::get_wrapped();
+		$dependencies = array('jquery');
+
+		// Autogrow
+		if ( array_key_exists('textarea', $wrapped) ) {
+			wp_register_script('growfield', self::$plugin_url . 'growfield.js', array('jquery'), '2', true);
+			$dependencies[] = 'growfield';
 		}
 
-		if ( in_array('image', self::$field_types) ) {
+		// Autosuggest
+		if ( array_key_exists('terminput', $wrapped) ) {
+			$dependencies[] = 'suggest';
+		}
+
+		// Rich Editor
+		if ( array_key_exists('rich', $wrapped) ) {
+			$data['nicedit_icons'] = self::$plugin_url . 'nicedit/nicEditorIcons.gif';
+
+			wp_register_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23',true);
+			$dependencies[] = 'nicedit';
+		}
+
+		// Thickbox
+		if ( array_key_exists('image', $wrapped) ) {
 			$data['caption'] = __('Change Image', 'front-end-editor');
 			$data['img_revert'] = '(' . __('Use default', 'front-end-editor') . ')';
 			$data['tb_close'] = get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png';
 			$data['admin_url'] = admin_url();
+
+			add_thickbox();
+
+			wp_register_script('livequery', self::$plugin_url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
+			$dependencies[] = 'livequery';
 		}
 
+		// Core script
+		wp_register_script('front-editor', self::$plugin_url . "editor/editor$js_dev.js", $dependencies, self::$version, true);
+
+		scbUtil::do_scripts('front-editor');
 ?>
 <script type='text/javascript'>frontEditorData = <?php echo json_encode($data) ?>;</script>
 <?php
@@ -143,9 +147,6 @@ abstract class frontEditor {
 		self::$active_fields = self::get_fields();
 		foreach ( (array) self::$options->disabled as $name )
 			unset(self::$active_fields[$name]);
-
-		foreach ( self::$active_fields as $name => $args )
-			self::$field_types[$name] = $args['type'];
 
 		foreach ( self::$active_fields as $name => $args ) {
 			extract($args);
@@ -203,91 +204,6 @@ abstract class frontEditor {
 		}
 
 		die($result);
-	}
-}
-
-// All field classes should extend from this one or one of it's descendants
-abstract class frontEd_field {
-	private $filter;
-	private $input_type;
-
-	final public function __construct($filter, $type) {
-		$this->filter = $filter;
-		$this->input_type = $type;
-
-		$this->setup();
-	}
-
-	/**
-	 * Optional actions to be done once per instance
-	 */
-	protected function setup() {}
-
-	/**
-	 * Mark the field as editable
-	 * @return string Wrapped content
-	 */
-	public function wrap($content, $id, $inline = false) {
-		if ( ! $this->allow($id) )
-			return $content;
-
-		if ( ! is_scalar($content) )
-			trigger_error("scalar expected. " . gettype($content) . " given", E_USER_WARNING);
-
-		$class = 'front-ed-' . $this->filter . ' front-ed';
-		$id = 'fee_' . esc_attr($id);
-
-		$wrap_in = ( $inline || in_array($this->input_type, array('input', 'terminput', 'image')) ) ? 'span' : 'div';
-
-		return html("$wrap_in id='{$id}' class='{$class}'", $content);
-	}
-
-	/**
-	 * Retrieve the current data for the field
-	 * @return string Unfiltered content
-	 */
-	abstract public function get($object_id);
-
-	/**
-	 * Save the data retrieved from the field
-	 * @return string Saved content
-	 */
-	abstract public function save($object_id, $content);
-
-	/**
-	 * Check user permissions
-	 * @return bool
-	 */
-	abstract public function check($object_id = 0);
-
-	/**
-	 * The type of object this field operates with
-	 * @return string
-	 */
-	abstract static function get_object_type();
-
-	/**
-	 * Generate a standard placeholder
-	 * @return string
-	 */ 
-	protected function placeholder() {
-		return '[' . __('empty', 'front-end-editor') . ']';
-	}
-
-	/**
-	 * Allow external code to block editing for certain objects
-	 * @return bool
-	 */
-	final public function allow($object_id) {
-		return apply_filters('front_ed_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type);
-	}
-
-	/**
-	 * Get the filter of the current instance
-	 * @return string
-	 */
-	final protected function get_filter() {
-		return $this->filter;
 	}
 }
 

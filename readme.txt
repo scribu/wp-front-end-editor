@@ -24,6 +24,7 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 		<li>title</li>
 		<li>content</li>
 		<li>excerpt</li>
+		<li>categories</li>
 		<li>tags</li>
 		<li>custom taxonomies</li>
 		<li>custom fields</li>
@@ -158,9 +159,11 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.6 =
-* add support for custom fields with multiple values
-* fix issue with comment paragraphs
-* allow editing of all widget titles
+* allow editing of post categories
+* allow editing of custom fields with multiple values
+* allow editing of any widget title
+* fixed issue with comment paragraphs
+* optimized script loading
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-6.html)
 
 = 1.5.1 =
