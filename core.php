@@ -3,8 +3,6 @@
 abstract class frontEditor {
 	static $options;
 
-	const baseclass = 'frontEd_field';
-
 	private static $fields;
 	private static $active_fields;
 	private static $instances = array();
@@ -123,8 +121,8 @@ abstract class frontEditor {
 	static function register() {
 		list ( $filter, $args ) = func_get_arg(0);
 
-		if ( ! is_subclass_of($args['class'], self::baseclass) ) {
-			trigger_error($args['class'] . " must be a subclass of " . self::baseclass, E_USER_ERROR);
+		if ( ! is_subclass_of($args['class'], 'frontEd_field') ) {
+			trigger_error($args['class'] . " must be a subclass of " . 'frontEd_field', E_USER_ERROR);
 			return false;
 		}
 
