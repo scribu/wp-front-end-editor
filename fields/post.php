@@ -247,7 +247,7 @@ class frontEd_category extends frontEd_terms {
 			$cat_ids[] = $cat;
 		}
 
-		wp_set_post_terms($post_id, $cat_ids, $taxonomy);
+		wp_set_post_categories($post_id, $cat_ids);
 
 		$response = get_the_term_list($post_id, $taxonomy, '', ', ');
 

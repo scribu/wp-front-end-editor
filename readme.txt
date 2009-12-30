@@ -159,11 +159,12 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.6 =
-* allow editing of post categories
-* allow editing of custom fields with multiple values
-* allow editing of any widget title
+* added editing of post categories
+* added editing of custom fields with multiple values
+* added editing of any widget title
 * fixed issue with comment paragraphs
-* optimized script loading
+* improved script loading
+* added placeholder to editable_post_meta
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-6.html)
 
 = 1.5.1 =
