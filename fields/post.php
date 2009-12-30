@@ -265,8 +265,8 @@ class frontEd_meta extends frontEd_basic {
 		$this->input_type = $type;
 
 		if ( $single ) {
-			if ( ! $data )
-				return false;
+			if ( empty($data) )
+				$data = $this->placeholder();
 
 			$data = array($data);
 		}
