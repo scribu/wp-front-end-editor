@@ -25,23 +25,13 @@ abstract class FEE_Core {
 	}
 
 	static function _init() {
-		if ( ! is_user_logged_in()
-		  or ! self::can_use_editor()
-		  or apply_filters('front_ed_disable', false) )
+		if ( ! is_user_logged_in() || apply_filters('front_ed_disable', false) )
 			return;
 
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
 
 		add_action('wp_print_styles', array(__CLASS__, 'add_css'));
 		add_action('wp_footer', array(__CLASS__, 'add_js'));
-	}
-
-	private static function can_use_editor() {
-		foreach ( self::$instances as $instance )
-			if ( $instance->check() )
-				return true;
-
-		return false;
 	}
 
 	static function add_css() {
