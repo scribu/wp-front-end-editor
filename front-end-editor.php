@@ -52,12 +52,12 @@ function _fee_init() {
 		'highlight' => true
 	));
 
-	frontEditor::init(__FILE__, $options, '1.6a4');
-	frontEd_image::init(__FILE__);
+	FEE_Core::init(__FILE__, $options, '1.6a5');
+	FEE_Field_Image::init(__FILE__);
 
 	if ( is_admin() ) {
 		require_once $dir . '/admin.php';
-		new frontEditorAdmin(__FILE__, $options);
+		new FEE_Admin(__FILE__, $options);
 	}
 }
 
@@ -66,92 +66,92 @@ function fee_register_defaults() {
 	$fields = array(
 		'the_title' => array(
 			'title' => __('Post title', 'front-end-editor'),
-			'class' => 'frontEd_basic',
+			'class' => 'FEE_Field_Post',
 			'type' => 'input',
 		),
 
 		'the_content' => array(
 			'title' => __('Post content', 'front-end-editor'),
-			'class' => frontEditor::$options->chunks ? 'frontEd_chunks' : 'frontEd_basic',
-			'type' => frontEditor::$options->rich ? 'rich' : 'textarea',
+			'class' => FEE_Core::$options->chunks ? 'FEE_Field_Chunks' : 'FEE_Field_Post',
+			'type' => FEE_Core::$options->rich ? 'rich' : 'textarea',
 		),
 
 		'the_excerpt' => array(
 			'title' => __('Post excerpt', 'front-end-editor'),
-			'class' => 'frontEd_excerpt',
+			'class' => 'FEE_Field_Excerpt',
 			'type' => 'textarea',
 		),
 
 		'the_category' => array(
 			'title' => __('Post category', 'front-end-editor'),
-			'class' => 'frontEd_category',
+			'class' => 'FEE_Field_Category',
 			'argc' => 3,
 			'type' => 'terminput',
 		),
 
 		'the_tags' => array(
 			'title' => __('Post tags', 'front-end-editor'),
-			'class' => 'frontEd_tags',
+			'class' => 'FEE_Field_Tags',
 			'argc' => 4,
 			'type' => 'terminput',
 		),
 
 		'the_terms' => array(
 			'title' => __('Post terms', 'front-end-editor'),
-			'class' => 'frontEd_terms',
+			'class' => 'FEE_Field_Terms',
 			'argc' => 5,
 			'type' => 'terminput',
 		),
 
 		'post_meta' => array(
 			'title' => __('Post custom fields', 'front-end-editor'),
-			'class' => 'frontEd_meta',
+			'class' => 'FEE_Field_Meta',
 			'argc' => 5,
 		),
 
 		'comment_text' => array(
 			'title' => __('Comment text', 'front-end-editor'),
-			'class' => 'frontEd_comment',
+			'class' => 'FEE_Field_Comment',
 			'type' => 'textarea',
 		),
 
 		'single_cat_title' => array(
 			'title' => __('Category title', 'front-end-editor'),
-			'class' => 'frontEd_single_title',
+			'class' => 'FEE_Field_Single_Title',
 		),
 
 		'single_tag_title' => array(
 			'title' => __('Tag title', 'front-end-editor'),
-			'class' => 'frontEd_single_title',
+			'class' => 'FEE_Field_Single_Title',
 		),
 
 		'the_author_description' => array(
 			'title' => __('Author description', 'front-end-editor'),
-			'class' => 'frontEd_author_desc',
+			'class' => 'FEE_Field_Author_Desc',
 			'type' => 'textarea',
 			'argc' => 2,
 		),
 
 		'widget_title' => array(
 			'title' => __('Widget title', 'front-end-editor'),
-			'class' => 'frontEd_widget',
+			'class' => 'FEE_Field_Widget',
 		),
 
 		'widget_text' => array(
 			'title' => __('Text widget content', 'front-end-editor'),
-			'class' => 'frontEd_widget',
+			'class' => 'FEE_Field_Widget',
 			'type' => 'textarea',
 		),
 
 		'bloginfo' => array(
 			'title' => __('Site title and description', 'front-end-editor'),
-			'class' => 'frontEd_bloginfo',
+			'class' => 'FEE_Field_Bloginfo',
 			'argc' => 2,
 		),
 
 		'editable_image' => array(
 			'title' => __('Theme images', 'front-end-editor'),
-			'class' => 'frontEd_image',
+			'class' => 'FEE_Field_Image',
 			'type' => 'image',
 			'argc' => 2,
 		),

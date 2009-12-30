@@ -1,6 +1,6 @@
 <?php
 
-class frontEditorAdmin extends scbBoxesPage {
+class FEE_Admin extends scbBoxesPage {
 	function setup() {
 		$this->textdomain = 'front-end-editor';
 
@@ -42,7 +42,7 @@ class frontEditorAdmin extends scbBoxesPage {
 			return;
 
 		$disabled = array();
-		foreach ( array_keys( frontEditor::get_fields() ) as $field )
+		foreach ( array_keys( FEE_Core::get_fields() ) as $field )
 			if ( ! isset($_POST[$field]) )
 				$disabled[] = $field;
 
@@ -54,7 +54,7 @@ class frontEditorAdmin extends scbBoxesPage {
 	function fields_box() {
 		// Separate fields
 		$post_fields = $other_fields = array();
-		foreach ( frontEditor::get_fields() as $field => $args )
+		foreach ( FEE_Core::get_fields() as $field => $args )
 			if ( 'post' == call_user_func(array($args['class'], 'get_object_type') ) )
 				$post_fields[$field] = $args;
 			else

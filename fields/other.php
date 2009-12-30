@@ -1,7 +1,8 @@
 <?php
 
 // Handles comment_text field
-class frontEd_comment extends frontEd_field {
+class FEE_Field_Comment extends FEE_Field_Base {
+
 	static function get_object_type() {
 		return 'comment';
 	}
@@ -42,7 +43,8 @@ class frontEd_comment extends frontEd_field {
 }
 
 // Handles single_*_title fields
-class frontEd_single_title extends frontEd_field {
+class FEE_Field_Single_Title extends FEE_Field_Base {
+
 	static function get_object_type() {
 		return 'term';
 	}
@@ -88,7 +90,8 @@ class frontEd_single_title extends frontEd_field {
 }
 
 // Handles the_author_description field
-class frontEd_author_desc extends frontEd_field {
+class FEE_Field_Author_Desc extends FEE_Field_Base {
+
 	static function get_object_type() {
 		return 'user';
 	}
@@ -141,7 +144,8 @@ class frontEd_author_desc extends frontEd_field {
 }
 
 // Handles widget_text and widget_title fields
-class frontEd_widget extends frontEd_field {
+class FEE_Field_Widget extends FEE_Field_Base {
+
 	protected $field;
 
 	static function get_object_type() {
@@ -169,18 +173,20 @@ class frontEd_widget extends frontEd_field {
 
 		$widget_key = 'widget_' . $widget_type;
 		$widgets = get_option($widget_key);
+		$data =& $widgets[$widget_id][$this->field]; 
 
 		if ( 'get' == $action ) {
-			return $widgets[$widget_id][$this->field];
+			return $data;
 		}
 
 		if ( 'save' == $action ) {
-			$widgets[$widget_id][$this->field] = $content;
+			$data = $content;
 
 			update_option($widget_key, $widgets);
 
-			// Text widget wpautop
-			if ( 'text' == $widget_type && 'text' == $this->field && $widgets[$widget_id]['filter'] )
+			if ( 'text' == $widget_type
+			  && 'text' == $this->field
+			  && $widgets[$widget_id]['filter'] )
 				$content = wpautop($content);
 
 			return $content;
@@ -193,7 +199,8 @@ class frontEd_widget extends frontEd_field {
 }
 
 // Handles bloginfo fields
-class frontEd_bloginfo extends frontEd_field {
+class FEE_Field_Bloginfo extends FEE_Field_Base {
+
 	static function get_object_type() {
 		return 'option';
 	}
@@ -226,7 +233,9 @@ class frontEd_bloginfo extends frontEd_field {
 	}
 }
 
-class frontEd_image extends frontEd_field {
+// Handles editable_image fields
+class FEE_Field_Image extends FEE_Field_Base {
+
 	static function init($file) {
 		add_action('admin_print_styles', array(__CLASS__, 'styles'));
 
@@ -284,7 +293,7 @@ function editable_image($key, $default_url, $extra_attr = '', $echo = true) {
 		'id' => $key
 	));
 
-	if ( ! $src = frontEd_image::get($key) )
+	if ( ! $src = FEE_Field_Image::get($key) )
 		$src = $default_url;
 	$attr['src'] = $src;
 

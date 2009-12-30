@@ -1,7 +1,7 @@
 <?php
 
 // Handles the_title and the_content fields
-class frontEd_basic extends frontEd_field {
+class FEE_Field_Post extends FEE_Field_Base {
 
 	protected $field;
 
@@ -65,8 +65,8 @@ class frontEd_basic extends frontEd_field {
 	}
 }
 
-// Handles <p> in the_content
-class frontEd_chunks extends frontEd_basic {
+// Handles <p> tags in the_content
+class FEE_Field_Chunks extends FEE_Field_Post {
 
 	const delim = "\n\n";
 
@@ -77,7 +77,7 @@ class frontEd_chunks extends frontEd_basic {
 		$chunks = $this->split($content);
 
 		foreach ( $chunks as $i => $chunk )
-			$content = str_replace($chunk, frontEd_field::wrap($chunk, "$post_id#$i", true), $content);
+			$content = str_replace($chunk, FEE_Field_Base::wrap($chunk, "$post_id#$i", true), $content);
 
 		return $content;
 	}
@@ -131,7 +131,7 @@ class frontEd_chunks extends frontEd_basic {
 }
 
 // Handles the_excerpt field
-class frontEd_excerpt extends frontEd_basic {
+class FEE_Field_Excerpt extends FEE_Field_Post {
 
 	function get($post_id) {
 		$post = get_post($post_id);
@@ -179,7 +179,7 @@ class frontEd_excerpt extends frontEd_basic {
 }
 
 // Handles the_terms field
-class frontEd_terms extends frontEd_basic {
+class FEE_Field_Terms extends FEE_Field_Post {
 
 	function wrap($content, $taxonomy, $before, $sep, $after) {
 		$id = implode('#', array(get_the_ID(), $taxonomy));
@@ -216,7 +216,7 @@ class frontEd_terms extends frontEd_basic {
 }
 
 // Handles the_tags field
-class frontEd_tags extends frontEd_terms {
+class FEE_Field_Tags extends FEE_Field_Terms {
 
 	function wrap($content, $before, $sep, $after) {
 		return parent::wrap($content, 'post_tag', $before, $sep, $after);
@@ -224,7 +224,7 @@ class frontEd_tags extends frontEd_terms {
 }
 
 // Handles the_category field
-class frontEd_category extends frontEd_terms {
+class FEE_Field_Category extends FEE_Field_Terms {
 
 	function wrap($content, $sep, $parents) {
 		return parent::wrap($content, 'category', '', $sep, '');
@@ -259,7 +259,7 @@ class frontEd_category extends frontEd_terms {
 }
 
 // Handles post_meta field
-class frontEd_meta extends frontEd_basic {
+class FEE_Field_Meta extends FEE_Field_Post {
 
 	function wrap($data, $post_id, $key, $type, $single) {
 		$this->input_type = $type;

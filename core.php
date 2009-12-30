@@ -1,6 +1,6 @@
 <?php
 
-abstract class frontEditor {
+abstract class FEE_Core {
 	static $options;
 
 	private static $fields;
@@ -49,7 +49,7 @@ abstract class frontEditor {
 
 		wp_enqueue_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", array(), self::$version);
 
-		if ( ! self::$options->highlight ) 
+		if ( ! self::$options->highlight )
 			return;
 ?>
 <style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
@@ -73,7 +73,7 @@ abstract class frontEditor {
 			'nonce' => wp_create_nonce(self::$nonce),
 		);
 
-		$wrapped = frontEd_field::get_wrapped();
+		$wrapped = FEE_Field_Base::get_wrapped();
 		$dependencies = array('jquery');
 
 		// Autogrow
@@ -121,8 +121,8 @@ abstract class frontEditor {
 	static function register() {
 		list ( $filter, $args ) = func_get_arg(0);
 
-		if ( ! is_subclass_of($args['class'], 'frontEd_field') ) {
-			trigger_error($args['class'] . " must be a subclass of " . 'frontEd_field', E_USER_ERROR);
+		if ( ! is_subclass_of($args['class'], 'FEE_Field_Base') ) {
+			trigger_error($args['class'] . " must be a subclass of " . 'FEE_Field_Base', E_USER_ERROR);
 			return false;
 		}
 
@@ -218,6 +218,6 @@ Registers a new editable field
 )
 */
 function register_fronted_field() {
-	return frontEditor::register(func_get_args());
+	return FEE_Core::register(func_get_args());
 }
 

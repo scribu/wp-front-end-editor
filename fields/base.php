@@ -1,7 +1,7 @@
 <?php
 
 // All field classes should extend from this one or one of it's descendants
-abstract class frontEd_field {
+abstract class FEE_Field_Base {
 	private $filter;
 	private $input_type;
 
