@@ -57,11 +57,18 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 		wp_update_post($fields);
 
+		$this->set_post_global($post_id);
+
 		return $content;
 	}
 
 	function check($post_id = 0) {
 		return current_user_can('edit_' . get_post_type($post_id), $post_id);
+	}
+
+	protected function set_post_global($post_id) {
+		global $post;
+		$post = get_post($post_id);
 	}
 }
 
@@ -108,6 +115,8 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 			'post_content' => $content
 		));
 
+		$this->set_post_global($post_id);
+
 		// Refresh the page if a new chunk is added
 		if ( empty($chunk_content) || FALSE !== strpos($chunk_content, self::delim) )
 			$this->force_refresh();
@@ -138,8 +147,10 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 
 		$excerpt = $post->post_excerpt;
 
-		if ( empty($excerpt) )
+		if ( empty($excerpt) ) {
+			$this->set_post_global($post_id);
 			$excerpt = $this->trim_excerpt($post->post_content);
+		}
 
 		return $excerpt;
 	}
@@ -154,6 +165,8 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 			'ID' => $post_id,
 			'post_excerpt' => $excerpt
 		));
+
+		$this->set_post_global($post_id);
 
 		if ( empty($excerpt) )
 			return $default_excerpt;

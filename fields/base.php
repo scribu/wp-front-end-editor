@@ -7,6 +7,10 @@ abstract class FEE_Field_Base {
 
 	private static $wrapped = array();
 
+	/**
+	 * Constructor; nothing fancy
+	 * @return null
+	 */
 	final public function __construct($filter, $type) {
 		$this->filter = $filter;
 		$this->input_type = $type;
@@ -14,8 +18,16 @@ abstract class FEE_Field_Base {
 		$this->setup();
 	}
 
+
+	/**
+	 * The type of object this field operates with
+	 * @return string
+	 */
+	abstract public static function get_object_type();
+
 	/**
 	 * Optional actions to be done once per instance
+	 * @return null
 	 */
 	protected function setup() {}
 
@@ -58,16 +70,11 @@ abstract class FEE_Field_Base {
 	 */
 	abstract public function check($object_id = 0);
 
-	/**
-	 * The type of object this field operates with
-	 * @return string
-	 */
-	abstract public static function get_object_type();
 
 	/**
 	 * Generate a standard placeholder
 	 * @return string
-	 */ 
+	 */
 	protected function placeholder() {
 		return '[' . __('empty', 'front-end-editor') . ']';
 	}
