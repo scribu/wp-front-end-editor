@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.5a\n"
+"Project-Id-Version: Front-end Editor 1.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-11-28 16:53+0200\n"
+"POT-Creation-Date: 2010-01-01 19:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.5a)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.6)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:7
 msgid "Front-end Editor"
@@ -26,11 +26,11 @@ msgstr ""
 msgid "Fields"
 msgstr ""
 
-#: admin.php:11 scb/AdminPage.php:310
+#: admin.php:11 scb/AdminPage.php:314
 msgid "Settings"
 msgstr ""
 
-#: admin.php:51 admin.php:105 scb/AdminPage.php:101
+#: admin.php:51 admin.php:104 scb/AdminPage.php:101
 msgid "Settings <strong>saved</strong>."
 msgstr ""
 
@@ -38,111 +38,115 @@ msgstr ""
 msgid "Enable or disable editable fields"
 msgstr ""
 
-#: admin.php:66
+#: admin.php:65
 msgid "Post fields"
 msgstr ""
 
-#: admin.php:67
+#: admin.php:66
 msgid "Other fields"
 msgstr ""
 
-#: admin.php:111
+#: admin.php:110
 msgid "Rich text editor"
 msgstr ""
 
-#: admin.php:112
+#: admin.php:111
 msgid "Enable the WYSIWYG editor"
 msgstr ""
 
-#: admin.php:118
+#: admin.php:117
 msgid "Edit paragraphs"
 msgstr ""
 
-#: admin.php:119
+#: admin.php:118
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr ""
 
-#: admin.php:125
+#: admin.php:124
 msgid "Highlighting"
 msgstr ""
 
-#: admin.php:126
+#: admin.php:125
 msgid "Highlight editable elements"
 msgstr ""
 
-#: core.php:96
+#: core.php:58
 msgid "Save"
 msgstr ""
 
-#: core.php:97
+#: core.php:59
 msgid "Cancel"
 msgstr ""
 
-#: core.php:105
-msgid "Use default"
-msgstr ""
-
-#: core.php:108
+#: core.php:90
 msgid "Change Image"
 msgstr ""
 
-#: core.php:273
+#: core.php:91
+msgid "Use default"
+msgstr ""
+
+#: fields/base.php:79
 msgid "empty"
 msgstr ""
 
-#: front-end-editor.php:69
+#: front-end-editor.php:68
 msgid "Post title"
 msgstr ""
 
-#: front-end-editor.php:75
+#: front-end-editor.php:74
 msgid "Post content"
 msgstr ""
 
-#: front-end-editor.php:81
+#: front-end-editor.php:80
 msgid "Post excerpt"
 msgstr ""
 
-#: front-end-editor.php:87
-msgid "Post tags"
+#: front-end-editor.php:86
+msgid "Post category"
 msgstr ""
 
 #: front-end-editor.php:93
+msgid "Post tags"
+msgstr ""
+
+#: front-end-editor.php:100
 msgid "Post terms"
 msgstr ""
 
-#: front-end-editor.php:99
+#: front-end-editor.php:107
 msgid "Post custom fields"
 msgstr ""
 
-#: front-end-editor.php:105
+#: front-end-editor.php:113
 msgid "Comment text"
 msgstr ""
 
-#: front-end-editor.php:111
+#: front-end-editor.php:119
 msgid "Category title"
 msgstr ""
 
-#: front-end-editor.php:116
+#: front-end-editor.php:124
 msgid "Tag title"
 msgstr ""
 
-#: front-end-editor.php:121
+#: front-end-editor.php:129
 msgid "Author description"
 msgstr ""
 
-#: front-end-editor.php:128
+#: front-end-editor.php:136
+msgid "Widget title"
+msgstr ""
+
+#: front-end-editor.php:141
 msgid "Text widget content"
 msgstr ""
 
-#: front-end-editor.php:134
-msgid "Text widget title"
-msgstr ""
-
-#: front-end-editor.php:139
+#: front-end-editor.php:147
 msgid "Site title and description"
 msgstr ""
 
-#: front-end-editor.php:145
+#: front-end-editor.php:153
 msgid "Theme images"
 msgstr ""
 
