@@ -75,7 +75,7 @@ There is a settings page where you can disable editable fields that you don't wa
 * Swedish - [Müfit Kiper](http://kitkonsult.se/)
 * Turkish - [Burak Gulbahce](http://www.saylangoz.com/wordpress/)
 
-If you want to translate this plugin, read [this](http://scribu.net/wordpress/translating-plugins.html).
+If you want to translate this plugin, please read [this](http://scribu.net/wordpress/translating-plugins.html).
 
 
 == Installation ==
@@ -101,14 +101,6 @@ Probably because the javascript is not loaded. Make sure your theme has wp_foote
 
 No. To edit a field, a user must be logged in and have the right permissions. For example, to edit the post content from the front-end, a user must be able to edit the post content from the regular back-end editor.
 
-= How can I change the hover color? =
-
-You can add this line to *style.css* in your theme directory:
-
-`.front-ed:hover, .front-ed:hover * {background-color: mycolor !important}`
-
-where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
-
 = How can I edit custom fields? =
 
 Since custom fields can be used in so many ways, you have to make some code replacements in your theme:
@@ -122,6 +114,18 @@ with this:
 `<?php editable_post_meta(get_the_ID(), 'my_key', 'textarea'); ?>`
 
 The third parameter is optional and allows you to pick which type of field you want: *input*, *textarea* or *rich*.
+
+If you have a custom field with multiple values, you can use `get_editable_post_meta(). For example:
+
+`
+<ul>
+<?php
+$values = get_editable_post_meta(get_the_ID(), 'my_key');
+foreach ( $values as $value )
+	echo '<li>' . $value . '</li>';
+?>
+</ul>
+`
 
 = How can I make theme images editable? =
 
@@ -142,11 +146,15 @@ The editable_image() template tag is located in fields/other.php.
 
 Yes, but you have to know your way around WordPress' internals. Here is the [developer guide](http://scribu.net/wordpress/front-end-editor/developer-guide.html) to get you started.
 
-= How can I mark the fields as editable? =
+= How can I change the hover color? =
 
-The easiest way is with CSS. You can use the *.front-ed* selector to style all editable fields on a page.
+You can add this line to *style.css* in your theme directory:
 
-= Title attributes =
+`.front-ed:hover, .front-ed:hover * {background-color: mycolor !important}`
+
+where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
+
+= Title attributes errors =
 
 In some themes, links get weird title atributes. If this messes up your theme, just disable "The title" field.
 
@@ -179,7 +187,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * better handling of text widgets
 * compress JS & CSS
 * compatibility with Ajaxed WordPress plugin
-* added ES translation (Aivar Luht)
+* added ES translation
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-5.html)
 
 = 1.4 =
@@ -188,7 +196,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * easier way to restrict editable content
 * don't load CSS & JS if the current user can't edit any of the fields
 * switched from Autogrow to Growfield (fixes IE compatibility)
-* added Georgian translation (Levani Melikishvili)
+* added Georgian translation
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-4.html)
 
 = 1.3.3 =
@@ -227,13 +235,13 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 = 1.1.3 =
 * css bugfix
-* added belarusian translation
+* added Belarusian translation
 * updated italian translation
 
 = 1.1 =
 * custom taxonomies editing
 * usability improvements
-* added turkish translation
+* added Turkish translation
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-1.html)
 
 = 1.0.6 =
