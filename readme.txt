@@ -37,10 +37,10 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 	<ul>
 		<li>description</li>
 	</ul></li>
-	<li><strong>text widgets</strong>
+	<li><strong>widgets</strong>
 	<ul>
 		<li>title</li>
-		<li>content</li>
+		<li>text widget content</li>
 	</ul></li>
 	<li><strong>titles</strong>
 	<ul>
