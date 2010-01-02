@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor Georgian\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-10-04 18:54+0300\n"
+"POT-Creation-Date: 2010-01-01 19:11+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Levani <levani9191@gmail.com>\n"
 "Language-Team: Georgianisation.site88.net <levani9191@gmail.com>\n"
@@ -13,116 +13,144 @@ msgstr ""
 "X-Poedit-Language: Georgian\n"
 "X-Poedit-Country: GEORGIA\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.3.3)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.6)  #-#-#-#-#
 #. Plugin Name of an extension
-#: admin.php:9
+#: admin.php:7
 msgid "Front-end Editor"
 msgstr "Front-end Editor"
 
-#: admin.php:12
+#: admin.php:10
 msgid "Fields"
 msgstr "ველები"
 
-#: admin.php:13
-#: scb/AdminPage.php:338
+#: admin.php:11
+#: scb/AdminPage.php:314
 msgid "Settings"
 msgstr "პარამეტრები"
 
-#: admin.php:44
-#: admin.php:88
-#: scb/AdminPage.php:105
+#: admin.php:51
+#: admin.php:104
+#: scb/AdminPage.php:101
 msgid "Settings <strong>saved</strong>."
 msgstr "პარამეტრები <strong>დამახსოვრებულია</strong>."
 
-#: admin.php:50
+#: admin.php:63
 msgid "Enable or disable editable fields"
 msgstr "რედაქტირებადი ველების ჩართვა გამორთვა"
 
-#: admin.php:56
-msgid "Field name"
-msgstr "ველის სახელი"
+#: admin.php:65
+msgid "Post fields"
+msgstr "პოსტის ველები"
 
-#: admin.php:95
+#: admin.php:66
+msgid "Other fields"
+msgstr "სხვა ველები"
+
+#: admin.php:110
 msgid "Rich text editor"
 msgstr "ტექსტური რედაქტორი"
 
-#: admin.php:96
+#: admin.php:111
 msgid "Enable the WYSIWYG editor"
 msgstr "WYSIWYG რედაქტორის ჩართვა"
 
-#: admin.php:102
+#: admin.php:117
 msgid "Edit paragraphs"
 msgstr "პარაგრაფების რედაქტირება"
 
-#: admin.php:103
+#: admin.php:118
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "ერთ ჯერზე შეცვალე მხოლოდ ერთი პარაგრაფი, მთელი პოსტის ნაცვლად."
 
-#: admin.php:109
+#: admin.php:124
 msgid "Highlighting"
 msgstr "გამოყოფა"
 
-#: admin.php:110
+#: admin.php:125
 msgid "Highlight editable elements"
 msgstr "გამოყავი რედაქტირებადი ველები"
 
-#: core.php:95
+#: core.php:58
 msgid "Save"
 msgstr "დამახსოვრება"
 
-#: core.php:96
+#: core.php:59
 msgid "Cancel"
 msgstr "გაუქმება"
 
-#: core.php:238
+#: core.php:90
+msgid "Change Image"
+msgstr "სურათის შეცვლა"
+
+#: core.php:91
+msgid "Use default"
+msgstr "სტანდარტულის გამოყენება"
+
+#: fields/base.php:79
 msgid "empty"
 msgstr "ცარიელი"
 
-#: fields.php:507
+#: front-end-editor.php:68
 msgid "Post title"
 msgstr "პოსტის სათაური"
 
-#: fields.php:513
+#: front-end-editor.php:74
 msgid "Post content"
 msgstr "პოსტის შენაარსი"
 
-#: fields.php:519
+#: front-end-editor.php:80
 msgid "Post excerpt"
 msgstr "პოსტის ამონაწერი"
 
-#: fields.php:525
+#: front-end-editor.php:86
+msgid "Post category"
+msgstr "პოსტის კატეგორია"
+
+#: front-end-editor.php:93
 msgid "Post tags"
 msgstr "პოსტის ტეგები"
 
-#: fields.php:531
+#: front-end-editor.php:100
 msgid "Post terms"
 msgstr "პოსტის term-ები."
 
-#: fields.php:537
+#: front-end-editor.php:107
 msgid "Post custom fields"
 msgstr "პოსტის დამატებითი ველები"
 
-#: fields.php:543
+#: front-end-editor.php:113
 msgid "Comment text"
 msgstr "კომენტარის ტექსტი"
 
-#: fields.php:549
+#: front-end-editor.php:119
+msgid "Category title"
+msgstr "კატეგორიის სათაური"
+
+#: front-end-editor.php:124
+msgid "Tag title"
+msgstr "ტეგის სათაური"
+
+#: front-end-editor.php:129
 msgid "Author description"
 msgstr "ავტორის აღწერა"
 
-#: fields.php:556
+#: front-end-editor.php:136
+msgid "Widget title"
+msgstr "ვიდგეტის სათაური"
+
+#: front-end-editor.php:141
 msgid "Text widget content"
 msgstr "ტექსტური ვიდგეტის შინაარსი"
 
-#: fields.php:562
-msgid "Text widget title"
-msgstr "ტექსტური ვიდგეტის სათაური"
-
-#: fields.php:567
+#: front-end-editor.php:147
 msgid "Site title and description"
 msgstr "საიტის სათაური და აღწერა"
 
-#: scb/AdminPage.php:163
+#: front-end-editor.php:153
+msgid "Theme images"
+msgstr "დიზაინის სურათები"
+
+#: scb/AdminPage.php:111
 msgid "Save Changes"
 msgstr "ცვლილებების დამახსოვრება"
 
@@ -141,4 +169,7 @@ msgstr "scribu"
 #. Author URI of an extension
 msgid "http://scribu.net/"
 msgstr "http://scribu.net/"
+
+#~ msgid "Field name"
+#~ msgstr "ველის სახელი"
 
