@@ -163,10 +163,12 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 		if ( $excerpt == $default_excerpt )
 			return $excerpt;
 
-		wp_update_post(array(
+		$postdata = array(
 			'ID' => $post_id,
 			'post_excerpt' => $excerpt
-		));
+		);
+
+		wp_update_post((object) $postdata);
 
 		$this->set_post_global($post_id);
 
