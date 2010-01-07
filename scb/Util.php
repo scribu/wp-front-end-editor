@@ -52,7 +52,7 @@ class scbUtil {
 	static function array_extract($array, $keys) {
 		$r = array();
 		foreach ( $keys as $key )
-			if ( isset($array[$key]) )
+			if ( array_key_exists($key, $array) )
 				$r[$key] = $array[$key];
 
 	   return $r;

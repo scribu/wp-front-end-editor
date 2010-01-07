@@ -38,7 +38,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	function save($post_id, $content) {
-		$fields = array(
+		$postdata = array(
 			'ID' => $post_id,
 			$this->field => $content
 		);
@@ -51,11 +51,11 @@ class FEE_Field_Post extends FEE_Field_Base {
 			// update only if not explicitly set
 			if ( empty($current_slug) || $current_slug == sanitize_title_with_dashes($current_title) ) {
 				$new_slug = sanitize_title_with_dashes($content);
-				$fields['post_name'] = $new_slug;
+				$postdata['post_name'] = $new_slug;
 			}
 		}
 
-		wp_update_post($fields);
+		wp_update_post((object) $postdata);
 
 		$this->set_post_global($post_id);
 
@@ -110,10 +110,12 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$content = str_replace($chunks[$chunk_id], $chunk_content, $content);
 
-		wp_update_post(array(
+		$postdata = array(
 			'ID' => $post_id,
 			'post_content' => $content
-		));
+		);
+
+		wp_update_post((object) $postdata);
 
 		$this->set_post_global($post_id);
 

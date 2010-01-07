@@ -91,7 +91,7 @@ abstract class scbAdminPage {
 		check_admin_referer($this->nonce);
 
 		foreach ( $this->formdata as $name => $value )
-			$new_data[$name] = $_POST[$name];
+			$new_data[$name] = @$_POST[$name];
 
 		$this->formdata = $this->validate($new_data, $this->formdata);
 
@@ -107,10 +107,23 @@ abstract class scbAdminPage {
 
 	// Generates a form submit button
 	function submit_button($value = '', $action = 'action', $class = "button") {
-		if ( empty($value) )
-			$value = __('Save Changes', $this->textdomain);
+		if ( is_array($value) ) {
+			extract(wp_parse_args($value, array(
+				'value' => __('Save Changes', $this->textdomain),
+				'action' => 'action',
+				'class' => 'button',
+				'ajax' => true
+			)));
 
-		$args = array(
+			if ( ! $ajax )
+				$class .= ' no-ajax';
+		}
+		else {
+			if ( empty($value) )
+				$value = __('Save Changes', $this->textdomain);
+		}
+
+		$input_args = array(
 			'type' => 'submit',
 			'names' => $action,
 			'values' => $value,
@@ -119,9 +132,9 @@ abstract class scbAdminPage {
 		);
 
 		if ( ! empty($class) )
-			$args['extra'] = "class='{$class}'";
+			$input_args['extra'] = "class='{$class}'";
 
-		$output = "<p class='submit'>\n" . scbForms::input($args) . "</p>\n";
+		$output = "<p class='submit'>\n" . scbForms::input($input_args) . "</p>\n";
 
 		return $output;
 	}
@@ -133,7 +146,9 @@ abstract class scbAdminPage {
 	$this->form_wrap($content, $text = 'Save changes', $name = 'action', $class = 'button');	// the last 3 arguments are sent to submit_button()
 	*/
 	function form_wrap($content, $submit_button = true) {
-		if ( true === $submit_button ) {
+		if ( is_array($submit_button) ) {
+			$content .= call_user_func(array($this, 'submit_button'), $submit_button);
+		} elseif ( true === $submit_button ) {
 			$content .= $this->submit_button();
 		} elseif ( false !== strpos($submit_button, '<input') ) {
 			$content .= $submit_button;

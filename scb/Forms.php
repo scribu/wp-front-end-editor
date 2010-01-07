@@ -356,7 +356,7 @@ abstract class scbForms {
 				continue;
 
 			$cur_extra = array();
-			if ( $key == $cur_val )
+			if ( (string) $key == (string) $cur_val )
 				$cur_extra[] = "selected='selected'";
 
 			$cur_extra = implode(' ', $cur_extra);

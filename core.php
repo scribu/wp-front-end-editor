@@ -181,8 +181,9 @@ abstract class FEE_Core {
 		$args = self::get_args($name);
 
 		if ( $action == 'save' ) {
-			$result = $instance->save($id, $_POST['content']);
-			$result = @apply_filters($name, stripslashes_deep($result));
+			$content = stripslashes_deep($_POST['content']);
+			$result = $instance->save($id, $content);
+			$result = @apply_filters($name, $result);
 		}
 		elseif ( $action == 'get' ) {
 			$result = $instance->get($id);

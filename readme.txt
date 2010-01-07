@@ -166,6 +166,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.6.1 =
+* fixed escaping issues
+
 = 1.6 =
 * added editing of post categories
 * added editing of custom fields with multiple values
@@ -177,8 +180,8 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-6.html)
 
 = 1.5.1 =
-* fix auto-upgrade error
-* add German translation
+* fixed auto-upgrade error
+* added German translation
 
 = 1.5 =
 * added theme image swapping
