@@ -4,7 +4,7 @@ Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 2.8
 Tested up to: 2.9.1
-Stable tag: trunk
+Stable tag: 1.6.1
 
 Want to edit something? Just double-click it!
 
@@ -165,6 +165,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 3. The settings page
 
 == Changelog ==
+
+= 1.6.2 =
+* fixed warning when a NULL is passed to FEE_Field_Base::wrap()
 
 = 1.6.1 =
 * fixed escaping issues

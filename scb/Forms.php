@@ -167,25 +167,46 @@ abstract class scbForms {
 			'checked' => NULL,
 		)), EXTR_SKIP);
 
+		$a_name = is_array($name);
+		$a_value = is_array($value);
+		$a_desc = is_array($desc);
+
 		// Correct name
-		if ( !is_array($name) && is_array($value)
-			&& $type == 'checkbox'
+		if ( !$a_name && $a_value
+			&& 'checkbox' == $type
 			&& false === strpos($name, '[')
 		)
 			$args['name'] = $name = $name . '[]';
 
 		// Expand names or values
-		if ( !is_array($name) && !is_array($value) )
+		if ( !$a_name && !$a_value ) {
 			$a = array($name => $value);
-		elseif ( is_array($name) && !is_array($value) )
+		}
+		elseif ( $a_name && !$a_value ) {
 			$a = array_fill_keys($name, $value);
-		elseif ( !is_array($name) && is_array($value) )
+		}
+		elseif ( !$a_name && $a_value ) {
 			$a = array_fill_keys($value, $name);
-		else
+		}
+		else {
 			$a = array_combine($name, $value);
+		}
+		
+		// Correct descriptions
+		$_after = '';
+		if ( isset($desc) && !$a_desc && false === strpos($desc, self::token) ) {
+			if ( $a_value ) {
+				$_after = $desc;
+				$args['desc'] = $desc = $value;
+			}
+			elseif ( $a_name ) {
+				$_after = $desc;
+				$args['desc'] = $desc = $name;			
+			}
+		}
 
 		// Determine what goes where
-		if ( !is_array($name) && is_array($value) ) {
+		if ( !$a_name && $a_value ) {
 			$i1 = 'val';
 			$i2 = 'name';
 		} else {
@@ -232,7 +253,7 @@ abstract class scbForms {
 			$i++;
 		}
 
-		return implode("\n", $output);
+		return implode("\n", $output) . $_after;
 	}
 
 	// Handle args for checkboxes and radio inputs
@@ -287,7 +308,10 @@ abstract class scbForms {
 			'desc' => NULL,
 		)), EXTR_SKIP);
 
-		$extra = implode(' ', $extra);
+		if ( !empty($extra) )
+			$extra = ' ' . implode(' ', $extra);
+		else
+			$extra = '';
 
 		$value = esc_attr($value);
 

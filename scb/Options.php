@@ -34,20 +34,21 @@ class scbOptions {
 	/**
 	 * Get all data fields, certain fields or a single field
 	 *
-	 * @param string|array $field The field to get or an array of fields
+	 * @param string|array $field The field(s) to get
 	 * @return mixed Whatever is in those fields
 	 */
 	function get($field = '') {
-		if ( empty($field) )
-			return $this->data;
+		return $this->_get($field, $this->data);
+	}
 
-		if ( is_string($field) )
-			return $this->data[$field];
-
-		foreach ( $field as $key )
-			$result[] = $this->data[$key];
-
-		return $result;
+	/**
+	 * Get all default fields, certain fields or a single field
+	 *
+	 * @param string|array $field The field(s) to get
+	 * @return mixed Whatever is in those fields
+	 */
+	function get_defaults($field = '') {
+		return $this->_get($field, $this->defaults);
 	}
 
 	/**
@@ -93,6 +94,21 @@ class scbOptions {
 
 //_____INTERNAL METHODS_____
 
+
+	// Get one, more or all fields from an array
+	private function _get($field, $data) {
+		if ( empty($field) )
+			return $data;
+
+		if ( is_string($field) )
+			return $data[$field];
+
+		foreach ( $field as $key )
+			if ( isset($data[$key]) )
+				$result[] = $data[$key];
+
+		return $result;
+	}
 
 	// Magic method: $options->field
 	function __get($field) {

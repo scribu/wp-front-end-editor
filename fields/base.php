@@ -41,6 +41,9 @@ abstract class FEE_Field_Base {
 
 		self::$wrapped[$this->input_type] = true;
 
+		if ( is_null($content) )
+			$content = '';
+
 		if ( ! is_scalar($content) )
 			trigger_error("scalar expected. " . gettype($content) . " given", E_USER_WARNING);
 
