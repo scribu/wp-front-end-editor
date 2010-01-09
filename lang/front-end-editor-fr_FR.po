@@ -35,7 +35,7 @@ msgid "Enable the WYSIWYG editor"
 msgstr "Activer l'éditeur WYSIWYG"
 
 #: admin.php:11
-#: scb/AdminPage.php:314
+#: scb/AdminPage.php:329
 #@ front-end-editor
 msgid "Settings"
 msgstr "Réglages"
@@ -107,7 +107,8 @@ msgstr "Termes du billet "
 msgid "Author description"
 msgstr "Description de l'auteur "
 
-#: scb/AdminPage.php:111
+#: scb/AdminPage.php:112
+#: scb/AdminPage.php:123
 #@ front-end-editor
 msgid "Save Changes"
 msgstr "Sauvegarder les modifications"
