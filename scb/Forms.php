@@ -17,20 +17,20 @@ abstract class scbForms {
 
 		$formdata = associative array with the formdata with which to fill the elements
 	*/
+	
+	private static $args;
+	private static $formdata = array();
+	
 	static function input($args, $formdata = array()) {
 		$args = self::_validate_data($args);
 		$formdata = self::_validate_data($formdata);
 
-		// Backwards compat
+		$error = false;
 		foreach ( array('name', 'value') as $key ) {
 			$old = $key . 's';
 			if ( isset($args[$old]) )
 				$args[$key] = $args[$old];
-		}
 
-		// Check required fields
-		$error = false;
-		foreach ( array('name', 'type') as $key ) {
 			if ( isset($args[$key]) )
 				continue;
 
@@ -41,10 +41,13 @@ abstract class scbForms {
 		if ( $error )
 			return;
 
+		self::$args = $args;
+		self::$formdata = $args;
+
 		switch ( $args['type'] ) {
-			case 'select':  	return self::_select($args, $formdata);
-			case 'textarea':	return self::_textarea($args, $formdata);
-			default:			return self::_input($args, $formdata);
+			case 'select':  	return self::_select();
+			case 'textarea':	return self::_textarea();
+			default:			return self::_input();
 		}
 	}
 
@@ -53,7 +56,9 @@ abstract class scbForms {
 		if ( !empty($options) )
 			$args['value'] = $options;
 
-		return self::_select($args);
+		self::$args = $args;
+
+		return self::_select();
 	}
 
 	// Deprecated
@@ -61,7 +66,9 @@ abstract class scbForms {
 		if ( !empty($content) )
 			$args['value'] = $content;
 
-		return self::_textarea($args);
+		self::$args = $args;
+
+		return self::_textarea();
 	}
 
 
@@ -159,8 +166,8 @@ abstract class scbForms {
 	}
 
 	// From multiple inputs to single inputs
-	private static function _input($args, $formdata) {
-		extract(wp_parse_args($args, array(
+	private static function _input() {
+		extract(wp_parse_args(self::$args, array(
 			'name' => NULL,
 			'value' => NULL,
 			'desc' => NULL,
@@ -217,7 +224,7 @@ abstract class scbForms {
 		$func = in_array($type, array('checkbox', 'radio')) ? '_checkbox_single' : '_input_single';
 
 		// Set constant args
-		$const_args = self::array_extract($args, array('type', 'desc_pos', 'checked'));
+		$const_args = self::array_extract(self::$args, array('type', 'desc_pos', 'checked'));
 		if ( isset($extra) )
 			$const_args['extra'] = explode(' ', $extra);
 
@@ -240,7 +247,7 @@ abstract class scbForms {
 			// Find relevant formdata
 			$match = NULL;
 			if ( $checked === NULL ) {
-				$match = @$formdata[str_replace('[]', '', $$i1)];
+				$match = @self::$formdata[str_replace('[]', '', $$i1)];
 				if ( is_array($match) ) {
 					$match = $match[$i];
 				}
@@ -285,14 +292,15 @@ abstract class scbForms {
 
 	// Handle args for text inputs
 	private static function _input_single($args, $data) {
-		foreach ( $args as $key => &$value )
-			$$key = &$value;
-
 		$args = wp_parse_args($args, array(
-			'value' => stripslashes(esc_html($data)),
+			'value' => stripslashes($data),
 			'desc_pos' => 'after',
 			'extra' => array('class="regular-text"'),
 		));
+
+		foreach ( $args as $key => &$val )
+			$$key = &$val;
+		unset($val);
 
 		if ( FALSE === strpos($name, '[]') )
 			$extra[] = "id='{$name}'";
@@ -306,20 +314,95 @@ abstract class scbForms {
 			'name' => NULL,
 			'value' => NULL,
 			'desc' => NULL,
+			'extra' => array()
 		)), EXTR_SKIP);
 
-		if ( !empty($extra) )
-			$extra = ' ' . implode(' ', $extra);
-		else
-			$extra = '';
+		$extra = self::validate_extra($extra, $name);
 
 		$value = esc_attr($value);
 
-		// Build the item
 		$input = "<input name='{$name}' value='{$value}' type='{$type}'{$extra} /> ";
 
-		// Set label
-		if ( FALSE === strpos($desc, self::token) ) {
+		return self::add_label($input, $desc, $desc_pos);
+	}
+
+	private static function _select() {
+		extract(wp_parse_args(self::$args, array(
+			'name' => '',
+			'value' => array(),
+			'text' => '',
+			'selected' => array('foo'),	// hack to make default blank
+			'extra' => '',
+			'numeric' => false,	// use numeric array instead of associative
+			'desc' => '',
+			'desc_pos' => '',
+		)), EXTR_SKIP);
+
+		if ( empty($value) )
+			$value = array();
+
+		if ( !is_array($value) )
+			return trigger_error("'value' argument is expected to be an array", E_USER_WARNING);
+
+		if ( !self::is_associative($value) && !$numeric )
+			$value = array_combine($value, $value);
+
+		if ( isset(self::$formdata[$name]) )
+			$cur_val = self::$formdata[$name];
+		else
+			$cur_val = $selected;
+
+		if ( false === $text ) {
+			$opts = '';
+		} else {
+			$opts = "\t<option value=''";
+			if ( $cur_val === array('foo') )
+				$opts .= " selected='selected'";
+			$opts .= ">{$text}</option>\n";
+		}
+
+		foreach ( $value as $key => $value ) {
+			if ( empty($key) || empty($value) )
+				continue;
+
+			$cur_extra = array();
+			if ( (string) $key == (string) $cur_val )
+				$cur_extra[] = "selected='selected'";
+
+			$cur_extra = self::validate_extra($cur_extra, $key);
+
+			$opts .= "\t<option value='{$key}'{$cur_extra}>{$value}</option>\n";
+		}
+
+		$extra = self::validate_extra($extra, $name);
+
+		$input =  "<select name='{$name}'$extra>\n{$opts}</select>";
+		
+		return self::add_label($input, $desc, $desc_pos);
+	}
+
+	private static function _textarea() {
+		extract(wp_parse_args(self::$args, array(
+			'name' => '',
+			'extra' => 'class="widefat"',
+			'value' => '',
+			'escaped' => false,
+		)), EXTR_SKIP);
+
+		if ( !$escaped )
+			$value = wp_htmledit_pre(stripslashes($value));
+
+		$extra = self::validate_extra($extra, $name);
+
+		return "<textarea name='{$name}'{$extra}>\n{$value}\n</textarea>\n";
+	}
+
+	private static function add_label($input, $desc, $desc_pos) {
+		if ( empty($desc_pos) )
+			$desc_pos = 'after';
+
+		$label = '';
+		if ( false === strpos($desc, self::token) ) {
 			switch ($desc_pos) {
 				case 'before': $label = $desc . ' ' . self::token; break;
 				case 'after': $label = self::token . ' ' . $desc;
@@ -339,85 +422,14 @@ abstract class scbForms {
 		return $output;
 	}
 
-	private static function _select($args, $formdata) {
-		extract(wp_parse_args($args, array(
-			'name' => '',
-			'value' => array(),
-			'text' => '',
-			'selected' => array('foo'),	// hack to make default blank
-			'extra' => '',
-			'numeric' => false	// use numeric array instead of associative
-		)), EXTR_SKIP);
-
-		if ( isset($formdata[$name]) )
-			$cur_val = $formdata[$name];
-		else
-			$cur_val = $selected;
-
-		if ( empty($value) )
-			$value = array();
-
-		if ( !is_array($value) )
-			return trigger_error("Second argument is expected to be an array", E_USER_WARNING);
-
-		if ( empty($value) )
-			$value = array('' => '');
-
-		if ( !self::is_associative($value) && !$numeric )
-			$value = array_combine($value, $value);
-
-		if ( FALSE === $text ) {
-			$opts = '';
-		} else {
-			$opts = "\t<option value=''";
-			if ( $cur_val === array('foo') )
-				$opts .= " selected='selected'";
-			$opts .= ">{$text}</option>\n";
-		}
-
-		foreach ( $value as $key => $value ) {
-			if ( empty($key) && empty($value) )
-				continue;
-
-			$cur_extra = array();
-			if ( (string) $key == (string) $cur_val )
-				$cur_extra[] = "selected='selected'";
-
-			$cur_extra = implode(' ', $cur_extra);
-			if ( !empty($cur_extra) )
-				$cur_extra = ' ' . $cur_extra;
-
-			$opts .= "\t<option value='{$key}'{$cur_extra}>{$value}</option>\n";
-		}
-
-		$extra = self::validate_extra($extra, $name);
-
-		return "<select name='{$name}' $extra>\n{$opts}</select>\n";
-	}
-
-	private static function _textarea($args, $formdata) {
-		extract(wp_parse_args($args, array(
-			'name' => '',
-			'extra' => 'class="widefat"',
-			'value' => '',
-			'escaped' => FALSE,
-		)), EXTR_SKIP);
-
-		if ( !$escaped )
-			$value = wp_htmledit_pre(stripslashes($value));
-
-		$extra = self::validate_extra($extra, $name);
-
-		return "<textarea name='{$name}'{$extra}>\n{$value}\n</textarea>\n";
-	}
-
 	private static function validate_extra($extra, $name, $implode = true) {
-		$extra = explode(' ', $extra);
-		if ( FALSE === strpos($name, '[]') )
-			$extra[] = " id='{$name}'";
-		$extra = implode(' ', $extra);
+		if ( !is_array($extra) )
+			$extra = explode(' ', $extra);
 
-		return $extra;
+		if ( empty($extra) )
+			return '';
+
+		return ' ' . ltrim(implode(' ', $extra));
 	}
 
 // Utilities
