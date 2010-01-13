@@ -99,7 +99,7 @@ class FEE_Admin extends scbBoxesPage {
 			return;
 
 		foreach ( array('rich', 'chunks', 'highlight') as $key )
-			$this->options->$key = (bool) $_POST[$key];
+			$this->options->$key = (bool) @$_POST[$key];
 
 		$this->admin_msg(__('Settings <strong>saved</strong>.'));
 	}

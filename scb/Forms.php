@@ -1,6 +1,6 @@
 <?php
 
-abstract class scbForms {
+class scbForms {
 	const token = '%input%';
 
 	/* Generates one or more form elements of the same type,
@@ -18,31 +18,27 @@ abstract class scbForms {
 		$formdata = associative array with the formdata with which to fill the elements
 	*/
 	
-	private static $args;
-	private static $formdata = array();
-	
+	protected static $args;
+	protected static $formdata = array();
+
 	static function input($args, $formdata = array()) {
-		$args = self::_validate_data($args);
-		$formdata = self::_validate_data($formdata);
+		$args = self::validate_data($args);
 
 		$error = false;
 		foreach ( array('name', 'value') as $key ) {
 			$old = $key . 's';
-			if ( isset($args[$old]) )
+
+			if ( isset($args[$old]) ) {
 				$args[$key] = $args[$old];
-
-			if ( isset($args[$key]) )
-				continue;
-
-			$error = true;
-			trigger_error("No $key specified", E_USER_WARNING);
+				unset($args[$old]);
+			}
 		}
 
-		if ( $error )
-			return;
+		if ( !isset($args['name']) || empty($args['name']) )
+			return trigger_error("Empty name", E_USER_WARNING);
 
 		self::$args = $args;
-		self::$formdata = $args;
+		self::$formdata = self::validate_data($formdata);
 
 		switch ( $args['type'] ) {
 			case 'select':  	return self::_select();
@@ -152,7 +148,7 @@ abstract class scbForms {
 
 
 	// Recursivly transform empty arrays to ''
-	private static function _validate_data($data) {
+	private static function validate_data($data) {
 		if ( empty($data) )
 			return '';
 
@@ -160,7 +156,7 @@ abstract class scbForms {
 			return $data;
 
 		foreach ( $data as $key => &$value )
-			$value = self::_validate_data($value);
+			$value = self::validate_data($value);
 
 		return $data;
 	}
@@ -172,48 +168,48 @@ abstract class scbForms {
 			'value' => NULL,
 			'desc' => NULL,
 			'checked' => NULL,
-		)), EXTR_SKIP);
+		)));
 
-		$a_name = is_array($name);
-		$a_value = is_array($value);
-		$a_desc = is_array($desc);
+		$m_name = is_array($name);
+		$m_value = is_array($value);
+		$m_desc = is_array($desc);
 
 		// Correct name
-		if ( !$a_name && $a_value
+		if ( !$m_name && $m_value
 			&& 'checkbox' == $type
 			&& false === strpos($name, '[')
 		)
 			$args['name'] = $name = $name . '[]';
 
 		// Expand names or values
-		if ( !$a_name && !$a_value ) {
+		if ( !$m_name && !$m_value ) {
 			$a = array($name => $value);
 		}
-		elseif ( $a_name && !$a_value ) {
+		elseif ( $m_name && !$m_value ) {
 			$a = array_fill_keys($name, $value);
 		}
-		elseif ( !$a_name && $a_value ) {
+		elseif ( !$m_name && $m_value ) {
 			$a = array_fill_keys($value, $name);
 		}
 		else {
 			$a = array_combine($name, $value);
 		}
-		
+
 		// Correct descriptions
 		$_after = '';
-		if ( isset($desc) && !$a_desc && false === strpos($desc, self::token) ) {
-			if ( $a_value ) {
+		if ( isset($desc) && !$m_desc && false === strpos($desc, self::token) ) {
+			if ( $m_value ) {
 				$_after = $desc;
 				$args['desc'] = $desc = $value;
 			}
-			elseif ( $a_name ) {
+			elseif ( $m_name ) {
 				$_after = $desc;
 				$args['desc'] = $desc = $name;			
 			}
 		}
 
 		// Determine what goes where
-		if ( !$a_name && $a_value ) {
+		if ( !$m_name && $m_value ) {
 			$i1 = 'val';
 			$i2 = 'name';
 		} else {
@@ -278,11 +274,11 @@ abstract class scbForms {
 			$$key = &$val;
 		unset($val);
 
-		if ( $checked === NULL && $name !== NULL && $value == $data )
+		if ( $checked === NULL && $value == $data )
 			$checked = true;
 
 		if ( $checked )
-			$extra[] = "checked='checked'";
+			$extra[] = 'checked="checked"';
 
 		if ( $desc === NULL && !is_bool($value) )
 			$desc = str_replace('[]', '', $value);
@@ -302,7 +298,7 @@ abstract class scbForms {
 			$$key = &$val;
 		unset($val);
 
-		if ( FALSE === strpos($name, '[]') )
+		if ( FALSE === strpos($name, '[') )
 			$extra[] = "id='{$name}'";
 
 		return self::_input_gen($args);
@@ -315,7 +311,7 @@ abstract class scbForms {
 			'value' => NULL,
 			'desc' => NULL,
 			'extra' => array()
-		)), EXTR_SKIP);
+		)));
 
 		$extra = self::validate_extra($extra, $name);
 
@@ -413,7 +409,6 @@ abstract class scbForms {
 
 		$label = trim(str_replace(self::token, $input, $label));
 
-		// Add label
 		if ( empty($desc) )
 			$output = $input . "\n";
 		else
@@ -459,7 +454,8 @@ function array_fill_keys($keys, $value) {
 	if ( !is_array($keys) )
 		trigger_error('First argument is expected to be an array.' . gettype($keys) . 'given', E_USER_WARNING);
 
-	foreach($keys as $key)
+	$r = array();
+	foreach ( $keys as $key )
 		$r[$key] = $value;
 
 	return $r;
