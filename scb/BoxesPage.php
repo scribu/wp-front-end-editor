@@ -23,7 +23,7 @@ abstract class scbBoxesPage extends scbAdminPage {
 
 		Available columns: normal, side, column3, column4
 	*/
-	protected $boxes;
+	protected $boxes = array();
 
 	function page_init() {
 		if ( !isset($this->args['columns']) )
@@ -108,8 +108,11 @@ abstract class scbBoxesPage extends scbAdminPage {
 		check_admin_referer($this->nonce);
 
 		// Box handler
-		foreach ( $this->boxes as $box )
-			call_user_func(array($this, $box[0] . '_handler'));
+		foreach ( $this->boxes as $box ) {
+			$args = isset($box[4]) ? $box[4] : array();
+
+			call_user_func_array(array($this, $box[0] . '_handler'), $args);
+		}
 
 		if ( $this->options )
 			$this->formdata = $this->options->get();
@@ -142,12 +145,47 @@ abstract class scbBoxesPage extends scbAdminPage {
 		wp_enqueue_script('wp-lists');
 		wp_enqueue_script('postbox');
 
-		$this->_add_boxes();
+		$registered = array();
+		foreach($this->boxes as $box_args) {
+			@list($name, $title, $context, $priority, $args) = $box_args;
+
+			if ( empty($title) )
+				$title = ucfirst($name);
+			if ( empty($context) )
+				$context = 'normal';
+			if ( empty($priority) )
+				$priority = 'default';
+			if ( empty($args) )
+				$args = array();
+
+			if ( isset($registered[$name]) ) {
+				if ( empty($args) )
+					trigger_error("Duplicate box name: $name", E_USER_NOTICE);
+
+				$name = $this->_increment($name);
+			} else {
+				$registered[$name] = true;
+			}
+
+			add_meta_box($name, $title, array($this, '_intermediate_callback'), $this->pagehook, $context, $priority, $args);
+		}
 	}
 
-	function _add_boxes() {
-		foreach($this->boxes as $i)
-			add_meta_box($i[0], $i[1], array($this, "{$i[0]}_box"), $this->pagehook, $i[2]);
+	// Make it so that $args is actually what's passed to the callback
+	function _intermediate_callback($_, $box) {
+		list($name) = explode('-', $box['id']);
+
+		call_user_func_array(array($this, $name . '_box'), $box['args']);
+	}
+
+	private function _increment($name) {
+		$parts = explode('-', $name);
+		if ( isset($parts[1]) )
+			$parts[1]++;
+		else
+			$parts[1] = 2;
+		
+		return implode('-', $parts);
 	}
 
 	// Adds necesary code for JS to work

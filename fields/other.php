@@ -237,8 +237,6 @@ class FEE_Field_Bloginfo extends FEE_Field_Base {
 class FEE_Field_Image extends FEE_Field_Base {
 
 	static function init($file) {
-		add_action('admin_print_styles', array(__CLASS__, 'styles'));
-
 		register_uninstall_hook($file, array(__CLASS__, 'uninstall'));
 	}
 
@@ -272,13 +270,6 @@ class FEE_Field_Image extends FEE_Field_Base {
 
 	private static function get_key($key) {
 		return 'editable_image_' . trim(strip_tags($key));
-	}
-
-	static function styles() {
-		if ( $GLOBALS['pagenow'] != 'media-upload.php' )
-			return;
-
-		wp_enqueue_style('editable-image-box', plugins_url('style.css', FEE_PLUGIN_FILE));
 	}
 
 	static function uninstall() {

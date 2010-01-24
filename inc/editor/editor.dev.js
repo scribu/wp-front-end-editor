@@ -679,16 +679,7 @@ jQuery(document).ready(function($){
 	});
 
 	classes['textarea'] = classes['input'].extend({
-		input_tag: '<textarea>',
-
-		set_input: function(content) {
-			var self = this;
-			
-			self._super(content);
-
-			if ( self.type == 'textarea' )
-				self.input.growfield();
-		}
+		input_tag: '<textarea rows="10">',
 	});
 
 	classes['rich'] = classes['textarea'].extend({

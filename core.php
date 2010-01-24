@@ -66,12 +66,6 @@ abstract class FEE_Core {
 		$wrapped = FEE_Field_Base::get_wrapped();
 		$dependencies = array('jquery');
 
-		// Autogrow
-		if ( array_key_exists('textarea', $wrapped) ) {
-			wp_register_script('growfield', self::$plugin_url . 'growfield.js', array('jquery'), '2', true);
-			$dependencies[] = 'growfield';
-		}
-
 		// Autosuggest
 		if ( array_key_exists('terminput', $wrapped) ) {
 			$dependencies[] = 'suggest';
@@ -81,7 +75,7 @@ abstract class FEE_Core {
 		if ( array_key_exists('rich', $wrapped) ) {
 			$data['nicedit_icons'] = self::$plugin_url . 'nicedit/nicEditorIcons.gif';
 
-			wp_register_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23',true);
+			wp_register_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true);
 			$dependencies[] = 'nicedit';
 		}
 

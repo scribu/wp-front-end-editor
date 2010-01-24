@@ -149,11 +149,11 @@ class scbForms {
 
 	// Recursivly transform empty arrays to ''
 	private static function validate_data($data) {
-		if ( empty($data) )
-			return '';
-
 		if ( ! is_array($data) )
 			return $data;
+
+		if ( empty($data) )
+			return '';
 
 		foreach ( $data as $key => &$value )
 			$value = self::validate_data($value);
@@ -335,7 +335,7 @@ class scbForms {
 		)), EXTR_SKIP);
 
 		if ( empty($value) )
-			$value = array();
+			$value = array('' => '');
 
 		if ( !is_array($value) )
 			return trigger_error("'value' argument is expected to be an array", E_USER_WARNING);
