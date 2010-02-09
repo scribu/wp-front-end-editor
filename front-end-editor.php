@@ -61,7 +61,6 @@ function _fee_init() {
 	}
 }
 
-add_action('init', 'fee_register_defaults');
 function fee_register_defaults() {
 	$fields = array(
 		'the_title' => array(
@@ -164,3 +163,4 @@ function fee_register_defaults() {
 	do_action('front_ed_fields');
 }
 
+add_action('init', 'fee_register_defaults');

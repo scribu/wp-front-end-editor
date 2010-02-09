@@ -120,6 +120,11 @@ class scbOptions {
 		$this->set($field, $value);
 	}
 
+	// Magic method: isset($options->field)
+	function __isset($field) {
+		return isset($this->data[$field]);
+	}
+
 	// Add new fields with their default values
 	function _update_reset() {
 		$this->update(array_merge($this->defaults, $this->data));

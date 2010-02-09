@@ -248,7 +248,7 @@ class scbForms {
 					$match = $match[$i];
 				}
 			} else if ( is_array($checked) ) {
-				$cur_args['checked'] = $checked[$i];
+				$cur_args['checked'] = isset($checked[$i]) && $checked[$i];
 			}
 
 			$output[] = self::$func($cur_args, $match);

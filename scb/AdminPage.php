@@ -5,6 +5,7 @@ Creates an admin page
 
 You must set $this->args and define the page_content() method
 */
+
 abstract class scbAdminPage {
 	/** Page args
 	 * string $parent  (default: options-general.php)
@@ -52,6 +53,7 @@ abstract class scbAdminPage {
 		}
 
 		add_action('admin_menu', array($this, 'page_init'));
+		add_filter('contextual_help', array($this, '_contextual_help'), 10, 2);
 
 		if ( $this->args['action_link'] )
 			add_filter('plugin_action_links_' . plugin_basename($file), array($this, '_action_link'));
@@ -63,6 +65,10 @@ abstract class scbAdminPage {
 	// This is where the css and js go
 	// Both wp_enqueue_*() and inline code can be added
 	function page_head(){}
+
+	// This is where the contextual help goes
+	// @return string
+	function page_help(){}
 
 	// A generic page header
 	function page_header() {
@@ -141,9 +147,17 @@ abstract class scbAdminPage {
 
 	/*
 	Mimics scbForms::form_wrap()
+
 	$this->form_wrap($content);	// generates a form with a default submit button
+
 	$this->form_wrap($content, false); // generates a form with no submit button
-	$this->form_wrap($content, $text = 'Save changes', $name = 'action', $class = 'button');	// the last 3 arguments are sent to submit_button()
+
+	// the second argument is sent to submit_button()
+	$this->form_wrap($content, array(
+		'text' => 'Save changes', 
+		'name' => 'action', 
+		'ajax' => true,
+	));
 	*/
 	function form_wrap($content, $submit_button = true) {
 		if ( is_array($submit_button) ) {
@@ -246,8 +260,19 @@ abstract class scbAdminPage {
 
 		$this->ajax_response();
 
-		add_action('admin_footer', array($this, 'ajax_submit'), 20);
 		add_action('admin_print_styles-' . $this->pagehook, array($this, 'page_head'));
+
+		add_action('admin_footer', array($this, 'ajax_submit'), 20);
+	}
+
+	function _contextual_help($help, $screen) {
+		if ( is_object($screen) )
+			$screen = $screen->id;
+
+		if ( $screen == $this->pagehook && $actual_help = $this->page_help() )
+			return $actual_help;
+
+		return $help;
 	}
 
 	function ajax_response() {
