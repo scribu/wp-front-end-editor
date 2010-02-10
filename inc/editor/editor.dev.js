@@ -762,7 +762,7 @@ jQuery(document).ready(function($){
 				'bold', 'italic', 'strikethrough',
 				'left','center', 'right',
 				'ul', 'ol',
-				'fontFormat',
+				'fontFormat', 'fontFamily',
 				'link', 'unlink', 'image',
 				'xhtml'
 			]

@@ -309,7 +309,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 
 		$data = get_post_meta($post_id, $key);
 
-		return $data[$i];
+		return @$data[$i];
 	}
 
 	function save($id, $new_value) {
@@ -317,7 +317,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 
 		$data = get_post_meta($post_id, $key);
 
-		$old_value = $data[$i];
+		$old_value = @$data[$i];
 
 		update_post_meta($post_id, $key, $new_value, $old_value);
 

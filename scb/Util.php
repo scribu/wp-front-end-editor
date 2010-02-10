@@ -33,10 +33,10 @@ class scbUtil {
 	}
 
 	// Minimalist HTML framework
-	static function html($tag, $content = '', $indent = '') {
-		list($closing) = explode(' ', $tag);
+	static function html($tag, $content = '', $indent = null) {
+		list($closing) = explode(' ', $tag, 2);
 
-		return "{$indent}<{$tag}>{$content}{$indent}</{$closing}>";
+		return "<{$tag}>{$content}</{$closing}>";
 	}
 
 	// Generate an <a> tag
