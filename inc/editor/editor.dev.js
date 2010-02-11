@@ -760,10 +760,11 @@ jQuery(document).ready(function($){
 			iconsPath: frontEditorData.nicedit_icons,
 			buttonList: [
 				'bold', 'italic', 'strikethrough',
-				'ul', 'ol',
 				'left','center', 'right',
 				'fontFormat', 'fontFamily', 'forecolor',
-				'link', 'unlink', 'image',
+				'removeformat',
+				'ul', 'ol',
+				'link', 'image',
 				'xhtml'
 			]
 		},
