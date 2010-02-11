@@ -111,7 +111,10 @@ abstract class scbBoxesPage extends scbAdminPage {
 		foreach ( $this->boxes as $box ) {
 			$args = isset($box[4]) ? $box[4] : array();
 
-			call_user_func_array(array($this, $box[0] . '_handler'), $args);
+			$handler = $box[0] . '_handler';
+
+			if ( method_exists($this, $handler) )
+				call_user_func_array(array($this, $handler), $args);
 		}
 
 		if ( $this->options )

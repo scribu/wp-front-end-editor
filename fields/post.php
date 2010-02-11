@@ -127,7 +127,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		if ( empty($chunk_content) || FALSE !== strpos($chunk_content, self::delim) )
 			$this->force_refresh();
 
-		return $chunk_content;
+		die($chunk_content);
 	}
 
 	// Split content into chunks

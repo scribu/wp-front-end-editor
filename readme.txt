@@ -167,8 +167,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.7 =
-* also update post date when editing
+* when editing the post content, also update the post date
 * drop Growfield from textareas
+* added fontFamily button to rich editor
 * fixed warning when a NULL is passed to FEE_Field_Base::wrap()
 
 = 1.6.1 =
