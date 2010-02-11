@@ -152,12 +152,15 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		return 'widget';
 	}
 
-	function wrap($content) {
-		return parent::wrap($content, 0);
-	}
-
 	protected function setup() {
 		$this->field = str_replace('widget_', '', $this->get_filter());
+	}
+
+	function wrap($content) {
+		if ( 'text' == $this->field && empty($content) )
+			$content = $this->placeholder();
+
+		return parent::wrap($content, 0);
 	}
 
 	function get($id) {
@@ -188,6 +191,9 @@ class FEE_Field_Widget extends FEE_Field_Base {
 			  && 'text' == $this->field
 			  && $widgets[$widget_id]['filter'] )
 				$content = wpautop($content);
+
+			if ( 'text' == $this->field && empty($content) )
+				$content = $this->placeholder();
 
 			return $content;
 		}
