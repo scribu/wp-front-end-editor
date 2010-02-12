@@ -160,7 +160,7 @@ function fee_register_defaults() {
 		register_fronted_field($filter, $args);
 
 	// Safe hook for new editable fields to be registered
-	do_action('front_ed_fields');
+	do_action('front_end_editor_fields');
 }
 
 add_action('init', 'fee_register_defaults');

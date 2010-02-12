@@ -17,7 +17,7 @@ abstract class FEE_Core {
 
 		self::$plugin_url = plugin_dir_url($file) . 'inc/';
 
-		add_action('front_ed_fields', array(__CLASS__, 'make_instances'), 100);
+		add_action('front_end_editor_fields', array(__CLASS__, 'make_instances'), 100);
 
 		add_action('wp_ajax_front-editor', array(__CLASS__, 'ajax_response'));
 
@@ -25,7 +25,7 @@ abstract class FEE_Core {
 	}
 
 	static function _init() {
-		if ( ! is_user_logged_in() || apply_filters('front_ed_disable', false) )
+		if ( ! is_user_logged_in() || apply_filters('front_end_editor_disable', false) )
 			return;
 
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);

@@ -73,6 +73,7 @@ abstract class scbAdminPage {
 	// A generic page header
 	function page_header() {
 		echo "<div class='wrap'>\n";
+		screen_icon();
 		echo "<h2>" . $this->args['page_title'] . "</h2>\n";
 	}
 

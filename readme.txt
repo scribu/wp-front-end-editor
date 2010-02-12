@@ -87,7 +87,7 @@ You can either install it automatically from the WordPress admin, or do it manua
 
 == Frequently Asked Questions ==
 
-= "Parse error: syntax error, unexpected T_CLASS..." Help! =
+= Error on activation: "Parse error: syntax error, unexpected T_CLASS..." =
 
 Make sure your host is running PHP 5. Add this line to wp-config.php to check:
 
@@ -168,9 +168,10 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 = 1.7 =
 * when editing the post content, also update the post date
-* drop Growfield from textareas
+* dropped Growfield from textareas
 * added font-family and font-color buttons to rich editor
 * fixed warning when a NULL is passed to FEE_Field_Base::wrap()
+* renamed hooks from 'front_ed_*' to 'front_end_editor_*'
 
 = 1.6.1 =
 * fixed escaping issues

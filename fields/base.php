@@ -96,7 +96,7 @@ abstract class FEE_Field_Base {
 	 * @return bool
 	 */
 	final public function allow($object_id) {
-		return apply_filters('front_ed_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type);
+		return apply_filters('front_end_editor_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type);
 	}
 
 	/**
