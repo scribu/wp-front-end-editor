@@ -663,7 +663,7 @@ jQuery(document).ready(function($){
 			self.form = inline ? $('<span>') : $('<div>');
 
 			self.form
-				.attr('class', self.name + '-fee-form fee-form')
+				.attr('class', 'fee-form fee-filter-' + self.name)
 				.append(self.save_button)
 				.append(self.cancel_button);
 
@@ -802,7 +802,7 @@ jQuery(document).ready(function($){
 	});
 
 	// Widget fields hack: Add id attr to each element
-	$('.widget_title-fee-field, .widget_text-fee-field').each(function() {
+	$('.fee-filter-widget_title, .fee-filter-widget_text').each(function() {
 		var $el = $(this);
 		var id = $el.parents('.widget').attr('id');
 
@@ -815,7 +815,7 @@ jQuery(document).ready(function($){
 
 	// Create field instances
 	$.each(frontEditorData.fields, function(name, type) {
-		$('.' + name + '-fee-field').each(function() {
+		$('.fee-filter-' + name).each(function() {
 			var $el = $(this);
 
 			var id = $el.attr('id').substr(4);
