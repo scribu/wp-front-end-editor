@@ -273,8 +273,6 @@ class FEE_Field_Category extends FEE_Field_Terms {
 // Handles the post thumbnail
 class FEE_Field_Thumbnail extends FEE_Field_Post {
 	function wrap($html, $post_id, $post_thumbnail_id, $size) {
-		$html = $this->placehold($html);
-
 		return parent::wrap($html, "$post_id#$size");
 	}
 
@@ -297,10 +295,6 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 		list($url) = image_downsize($thumbnail_id, $size);
 
 		return $url;
-	}
-
-	protected function placeholder() {
-		return __('Set thumbnail', 'front-end-editor');
 	}
 }
 
