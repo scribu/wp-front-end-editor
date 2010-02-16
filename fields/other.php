@@ -171,7 +171,6 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	private function do_($action, $id, $content = '') {
-debug($id);
 		list($widget_type, $widget_id) = explode('-', $id);
 
 		$widget_key = 'widget_' . $widget_type;
