@@ -146,7 +146,7 @@ function fee_register_defaults() {
 		'widget_text' => array(
 			'title' => __('Text widget content', 'front-end-editor'),
 			'class' => 'FEE_Field_Widget',
-			'type' => 'textarea',
+			'type' => FEE_Core::$options->rich ? 'rich' : 'textarea',
 		),
 
 		'bloginfo' => array(

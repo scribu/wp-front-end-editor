@@ -35,8 +35,8 @@ abstract class FEE_Field_Base {
 	 * Mark the field as editable
 	 * @return string Wrapped content
 	 */
-	public function wrap($content, $id, $inline = false) {
-		if ( ! $this->allow($id) )
+	public function wrap($content, $object_id, $inline = false) {
+		if ( ! $this->allow($object_id) )
 			return $content;
 
 		self::$wrapped[$this->input_type] = true;
@@ -48,11 +48,11 @@ abstract class FEE_Field_Base {
 			trigger_error("scalar expected. " . gettype($content) . " given", E_USER_WARNING);
 
 		$class = 'front-ed-' . $this->filter . ' front-ed';
-		$id = 'fee_' . esc_attr($id);
+		$object_id = 'fee_' . esc_attr($object_id);
 
 		$wrap_tag = ( $inline || in_array($this->input_type, array('input', 'terminput', 'image')) ) ? 'span' : 'div';
 
-		return html("$wrap_tag id='{$id}' class='{$class}'", $content);
+		return html("$wrap_tag id='{$object_id}' class='{$class}'", $content);
 	}
 
 	/**

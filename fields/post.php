@@ -20,8 +20,8 @@ class FEE_Field_Post extends FEE_Field_Base {
 		return parent::wrap($content, $post_id);
 	}
 
-	protected function _get_id($post_id) {
-		if ( ! in_the_loop() )
+	protected function _get_id($post_id = 0, $in_loop = true ) {
+		if ( $in_loop && !in_the_loop() )
 			return false;
 
 		if ( ! $post_id )
@@ -71,8 +71,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	protected function set_post_global($post_id) {
-		global $post;
-		$post = get_post($post_id);
+		$GLOBALS['post'] = get_post($post_id);
 	}
 }
 
@@ -203,11 +202,12 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 class FEE_Field_Terms extends FEE_Field_Post {
 
 	function wrap($content, $taxonomy, $before, $sep, $after) {
-		$id = implode('#', array(get_the_ID(), $taxonomy));
+		if ( ! $post_id = $this->_get_id() )
+			return $content;
 
 		$content = $this->placehold(str_replace(array($before, $after), '', $content));
 
-		return $before . parent::wrap($content, $id) . $after;
+		return $before . FEE_Field_Base::wrap($content, "$post_id#$taxonomy") . $after;
 	}
 
 	function get($id) {
@@ -272,8 +272,12 @@ class FEE_Field_Category extends FEE_Field_Terms {
 
 // Handles the post thumbnail
 class FEE_Field_Thumbnail extends FEE_Field_Post {
+
 	function wrap($html, $post_id, $post_thumbnail_id, $size) {
-		return parent::wrap($html, "$post_id#$size");
+		if ( ! $post_id = $this->_get_id($post_id, false) )
+			return $content;
+
+		return FEE_Field_Base::wrap($html, "$post_id#$size");
 	}
 
 	function get($id) {
