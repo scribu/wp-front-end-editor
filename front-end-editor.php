@@ -155,6 +155,12 @@ function fee_register_defaults() {
 			'argc' => 2,
 		),
 
+		'editable_option' => array(
+			'title' => __('Site options', 'front-end-editor'),
+			'class' => 'FEE_Field_Option',
+			'type' => 'input',
+		),
+
 		'editable_image' => array(
 			'title' => __('Theme images', 'front-end-editor'),
 			'class' => 'FEE_Field_Image',

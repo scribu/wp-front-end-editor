@@ -233,9 +233,65 @@ class FEE_Field_Bloginfo extends FEE_Field_Base {
 		return $content;
 	}
 
-	function check($id = 0) {
+	function check($key = 0) {
 		return current_user_can('manage_options');
 	}
+}
+
+// Handles editable_option fields
+class FEE_Field_Option extends FEE_Field_Base {
+
+	static function init($file) {
+		register_uninstall_hook($file, array(__CLASS__, 'uninstall'));
+	}
+
+	static function uninstall() {
+		global $wpdb;
+
+		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'editable!_option!_%' ESCAPE '!'");
+	}
+
+	static function get_object_type() {
+		return 'option';
+	}
+
+	function wrap($content, $key = 0) {
+		if ( ! $this->check($key) )
+			return $content;
+
+		if ( empty($content) )
+			$content = $this->placeholder();
+
+		return parent::wrap($content, $key);
+	}
+
+	function get($key) {
+		return get_option($key);
+	}
+
+	function save($key, $content) {
+		update_option($key, $content);
+
+		$content = $this->placehold($content);
+
+		return $content;
+	}
+
+	function check($key = 0) {
+		return current_user_can('manage_options');
+	}
+}
+
+function editable_option($key, $safety = true, $echo = true) {
+	if ( $safety )
+		$key = "editable_option_$key";
+
+	$output = apply_filters('editable_option', get_option($key), $key);
+
+	if ( $echo )
+		echo $output;
+
+	return $output;
 }
 
 // Handles editable_image fields
@@ -243,6 +299,12 @@ class FEE_Field_Image extends FEE_Field_Base {
 
 	static function init($file) {
 		register_uninstall_hook($file, array(__CLASS__, 'uninstall'));
+	}
+
+	static function uninstall() {
+		global $wpdb;
+
+		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'editable!_image!_%' ESCAPE '!'");
 	}
 
 	static function get_object_type() {
@@ -276,12 +338,6 @@ class FEE_Field_Image extends FEE_Field_Base {
 	private static function get_key($key) {
 		return 'editable_image_' . trim(strip_tags($key));
 	}
-
-	static function uninstall() {
-		global $wpdb;
-
-		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'editable!_image!_%' ESCAPE '!'");
-	}
 }
 
 function editable_image($key, $default_url, $extra_attr = '', $echo = true) {
@@ -308,9 +364,9 @@ function editable_image($key, $default_url, $extra_attr = '', $echo = true) {
 
 	$img = apply_filters('editable_image', "<img $attr_str />", $key, $default_url);
 
-	if ( ! $echo )
-		return $img;
-
-	echo $img;
+	if ( $echo )
+		echo $img;
+	
+	return $img;
 }
 

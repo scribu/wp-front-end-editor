@@ -167,7 +167,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.7 =
-* new editable field: post thumbnails
+* new editable fields: arbitrary options & post thumbnails
 * when editing the post content, also update the post date
 * load CSS only when needed
 * dropped Growfield from textareas
@@ -176,6 +176,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * fixed: after editing linked post title, the title is not linked anymore
 * fixed: warning when a NULL is passed to FEE_Field_Base::wrap()
 * renamed hooks from 'front_ed_*' to 'front_end_editor_*'
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-7.html)
 
 = 1.6.1 =
 * fixed escaping issues
