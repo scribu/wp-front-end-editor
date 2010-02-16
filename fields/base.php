@@ -47,7 +47,7 @@ abstract class FEE_Field_Base {
 		if ( ! is_scalar($content) )
 			trigger_error("scalar expected. " . gettype($content) . " given", E_USER_WARNING);
 
-		$class = 'front-ed-' . $this->filter . ' front-ed';
+		$class = $this->filter . '-fee-field fee-field';
 		$object_id = 'fee_' . esc_attr($object_id);
 
 		$wrap_tag = ( $inline || in_array($this->input_type, array('input', 'terminput', 'image')) ) ? 'span' : 'div';

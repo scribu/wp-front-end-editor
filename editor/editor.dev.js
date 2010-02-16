@@ -262,8 +262,8 @@ jQuery(document).ready(function($){
 			tb_show(frontEditorData.caption, frontEditorData.admin_url +
 				'/media-upload.php?type=image&TB_iframe=true&width=640&editable_image=1');
 
-			var $revert = $('<a id="fee_img_revert" href="#">').text(frontEditorData.img_revert);
-			
+			var $revert = $('<a id="fee-img-revert" href="#">').text(frontEditorData.img_revert);
+
 			$revert.click(function(ev){
 				self.ajax_set(-1);
 			});
@@ -358,7 +358,7 @@ jQuery(document).ready(function($){
 
 			self.input
 				.attr('id', 'edit_' + self.el.attr('id'))
-				.addClass('front-editor-content')
+				.attr('class', 'fee-form-content')
 				.prependTo(self.form);
 		},
 
@@ -648,12 +648,12 @@ jQuery(document).ready(function($){
 
 			// Button markup
 			self.save_button = $('<button>')
-				.attr({'class': 'front-editor-save', 'title': frontEditorData.save_text})
+				.attr({'class': 'fee-form-save', 'title': frontEditorData.save_text})
 				.text(frontEditorData.save_text)
 				.click(form_submit);
 
 			self.cancel_button = $('<button>')
-				.attr({'class': 'front-editor-cancel', 'title': frontEditorData.cancel_text})
+				.attr({'class': 'fee-form-cancel', 'title': frontEditorData.cancel_text})
 				.text('X')
 				.click(form_remove);
 
@@ -663,7 +663,7 @@ jQuery(document).ready(function($){
 			self.form = inline ? $('<span>') : $('<div>');
 
 			self.form
-				.addClass('front-editor-container')
+				.attr('class', self.name + '-fee-form fee-form')
 				.append(self.save_button)
 				.append(self.cancel_button);
 
@@ -694,9 +694,9 @@ jQuery(document).ready(function($){
 
 			self.input.suggest(frontEditorData.ajax_url + '?action=ajax-tag-search&tax=' + self.id.split('#')[1], {
 				multiple: true,
-				resultsClass: 'fee_suggest_results',
-				selectClass: 'fee_suggest_over',
-				matchClass: 'fee_suggest_match'
+				resultsClass: 'fee-suggest-results',
+				selectClass: 'fee-suggest-over',
+				matchClass: 'fee-suggest-match'
 			});
 		}
 	});
@@ -802,7 +802,7 @@ jQuery(document).ready(function($){
 	});
 
 	// Widget fields hack: Add id attr to each element
-	$('.front-ed-widget_title, .front-ed-widget_text').each(function() {
+	$('.widget_title-fee-field, .widget_text-fee-field').each(function() {
 		var $el = $(this);
 		var id = $el.parents('.widget').attr('id');
 
@@ -815,7 +815,7 @@ jQuery(document).ready(function($){
 
 	// Create field instances
 	$.each(frontEditorData.fields, function(name, type) {
-		$('.front-ed-' + name).each(function() {
+		$('.' + name + '-fee-field').each(function() {
 			var $el = $(this);
 
 			var id = $el.attr('id').substr(4);
