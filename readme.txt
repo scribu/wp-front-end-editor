@@ -173,6 +173,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * dropped Growfield from textareas
 * added font-family and font-color buttons to rich editor
 * fixed: when editing tags, the input bounces to a new line
+* fixed: after editing linked post title, the title is not linked anymore
 * fixed: warning when a NULL is passed to FEE_Field_Base::wrap()
 * renamed hooks from 'front_ed_*' to 'front_end_editor_*'
 

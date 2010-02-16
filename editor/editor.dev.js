@@ -162,6 +162,7 @@ jQuery(document).ready(function($){
 			$parent.replaceWith($wrap);
 
 			self.el = $wrap;
+			self.switched = true;
 		},
 
 		click: function(ev) {
@@ -571,7 +572,11 @@ jQuery(document).ready(function($){
 
 		set_content: function(content) {
 			var self = this;
-			self.el.html(content);
+			
+			if ( self.switched )
+				self.el.find('a').html(content);
+			else
+				self.el.html(content);
 		},
 
 		ajax_get: function() {
