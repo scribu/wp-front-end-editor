@@ -278,7 +278,7 @@ jQuery(document).ready(function($){
 
 			var $frame  = $(ev.target).contents();
 
-			$('.describe', $frame).livequery(function(){
+			$('.media-item', $frame).livequery(function(){
 				var $item = $(this);
 				var $button = $('<a href="#" class="button">').text(frontEditorData.caption);
 
@@ -320,6 +320,22 @@ jQuery(document).ready(function($){
 				self.el.find('img').attr('src', url);
 				tb_remove();
 			}
+		}
+	});
+
+	classes['thumbnail'] = classes['image'].extend({
+		replace_button: function(ev) {
+			var self = this;
+
+			var $frame  = $(ev.target).contents();
+
+			$frame.find('#tab-type_url').remove();
+
+			self._super(ev);
+		},
+
+		get_content: function($item) {
+			return $item.attr('id').replace('media-item-', '');
 		}
 	});
 
@@ -374,7 +390,7 @@ jQuery(document).ready(function($){
 					// %          note: chooses to create the constants themselves.
 					// *     example 1: get_html_translation_table('HTML_SPECIALCHARS');
 					// *     returns 1: {'"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;'}
-		
+
 					var entities = {}, hash_map = {}, decimal = 0, symbol = '';
 					var constMappingTable = {}, constMappingQuoteStyle = {};
 					var useTable = {}, useQuoteStyle = {};

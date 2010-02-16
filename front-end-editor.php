@@ -82,7 +82,7 @@ function fee_register_defaults() {
 		),
 
 		'the_category' => array(
-			'title' => __('Post category', 'front-end-editor'),
+			'title' => __('Post categories', 'front-end-editor'),
 			'class' => 'FEE_Field_Category',
 			'argc' => 3,
 			'type' => 'terminput',
@@ -100,6 +100,13 @@ function fee_register_defaults() {
 			'class' => 'FEE_Field_Terms',
 			'argc' => 5,
 			'type' => 'terminput',
+		),
+
+		'post_thumbnail_html' => array(
+			'title' => __('Post thumbnail', 'front-end-editor'),
+			'class' => 'FEE_Field_Thumbnail',
+			'argc' => 4,
+			'type' => 'thumbnail',
 		),
 
 		'post_meta' => array(

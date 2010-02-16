@@ -106,8 +106,7 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 		if ( ! $this->check($author_id) )
 			return $content;
 
-		if ( empty($content) )
-			$content = $this->placeholder();
+		$content = $this->placehold($content);
 
 		return parent::wrap($content, $author_id);
 	}
@@ -157,8 +156,8 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	function wrap($content) {
-		if ( 'text' == $this->field && empty($content) )
-			$content = $this->placeholder();
+		if ( 'text' == $this->field )
+			$content = $this->placehold($content);
 
 		return parent::wrap($content, 0);
 	}
@@ -192,8 +191,8 @@ class FEE_Field_Widget extends FEE_Field_Base {
 			  && $widgets[$widget_id]['filter'] )
 				$content = wpautop($content);
 
-			if ( 'text' == $this->field && empty($content) )
-				$content = $this->placeholder();
+			if ( 'text' == $this->field )
+				$content = $this->placehold($content);
 
 			return $content;
 		}

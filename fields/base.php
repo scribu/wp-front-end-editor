@@ -82,6 +82,13 @@ abstract class FEE_Field_Base {
 		return '[' . __('empty', 'front-end-editor') . ']';
 	}
 
+	protected function placehold($content) {
+		if ( empty($content) )
+			$content = $this->placeholder();
+
+		return $content;
+	}
+
 	/**
 	 * Get the filter of the current instance
 	 * @return string

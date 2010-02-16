@@ -30,30 +30,31 @@ abstract class FEE_Core {
 
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
 
-		add_action('wp_print_styles', array(__CLASS__, 'add_css'));
-		add_action('wp_footer', array(__CLASS__, 'add_js'));
+		if ( self::$options->highlight )
+			add_action('wp_head', array(__CLASS__, 'highlight'));
+		add_action('wp_footer', array(__CLASS__, 'scripts'));
 	}
 
-	static function add_css() {
-		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
-
-		wp_enqueue_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", array(), self::$version);
-
-		if ( ! self::$options->highlight )
-			return;
+	static function highlight() {
 ?>
 <style type='text/css'>.front-ed:hover, .front-ed:hover > * {background-color: #FFFFA5}</style>
 <?php
 	}
 
-	static function add_js() {
+	static function scripts() {
+		$wrapped = FEE_Field_Base::get_wrapped();
+
+		if ( empty($wrapped) )
+			return;
+
+		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
 		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
 		// Prepare data
 		$field_types = array();
 		foreach ( self::$active_fields as $name => $args )
 			$field_types[$name] = $args['type'];
-		
+
 		$data = array(
 			'save_text' => __('Save', 'front-end-editor'),
 			'cancel_text' => __('Cancel', 'front-end-editor'),
@@ -63,12 +64,12 @@ abstract class FEE_Core {
 			'nonce' => wp_create_nonce(self::$nonce),
 		);
 
-		$wrapped = FEE_Field_Base::get_wrapped();
-		$dependencies = array('jquery');
+		$css_dependencies = array();
+		$js_dependencies = array('jquery');
 
 		// Autosuggest
 		if ( array_key_exists('terminput', $wrapped) ) {
-			$dependencies[] = 'suggest';
+			$js_dependencies[] = 'suggest';
 		}
 
 		// Rich Editor
@@ -76,29 +77,33 @@ abstract class FEE_Core {
 			$data['nicedit_icons'] = self::$plugin_url . 'nicedit/nicEditorIcons.gif';
 
 			wp_register_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true);
-			$dependencies[] = 'nicedit';
+			$js_dependencies[] = 'nicedit';
 		}
 
 		// Thickbox
-		if ( array_key_exists('image', $wrapped) ) {
-			$data['caption'] = __('Change Image', 'front-end-editor');
-			$data['img_revert'] = '(' . __('Use default', 'front-end-editor') . ')';
-			$data['tb_close'] = get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png';
+		if ( array_key_exists('image', $wrapped) || array_key_exists('thumbnail', $wrapped) ) {
 			$data['admin_url'] = admin_url();
 
-			add_thickbox();
+			$data['caption'] = __('Change Image', 'front-end-editor');
+			$data['img_revert'] = '(' . __('Clear', 'front-end-editor') . ')';
+			$data['tb_close'] = get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png';
+
+			$css_dependencies[] = 'thickbox';
+			$js_dependencies[] = 'thickbox';
 
 			wp_register_script('livequery', self::$plugin_url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
-			$dependencies[] = 'livequery';
+			$js_dependencies[] = 'livequery';
 		}
 
 		// Core script
-		wp_register_script('front-editor', self::$plugin_url . "editor/editor$js_dev.js", $dependencies, self::$version, true);
+		wp_register_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", $css_dependencies, self::$version);
+		wp_register_script('front-editor', self::$plugin_url . "editor/editor$js_dev.js", $js_dependencies, self::$version, true);
 
-		scbUtil::do_scripts('front-editor');
 ?>
 <script type='text/javascript'>frontEditorData = <?php echo json_encode($data) ?>;</script>
 <?php
+		scbUtil::do_styles('front-editor');
+		scbUtil::do_scripts('front-editor');
 	}
 
 	// Register a new editable field

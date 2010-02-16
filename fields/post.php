@@ -205,10 +205,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	function wrap($content, $taxonomy, $before, $sep, $after) {
 		$id = implode('#', array(get_the_ID(), $taxonomy));
 
-		if ( empty($content) )
-			$content = $this->placeholder();
-		else
-			$content = str_replace(array($before, $after), '', $content);
+		$content = $this->placehold(str_replace(array($before, $after), '', $content));
 
 		return $before . parent::wrap($content, $id) . $after;
 	}
@@ -229,10 +226,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 		$response = get_the_term_list($post_id, $taxonomy, '', ', ');	// todo: store $sep somehow
 
-		if ( empty($response) )
-			return $this->placeholder();
-
-		return $response;
+		return $this->placehold($response);
 	}
 }
 
@@ -272,10 +266,41 @@ class FEE_Field_Category extends FEE_Field_Terms {
 
 		$response = get_the_term_list($post_id, $taxonomy, '', ', ');
 
-		if ( empty($response) )
-			return $this->placeholder();
+		return $this->placehold($response);
+	}
+}
 
-		return $response;
+// Handles the post thumbnail
+class FEE_Field_Thumbnail extends FEE_Field_Post {
+	function wrap($html, $post_id, $post_thumbnail_id, $size) {
+		$html = $this->placehold($html);
+
+		return parent::wrap($html, "$post_id#$size");
+	}
+
+	function get($id) {
+		list($post_id, $size) = explode('#', $id);
+
+		return get_post_thumbnail_id($post_id);
+	}
+
+	function save($id, $thumbnail_id) {
+		list($post_id, $size) = explode('#', $id);
+
+		if ( -1 == $thumbnail_id ) {
+			delete_post_meta($post_id, '_thumbnail_id');
+			return -1;
+		}
+
+		update_post_meta($post_id, '_thumbnail_id', $thumbnail_id);
+
+		list($url) = image_downsize($thumbnail_id, $size);
+
+		return $url;
+	}
+
+	protected function placeholder() {
+		return __('Set thumbnail', 'front-end-editor');
 	}
 }
 
@@ -285,12 +310,8 @@ class FEE_Field_Meta extends FEE_Field_Post {
 	function wrap($data, $post_id, $key, $type, $single) {
 		$this->input_type = $type;
 
-		if ( $single ) {
-			if ( empty($data) )
-				$data = $this->placeholder();
-
-			$data = array($data);
-		}
+		if ( $single )
+			$data = array($this->placehold($data));
 
 		$r = array();
 		foreach ( $data as $i => $val ) {

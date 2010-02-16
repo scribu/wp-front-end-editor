@@ -167,6 +167,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.7 =
+* new editable field: post thumbnails
 * when editing the post content, also update the post date
 * dropped Growfield from textareas
 * added font-family and font-color buttons to rich editor
@@ -177,7 +178,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * fixed escaping issues
 
 = 1.6 =
-* added editing of post categories
+* new editable field: post categories
 * added editing of custom fields with multiple values
 * added editing of any widget title
 * improved script loading
@@ -191,7 +192,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * added German translation
 
 = 1.5 =
-* added theme image swapping
+* new editable field: theme images
 * switched to NicEdit
 * don't remove blockquotes when editing a single paragraph
 * better handling of text widgets
@@ -201,7 +202,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-5.html)
 
 = 1.4 =
-* editable single_cat_title & single_tag_title
+* new editable fields: category title and tag title
 * added $echo parameter to editable_post_meta()
 * easier way to restrict editable content
 * don't load CSS & JS if the current user can't edit any of the fields
@@ -249,7 +250,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * updated italian translation
 
 = 1.1 =
-* custom taxonomies editing
+* new editable field: post terms
 * usability improvements
 * added Turkish translation
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-1.html)
@@ -269,7 +270,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-0.html)
 
 = 0.9 =
-* editable custom fields
+* new editable field: post custom fields
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-0-9.html)
 
 = 0.8 =
@@ -282,7 +283,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-0-7.html)
 
 = 0.6 =
-* editable post tags
+* new editable field: post tags
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-0-6.html)
 
 = 0.5 =
