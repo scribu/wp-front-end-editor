@@ -653,7 +653,9 @@ jQuery(document).ready(function($){
 				.click(form_remove);
 
 			// Create form
-			self.form = ( self.type == 'input' ) ? $('<span>') : $('<div>');
+			var inline = self.type == 'input' || self.type == 'terminput';
+
+			self.form = inline ? $('<span>') : $('<div>');
 
 			self.form
 				.addClass('front-editor-container')

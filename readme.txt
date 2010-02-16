@@ -169,9 +169,11 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 = 1.7 =
 * new editable field: post thumbnails
 * when editing the post content, also update the post date
+* load CSS only when needed
 * dropped Growfield from textareas
 * added font-family and font-color buttons to rich editor
-* fixed warning when a NULL is passed to FEE_Field_Base::wrap()
+* fixed: when editing tags, the input bounces to a new line
+* fixed: warning when a NULL is passed to FEE_Field_Base::wrap()
 * renamed hooks from 'front_ed_*' to 'front_end_editor_*'
 
 = 1.6.1 =

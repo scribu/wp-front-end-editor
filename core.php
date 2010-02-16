@@ -11,11 +11,9 @@ abstract class FEE_Core {
 	private static $version;
 	private static $nonce = 'front-editor';
 
-	static function init($file, $options, $version) {
+	static function init($options, $version) {
 		self::$options = $options;
 		self::$version = $version;
-
-		self::$plugin_url = plugin_dir_url($file) . 'inc/';
 
 		add_action('front_end_editor_fields', array(__CLASS__, 'make_instances'), 100);
 
@@ -47,6 +45,8 @@ abstract class FEE_Core {
 		if ( empty($wrapped) )
 			return;
 
+		$url = plugins_url('editor/', __FILE__);
+
 		$css_dev = defined('STYLE_DEBUG') && STYLE_DEBUG ? '.dev' : '';
 		$js_dev = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '.dev' : '';
 
@@ -74,9 +74,9 @@ abstract class FEE_Core {
 
 		// Rich Editor
 		if ( array_key_exists('rich', $wrapped) ) {
-			$data['nicedit_icons'] = self::$plugin_url . 'nicedit/nicEditorIcons.gif';
+			$data['nicedit_icons'] = $url . 'nicedit/nicEditorIcons.gif';
 
-			wp_register_script('nicedit', self::$plugin_url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true);
+			wp_register_script('nicedit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true);
 			$js_dependencies[] = 'nicedit';
 		}
 
@@ -91,13 +91,13 @@ abstract class FEE_Core {
 			$css_dependencies[] = 'thickbox';
 			$js_dependencies[] = 'thickbox';
 
-			wp_register_script('livequery', self::$plugin_url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
+			wp_register_script('livequery', $url . 'livequery.js', array('jquery'), '1.1.0-pre', true);
 			$js_dependencies[] = 'livequery';
 		}
 
 		// Core script
-		wp_register_style('front-editor', self::$plugin_url . "editor/editor$css_dev.css", $css_dependencies, self::$version);
-		wp_register_script('front-editor', self::$plugin_url . "editor/editor$js_dev.js", $js_dependencies, self::$version, true);
+		wp_register_style('front-editor', $url . "editor$css_dev.css", $css_dependencies, self::$version);
+		wp_register_script('front-editor', $url . "editor$js_dev.js", $js_dependencies, self::$version, true);
 
 ?>
 <script type='text/javascript'>frontEditorData = <?php echo json_encode($data) ?>;</script>

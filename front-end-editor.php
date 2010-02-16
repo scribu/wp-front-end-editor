@@ -52,7 +52,7 @@ function _fee_init() {
 		'highlight' => true
 	));
 
-	FEE_Core::init(__FILE__, $options, '1.6');
+	FEE_Core::init($options, '1.7');
 	FEE_Field_Image::init(__FILE__);
 
 	if ( is_admin() ) {
