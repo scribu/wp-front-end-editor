@@ -74,7 +74,18 @@ abstract class FEE_Core {
 
 		// Rich Editor
 		if ( array_key_exists('rich', $wrapped) ) {
-			$data['nicedit_icons'] = $url . 'nicedit/nicEditorIcons.gif';
+			$data['nicedit'] = apply_filters('front_end_editor_nicedit', array(
+				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
+				'buttonList' => array(
+					'bold', 'italic', 'strikethrough',
+					'left','center', 'right',
+					'fontFormat', 'fontFamily', 'forecolor',
+					'removeformat',
+					'ul', 'ol',
+					'link', 'image',
+					'xhtml'
+				)
+			));
 
 			wp_register_script('nicedit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true);
 			$js_dependencies[] = 'nicedit';

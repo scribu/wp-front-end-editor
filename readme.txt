@@ -169,8 +169,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 = 1.7 =
 * new editable fields: arbitrary options & post thumbnails
 * load CSS only when needed
+* added font-family and font-color buttons to nicEdit
+* made the nicEdit configuration filterable
 * dropped Growfield from textareas
-* added font-family and font-color buttons to rich editor
 * when editing the post content, also update the post date
 * standardized CSS ids and classes
 * renamed hooks from 'front_ed_*' to 'front_end_editor_*'

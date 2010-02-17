@@ -713,7 +713,7 @@ jQuery(document).ready(function($){
 
 			self._super(content);
 
-			self.editor = new nicEditor(self.panel_options).panelInstance(self.input.attr('id'));
+			self.editor = new nicEditor(frontEditorData.nicedit).panelInstance(self.input.attr('id'));
 
 			self.form.find('.nicEdit-main').focus();
 		},
@@ -779,19 +779,6 @@ jQuery(document).ready(function($){
 			content = content.replace(/<wp_temp>/g, '\n');
 
 			return content;
-		},
-
-		panel_options: {
-			iconsPath: frontEditorData.nicedit_icons,
-			buttonList: [
-				'bold', 'italic', 'strikethrough',
-				'left','center', 'right',
-				'fontFormat', 'fontFamily', 'forecolor',
-				'removeformat',
-				'ul', 'ol',
-				'link', 'image',
-				'xhtml'
-			]
 		},
 
 		ajax_set: function() {
