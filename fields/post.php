@@ -310,15 +310,18 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 class FEE_Field_Meta extends FEE_Field_Post {
 
 	function wrap($data, $post_id, $key, $type, $single) {
-		$this->input_type = $type;
+		if ( $this->check($post_id) ) {
+			if ( $single )
+				$data = array($this->placehold($data));
 
-		if ( $single )
-			$data = array($this->placehold($data));
-
-		$r = array();
-		foreach ( $data as $i => $val ) {
-			$id = implode('#', array($post_id, $key, $type, $i));
-			$r[$i] = parent::wrap($val, $id);
+			$r = array();
+			foreach ( $data as $i => $val ) {
+				$id = implode('#', array($post_id, $key, $type, $i));
+				$r[$i] = FEE_Field_Base::wrap($val, $id);
+			}
+		}
+		else {
+			$r = (array) $data;
 		}
 
 		if ( $single )
