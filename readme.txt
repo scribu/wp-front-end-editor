@@ -172,10 +172,12 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 * dropped Growfield from textareas
 * added font-family and font-color buttons to rich editor
 * when editing the post content, also update the post date
+* standardized CSS ids and classes
+* renamed hooks from 'front_ed_*' to 'front_end_editor_*'
 * fixed: when editing tags, the input bounces to a new line
 * fixed: after editing linked post title, the title is not linked anymore
+* fixed: editable_post_meta() doesn't work outside The Loop
 * fixed: warning when a NULL is passed to FEE_Field_Base::wrap()
-* renamed hooks from 'front_ed_*' to 'front_end_editor_*'
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-7.html)
 
 = 1.6.1 =
