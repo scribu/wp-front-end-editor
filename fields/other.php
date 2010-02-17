@@ -255,21 +255,26 @@ class FEE_Field_Option extends FEE_Field_Base {
 		return 'option';
 	}
 
-	function wrap($content, $key = 0) {
+	function wrap($content, $key, $type) {
 		if ( ! $this->check($key) )
 			return $content;
 
-		if ( empty($content) )
-			$content = $this->placeholder();
+		$content = $this->placehold($content);
 
-		return parent::wrap($content, $key);
+		$id = implode('#', array($key, $type));
+
+		return parent::wrap($content, $id);
 	}
 
-	function get($key) {
+	function get($id) {
+		list($key, $type) = explode('#', $id);
+
 		return get_option($key);
 	}
 
-	function save($key, $content) {
+	function save($id, $content) {
+		list($key, $type) = explode('#', $id);
+
 		update_option($key, $content);
 
 		$content = $this->placehold($content);
@@ -282,11 +287,11 @@ class FEE_Field_Option extends FEE_Field_Base {
 	}
 }
 
-function editable_option($key, $safety = true, $echo = true) {
+function editable_option($key, $safety = true, $type = 'input', $echo = true) {
 	if ( $safety )
 		$key = "editable_option_$key";
 
-	$output = apply_filters('editable_option', get_option($key), $key);
+	$output = apply_filters('editable_option', get_option($key), $key, $type);
 
 	if ( $echo )
 		echo $output;
@@ -311,11 +316,11 @@ class FEE_Field_Image extends FEE_Field_Base {
 		return 'option';
 	}
 
-	function wrap($img, $id) {
+	function wrap($img, $key) {
 		if ( ! $this->check() )
 			return $img;
 
-		return parent::wrap($img, $id);
+		return parent::wrap($img, $key);
 	}
 
 	function get($id) {

@@ -207,7 +207,9 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 		$content = $this->placehold(str_replace(array($before, $after), '', $content));
 
-		return $before . FEE_Field_Base::wrap($content, "$post_id#$taxonomy") . $after;
+		$id = implode('#', $post_id, $taxonomy);
+
+		return $before . FEE_Field_Base::wrap($content, $id) . $after;
 	}
 
 	function get($id) {
@@ -277,7 +279,9 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 		if ( ! $post_id = $this->_get_id($post_id, false) )
 			return $content;
 
-		return FEE_Field_Base::wrap($html, "$post_id#$size");
+		$id = implode('#', $post_id, $size);
+
+		return FEE_Field_Base::wrap($html, $id);
 	}
 
 	function get($id) {

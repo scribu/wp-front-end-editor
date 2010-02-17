@@ -168,10 +168,10 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 = 1.7 =
 * new editable fields: arbitrary options & post thumbnails
-* when editing the post content, also update the post date
 * load CSS only when needed
 * dropped Growfield from textareas
 * added font-family and font-color buttons to rich editor
+* when editing the post content, also update the post date
 * fixed: when editing tags, the input bounces to a new line
 * fixed: after editing linked post title, the title is not linked anymore
 * fixed: warning when a NULL is passed to FEE_Field_Base::wrap()
