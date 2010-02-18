@@ -1,22 +1,22 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR scribu
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translation of the WordPress plugin Front-end Editor 1.7b2 by scribu.
+# Copyright (C) 2010 scribu
+# This file is distributed under the same license as the Front-end Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.6\n"
+"Project-Id-Version: Front-end Editor 1.7b2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-01-01 19:11+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2010-02-18 02:38+0200\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.6)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.7b2)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:7
 msgid "Front-end Editor"
@@ -26,11 +26,11 @@ msgstr ""
 msgid "Fields"
 msgstr ""
 
-#: admin.php:11 scb/AdminPage.php:314
+#: admin.php:11 scb/AdminPage.php:284
 msgid "Settings"
 msgstr ""
 
-#: admin.php:51 admin.php:104 scb/AdminPage.php:101
+#: admin.php:51 admin.php:104 scb/AdminPage.php:108
 msgid "Settings <strong>saved</strong>."
 msgstr ""
 
@@ -70,87 +70,95 @@ msgstr ""
 msgid "Highlight editable elements"
 msgstr ""
 
-#: core.php:58
+#: core.php:59
 msgid "Save"
 msgstr ""
 
-#: core.php:59
+#: core.php:60
 msgid "Cancel"
 msgstr ""
 
-#: core.php:90
+#: core.php:98
 msgid "Change Image"
 msgstr ""
 
-#: core.php:91
-msgid "Use default"
+#: core.php:99
+msgid "Clear"
 msgstr ""
 
-#: fields/base.php:79
+#: fields/base.php:82
 msgid "empty"
 msgstr ""
 
-#: front-end-editor.php:68
+#: front-end-editor.php:67
 msgid "Post title"
 msgstr ""
 
-#: front-end-editor.php:74
+#: front-end-editor.php:73
 msgid "Post content"
 msgstr ""
 
-#: front-end-editor.php:80
+#: front-end-editor.php:79
 msgid "Post excerpt"
 msgstr ""
 
-#: front-end-editor.php:86
-msgid "Post category"
+#: front-end-editor.php:85
+msgid "Post categories"
 msgstr ""
 
-#: front-end-editor.php:93
+#: front-end-editor.php:92
 msgid "Post tags"
 msgstr ""
 
-#: front-end-editor.php:100
+#: front-end-editor.php:99
 msgid "Post terms"
 msgstr ""
 
-#: front-end-editor.php:107
+#: front-end-editor.php:106
 msgid "Post custom fields"
 msgstr ""
 
-#: front-end-editor.php:113
-msgid "Comment text"
+#: front-end-editor.php:112
+msgid "Post thumbnail"
 msgstr ""
 
 #: front-end-editor.php:119
+msgid "Comment text"
+msgstr ""
+
+#: front-end-editor.php:125
 msgid "Category title"
 msgstr ""
 
-#: front-end-editor.php:124
+#: front-end-editor.php:130
 msgid "Tag title"
 msgstr ""
 
-#: front-end-editor.php:129
+#: front-end-editor.php:135
 msgid "Author description"
 msgstr ""
 
-#: front-end-editor.php:136
+#: front-end-editor.php:142
 msgid "Widget title"
 msgstr ""
 
-#: front-end-editor.php:141
+#: front-end-editor.php:147
 msgid "Text widget content"
 msgstr ""
 
-#: front-end-editor.php:147
+#: front-end-editor.php:153
 msgid "Site title and description"
 msgstr ""
 
-#: front-end-editor.php:153
+#: front-end-editor.php:159
+msgid "Site options"
+msgstr ""
+
+#: front-end-editor.php:165
 msgid "Theme images"
 msgstr ""
 
-#: scb/AdminPage.php:111
+#: scb/AdminPage.php:119 scb/AdminPage.php:130
 msgid "Save Changes"
 msgstr ""
 
