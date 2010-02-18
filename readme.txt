@@ -115,7 +115,7 @@ with this:
 
 The third parameter is optional and allows you to pick which type of field you want: *input*, *textarea* or *rich*.
 
-If you have a custom field with multiple values, you can use `get_editable_post_meta(). For example:
+If you have a custom field with multiple values, you can use `get_editable_post_meta()`. For example:
 
 `
 <ul>
@@ -150,13 +150,13 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 
 You can add this line to *style.css* in your theme directory:
 
-`.front-ed:hover, .front-ed:hover * {background-color: mycolor !important}`
+`.fee-field:hover, .fee-field:hover * {background-color: mycolor !important}`
 
 where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
 
 = Title attributes errors =
 
-In some themes, links get weird title atributes. If this messes up your theme, just disable "The title" field.
+In some themes, links get weird title atributes. If this messes up your theme, just disable the "Post title" field.
 
 == Screenshots ==
 
@@ -167,14 +167,14 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 == Changelog ==
 
 = 1.7 =
-* new editable fields: arbitrary options & post thumbnails
-* load CSS only when needed
+* new editable fields: post thumbnails & arbitrary options
 * added font-family and font-color buttons to nicEdit
 * made the nicEdit configuration filterable
 * dropped Growfield from textareas
-* when editing the post content, also update the post date
+* load CSS only when needed
 * standardized CSS ids and classes
 * renamed hooks from 'front_ed_*' to 'front_end_editor_*'
+* fixed: when editing the post content, the post date isn't updated
 * fixed: when editing tags, the input bounces to a new line
 * fixed: after editing linked post title, the title is not linked anymore
 * fixed: editable_post_meta() doesn't work outside The Loop
