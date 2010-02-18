@@ -28,6 +28,7 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 		<li>tags</li>
 		<li>custom taxonomies</li>
 		<li>custom fields</li>
+		<li>thumbnail</li>
 	</ul></li>
 	<li><strong>comments</strong>
 	<ul>
@@ -51,6 +52,7 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 	<ul>
 		<li>title</li>
 		<li>description</li>
+		<li>options</li>
 	</ul></li>
 	<li><strong>theme images</strong>
 </ul>

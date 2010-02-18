@@ -102,17 +102,17 @@ function fee_register_defaults() {
 			'type' => 'terminput',
 		),
 
+		'post_meta' => array(
+			'title' => __('Post custom fields', 'front-end-editor'),
+			'class' => 'FEE_Field_Meta',
+			'argc' => 5,
+		),
+
 		'post_thumbnail_html' => array(
 			'title' => __('Post thumbnail', 'front-end-editor'),
 			'class' => 'FEE_Field_Thumbnail',
 			'argc' => 4,
 			'type' => 'thumbnail',
-		),
-
-		'post_meta' => array(
-			'title' => __('Post custom fields', 'front-end-editor'),
-			'class' => 'FEE_Field_Meta',
-			'argc' => 5,
 		),
 
 		'comment_text' => array(
