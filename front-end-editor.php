@@ -47,9 +47,10 @@ function _fee_init() {
 	// Load options
 	$options = new scbOptions('front-end-editor', __FILE__, array(
 		'disabled' => array(),
+		'highlight' => true,
 		'rich' => true,
 		'chunks' => false,
-		'highlight' => true
+		'reset_date' => false
 	));
 
 	FEE_Core::init($options, '1.7');

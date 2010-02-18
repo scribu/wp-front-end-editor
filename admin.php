@@ -98,7 +98,7 @@ class FEE_Admin extends scbBoxesPage {
 		if ( !isset($_POST['save_settings']) )
 			return;
 
-		foreach ( array('rich', 'chunks', 'highlight') as $key )
+		foreach ( array('rich', 'chunks', 'reset_date', 'highlight') as $key )
 			$this->options->$key = (bool) @$_POST[$key];
 
 		$this->admin_msg(__('Settings <strong>saved</strong>.'));
@@ -118,6 +118,13 @@ class FEE_Admin extends scbBoxesPage {
 				'desc' => __('Edit one paragraph at a time, instead of an entire post', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'chunks',
+			),
+
+			array(
+				'title' => __('Date reset', $this->textdomain),
+				'desc' => __('Reset the post date on each edit', $this->textdomain),
+				'type' => 'checkbox',
+				'name' => 'reset_date',
 			),
 
 			array(

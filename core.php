@@ -27,10 +27,10 @@ abstract class FEE_Core {
 			return;
 
 		add_action('wp_head', array(__CLASS__, 'add_filters'), 100);
+		add_action('wp_footer', array(__CLASS__, 'scripts'));
 
 		if ( self::$options->highlight )
 			add_action('wp_head', array(__CLASS__, 'highlight'));
-		add_action('wp_footer', array(__CLASS__, 'scripts'));
 	}
 
 	static function highlight() {

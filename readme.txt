@@ -168,6 +168,9 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 == Changelog ==
 
+= 1.7.1 =
+* made date reset optional
+
 = 1.7 =
 * new editable fields: post thumbnails & arbitrary options
 * added font-family and font-color buttons to nicEdit
