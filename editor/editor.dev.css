@@ -6,6 +6,7 @@
 }
 .fee-form, textarea.fee-form-content {
 	width: 100% !important;
+	clear: both !important;
 }
 .fee-form-cancel {
 	font-weight: bold !important; 
