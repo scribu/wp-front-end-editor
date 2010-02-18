@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-02-18 02:38+0200\n"
-"PO-Revision-Date: 2010-02-18 02:40+0200\n"
+"POT-Creation-Date: 2010-02-18 18:30+0200\n"
+"PO-Revision-Date: 2010-02-18 19:04+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.7b2)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.7)  #-#-#-#-#
 #. Plugin Name of an extension
 #: admin.php:7
 msgid "Front-end Editor"
@@ -65,10 +65,18 @@ msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Editează câte un singur paragraf, în loc de articolul întreg"
 
 #: admin.php:124
+msgid "Date reset"
+msgstr "Resetare dată"
+
+#: admin.php:125
+msgid "Reset the post date on each edit"
+msgstr "Resetează data postului la fiecare editare"
+
+#: admin.php:131
 msgid "Highlighting"
 msgstr "Evidențiere"
 
-#: admin.php:125
+#: admin.php:132
 msgid "Highlight editable elements"
 msgstr "Scoate în evidență elementele editabile"
 
@@ -86,77 +94,77 @@ msgstr "Schimbă imaginea"
 
 #: core.php:99
 msgid "Clear"
-msgstr ""
+msgstr "Golește"
 
 #: fields/base.php:82
 msgid "empty"
 msgstr "gol"
 
-#: front-end-editor.php:67
+#: front-end-editor.php:68
 msgid "Post title"
 msgstr "Titlu articol"
 
-#: front-end-editor.php:73
+#: front-end-editor.php:74
 msgid "Post content"
 msgstr "Conținut articol"
 
-#: front-end-editor.php:79
+#: front-end-editor.php:80
 msgid "Post excerpt"
 msgstr "Extras articol"
 
-#: front-end-editor.php:85
+#: front-end-editor.php:86
 msgid "Post categories"
 msgstr "Categorii articol"
 
-#: front-end-editor.php:92
+#: front-end-editor.php:93
 msgid "Post tags"
 msgstr "Etichete articol"
 
-#: front-end-editor.php:99
+#: front-end-editor.php:100
 msgid "Post terms"
 msgstr "Termeni articol"
 
-#: front-end-editor.php:106
+#: front-end-editor.php:107
 msgid "Post custom fields"
 msgstr "Câmpuri personalizate articol"
 
-#: front-end-editor.php:112
+#: front-end-editor.php:113
 msgid "Post thumbnail"
 msgstr "Miniatură articol"
 
-#: front-end-editor.php:119
+#: front-end-editor.php:120
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: front-end-editor.php:125
+#: front-end-editor.php:126
 msgid "Category title"
 msgstr "Titlu categorie"
 
-#: front-end-editor.php:130
+#: front-end-editor.php:131
 msgid "Tag title"
 msgstr "Titlu etichetă"
 
-#: front-end-editor.php:135
+#: front-end-editor.php:136
 msgid "Author description"
 msgstr "Descriere autor"
 
-#: front-end-editor.php:142
+#: front-end-editor.php:143
 msgid "Widget title"
 msgstr "Titlu widget"
 
-#: front-end-editor.php:147
+#: front-end-editor.php:148
 msgid "Text widget content"
 msgstr "Conținut widget text"
 
-#: front-end-editor.php:153
+#: front-end-editor.php:154
 msgid "Site title and description"
 msgstr "Titlu și descriere site"
 
-#: front-end-editor.php:159
+#: front-end-editor.php:160
 msgid "Site options"
 msgstr "Setări site"
 
-#: front-end-editor.php:165
+#: front-end-editor.php:166
 msgid "Theme images"
 msgstr "Imagini temă"
 
