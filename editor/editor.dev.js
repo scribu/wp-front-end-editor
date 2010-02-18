@@ -265,13 +265,12 @@ jQuery(document).ready(function($){
 	});
 
 	var is_overlay = function($el) {
-		var attr = $el.attr('id') + ' ' + $el.attr("class");
-		attr = $.trim(attr).split(' ');
+		var attr = [$el.attr('id'), $el.attr("class"), $el.attr("rel")];
 
-		var tokens = ['lightbox', 'shutter', 'thickbox', 'awppost_link'];
+		var tokens = ['lightbox', 'thickbox', 'shutter', 'awppost_link'];
 
-		for ( i in tokens )
-			for ( j in attr )
+		for ( var i in tokens )
+			for ( var j in attr )
 				if ( attr[j].indexOf(tokens[i]) != -1 )
 					return true;
 

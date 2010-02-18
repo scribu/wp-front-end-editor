@@ -170,6 +170,7 @@ In some themes, links get weird title atributes. If this messes up your theme, j
 
 = 1.7.1 =
 * made date reset optional
+* better lightbox detection
 
 = 1.7 =
 * new editable fields: post thumbnails & arbitrary options
