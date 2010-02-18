@@ -53,7 +53,7 @@ function _fee_init() {
 		'reset_date' => false
 	));
 
-	FEE_Core::init($options, '1.7');
+	FEE_Core::init($options, '1.7.1');
 	FEE_Field_Image::init(__FILE__);
 
 	if ( is_admin() ) {
