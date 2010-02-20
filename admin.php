@@ -107,21 +107,18 @@ class FEE_Admin extends scbBoxesPage {
 	function settings_box() {
 		$rows = array(
 			array(
-				'title' => __('Rich text editor', $this->textdomain),
 				'desc' => __('Enable the WYSIWYG editor', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'rich',
 			),
 
 			array(
-				'title' => __('Edit paragraphs', $this->textdomain),
 				'desc' => __('Edit one paragraph at a time, instead of an entire post', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'chunks',
 			),
 
 			array(
-				'title' => __('Date reset', $this->textdomain),
 				'desc' => __('Reset the post date on each edit', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'reset_date',
@@ -134,8 +131,12 @@ class FEE_Admin extends scbBoxesPage {
 				'name' => 'highlight',
 			),
 		);
+		
+		$out = '';
+		foreach ( $rows as $row )
+			$out .= html('p', $this->input($row));
 
-		echo $this->form_table($rows, $this->options->get(), '', 'save_settings');
+		echo $this->form_wrap($out, '', 'save_settings');
 	}
 }
 
