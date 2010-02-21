@@ -95,9 +95,11 @@ Make sure your host is running PHP 5. Add this line to wp-config.php to check:
 
 `var_dump(PHP_VERSION);`
 
-= I double click on a field and nothing happens. Why? =
+= I double click on a field and nothing happens! =
 
-Probably because the javascript is not loaded. Make sure your theme has wp_footer() somewhere in footer.php
+* make sure your theme has wp_footer() somewhere in footer.php
+
+* disable caching plugins like WP Super Cache or W3 Total Cache for logged-in users
 
 = If I use this plugin, won't everybody be able to edit my content? =
 
