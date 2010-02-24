@@ -29,41 +29,6 @@ class scbUtil {
 		echo "</script>";
 	}
 
-	// Better debug function
-	static function debug() {
-		// integrate with FirePHP
-		if ( function_exists('FB') ) {
-			foreach ( func_get_args() as $arg )
-				FB($arg);
-
-			return;
-		}
-
-		echo "<pre>";
-		foreach ( func_get_args() as $arg )
-			if ( is_array($arg) || is_object($arg) )
-				print_r($arg);
-			else
-				var_dump($arg);
-		echo "</pre>";
-	}
-
-	// Minimalist HTML framework
-	static function html($tag, $content = '', $indent = null) {
-		list($closing) = explode(' ', $tag, 2);
-
-		return "<{$tag}>{$content}</{$closing}>";
-	}
-
-	// Generate an <a> tag
-	static function html_link($url, $title = '') {
-		if ( empty($title) )
-			$title = $url;
-
-		return sprintf("<a href='%s'>%s</a>", $url, $title);
-	}
-
-
 	// Extract $keys from $array
 	static function array_extract($array, $keys) {
 		$r = array();
@@ -83,14 +48,80 @@ class scbUtil {
 	}
 }
 
-// Create shortcuts
-foreach ( array('debug', 'html', 'html_link') as $func )
-	if ( ! function_exists($func) )
-		eval("
-	function $func() {
-		\$args = func_get_args();
 
-		return call_user_func_array(array('scbUtil', '$func'), \$args);
+// _____Simple debug utility_____
+
+if ( ! class_exists('scbDebug') ):
+class scbDebug {
+	private $args;
+
+	function __construct($args) {
+		$this->args = $args;
+
+		register_shutdown_function(array($this, '_delayed'));
 	}
-		");
+
+	static function raw($args) {
+		echo "<pre>";
+		foreach ( $args as $arg )
+			if ( is_array($arg) || is_object($arg) )
+				print_r($arg);
+			else
+				var_dump($arg);
+		echo "</pre>";	
+	}
+
+	function _delayed() {
+		if ( !current_user_can('administrator') )
+			return;
+
+		// integrate with FirePHP
+		if ( function_exists('FB') ) {
+			foreach ( $this->args as $arg )
+				FB($arg);
+
+			return;
+		}
+
+		$this->raw($this->args);
+	}
+}
+endif;
+
+if ( ! function_exists('debug') ):
+function debug() {
+	$args = func_get_args();
+	
+	new scbDebug($args);
+}
+endif;
+
+if ( ! function_exists('debug_raw') ):
+function debug_raw() {
+	$args = func_get_args();
+
+	scbDebug::raw($args);
+}
+endif;
+
+
+// _____Minimalist HTML framework_____
+
+if ( ! function_exists('html') ):
+function html($tag, $content = '') {
+	list($closing) = explode(' ', $tag, 2);
+
+	return "<{$tag}>{$content}</{$closing}>";
+}
+endif;
+
+// Generate an <a> tag
+if ( ! function_exists('html_link') ):
+function html_link($url, $title = '') {
+	if ( empty($title) )
+		$title = $url;
+
+	return sprintf("<a href='%s'>%s</a>", $url, $title);
+}
+endif;
 

@@ -68,6 +68,23 @@ class scbOptions {
 	}
 
 	/**
+	 * Remove any keys that are not in the defaults array
+	 */
+	function cleanup() {
+		$r = array();
+
+		if ( ! is_array($this->defaults) )
+			return false;
+
+		foreach ( array_keys($this->defaults) as $key )
+			$r[$key] = $this->data[$key];
+
+		$this->update($r);
+
+		return true;
+	}
+
+	/**
 	 * Update raw data
 	 *
 	 * @param mixed $newdata
