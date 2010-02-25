@@ -35,7 +35,7 @@ abstract class FEE_Core {
 
 	static function highlight() {
 ?>
-<style type='text/css'>.fee-field:hover, .fee-field:hover > * {background-color: #FFFFA5}</style>
+<style type='text/css'>.fee-field:hover, .fee-field:hover > * {background-color: #ffffa5}</style>
 <?php
 	}
 

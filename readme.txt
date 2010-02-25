@@ -95,15 +95,25 @@ Make sure your host is running PHP 5. Add this line to wp-config.php to check:
 
 `var_dump(PHP_VERSION);`
 
-= I double click on a field and nothing happens! =
+= Why doesn't it work with my theme? =
 
-* make sure your theme has wp_footer() somewhere in footer.php
+See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
 
-* disable caching plugins like WP Super Cache or W3 Total Cache for logged-in users
+= Does it work with WP Super Cache? =
+
+To avoid problems with WP Super Cache or W3 Total Cache, you have to disable caching for logged-in users.
 
 = If I use this plugin, won't everybody be able to edit my content? =
 
 No. To edit a field, a user must be logged in and have the right permissions. For example, to edit the post content from the front-end, a user must be able to edit the post content from the regular back-end editor.
+
+= How can I change the hover color? =
+
+You can add this line to *style.css* in your theme directory:
+
+`.fee-field:hover, .fee-field:hover * {background-color: mycolor !important}`
+
+where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
 
 = How can I edit custom fields? =
 
@@ -149,18 +159,6 @@ The editable_image() template tag is located in fields/other.php.
 = Can I make my own editable fields? =
 
 Yes, but you have to know your way around WordPress' internals. Here is the [developer guide](http://scribu.net/wordpress/front-end-editor/developer-guide.html) to get you started.
-
-= How can I change the hover color? =
-
-You can add this line to *style.css* in your theme directory:
-
-`.fee-field:hover, .fee-field:hover * {background-color: mycolor !important}`
-
-where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
-
-= Title attributes errors =
-
-In some themes, links get weird title atributes. If this messes up your theme, just disable the "Post title" field.
 
 == Screenshots ==
 
