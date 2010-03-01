@@ -75,14 +75,6 @@ class scbDebug {
 		if ( !current_user_can('administrator') )
 			return;
 
-		// integrate with FirePHP
-		if ( function_exists('FB') ) {
-			foreach ( $this->args as $arg )
-				FB($arg);
-
-			return;
-		}
-
 		$this->raw($this->args);
 	}
 }
@@ -91,16 +83,15 @@ endif;
 if ( ! function_exists('debug') ):
 function debug() {
 	$args = func_get_args();
-	
+
+	// integrate with FirePHP
+	if ( function_exists('FB') ) {
+		fb($args);
+
+		return;
+	}
+
 	new scbDebug($args);
-}
-endif;
-
-if ( ! function_exists('debug_raw') ):
-function debug_raw() {
-	$args = func_get_args();
-
-	scbDebug::raw($args);
 }
 endif;
 
@@ -122,6 +113,22 @@ function html_link($url, $title = '') {
 		$title = $url;
 
 	return sprintf("<a href='%s'>%s</a>", $url, $title);
+}
+endif;
+
+
+// _____Compatibility layer_____
+
+// WP < 3.0
+if ( ! function_exists('__return_false') ) :
+function __return_false() {
+	return false;
+}
+endif;
+
+if ( ! function_exists('__return_true') ) :
+function __return_true() {
+	return true;
 }
 endif;
 

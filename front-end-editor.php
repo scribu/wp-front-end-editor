@@ -36,13 +36,13 @@ function _fee_init() {
 	load_plugin_textdomain('front-end-editor', '', basename($dir) . '/lang');
 
 	// Load scbFramework
-	require_once $dir . '/scb/load.php';
+	require $dir . '/scb/load.php';
 
 	// Load files
-	require_once $dir . '/core.php';
+	require $dir . '/core.php';
 
 	foreach ( array('base', 'post', 'other') as $name )
-		require_once "$dir/fields/$name.php";
+		require "$dir/fields/$name.php";
 
 	// Load options
 	$options = new scbOptions('front-end-editor', __FILE__, array(
@@ -57,7 +57,7 @@ function _fee_init() {
 	FEE_Field_Image::init(__FILE__);
 
 	if ( is_admin() ) {
-		require_once $dir . '/admin.php';
+		require $dir . '/admin.php';
 		new FEE_Admin(__FILE__, $options);
 	}
 }
@@ -178,3 +178,4 @@ function fee_register_defaults() {
 }
 
 add_action('init', 'fee_register_defaults');
+

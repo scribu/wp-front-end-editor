@@ -703,7 +703,7 @@ jQuery(document).ready(function($){
 	});
 
 	classes['textarea'] = classes['input'].extend({
-		input_tag: '<textarea rows="10">',
+		input_tag: '<textarea rows="10">'
 	});
 
 	classes['rich'] = classes['textarea'].extend({
