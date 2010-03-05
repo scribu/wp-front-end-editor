@@ -100,7 +100,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$chunks = $this->split($field, true);
 
-		return $chunks[$chunk_id];
+		return @$chunks[$chunk_id];
 	}
 
 	function save($post_id, $chunk_content) {

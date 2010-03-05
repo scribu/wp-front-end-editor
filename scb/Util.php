@@ -23,9 +23,7 @@ class scbUtil {
 		$content = str_replace(array('"', "\n"), array("'", ''), ob_get_clean());
 
 		echo "<script type='text/javascript'>\n";
-		echo "jQuery(document).ready(function($) {\n";
-		echo "$('head').append(\"$content\");\n";
-		echo "});\n";
+		echo "document.getElementsByTagName('head')[0].innerHTML += \"$content\"";
 		echo "</script>";
 	}
 
@@ -126,9 +124,22 @@ function __return_false() {
 }
 endif;
 
+// WP < ?
 if ( ! function_exists('__return_true') ) :
 function __return_true() {
 	return true;
+}
+endif;
+
+// WP < ?
+if ( ! function_exists('set_post_field') ) :
+function set_post_field($field, $value, $post_id) {
+	global $wpdb;
+
+	$post_id = absint($post_id);
+	$value = sanitize_post_field($field, $value, $post_id, 'db');
+
+	return $wpdb->update($wpdb->posts, array($field => $value), array('ID' => $post_id));
 }
 endif;
 
