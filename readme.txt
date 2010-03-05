@@ -4,7 +4,7 @@ Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 2.8
 Tested up to: 3.0
-Stable tag: 1.7.1
+Stable tag: 1.7.2
 
 Want to edit something? Just double-click it!
 
@@ -168,7 +168,9 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 
 == Changelog ==
 
-= 1.8 =
+= 1.7.2 =
+* fixed narrow textarea problem
+* fixed IE8 error
 * included nicEdit upload plugin
 
 = 1.7.1 =
