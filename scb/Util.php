@@ -13,6 +13,8 @@ class scbUtil {
 
 	// Force style enqueue
 	static function do_styles($handles) {
+		self::do_scripts('jquery');
+
 		global $wp_styles;
 
 		if ( ! is_a($wp_styles, 'WP_Styles') )
@@ -23,7 +25,9 @@ class scbUtil {
 		$content = str_replace(array('"', "\n"), array("'", ''), ob_get_clean());
 
 		echo "<script type='text/javascript'>\n";
-		echo "document.getElementsByTagName('head')[0].innerHTML += \"$content\"";
+		echo "jQuery(document).ready(function($) {\n";
+		echo "$('head').append(\"$content\");\n";
+		echo "});\n";
 		echo "</script>";
 	}
 

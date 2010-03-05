@@ -113,8 +113,8 @@ abstract class FEE_Core {
 ?>
 <script type='text/javascript'>frontEditorData = <?php echo json_encode($data) ?>;</script>
 <?php
-		scbUtil::do_styles('front-editor');
 		scbUtil::do_scripts('front-editor');
+		scbUtil::do_styles('front-editor');
 	}
 
 	// Register a new editable field
