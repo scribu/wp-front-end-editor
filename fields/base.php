@@ -48,11 +48,11 @@ abstract class FEE_Field_Base {
 			trigger_error("scalar expected. " . gettype($content) . " given", E_USER_WARNING);
 
 		$class = 'fee-field fee-filter-' . $this->filter;
-		$object_id = 'fee_' . esc_attr($object_id);
+		$object_id = esc_attr($object_id);
 
 		$wrap_tag = ( $inline || in_array($this->input_type, array('input', 'terminput', 'image')) ) ? 'span' : 'div';
 
-		return html("$wrap_tag id='{$object_id}' class='{$class}'", $content);
+		return html("$wrap_tag class='{$class}' data-fee='{$object_id}'", $content);
 	}
 
 	/**

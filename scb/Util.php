@@ -26,7 +26,7 @@ class scbUtil {
 
 		echo "<script type='text/javascript'>\n";
 		echo "jQuery(document).ready(function($) {\n";
-		echo "$('head').append(\"$content\");\n";
+		echo "$('head').prepend(\"$content\");\n";
 		echo "});\n";
 		echo "</script>";
 	}
@@ -87,8 +87,12 @@ function debug() {
 	$args = func_get_args();
 
 	// integrate with FirePHP
-	if ( function_exists('FB') ) {
-		fb($args);
+	if ( 1==0 && class_exists('FirePHP') ) {
+		$firephp = FirePHP::getInstance(true);
+		$firephp->group('aaa');
+		foreach ( $args as $arg )
+			$firephp->log($arg);
+		$firephp->groupEnd();
 
 		return;
 	}

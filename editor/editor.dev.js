@@ -795,7 +795,7 @@ jQuery(document).ready(function($){
 		var id = $el.parents('.widget').attr('id');
 
 		if ( id )
-			$el.attr('id', 'fee_' + id);
+			$el.attr('data-fee', 'id');
 		else
 			// undo wrap; can't find widget id
 			$el.replaceWith($el.html());
@@ -806,7 +806,7 @@ jQuery(document).ready(function($){
 		$('.fee-filter-' + name).each(function() {
 			var $el = $(this);
 
-			var id = $el.attr('id').substr(4);
+			var id = $el.attr('data-fee');
 
 			var parts = id.split('#');
 
