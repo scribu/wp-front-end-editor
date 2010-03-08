@@ -320,7 +320,7 @@ var nicEditor = bkClass.extend({
 	
 	panelInstance : function(e,o) {
 		e = this.checkReplace($BK(e));
-		var panelElm = new bkElement('DIV').setStyle({width : (parseInt(e.getStyle('width')) || e.clientWidth)+'px'}).appendBefore(e);
+		var panelElm = new bkElement('DIV').setStyle({width : (e.clientWidth || parseInt(e.getStyle('width')))+'px'}).appendBefore(e);
 		this.setPanel(panelElm);
 		return this.addInstance(e,o);	
 	},
@@ -416,7 +416,7 @@ var nicEditorInstance = bkClass.extend({
 		this.elm = this.e = e;
 		this.options = options || {};
 		
-		newX = parseInt(e.getStyle('width')) || e.clientWidth;
+		newX = e.clientWidth || parseInt(e.getStyle('width'));
 		newY = parseInt(e.getStyle('height')) || e.clientHeight;
 		this.initialHeight = newY-8;
 		
