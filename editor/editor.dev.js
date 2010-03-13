@@ -329,6 +329,13 @@ jQuery(document).ready(function($){
 			self.name = name;
 			self.id = id;
 
+			self.el.qtip({
+				content: 'Double-click to edit',
+				position: {
+					target: 'mouse'
+				}
+			});
+
 			self.bind(self.el, 'click', self.click);
 			self.bind(self.el, 'dblclick', self.dblclick);
 		},

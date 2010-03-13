@@ -67,6 +67,12 @@ abstract class FEE_Core {
 		$css_dependencies = array();
 		$js_dependencies = array('jquery');
 
+		// qTip
+		if ( 1 == 1 ) {
+			wp_register_script('jquery-qtip', $url . "jquery.qtip$js_dev.js", array(), '1.0-rc3', true);
+			$js_dependencies[] = 'jquery-qtip';
+		}
+
 		// Autosuggest
 		if ( array_key_exists('terminput', $wrapped) ) {
 			$js_dependencies[] = 'suggest';
