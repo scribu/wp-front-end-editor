@@ -329,10 +329,28 @@ jQuery(document).ready(function($){
 			self.name = name;
 			self.id = id;
 
+			$.fn.qtip.styles.fee = {
+				width: 200,
+				padding: 5,
+				background: '#A2D959',
+				color: 'black',
+				textAlign: 'center',
+				border: {
+					width: 7,
+					radius: 5,
+					color: '#A2D959'
+				},
+				tip: 'topLeft',
+				name: 'dark' // Inherit the rest of the attributes from the preset dark style
+			};
+
 			self.el.qtip({
 				content: 'Double-click to edit',
 				position: {
 					target: 'mouse'
+				},
+				style: { 
+					name: 'fee'
 				}
 			});
 
