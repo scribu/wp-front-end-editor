@@ -649,13 +649,13 @@ jQuery(document).ready(function($){
 
 			// Button markup
 			self.save_button = $('<button>')
-				.attr({'class': 'fee-form-save', 'title': frontEditorData.save_text})
+				.addClass('fee-form-save')
 				.text(frontEditorData.save_text)
 				.click(form_submit);
 
 			self.cancel_button = $('<button>')
-				.attr({'class': 'fee-form-cancel', 'title': frontEditorData.cancel_text})
-				.text('Cancel')
+				.addClass('fee-form-cancel')
+				.text(frontEditorData.cancel_text)
 				.click(form_remove);
 
 			// Create form
