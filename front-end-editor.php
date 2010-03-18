@@ -48,6 +48,7 @@ function _fee_init() {
 	$options = new scbOptions('front-end-editor', __FILE__, array(
 		'disabled' => array(),
 		'highlight' => true,
+		'tooltip' => true,
 		'rich' => true,
 		'chunks' => false,
 		'reset_date' => false

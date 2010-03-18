@@ -68,9 +68,11 @@ abstract class FEE_Core {
 		$js_dependencies = array('jquery');
 
 		// qTip
-		if ( 1 == 1 ) {
+		if ( self::$options->tooltip ) {
 			wp_register_script('jquery-qtip', $url . "jquery.qtip$js_dev.js", array(), '1.0-rc3', true);
 			$js_dependencies[] = 'jquery-qtip';
+
+			$data['tooltip'] = $url . 'editor.png';
 		}
 
 		// Autosuggest

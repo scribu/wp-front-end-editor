@@ -329,40 +329,6 @@ jQuery(document).ready(function($){
 			self.name = name;
 			self.id = id;
 
-			$.fn.qtip.styles.fee = {
-				height: 10,
-				background: '#bbbebf url(http://test.scribu.net/wp/wp-content/uploads/2010/03/wp_edit.png) top left no-repeat',
-				color: '#ffffff',
-				textAlign: 'left',
-				lineHeight: '100%',
-				fontFamily: 'sans-serif',
-				fontSize: '14px',
-				paddingTop: '3px',
-				paddingRight: '5px',
-				paddingBottom: '7px',
-				paddingLeft: '25px',
-				opacity: '0.75',
-				border: {
-					width: 0,
-					radius: 5,
-					color: '#bbbebf'
-				},
-				tip: 'bottomLeft',
-				name: 'dark' // Inherit the rest of the attributes from the preset dark style
-			};
-
-			self.el.qtip({
-				content: 'Double-click to edit',
-				position: { corner: { target: 'topMiddle' }, adjust: { x: 0, y: -40 } },
-				show: { 
-					effect: 'fade' 
-				},
-				
-				style: { 
-					name: 'fee'
-				}
-			});
-
 			self.bind(self.el, 'click', self.click);
 			self.bind(self.el, 'dblclick', self.dblclick);
 		},
@@ -854,4 +820,41 @@ jQuery(document).ready(function($){
 			new classes[type]($el, type, name, id);
 		});
 	});
+	
+	// Tooltip init
+	if ( frontEditorData.tooltip ) {
+		$.fn.qtip.styles.fee = {
+			height: 10,
+			paddingTop: '4px',
+			paddingRight: '5px',
+			paddingBottom: '6px',
+			paddingLeft: '25px',
+			background: '#bbbebf url(' + frontEditorData.tooltip + ') top left no-repeat',
+			color: '#ffffff',
+			textAlign: 'left',
+			lineHeight: '100%',
+			fontFamily: 'sans-serif',
+			fontSize: '14px',
+			opacity: '0.75',
+			border: {
+				width: 0,
+				radius: 5,
+				color: '#bbbebf'
+			},
+			tip: 'bottomLeft',
+			name: 'dark' // Inherit the rest of the attributes from the preset dark style
+		};
+
+		$('.fee-field').qtip({
+			content: 'Double-click to edit',
+			position: { corner: { target: 'topMiddle' }, adjust: { x: 0, y: -40 } },
+			show: { 
+				effect: 'fade' 
+			},
+			
+			style: { 
+				name: 'fee'
+			}
+		});
+	}
 });

@@ -98,7 +98,7 @@ class FEE_Admin extends scbBoxesPage {
 		if ( !isset($_POST['save_settings']) )
 			return;
 
-		foreach ( array('rich', 'chunks', 'reset_date', 'highlight') as $key )
+		foreach ( array('rich', 'chunks', 'reset_date', 'highlight', 'tooltip') as $key )
 			$this->options->$key = (bool) @$_POST[$key];
 
 		$this->admin_msg(__('Settings <strong>saved</strong>.'));
@@ -125,10 +125,14 @@ class FEE_Admin extends scbBoxesPage {
 			),
 
 			array(
-				'title' => __('Highlighting', $this->textdomain),
 				'desc' => __('Highlight editable elements', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'highlight',
+			),
+			array(
+				'desc' => __('Display a tooltip above editable elements', $this->textdomain),
+				'type' => 'checkbox',
+				'name' => 'tooltip',
 			),
 		);
 		
