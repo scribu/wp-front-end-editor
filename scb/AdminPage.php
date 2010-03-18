@@ -8,13 +8,15 @@ You must set $this->args and define the page_content() method
 
 abstract class scbAdminPage {
 	/** Page args
-	 * string $parent  (default: options-general.php)
-	 * string $page_title  (mandatory)
-	 * string $menu_title
-	 * string $page_slug
-	 * string $capability (default: 'manage_options')
-	 * string $nonce
-	 * array $action_link  (default: 'Settings')
+	 * $toplevel string  If not empty, will create a new top level menu
+	 * $icon string  Path to an icon for the top level menu
+	 * $parent string  (default: options-general.php)
+	 * $capability string  (default: 'manage_options')
+	 * $page_title string  (mandatory)
+	 * $menu_title string  (default: $page_title)
+	 * $page_slug string  (default: sanitized $page_title)
+	 * $nonce string  (default: $page_slug)
+	 * $action_link string|bool  Text of the action link on the Plugins page (default: 'Settings')
 	 */
 	protected $args;
 
@@ -276,14 +278,14 @@ abstract class scbAdminPage {
 			trigger_error('Page title cannot be empty', E_USER_WARNING);
 
 		$this->args = wp_parse_args($this->args, array(
-			'menu_title' => $this->args['page_title'],
-			'page_slug' => '',
 			'toplevel' => '',
 			'icon' => '',
 			'parent' => 'options-general.php',
-			'action_link' => __('Settings', $this->textdomain),
 			'capability' => 'manage_options',
-			'nonce' => ''
+			'menu_title' => $this->args['page_title'],
+			'page_slug' => '',
+			'nonce' => '',
+			'action_link' => __('Settings', $this->textdomain),
 		));
 
 		if ( empty($this->args['page_slug']) )

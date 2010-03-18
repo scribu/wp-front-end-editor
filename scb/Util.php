@@ -48,6 +48,13 @@ class scbUtil {
 
 		return implode(',', $values);
 	}
+
+	// Have more than one uninstall hooks; also prevents an UPDATE query on each page load
+	static function add_uninstall_hook($plugin, $callback) {
+		register_uninstall_hook($plugin, '__return_false');	// dummy
+
+		add_action('uninstall_' . plugin_basename($plugin), $callback);
+	}
 }
 
 
@@ -63,6 +70,13 @@ class scbDebug {
 		register_shutdown_function(array($this, '_delayed'));
 	}
 
+	function _delayed() {
+		if ( !current_user_can('administrator') )
+			return;
+
+		$this->raw($this->args);
+	}
+
 	static function raw($args) {
 		echo "<pre>";
 		foreach ( $args as $arg )
@@ -72,13 +86,6 @@ class scbDebug {
 				var_dump($arg);
 		echo "</pre>";	
 	}
-
-	function _delayed() {
-		if ( !current_user_can('administrator') )
-			return;
-
-		$this->raw($this->args);
-	}
 }
 endif;
 
@@ -87,9 +94,9 @@ function debug() {
 	$args = func_get_args();
 
 	// integrate with FirePHP
-	if ( 1==0 && class_exists('FirePHP') ) {
+	if ( class_exists('FirePHP') ) {
 		$firephp = FirePHP::getInstance(true);
-		$firephp->group('aaa');
+		$firephp->group('debug');
 		foreach ( $args as $arg )
 			$firephp->log($arg);
 		$firephp->groupEnd();
@@ -98,6 +105,14 @@ function debug() {
 	}
 
 	new scbDebug($args);
+}
+endif;
+
+if ( ! function_exists('debug_raw') ):
+function debug_raw() {
+	$args = func_get_args();
+
+	scbDebug::raw($args);
 }
 endif;
 

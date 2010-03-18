@@ -34,7 +34,7 @@ abstract class scbBoxesPage extends scbAdminPage {
 		add_action('load-' . $this->pagehook, array($this, 'boxes_init'));
 		add_filter('screen_layout_columns', array($this, 'columns'));
 
-		register_uninstall_hook($this->file, array($this, 'uninstall'));
+		scbUtil::add_uninstall_hook($this->file, array($this, 'uninstall'));
 	}
 
 	function default_css() {

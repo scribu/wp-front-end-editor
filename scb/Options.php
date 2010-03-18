@@ -28,7 +28,7 @@ class scbOptions {
 			register_activation_hook($file, array($this, '_update_reset'));
 		}
 
-		register_uninstall_hook($file, array($this, '_delete'));
+		scbUtil::add_uninstall_hook($file, array($this, '_delete'));
 	}
 
 	/**
