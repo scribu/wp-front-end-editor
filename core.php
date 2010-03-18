@@ -35,14 +35,7 @@ abstract class FEE_Core {
 
 	static function highlight() {
 ?>
-<style type='text/css'>
-.fee-field:hover {
-    text-shadow: #f4ff33 0 0 15px !important;
-	cursor: text !important;
-}
-
-.fee-field.fee-filter-the_title:hover { white-space:nowrap; }
-</style>
+<style type='text/css'>.fee-field:hover, .fee-field:hover > * {background-color: #ffffa5}</style>
 <?php
 	}
 

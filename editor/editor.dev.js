@@ -336,7 +336,10 @@ jQuery(document).ready(function($){
 				textAlign: 'left',
 				lineHeight: '100%',
 				fontFamily: 'sans-serif',
-				padding: '5px',
+				fontSize: '14px',
+				paddingTop: '3px',
+				paddingRight: '5px',
+				paddingBottom: '7px',
 				paddingLeft: '25px',
 				opacity: '0.75',
 				border: {
@@ -695,7 +698,9 @@ jQuery(document).ready(function($){
 			self.form = inline ? $('<span>') : $('<div>');
 
 			self.form
-				.attr('class', 'fee-form fee-filter-' + self.name)
+				.addClass('fee-form')
+				.addClass('fee-type-' + self.type)
+				.addClass('fee-filter-' + self.name)
 				.append(self.save_button)
 				.append(self.cancel_button);
 
