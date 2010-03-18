@@ -9,8 +9,7 @@ div.fee-form, textarea.fee-form-content {
 	width: 100% !important;
 }
 .fee-form-cancel {
-	font-weight: bold !important; 
-	color: red !important;
+	color: gray !important;
 }
 .fee-form-spinner {
 	border: 0 !important; 
@@ -63,3 +62,48 @@ div.fee-form, textarea.fee-form-content {
 	color: #D54E21 !important;
 }
 
+button.fee-form-save {
+	text-decoration: none;
+	font-size: 11px !important;
+	line-height: 14px;
+	padding: 2px 8px;
+	cursor: pointer;
+	-moz-border-radius: 11px;
+	-khtml-border-radius: 11px;
+	-webkit-border-radius: 11px;
+	border-radius: 11px;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	-khtml-box-sizing: content-box;
+	box-sizing: content-box;
+	background-color: #23779f;
+	color: #fff;
+	border: 1px solid #1c5e7f;
+	margin-right: 5px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+}
+
+button.fee-form-cancel {
+	text-decoration: none;
+	font-size: 11px !important;
+	line-height: 14px;
+	padding: 2px 8px;
+	cursor: pointer;
+	-moz-border-radius: 11px;
+	-khtml-border-radius: 11px;
+	-webkit-border-radius: 11px;
+	border-radius: 11px;
+	-moz-box-sizing: content-box;
+	-webkit-box-sizing: content-box;
+	-khtml-box-sizing: content-box;
+	box-sizing: content-box;
+	background-color: #fcfcfc;
+	border: 1px solid #ddd;
+	margin-bottom: 10px;
+}
+
+.fee-filter-the_content button, fee-filter-the_excerpt button, fee-filter-comment_text button {
+	position: relative;
+	top: -30px;	
+}

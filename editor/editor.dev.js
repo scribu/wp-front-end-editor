@@ -330,25 +330,31 @@ jQuery(document).ready(function($){
 			self.id = id;
 
 			$.fn.qtip.styles.fee = {
-				width: 200,
-				padding: 5,
-				background: '#A2D959',
-				color: 'black',
-				textAlign: 'center',
+				height: 10,
+				background: '#bbbebf url(http://test.scribu.net/wp/wp-content/uploads/2010/03/wp_edit.png) top left no-repeat',
+				color: '#ffffff',
+				textAlign: 'left',
+				lineHeight: '100%',
+				fontFamily: 'sans-serif',
+				padding: '5px',
+				paddingLeft: '25px',
+				opacity: '0.75',
 				border: {
-					width: 7,
+					width: 0,
 					radius: 5,
-					color: '#A2D959'
+					color: '#bbbebf'
 				},
-				tip: 'topLeft',
+				tip: 'bottomLeft',
 				name: 'dark' // Inherit the rest of the attributes from the preset dark style
 			};
 
 			self.el.qtip({
 				content: 'Double-click to edit',
-				position: {
-					target: 'mouse'
+				position: { corner: { target: 'topMiddle' }, adjust: { x: 0, y: -40 } },
+				show: { 
+					effect: 'fade' 
 				},
+				
 				style: { 
 					name: 'fee'
 				}
@@ -680,7 +686,7 @@ jQuery(document).ready(function($){
 
 			self.cancel_button = $('<button>')
 				.attr({'class': 'fee-form-cancel', 'title': frontEditorData.cancel_text})
-				.text('X')
+				.text('Cancel')
 				.click(form_remove);
 
 			// Create form
