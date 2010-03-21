@@ -49,7 +49,7 @@ class FEE_Admin extends scbBoxesPage {
 
 		$this->options->disabled = $disabled;
 
-		$this->admin_msg(__('Settings <strong>saved</strong>.'));
+		$this->admin_msg();
 	}
 
 	function fields_box() {
@@ -102,7 +102,7 @@ class FEE_Admin extends scbBoxesPage {
 		foreach ( array('rich', 'chunks', 'reset_date', 'highlight', 'tooltip') as $key )
 			$this->options->$key = (bool) @$_POST[$key];
 
-		$this->admin_msg(__('Settings <strong>saved</strong>.'));
+		$this->admin_msg();
 	}
 
 	function settings_box() {

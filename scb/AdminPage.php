@@ -144,7 +144,7 @@ abstract class scbAdminPage {
 		if ( isset($this->options) )
 			$this->options->update($this->formdata);
 
-		$this->admin_msg(__('Settings <strong>saved</strong>.', $this->textdomain));
+		$this->admin_msg();
 	}
 
 
@@ -267,7 +267,10 @@ abstract class scbAdminPage {
 	}
 
 	// Generates a standard admin notice
-	function admin_msg($msg, $class = "updated") {
+	function admin_msg($msg = '', $class = "updated") {
+		if ( empty($msg) )
+			$msg = __('Settings <strong>saved</strong>.', $this->textdomain);
+
 		echo "<div class='$class fade'><p>$msg</p></div>\n";
 	}
 
