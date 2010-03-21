@@ -25,6 +25,13 @@ abstract class scbBoxesPage extends scbAdminPage {
 	*/
 	protected $boxes = array();
 
+	function __construct($file, $options = null) {
+		parent::__construct($file, $options);
+
+		// too late
+		scbUtil::add_uninstall_hook($this->file, array($this, 'uninstall'));
+	}
+
 	function page_init() {
 		if ( !isset($this->args['columns']) )
 			$this->args['columns'] = 2;
@@ -33,8 +40,6 @@ abstract class scbBoxesPage extends scbAdminPage {
 
 		add_action('load-' . $this->pagehook, array($this, 'boxes_init'));
 		add_filter('screen_layout_columns', array($this, 'columns'));
-
-		scbUtil::add_uninstall_hook($this->file, array($this, 'uninstall'));
 	}
 
 	function default_css() {
@@ -187,7 +192,7 @@ abstract class scbBoxesPage extends scbAdminPage {
 			$parts[1]++;
 		else
 			$parts[1] = 2;
-		
+
 		return implode('-', $parts);
 	}
 

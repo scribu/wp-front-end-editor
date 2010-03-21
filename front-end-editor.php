@@ -59,7 +59,7 @@ function _fee_init() {
 
 	if ( is_admin() ) {
 		require $dir . '/admin.php';
-		new FEE_Admin(__FILE__, $options);
+		scbAdminPage::register('Fee_Admin', __FILE__, $options);
 	}
 }
 

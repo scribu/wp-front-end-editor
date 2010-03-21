@@ -1,6 +1,7 @@
 <?php
 
 class FEE_Admin extends scbBoxesPage {
+
 	function setup() {
 		$this->textdomain = 'front-end-editor';
 
