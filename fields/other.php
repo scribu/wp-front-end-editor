@@ -156,6 +156,9 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	function wrap($content) {
+		if ( ! $this->check() )
+			return $content;
+
 		if ( 'text' == $this->field )
 			$content = $this->placehold($content);
 
