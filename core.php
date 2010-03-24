@@ -69,10 +69,13 @@ abstract class FEE_Core {
 
 		// qTip
 		if ( self::$options->tooltip ) {
+			$data['tooltip'] = array(
+				'icon' => $url . 'editor.png',
+				'text' => __('Double-click to edit', 'front-end-editor')
+			);
+
 			wp_register_script('jquery-qtip', $url . "jquery.qtip$js_dev.js", array(), '1.0-rc3', true);
 			$js_dependencies[] = 'jquery-qtip';
-
-			$data['tooltip'] = $url . 'editor.png';
 		}
 
 		// Autosuggest
@@ -103,9 +106,11 @@ abstract class FEE_Core {
 		if ( array_key_exists('image', $wrapped) || array_key_exists('thumbnail', $wrapped) ) {
 			$data['admin_url'] = admin_url();
 
-			$data['caption'] = __('Change Image', 'front-end-editor');
-			$data['img_revert'] = '(' . __('Clear', 'front-end-editor') . ')';
-			$data['tb_close'] = get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png';
+			$data['image'] = array(
+				'tb_caption' => __('Change Image', 'front-end-editor'),
+				'revert' => '(' . __('Clear', 'front-end-editor') . ')',
+				'tb_close' => get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png',
+			);
 
 			$css_dependencies[] = 'thickbox';
 			$js_dependencies[] = 'thickbox';
@@ -119,7 +124,7 @@ abstract class FEE_Core {
 		wp_register_script('front-editor', $url . "editor$js_dev.js", $js_dependencies, self::$version, true);
 
 ?>
-<script type='text/javascript'>frontEditorData = <?php echo json_encode($data) ?>;</script>
+<script type='text/javascript'>FEE_Data = <?php echo json_encode($data) ?>;</script>
 <?php
 		scbUtil::do_scripts('front-editor');
 		scbUtil::do_styles('front-editor');

@@ -1,7 +1,7 @@
 jQuery(document).ready(function($){
-	if ( frontEditorData._loaded )
+	if ( FEE_Data._loaded )
 		return;
-	frontEditorData._loaded = true;
+	FEE_Data._loaded = true;
 
 	// http://ejohn.org/blog/simple-javascript-inheritance/
 	// Inspired by base2 and Prototype
@@ -70,7 +70,7 @@ jQuery(document).ready(function($){
 
 
 	var spinner = $('<img>').attr({
-		'src': frontEditorData.spinner,
+		'src': FEE_Data.spinner,
 		'class': 'front-editor-spinner'
 	});
 
@@ -88,10 +88,10 @@ jQuery(document).ready(function($){
 	};
 
 	var resume = function() {
-		if ( frontEditorData._trap )
+		if ( FEE_Data._trap )
 			return;
 
-		var $link = frontEditorData._to_click;
+		var $link = FEE_Data._to_click;
 
 		if ( typeof $link == 'undefined' )
 			return;
@@ -125,7 +125,7 @@ jQuery(document).ready(function($){
 				window.location.href = $link.attr('href');
 		}
 
-		delete frontEditorData._to_click;
+		delete FEE_Data._to_click;
 	};
 
 	var classes = {};
@@ -168,7 +168,7 @@ jQuery(document).ready(function($){
 		},
 
 		click: function(ev) {
-//			if ( typeof frontEditorData._to_click != 'undefined' )
+//			if ( typeof FEE_Data._to_click != 'undefined' )
 //				return;
 
 			var $el = $(ev.target).closest('a');
@@ -182,7 +182,7 @@ jQuery(document).ready(function($){
 			ev.stopImmediatePropagation();
 			ev.preventDefault();
 
-			frontEditorData._to_click = $el;
+			FEE_Data._to_click = $el;
 
 			setTimeout(resume, 300);
 		},
@@ -193,7 +193,7 @@ jQuery(document).ready(function($){
 			ev.stopPropagation();
 			ev.preventDefault();
 
-			frontEditorData._trap = true;
+			FEE_Data._trap = true;
 		},
 
 		get_content: null /* function() */,
@@ -206,7 +206,7 @@ jQuery(document).ready(function($){
 			var self = this;
 
 			var data = {
-				'nonce': frontEditorData.nonce,
+				'nonce': FEE_Data.nonce,
 				'action': 'front-editor',
 				'callback': 'get',
 				'name': self.name,
@@ -214,7 +214,7 @@ jQuery(document).ready(function($){
 				'item_id': self.id
 			};
 
-			$.post(frontEditorData.ajax_url, data, function(response){
+			$.post(FEE_Data.ajax_url, data, function(response){
 				self.ajax_get_handler(response);
 			});
 		},
@@ -225,7 +225,7 @@ jQuery(document).ready(function($){
 			content = content || self.get_content();
 
 			var data = {
-				'nonce': frontEditorData.nonce,
+				'nonce': FEE_Data.nonce,
 				'action': 'front-editor',
 				'callback': 'save',
 				'name': self.name,
@@ -234,7 +234,7 @@ jQuery(document).ready(function($){
 				'content': content
 			};
 
-			$.post(frontEditorData.ajax_url, data, function(response){
+			$.post(FEE_Data.ajax_url, data, function(response){
 				self.ajax_set_handler(response);
 			});
 		},
@@ -261,17 +261,17 @@ jQuery(document).ready(function($){
 		open_box: function() {
 			var self = this;
 
-			tb_show(frontEditorData.caption, frontEditorData.admin_url +
+			tb_show(FEE_Data.image.tb_caption, FEE_Data.admin_url +
 				'/media-upload.php?type=image&TB_iframe=true&width=640&editable_image=1');
 
-			var $revert = $('<a id="fee-img-revert" href="#">').text(frontEditorData.img_revert);
+			var $revert = $('<a id="fee-img-revert" href="#">').text(FEE_Data.image.revert);
 
 			$revert.click(function(ev){
 				self.ajax_set(-1);
 			});
 
 			$('#TB_ajaxWindowTitle').after($revert);
-			$('#TB_closeWindowButton img').attr('src', frontEditorData.tb_close);
+			$('#TB_closeWindowButton img').attr('src', FEE_Data.image.tb_close);
 
 			self.bind($('#TB_iframeContent'), 'load', self.replace_button);
 		},
@@ -283,7 +283,7 @@ jQuery(document).ready(function($){
 
 			$('.media-item', $frame).livequery(function(){
 				var $item = $(this);
-				var $button = $('<a href="#" class="button">').text(frontEditorData.caption);
+				var $button = $('<a href="#" class="button">').text(FEE_Data.caption);
 
 				$button.click(function(ev){
 					self.ajax_set(self.get_content($item));
@@ -358,10 +358,10 @@ jQuery(document).ready(function($){
 
 			self.input = $(self.input_tag);
 
-			self.input
-				.attr('id', 'edit_' + self.el.attr('id'))
-				.attr('class', 'fee-form-content')
-				.prependTo(self.form);
+			self.input.attr({
+				'id': 'edit_' + self.el.attr('id'),
+				'class': 'fee-form-content'
+			}).prependTo(self.form);
 		},
 
 		set_input: function(content) {
@@ -434,7 +434,7 @@ jQuery(document).ready(function($){
 
 			// Button actions
 			var form_remove = function(with_spinner) {
-				frontEditorData._trap = false;
+				FEE_Data._trap = false;
 
 				self.form.remove();
 
@@ -452,15 +452,8 @@ jQuery(document).ready(function($){
 			};
 
 			// Button markup
-			self.save_button = $('<button>')
-				.addClass('fee-form-save')
-				.text(frontEditorData.save_text)
-				.click(form_submit);
-
-			self.cancel_button = $('<button>')
-				.addClass('fee-form-cancel')
-				.text(frontEditorData.cancel_text)
-				.click(form_remove);
+			self.save_button   = $('<button>').addClass('fee-form-save').text(FEE_Data.save_text).click(form_submit);
+			self.cancel_button = $('<button>').addClass('fee-form-cancel').text(FEE_Data.cancel_text).click(form_remove);
 
 			// Create form
 			var inline = self.type == 'input' || self.type == 'terminput';
@@ -499,7 +492,7 @@ jQuery(document).ready(function($){
 
 			self._super(content);
 
-			self.input.suggest(frontEditorData.ajax_url + '?action=ajax-tag-search&tax=' + self.id.split('#')[1], {
+			self.input.suggest(FEE_Data.ajax_url + '?action=ajax-tag-search&tax=' + self.id.split('#')[1], {
 				multiple: true,
 				resultsClass: 'fee-suggest-results',
 				selectClass: 'fee-suggest-over',
@@ -518,7 +511,7 @@ jQuery(document).ready(function($){
 
 			self._super(content);
 
-			self.editor = new nicEditor(frontEditorData.nicedit).panelInstance(self.input.attr('id'));
+			self.editor = new nicEditor(FEE_Data.nicedit).panelInstance(self.input.attr('id'));
 
 			self.form.find('.nicEdit-main').focus();
 		},
@@ -595,7 +588,7 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	// Widget fields hack: Add id attr to each element
+	// Widget fields hack: Add data-fee attr to each element
 	$('.fee-filter-widget_title, .fee-filter-widget_text').each(function() {
 		var $el = $(this);
 		var id = $el.parents('.widget').attr('id');
@@ -608,7 +601,7 @@ jQuery(document).ready(function($){
 	});
 
 	// Create field instances
-	$.each(frontEditorData.fields, function(name, type) {
+	$.each(FEE_Data.fields, function(name, type) {
 		$('.fee-filter-' + name).each(function() {
 			var $el = $(this);
 
@@ -626,14 +619,14 @@ jQuery(document).ready(function($){
 	});
 	
 	// Tooltip init
-	if ( frontEditorData.tooltip ) {
+	if ( FEE_Data.tooltip ) {
 		$.fn.qtip.styles.fee = {
 			height: 10,
 			paddingTop: '4px',
 			paddingRight: '5px',
 			paddingBottom: '6px',
 			paddingLeft: '25px',
-			background: '#bbbebf url(' + frontEditorData.tooltip + ') top left no-repeat',
+			background: '#bbbebf url(' + FEE_Data.tooltip.icon + ') top left no-repeat',
 			color: '#ffffff',
 			textAlign: 'left',
 			lineHeight: '100%',
@@ -646,11 +639,11 @@ jQuery(document).ready(function($){
 				color: '#bbbebf'
 			},
 			tip: 'bottomLeft',
-			name: 'dark' // Inherit the rest of the attributes from the preset dark style
+			name: 'dark'
 		};
 
 		$('.fee-field').qtip({
-			content: 'Double-click to edit',
+			content: FEE_Data.tooltip.text,
 			position: { corner: { target: 'topMiddle' }, adjust: { x: 0, y: -40 } },
 			show: { 
 				effect: 'fade' 
