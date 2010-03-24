@@ -107,7 +107,7 @@ abstract class FEE_Core {
 			$data['admin_url'] = admin_url();
 
 			$data['image'] = array(
-				'tb_caption' => __('Change Image', 'front-end-editor'),
+				'change' => __('Change Image', 'front-end-editor'),
 				'revert' => '(' . __('Clear', 'front-end-editor') . ')',
 				'tb_close' => get_bloginfo('wpurl') . '/wp-includes/js/thickbox/tb-close.png',
 			);

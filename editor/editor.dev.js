@@ -263,8 +263,8 @@
 		open_box: function() {
 			var self = this;
 
-			tb_show(FrontEndEditor.data.image.tb_caption, FrontEndEditor.data.admin_url +
-				'/media-upload.php?type=image&TB_iframe=true&width=640&editable_image=1');
+			tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.admin_url +
+				'/media-upload.php?post_id=0&type=image&TB_iframe=true&width=640&editable_image=1');
 
 			var $revert = $('<a id="fee-img-revert" href="#">').text(FrontEndEditor.data.image.revert);
 
@@ -285,7 +285,7 @@
 
 			$('.media-item', $frame).livequery(function(){
 				var $item = $(this);
-				var $button = $('<a href="#" class="button">').text(FrontEndEditor.data.caption);
+				var $button = $('<a href="#" class="button">').text(FrontEndEditor.data.image.change);
 
 				$button.click(function(ev){
 					self.ajax_set(self.get_content($item));
