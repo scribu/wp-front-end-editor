@@ -1,7 +1,7 @@
-jQuery(document).ready(function($){
-	if ( FEE_Data._loaded )
+(function($){
+	if ( FrontEndEditor._loaded )
 		return;
-	FEE_Data._loaded = true;
+	FrontEndEditor._loaded = true;
 
 	// http://ejohn.org/blog/simple-javascript-inheritance/
 	// Inspired by base2 and Prototype
@@ -70,7 +70,7 @@ jQuery(document).ready(function($){
 
 
 	var spinner = $('<img>').attr({
-		'src': FEE_Data.spinner,
+		'src': FrontEndEditor.data.spinner,
 		'class': 'front-editor-spinner'
 	});
 
@@ -88,10 +88,10 @@ jQuery(document).ready(function($){
 	};
 
 	var resume = function() {
-		if ( FEE_Data._trap )
+		if ( FrontEndEditor._trap )
 			return;
 
-		var $link = FEE_Data._to_click;
+		var $link = FrontEndEditor._to_click;
 
 		if ( typeof $link == 'undefined' )
 			return;
@@ -125,12 +125,13 @@ jQuery(document).ready(function($){
 				window.location.href = $link.attr('href');
 		}
 
-		delete FEE_Data._to_click;
+		delete FrontEndEditor._to_click;
 	};
 
-	var classes = {};
+	var fieldTypes = {};
 
-	classes['base'] = Class.extend({
+	fieldTypes['base'] = Class.extend({
+		
 		init: function($el, type, name, id) {
 			var self = this;
 
@@ -168,7 +169,7 @@ jQuery(document).ready(function($){
 		},
 
 		click: function(ev) {
-//			if ( typeof FEE_Data._to_click != 'undefined' )
+//			if ( typeof FrontEndEditor._to_click != 'undefined' )
 //				return;
 
 			var $el = $(ev.target).closest('a');
@@ -182,7 +183,7 @@ jQuery(document).ready(function($){
 			ev.stopImmediatePropagation();
 			ev.preventDefault();
 
-			FEE_Data._to_click = $el;
+			FrontEndEditor._to_click = $el;
 
 			setTimeout(resume, 300);
 		},
@@ -193,7 +194,7 @@ jQuery(document).ready(function($){
 			ev.stopPropagation();
 			ev.preventDefault();
 
-			FEE_Data._trap = true;
+			FrontEndEditor._trap = true;
 		},
 
 		get_content: null /* function() */,
@@ -206,7 +207,7 @@ jQuery(document).ready(function($){
 			var self = this;
 
 			var data = {
-				'nonce': FEE_Data.nonce,
+				'nonce': FrontEndEditor.data.nonce,
 				'action': 'front-editor',
 				'callback': 'get',
 				'name': self.name,
@@ -214,7 +215,7 @@ jQuery(document).ready(function($){
 				'item_id': self.id
 			};
 
-			$.post(FEE_Data.ajax_url, data, function(response){
+			$.post(FrontEndEditor.data.ajax_url, data, function(response){
 				self.ajax_get_handler(response);
 			});
 		},
@@ -225,7 +226,7 @@ jQuery(document).ready(function($){
 			content = content || self.get_content();
 
 			var data = {
-				'nonce': FEE_Data.nonce,
+				'nonce': FrontEndEditor.data.nonce,
 				'action': 'front-editor',
 				'callback': 'save',
 				'name': self.name,
@@ -234,7 +235,7 @@ jQuery(document).ready(function($){
 				'content': content
 			};
 
-			$.post(FEE_Data.ajax_url, data, function(response){
+			$.post(FrontEndEditor.data.ajax_url, data, function(response){
 				self.ajax_set_handler(response);
 			});
 		},
@@ -249,7 +250,8 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	classes['image'] = classes['base'].extend({
+	fieldTypes['image'] = fieldTypes['base'].extend({
+		
 		dblclick: function(ev) {
 			var self = this;
 
@@ -261,17 +263,17 @@ jQuery(document).ready(function($){
 		open_box: function() {
 			var self = this;
 
-			tb_show(FEE_Data.image.tb_caption, FEE_Data.admin_url +
+			tb_show(FrontEndEditor.data.image.tb_caption, FrontEndEditor.data.admin_url +
 				'/media-upload.php?type=image&TB_iframe=true&width=640&editable_image=1');
 
-			var $revert = $('<a id="fee-img-revert" href="#">').text(FEE_Data.image.revert);
+			var $revert = $('<a id="fee-img-revert" href="#">').text(FrontEndEditor.data.image.revert);
 
 			$revert.click(function(ev){
 				self.ajax_set(-1);
 			});
 
 			$('#TB_ajaxWindowTitle').after($revert);
-			$('#TB_closeWindowButton img').attr('src', FEE_Data.image.tb_close);
+			$('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close);
 
 			self.bind($('#TB_iframeContent'), 'load', self.replace_button);
 		},
@@ -283,7 +285,7 @@ jQuery(document).ready(function($){
 
 			$('.media-item', $frame).livequery(function(){
 				var $item = $(this);
-				var $button = $('<a href="#" class="button">').text(FEE_Data.caption);
+				var $button = $('<a href="#" class="button">').text(FrontEndEditor.data.caption);
 
 				$button.click(function(ev){
 					self.ajax_set(self.get_content($item));
@@ -326,7 +328,8 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	classes['thumbnail'] = classes['image'].extend({
+	fieldTypes['thumbnail'] = fieldTypes['image'].extend({
+		
 		replace_button: function(ev) {
 			var self = this;
 
@@ -342,7 +345,8 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	classes['input'] = classes['base'].extend({
+	fieldTypes['input'] = fieldTypes['base'].extend({
+
 		init: function($el, type, name, id) {
 			var self = this;
 
@@ -434,7 +438,7 @@ jQuery(document).ready(function($){
 
 			// Button actions
 			var form_remove = function(with_spinner) {
-				FEE_Data._trap = false;
+				FrontEndEditor._trap = false;
 
 				self.form.remove();
 
@@ -452,8 +456,8 @@ jQuery(document).ready(function($){
 			};
 
 			// Button markup
-			self.save_button   = $('<button>').addClass('fee-form-save').text(FEE_Data.save_text).click(form_submit);
-			self.cancel_button = $('<button>').addClass('fee-form-cancel').text(FEE_Data.cancel_text).click(form_remove);
+			self.save_button   = $('<button>').addClass('fee-form-save').text(FrontEndEditor.data.save_text).click(form_submit);
+			self.cancel_button = $('<button>').addClass('fee-form-cancel').text(FrontEndEditor.data.cancel_text).click(form_remove);
 
 			// Create form
 			var inline = self.type == 'input' || self.type == 'terminput';
@@ -486,13 +490,14 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	classes['terminput'] = classes['input'].extend({
+	fieldTypes['terminput'] = fieldTypes['input'].extend({
+		
 		set_input: function(content) {
 			var self = this;
 
 			self._super(content);
 
-			self.input.suggest(FEE_Data.ajax_url + '?action=ajax-tag-search&tax=' + self.id.split('#')[1], {
+			self.input.suggest(FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + self.id.split('#')[1], {
 				multiple: true,
 				resultsClass: 'fee-suggest-results',
 				selectClass: 'fee-suggest-over',
@@ -501,17 +506,18 @@ jQuery(document).ready(function($){
 		}
 	});
 
-	classes['textarea'] = classes['input'].extend({
+	fieldTypes['textarea'] = fieldTypes['input'].extend({
 		input_tag: '<textarea rows="10">'
 	});
 
-	classes['rich'] = classes['textarea'].extend({
+	fieldTypes['rich'] = fieldTypes['textarea'].extend({
+
 		set_input: function(content) {
 			var self = this;
 
 			self._super(content);
 
-			self.editor = new nicEditor(FEE_Data.nicedit).panelInstance(self.input.attr('id'));
+			self.editor = new nicEditor(FrontEndEditor.data.nicedit).panelInstance(self.input.attr('id'));
 
 			self.form.find('.nicEdit-main').focus();
 		},
@@ -588,6 +594,10 @@ jQuery(document).ready(function($){
 		}
 	});
 
+	// export
+	FrontEndEditor.fieldTypes = fieldTypes;
+
+$(document).ready(function($) {
 	// Widget fields hack: Add data-fee attr to each element
 	$('.fee-filter-widget_title, .fee-filter-widget_text').each(function() {
 		var $el = $(this);
@@ -601,7 +611,7 @@ jQuery(document).ready(function($){
 	});
 
 	// Create field instances
-	$.each(FEE_Data.fields, function(name, type) {
+	$.each(FrontEndEditor.data.fields, function(name, type) {
 		$('.fee-filter-' + name).each(function() {
 			var $el = $(this);
 
@@ -614,19 +624,19 @@ jQuery(document).ready(function($){
 				case 'editable_option': type = parts[1]; break;
 			}
 
-			new classes[type]($el, type, name, id);
+			new fieldTypes[type]($el, type, name, id);
 		});
 	});
-	
+
 	// Tooltip init
-	if ( FEE_Data.tooltip ) {
+	if ( FrontEndEditor.data.tooltip ) {
 		$.fn.qtip.styles.fee = {
 			height: 10,
 			paddingTop: '4px',
 			paddingRight: '5px',
 			paddingBottom: '6px',
 			paddingLeft: '25px',
-			background: '#bbbebf url(' + FEE_Data.tooltip.icon + ') top left no-repeat',
+			background: '#bbbebf url(' + FrontEndEditor.data.tooltip.icon + ') top left no-repeat',
 			color: '#ffffff',
 			textAlign: 'left',
 			lineHeight: '100%',
@@ -643,7 +653,7 @@ jQuery(document).ready(function($){
 		};
 
 		$('.fee-field').qtip({
-			content: FEE_Data.tooltip.text,
+			content: FrontEndEditor.data.tooltip.text,
 			position: { corner: { target: 'topMiddle' }, adjust: { x: 0, y: -40 } },
 			show: { 
 				effect: 'fade' 
@@ -655,3 +665,4 @@ jQuery(document).ready(function($){
 		});
 	}
 });
+})(jQuery);

@@ -124,7 +124,10 @@ abstract class FEE_Core {
 		wp_register_script('front-editor', $url . "editor$js_dev.js", $js_dependencies, self::$version, true);
 
 ?>
-<script type='text/javascript'>FEE_Data = <?php echo json_encode($data) ?>;</script>
+<script type='text/javascript'>
+var FrontEndEditor = {};
+FrontEndEditor.data = <?php echo json_encode($data) ?>;
+</script>
 <?php
 		scbUtil::do_scripts('front-editor');
 		scbUtil::do_styles('front-editor');
