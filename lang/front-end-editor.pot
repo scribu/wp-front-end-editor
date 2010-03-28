@@ -1,4 +1,4 @@
-# Translation of the WordPress plugin Front-end Editor 1.7 by scribu.
+# Translation of the WordPress plugin Front-end Editor 1.8a5 by scribu.
 # Copyright (C) 2010 scribu
 # This file is distributed under the same license as the Front-end Editor package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.7\n"
+"Project-Id-Version: Front-end Editor 1.8a5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-02-18 19:03+0200\n"
+"POT-Creation-Date: 2010-03-28 19:43+0300\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,38 +16,30 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.7)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.8a5)  #-#-#-#-#
 #. Plugin Name of an extension
-#: admin.php:7
+#: admin.php:8
 msgid "Front-end Editor"
 msgstr ""
 
-#: admin.php:10
+#: admin.php:11
 msgid "Fields"
 msgstr ""
 
-#: admin.php:11 scb/AdminPage.php:284
+#: admin.php:12 scb/AdminPage.php:329
 msgid "Settings"
 msgstr ""
 
-#: admin.php:51 admin.php:104 scb/AdminPage.php:108
-msgid "Settings <strong>saved</strong>."
-msgstr ""
-
-#: admin.php:63
+#: admin.php:64
 msgid "Enable or disable editable fields"
 msgstr ""
 
-#: admin.php:65
+#: admin.php:66
 msgid "Post fields"
 msgstr ""
 
-#: admin.php:66
+#: admin.php:67
 msgid "Other fields"
-msgstr ""
-
-#: admin.php:110
-msgid "Rich text editor"
 msgstr ""
 
 #: admin.php:111
@@ -55,27 +47,19 @@ msgid "Enable the WYSIWYG editor"
 msgstr ""
 
 #: admin.php:117
-msgid "Edit paragraphs"
-msgstr ""
-
-#: admin.php:118
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr ""
 
-#: admin.php:124
-msgid "Date reset"
-msgstr ""
-
-#: admin.php:125
+#: admin.php:123
 msgid "Reset the post date on each edit"
 msgstr ""
 
-#: admin.php:131
-msgid "Highlighting"
+#: admin.php:129
+msgid "Highlight editable elements"
 msgstr ""
 
-#: admin.php:132
-msgid "Highlight editable elements"
+#: admin.php:134
+msgid "Display a tooltip above editable elements"
 msgstr ""
 
 #: core.php:59
@@ -86,11 +70,15 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: core.php:98
+#: core.php:74
+msgid "Double-click to edit"
+msgstr ""
+
+#: core.php:110
 msgid "Change Image"
 msgstr ""
 
-#: core.php:99
+#: core.php:111
 msgid "Clear"
 msgstr ""
 
@@ -98,76 +86,80 @@ msgstr ""
 msgid "empty"
 msgstr ""
 
-#: front-end-editor.php:68
+#: front-end-editor.php:69
 msgid "Post title"
 msgstr ""
 
-#: front-end-editor.php:74
+#: front-end-editor.php:75
 msgid "Post content"
 msgstr ""
 
-#: front-end-editor.php:80
+#: front-end-editor.php:81
 msgid "Post excerpt"
 msgstr ""
 
-#: front-end-editor.php:86
+#: front-end-editor.php:87
 msgid "Post categories"
 msgstr ""
 
-#: front-end-editor.php:93
+#: front-end-editor.php:94
 msgid "Post tags"
 msgstr ""
 
-#: front-end-editor.php:100
+#: front-end-editor.php:101
 msgid "Post terms"
 msgstr ""
 
-#: front-end-editor.php:107
+#: front-end-editor.php:108
 msgid "Post custom fields"
 msgstr ""
 
-#: front-end-editor.php:113
+#: front-end-editor.php:114
 msgid "Post thumbnail"
 msgstr ""
 
-#: front-end-editor.php:120
+#: front-end-editor.php:121
 msgid "Comment text"
 msgstr ""
 
-#: front-end-editor.php:126
+#: front-end-editor.php:127
 msgid "Category title"
 msgstr ""
 
-#: front-end-editor.php:131
+#: front-end-editor.php:132
 msgid "Tag title"
 msgstr ""
 
-#: front-end-editor.php:136
+#: front-end-editor.php:137
 msgid "Author description"
 msgstr ""
 
-#: front-end-editor.php:143
+#: front-end-editor.php:144
 msgid "Widget title"
 msgstr ""
 
-#: front-end-editor.php:148
+#: front-end-editor.php:149
 msgid "Text widget content"
 msgstr ""
 
-#: front-end-editor.php:154
+#: front-end-editor.php:155
 msgid "Site title and description"
 msgstr ""
 
-#: front-end-editor.php:160
+#: front-end-editor.php:161
 msgid "Site options"
 msgstr ""
 
-#: front-end-editor.php:166
+#: front-end-editor.php:167
 msgid "Theme images"
 msgstr ""
 
-#: scb/AdminPage.php:119 scb/AdminPage.php:130
+#: scb/AdminPage.php:158 scb/AdminPage.php:169
 msgid "Save Changes"
+msgstr ""
+
+#: scb/AdminPage.php:272
+msgid "Settings <strong>saved</strong>."
 msgstr ""
 
 #. Plugin URI of an extension

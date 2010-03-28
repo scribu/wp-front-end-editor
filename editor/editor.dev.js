@@ -1,4 +1,5 @@
 (function($){
+
 	if ( FrontEndEditor._loaded )
 		return;
 	FrontEndEditor._loaded = true;
