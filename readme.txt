@@ -173,7 +173,6 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 * restyled buttons
 * fixed widget editing
 
-
 = 1.7.2 =
 * fixed narrow textarea problem
 * fixed IE8 error

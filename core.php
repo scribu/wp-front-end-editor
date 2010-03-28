@@ -120,8 +120,8 @@ abstract class FEE_Core {
 		}
 
 		// Core script
-		wp_register_style('front-editor', $url . "editor$css_dev.css", $css_dependencies, self::$version);
-		wp_register_script('front-editor', $url . "editor$js_dev.js", $js_dependencies, self::$version, true);
+		wp_register_style('front-end-editor', $url . "editor$css_dev.css", $css_dependencies, self::$version);
+		wp_register_script('front-end-editor', $url . "editor$js_dev.js", $js_dependencies, self::$version, true);
 
 ?>
 <script type='text/javascript'>
@@ -129,8 +129,8 @@ var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode($data) ?>;
 </script>
 <?php
-		scbUtil::do_scripts('front-editor');
-		scbUtil::do_styles('front-editor');
+		scbUtil::do_scripts('front-end-editor');
+		scbUtil::do_styles('front-end-editor');
 	}
 
 	// Register a new editable field
