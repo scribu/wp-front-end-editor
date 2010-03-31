@@ -1,49 +1,69 @@
 <?php
 /*
-You can use this code to autoload the available classes of the scbFramework.
-This has the advantage that the user is not required to install scbFramework as a separate plugin.
-Things to note:
-- you have to include the class files with each plugin
-- you will have to update the framework manually
+To load scbFramework, you just need to add this line at the beginning of your plugin:
 
-To load the classes, you just need to require the file, like so:
-
-	require_once dirname(__FILE__) . '/scb/load.php';
-
-This file needs to be in the same directory as the class files.
+require_once dirname(__FILE__) . '/scb/load.php';
 */
 
-if ( !class_exists('scbLoad2') ) :
-abstract class scbLoad2 {
-	private static $path;
+if ( !class_exists('scbLoad3') ) :
+class scbLoad3 {
 
-	static function init($file, $classes) {
-		self::$path = dirname($file) . '/';
+	private static $candidates;
 
-		if ( class_exists('scbFramework') )
-			self::$path .= 'classes/';
+	static function init($rev, $file, $classes) {
+		$dir = dirname($file);
 
-		foreach ( $classes as $className )
-			self::load($className);
+		self::$candidates[$rev] = $dir;
+
+		self::load($dir . '/', $classes);
+
+		add_action('activated_plugin', array(__CLASS__, 'reorder'));
 	}
 
-	private static function load($className) {
-		if ( class_exists($className) )
-			return false;
+	static function reorder() {
+		krsort(self::$candidates);
 
-		$fpath = self::$path . substr($className, 3) . '.php';
+		$dir = dirname(plugin_basename(reset(self::$candidates)));
 
-		if ( ! @file_exists($fpath) )
-			return false;
+		$current = get_option('active_plugins', array());
 
-		include $fpath;
+		$found = false;
+		foreach ( $current as $i => $plugin ) {
+			$plugin_dir = dirname($plugin);
 
-		return true;
+			if ( $plugin_dir == $dir ) {
+				$found = true;
+				break;
+			}
+		}
+
+		if ( !$found || 0 == $i )
+			return;
+
+		unset($current[$i]);
+		array_unshift($current, $plugin);
+
+		update_option('active_plugins', $current);
+	}
+
+	private static function load($path, $classes) {
+		foreach ( $classes as $class_name ) {
+			if ( class_exists($class_name) )
+				continue;
+
+			$fpath = $path . substr($class_name, 3) . '.php';
+
+			@include $fpath;
+		}
+	}
+
+	static function get_candidates() {
+		return self::$candidates;
 	}
 }
 endif;
 
-scbLoad2::init(__FILE__, array(
+scbLoad3::init(1, __FILE__, array(
 	'scbOptions', 'scbForms', 'scbAdminPage', 'scbBoxesPage',
 	'scbWidget', 'scbCron', 'scbTable', 'scbUtil', 'scbRewrite',
 ));

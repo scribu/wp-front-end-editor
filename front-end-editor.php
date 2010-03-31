@@ -25,9 +25,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Init
-
-_fee_init();
+// Load scbFramework
+require dirname(__FILE__) . '/scb/load.php';
 
 function _fee_init() {
 	$dir = dirname(__FILE__);
@@ -35,14 +34,11 @@ function _fee_init() {
 	// Load translations
 	load_plugin_textdomain('front-end-editor', '', basename($dir) . '/lang');
 
-	// Load scbFramework
-	require $dir . '/scb/load.php';
-
 	// Load files
-	require $dir . '/core.php';
+	require_once $dir . '/core.php';
 
 	foreach ( array('base', 'post', 'other') as $name )
-		require "$dir/fields/$name.php";
+		require_once "$dir/fields/$name.php";
 
 	// Load options
 	$options = new scbOptions('front-end-editor', __FILE__, array(
@@ -58,10 +54,11 @@ function _fee_init() {
 	FEE_Field_Image::init(__FILE__);
 
 	if ( is_admin() ) {
-		require $dir . '/admin.php';
+		require_once $dir . '/admin.php';
 		scbAdminPage::register('Fee_Admin', __FILE__, $options);
 	}
 }
+_fee_init();
 
 function fee_register_defaults() {
 	$fields = array(
@@ -177,6 +174,5 @@ function fee_register_defaults() {
 	// Safe hook for new editable fields to be registered
 	do_action('front_end_editor_fields');
 }
-
 add_action('init', 'fee_register_defaults');
 
