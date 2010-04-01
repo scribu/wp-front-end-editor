@@ -162,9 +162,11 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 
 == Screenshots ==
 
-1. The inline WYSIWYG editor
-2. Changing a theme image
-3. The settings page
+1. The tooltip
+2. Editing the post content
+3. Editing the post title
+4. Changing a theme image
+5. The settings page
 
 == Changelog ==
 
@@ -172,6 +174,8 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 * added tooltip
 * restyled buttons
 * fixed widget editing
+* exposed JavaScript field types
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-8.html)
 
 = 1.7.2 =
 * fixed narrow textarea problem

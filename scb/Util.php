@@ -49,20 +49,18 @@ class scbUtil {
 		return implode(',', $values);
 	}
 
+	// Have more than one uninstall hooks; also prevents an UPDATE query on each page load
 	static function add_uninstall_hook($plugin, $callback) {
-		register_uninstall_hook($plugin, '__return_false');	// dummy to tell WP that this plugin is uninstallable
+		register_uninstall_hook($plugin, '__return_false');	// dummy
 
 		add_action('uninstall_' . plugin_basename($plugin), $callback);
-	}
-
-	static function add_activation_hook($plugin, $callback) {
-		add_action('scb_activate_' . plugin_basename($plugin), $callback);
 	}
 }
 
 
 // _____Simple debug utility_____
 
+if ( ! class_exists('scbDebug') ):
 class scbDebug {
 	private $args;
 
@@ -89,6 +87,7 @@ class scbDebug {
 		echo "</pre>";	
 	}
 }
+endif;
 
 if ( ! function_exists('debug') ):
 function debug() {

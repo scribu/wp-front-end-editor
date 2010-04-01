@@ -18,10 +18,12 @@ div.fee-form, textarea.fee-form-content {
 div.fee-form button {margin-top: 5px}
 span.fee-form input {margin-right: 5px}
 .fee-form button + button {margin-left: 5px}
+
 .fee-form button {
 	text-decoration: none !important;
-	font-size: 11px !important;
 	line-height: 14px !important;
+	font-size: 11px !important;
+	vertical-align: middle !important;
 	padding: 2px 8px !important;
 	cursor: pointer !important;
 	-moz-border-radius: 11px;
@@ -34,10 +36,19 @@ span.fee-form input {margin-right: 5px}
 	box-sizing: content-box;
 }
 
+.fee-form-save:hover {
+	border: 1px solid #000 !important;
+}
+
+.fee-form-cancel:hover {
+	border: 1px solid #666 !important;
+}
+
 button.fee-form-save {
 	background-color: #23779f;
 	color: #fff;
 	border: 1px solid #1c5e7f;
+	font-weight: bold;
 }
 
 button.fee-form-cancel {
