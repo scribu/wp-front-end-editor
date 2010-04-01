@@ -50,7 +50,7 @@ function _fee_init() {
 		'reset_date' => false
 	));
 
-	FEE_Core::init($options, '1.8a5');
+	FEE_Core::init($options, '1.8');
 	FEE_Field_Image::init(__FILE__);
 
 	if ( is_admin() ) {

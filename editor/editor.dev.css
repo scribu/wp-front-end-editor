@@ -36,14 +36,6 @@ span.fee-form input {margin-right: 5px}
 	box-sizing: content-box;
 }
 
-.fee-form-save:hover {
-	border: 1px solid #000 !important;
-}
-
-.fee-form-cancel:hover {
-	border: 1px solid #666 !important;
-}
-
 button.fee-form-save {
 	background-color: #23779f;
 	color: #fff;
@@ -51,10 +43,18 @@ button.fee-form-save {
 	font-weight: bold;
 }
 
+.fee-form-save:hover {
+	border: 1px solid #000 !important;
+}
+
 button.fee-form-cancel {
 	background-color: #fcfcfc;
 	color: #808080;
 	border: 1px solid #ddd;
+}
+
+.fee-form-cancel:hover {
+	border: 1px solid #666 !important;
 }
 
 /* Rich Editor */
