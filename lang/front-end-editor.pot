@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 1.8a5\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-03-28 19:43+0300\n"
+"POT-Creation-Date: 2010-04-01 04:57+0300\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,71 +86,71 @@ msgstr ""
 msgid "empty"
 msgstr ""
 
-#: front-end-editor.php:69
+#: front-end-editor.php:66
 msgid "Post title"
 msgstr ""
 
-#: front-end-editor.php:75
+#: front-end-editor.php:72
 msgid "Post content"
 msgstr ""
 
-#: front-end-editor.php:81
+#: front-end-editor.php:78
 msgid "Post excerpt"
 msgstr ""
 
-#: front-end-editor.php:87
+#: front-end-editor.php:84
 msgid "Post categories"
 msgstr ""
 
-#: front-end-editor.php:94
+#: front-end-editor.php:91
 msgid "Post tags"
 msgstr ""
 
-#: front-end-editor.php:101
+#: front-end-editor.php:98
 msgid "Post terms"
 msgstr ""
 
-#: front-end-editor.php:108
+#: front-end-editor.php:105
 msgid "Post custom fields"
 msgstr ""
 
-#: front-end-editor.php:114
+#: front-end-editor.php:111
 msgid "Post thumbnail"
 msgstr ""
 
-#: front-end-editor.php:121
+#: front-end-editor.php:118
 msgid "Comment text"
 msgstr ""
 
-#: front-end-editor.php:127
+#: front-end-editor.php:124
 msgid "Category title"
 msgstr ""
 
-#: front-end-editor.php:132
+#: front-end-editor.php:129
 msgid "Tag title"
 msgstr ""
 
-#: front-end-editor.php:137
+#: front-end-editor.php:134
 msgid "Author description"
 msgstr ""
 
-#: front-end-editor.php:144
+#: front-end-editor.php:141
 msgid "Widget title"
 msgstr ""
 
-#: front-end-editor.php:149
+#: front-end-editor.php:146
 msgid "Text widget content"
 msgstr ""
 
-#: front-end-editor.php:155
+#: front-end-editor.php:152
 msgid "Site title and description"
 msgstr ""
 
-#: front-end-editor.php:161
+#: front-end-editor.php:158
 msgid "Site options"
 msgstr ""
 
-#: front-end-editor.php:167
+#: front-end-editor.php:164
 msgid "Theme images"
 msgstr ""
 
