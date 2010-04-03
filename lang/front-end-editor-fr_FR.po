@@ -19,38 +19,33 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
-#: admin.php:63
+#: admin.php:64
 #@ front-end-editor
 msgid "Enable or disable editable fields"
 msgstr "Activer ou désactiver les champs éditables"
-
-#: admin.php:110
-#@ front-end-editor
-msgid "Rich text editor"
-msgstr ""
 
 #: admin.php:111
 #@ front-end-editor
 msgid "Enable the WYSIWYG editor"
 msgstr "Activer l'éditeur WYSIWYG"
 
-#: admin.php:11
-#: scb/AdminPage.php:284
+#: admin.php:12
+#: scb/AdminPage.php:329
 #@ front-end-editor
 msgid "Settings"
 msgstr "Réglages"
 
-#: front-end-editor.php:93
+#: front-end-editor.php:91
 #@ front-end-editor
 msgid "Post tags"
 msgstr "Tags du billet"
 
-#: front-end-editor.php:120
+#: front-end-editor.php:118
 #@ front-end-editor
 msgid "Comment text"
 msgstr "Commentaires"
 
-#: front-end-editor.php:148
+#: front-end-editor.php:146
 #@ front-end-editor
 msgid "Text widget content"
 msgstr "Contenu des widgets texte"
@@ -65,29 +60,22 @@ msgstr "Sauvegarder"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: admin.php:10
+#: admin.php:11
 #@ front-end-editor
 msgid "Fields"
 msgstr "Champs"
 
-#: admin.php:51
-#: admin.php:104
-#: scb/AdminPage.php:108
+#: scb/AdminPage.php:272
 #@ front-end-editor
 msgid "Settings <strong>saved</strong>."
 msgstr "Réglages <strong>sauvegardés</strong>."
 
 #: admin.php:117
 #@ front-end-editor
-msgid "Edit paragraphs"
-msgstr "Editer les paragraphes"
-
-#: admin.php:118
-#@ front-end-editor
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Éditer paragraphe par paragraphe plutôt que le contenu entier du billet."
 
-#: admin.php:7
+#: admin.php:8
 #@ front-end-editor
 msgid "Front-end Editor"
 msgstr ""
@@ -97,119 +85,119 @@ msgstr ""
 msgid "empty"
 msgstr "vide "
 
-#: front-end-editor.php:100
+#: front-end-editor.php:98
 #@ front-end-editor
 msgid "Post terms"
 msgstr "Termes du billet "
 
-#: front-end-editor.php:136
+#: front-end-editor.php:134
 #@ front-end-editor
 msgid "Author description"
 msgstr "Description de l'auteur "
 
-#: scb/AdminPage.php:119
-#: scb/AdminPage.php:130
+#: scb/AdminPage.php:158
+#: scb/AdminPage.php:169
 #@ front-end-editor
 msgid "Save Changes"
 msgstr "Sauvegarder les modifications"
 
-#: admin.php:131
-#@ front-end-editor
-msgid "Highlighting"
-msgstr "Surlignage"
-
-#: admin.php:132
+#: admin.php:129
 #@ front-end-editor
 msgid "Highlight editable elements"
 msgstr "Surlignage des éléments éditables"
 
-#: front-end-editor.php:154
+#: front-end-editor.php:152
 #@ front-end-editor
 msgid "Site title and description"
 msgstr "Titre du site et description"
 
-#: front-end-editor.php:68
+#: front-end-editor.php:66
 #@ front-end-editor
 msgid "Post title"
 msgstr "Titre du billet"
 
-#: front-end-editor.php:74
+#: front-end-editor.php:72
 #@ front-end-editor
 msgid "Post content"
 msgstr "Contenu du billet"
 
-#: front-end-editor.php:80
+#: front-end-editor.php:78
 #@ front-end-editor
 msgid "Post excerpt"
 msgstr "Extrait du billet"
 
-#: front-end-editor.php:107
+#: front-end-editor.php:105
 #@ front-end-editor
 msgid "Post custom fields"
 msgstr "Champs personnalisés du billet"
 
-#: front-end-editor.php:126
+#: front-end-editor.php:124
 #@ front-end-editor
 msgid "Category title"
 msgstr "Titre de catégorie"
 
-#: front-end-editor.php:131
+#: front-end-editor.php:129
 #@ front-end-editor
 msgid "Tag title"
 msgstr "Titre de tag"
 
-#: admin.php:65
+#: admin.php:66
 #@ front-end-editor
 msgid "Post fields"
 msgstr "Champs des billets"
 
-#: admin.php:66
+#: admin.php:67
 #@ front-end-editor
 msgid "Other fields"
 msgstr "Autres champs"
 
-#: core.php:98
+#: core.php:110
 #@ front-end-editor
 msgid "Change Image"
 msgstr "Changer d'image"
 
-#: front-end-editor.php:166
+#: front-end-editor.php:164
 #@ front-end-editor
 msgid "Theme images"
 msgstr "Images du thème"
 
-#: front-end-editor.php:143
+#: front-end-editor.php:141
 #@ front-end-editor
 msgid "Widget title"
 msgstr "Titre de widget"
 
-#: admin.php:124
-#@ front-end-editor
-msgid "Date reset"
-msgstr "Réinitialiser la date"
-
-#: admin.php:125
+#: admin.php:123
 #@ front-end-editor
 msgid "Reset the post date on each edit"
 msgstr "Réinitialiser la date de billet pour chaque édition  "
 
-#: core.php:99
+#: core.php:111
 #@ front-end-editor
 msgid "Clear"
 msgstr "Nettoyer"
 
-#: front-end-editor.php:86
+#: front-end-editor.php:84
 #@ front-end-editor
 msgid "Post categories"
 msgstr "Catégories de billet"
 
-#: front-end-editor.php:113
+#: front-end-editor.php:111
 #@ front-end-editor
 msgid "Post thumbnail"
 msgstr "Miniature de billet "
 
-#: front-end-editor.php:160
+#: front-end-editor.php:158
 #@ front-end-editor
 msgid "Site options"
 msgstr "Options du site"
+
+#: admin.php:134
+#@ front-end-editor
+msgid "Display a tooltip above editable elements"
+msgstr "Afficher une info bulle au dessus des éléments éditables"
+
+#: core.php:74
+#@ front-end-editor
+msgid "Double-click to edit"
+msgstr "Double cliquer pour éditer"
 
