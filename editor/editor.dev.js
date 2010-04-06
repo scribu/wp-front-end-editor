@@ -361,12 +361,9 @@
 		create_input: function() {
 			var self = this;
 
-			self.input = $(self.input_tag);
+			self.input = $(self.input_tag).addClass('fee-form-content');
 
-			self.input.attr({
-				'id': 'edit_' + self.el.attr('id'),
-				'class': 'fee-form-content'
-			}).prependTo(self.form);
+			self.input.prependTo(self.form);
 		},
 
 		set_input: function(content) {

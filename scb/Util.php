@@ -31,14 +31,39 @@ class scbUtil {
 		echo "</script>";
 	}
 
-	// Extract $keys from $array
+	// Extract certain $keys from $array
 	static function array_extract($array, $keys) {
 		$r = array();
+
 		foreach ( $keys as $key )
 			if ( array_key_exists($key, $array) )
 				$r[$key] = $array[$key];
 
-	   return $r;
+		return $r;
+	}
+
+	// Extract a certain value from a list of arrays
+	static function array_pluck($array, $key) {
+		$r = array();
+
+		foreach ( $array as $value ) {
+			if ( is_object($value) )
+				$value = get_object_vars($value);
+			if ( array_key_exists($key, $value) )
+				$r[] = $v[$key];
+		}
+
+		return $r;
+	}
+
+	// Transform a list of objects into an associative array
+	static function objects_to_assoc($objects, $key, $value) {
+		$r = array();
+
+		foreach ( $objects as $obj )
+			$r[$obj->$key] = $obj->$value;
+
+		return $r;
 	}
 
 	// Prepare an array for an IN statement
@@ -56,7 +81,6 @@ class scbUtil {
 		add_action('uninstall_' . plugin_basename($plugin), $callback);
 	}
 }
-
 
 // _____Simple debug utility_____
 
