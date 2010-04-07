@@ -139,12 +139,13 @@ function fee_register_defaults() {
 
 		'widget_title' => array(
 			'title' => __('Widget title', 'front-end-editor'),
-			'class' => 'FEE_Field_Widget',
+			'class' => 'FEE_Field_Widget_Title',
+			'argc' => 3,
 		),
 
 		'widget_text' => array(
 			'title' => __('Text widget content', 'front-end-editor'),
-			'class' => 'FEE_Field_Widget',
+			'class' => 'FEE_Field_Widget_Text',
 			'type' => FEE_Core::$options->rich ? 'rich' : 'textarea',
 		),
 

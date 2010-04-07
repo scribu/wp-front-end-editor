@@ -142,27 +142,35 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 	}
 }
 
-// Handles widget_text and widget_title fields
-class FEE_Field_Widget extends FEE_Field_Base {
+// Handles widget_title fields
+class FEE_Field_Widget_Title extends FEE_Field_Widget_Text {
 
-	protected $field;
+	protected $field = 'title';
+
+	function wrap($title, $instance, $id_base) {
+		if ( ! $this->check() )
+			return $title;
+
+		$title = $this->placehold($title);
+
+		return FEE_Field_Base::wrap($title, $id_base);
+	}
+}
+
+// Handles widget_text fields
+class FEE_Field_Widget_Text extends FEE_Field_Base {
+
+	protected $field = 'text';
 
 	static function get_object_type() {
 		return 'widget';
-	}
-
-	protected function setup() {
-		$this->field = str_replace('widget_', '', $this->get_filter());
 	}
 
 	function wrap($content) {
 		if ( ! $this->check() )
 			return $content;
 
-		if ( 'text' == $this->field )
-			$content = $this->placehold($content);
-
-		return parent::wrap($content, 0);
+		return parent::wrap($content, 'text');
 	}
 
 	function get($id) {
@@ -174,7 +182,9 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	private function do_($action, $id, $content = '') {
-		list($widget_type, $widget_id) = explode('-', $id);
+		$id_base = explode('-', $id);
+		$widget_id = array_pop($id_base);
+		$widget_type = implode('-', $id_base);
 
 		$widget_key = 'widget_' . $widget_type;
 		$widgets = get_option($widget_key);
@@ -205,6 +215,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		return current_user_can('edit_themes');
 	}
 }
+
 
 // Handles bloginfo fields
 class FEE_Field_Bloginfo extends FEE_Field_Base {

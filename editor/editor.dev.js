@@ -361,7 +361,10 @@
 		create_input: function() {
 			var self = this;
 
-			self.input = $(self.input_tag).addClass('fee-form-content');
+			self.input = $(self.input_tag).attr({
+				'id': 'fee-' + new Date().getTime(),
+				'class': 'fee-form-content'
+			});
 
 			self.input.prependTo(self.form);
 		},
@@ -596,10 +599,11 @@
 	FrontEndEditor.fieldTypes = fieldTypes;
 
 $(document).ready(function($) {
+
 	// Widget fields hack: Add data-fee attr to each element
 	$('.fee-filter-widget_title, .fee-filter-widget_text').each(function() {
-		var $el = $(this);
-		var id = $el.parents('.widget').attr('id');
+		var $el = $(this), type = $el.attr('data-fee') || 'text';
+		var id = $el.parents( '.widget_' + type ).attr('id');
 
 		if ( id )
 			$el.attr('data-fee', id);
