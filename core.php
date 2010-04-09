@@ -10,7 +10,7 @@ abstract class FEE_Core {
 	private static $plugin_url;
 	private static $version;
 	private static $nonce = 'front-editor';
-
+	
 	static function init($options, $version) {
 		self::$options = $options;
 		self::$version = $version;
@@ -87,15 +87,7 @@ abstract class FEE_Core {
 		if ( array_key_exists('rich', $wrapped) ) {
 			$data['nicedit'] = apply_filters('front_end_editor_nicedit', array(
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
-				'buttonList' => array(
-					'bold', 'italic', 'strikethrough',
-					'left','center', 'right',
-					'fontFormat', 'fontFamily', 'forecolor',
-					'removeformat',
-					'ul', 'ol',
-					'link', 'image',
-					'xhtml'
-				)
+				'buttonList' => self::$options->ne_buttons
 			));
 
 			wp_register_script('nicedit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true);
@@ -137,8 +129,13 @@ FrontEndEditor.data = <?php echo json_encode($data) ?>;
 	static function register() {
 		list ( $filter, $args ) = func_get_arg(0);
 
-		if ( ! is_subclass_of($args['class'], 'FEE_Field_Base') ) {
-			trigger_error($args['class'] . " must be a subclass of " . 'FEE_Field_Base', E_USER_ERROR);
+		if ( !class_exists($args['class']) ) {
+			trigger_error("Class '{$args['class']}' does not exist", E_USER_WARNING);
+			return false;
+		}
+
+		if ( !is_subclass_of($args['class'], 'FEE_Field_Base') ) {
+			trigger_error("{$args['class']} must be a subclass of 'FEE_Field_Base", E_USER_WARNING);
 			return false;
 		}
 

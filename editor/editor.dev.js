@@ -599,7 +599,7 @@
 	FrontEndEditor.fieldTypes = fieldTypes;
 
 $(document).ready(function($) {
-
+	
 	// Widget fields hack: Add data-fee attr to each element
 	$('.fee-filter-widget_title, .fee-filter-widget_text').each(function() {
 		var $el = $(this), type = $el.attr('data-fee') || 'text';
