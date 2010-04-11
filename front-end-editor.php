@@ -74,59 +74,59 @@ function fee_register_defaults() {
 		'the_title' => array(
 			'title' => __('Post title', 'front-end-editor'),
 			'class' => 'FEE_Field_Post',
-			'type' => 'input',
+			'type'  => 'input',
 		),
 
 		'the_content' => array(
 			'title' => __('Post content', 'front-end-editor'),
 			'class' => FEE_Core::$options->chunks ? 'FEE_Field_Chunks' : 'FEE_Field_Post',
-			'type' => FEE_Core::$options->rich ? 'rich' : 'textarea',
+			'type'  => FEE_Core::$options->rich ? 'rich' : 'textarea',
 		),
 
 		'the_excerpt' => array(
 			'title' => __('Post excerpt', 'front-end-editor'),
 			'class' => 'FEE_Field_Excerpt',
-			'type' => 'textarea',
+			'type'  => 'textarea',
 		),
 
 		'the_category' => array(
 			'title' => __('Post categories', 'front-end-editor'),
 			'class' => 'FEE_Field_Category',
-			'argc' => 3,
-			'type' => 'terminput',
+			'type'  => 'terminput',
+			'argc'  => 3,
 		),
 
 		'the_tags' => array(
 			'title' => __('Post tags', 'front-end-editor'),
 			'class' => 'FEE_Field_Tags',
-			'argc' => 4,
-			'type' => 'terminput',
+			'type'  => 'terminput',
+			'argc'  => 4,
 		),
 
 		'the_terms' => array(
 			'title' => __('Post terms', 'front-end-editor'),
 			'class' => 'FEE_Field_Terms',
-			'argc' => 5,
-			'type' => 'terminput',
+			'type'  => 'terminput',
+			'argc'  => 5,
 		),
 
 		'post_meta' => array(
 			'title' => __('Post custom fields', 'front-end-editor'),
 			'class' => 'FEE_Field_Meta',
-			'argc' => 5,
+			'argc'  => 5,
 		),
 
 		'post_thumbnail_html' => array(
 			'title' => __('Post thumbnail', 'front-end-editor'),
 			'class' => 'FEE_Field_Thumbnail',
-			'argc' => 4,
-			'type' => 'thumbnail',
+			'type'  => 'thumbnail',
+			'argc'  => 4,
 		),
 
 		'comment_text' => array(
 			'title' => __('Comment text', 'front-end-editor'),
 			'class' => 'FEE_Field_Comment',
-			'type' => 'textarea',
+			'type'  => 'textarea',
 		),
 
 		'single_cat_title' => array(
@@ -142,39 +142,39 @@ function fee_register_defaults() {
 		'the_author_description' => array(
 			'title' => __('Author description', 'front-end-editor'),
 			'class' => 'FEE_Field_Author_Desc',
-			'type' => 'textarea',
-			'argc' => 2,
+			'type'  => 'textarea',
+			'argc'  => 2,
 		),
 
 		'widget_title' => array(
 			'title' => __('Widget title', 'front-end-editor'),
 			'class' => 'FEE_Field_Widget_Title',
-			'argc' => 3,
+			'argc'  => 3,
 		),
 
 		'widget_text' => array(
 			'title' => __('Text widget content', 'front-end-editor'),
 			'class' => 'FEE_Field_Widget_Text',
-			'type' => FEE_Core::$options->rich ? 'rich' : 'textarea',
+			'type'  => FEE_Core::$options->rich ? 'rich' : 'textarea',
 		),
 
 		'bloginfo' => array(
 			'title' => __('Site title and description', 'front-end-editor'),
 			'class' => 'FEE_Field_Bloginfo',
-			'argc' => 2,
+			'argc'  => 2,
 		),
 
 		'editable_option' => array(
 			'title' => __('Site options', 'front-end-editor'),
 			'class' => 'FEE_Field_Option',
-			'argc' => 3,
+			'argc'  => 3,
 		),
 
 		'editable_image' => array(
 			'title' => __('Theme images', 'front-end-editor'),
 			'class' => 'FEE_Field_Image',
-			'type' => 'image',
-			'argc' => 2,
+			'type'  => 'image',
+			'argc'  => 2,
 		),
 	);
 
