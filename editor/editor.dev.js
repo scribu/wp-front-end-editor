@@ -71,63 +71,91 @@
 
 
 	var spinner = $('<img>').attr({
-		'src': FrontEndEditor.data.spinner,
-		'class': 'front-editor-spinner'
+		'src'	: FrontEndEditor.data.spinner,
+		'class'	: 'front-editor-spinner'
 	});
 
-	var is_overlay = function($el) {
-		var attr = [$el.attr('id'), $el.attr("class"), $el.attr("rel")];
 
-		var tokens = ['lightbox', 'thickbox', 'shutter', 'awppost_link'];
+	var FEE_Click = {
+		_to_click: false,
 
-		for ( var i in tokens )
-			for ( var j in attr )
-				if ( attr[j].indexOf(tokens[i]) != -1 )
-					return true;
+		click: function(ev) {
+//			if ( !FEE_Click._to_click )
+//				return;
 
-		return false;
-	};
+			var $el = $(ev.target).closest('a');
 
-	var resume = function() {
-		if ( FrontEndEditor._trap )
-			return;
+			if ( !$el.length || FEE_Click.is_overlay($el) )
+				return;
 
-		var $link = FrontEndEditor._to_click;
+			ev.stopImmediatePropagation();
+			ev.preventDefault();
 
-		if ( typeof $link == 'undefined' )
-			return;
+			FEE_Click._to_click = $el;
+
+			setTimeout(FEE_Click.resume, 300);
+		},
+
+		resume: function() {
+			var $link = FEE_Click._to_click;
+
+			if ( !$link )
+				return;
 
 /*
-		var ev_reference;
-		var ev_capture = function(ev) {	ev_reference = ev; }
+			var ev_reference;
+			var ev_capture = function(ev) {	ev_reference = ev; }
 
-		var onClick = $link.attr('onclick');
+			var onClick = $link.attr('onclick');
 
-		$link.bind('click', ev_capture);
+			$link.bind('click', ev_capture);
 
-		if ( typeof onClick == 'function' )
-			$link.bind('click', onClick);
+			if ( typeof onClick == 'function' )
+				$link.bind('click', onClick);
 
-		$link.click();
+			$link.click();
 
-		$link.unbind('click', ev_capture);
+			$link.unbind('click', ev_capture);
 
-		if ( typeof onClick == 'function' )
-			$link.unbind('click', onClick);
+			if ( typeof onClick == 'function' )
+				$link.unbind('click', onClick);
 
-		if ( ev_reference.isDefaultPrevented() )
-			return;
+			if ( ev_reference.isDefaultPrevented() )
+				return;
 */
 
-		if ( typeof $link.attr('href') != 'undefined' && $link.attr('href') != '#' ) {
-			if ( $link.attr('target') == '_blank' )
-				window.open($link.attr('href'));
-			else
-				window.location.href = $link.attr('href');
-		}
+			if ( typeof $link.attr('href') != 'undefined' && $link.attr('href') != '#' ) {
+				if ( $link.attr('target') == '_blank' )
+					window.open($link.attr('href'));
+				else
+					window.location.href = $link.attr('href');
+			}
 
-		delete FrontEndEditor._to_click;
+			FEE_Click._to_click = false;
+		},
+
+		dblclick: function(ev) {
+			ev.stopPropagation();
+			ev.preventDefault();
+
+			// cancel delayed click
+			FEE_Click._to_click = false;
+		},
+
+		is_overlay: function($el) {
+			var attr = [$el.attr('id'), $el.attr("class"), $el.attr("rel")];
+
+			var tokens = ['lightbox', 'thickbox', 'shutter', 'awppost_link'];
+
+			for ( var i in tokens )
+				for ( var j in attr )
+					if ( attr[j].indexOf(tokens[i]) != -1 )
+						return true;
+
+			return false;
+		}
 	};
+
 
 	var fieldTypes = {};
 
@@ -141,8 +169,12 @@
 			self.name = name;
 			self.id = id;
 
-			self.bind(self.el, 'click', self.click);
-			self.bind(self.el, 'dblclick', self.dblclick);
+			self.el.bind({
+				click	: FEE_Click.click,
+				dblclick: FEE_Click.dblclick
+			});
+
+			self.el.dblclick($.proxy(self, 'dblclick'));
 		},
 
 		set_el: function($el) {
@@ -169,52 +201,30 @@
 			self.switched = true;
 		},
 
-		click: function(ev) {
-//			if ( typeof FrontEndEditor._to_click != 'undefined' )
-//				return;
-
-			var $el = $(ev.target).closest('a');
-
-			if ( ! $el.length )
-				return;
-
-			if ( is_overlay($el) )
-				return;
-
-			ev.stopImmediatePropagation();
-			ev.preventDefault();
-
-			FrontEndEditor._to_click = $el;
-
-			setTimeout(resume, 300);
-		},
-
-		dblclick: function(ev) {
-			var self = this;
-
-			ev.stopPropagation();
-			ev.preventDefault();
-
-			FrontEndEditor._trap = true;
-		},
-
 		get_content: null /* function() */,
 		set_content: null /* function(content) */,
 
 		ajax_get_handler: null /* function(content) */,
 		ajax_set_handler: null /* function(content) */,
 
+		ajax_args: function() {
+			var self = this;
+
+			return {
+				action	: 'front-end-editor',
+				nonce	: FrontEndEditor.data.nonce,
+				name	: self.name,
+				type	: self.type,
+				item_id	: self.id
+			};
+		},
+
 		ajax_get: function() {
 			var self = this;
 
-			var data = {
-				'nonce': FrontEndEditor.data.nonce,
-				'action': 'front-editor',
-				'callback': 'get',
-				'name': self.name,
-				'type': self.type,
-				'item_id': self.id
-			};
+			var data = self.ajax_args();
+
+			data.callback = 'get';
 
 			$.post(FrontEndEditor.data.ajax_url, data, function(response){
 				self.ajax_get_handler(response);
@@ -226,27 +236,13 @@
 
 			content = content || self.get_content();
 
-			var data = {
-				'nonce': FrontEndEditor.data.nonce,
-				'action': 'front-editor',
-				'callback': 'save',
-				'name': self.name,
-				'type': self.type,
-				'item_id': self.id,
-				'content': content
-			};
+			var data = self.ajax_args();
+
+			data.callback = 'save';
+			data.content = content;
 
 			$.post(FrontEndEditor.data.ajax_url, data, function(response){
 				self.ajax_set_handler(response);
-			});
-		},
-
-		// Event utility: this = self
-		bind: function(element, event, callback) {
-			var self = this;
-
-			element.bind(event, function(ev) {
-				callback.call(self, ev);
 			});
 		}
 	});
@@ -254,14 +250,6 @@
 	fieldTypes['image'] = fieldTypes['base'].extend({
 		
 		dblclick: function(ev) {
-			var self = this;
-
-			self._super(ev);
-
-			self.open_box();
-		},
-
-		open_box: function() {
 			var self = this;
 
 			tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.admin_url +
@@ -276,13 +264,13 @@
 			$('#TB_ajaxWindowTitle').after($revert);
 			$('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close);
 
-			self.bind($('#TB_iframeContent'), 'load', self.replace_button);
+			$('#TB_iframeContent').bind('load', $.proxy(self, 'replace_button'));
 		},
 
 		replace_button: function(ev) {
 			var self = this;
 
-			var $frame  = $(ev.target).contents();
+			var $frame = $(ev.target).contents();
 
 			$('.media-item', $frame).livequery(function(){
 				var $item = $(this);
@@ -362,8 +350,8 @@
 			var self = this;
 
 			self.input = $(self.input_tag).attr({
-				'id': 'fee-' + new Date().getTime(),
-				'class': 'fee-form-content'
+				'id'	: 'fee-' + new Date().getTime(),
+				'class'	: 'fee-form-content'
 			});
 
 			self.input.prependTo(self.form);
@@ -377,6 +365,7 @@
 
 		get_content: function() {
 			var self = this;
+
 			return self.input.val();
 		},
 
@@ -429,18 +418,8 @@
 		dblclick: function(ev) {
 			var self = this;
 
-			self._super(ev);
-
-			self.form_handler();
-		},
-
-		form_handler: function() {
-			var self = this;
-
 			// Button actions
 			var form_remove = function(with_spinner) {
-				FrontEndEditor._trap = false;
-
 				self.form.remove();
 
 				if ( with_spinner === true )
@@ -461,9 +440,7 @@
 			self.cancel_button = $('<button>').addClass('fee-form-cancel').text(FrontEndEditor.data.cancel_text).click(form_remove);
 
 			// Create form
-			var inline = self.type == 'input' || self.type == 'terminput';
-
-			self.form = inline ? $('<span>') : $('<div>');
+			self.form = ( self.type == 'input' || self.type == 'terminput' ) ? $('<span>') : $('<div>');
 
 			self.form
 				.addClass('fee-form')
@@ -472,7 +449,7 @@
 				.append(self.save_button)
 				.append(self.cancel_button);
 
-			self.bind(self.form, 'keypress', self.keypress);
+			self.form.bind('keypress', $.proxy(self, 'keypress'));
 			
 			self.ajax_get();
 		},
@@ -499,10 +476,10 @@
 			self._super(content);
 
 			self.input.suggest(FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + self.id.split('#')[1], {
-				multiple: true,
-				resultsClass: 'fee-suggest-results',
-				selectClass: 'fee-suggest-over',
-				matchClass: 'fee-suggest-match'
+				multiple		: true,
+				resultsClass	: 'fee-suggest-results',
+				selectClass		: 'fee-suggest-over',
+				matchClass		: 'fee-suggest-match'
 			});
 		}
 	});
@@ -632,37 +609,30 @@ $(document).ready(function($) {
 
 	// Tooltip init
 	if ( FrontEndEditor.data.tooltip ) {
-		$.fn.qtip.styles.fee = {
-			height: 10,
-			paddingTop: '4px',
-			paddingRight: '5px',
-			paddingBottom: '6px',
-			paddingLeft: '25px',
-			background: '#bbbebf url(' + FrontEndEditor.data.tooltip.icon + ') top left no-repeat',
-			color: '#ffffff',
-			textAlign: 'left',
-			lineHeight: '100%',
-			fontFamily: 'sans-serif',
-			fontSize: '14px',
-			opacity: '0.75',
-			border: {
-				width: 0,
-				radius: 5,
-				color: '#bbbebf'
-			},
-			tip: 'bottomLeft',
-			name: 'dark'
-		};
-
 		$('.fee-field').qtip({
-			content: FrontEndEditor.data.tooltip.text,
+			content	: FrontEndEditor.data.tooltip.text,
 			position: { corner: { target: 'topMiddle' }, adjust: { x: 0, y: -40 } },
-			show: { 
-				effect: 'fade' 
-			},
-			
-			style: { 
-				name: 'fee'
+			show	: { effect: 'fade' },
+			style	: {
+				height: 10,
+				paddingTop: '4px',
+				paddingRight: '5px',
+				paddingBottom: '6px',
+				paddingLeft: '25px',
+				background: '#bbbebf url(' + FrontEndEditor.data.tooltip.icon + ') top left no-repeat',
+				color: '#ffffff',
+				textAlign: 'left',
+				lineHeight: '100%',
+				fontFamily: 'sans-serif',
+				fontSize: '14px',
+				opacity: '0.75',
+				border: {
+					width: 0,
+					radius: 5,
+					color: '#bbbebf'
+				},
+				tip: 'bottomLeft',
+				name: 'dark'
 			}
 		});
 	}

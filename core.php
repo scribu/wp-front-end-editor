@@ -17,7 +17,7 @@ abstract class FEE_Core {
 
 		add_action('front_end_editor_fields', array(__CLASS__, 'make_instances'), 100);
 
-		add_action('wp_ajax_front-editor', array(__CLASS__, 'ajax_response'));
+		add_action('wp_ajax_front-end-editor', array(__CLASS__, 'ajax_response'));
 
 		add_action('template_redirect', array(__CLASS__, '_init'));
 	}

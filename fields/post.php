@@ -68,7 +68,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	function check($post_id = 0) {
-		return current_user_can('edit_' . get_post_type($post_id), $post_id);
+		return current_user_can(get_post_type_object(get_post_type($post_id))->edit_cap, $post_id);
 	}
 
 	protected function set_post_global($post_id) {
