@@ -37,7 +37,10 @@ abstract class scbAdminPage {
 	// Formdata used for filling the form elements
 	protected $formdata = array();
 
-	// Registration component
+
+//  ____________REGISTRATION COMPONENT____________
+
+
 	private static $registered = array();
 
 	static function register($class, $file, $options = null) {
@@ -74,6 +77,7 @@ abstract class scbAdminPage {
 		foreach ( self::$registered as $class => $args )
 			new $class($args[0], $args[1]);
 	}
+
 
 //  ____________MAIN METHODS____________
 
@@ -136,8 +140,8 @@ abstract class scbAdminPage {
 
 		check_admin_referer($this->nonce);
 
-		foreach ( $this->formdata as $name => $value )
-			$new_data[$name] = @$_POST[$name];
+		$new_data = scbUtil::array_extract($_POST, array_keys($this->formdata));
+		$new_data = stripslashes_deep($new_data);
 
 		$this->formdata = $this->validate($new_data, $this->formdata);
 
@@ -287,6 +291,7 @@ abstract class scbAdminPage {
 
 //  ____________INTERNAL METHODS____________
 
+
 	function __call($method, $args) {
 		return call_user_func_array(array('scbForms', $method), $args);
 	}
@@ -410,7 +415,8 @@ jQuery(document).ready(function($){
 
 	function _action_link($links) {
 		$url = add_query_arg('page', $this->args['page_slug'], admin_url($this->args['parent']));
-		$links[] = "<a href='$url'>" . $this->args['action_link'] . "</a>";
+
+		$links[] = html_link($url, $this->args['action_link']);
 
 		return $links;
 	}

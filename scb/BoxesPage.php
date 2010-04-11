@@ -101,8 +101,8 @@ abstract class scbBoxesPage extends scbAdminPage {
 	}
 
 	function page_footer() {
-		$this->_boxes_js_init();
 		parent::page_footer();
+		$this->_boxes_js_init();
 	}
 
 	function form_handler() {
@@ -199,14 +199,12 @@ abstract class scbBoxesPage extends scbAdminPage {
 	function _boxes_js_init() {
 		echo $this->js_wrap(
 <<<EOT
-//<![CDATA[
-jQuery(document).ready( function($){
+jQuery(document).ready(function($){
 	// close postboxes that should be closed
 	$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
 	// postboxes setup
 	postboxes.add_postbox_toggles('$this->pagehook');
 });
-//]]>
 EOT
 );
 ?>

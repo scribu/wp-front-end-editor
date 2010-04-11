@@ -17,7 +17,7 @@ class scbForms {
 
 		$formdata = associative array with the formdata with which to fill the elements
 	*/
-	
+
 	protected static $args;
 	protected static $formdata = array();
 
@@ -315,7 +315,7 @@ class scbForms {
 
 		$extra = self::validate_extra($extra, $name);
 
-		$value = esc_attr(stripslashes($value));
+		$value = esc_attr($value);
 
 		$input = "<input name='{$name}' value='{$value}' type='{$type}'{$extra} /> ";
 
@@ -386,7 +386,7 @@ class scbForms {
 		)), EXTR_SKIP);
 
 		if ( !$escaped )
-			$value = esc_html(stripslashes($value));
+			$value = esc_html($value);
 
 		$extra = self::validate_extra($extra, $name);
 
