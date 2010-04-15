@@ -170,6 +170,10 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 
 == Changelog ==
 
+= 1.9 =
+* full widget editing
+* nicEdit button management from the admin
+
 = 1.8.1 =
 * more robust widget editing
 * assign unique id to editor content
