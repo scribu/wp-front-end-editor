@@ -13,11 +13,11 @@ class scbOptions {
 	/**
 	 * Create a new set of options
 	 *
-	 * @param key Option name
-	 * @param string Reference to main plugin file
-	 * @param array An associative array of default values
+	 * @param string $key Option name
+	 * @param string $file Reference to main plugin file
+	 * @param array $defaults An associative array of default values (optional)
 	 */
-	function __construct($key, $file, $defaults = '') {
+	public function __construct($key, $file, $defaults = '') {
 		$this->key = $key;
 		$this->defaults = $defaults;
 		$this->data = get_option($this->key);
@@ -28,26 +28,26 @@ class scbOptions {
 			register_activation_hook($file, array($this, '_update_reset'));
 		}
 
-		scbUtil::add_uninstall_hook($file, array($this, '_delete'));
+		scbUtil::add_uninstall_hook($file, array($this, 'delete'));
 	}
 
 	/**
-	 * Get all data fields, certain fields or a single field
+	 * Get option values for one, many or all fields
 	 *
 	 * @param string|array $field The field(s) to get
 	 * @return mixed Whatever is in those fields
 	 */
-	function get($field = '') {
+	public function get($field = '') {
 		return $this->_get($field, $this->data);
 	}
 
 	/**
-	 * Get all default fields, certain fields or a single field
+	 * Get default values for one, many or all fields
 	 *
 	 * @param string|array $field The field(s) to get
 	 * @return mixed Whatever is in those fields
 	 */
-	function get_defaults($field = '') {
+	public function get_defaults($field = '') {
 		return $this->_get($field, $this->defaults);
 	}
 
@@ -58,7 +58,7 @@ class scbOptions {
 	 * @param mixed $value The new value (ignored if $field is array)
 	 * @return null
 	 */
-	function set($field, $value = '') {
+	public function set($field, $value = '') {
 		if ( is_array($field) )
 			$newdata = $field;
 		else
@@ -68,9 +68,20 @@ class scbOptions {
 	}
 
 	/**
-	 * Remove any keys that are not in the defaults array
+	 * Reset option to defaults
+	 *
+	 * @return null
 	 */
-	function cleanup() {
+	public function reset() {
+		$this->update($this->defaults);
+	}
+
+	/**
+	 * Remove any keys that are not in the defaults array
+	 *
+	 * @return bool
+	 */
+	public function cleanup() {
 		$r = array();
 
 		if ( ! is_array($this->defaults) )
@@ -90,27 +101,31 @@ class scbOptions {
 	 * @param mixed $newdata
 	 * @return null
 	 */
-	function update($newdata) {
-		if ( $this->data === $newdata )
-			return;
-
+	public function update($newdata) {
 		$this->data = $newdata;
 
 		update_option($this->key, $this->data);
 	}
 
 	/**
-	 * Reset option to defaults
+	 * Delete the option
 	 *
 	 * @return null
 	 */
-	function reset() {
-		$this->update($this->defaults);
+	public function delete() {
+		unset($this->data);
+
+		delete_option($this->key);
 	}
 
 
 //_____INTERNAL METHODS_____
 
+
+	// Add new fields with their default values
+	function _update_reset() {
+		$this->update(array_merge($this->defaults, $this->data));
+	}
 
 	// Get one, more or all fields from an array
 	private function _get($field, $data) {
@@ -140,21 +155,6 @@ class scbOptions {
 	// Magic method: isset($options->field)
 	function __isset($field) {
 		return isset($this->data[$field]);
-	}
-
-	// Add new fields with their default values
-	function _update_reset() {
-		$this->update(array_merge($this->defaults, $this->data));
-	}
-
-	// Delete option
-	function _delete() {
-		delete_option($this->key);
-	}
-
-	// DEPRECATED
-	function update_part($data) {
-		$this->set($data);
 	}
 }
 

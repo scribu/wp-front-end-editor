@@ -80,68 +80,24 @@ class scbUtil {
 
 		add_action('uninstall_' . plugin_basename($plugin), $callback);
 	}
-}
 
-// _____Simple debug utility_____
+	// Example: split_at('</', '<a></a>') => array('<a>', '</a>')
+	static function split_at($delim, $str) {
+		$i = strpos($str, $delim);
 
-if ( ! class_exists('scbDebug') ):
-class scbDebug {
-	private $args;
+		if ( false === $i )
+			return false;
 
-	function __construct($args) {
-		$this->args = $args;
+		$start = substr($str, 0, $i);
+		$finish = substr($str, $i);
 
-		register_shutdown_function(array($this, '_delayed'));
-	}
-
-	function _delayed() {
-		if ( !current_user_can('administrator') )
-			return;
-
-		$this->raw($this->args);
-	}
-
-	static function raw($args) {
-		echo "<pre>";
-		foreach ( $args as $arg )
-			if ( is_array($arg) || is_object($arg) )
-				print_r($arg);
-			else
-				var_dump($arg);
-		echo "</pre>";	
+		return array($start, $finish);
 	}
 }
-endif;
-
-if ( ! function_exists('debug') ):
-function debug() {
-	$args = func_get_args();
-
-	// integrate with FirePHP
-	if ( class_exists('FirePHP') ) {
-		$firephp = FirePHP::getInstance(true);
-		$firephp->group('debug');
-		foreach ( $args as $arg )
-			$firephp->log($arg);
-		$firephp->groupEnd();
-
-		return;
-	}
-
-	new scbDebug($args);
-}
-endif;
-
-if ( ! function_exists('debug_raw') ):
-function debug_raw() {
-	$args = func_get_args();
-
-	scbDebug::raw($args);
-}
-endif;
 
 
-// _____Minimalist HTML framework_____
+//_____Minimalist HTML framework_____
+
 
 if ( ! function_exists('html') ):
 function html($tag, $content = '') {
