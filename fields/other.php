@@ -186,18 +186,19 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		$widgets = get_option($widget_key);
 		$instance =& $widgets[$widget_nr];
 
-		if ( 'get' == $action ) {
-			// Get widget class
-			global $wp_widget_factory;
-			foreach ( $wp_widget_factory->widgets as $widget )
-				if ( $widget->id_base == $id_base )
-					break;
+		// Get widget class
+		global $wp_widget_factory;
+		foreach ( $wp_widget_factory->widgets as $widget )
+			if ( $widget->id_base == $id_base )
+				break;
 
+		if ( 'get' == $action ) {
 			$widget->form($instance);
 		}
 
 		if ( 'save' == $action ) {
-			$instance = $_POST['widget-' . $id_base][$widget_nr];
+			$new_instance = $_POST['widget-' . $id_base][$widget_nr];
+			$instance = $widget->update($new_instance, $instance);
 
 			update_option($widget_key, $widgets);
 
