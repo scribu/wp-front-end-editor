@@ -170,7 +170,6 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	function save($id, $content) {
-	debug($_POST);
 		return $this->do_('save', $id, $content);
 	}
 
@@ -198,7 +197,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		}
 
 		if ( 'save' == $action ) {
-			$instance = $content;
+			$instance = $_POST['widget-' . $id_base][$widget_nr];
 
 			update_option($widget_key, $widgets);
 

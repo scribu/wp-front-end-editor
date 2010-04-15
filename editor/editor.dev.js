@@ -586,31 +586,21 @@
 			self.form.prepend(content);
 		},
 
-		ajax_args: function(data) {
-			var self = this;
+		get_content: function() {
+			return '';
+		},
 
-			if ( 'get' == data.callback )
-				return self._super(data);
+		ajax_args: function(args) {
+			var self = this;
 
 			var data = {}, raw_data = self.form.find(':input').serializeArray();
 
 			for ( var i in raw_data )
 				data[raw_data[i].name] = raw_data[i].value;
 
-			var id_base, widget_nr, widget_id = self.id.split('#')[0], sidebar = self.id.split('#')[1];
+			args = self._super(args);
 
-			var id_base = widget_id.split('-');
-			var widget_nr = id_base.pop();
-			id_base = id_base.join('-');
-
-			return $.extend(data, {
-				'action': 'save-widget',
-				'savewidgets': FrontEndEditor.data.widget_nonce,
-				'widget-id': widget_id,
-				'id_base': id_base,
-				'widget_number': widget_nr,
-				'sidebar': sidebar
-			});
+			return $.extend(args, data);
 		}
 	});
 
