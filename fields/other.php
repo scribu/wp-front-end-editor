@@ -142,35 +142,25 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 	}
 }
 
-// Handles widget_title fields
-class FEE_Field_Widget_Title extends FEE_Field_Widget_Text {
-
-	protected $field = 'title';
-
-	function wrap($title, $instance, $id_base) {
-		if ( ! $this->check() )
-			return $title;
-
-		$title = $this->placehold($title);
-
-		return FEE_Field_Base::wrap($title, $id_base);
-	}
-}
-
 // Handles widget_text fields
-class FEE_Field_Widget_Text extends FEE_Field_Base {
-
-	protected $field = 'text';
+class FEE_Field_Widget extends FEE_Field_Base {
 
 	static function get_object_type() {
 		return 'widget';
 	}
 
-	function wrap($content) {
+	function wrap($params) {
 		if ( ! $this->check() )
-			return $content;
+			return $params;
 
-		return parent::wrap($content, 'text');
+		$p =& $params[0];
+
+		list($before, $after) = scbUtil::split_at('</', parent::wrap('', $p['widget_id']));
+
+		$p['before_widget'] = $p['before_widget'] . $before;
+		$p['after_widget'] = $after . $p['after_widget'];
+
+		return $params;
 	}
 
 	function get($id) {

@@ -146,16 +146,10 @@ function fee_register_defaults() {
 			'argc'  => 2,
 		),
 
-		'widget_title' => array(
-			'title' => __('Widget title', 'front-end-editor'),
-			'class' => 'FEE_Field_Widget_Title',
-			'argc'  => 3,
-		),
-
-		'widget_text' => array(
-			'title' => __('Text widget content', 'front-end-editor'),
-			'class' => 'FEE_Field_Widget_Text',
-			'type'  => FEE_Core::$options->rich ? 'rich' : 'textarea',
+		'dynamic_sidebar_params' => array(
+			'title' => __('Widgets', 'front-end-editor'),
+			'class' => 'FEE_Field_Widget',
+			'type'  => 'widget',
 		),
 
 		'bloginfo' => array(
