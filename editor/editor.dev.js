@@ -67,13 +67,7 @@
 	})();
 
 
-// _____Actual code starts here_____
-
-
-	var spinner = $('<img>').attr({
-		'src'	: FrontEndEditor.data.spinner,
-		'class'	: 'front-editor-spinner'
-	});
+//_____Actual code starts here_____
 
 
 	var FEE_Click = {
@@ -157,6 +151,12 @@
 	};
 
 
+	var spinner = $('<img>').attr({
+		'src'	: FrontEndEditor.data.spinner,
+		'class'	: 'front-editor-spinner'
+	});
+
+
 	var fieldTypes = {};
 
 	fieldTypes['base'] = Class.extend({
@@ -207,45 +207,40 @@
 		ajax_get_handler: null /* function(content) */,
 		ajax_set_handler: null /* function(content) */,
 
-		ajax_args: function() {
+		ajax_args: function(args) {
 			var self = this;
 
-			return {
+			return $.extend(args, {
 				action	: 'front-end-editor',
 				nonce	: FrontEndEditor.data.nonce,
 				name	: self.name,
 				type	: self.type,
 				item_id	: self.id
-			};
+			});
 		},
 
 		ajax_get: function() {
 			var self = this;
 
-			var data = self.ajax_args();
-
-			data.callback = 'get';
-
-			$.post(FrontEndEditor.data.ajax_url, data, function(response){
-				self.ajax_get_handler(response);
+			var data = self.ajax_args({
+				callback: 'get', 
 			});
+
+			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self.ajax_get_handler, self));
 		},
 
 		ajax_set: function(content) {
 			var self = this;
 
-			content = content || self.get_content();
-
-			var data = self.ajax_args();
-
-			data.callback = 'save';
-			data.content = content;
-
-			$.post(FrontEndEditor.data.ajax_url, data, function(response){
-				self.ajax_set_handler(response);
+			var data = self.ajax_args({
+				callback: 'save', 
+				content: content || self.get_content()
 			});
+
+			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self.ajax_set_handler, self));
 		}
 	});
+
 
 	fieldTypes['image'] = fieldTypes['base'].extend({
 		
@@ -334,6 +329,7 @@
 		}
 	});
 
+
 	fieldTypes['input'] = fieldTypes['base'].extend({
 
 		init: function($el, type, name, id) {
@@ -418,26 +414,9 @@
 		dblclick: function(ev) {
 			var self = this;
 
-			// Button actions
-			var form_remove = function(with_spinner) {
-				self.form.remove();
-
-				if ( with_spinner === true )
-					self.el.before(self.spinner.show());
-				else
-					self.el.show();
-
-				self.el.trigger('fee_remove_form');
-			};
-
-			var form_submit = function() {
-				self.ajax_set();
-				form_remove(true);
-			};
-
 			// Button markup
-			self.save_button   = $('<button>').addClass('fee-form-save').text(FrontEndEditor.data.save_text).click(form_submit);
-			self.cancel_button = $('<button>').addClass('fee-form-cancel').text(FrontEndEditor.data.cancel_text).click(form_remove);
+			self.save_button   = $('<button>').addClass('fee-form-save').text(FrontEndEditor.data.save_text).click($.proxy(self.form_submit, self));
+			self.cancel_button = $('<button>').addClass('fee-form-cancel').text(FrontEndEditor.data.cancel_text).click($.proxy(self.form_remove, self));
 
 			// Create form
 			self.form = ( self.type == 'input' || self.type == 'terminput' ) ? $('<span>') : $('<div>');
@@ -452,6 +431,26 @@
 			self.form.bind('keypress', $.proxy(self, 'keypress'));
 			
 			self.ajax_get();
+		},
+
+		form_remove: function(with_spinner) {
+			var self = this;
+
+			self.form.remove();
+
+			if ( with_spinner === true )
+				self.el.before(self.spinner.show());
+			else
+				self.el.show();
+
+			self.el.trigger('fee_remove_form');
+		},
+
+		form_submit: function() {
+			var self = this;
+		
+			self.ajax_set();
+			self.form_remove(true);
 		},
 
 		keypress: function(ev) {
@@ -483,6 +482,7 @@
 			});
 		}
 	});
+
 
 	fieldTypes['textarea'] = fieldTypes['input'].extend({
 		input_tag: '<textarea rows="10">'
@@ -572,23 +572,54 @@
 		}
 	});
 
+
+	fieldTypes['widget'] = fieldTypes['input'].extend({
+		create_input: function() {
+
+		},
+
+		set_input: function(content) {
+			var self = this;
+
+			self.input = $(content);
+
+			self.form.prepend(content);
+		},
+
+		ajax_args: function(data) {
+			var self = this;
+
+			if ( 'get' == data.callback )
+				return self._super(data);
+
+			var data = {}, raw_data = self.form.find(':input').serializeArray();
+
+			for ( var i in raw_data )
+				data[raw_data[i].name] = raw_data[i].value;
+
+			var id_base, widget_nr, widget_id = self.id.split('#')[0], sidebar = self.id.split('#')[1];
+
+			var id_base = widget_id.split('-');
+			var widget_nr = id_base.pop();
+			id_base = id_base.join('-');
+
+			return $.extend(data, {
+				'action': 'save-widget',
+				'savewidgets': FrontEndEditor.data.widget_nonce,
+				'widget-id': widget_id,
+				'id_base': id_base,
+				'widget_number': widget_nr,
+				'sidebar': sidebar
+			});
+		}
+	});
+
+
 	// export
 	FrontEndEditor.fieldTypes = fieldTypes;
 
 $(document).ready(function($) {
 	
-	// Widget fields hack: Add data-fee attr to each element
-	$('.fee-filter-widget_title, .fee-filter-widget_text').each(function() {
-		var $el = $(this), type = $el.attr('data-fee') || 'text';
-		var id = $el.parents( '.widget_' + type ).attr('id');
-
-		if ( id )
-			$el.attr('data-fee', id);
-		else
-			// undo wrap; can't find widget id
-			$el.replaceWith($el.html());
-	});
-
 	// Create field instances
 	$.each(FrontEndEditor.data.fields, function(name, type) {
 		$('.fee-filter-' + name).each(function() {

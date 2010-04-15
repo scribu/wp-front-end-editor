@@ -142,7 +142,7 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 	}
 }
 
-// Handles widget_text fields
+// Handles dynamic_sidebar_params fields
 class FEE_Field_Widget extends FEE_Field_Base {
 
 	static function get_object_type() {
@@ -155,7 +155,9 @@ class FEE_Field_Widget extends FEE_Field_Base {
 
 		$p =& $params[0];
 
-		list($before, $after) = scbUtil::split_at('</', parent::wrap('', $p['widget_id']));
+		$id = $p['widget_id'] . '#' . $p['id'];
+
+		list($before, $after) = scbUtil::split_at('</', parent::wrap('', $id));
 
 		$p['before_widget'] = $p['before_widget'] . $before;
 		$p['after_widget'] = $after . $p['after_widget'];
@@ -168,37 +170,54 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	function save($id, $content) {
+	debug($_POST);
 		return $this->do_('save', $id, $content);
 	}
 
 	private function do_($action, $id, $content = '') {
-		$id_base = explode('-', $id);
-		$widget_id = array_pop($id_base);
-		$widget_type = implode('-', $id_base);
+		list($widget_id, $sidebar_id) = explode('#', $id);
 
-		$widget_key = 'widget_' . $widget_type;
+		// Get widget type and number
+		$id_base = explode('-', $widget_id);
+		$widget_nr = array_pop($id_base);
+		$id_base = implode('-', $id_base);
+
+		// Get widget instance
+		$widget_key = 'widget_' . $id_base;
 		$widgets = get_option($widget_key);
-		$data =& $widgets[$widget_id][$this->field]; 
+		$instance =& $widgets[$widget_nr];
 
 		if ( 'get' == $action ) {
-			return $data;
+			// Get widget class
+			global $wp_widget_factory;
+			foreach ( $wp_widget_factory->widgets as $widget )
+				if ( $widget->id_base == $id_base )
+					break;
+
+			$widget->form($instance);
 		}
 
 		if ( 'save' == $action ) {
-			$data = $content;
+			$instance = $content;
 
 			update_option($widget_key, $widgets);
 
-			if ( 'text' == $widget_type
-			  && 'text' == $this->field
-			  && $widgets[$widget_id]['filter'] )
-				$content = wpautop($content);
-
-			if ( 'text' == $this->field )
-				$content = $this->placehold($content);
-
-			return $content;
+			$this->data = compact('sidebar_id', 'widget_id');
+			add_filter('sidebars_widgets', array($this, '_hack'));
+			dynamic_sidebar($sidebar_id);
+			remove_filter('sidebars_widgets', array($this, '_hack'));
 		}
+
+		die();
+	}
+
+	// temporarirly remove all other widgets from a specific sidebar
+	function _hack($sidebar_widgets) {
+		extract($this->data);
+
+		$sidebar_widgets[$sidebar_id] = array($widget_id);
+
+		return $sidebar_widgets;
 	}
 
 	function check($id = 0) {

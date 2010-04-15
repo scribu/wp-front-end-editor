@@ -84,6 +84,11 @@ abstract class FEE_Core {
 		}
 
 		// Rich Editor
+		if ( array_key_exists('widget', $wrapped) ) {
+			$data['widget_nonce'] = wp_create_nonce('save-sidebar-widgets');
+		}
+
+		// Rich Editor
 		if ( array_key_exists('rich', $wrapped) ) {
 			$data['nicedit'] = apply_filters('front_end_editor_nicedit', array(
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
