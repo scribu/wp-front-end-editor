@@ -593,12 +593,15 @@
 		ajax_args: function(args) {
 			var self = this;
 
+			args = self._super(args);
+
+			if ( 'get' == args.callback )
+				return args;
+
 			var data = {}, raw_data = self.form.find(':input').serializeArray();
 
 			for ( var i in raw_data )
 				data[raw_data[i].name] = raw_data[i].value;
-
-			args = self._super(args);
 
 			return $.extend(args, data);
 		}
