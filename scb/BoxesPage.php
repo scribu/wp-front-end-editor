@@ -45,6 +45,9 @@ abstract class scbBoxesPage extends scbAdminPage {
 	function default_css() {
 ?>
 <style type="text/css">
+.postbox-container + .postbox-container {margin-left: 18px}
+.postbox-container {padding-right: 0}
+
 .inside {clear: both; overflow: hidden; padding: 10px 10px 0 10px !important}
 .inside table {margin: 0 !important; padding: 0 !important}
 .inside table td {vertical-align: middle !important}

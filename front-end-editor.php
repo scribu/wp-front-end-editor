@@ -9,6 +9,7 @@ Plugin URI: http://scribu.net/wordpress/front-end-editor
 Text Domain: front-end-editor
 Domain Path: /lang
 
+
 Copyright (C) 2010 scribu.net (scribu@gmail.com)
 
 This program is free software; you can redistribute it and/or modify

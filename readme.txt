@@ -2,7 +2,7 @@
 Contributors: scribu
 Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, visual, wysiwyg
-Requires at least: 2.8
+Requires at least: 3.0
 Tested up to: 3.0
 Stable tag: 1.8
 
