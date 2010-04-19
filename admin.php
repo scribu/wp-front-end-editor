@@ -5,7 +5,10 @@ class FEE_Admin extends scbBoxesPage {
 	function setup() {
 		$this->textdomain = 'front-end-editor';
 
-		$this->args = array('page_title' => __('Front-end Editor', $this->textdomain));
+		$this->args = array(
+			'page_title' => __('Front-end Editor', $this->textdomain),
+			'page_slug' => 'front-end-editor'
+		);
 
 		$this->boxes = array(
 			array('fields', __('Fields', $this->textdomain), 'normal'),

@@ -50,7 +50,7 @@ class scbUtil {
 			if ( is_object($value) )
 				$value = get_object_vars($value);
 			if ( array_key_exists($key, $value) )
-				$r[] = $v[$key];
+				$r[] = $value[$key];
 		}
 
 		return $r;
@@ -118,7 +118,8 @@ function html_link($url, $title = '') {
 endif;
 
 
-// _____Compatibility layer_____
+//_____Compatibility layer_____
+
 
 // WP < 3.0
 if ( ! function_exists('__return_false') ) :

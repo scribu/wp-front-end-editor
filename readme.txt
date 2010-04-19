@@ -38,23 +38,19 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 	<ul>
 		<li>description</li>
 	</ul></li>
-	<li><strong>widgets</strong>
-	<ul>
-		<li>title</li>
-		<li>text widget content</li>
-	</ul></li>
 	<li><strong>titles</strong>
 	<ul>
 		<li>category</li>
 		<li>tag</li>
 	</ul></li>
+	<li><strong>widgets</strong></li>
+	<li><strong>theme images</strong>
 	<li><strong>site info</strong>
 	<ul>
 		<li>title</li>
 		<li>description</li>
 		<li>options</li>
 	</ul></li>
-	<li><strong>theme images</strong>
 </ul>
 
 There is a settings page where you can disable editable fields that you don't want.
