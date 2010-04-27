@@ -42,16 +42,53 @@ class FEE_Field_Comment extends FEE_Field_Base {
 	}
 }
 
-// Handles single_*_title fields
-class FEE_Field_Single_Title extends FEE_Field_Base {
+// Handles term_{$field} fields
+class FEE_Field_Term_Field extends FEE_Field_Base {
+
+	private $field;
 
 	static function get_object_type() {
 		return 'term';
 	}
 
+	function setup() {
+		$this->field = str_replace('term_', '', $this->get_filter());
+	}
+
+	function wrap($content, $term_id, $taxonomy) {
+		if ( ! $this->check("$term_id#$taxonomy") )
+			return $content;
+
+		return parent::wrap($this->placehold($content), "$term_id#$taxonomy");
+	}
+
+	function get($id) {
+		list($term_id, $taxonomy) = explode('#', $id);
+
+		return get_term_field($this->field, $term_id, $taxonomy, 'edit');
+	}
+
+	function save($id, $content) {
+		list($term_id, $taxonomy) = explode('#', $id);
+
+		wp_update_term($term_id, $taxonomy, array($this->field => $content));
+
+		return $content;
+	}
+
+	function check($id = 0) {
+		list($term_id, $taxonomy) = explode('#', $id);
+
+		return current_user_can(get_taxonomy($taxonomy)->edit_cap);
+	}
+}
+
+// Handles single_*_title fields
+class FEE_Field_Single_Title extends FEE_Field_Term_Field {
+
 	private $taxonomy;
 
-	protected function setup() {
+	function setup() {
 		remove_filter($this->get_filter(), 'strip_tags');
 
 		list($a, $tax, $b) = explode('_', $this->get_filter());
@@ -65,27 +102,10 @@ class FEE_Field_Single_Title extends FEE_Field_Base {
 	}
 
 	function wrap($title) {
-		if ( ! $this->check() )
-			return $title;
-
 		if ( ! $term = get_term_by('name', $title, $this->taxonomy) )
 			return $title;
 
-		return parent::wrap($title, $term->term_id);
-	}
-
-	function get($term_id) {
-		return get_term_field('name', $term_id, $this->taxonomy, 'edit');
-	}
-
-	function save($term_id, $title) {
-		wp_update_term($term_id, $this->taxonomy, array('name' => $title));
-
-		return $title;
-	}
-
-	function check($id = 0) {
-		return current_user_can('manage_categories');
+		return parent::wrap($title, $term->term_id, $this->taxonomy);
 	}
 }
 
@@ -97,9 +117,6 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 	}
 
 	function wrap($content, $author_id = '') {
-		if ( ! $author_id )
-			$author_id = $this->guess_author_id();
-
 		if ( ! $author_id )
 			return $content;
 
@@ -113,11 +130,11 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 
 	// Retrieve the current data for the field
 	function get($author_id) {
-		return get_usermeta($author_id, 'description');
+		return get_user_meta($author_id, 'description', true);
 	}
 
 	function save($author_id, $content) {
-		update_usermeta($author_id, 'description', $content);
+		update_user_meta($author_id, 'description', $content);
 
 		return $content;
 	}
@@ -129,16 +146,6 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 		global $user_ID;
 
 		return $user_ID == $author_id;
-	}
-
-	// WP < 2.9
-	function guess_author_id() {
-		if ( function_exists('get_the_author_meta') )
-			return get_the_author_meta('id');
-
-		global $authordata;
-
-		return $authordata->ID;
 	}
 }
 

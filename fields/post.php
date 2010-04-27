@@ -231,6 +231,15 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 		return $this->placehold($response);
 	}
+
+	function check($id = 0) {
+		if ( !$id )
+			return parent::check();
+	
+		list($post_id, $taxonomy) = explode('#', $id);
+
+		return current_user_can(get_taxonomy($taxonomy)->assign_cap, $post_id);
+	}
 }
 
 // Handles the_tags field

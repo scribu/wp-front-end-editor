@@ -140,6 +140,12 @@ function fee_register_defaults() {
 			'class' => 'FEE_Field_Single_Title',
 		),
 
+		'term_description' => array(
+			'title' => __('Term description', 'front-end-editor'),
+			'class' => 'FEE_Field_Term_Field',
+			'argc'  => 3,
+		),
+
 		'the_author_description' => array(
 			'title' => __('Author description', 'front-end-editor'),
 			'class' => 'FEE_Field_Author_Desc',

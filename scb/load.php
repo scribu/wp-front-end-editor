@@ -69,9 +69,9 @@ class scbLoad3 {
 }
 endif;
 
-scbLoad3::init(8, __FILE__, array(
-	'scbOptions', 'scbForms', 'scbAdminPage', 'scbBoxesPage',
-	'scbWidget', 'scbCron', 'scbTable', 'scbUtil', 'scbRewrite',
-	'scbDebug'
+scbLoad3::init(9, __FILE__, array(
+	'scbUtil', 'scbOptions', 'scbForms', 'scbTable', 'scbDebug',
+	'scbWidget', 'scbAdminPage', 'scbBoxesPage',
+	'scbQuery', 'scbRewrite', 'scbCron',
 ));
 

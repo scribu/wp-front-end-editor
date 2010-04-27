@@ -85,11 +85,12 @@ You can either install it automatically from the WordPress admin, or do it manua
 
 == Frequently Asked Questions ==
 
-= Error on activation: "Parse error: syntax error, unexpected T_CLASS..." =
+= Error on activation: "Parse error: syntax error, unexpected..." =
 
-Make sure your host is running PHP 5. Add this line to wp-config.php to check:
+Make sure your host is running PHP 5. The only foolproof way to do this is to add this line to wp-config.php:
 
 `var_dump(PHP_VERSION);`
+<br>
 
 = Why doesn't it work with my theme? =
 
