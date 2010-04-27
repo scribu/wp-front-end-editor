@@ -45,7 +45,7 @@ class FEE_Field_Comment extends FEE_Field_Base {
 // Handles term_{$field} fields
 class FEE_Field_Term_Field extends FEE_Field_Base {
 
-	private $field;
+	protected $field;
 
 	static function get_object_type() {
 		return 'term';
@@ -99,6 +99,7 @@ class FEE_Field_Single_Title extends FEE_Field_Term_Field {
 		);
 
 		$this->taxonomy = $translate[$tax];
+		$this->field = 'name';
 	}
 
 	function wrap($title) {

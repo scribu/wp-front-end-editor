@@ -169,6 +169,7 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 
 = 1.9 =
 * full widget editing
+* new editable field: term description
 * nicEdit button management from the admin
 
 = 1.8.1 =
