@@ -143,6 +143,7 @@ function fee_register_defaults() {
 		'term_description' => array(
 			'title' => __('Term description', 'front-end-editor'),
 			'class' => 'FEE_Field_Term_Field',
+			'type'  => 'textarea',
 			'argc'  => 3,
 		),
 
