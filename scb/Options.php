@@ -1,6 +1,6 @@
 <?php
 
-// Usage: http://scribu.net/wordpress/scb-framework/scb-options.html
+// Documentation: http://scribu.net/wordpress/scb-framework/scb-options.html
 
 class scbOptions {
 	protected $defaults;	// the default value(s)

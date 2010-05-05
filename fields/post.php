@@ -233,10 +233,10 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	}
 
 	function check($id = 0) {
-		if ( !$id )
-			return parent::check();
-	
-		list($post_id, $taxonomy) = explode('#', $id);
+		@list($post_id, $taxonomy) = explode('#', $id);
+
+		if ( !$post_id || !$taxonomy )
+			return parent::check($post_id);
 
 		return current_user_can(get_taxonomy($taxonomy)->assign_cap, $post_id);
 	}
