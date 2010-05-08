@@ -70,53 +70,59 @@
 //_____Actual code starts here_____
 
 
-	var FEE_Click = {
-		_to_click: false,
+	var DoubleClick = {
+
+		register: function($el, callback) {
+			$el.bind({
+				click	: DoubleClick.click,
+				dblclick: DoubleClick.dblclick
+			});
+
+			$el.dblclick(callback);
+		},
+
+		_event: false,
+		_delayed: false,
 
 		click: function(ev) {
-//			if ( !FEE_Click._to_click )
-//				return;
-
-			var $el = $(ev.target).closest('a');
-
-			if ( !$el.length || FEE_Click.is_overlay($el) )
+			if ( DoubleClick._delayed )
 				return;
 
 			ev.stopImmediatePropagation();
 			ev.preventDefault();
 
-			FEE_Click._to_click = $el;
+			if ( DoubleClick._event )
+				return;
 
-			setTimeout(FEE_Click.resume, 300);
+			DoubleClick._event = ev;
+
+			setTimeout(DoubleClick.resume, 300);
 		},
 
 		resume: function() {
-			var $link = FEE_Click._to_click;
-
-			if ( !$link )
+			if ( !DoubleClick._event )
 				return;
 
-/*
-			var ev_reference;
-			var ev_capture = function(ev) {	ev_reference = ev; }
+			var $target = $(DoubleClick._event.target);
 
-			var onClick = $link.attr('onclick');
+			var new_event;
+			var ev_capture = function(ev) {	new_event = ev; }
 
-			$link.bind('click', ev_capture);
+			$target.bind('click', ev_capture);
+			DoubleClick._delayed = true;
 
-			if ( typeof onClick == 'function' )
-				$link.bind('click', onClick);
+			$target.click();
 
-			$link.click();
+			DoubleClick._delayed = false;
+			$target.unbind('click', ev_capture);
 
-			$link.unbind('click', ev_capture);
-
-			if ( typeof onClick == 'function' )
-				$link.unbind('click', onClick);
-
-			if ( ev_reference.isDefaultPrevented() )
+			if ( new_event.isDefaultPrevented() )
 				return;
-*/
+
+			var $link = $target.closest('a');
+
+			if ( !$link.length )
+				return;
 
 			if ( typeof $link.attr('href') != 'undefined' && $link.attr('href') != '#' ) {
 				if ( $link.attr('target') == '_blank' )
@@ -125,7 +131,7 @@
 					window.location.href = $link.attr('href');
 			}
 
-			FEE_Click._to_click = false;
+			DoubleClick._event = false;
 		},
 
 		dblclick: function(ev) {
@@ -133,20 +139,7 @@
 			ev.preventDefault();
 
 			// cancel delayed click
-			FEE_Click._to_click = false;
-		},
-
-		is_overlay: function($el) {
-			var attr = [$el.attr('id'), $el.attr("class"), $el.attr("rel")];
-
-			var tokens = ['lightbox', 'thickbox', 'shutter', 'awppost_link'];
-
-			for ( var i in tokens )
-				for ( var j in attr )
-					if ( attr[j].indexOf(tokens[i]) != -1 )
-						return true;
-
-			return false;
+			DoubleClick._event = false;
 		}
 	};
 
@@ -169,12 +162,7 @@
 			self.name = name;
 			self.id = id;
 
-			self.el.bind({
-				click	: FEE_Click.click,
-				dblclick: FEE_Click.dblclick
-			});
-
-			self.el.dblclick($.proxy(self, 'dblclick'));
+			DoubleClick.register(self.el, $.proxy(self, 'dblclick'));
 		},
 
 		set_el: function($el) {
@@ -226,7 +214,7 @@
 				callback: 'get', 
 			});
 
-			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self.ajax_get_handler, self));
+			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self, 'ajax_get_handler'));
 		},
 
 		ajax_set: function(content) {
@@ -237,7 +225,7 @@
 				content: content || self.get_content()
 			});
 
-			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self.ajax_set_handler, self));
+			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self, 'ajax_set_handler'));
 		}
 	});
 
@@ -418,12 +406,12 @@
 			self.save_button   = $('<button>')
 				.addClass('fee-form-save')
 				.text(FrontEndEditor.data.save_text)
-				.click($.proxy(self.form_submit, self));
+				.click($.proxy(self, 'form_submit'));
 
 			self.cancel_button = $('<button>')
 				.addClass('fee-form-cancel')
 				.text(FrontEndEditor.data.cancel_text)
-				.click($.proxy(self.form_remove, self));
+				.click($.proxy(self, 'form_remove'));
 
 			// Create form
 			self.form = ( self.type.indexOf('input') >= 0 ) ? $('<span>') : $('<div>');
@@ -440,7 +428,26 @@
 			self.ajax_get();
 		},
 
-		form_remove: function(with_spinner) {
+		form_remove: function(ev) {
+			var self = this;
+
+			self.remove_form(false);
+
+			ev.stopPropagation();
+			ev.preventDefault();
+		},
+
+		form_submit: function(ev) {
+			var self = this;
+		
+			self.ajax_set();
+			self.remove_form(true);
+			
+			ev.stopPropagation();
+			ev.preventDefault();
+		},
+
+		remove_form: function(with_spinner) {
 			var self = this;
 
 			self.form.remove();
@@ -449,16 +456,7 @@
 				self.el.before(self.spinner.show());
 			else
 				self.el.show();
-
-			self.el.trigger('fee_remove_form');
-		},
-
-		form_submit: function() {
-			var self = this;
-		
-			self.ajax_set();
-			self.form_remove(true);
-		},
+		},		
 
 		keypress: function(ev) {
 			var self = this;
