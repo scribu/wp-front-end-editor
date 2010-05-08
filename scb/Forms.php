@@ -28,11 +28,10 @@ class scbForms {
 		self::$args = $args;
 		self::$formdata = self::validate_data($formdata);
 
-		switch ( $args['type'] ) {
-			case 'select':  	return self::_select();
-			case 'textarea':	return self::_textarea();
-			default:			return self::_input();
-		}
+		if ( 'select' == $args['type'] )
+			return self::_select();
+		else
+			return self::_input();
 	}
 
 
@@ -229,9 +228,14 @@ class scbForms {
 
 		$extra = self::validate_extra($extra, $name);
 
-		$value = esc_attr($value);
-
-		$input = "<input name='{$name}' value='{$value}' type='{$type}'{$extra} /> ";
+		if ( 'textarea' == $type ) {
+			$value = esc_html($value);
+			$input = "<textarea name='{$name}'{$extra}>\n{$value}\n</textarea>\n";
+		}
+		else {
+			$value = esc_attr($value);
+			$input = "<input name='{$name}' value='{$value}' type='{$type}'{$extra} /> ";
+		}
 
 		return self::add_label($input, $desc, $desc_pos);
 	}
@@ -289,22 +293,6 @@ class scbForms {
 		$input =  "<select name='{$name}'$extra>\n{$opts}</select>";
 		
 		return self::add_label($input, $desc, $desc_pos);
-	}
-
-	private static function _textarea() {
-		extract(wp_parse_args(self::$args, array(
-			'name' => '',
-			'extra' => 'class="widefat"',
-			'value' => '',
-			'escaped' => false,
-		)), EXTR_SKIP);
-
-		if ( !$escaped )
-			$value = esc_html($value);
-
-		$extra = self::validate_extra($extra, $name);
-
-		return "<textarea name='{$name}'{$extra}>\n{$value}\n</textarea>\n";
 	}
 
 	private static function add_label($input, $desc, $desc_pos) {

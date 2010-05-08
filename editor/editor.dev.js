@@ -395,7 +395,7 @@
 		ajax_get_handler: function(content) {
 			var self = this;
 
-			self.spinner.hide().replaceWith(self.form);
+			self.spinner.hide().after(self.form);
 
 			self.set_input(content);
 
@@ -415,11 +415,18 @@
 			var self = this;
 
 			// Button markup
-			self.save_button   = $('<button>').addClass('fee-form-save').text(FrontEndEditor.data.save_text).click($.proxy(self.form_submit, self));
-			self.cancel_button = $('<button>').addClass('fee-form-cancel').text(FrontEndEditor.data.cancel_text).click($.proxy(self.form_remove, self));
+			self.save_button   = $('<button>')
+				.addClass('fee-form-save')
+				.text(FrontEndEditor.data.save_text)
+				.click($.proxy(self.form_submit, self));
+
+			self.cancel_button = $('<button>')
+				.addClass('fee-form-cancel')
+				.text(FrontEndEditor.data.cancel_text)
+				.click($.proxy(self.form_remove, self));
 
 			// Create form
-			self.form = ( self.type == 'input' || self.type == 'terminput' ) ? $('<span>') : $('<div>');
+			self.form = ( self.type.indexOf('input') >= 0 ) ? $('<span>') : $('<div>');
 
 			self.form
 				.addClass('fee-form')
@@ -429,7 +436,7 @@
 				.append(self.cancel_button);
 
 			self.form.bind('keypress', $.proxy(self, 'keypress'));
-			
+
 			self.ajax_get();
 		},
 
@@ -468,7 +475,7 @@
 	});
 
 	fieldTypes['terminput'] = fieldTypes['input'].extend({
-		
+
 		set_input: function(content) {
 			var self = this;
 
@@ -574,9 +581,7 @@
 
 
 	fieldTypes['widget'] = fieldTypes['input'].extend({
-		create_input: function() {
-
-		},
+		create_input: function() {},
 
 		set_input: function(content) {
 			var self = this;

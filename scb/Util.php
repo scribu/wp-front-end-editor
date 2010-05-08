@@ -1,6 +1,7 @@
 <?php
 
 class scbUtil {
+
 	// Force script enqueue
 	static function do_scripts($handles) {
 		global $wp_scripts;
@@ -29,6 +30,25 @@ class scbUtil {
 		echo "$('head').prepend(\"$content\");\n";
 		echo "});\n";
 		echo "</script>";
+	}
+
+
+	// Have more than one uninstall hooks; also prevents an UPDATE query on each page load
+	static function add_uninstall_hook($plugin, $callback) {
+		register_uninstall_hook($plugin, '__return_false');	// dummy
+
+		add_action('uninstall_' . plugin_basename($plugin), $callback);
+	}
+
+	// Apply a function to each element of a (nested) array recursively
+	static function array_map_recursive($callback, $array) {
+		array_walk_recursive($array, array(__CLASS__, 'array_map_recursive_helper'), $callback);
+
+		return $array;
+	}
+
+	static function array_map_recursive_helper(&$val, $key, $callback) {
+		$val = call_user_func($callback, $val);
 	}
 
 	// Extract certain $keys from $array
@@ -74,13 +94,6 @@ class scbUtil {
 		return implode(',', $values);
 	}
 
-	// Have more than one uninstall hooks; also prevents an UPDATE query on each page load
-	static function add_uninstall_hook($plugin, $callback) {
-		register_uninstall_hook($plugin, '__return_false');	// dummy
-
-		add_action('uninstall_' . plugin_basename($plugin), $callback);
-	}
-
 	// Example: split_at('</', '<a></a>') => array('<a>', '</a>')
 	static function split_at($delim, $str) {
 		$i = strpos($str, $delim);
@@ -113,7 +126,7 @@ function html_link($url, $title = '') {
 	if ( empty($title) )
 		$title = $url;
 
-	return sprintf("<a href='%s'>%s</a>", $url, $title);
+	return sprintf("<a href='%s'>%s</a>", esc_url($url), $title);
 }
 endif;
 
