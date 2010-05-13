@@ -14,7 +14,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	function wrap($content, $post_id = 0) {
-		if ( ! $post_id = $this->_get_id($post_id) )
+		if ( !$post_id = $this->_get_id($post_id) )
 			return $content;
 
 		return parent::wrap($content, $post_id);
@@ -24,10 +24,10 @@ class FEE_Field_Post extends FEE_Field_Base {
 		if ( $in_loop && !in_the_loop() )
 			return false;
 
-		if ( ! $post_id )
+		if ( !$post_id )
 			$post_id = get_the_ID();
 
-		if ( ! $post_id || ! $this->check($post_id) )
+		if ( !$post_id || !$this->check($post_id) )
 			return false;
 
 		return $post_id;
@@ -68,7 +68,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	function check($post_id = 0) {
-		return current_user_can(get_post_type_object(get_post_type($post_id))->edit_cap, $post_id);
+		return current_user_can('edit_post', $post_id);
 	}
 
 	protected function set_post_global($post_id) {
@@ -82,7 +82,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 	const delim = "\n\n";
 
 	function wrap($content, $post_id = 0) {
-		if ( ! $post_id = $this->_get_id($post_id) )
+		if ( !$post_id = $this->_get_id($post_id) )
 			return $content;
 
 		$chunks = $this->split($content);
@@ -203,12 +203,20 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 class FEE_Field_Terms extends FEE_Field_Post {
 
 	function wrap($content, $taxonomy, $before, $sep, $after) {
-		if ( ! $post_id = $this->_get_id() )
+		if ( !in_the_loop() )
+			return $content;
+
+		$post_id = get_the_ID();
+
+		if ( !$post_id )
+			return $content;
+
+		$id = implode('#', array($post_id, $taxonomy));
+
+		if ( !$this->check($id) )
 			return $content;
 
 		$content = $this->placehold(str_replace(array($before, $after), '', $content));
-
-		$id = implode('#', array($post_id, $taxonomy));
 
 		return $before . FEE_Field_Base::wrap($content, $id) . $after;
 	}
@@ -233,12 +241,9 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	}
 
 	function check($id = 0) {
-		@list($post_id, $taxonomy) = explode('#', $id);
+		list($post_id, $taxonomy) = explode('#', $id);
 
-		if ( !$post_id || !$taxonomy )
-			return parent::check($post_id);
-
-		return current_user_can(get_taxonomy($taxonomy)->assign_cap, $post_id);
+		return current_user_can(get_taxonomy($taxonomy)->cap->assign_terms, $post_id);
 	}
 }
 
@@ -262,7 +267,7 @@ class FEE_Field_Category extends FEE_Field_Terms {
 
 		$cat_ids = array();
 		foreach ( explode(',', $categories) as $cat_name ) {
-			if ( ! $cat = get_cat_ID(trim($cat_name)) ) {
+			if ( !$cat = get_cat_ID(trim($cat_name)) ) {
 				$args = wp_insert_term($cat_name, $taxonomy);
 
 				if ( is_wp_error($args) )
@@ -286,7 +291,7 @@ class FEE_Field_Category extends FEE_Field_Terms {
 class FEE_Field_Thumbnail extends FEE_Field_Post {
 
 	function wrap($html, $post_id, $post_thumbnail_id, $size) {
-		if ( ! $post_id = $this->_get_id($post_id, false) )
+		if ( !$post_id = $this->_get_id($post_id, false) )
 			return $content;
 
 		$id = implode('#', array($post_id, $size));
@@ -364,7 +369,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 function editable_post_meta($post_id, $key, $type = 'input', $echo = true) {
 	$data = get_editable_post_meta($post_id, $key, $type, true);
 
-	if ( ! $echo )
+	if ( !$echo )
 		return $data;
 
 	echo $data;

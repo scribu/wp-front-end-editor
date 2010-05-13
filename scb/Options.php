@@ -21,8 +21,7 @@ class scbOptions {
 		$this->key = $key;
 		$this->defaults = $defaults;
 
-		if ( is_array($this->defaults) )
-			register_activation_hook($file, array($this, '_update_reset'));
+		scbUtil::add_activation_hook($file, array($this, '_update_reset'));
 
 		scbUtil::add_uninstall_hook($file, array($this, 'delete'));
 	}
@@ -122,7 +121,10 @@ class scbOptions {
 
 	// Add new fields with their default values
 	function _update_reset() {
-		$this->update(array_merge($this->defaults, $this->get()));
+		if ( is_array($this->defaults) )
+			$this->update(array_merge($this->defaults, $this->get()));
+		else
+			add_option($this->key, $this->defaults);
 	}
 
 	private function _clean($data) {
