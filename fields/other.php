@@ -79,7 +79,7 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 	function check($id = 0) {
 		list($term_id, $taxonomy) = explode('#', $id);
 
-		return current_user_can(get_taxonomy($taxonomy)->edit_cap);
+		return current_user_can(get_taxonomy($taxonomy)->cap->edit_terms);
 	}
 }
 
@@ -141,12 +141,7 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 	}
 
 	function check($author_id = 0) {
-		if ( current_user_can('edit_users') )
-			return true;
-
-		global $user_ID;
-
-		return $user_ID == $author_id;
+		return current_user_can('edit_user', $author_id);
 	}
 }
 
@@ -272,6 +267,10 @@ class FEE_Field_Bloginfo extends FEE_Field_Base {
 // Handles editable_option fields
 class FEE_Field_Option extends FEE_Field_Base {
 
+	static function get_object_type() {
+		return 'option';
+	}
+
 	static function init($file) {
 		register_uninstall_hook($file, array(__CLASS__, 'uninstall'));
 	}
@@ -280,10 +279,6 @@ class FEE_Field_Option extends FEE_Field_Base {
 		global $wpdb;
 
 		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'editable!_option!_%' ESCAPE '!'");
-	}
-
-	static function get_object_type() {
-		return 'option';
 	}
 
 	function wrap($content, $key, $type) {
@@ -298,13 +293,13 @@ class FEE_Field_Option extends FEE_Field_Base {
 	}
 
 	function get($id) {
-		list($key, $type) = explode('#', $id);
+		$key = reset(explode('#', $id));
 
 		return get_option($key);
 	}
 
 	function save($id, $content) {
-		list($key, $type) = explode('#', $id);
+		$key = reset(explode('#', $id));
 
 		update_option($key, $content);
 
@@ -333,6 +328,10 @@ function editable_option($key, $safety = true, $type = 'input', $echo = true) {
 // Handles editable_image fields
 class FEE_Field_Image extends FEE_Field_Base {
 
+	static function get_object_type() {
+		return 'option';
+	}
+
 	static function init($file) {
 		register_uninstall_hook($file, array(__CLASS__, 'uninstall'));
 	}
@@ -341,10 +340,6 @@ class FEE_Field_Image extends FEE_Field_Base {
 		global $wpdb;
 
 		$wpdb->query("DELETE FROM $wpdb->options WHERE option_name LIKE 'editable!_image!_%' ESCAPE '!'");
-	}
-
-	static function get_object_type() {
-		return 'option';
 	}
 
 	function wrap($img, $key) {

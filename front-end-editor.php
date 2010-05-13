@@ -61,6 +61,8 @@ function _fee_init() {
 	));
 
 	FEE_Core::init($options, '1.9a');
+
+	FEE_Field_Option::init(__FILE__);
 	FEE_Field_Image::init(__FILE__);
 
 	if ( is_admin() ) {
