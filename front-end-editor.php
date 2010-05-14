@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 1.9a
+Version: 1.9-alpha
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -30,18 +30,16 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 require dirname(__FILE__) . '/scb/load.php';
 
 function _fee_init() {
-	$dir = dirname(__FILE__);
-
-	// Load translations
 	load_plugin_textdomain('front-end-editor', '', dirname(plugin_basename(__FILE__)) . '/lang');
 
+	$dir = dirname(__FILE__);
+
 	// Load files
-	require_once $dir . '/core.php';
+	require $dir . '/core.php';
 
 	foreach ( array('base', 'post', 'other') as $name )
-		require_once "$dir/fields/$name.php";
+		require "$dir/fields/$name.php";
 
-	// Load options
 	$options = new scbOptions('front-end-editor', __FILE__, array(
 		'disabled' => array(),
 		'highlight' => true,
@@ -66,7 +64,7 @@ function _fee_init() {
 	FEE_Field_Image::init(__FILE__);
 
 	if ( is_admin() ) {
-		require_once $dir . '/admin.php';
+		require $dir . '/admin.php';
 		scbAdminPage::register('Fee_Admin', __FILE__, $options);
 	}
 
