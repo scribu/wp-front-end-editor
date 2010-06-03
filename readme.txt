@@ -55,27 +55,6 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 
 There is a settings page where you can disable editable fields that you don't want.
 
-**Translations:**
-
-* Danish - [Georg](http://wordpress.blogos.dk/)
-* Dutch - [Ron Hartman](http://www.fr-fanatic.com/)
-* French - [Li-An](http://www.li-an.fr)
-* Italian - [Gianni Diurno](http://gidibao.net)
-* Georgian - Levani Melikishvili
-* German - Gottfried
-* Japaneze - kzh
-* Norwegian - John Myrstad
-* Polish - [Expromo](http://expromo.pl)
-* Portuguese - [Fernanda Foertter](http://www.hpcprogrammer.com)
-* Belarusian - [M. Comfi](http://www.comfi.com)
-* Russian - BoreS
-* Spanish - [Esteban](http://netmdp.com/)
-* Swedish - [Müfit Kiper](http://kitkonsult.se/)
-* Turkish - [Burak Gulbahce](http://www.saylangoz.com/wordpress/)
-
-If you want to translate this plugin, please read [this](http://scribu.net/wordpress/translating-plugins.html).
-
-
 == Installation ==
 
 You can either install it automatically from the WordPress admin, or do it manually:
@@ -164,6 +143,26 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 3. Editing the post title
 4. Changing a theme image
 5. The settings page
+
+== Translations ==
+
+* Danish - [Georg](http://wordpress.blogos.dk/)
+* Dutch - [Ron Hartman](http://www.fr-fanatic.com/)
+* French - [Li-An](http://www.li-an.fr)
+* Italian - [Gianni Diurno](http://gidibao.net)
+* Georgian - Levani Melikishvili
+* German - Gottfried
+* Japaneze - kzh
+* Norwegian - John Myrstad
+* Polish - [Expromo](http://expromo.pl)
+* Portuguese - [Fernanda Foertter](http://www.hpcprogrammer.com)
+* Belarusian - [M. Comfi](http://www.comfi.com)
+* Russian - BoreS
+* Spanish - [Esteban](http://netmdp.com/)
+* Swedish - [Müfit Kiper](http://kitkonsult.se/)
+* Turkish - [Burak Gulbahce](http://www.saylangoz.com/wordpress/)
+
+If you want to translate this plugin, please read [this](http://scribu.net/wordpress/translating-plugins.html).
 
 == Changelog ==
 
