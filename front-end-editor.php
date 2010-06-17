@@ -46,7 +46,6 @@ function _fee_init() {
 		'tooltip' => true,
 		'rich' => true,
 		'chunks' => false,
-		'reset_date' => false,
 		'ne_buttons' => array(
 			'bold', 'italic', 'strikethrough',
 			'left','center', 'right',

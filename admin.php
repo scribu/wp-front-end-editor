@@ -124,7 +124,7 @@ class FEE_Admin extends scbBoxesPage {
 		if ( !isset($_POST['save_settings']) )
 			return;
 
-		foreach ( array('rich', 'chunks', 'reset_date', 'highlight', 'tooltip') as $key )
+		foreach ( array('rich', 'chunks', 'highlight', 'tooltip') as $key )
 			$this->options->$key = (bool) @$_POST[$key];
 
 		$this->admin_msg();
@@ -145,16 +145,11 @@ class FEE_Admin extends scbBoxesPage {
 			),
 
 			array(
-				'desc' => __('Reset the post date on each edit', $this->textdomain),
-				'type' => 'checkbox',
-				'name' => 'reset_date',
-			),
-
-			array(
 				'desc' => __('Highlight editable elements', $this->textdomain),
 				'type' => 'checkbox',
 				'name' => 'highlight',
 			),
+
 			array(
 				'desc' => __('Display a tooltip above editable elements', $this->textdomain),
 				'type' => 'checkbox',

@@ -168,8 +168,9 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 1.9 =
 * full widget editing
-* new editable field: term description
 * nicEdit button management from the admin
+* new editable field: term description
+* removed "Reset the post date on each edit" option
 
 = 1.8.1 =
 * more robust widget editing

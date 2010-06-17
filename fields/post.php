@@ -43,11 +43,6 @@ class FEE_Field_Post extends FEE_Field_Base {
 			$this->field => $content
 		);
 
-		if ( FEE_Core::$options->reset_date ) {
-			$postdata['post_date'] = current_time('mysql');
-			$postdata['post_date_gmt'] = current_time('mysql', 1);
-		}
-
 		// reset slug
 		if ( $this->field == 'post_title' ) {
 			$current_slug = get_post_field('post_name', $post_id);
