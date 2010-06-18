@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 1.9-alpha2
+Version: 1.9-alpha3
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -57,7 +57,7 @@ function _fee_init() {
 		),
 	));
 
-	FEE_Core::init($options, '1.9-alpha2');
+	FEE_Core::init($options, '1.9-alpha3');
 
 	FEE_Field_Option::init(__FILE__);
 	FEE_Field_Image::init(__FILE__);
