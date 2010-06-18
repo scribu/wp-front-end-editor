@@ -42,10 +42,10 @@ To edit something, just double-click it!
 	<ul>
 		<li>description</li>
 	</ul></li>
-	<li><strong>titles</strong>
+	<li><strong>terms</strong>
 	<ul>
-		<li>category</li>
-		<li>tag</li>
+		<li>name</li>
+		<li>description</li>
 	</ul></li>
 	<li><strong>widgets</strong></li>
 	<li><strong>theme images</strong>
@@ -175,10 +175,6 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 * nicEdit button management from the admin
 * new editable field: term description
 * removed "Reset the post date on each edit" option
-
-= 1.8.1 =
-* more robust widget editing
-* assign unique id to editor content
 
 = 1.8 =
 * added tooltip
