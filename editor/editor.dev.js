@@ -305,7 +305,7 @@
 		replace_button: function(ev) {
 			var self = this;
 
-			var $frame  = $(ev.target).contents();
+			var $frame = $(ev.target).contents();
 
 			$frame.find('#tab-type_url').remove();
 
@@ -334,8 +334,8 @@
 			var self = this;
 
 			self.input = $(self.input_tag).attr({
-				'id'	: 'fee-' + new Date().getTime(),
-				'class'	: 'fee-form-content'
+				'id'    : 'fee-' + new Date().getTime(),
+				'class' : 'fee-form-content'
 			});
 
 			self.input.prependTo(self.form);
@@ -403,7 +403,7 @@
 			var self = this;
 
 			// Button markup
-			self.save_button   = $('<button>')
+			self.save_button = $('<button>')
 				.addClass('fee-form-save')
 				.text(FrontEndEditor.data.save_text)
 				.click($.proxy(self, 'form_submit'));
@@ -507,6 +507,7 @@
 
 		get_content: function() {
 			var self = this;
+
 			return self.pre_wpautop(self.input.val());
 		},
 
