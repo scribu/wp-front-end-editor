@@ -14,7 +14,11 @@ Front-end Editor is a plugin that lets you make changes to your content *directl
 
 To edit something, just double-click it!
 
-The main goals are to be as *fast* as possible and to be *compatible with any theme*.
+**Goals:**
+
+* save as many trips to the backend as possible
+* compatible with any theme, out of the box
+* light and fast
 
 **Editable fields:**
 
@@ -53,7 +57,7 @@ The main goals are to be as *fast* as possible and to be *compatible with any th
 	</ul></li>
 </ul>
 
-There is a settings page where you can disable editable fields that you don't want.
+There is a settings page where you can disable editable fields that you don't want, as well as other options.
 
 == Installation ==
 

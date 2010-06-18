@@ -83,6 +83,9 @@ button.fee-form-cancel {
 .fee-suggest-match {color: #000}
 .fee-suggest-over {background-color: #f0f0b8}
 
+/* Widget */
+.fee-form.fee-type-widget input.widefat, .fee-form.fee-type-widget textarea.widefat {display: block; width: 100%}
+
 /* Image */
 #TB_window #TB_title {
 	background-color: #222;

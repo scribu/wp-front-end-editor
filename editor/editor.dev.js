@@ -587,6 +587,8 @@
 			self.input = $(content);
 
 			self.form.prepend(content);
+
+console.log(self.form);
 		},
 
 		get_content: function() {
