@@ -76,16 +76,19 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 	const delim = "\n\n";
 
+	private $chunks = array();
+
 	function wrap($content, $post_id = 0) {
 		if ( !$post_id = $this->_get_id($post_id) )
 			return $content;
 
 		$chunks = $this->split($content);
 
+		$replacements = array();
 		foreach ( $chunks as $i => $chunk )
-			$content = str_replace($chunk, FEE_Field_Base::wrap($chunk, "$post_id#$i", true), $content);
+			$replacements[] = FEE_Field_Base::wrap($chunk, "$post_id#$i", true);
 
-		return $content;
+		return $this->replace_exact($chunks, $replacements, $content);
 	}
 
 	function get($post_id) {
@@ -101,13 +104,15 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 	function save($post_id, $chunk_content) {
 		list($post_id, $chunk_id) = explode('#', $post_id);
 
+		$chunk_content = trim($chunk_content);
+
 		$content = get_post_field('post_content', $post_id);
 
 		$chunks = $this->split($content, true);
+		$replacement = $chunks;
+		$replacement[$chunk_id] = $chunk_content;
 
-		$chunk_content = trim($chunk_content);
-
-		$content = str_replace($chunks[$chunk_id], $chunk_content, $content);
+		$content = $this->replace_exact($chunks, $replacement, $content);
 
 		$postdata = array(
 			'ID' => $post_id,
@@ -130,9 +135,30 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		if ( $autop )
 			$content = wpautop($content);
 
-		preg_match_all("#<p>(.*?)</p>#", $content, $matches);
+		preg_match_all("#<p[^>]*>(.*?)</p>#", $content, $matches);
 
 		return $matches[1];
+	}
+
+	protected function replace_exact($old, $new, $subject) {
+		$tmp = array();
+
+		$index = array_keys($old);
+
+		foreach ( $index as $i )
+			$tmp[] = '__' . md5($i) . '__';
+
+		foreach ( $index as $i )
+			$subject = $this->replace_first($old[$i], $tmp[$i], $subject);
+
+		foreach ( $index as $i )
+			$subject = $this->replace_first($tmp[$i], $new[$i], $subject);
+
+		return $subject;
+	}
+
+	protected function replace_first($old, $new, $subject) {
+		return implode($new, explode($old, $subject, 2));
 	}
 
 	protected function force_refresh() {

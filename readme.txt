@@ -172,9 +172,12 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 1.9 =
 * full widget editing
+* more robust double-click mechanism
+* custom post type support
 * nicEdit button management from the admin
 * new editable field: term description
 * removed "Reset the post date on each edit" option
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-9.html)
 
 = 1.8 =
 * added tooltip
