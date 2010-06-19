@@ -76,8 +76,6 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 	const delim = "\n\n";
 
-	private $chunks = array();
-
 	function wrap($content, $post_id = 0) {
 		if ( !$post_id = $this->_get_id($post_id) )
 			return $content;
@@ -130,7 +128,6 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		die($chunk_content);
 	}
 
-	// Split content into chunks
 	protected function split($content, $autop = false) {
 		if ( $autop )
 			$content = wpautop($content);
