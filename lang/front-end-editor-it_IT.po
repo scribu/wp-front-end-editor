@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor in italiano\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-04-01 04:57+0300\n"
+"POT-Creation-Date: 2010-06-19 14:51+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gianni Diurno (aka gidibao) <gidibao[at]gmail[dot]com>\n"
 "Language-Team: Gianni Diurno | gidibao.net <gidibao[at]gmail[dot]com>\n"
@@ -12,52 +12,60 @@ msgstr ""
 "X-Poedit-Language: Italian\n"
 "X-Poedit-Country: ITALY\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.8a5)  #-#-#-#-#
-#. Plugin Name of an extension
-#: admin.php:8
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.9)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin.php:9
 msgid "Front-end Editor"
 msgstr "Front-end Editor"
 
-#: admin.php:11
+#: admin.php:14
 msgid "Fields"
 msgstr "Campi"
 
-#: admin.php:12
-#: scb/AdminPage.php:329
+#: admin.php:15
+#: scb/AdminPage.php:377
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: admin.php:64
+#: admin.php:16
+msgid "Editor Panel"
+msgstr "Pannello editor"
+
+#: admin.php:97
 msgid "Enable or disable editable fields"
 msgstr "Attiva o disattiva i campi modificabili"
 
-#: admin.php:66
+#: admin.php:99
 msgid "Post fields"
 msgstr "Campi articolo"
 
-#: admin.php:67
+#: admin.php:100
 msgid "Other fields"
 msgstr "Altri campi"
 
-#: admin.php:111
+#: admin.php:136
 msgid "Enable the WYSIWYG editor"
 msgstr "Attiva l'editor WYSIWYG"
 
-#: admin.php:117
+#: admin.php:142
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Modifica un paragrafo alla volta invece di operare su tutto l'articolo"
 
-#: admin.php:123
-msgid "Reset the post date on each edit"
-msgstr "Ripristina la data dell'articolo ad ogni modifica"
-
-#: admin.php:129
+#: admin.php:148
 msgid "Highlight editable elements"
 msgstr "Evidenzia gli elementi modificabili"
 
-#: admin.php:134
+#: admin.php:154
 msgid "Display a tooltip above editable elements"
 msgstr "Mostra un tooltip sopra gli elementi modificabili"
+
+#: admin.php:178
+msgid "Enable or disable editor buttons"
+msgstr "Attiva o disattiva i pulsanti dell'editor"
+
+#: admin.php:196
+msgid "Button"
+msgstr "Pulsante"
 
 #: core.php:59
 msgid "Save"
@@ -71,11 +79,11 @@ msgstr "Annulla"
 msgid "Double-click to edit"
 msgstr "Doppio click per modificare"
 
-#: core.php:110
+#: core.php:102
 msgid "Change Image"
 msgstr "Cambia immagine"
 
-#: core.php:111
+#: core.php:103
 msgid "Clear"
 msgstr "Svuota"
 
@@ -83,113 +91,125 @@ msgstr "Svuota"
 msgid "empty"
 msgstr "vuoto"
 
-#: front-end-editor.php:66
+#: front-end-editor.php:73
 msgid "Post title"
 msgstr "Titolo articolo"
 
-#: front-end-editor.php:72
+#: front-end-editor.php:79
 msgid "Post content"
 msgstr "Contenuto articolo"
 
-#: front-end-editor.php:78
+#: front-end-editor.php:85
 msgid "Post excerpt"
 msgstr "Riassunto articolo"
 
-#: front-end-editor.php:84
+#: front-end-editor.php:91
 msgid "Post categories"
 msgstr "Categorie articolo"
 
-#: front-end-editor.php:91
+#: front-end-editor.php:98
 msgid "Post tags"
 msgstr "Tag articolo"
 
-#: front-end-editor.php:98
+#: front-end-editor.php:105
 msgid "Post terms"
 msgstr "Termini articolo"
 
-#: front-end-editor.php:105
+#: front-end-editor.php:112
 msgid "Post custom fields"
 msgstr "Campi personalizzati articolo"
 
-#: front-end-editor.php:111
+#: front-end-editor.php:118
 msgid "Post thumbnail"
 msgstr "Miniatura articolo"
 
-#: front-end-editor.php:118
+#: front-end-editor.php:125
 msgid "Comment text"
 msgstr "Testo commenti"
 
-#: front-end-editor.php:124
+#: front-end-editor.php:131
 msgid "Category title"
 msgstr "Titolo categoria"
 
-#: front-end-editor.php:129
+#: front-end-editor.php:136
 msgid "Tag title"
 msgstr "Titolo tag"
 
-#: front-end-editor.php:134
+#: front-end-editor.php:141
+msgid "Term description"
+msgstr "Descrizione termine"
+
+#: front-end-editor.php:148
 msgid "Author description"
 msgstr "Descrizione autore"
 
-#: front-end-editor.php:141
-msgid "Widget title"
-msgstr "Titolo widget"
+#: front-end-editor.php:155
+msgid "Widgets"
+msgstr "Widget"
 
-#: front-end-editor.php:146
-msgid "Text widget content"
-msgstr "Contenuto widget di testo"
-
-#: front-end-editor.php:152
+#: front-end-editor.php:161
 msgid "Site title and description"
 msgstr "Nome e descrizione del sito"
 
-#: front-end-editor.php:158
+#: front-end-editor.php:167
 msgid "Site options"
 msgstr "Opzioni sito"
 
-#: front-end-editor.php:164
+#: front-end-editor.php:173
 msgid "Theme images"
 msgstr "Immagini tema"
 
-#: scb/AdminPage.php:158
-#: scb/AdminPage.php:169
-msgid "Save Changes"
-msgstr "Salva le modifiche"
-
-#: scb/AdminPage.php:272
+#: scb/AdminPage.php:167
 msgid "Settings <strong>saved</strong>."
 msgstr "Le impostazioni sono state <strong>salvate</strong>."
 
-#. Plugin URI of an extension
+#: scb/AdminPage.php:180
+#: scb/AdminPage.php:191
+msgid "Save Changes"
+msgstr "Salva le modifiche"
+
+#. Plugin URI of the plugin/theme
 msgid "http://scribu.net/wordpress/front-end-editor"
 msgstr "http://scribu.net/wordpress/front-end-editor"
 
-#. Description of an extension
+#. Description of the plugin/theme
 msgid "Allows you to edit your posts without going through the admin interface"
 msgstr "Ti permette la modifica dei tuoi articoli senza utilizzare l'interfaccia di amministrazione"
 
-#. Author of an extension
+#. Author of the plugin/theme
 msgid "scribu"
 msgstr "scribu"
 
-#. Author URI of an extension
+#. Author URI of the plugin/theme
 msgid "http://scribu.net/"
 msgstr "http://scribu.net/"
 
+#~ msgid "Reset the post date on each edit"
+#~ msgstr "Ripristina la data dell'articolo ad ogni modifica"
+
+#~ msgid "Text widget content"
+#~ msgstr "Contenuto widget di testo"
+
 #~ msgid "Rich text editor"
 #~ msgstr "Editor avanzato"
+
 #~ msgid "Edit paragraphs"
 #~ msgstr "Modifica paragrafi"
+
 #~ msgid "Date reset"
 #~ msgstr "Ripristina la data"
+
 #~ msgid "Highlighting"
 #~ msgstr "Evidenziatore"
+
 #~ msgid "Use default"
 #~ msgstr "Utilizza predefinito"
+
 #~ msgid "Field name"
 #~ msgstr "Nome campo"
+
 #~ msgid "[none]"
 #~ msgstr "[nessuno]"
+
 #~ msgid "Install now"
 #~ msgstr "Installa subito"
-
