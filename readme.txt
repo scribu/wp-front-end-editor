@@ -75,9 +75,11 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 `var_dump(PHP_VERSION);`
 <br>
 
-= Why doesn't it work with my theme? =
+= I double-click and nothing happens =
 
-See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
+First see [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
+
+Check for JavaScript errors (press Ctrl + Shift + J in Firefox).
 
 = Does it work with WP Super Cache? =
 
