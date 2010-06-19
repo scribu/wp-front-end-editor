@@ -4,7 +4,7 @@ Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 1.8
+Stable tag: 1.9
 
 Want to edit something? Just double-click it!
 
@@ -172,10 +172,10 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 1.9 =
 * full widget editing
-* more robust paragraph editing
-* more robust double-click mechanism
 * custom post type support
 * new editable field: term description
+* more robust paragraph editing
+* more robust double-click mechanism
 * nicEdit button management from the admin
 * removed "Reset the post date on each edit" option
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-9.html)
