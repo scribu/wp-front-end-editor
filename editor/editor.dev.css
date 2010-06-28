@@ -8,10 +8,16 @@ div.fee-form, textarea.fee-form-content {
 	clear: both !important;
 	width: 100% !important;
 }
-.fee-form-spinner {
-	border: 0 !important; 
-	width: 16px !important; 
-	height: 16px !important;
+
+.fee-loading {
+	position: absolute;
+	z-index: 9999;
+	background-color: #fff;
+	background-position: center center;
+	background-repeat: no-repeat;
+	text-align: center;
+	vertical-align: middle;
+	opacity: 0.75;
 }
 
 /* Buttons */

@@ -35,12 +35,54 @@ class scbForms {
 	}
 
 
+// ____________UTILITIES____________
+
+
+	// Generates a table wrapped in a form
+	static function form_table($rows, $formdata = NULL) {
+		$output = '';
+		foreach ( $rows as $row )
+			$output .= self::table_row($row, $formdata);
+
+		$output = self::form_table_wrap($output);
+
+		return $output;
+	}
+
 	// Generates a form
 	static function form($inputs, $formdata = NULL, $nonce) {
 		$output = '';
 		foreach ( $inputs as $input )
 			$output .= self::input($input, $formdata);
 
+		$output = self::form_wrap($output, $nonce);
+
+		return $output;
+	}
+
+	// Generates a table
+	static function table($rows, $formdata = NULL) {
+		$output = '';
+		foreach ( $rows as $row )
+			$output .= self::table_row($row, $formdata);
+
+		$output = self::table_wrap($output);
+
+		return $output;
+	}
+
+	// Generates a table row
+	static function table_row($args, $formdata = NULL) {
+		return self::row_wrap($args['title'], self::input($args, $formdata));
+	}
+
+
+// ____________WRAPPERS____________
+
+
+	// Wraps the given content in a <form><table>
+	static function form_table_wrap($content, $nonce = 'update_options') {
+		$output = self::table_wrap($content);
 		$output = self::form_wrap($output, $nonce);
 
 		return $output;
@@ -54,6 +96,18 @@ class scbForms {
 		$output .= "\n</form>\n";
 
 		return $output;
+	}
+
+	// Wraps the given content in a <table>
+	static function table_wrap($content) {
+		$output = "\n<table class='form-table'>\n" . $content . "\n</table>\n";
+
+		return $output;
+	}
+
+	// Wraps the given content in a <tr><td>
+	static function row_wrap($title, $content) {
+		return "\n<tr>\n\t<th scope='row'>" . $title . "</th>\n\t<td>\n\t\t" . $content . "\t</td>\n\n</tr>";
 	}
 
 

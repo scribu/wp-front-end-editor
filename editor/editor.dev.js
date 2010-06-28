@@ -143,17 +143,37 @@
 		}
 	};
 
+	var Overlay = Class.extend({
 
-	var spinner = $('<img>').attr({
-		'src'	: FrontEndEditor.data.spinner,
-		'class'	: 'front-editor-spinner'
+		init: function($el) {
+			this.el = $el;
+
+			this.cover = $('<div class="fee-loading>')
+				.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
+				.hide()
+				.prependTo($('body'));
+		},
+
+		show: function() {
+			this.cover
+			.css({
+				width: this.el.width(),
+				height: this.el.height()
+			})
+			.css(this.el.offset())
+			.show();
+		},
+
+		hide: function() {
+			this.cover.hide();
+		}
 	});
 
 
 	var fieldTypes = {};
 
 	fieldTypes['base'] = Class.extend({
-		
+
 		init: function($el, type, name, id) {
 			var self = this;
 
@@ -323,9 +343,9 @@
 		init: function($el, type, name, id) {
 			var self = this;
 
-			self.spinner = spinner.clone();
-
 			self._super($el, type, name, id);
+
+			self.overlay = new Overlay(self.el);
 		},
 
 		input_tag: '<input type="text">',
@@ -365,7 +385,7 @@
 		ajax_get: function() {
 			var self = this;
 
-			self.el.hide().after(self.spinner.show());
+			self.overlay.show();
 
 			self.create_input();
 
@@ -375,7 +395,7 @@
 		ajax_set: function() {
 			var self = this;
 
-			self.el.before(self.spinner.show());
+			self.overlay.show();
 
 			self._super();
 		},
@@ -383,7 +403,8 @@
 		ajax_get_handler: function(content) {
 			var self = this;
 
-			self.spinner.hide().after(self.form);
+			self.overlay.hide();
+			self.el.hide().after(self.form);
 
 			self.set_input(content);
 
@@ -395,7 +416,7 @@
 
 			self.set_content(content);
 
-			self.spinner.hide();
+			self.overlay.hide();
 			self.el.show();
 		},
 
@@ -452,11 +473,11 @@
 
 			self.form.remove();
 
-			if ( with_spinner === true )
-				self.el.before(self.spinner.show());
+			if ( true === with_spinner )
+				self.overlay.show();
 			else
 				self.el.show();
-		},		
+		},
 
 		keypress: function(ev) {
 			var self = this;
