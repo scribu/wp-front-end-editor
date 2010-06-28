@@ -473,10 +473,10 @@
 
 			self.form.remove();
 
+			self.el.show();
+
 			if ( true === with_spinner )
 				self.overlay.show();
-			else
-				self.el.show();
 		},
 
 		keypress: function(ev) {
