@@ -4,7 +4,7 @@ Donate link: http://scribu.net/paypal
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: trunk
+Stable tag: 1.9
 
 Want to edit something? Just double-click it!
 
