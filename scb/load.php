@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['_scb_data'] = array(20, __FILE__, array(
+$GLOBALS['_scb_data'] = array(21, __FILE__, array(
 	'scbUtil', 'scbOptions', 'scbForms', 'scbTable',
 	'scbWidget', 'scbAdminPage', 'scbBoxesPage',
 	'scbQuery', 'scbRewrite', 'scbCron',
@@ -24,11 +24,55 @@ class scbLoad4 {
 		if ( !empty($callback) ) {
 			self::$callbacks[$file] = $callback;
 
-			add_action('activate_plugin',  array(__CLASS__, 'delayed_activation'));
+			add_action('activated_plugin',  array(__CLASS__, 'delayed_activation'));
 		}
 
 		// TODO: don't load when activating a plugin ?
 		add_action('plugins_loaded', array(__CLASS__, 'load'), 10, 0);
+	}
+
+	static function delayed_activation($plugin) {
+		$plugin_dir = dirname($plugin);
+
+		if ( '.' == $plugin_dir )
+			return;
+
+		$found = false;
+		foreach ( self::$callbacks as $file => $callback )
+			if ( plugin_basename(dirname(dirname($file))) == $plugin_dir ) {
+				$found = true;
+				break;
+			}
+		if ( !$found )
+			return;
+
+		self::load(false);
+		call_user_func($callback);
+
+		if ( in_array($plugin, array_keys(get_site_option('active_sitewide_plugins', array()))) ) {
+			// network wide activation
+			foreach ( self::get_active_blogs() as $blog_id ) {
+				switch_to_blog($blog_id);
+				do_action('scb_activation_' . $plugin);
+			}
+			restore_current_blog();
+		}
+		else {
+			// regular activation
+			do_action('scb_activation_' . $plugin);
+		}
+	}
+
+	// TODO: bail activation if more than X blogs
+	private static function get_active_blogs() {
+		global $wpdb;
+
+		return $wpdb->get_col("
+			SELECT blog_id
+			FROM $wpdb->blogs
+			WHERE site_id = '{$wpdb->siteid}'
+			AND deleted = 0
+		");
 	}
 
 	static function load($do_callbacks = true) {
@@ -52,21 +96,6 @@ class scbLoad4 {
 		if ( $do_callbacks )
 			foreach ( self::$callbacks as $callback )
 				call_user_func($callback);
-	}
-
-	static function delayed_activation($plugin) {
-		$plugin_dir = dirname($plugin);
-
-		if ( '.' == $plugin_dir )
-			return;
-
-		foreach ( self::$callbacks as $file => $callback )
-			if ( plugin_basename(dirname(dirname($file))) == $plugin_dir ) {
-				self::load(false);
-				call_user_func($callback);
-				do_action('scb_activation_' . $plugin);
-				break;
-			}
 	}
 
 	static function get_info() {
