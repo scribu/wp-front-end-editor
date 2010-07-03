@@ -6,14 +6,14 @@ class FEE_Admin extends scbBoxesPage {
 		$this->textdomain = 'front-end-editor';
 
 		$this->args = array(
-			'page_title' => __('Front-end Editor', $this->textdomain),
+			'page_title' => __( 'Front-end Editor', $this->textdomain ),
 			'page_slug' => 'front-end-editor'
 		);
 
 		$this->boxes = array(
-			array('fields', __('Fields', $this->textdomain), 'normal'),
-			array('settings', __('Settings', $this->textdomain), 'side'),
-			array('ne_buttons', __('Editor Panel', $this->textdomain), 'side')
+			array( 'fields', __( 'Fields', $this->textdomain ), 'normal' ),
+			array( 'settings', __( 'Settings', $this->textdomain ), 'side' ),
+			array( 'ne_buttons', __( 'Editor Panel', $this->textdomain ), 'side' )
 		);
 	}
 
@@ -54,17 +54,17 @@ class FEE_Admin extends scbBoxesPage {
 <?php
 	}
 
-	protected function checklist_wrap($title, $tbody) {
+	protected function checklist_wrap( $title, $tbody ) {
 		$thead =
-		html('tr',
-			 html('th scope="col" class="check-column"', '<input type="checkbox" />')
-			.html('th scope="col"', $title )
+		html( 'tr',
+			 html( 'th scope="col" class="check-column"', '<input type="checkbox" />' )
+			.html( 'th scope="col"', $title )
 		);
 
 		$table =
-		html('table class="checklist widefat"',
-			 html('thead', $thead)
-			.html('tbody', $tbody)
+		html( 'table class="checklist widefat"',
+			 html( 'thead', $thead )
+			.html( 'tbody', $tbody )
 		);
 
 		return $table;
@@ -72,12 +72,12 @@ class FEE_Admin extends scbBoxesPage {
 
 
 	function fields_handler() {
-		if ( ! isset($_POST['manage_fields']) )
+		if ( ! isset( $_POST['manage_fields'] ) )
 			return;
 
 		$disabled = array();
 		foreach ( array_keys( FEE_Core::get_fields() ) as $field )
-			if ( ! isset($_POST[$field]) )
+			if ( ! isset( $_POST[$field] ) )
 				$disabled[] = $field;
 
 		$this->options->disabled = $disabled;
@@ -89,42 +89,42 @@ class FEE_Admin extends scbBoxesPage {
 		// Separate fields
 		$post_fields = $other_fields = array();
 		foreach ( FEE_Core::get_fields() as $field => $args )
-			if ( 'post' == call_user_func(array($args['class'], 'get_object_type') ) )
+			if ( 'post' == call_user_func( array( $args['class'], 'get_object_type' ) ) )
 				$post_fields[$field] = $args;
 			else
 				$other_fields[$field] = $args;
 
-		echo html('p', __('Enable or disable editable fields', $this->textdomain));
+		echo html( 'p', __( 'Enable or disable editable fields', $this->textdomain ) );
 
-		$tables  = $this->fields_table(__('Post fields', $this->textdomain), $post_fields);
-		$tables .= $this->fields_table(__('Other fields', $this->textdomain), $other_fields);
+		$tables  = $this->fields_table( __( 'Post fields', $this->textdomain ), $post_fields );
+		$tables .= $this->fields_table( __( 'Other fields', $this->textdomain ), $other_fields );
 
-		echo $this->form_wrap($tables, '', 'manage_fields');
+		echo $this->form_wrap( $tables, '', 'manage_fields' );
 	}
 
-	private function fields_table($title, $fields) {
+	private function fields_table( $title, $fields ) {
 		$tbody = '';
 		foreach ( $fields as $field => $args )
 			$tbody .=
-			html('tr', 
-				html('th scope="row" class="check-column"', 
-					$this->input(array(
+			html( 'tr',
+				html( 'th scope="row" class="check-column"',
+					$this->input( array(
 						'type' => 'checkbox',
 						'name' => $field,
-						'checked' => ! @in_array($field, $this->options->disabled)
-					))
+						'checked' => ! @in_array( $field, $this->options->disabled )
+					) )
 				)
-				.html('td', $args['title'])
+				.html( 'td', $args['title'] )
 			);
 
-		return $this->checklist_wrap($title, $tbody);
+		return $this->checklist_wrap( $title, $tbody );
 	}
 
 	function settings_handler() {
-		if ( !isset($_POST['save_settings']) )
+		if ( !isset( $_POST['save_settings'] ) )
 			return;
 
-		foreach ( array('rich', 'chunks', 'highlight', 'tooltip') as $key )
+		foreach ( array( 'rich', 'chunks', 'highlight', 'tooltip' ) as $key )
 			$this->options->$key = (bool) @$_POST[$key];
 
 		$this->admin_msg();
@@ -133,40 +133,40 @@ class FEE_Admin extends scbBoxesPage {
 	function settings_box() {
 		$rows = array(
 			array(
-				'desc' => __('Enable the WYSIWYG editor', $this->textdomain),
+				'desc' => __( 'Enable the WYSIWYG editor', $this->textdomain ),
 				'type' => 'checkbox',
 				'name' => 'rich',
 			),
 
 			array(
-				'desc' => __('Edit one paragraph at a time, instead of an entire post', $this->textdomain),
+				'desc' => __( 'Edit one paragraph at a time, instead of an entire post', $this->textdomain ),
 				'type' => 'checkbox',
 				'name' => 'chunks',
 			),
 
 			array(
-				'desc' => __('Highlight editable elements', $this->textdomain),
+				'desc' => __( 'Highlight editable elements', $this->textdomain ),
 				'type' => 'checkbox',
 				'name' => 'highlight',
 			),
 
 			array(
-				'desc' => __('Display a tooltip above editable elements', $this->textdomain),
+				'desc' => __( 'Display a tooltip above editable elements', $this->textdomain ),
 				'type' => 'checkbox',
 				'name' => 'tooltip',
 			),
 		);
-		
+
 		$out = '';
 		foreach ( $rows as $row )
-			$out .= html('p', $this->input($row));
+			$out .= html( 'p', $this->input( $row ) );
 
-		echo $this->form_wrap($out, '', 'save_settings');
+		echo $this->form_wrap( $out, '', 'save_settings' );
 	}
 
 
 	function ne_buttons_handler() {
-		if ( ! isset($_POST['save_buttons']) )
+		if ( ! isset( $_POST['save_buttons'] ) )
 			return;
 
 		$this->options->ne_buttons = (array) @$_POST['ne_buttons'];
@@ -175,27 +175,27 @@ class FEE_Admin extends scbBoxesPage {
 	}
 
 	function ne_buttons_box() {
-		echo html('p', __('Enable or disable editor buttons', $this->textdomain));
+		echo html( 'p', __( 'Enable or disable editor buttons', $this->textdomain ) );
 
 		$tbody = '';
-		foreach ( apply_filters('front_end_editor_nicedit', $this->options->get_defaults('ne_buttons')) as $button )
+		foreach ( apply_filters( 'front_end_editor_nicedit', $this->options->get_defaults( 'ne_buttons' ) ) as $button )
 			$tbody .=
-			html('tr', 
-				html('th scope="row" class="check-column"', 
-					$this->input(array(
+			html( 'tr',
+				html( 'th scope="row" class="check-column"',
+					$this->input( array(
 						'type' => 'checkbox',
 						'name' => 'ne_buttons[]',
 						'value' => $button,
 						'desc' => false,
-						'checked' => in_array($button, $this->options->ne_buttons)
-					))
+						'checked' => in_array( $button, $this->options->ne_buttons )
+					) )
 				)
-				.html('td', $button)
+				.html( 'td', $button )
 			);
 
-		$table = $this->checklist_wrap(__('Button', $this->textdomain), $tbody);
+		$table = $this->checklist_wrap( __( 'Button', $this->textdomain ), $tbody );
 
-		echo $this->form_wrap($table, '', 'save_buttons');
+		echo $this->form_wrap( $table, '', 'save_buttons' );
 	}
 }
 
