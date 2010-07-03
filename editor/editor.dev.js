@@ -156,12 +156,12 @@
 
 		show: function() {
 			this.cover
-			.css({
-				width: this.el.width(),
-				height: this.el.height()
-			})
-			.css(this.el.offset())
-			.show();
+				.css({
+					width: this.el.width(),
+					height: this.el.height()
+				})
+				.css(this.el.offset())
+				.show();
 		},
 
 		hide: function() {
