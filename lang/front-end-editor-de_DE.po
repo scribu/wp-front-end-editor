@@ -5,166 +5,308 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.5a\n"
+"Project-Id-Version: Front-end Editor 2.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-11-28 16:53+0200\n"
-"PO-Revision-Date: 2009-11-29 17:36+0100\n"
-"Last-Translator: G F <gottfried@pips.at>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2010-07-06 13:43+0300\n"
+"PO-Revision-Date: 2010-07-06 14:33+0200\n"
+"Last-Translator: scribu <scribu@gmail.com>\n"
+"Language-Team: GERMAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.5a)  #-#-#-#-#
-#. Plugin Name of an extension
-#: admin.php:7
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 2.0-alpha)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin.php:9
 msgid "Front-end Editor"
 msgstr "Front-end Editor"
 
-#: admin.php:10
+#: admin.php:14
 msgid "Fields"
 msgstr "Felder"
 
-#: admin.php:11
-#: scb/AdminPage.php:310
+#: admin.php:15
+#: scb/AdminPage.php:371
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: admin.php:51
-#: admin.php:105
-#: scb/AdminPage.php:101
-msgid "Settings <strong>saved</strong>."
-msgstr "Einstellungen <strong>gespeichert</strong>."
+#: admin.php:16
+msgid "Editor Panel"
+msgstr "Texteditor"
 
-#: admin.php:63
+#: admin.php:97
 msgid "Enable or disable editable fields"
 msgstr "Editierbare Felder aktivieren"
 
-#: admin.php:66
+#: admin.php:99
 msgid "Post fields"
 msgstr "Post Felder"
 
-#: admin.php:67
+#: admin.php:100
 msgid "Other fields"
 msgstr "Andere Felder"
 
-#: admin.php:111
-msgid "Rich text editor"
-msgstr "Rich Text Editor"
-
-#: admin.php:112
+#: admin.php:136
 msgid "Enable the WYSIWYG editor"
 msgstr "WYSIWYG-Editor aktivieren"
 
-#: admin.php:118
-msgid "Edit paragraphs"
-msgstr "Absätze editieren"
-
-#: admin.php:119
+#: admin.php:142
 msgid "Edit one paragraph at a time, instead of an entire post"
 msgstr "Nur einen Absatz editieren statt den ganzen Text"
 
-#: admin.php:125
-msgid "Highlighting"
-msgstr "Hervorheben"
-
-#: admin.php:126
+#: admin.php:148
 msgid "Highlight editable elements"
 msgstr "Editierbare Elemente hervorheben"
 
-#: core.php:96
+#: admin.php:154
+#, fuzzy
+msgid "Display a tooltip above editable elements"
+msgstr "Editierbare Elemente hervorheben"
+
+#: admin.php:178
+#, fuzzy
+msgid "Enable or disable editor buttons"
+msgstr "Editierbare Felder aktivieren"
+
+#: admin.php:196
+msgid "Button"
+msgstr "Button"
+
+#: core.php:59
 msgid "Save"
 msgstr "OK"
 
-#: core.php:97
+#: core.php:60
 msgid "Cancel"
 msgstr "abbrechen"
 
-#: core.php:105
-msgid "Use default"
-msgstr "Standardeinsetllungen verwenden"
+#: core.php:74
+msgid "Double-click to edit"
+msgstr "Doppelklick um Text zu ändern"
 
-#: core.php:108
+#: core.php:102
 msgid "Change Image"
 msgstr "Bild ändern"
 
-#: core.php:273
+#: core.php:103
+msgid "Clear"
+msgstr "Aufräumen"
+
+#: core.php:118
+msgid "Click to Bold"
+msgstr "Fett"
+
+#: core.php:119
+msgid "Click to Italic"
+msgstr "Kursiv"
+
+#: core.php:120
+msgid "Click to Underline"
+msgstr "Text unterstreichen"
+
+#: core.php:121
+msgid "Left Align"
+msgstr "Text links ausrichten"
+
+#: core.php:122
+msgid "Center Align"
+msgstr "Text zentrieren"
+
+#: core.php:123
+#, fuzzy
+msgid "Right Align"
+msgstr "Hervorheben"
+
+#: core.php:124
+msgid "Justify Align"
+msgstr "Blocktext"
+
+#: core.php:125
+msgid "Insert Ordered List"
+msgstr "Geordnete Liste einfügen"
+
+#: core.php:126
+msgid "Insert Unordered List"
+msgstr "Ungeordnete Liste einfügen"
+
+#: core.php:127
+msgid "Click to Subscript"
+msgstr "Text hochstellen"
+
+#: core.php:128
+msgid "Click to Superscript"
+msgstr "Text tiefstellen"
+
+#: core.php:129
+msgid "Click to Strike Through"
+msgstr "Text durchstreichen"
+
+#: core.php:130
+msgid "Remove Formatting"
+msgstr "Formatierung entfernen"
+
+#: core.php:131
+#, fuzzy
+msgid "Indent Text"
+msgstr "Kommentartext"
+
+#: core.php:132
+msgid "Remove Indent"
+msgstr "Text zurücksetzen"
+
+#: core.php:133
+msgid "Horizontal Rule"
+msgstr "Horizontale Linie"
+
+#: core.php:134
+msgid "Select Font Size"
+msgstr "Schriftgröße wählen"
+
+#: core.php:135
+msgid "Select Font Family"
+msgstr "Schriftart wählen"
+
+#: core.php:136
+msgid "Select Font Format"
+msgstr "Schriftformat wählen"
+
+#: core.php:137
+msgid "Add Link"
+msgstr "Link einfügen"
+
+#: core.php:138
+msgid "Remove Link"
+msgstr "Link entfernen"
+
+#: core.php:139
+msgid "Change Text Color"
+msgstr "Schriftfarbe wechseln"
+
+#: core.php:140
+msgid "Change Background Color"
+msgstr "Hintergrundfarbe wählen"
+
+#: core.php:141
+msgid "Add Image"
+msgstr "Bild einfügen"
+
+#: core.php:142
+msgid "Upload Image"
+msgstr "Bild hochladen"
+
+#: core.php:143
+msgid "Edit HTML"
+msgstr "HTML bearbeiten"
+
+#: fields/base.php:82
 msgid "empty"
 msgstr "leer"
 
-#: front-end-editor.php:69
+#: front-end-editor.php:73
 msgid "Post title"
 msgstr "Post Titel"
 
-#: front-end-editor.php:75
+#: front-end-editor.php:79
 msgid "Post content"
 msgstr "Post Inhalt"
 
-#: front-end-editor.php:81
+#: front-end-editor.php:85
 msgid "Post excerpt"
 msgstr "Post Exzerpt"
 
-#: front-end-editor.php:87
+#: front-end-editor.php:91
+#, fuzzy
+msgid "Post categories"
+msgstr "Post Terms"
+
+#: front-end-editor.php:98
 msgid "Post tags"
 msgstr "Post Tags"
 
-#: front-end-editor.php:93
+#: front-end-editor.php:105
 msgid "Post terms"
 msgstr "Post Terms"
 
-#: front-end-editor.php:99
+#: front-end-editor.php:112
 msgid "Post custom fields"
 msgstr "Post Custom Felder"
 
-#: front-end-editor.php:105
+#: front-end-editor.php:118
+#, fuzzy
+msgid "Post thumbnail"
+msgstr "Post Titel"
+
+#: front-end-editor.php:125
 msgid "Comment text"
 msgstr "Kommentartext"
 
-#: front-end-editor.php:111
+#: front-end-editor.php:131
 msgid "Category title"
 msgstr "Kategorie"
 
-#: front-end-editor.php:116
+#: front-end-editor.php:136
 msgid "Tag title"
 msgstr "Tag"
 
-#: front-end-editor.php:121
+#: front-end-editor.php:141
+#, fuzzy
+msgid "Term description"
+msgstr "Autor"
+
+#: front-end-editor.php:148
 msgid "Author description"
 msgstr "Autor"
 
-#: front-end-editor.php:128
-msgid "Text widget content"
-msgstr "Text Widget Inhalt"
+#: front-end-editor.php:155
+msgid "Widgets"
+msgstr "Widgets"
 
-#: front-end-editor.php:134
-msgid "Text widget title"
-msgstr "Text Widget Titel"
-
-#: front-end-editor.php:139
+#: front-end-editor.php:161
 msgid "Site title and description"
 msgstr "Titel und Beschreibung der Seite"
 
-#: front-end-editor.php:145
+#: front-end-editor.php:167
+#, fuzzy
+msgid "Site options"
+msgstr "Einstellungen"
+
+#: front-end-editor.php:173
 msgid "Theme images"
 msgstr "Themen Bilder"
 
-#: scb/AdminPage.php:111
+#: scb/AdminPage.php:167
+msgid "Settings <strong>saved</strong>."
+msgstr "Einstellungen <strong>gespeichert</strong>."
+
+#: scb/AdminPage.php:179
+#: scb/AdminPage.php:189
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#. Plugin URI of an extension
+#. Plugin URI of the plugin/theme
 msgid "http://scribu.net/wordpress/front-end-editor"
 msgstr "http://scribu.net/wordpress/front-end-editor"
 
-#. Description of an extension
+#. Description of the plugin/theme
 msgid "Allows you to edit your posts without going through the admin interface"
 msgstr "Erlaubt Posts und Seiten direkt zu ändern ohne Dashboard"
 
-#. Author of an extension
+#. Author of the plugin/theme
 msgid "scribu"
 msgstr "scribu"
 
-#. Author URI of an extension
+#. Author URI of the plugin/theme
 msgid "http://scribu.net/"
 msgstr "http://scribu.net/"
+
+#~ msgid "Rich text editor"
+#~ msgstr "Rich Text Editor"
+#~ msgid "Edit paragraphs"
+#~ msgstr "Absätze editieren"
+#~ msgid "Use default"
+#~ msgstr "Standardeinsetllungen verwenden"
+#~ msgid "Text widget content"
+#~ msgstr "Text Widget Inhalt"
+#~ msgid "Text widget title"
+#~ msgstr "Text Widget Titel"
 
