@@ -157,7 +157,7 @@ Yes, but you have to know your way around WordPress' internals. Here is the [dev
 * French - [Li-An](http://www.li-an.fr)
 * Italian - [Gianni Diurno](http://gidibao.net)
 * Georgian - Levani Melikishvili
-* German - Gottfried
+* German - Gottfried, Dominik Heyberg
 * Japaneze - kzh
 * Norwegian - John Myrstad
 * Polish - [Expromo](http://expromo.pl)

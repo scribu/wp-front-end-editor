@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
 "POT-Creation-Date: 2010-07-06 13:43+0300\n"
-"PO-Revision-Date: 2010-07-06 13:44+0200\n"
+"PO-Revision-Date: 2010-07-06 14:31+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -92,107 +92,107 @@ msgstr "Golește"
 
 #: core.php:118
 msgid "Click to Bold"
-msgstr ""
+msgstr "Îngroșat"
 
 #: core.php:119
 msgid "Click to Italic"
-msgstr ""
+msgstr "Italic"
 
 #: core.php:120
 msgid "Click to Underline"
-msgstr ""
+msgstr "Subliniat"
 
 #: core.php:121
 msgid "Left Align"
-msgstr ""
+msgstr "Aliniere la stânga"
 
 #: core.php:122
 msgid "Center Align"
-msgstr ""
+msgstr "Aliniere la centru"
 
 #: core.php:123
 msgid "Right Align"
-msgstr "Aliniază la dreapta"
+msgstr "Aliniere la dreapta"
 
 #: core.php:124
 msgid "Justify Align"
-msgstr ""
+msgstr "Aliniere justificată"
 
 #: core.php:125
 msgid "Insert Ordered List"
-msgstr ""
+msgstr "Listă ordonată"
 
 #: core.php:126
 msgid "Insert Unordered List"
-msgstr ""
+msgstr "Listă neordonată"
 
 #: core.php:127
 msgid "Click to Subscript"
-msgstr ""
+msgstr "Indice inferior"
 
 #: core.php:128
 msgid "Click to Superscript"
-msgstr ""
+msgstr "Indice superior"
 
 #: core.php:129
 msgid "Click to Strike Through"
-msgstr ""
+msgstr "Barare"
 
 #: core.php:130
 msgid "Remove Formatting"
-msgstr ""
+msgstr "Înlăturare formatare"
 
 #: core.php:131
 msgid "Indent Text"
-msgstr "Indendează text"
+msgstr "Avans la paragraf"
 
 #: core.php:132
 msgid "Remove Indent"
-msgstr ""
+msgstr "Înlăturare avans"
 
 #: core.php:133
 msgid "Horizontal Rule"
-msgstr ""
+msgstr "Bară orizontală"
 
 #: core.php:134
 msgid "Select Font Size"
-msgstr ""
+msgstr "Mărimea fontului"
 
 #: core.php:135
 msgid "Select Font Family"
-msgstr ""
+msgstr "Font"
 
 #: core.php:136
 msgid "Select Font Format"
-msgstr ""
+msgstr "Format font"
 
 #: core.php:137
 msgid "Add Link"
-msgstr ""
+msgstr "Adaugă legătură"
 
 #: core.php:138
 msgid "Remove Link"
-msgstr ""
+msgstr "Înlătură legătură"
 
 #: core.php:139
 msgid "Change Text Color"
-msgstr ""
+msgstr "Culoare text"
 
 #: core.php:140
 msgid "Change Background Color"
-msgstr ""
+msgstr "Culoare fundal"
 
 #: core.php:141
 msgid "Add Image"
-msgstr ""
+msgstr "Adaugă imagine"
 
 #: core.php:142
 msgid "Upload Image"
-msgstr ""
+msgstr "Încarcă imagine"
 
 #: core.php:143
 msgid "Edit HTML"
-msgstr ""
+msgstr "Editează HTML"
 
 #: fields/base.php:82
 msgid "empty"
