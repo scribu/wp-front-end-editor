@@ -6,38 +6,38 @@ class FEE_Field_Post extends FEE_Field_Base {
 	protected $field;
 
 	protected function setup() {
-		$this->field = str_replace('the_', 'post_', $this->get_filter());
+		$this->field = str_replace( 'the_', 'post_', $this->get_filter() );
 	}
 
 	static function get_object_type() {
 		return 'post';
 	}
 
-	function wrap($content, $post_id = 0) {
-		if ( !$post_id = $this->_get_id($post_id) )
+	function wrap( $content, $post_id = 0 ) {
+		if ( !$post_id = $this->_get_id( $post_id ) )
 			return $content;
 
-		return parent::wrap($content, $post_id);
+		return parent::wrap( $content, $post_id );
 	}
 
-	protected function _get_id($post_id = 0, $in_loop = true ) {
+	protected function _get_id( $post_id = 0, $in_loop = true ) {
 		if ( $in_loop && !in_the_loop() )
 			return false;
 
 		if ( !$post_id )
 			$post_id = get_the_ID();
 
-		if ( !$post_id || !$this->check($post_id) )
+		if ( !$post_id || !$this->check( $post_id ) )
 			return false;
 
 		return $post_id;
 	}
 
-	function get($post_id) {
-		return get_post_field($this->field, $post_id);
+	function get( $post_id ) {
+		return get_post_field( $this->field, $post_id );
 	}
 
-	function save($post_id, $content) {
+	function save( $post_id, $content ) {
 		$postdata = array(
 			'ID' => $post_id,
 			$this->field => $content
@@ -45,29 +45,29 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 		// reset slug
 		if ( $this->field == 'post_title' ) {
-			$current_slug = get_post_field('post_name', $post_id);
-			$current_title = get_post_field('post_title', $post_id);
+			$current_slug = get_post_field( 'post_name', $post_id );
+			$current_title = get_post_field( 'post_title', $post_id );
 
 			// update only if not explicitly set
-			if ( empty($current_slug) || $current_slug == sanitize_title_with_dashes($current_title) ) {
-				$new_slug = sanitize_title_with_dashes($content);
+			if ( empty( $current_slug ) || $current_slug == sanitize_title_with_dashes( $current_title ) ) {
+				$new_slug = sanitize_title_with_dashes( $content );
 				$postdata['post_name'] = $new_slug;
 			}
 		}
 
-		wp_update_post((object) $postdata);
+		wp_update_post( (object) $postdata );
 
-		$this->set_post_global($post_id);
+		$this->set_post_global( $post_id );
 
 		return $content;
 	}
 
-	function check($post_id = 0) {
-		return current_user_can('edit_post', $post_id);
+	function check( $post_id = 0 ) {
+		return current_user_can( 'edit_post', $post_id );
 	}
 
-	protected function set_post_global($post_id) {
-		$GLOBALS['post'] = get_post($post_id);
+	protected function set_post_global( $post_id ) {
+		$GLOBALS['post'] = get_post( $post_id );
 	}
 }
 
@@ -76,111 +76,111 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 	const delim = "\n\n";
 
-	function wrap($content, $post_id = 0) {
-		if ( !$post_id = $this->_get_id($post_id) )
+	function wrap( $content, $post_id = 0 ) {
+		if ( !$post_id = $this->_get_id( $post_id ) )
 			return $content;
 
-		$chunks = $this->split($content);
+		$chunks = $this->split( $content );
 
 		$replacements = array();
 		foreach ( $chunks as $i => $chunk )
-			$replacements[] = FEE_Field_Base::wrap($chunk, "$post_id#$i", true);
+			$replacements[] = FEE_Field_Base::wrap( $chunk, "$post_id#$i", true );
 
-		return $this->replace_exact($chunks, $replacements, $content);
+		return $this->replace_exact( $chunks, $replacements, $content );
 	}
 
-	function get($post_id) {
-		list($post_id, $chunk_id) = explode('#', $post_id);
+	function get( $post_id ) {
+		list( $post_id, $chunk_id ) = explode( '#', $post_id );
 
-		$field = get_post_field('post_content', $post_id);
+		$field = get_post_field( 'post_content', $post_id );
 
-		$chunks = $this->split($field, true);
+		$chunks = $this->split( $field, true );
 
 		return @$chunks[$chunk_id];
 	}
 
-	function save($post_id, $chunk_content) {
-		list($post_id, $chunk_id) = explode('#', $post_id);
+	function save( $post_id, $chunk_content ) {
+		list( $post_id, $chunk_id ) = explode( '#', $post_id );
 
-		$chunk_content = trim($chunk_content);
+		$chunk_content = trim( $chunk_content );
 
-		$content = get_post_field('post_content', $post_id);
+		$content = get_post_field( 'post_content', $post_id );
 
-		$chunks = $this->split($content, true);
+		$chunks = $this->split( $content, true );
 		$replacement = $chunks;
 		$replacement[$chunk_id] = $chunk_content;
 
-		$content = $this->replace_exact($chunks, $replacement, $content);
+		$content = $this->replace_exact( $chunks, $replacement, $content );
 
 		$postdata = array(
 			'ID' => $post_id,
 			'post_content' => $content
 		);
 
-		wp_update_post((object) $postdata);
+		wp_update_post( (object) $postdata );
 
-		$this->set_post_global($post_id);
+		$this->set_post_global( $post_id );
 
 		// Refresh the page if a new chunk is added
-		if ( empty($chunk_content) || FALSE !== strpos($chunk_content, self::delim) )
+		if ( empty( $chunk_content ) || FALSE !== strpos( $chunk_content, self::delim ) )
 			$this->force_refresh();
 
-		die($chunk_content);
+		die( $chunk_content );
 	}
 
-	protected function split($content, $autop = false) {
+	protected function split( $content, $autop = false ) {
 		if ( $autop )
-			$content = wpautop($content);
+			$content = wpautop( $content );
 
-		preg_match_all("#<p[^>]*>(.*?)</p>#", $content, $matches);
+		preg_match_all( "#<p[^>]*>( .*? )</p>#", $content, $matches );
 
 		return $matches[1];
 	}
 
-	protected function replace_exact($old, $new, $subject) {
+	protected function replace_exact( $old, $new, $subject ) {
 		$tmp = array();
 
-		$index = array_keys($old);
+		$index = array_keys( $old );
 
 		foreach ( $index as $i )
-			$tmp[] = '__' . md5($i) . '__';
+			$tmp[] = '__' . md5( $i ) . '__';
 
 		foreach ( $index as $i )
-			$subject = $this->replace_first($old[$i], $tmp[$i], $subject);
+			$subject = $this->replace_first( $old[$i], $tmp[$i], $subject );
 
 		foreach ( $index as $i )
-			$subject = $this->replace_first($tmp[$i], $new[$i], $subject);
+			$subject = $this->replace_first( $tmp[$i], $new[$i], $subject );
 
 		return $subject;
 	}
 
-	protected function replace_first($old, $new, $subject) {
-		return implode($new, explode($old, $subject, 2));
+	protected function replace_first( $old, $new, $subject ) {
+		return implode( $new, explode( $old, $subject, 2 ) );
 	}
 
 	protected function force_refresh() {
-		die("<script language='javascript'>location.reload(true)</script>");
+		die( "<script language='javascript'>location.reload( true )</script>" );
 	}
 }
 
 // Handles the_excerpt field
 class FEE_Field_Excerpt extends FEE_Field_Post {
 
-	function get($post_id) {
-		$post = get_post($post_id);
+	function get( $post_id ) {
+		$post = get_post( $post_id );
 
 		$excerpt = $post->post_excerpt;
 
-		if ( empty($excerpt) ) {
-			$this->set_post_global($post_id);
-			$excerpt = $this->trim_excerpt($post->post_content);
+		if ( empty( $excerpt ) ) {
+			$this->set_post_global( $post_id );
+			$excerpt = $this->trim_excerpt( $post->post_content );
 		}
 
 		return $excerpt;
 	}
 
-	function save($post_id, $excerpt) {
-		$default_excerpt = $this->get($post_id);
+	function save( $post_id, $excerpt ) {
+		$default_excerpt = $this->get( $post_id );
 
 		if ( $excerpt == $default_excerpt )
 			return $excerpt;
@@ -190,37 +190,37 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 			'post_excerpt' => $excerpt
 		);
 
-		wp_update_post((object) $postdata);
+		wp_update_post( (object) $postdata );
 
-		$this->set_post_global($post_id);
+		$this->set_post_global( $post_id );
 
-		if ( empty($excerpt) )
+		if ( empty( $excerpt ) )
 			return $default_excerpt;
 
 		return $excerpt;
 	}
 
 	// Copy-paste from wp_trim_excerpt()
-	private function trim_excerpt($text) {
-		$text = apply_filters('the_content', $text);
-		$text = str_replace(']]>', ']]&gt;', $text);
-		$text = strip_tags($text);
-		$excerpt_length = apply_filters('excerpt_length', 55);
-		$words = explode(' ', $text, $excerpt_length + 1);
-		if (count($words) > $excerpt_length) {
-			array_pop($words);
-			array_push($words, '[...]');
-			$text = implode(' ', $words);
+	private function trim_excerpt( $text ) {
+		$text = apply_filters( 'the_content', $text );
+		$text = str_replace( ']]>', ']]&gt;', $text );
+		$text = strip_tags( $text );
+		$excerpt_length = apply_filters( 'excerpt_length', 55 );
+		$words = explode( ' ', $text, $excerpt_length + 1 );
+		if ( count( $words ) > $excerpt_length ) {
+			array_pop( $words );
+			array_push( $words, '[...]' );
+			$text = implode( ' ', $words );
 		}
 
-		return apply_filters('get_the_excerpt', $text);
+		return apply_filters( 'get_the_excerpt', $text );
 	}
 }
 
 // Handles the_terms field
 class FEE_Field_Terms extends FEE_Field_Post {
 
-	function wrap($content, $taxonomy, $before, $sep, $after) {
+	function wrap( $content, $taxonomy, $before, $sep, $after ) {
 		if ( !in_the_loop() )
 			return $content;
 
@@ -229,66 +229,66 @@ class FEE_Field_Terms extends FEE_Field_Post {
 		if ( !$post_id )
 			return $content;
 
-		$id = implode('#', array($post_id, $taxonomy));
+		$id = implode( '#', array( $post_id, $taxonomy ) );
 
-		if ( !$this->check($id) )
+		if ( !$this->check( $id ) )
 			return $content;
 
-		$content = $this->placehold(str_replace(array($before, $after), '', $content));
+		$content = $this->placehold( str_replace( array( $before, $after ), '', $content ) );
 
-		return $before . FEE_Field_Base::wrap($content, $id) . $after;
+		return $before . FEE_Field_Base::wrap( $content, $id ) . $after;
 	}
 
-	function get($id) {
-		list($post_id, $taxonomy) = explode('#', $id);
+	function get( $id ) {
+		list( $post_id, $taxonomy ) = explode( '#', $id );
 
-		$tags = get_terms_to_edit($post_id, $taxonomy);
-		$tags = str_replace(',', ', ', $tags);
+		$tags = get_terms_to_edit( $post_id, $taxonomy );
+		$tags = str_replace( ',', ', ', $tags );
 
 		return $tags;
 	}
 
-	function save($id, $terms) {
-		list($post_id, $taxonomy) = explode('#', $id);
+	function save( $id, $terms ) {
+		list( $post_id, $taxonomy ) = explode( '#', $id );
 
-		wp_set_post_terms($post_id, $terms, $taxonomy);
+		wp_set_post_terms( $post_id, $terms, $taxonomy );
 
-		$response = get_the_term_list($post_id, $taxonomy, '', ', ');	// todo: store $sep somehow
+		$response = get_the_term_list( $post_id, $taxonomy, '', ', ' );	// todo: store $sep somehow
 
-		return $this->placehold($response);
+		return $this->placehold( $response );
 	}
 
-	function check($id = 0) {
-		list($post_id, $taxonomy) = explode('#', $id);
+	function check( $id = 0 ) {
+		list( $post_id, $taxonomy ) = explode( '#', $id );
 
-		return current_user_can(get_taxonomy($taxonomy)->cap->assign_terms, $post_id);
+		return current_user_can( get_taxonomy( $taxonomy )->cap->assign_terms, $post_id );
 	}
 }
 
 // Handles the_tags field
 class FEE_Field_Tags extends FEE_Field_Terms {
 
-	function wrap($content, $before, $sep, $after) {
-		return parent::wrap($content, 'post_tag', $before, $sep, $after);
+	function wrap( $content, $before, $sep, $after ) {
+		return parent::wrap( $content, 'post_tag', $before, $sep, $after );
 	}
 }
 
 // Handles the_category field
 class FEE_Field_Category extends FEE_Field_Terms {
 
-	function wrap($content, $sep, $parents) {
-		return parent::wrap($content, 'category', '', $sep, '');
+	function wrap( $content, $sep, $parents ) {
+		return parent::wrap( $content, 'category', '', $sep, '' );
 	}
 
-	function save($id, $categories) {
-		list($post_id, $taxonomy) = explode('#', $id);
+	function save( $id, $categories ) {
+		list( $post_id, $taxonomy ) = explode( '#', $id );
 
 		$cat_ids = array();
-		foreach ( explode(',', $categories) as $cat_name ) {
-			if ( !$cat = get_cat_ID(trim($cat_name)) ) {
-				$args = wp_insert_term($cat_name, $taxonomy);
+		foreach ( explode( ',', $categories ) as $cat_name ) {
+			if ( !$cat = get_cat_ID( trim( $cat_name ) ) ) {
+				$args = wp_insert_term( $cat_name, $taxonomy );
 
-				if ( is_wp_error($args) )
+				if ( is_wp_error( $args ) )
 					continue;
 
 				$cat = $args['term_id'];
@@ -297,43 +297,43 @@ class FEE_Field_Category extends FEE_Field_Terms {
 			$cat_ids[] = $cat;
 		}
 
-		wp_set_post_categories($post_id, $cat_ids);
+		wp_set_post_categories( $post_id, $cat_ids );
 
-		$response = get_the_term_list($post_id, $taxonomy, '', ', ');
+		$response = get_the_term_list( $post_id, $taxonomy, '', ', ' );
 
-		return $this->placehold($response);
+		return $this->placehold( $response );
 	}
 }
 
 // Handles the post thumbnail
 class FEE_Field_Thumbnail extends FEE_Field_Post {
 
-	function wrap($html, $post_id, $post_thumbnail_id, $size) {
-		if ( !$post_id = $this->_get_id($post_id, false) )
+	function wrap( $html, $post_id, $post_thumbnail_id, $size ) {
+		if ( !$post_id = $this->_get_id( $post_id, false ) )
 			return $content;
 
-		$id = implode('#', array($post_id, $size));
+		$id = implode( '#', array( $post_id, $size ) );
 
-		return FEE_Field_Base::wrap($html, $id);
+		return FEE_Field_Base::wrap( $html, $id );
 	}
 
-	function get($id) {
-		list($post_id, $size) = explode('#', $id);
+	function get( $id ) {
+		list( $post_id, $size ) = explode( '#', $id );
 
-		return get_post_thumbnail_id($post_id);
+		return get_post_thumbnail_id( $post_id );
 	}
 
-	function save($id, $thumbnail_id) {
-		list($post_id, $size) = explode('#', $id);
+	function save( $id, $thumbnail_id ) {
+		list( $post_id, $size ) = explode( '#', $id );
 
 		if ( -1 == $thumbnail_id ) {
-			delete_post_meta($post_id, '_thumbnail_id');
+			delete_post_meta( $post_id, '_thumbnail_id' );
 			return -1;
 		}
 
-		update_post_meta($post_id, '_thumbnail_id', $thumbnail_id);
+		update_post_meta( $post_id, '_thumbnail_id', $thumbnail_id );
 
-		list($url) = image_downsize($thumbnail_id, $size);
+		list( $url ) = image_downsize( $thumbnail_id, $size );
 
 		return $url;
 	}
@@ -342,15 +342,15 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 // Handles post_meta field
 class FEE_Field_Meta extends FEE_Field_Post {
 
-	function wrap($data, $post_id, $key, $type, $single) {
-		if ( $this->check($post_id) ) {
+	function wrap( $data, $post_id, $key, $type, $single ) {
+		if ( $this->check( $post_id ) ) {
 			if ( $single )
-				$data = array($this->placehold($data));
+				$data = array( $this->placehold( $data ) );
 
 			$r = array();
 			foreach ( $data as $i => $val ) {
-				$id = implode('#', array($post_id, $key, $type, $i));
-				$r[$i] = FEE_Field_Base::wrap($val, $id);
+				$id = implode( '#', array( $post_id, $key, $type, $i ) );
+				$r[$i] = FEE_Field_Base::wrap( $val, $id );
 			}
 		}
 		else {
@@ -363,29 +363,29 @@ class FEE_Field_Meta extends FEE_Field_Post {
 		return $r;
 	}
 
-	function get($id) {
-		list($post_id, $key, $type, $i) = explode('#', $id);
+	function get( $id ) {
+		list( $post_id, $key, $type, $i ) = explode( '#', $id );
 
-		$data = get_post_meta($post_id, $key);
+		$data = get_post_meta( $post_id, $key );
 
 		return @$data[$i];
 	}
 
-	function save($id, $new_value) {
-		list($post_id, $key, $type, $i) = explode('#', $id);
+	function save( $id, $new_value ) {
+		list( $post_id, $key, $type, $i ) = explode( '#', $id );
 
-		$data = get_post_meta($post_id, $key);
+		$data = get_post_meta( $post_id, $key );
 
 		$old_value = @$data[$i];
 
-		update_post_meta($post_id, $key, $new_value, $old_value);
+		update_post_meta( $post_id, $key, $new_value, $old_value );
 
 		return $new_value;
 	}
 }
 
-function editable_post_meta($post_id, $key, $type = 'input', $echo = true) {
-	$data = get_editable_post_meta($post_id, $key, $type, true);
+function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
+	$data = get_editable_post_meta( $post_id, $key, $type, true );
 
 	if ( !$echo )
 		return $data;
@@ -393,9 +393,9 @@ function editable_post_meta($post_id, $key, $type = 'input', $echo = true) {
 	echo $data;
 }
 
-function get_editable_post_meta($post_id, $key, $type = 'input', $single = false) {
-	$data = get_post_meta($post_id, $key, $single);
+function get_editable_post_meta( $post_id, $key, $type = 'input', $single = false ) {
+	$data = get_post_meta( $post_id, $key, $single );
 
-	return apply_filters('post_meta', $data, $post_id, $key, $type, $single);
+	return apply_filters( 'post_meta', $data, $post_id, $key, $type, $single );
 }
 

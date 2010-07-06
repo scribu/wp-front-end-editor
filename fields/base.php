@@ -11,7 +11,7 @@ abstract class FEE_Field_Base {
 	 * Constructor; nothing fancy
 	 * @return null
 	 */
-	final public function __construct($filter, $type) {
+	final public function __construct( $filter, $type ) {
 		$this->filter = $filter;
 		$this->input_type = $type;
 
@@ -35,43 +35,43 @@ abstract class FEE_Field_Base {
 	 * Mark the field as editable
 	 * @return string Wrapped content
 	 */
-	public function wrap($content, $object_id, $inline = false) {
-		if ( ! $this->allow($object_id) )
+	public function wrap( $content, $object_id, $inline = false ) {
+		if ( ! $this->allow( $object_id ) )
 			return $content;
 
 		self::$wrapped[$this->input_type] = true;
 
-		if ( is_null($content) )
+		if ( is_null( $content ) )
 			$content = '';
 
-		if ( ! is_scalar($content) )
-			trigger_error("scalar expected. " . gettype($content) . " given", E_USER_WARNING);
+		if ( ! is_scalar( $content ) )
+			trigger_error( "scalar expected. " . gettype( $content ) . " given", E_USER_WARNING );
 
 		$class = 'fee-field fee-filter-' . $this->filter;
-		$object_id = esc_attr($object_id);
+		$object_id = esc_attr( $object_id );
 
-		$wrap_tag = ( $inline || in_array($this->input_type, array('input', 'terminput', 'image')) ) ? 'span' : 'div';
+		$wrap_tag = ( $inline || in_array( $this->input_type, array( 'input', 'terminput', 'image' ) ) ) ? 'span' : 'div';
 
-		return html("$wrap_tag class='{$class}' data-fee='{$object_id}'", $content);
+		return html( "$wrap_tag class='{$class}' data-fee='{$object_id}'", $content );
 	}
 
 	/**
 	 * Retrieve the current data for the field
 	 * @return string Unfiltered content
 	 */
-	abstract public function get($object_id);
+	abstract public function get( $object_id );
 
 	/**
 	 * Save the data retrieved from the field
 	 * @return string Saved content
 	 */
-	abstract public function save($object_id, $content);
+	abstract public function save( $object_id, $content );
 
 	/**
 	 * Check user permissions
 	 * @return bool
 	 */
-	abstract public function check($object_id = 0);
+	abstract public function check( $object_id = 0 );
 
 
 	/**
@@ -79,11 +79,11 @@ abstract class FEE_Field_Base {
 	 * @return string
 	 */
 	protected function placeholder() {
-		return '[' . __('empty', 'front-end-editor') . ']';
+		return '[' . __( 'empty', 'front-end-editor' ) . ']';
 	}
 
-	protected function placehold($content) {
-		if ( empty($content) )
+	protected function placehold( $content ) {
+		if ( empty( $content ) )
 			$content = $this->placeholder();
 
 		return $content;
@@ -102,8 +102,8 @@ abstract class FEE_Field_Base {
 	 * Allow external code to block editing for certain objects
 	 * @return bool
 	 */
-	final public function allow($object_id) {
-		return apply_filters('front_end_editor_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type);
+	final public function allow( $object_id ) {
+		return apply_filters( 'front_end_editor_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type );
 	}
 
 	/**
