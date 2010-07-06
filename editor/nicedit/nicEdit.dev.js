@@ -225,11 +225,11 @@ var bkEvent = {
 				this.eventList[evType][i].apply(this,args);
 			}
 		}
-	}	
+	}
 };
 
 function __(s) {
-	return s;
+	return ( undefined === nicEditL10n[s] ) ? s : nicEditL10n[s];
 }
 
 Function.prototype.closure = function() {
@@ -1180,8 +1180,8 @@ nicEditors.registerPlugin(nicPlugin,nicSelectOptions);
 /* START CONFIG */
 var nicLinkOptions = {
 	buttons : {
-		'link' : {name : 'Add Link', type : 'nicLinkButton', tags : ['A']},
-		'unlink' : {name : 'Remove Link',  command : 'unlink', noActive : true}
+		'link' : {name : __('Add Link'), type : 'nicLinkButton', tags : ['A']},
+		'unlink' : {name : __('Remove Link'),  command : 'unlink', noActive : true}
 	}
 };
 /* END CONFIG */
@@ -1285,9 +1285,8 @@ nicEditors.registerPlugin(nicPlugin,nicColorOptions);
 /* START CONFIG */
 var nicImageOptions = {
 	buttons : {
-		'image' : {name : 'Add Image', type : 'nicImageButton', tags : ['IMG']}
+		'image' : {name : __('Add Image'), type : 'nicImageButton', tags : ['IMG']}
 	}
-	
 };
 /* END CONFIG */
 
@@ -1333,9 +1332,8 @@ nicEditors.registerPlugin(nicPlugin,nicImageOptions);
 /* START CONFIG */
 var nicUploadOptions = {
 	buttons : {
-		'upload' : {name : 'Upload Image', type : 'nicUploadButton'}
+		'upload' : {name : __('Upload Image'), type : 'nicUploadButton'}
 	}
-	
 };
 /* END CONFIG */
 
@@ -1456,7 +1454,7 @@ nicEditors.registerPlugin(nicPlugin,nicUploadOptions);
 /* START CONFIG */
 var nicCodeOptions = {
 	buttons : {
-		'xhtml' : {name : 'Edit HTML', type : 'nicCodeButton'}
+		'xhtml' : {name : __('Edit HTML'), type : 'nicCodeButton'}
 	}
 	
 };
@@ -1464,14 +1462,14 @@ var nicCodeOptions = {
 
 var nicCodeButton = nicEditorAdvancedButton.extend({
 	width : '350px',
-		
+
 	addPane : function() {
 		this.addForm({
 			'' : {type : 'title', txt : 'Edit HTML'},
 			'code' : {type : 'content', 'value' : this.ne.selectedInstance.getContent(), style : {width: '340px', height : '200px'}}
 		});
 	},
-	
+
 	submit : function(e) {
 		var code = this.inputs['code'].value;
 		this.ne.selectedInstance.setContent(code);

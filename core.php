@@ -84,6 +84,7 @@ abstract class FEE_Core {
 		}
 
 		// Rich Editor
+		$nicEditL10n = '';
 		if ( array_key_exists( 'rich', $wrapped ) ) {
 			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
@@ -91,6 +92,36 @@ abstract class FEE_Core {
 			) );
 
 			wp_register_script( 'nicedit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true );
+			$nicEditL10n = array(
+				'Click to Bold' => __( 'Click to Bold', 'front-end-editor' ),
+				'Click to Italic' => __( 'Click to Italic', 'front-end-editor' ),
+				'Click to Underline' => __( 'Click to Underline', 'front-end-editor' ),
+				'Left Align' => __( 'Left Align', 'front-end-editor' ),
+				'Center Align' => __( 'Center Align', 'front-end-editor' ),
+				'Right Align' => __( 'Right Align', 'front-end-editor' ),
+				'Justify Align' => __( 'Justify Align', 'front-end-editor' ),
+				'Insert Ordered List' => __( 'Insert Ordered List', 'front-end-editor' ),
+				'Insert Unordered List' => __( 'Insert Unordered List', 'front-end-editor' ),
+				'Click to Subscript' => __( 'Click to Subscript', 'front-end-editor' ),
+				'Click to Superscript' => __( 'Click to Superscript', 'front-end-editor' ),
+				'Click to Strike Through' => __( 'Click to Strike Through', 'front-end-editor' ),
+				'Remove Formatting' => __( 'Remove Formatting', 'front-end-editor' ),
+				'Indent Text' => __( 'Indent Text', 'front-end-editor' ),
+				'Remove Indent' => __( 'Remove Indent', 'front-end-editor' ),
+				'Horizontal Rule' => __( 'Horizontal Rule', 'front-end-editor' ),
+				'Select Font Size' => __( 'Select Font Size', 'front-end-editor' ),
+				'Select Font Family' => __( 'Select Font Family', 'front-end-editor' ),
+				'Select Font Format' => __( 'Select Font Format', 'front-end-editor' ),
+				'Add Link' => __( 'Add Link', 'front-end-editor' ),
+				'Remove Link' => __( 'Remove Link', 'front-end-editor' ),
+				'Change Text Color' => __( 'Change Text Color', 'front-end-editor' ),
+				'Change Background Color' => __( 'Change Background Color', 'front-end-editor' ),
+				'Add Image' => __( 'Add Image', 'front-end-editor' ),
+				'Upload Image' => __( 'Upload Image', 'front-end-editor' ),
+				'Edit HTML' => __( 'Edit HTML', 'front-end-editor' ),
+			);
+			$nicEditL10n = 'var nicEditL10n = ' . json_encode( $nicEditL10n );
+
 			$js_dependencies[] = 'nicedit';
 		}
 
@@ -114,11 +145,11 @@ abstract class FEE_Core {
 		// Core script
 		wp_register_style( 'front-end-editor', $url . "editor$css_dev.css", $css_dependencies, self::$version );
 		wp_register_script( 'front-end-editor', $url . "editor$js_dev.js", $js_dependencies, self::$version, true );
-
 ?>
 <script type='text/javascript'>
 var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
+<?php echo $nicEditL10n; ?>
 </script>
 <?php
 		scbUtil::do_scripts( 'front-end-editor' );

@@ -1,4 +1,4 @@
-# Translation of the WordPress plugin Front-end Editor 1.9 by scribu.
+# Translation of the WordPress plugin Front-end Editor 2.0-alpha by scribu.
 # Copyright (C) 2010 scribu
 # This file is distributed under the same license as the Front-end Editor package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.9\n"
+"Project-Id-Version: Front-end Editor 2.0-alpha\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-06-19 14:51+0300\n"
+"POT-Creation-Date: 2010-07-06 13:43+0300\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.9)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 2.0-alpha)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin.php:9
 msgid "Front-end Editor"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Fields"
 msgstr ""
 
-#: admin.php:15 scb/AdminPage.php:377
+#: admin.php:15 scb/AdminPage.php:371
 msgid "Settings"
 msgstr ""
 
@@ -88,6 +88,110 @@ msgstr ""
 
 #: core.php:103
 msgid "Clear"
+msgstr ""
+
+#: core.php:118
+msgid "Click to Bold"
+msgstr ""
+
+#: core.php:119
+msgid "Click to Italic"
+msgstr ""
+
+#: core.php:120
+msgid "Click to Underline"
+msgstr ""
+
+#: core.php:121
+msgid "Left Align"
+msgstr ""
+
+#: core.php:122
+msgid "Center Align"
+msgstr ""
+
+#: core.php:123
+msgid "Right Align"
+msgstr ""
+
+#: core.php:124
+msgid "Justify Align"
+msgstr ""
+
+#: core.php:125
+msgid "Insert Ordered List"
+msgstr ""
+
+#: core.php:126
+msgid "Insert Unordered List"
+msgstr ""
+
+#: core.php:127
+msgid "Click to Subscript"
+msgstr ""
+
+#: core.php:128
+msgid "Click to Superscript"
+msgstr ""
+
+#: core.php:129
+msgid "Click to Strike Through"
+msgstr ""
+
+#: core.php:130
+msgid "Remove Formatting"
+msgstr ""
+
+#: core.php:131
+msgid "Indent Text"
+msgstr ""
+
+#: core.php:132
+msgid "Remove Indent"
+msgstr ""
+
+#: core.php:133
+msgid "Horizontal Rule"
+msgstr ""
+
+#: core.php:134
+msgid "Select Font Size"
+msgstr ""
+
+#: core.php:135
+msgid "Select Font Family"
+msgstr ""
+
+#: core.php:136
+msgid "Select Font Format"
+msgstr ""
+
+#: core.php:137
+msgid "Add Link"
+msgstr ""
+
+#: core.php:138
+msgid "Remove Link"
+msgstr ""
+
+#: core.php:139
+msgid "Change Text Color"
+msgstr ""
+
+#: core.php:140
+msgid "Change Background Color"
+msgstr ""
+
+#: core.php:141
+msgid "Add Image"
+msgstr ""
+
+#: core.php:142
+msgid "Upload Image"
+msgstr ""
+
+#: core.php:143
+msgid "Edit HTML"
 msgstr ""
 
 #: fields/base.php:82
@@ -166,7 +270,7 @@ msgstr ""
 msgid "Settings <strong>saved</strong>."
 msgstr ""
 
-#: scb/AdminPage.php:180 scb/AdminPage.php:191
+#: scb/AdminPage.php:179 scb/AdminPage.php:189
 msgid "Save Changes"
 msgstr ""
 
