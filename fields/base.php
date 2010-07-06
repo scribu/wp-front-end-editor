@@ -36,7 +36,7 @@ abstract class FEE_Field_Base {
 	 * @return string Wrapped content
 	 */
 	public function wrap( $content, $object_id, $inline = false ) {
-		if ( ! $this->allow( $object_id ) )
+		if ( !$this->allow( $object_id ) )
 			return $content;
 
 		self::$wrapped[$this->input_type] = true;
@@ -44,7 +44,7 @@ abstract class FEE_Field_Base {
 		if ( is_null( $content ) )
 			$content = '';
 
-		if ( ! is_scalar( $content ) )
+		if ( !is_scalar( $content ) )
 			trigger_error( "scalar expected. " . gettype( $content ) . " given", E_USER_WARNING );
 
 		$class = 'fee-field fee-filter-' . $this->filter;

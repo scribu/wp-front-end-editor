@@ -10,7 +10,7 @@ class FEE_Field_Comment extends FEE_Field_Base {
 	function wrap( $content ) {
 		global $comment;
 
-		if ( ! $this->check( $comment->comment_ID ) )
+		if ( !$this->check( $comment->comment_ID ) )
 			return $content;
 
 		return parent::wrap( wpautop( $content ), $comment->comment_ID );
@@ -56,7 +56,7 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $term_id, $taxonomy ) {
-		if ( ! $this->check( "$term_id#$taxonomy" ) )
+		if ( !$this->check( "$term_id#$taxonomy" ) )
 			return $content;
 
 		return parent::wrap( $this->placehold( $content ), "$term_id#$taxonomy" );
@@ -103,7 +103,7 @@ class FEE_Field_Single_Title extends FEE_Field_Term_Field {
 	}
 
 	function wrap( $title ) {
-		if ( ! $term = get_term_by( 'name', $title, $this->taxonomy ) )
+		if ( !$term = get_term_by( 'name', $title, $this->taxonomy ) )
 			return $title;
 
 		return parent::wrap( $title, $term->term_id, $this->taxonomy );
@@ -118,10 +118,10 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $author_id = '' ) {
-		if ( ! $author_id )
+		if ( !$author_id )
 			return $content;
 
-		if ( ! $this->check( $author_id ) )
+		if ( !$this->check( $author_id ) )
 			return $content;
 
 		$content = $this->placehold( $content );
@@ -153,7 +153,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	function wrap( $params ) {
-		if ( ! $this->check() )
+		if ( !$this->check() )
 			return $params;
 
 		$p =& $params[0];
@@ -211,7 +211,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 			remove_filter( 'sidebars_widgets', array( $this, '_hack' ) );
 		}
 
-		die();
+		die;
 	}
 
 	// temporarirly remove all other widgets from a specific sidebar
@@ -237,7 +237,7 @@ class FEE_Field_Bloginfo extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $show ) {
-		if ( ! $this->check() )
+		if ( !$this->check() )
 			return $content;
 
 		if ( empty( $show ) && $content == get_option( 'blogname' ) )
@@ -282,7 +282,7 @@ class FEE_Field_Option extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $key, $type ) {
-		if ( ! $this->check( $key ) )
+		if ( !$this->check( $key ) )
 			return $content;
 
 		$content = $this->placehold( $content );
@@ -343,7 +343,7 @@ class FEE_Field_Image extends FEE_Field_Base {
 	}
 
 	function wrap( $img, $key ) {
-		if ( ! $this->check() )
+		if ( !$this->check() )
 			return $img;
 
 		return parent::wrap( $img, $key );
@@ -376,7 +376,7 @@ function editable_image( $key, $default_url, $extra_attr = '', $echo = true ) {
 		'id' => $key
 	) );
 
-	if ( ! $src = FEE_Field_Image::get( $key ) )
+	if ( !$src = FEE_Field_Image::get( $key ) )
 		$src = $default_url;
 	$attr['src'] = $src;
 

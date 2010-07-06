@@ -23,7 +23,7 @@ abstract class FEE_Core {
 	}
 
 	static function _init() {
-		if ( ! is_user_logged_in() || apply_filters( 'front_end_editor_disable', false ) )
+		if ( !is_user_logged_in() || apply_filters( 'front_end_editor_disable', false ) )
 			return;
 
 		add_action( 'wp_head', array( __CLASS__, 'add_filters' ), 100 );
@@ -225,11 +225,11 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 		$action = $_POST['callback'];
 
 		// Is the current field defined?
-		if ( ! $instance = self::$instances[$name] )
+		if ( !$instance = self::$instances[$name] )
 			die( -1 );
 
 		// Does the user have the right to do this?
-		if ( ! $instance->check( $id ) || ! $instance->allow( $id ) )
+		if ( !$instance->check( $id ) || !$instance->allow( $id ) )
 			die( -1 );
 
 		$args = self::get_args( $name );

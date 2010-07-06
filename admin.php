@@ -72,12 +72,12 @@ class FEE_Admin extends scbBoxesPage {
 
 
 	function fields_handler() {
-		if ( ! isset( $_POST['manage_fields'] ) )
+		if ( !isset( $_POST['manage_fields'] ) )
 			return;
 
 		$disabled = array();
 		foreach ( array_keys( FEE_Core::get_fields() ) as $field )
-			if ( ! isset( $_POST[$field] ) )
+			if ( !isset( $_POST[$field] ) )
 				$disabled[] = $field;
 
 		$this->options->disabled = $disabled;
@@ -111,7 +111,7 @@ class FEE_Admin extends scbBoxesPage {
 					$this->input( array(
 						'type' => 'checkbox',
 						'name' => $field,
-						'checked' => ! @in_array( $field, $this->options->disabled )
+						'checked' => !in_array( $field, (array) $this->options->disabled )
 					) )
 				)
 				.html( 'td', $args['title'] )
@@ -166,7 +166,7 @@ class FEE_Admin extends scbBoxesPage {
 
 
 	function ne_buttons_handler() {
-		if ( ! isset( $_POST['save_buttons'] ) )
+		if ( !isset( $_POST['save_buttons'] ) )
 			return;
 
 		$this->options->ne_buttons = (array) @$_POST['ne_buttons'];
