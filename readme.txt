@@ -174,6 +174,7 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 2.0 =
 * smoother transitions while loading
+* translatable nicEdit
 * fixed network activation
 
 = 1.9 =
