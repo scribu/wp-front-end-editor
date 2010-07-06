@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Front-end Editor 2.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
 "POT-Creation-Date: 2010-07-06 13:43+0300\n"
-"PO-Revision-Date: 2010-07-06 14:33+0200\n"
+"PO-Revision-Date: 2010-07-06 14:57+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: GERMAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -113,9 +113,8 @@ msgid "Center Align"
 msgstr "Text zentrieren"
 
 #: core.php:123
-#, fuzzy
 msgid "Right Align"
-msgstr "Hervorheben"
+msgstr "Text rechts ausrichten"
 
 #: core.php:124
 msgid "Justify Align"
