@@ -200,7 +200,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		}
 
 		if ( 'save' == $action ) {
-			$new_instance = $_POST['widget-' . $id_base][$widget_nr];
+			$new_instance = stripslashes_deep($_POST['widget-' . $id_base][$widget_nr]);
 			$instance = $widget->update($new_instance, $instance);
 
 			update_option($widget_key, $widgets);
