@@ -70,20 +70,6 @@
 //_____Custom code starts here_____
 
 
-	var require = function(src, callback) {
-		if ( require.cache[src] ) {
-			callback();
-			return;
-		}
-
-		require.cache[src] = $('<script>').attr({
-			type: 'text/javascript', 
-			src: src,
-			load: callback
-		}).prependTo('head');
-	}
-	require.cache = [];
-
 	var DoubleClick = {
 
 		_event: false,
@@ -119,16 +105,13 @@
 
 			var $target = $(DoubleClick._event.target);
 
-			var new_event;
-			var ev_capture = function(ev) {	new_event = ev; }
+			var new_event = $.Event('click');
 
-			$target.bind('click', ev_capture);
 			DoubleClick._delayed = true;
 
-			$target.click();
+			$target.trigger(new_event);
 
 			DoubleClick._delayed = false;
-			$target.unbind('click', ev_capture);
 
 			if ( new_event.isDefaultPrevented() )
 				return;
@@ -157,6 +140,7 @@
 		}
 	};
 
+
 	var Overlay = Class.extend({
 
 		init: function($el) {
@@ -180,6 +164,55 @@
 
 		hide: function() {
 			this.cover.hide();
+		}
+	});
+
+
+	var require = function(src, callback) {
+		if ( require.cache[src] ) {
+			callback();
+			return;
+		}
+
+		require.cache[src] = $('<script>').attr({
+			type: 'text/javascript', 
+			src: src,
+			load: callback
+		}).prependTo('head');
+	}
+	require.cache = [];
+
+	// Loads a required script, while doing an ajax request
+	// When both are complete, it calls the provided callback
+	SyncLoad = Class.extend({
+
+		script_loaded: false,
+		content_loaded: false,
+
+		content: undefined,
+
+		init: function(src, data, callback) {
+			var self = this;
+			
+			self.callback = callback;
+
+			require(src, function() {
+				self.script_loaded = true;
+				self.proceed();
+			});
+
+			$.post(FrontEndEditor.data.ajax_url, data, function(content) {
+				self.content_loaded = true;
+				self.content = content;
+				self.proceed();
+			});
+		},
+
+		proceed: function() {
+			var self = this;
+
+			if ( self.script_loaded && self.content_loaded )
+				self.callback(self.content);
 		}
 	});
 
@@ -509,6 +542,20 @@
 
 	fieldTypes['terminput'] = fieldTypes['input'].extend({
 
+		ajax_get: function() {
+			var self = this;
+
+			var data = self.ajax_args({
+				callback: 'get', 
+			});
+
+			self.overlay.show();
+
+			self.create_input();
+
+			new SyncLoad(FrontEndEditor.data.suggest.src, data, $.proxy(self, 'ajax_get_handler'));
+		},
+
 		set_input: function(content) {
 			var self = this;
 
@@ -523,46 +570,24 @@
 		}
 	});
 
-
 	fieldTypes['textarea'] = fieldTypes['input'].extend({
 		input_tag: '<textarea rows="10">'
 	});
 
-	// simultaneously loads nicEdit and the post content
 	fieldTypes['rich'] = fieldTypes['textarea'].extend({
-
-		_content: undefined,
-
-		_continue: function() {
-			var self = this;
-
-			if ( typeof nicEditor != 'undefined' && typeof self._content != 'undefined' ) {
-				self.set_input(self._content);
-				self._content = undefined;
-			}
-		},
 
 		ajax_get: function() {
 			var self = this;
 
-			require(FrontEndEditor.data.nicedit.src, function() {
-				self._continue();
+			var data = self.ajax_args({
+				callback: 'get', 
 			});
 
-			self._super();
-		},
+			self.overlay.show();
 
-		ajax_get_handler: function(content) {
-			var self = this;
+			self.create_input();
 
-			self.overlay.hide();
-			self.el.hide().after(self.form);
-
-			self._content = content;
-
-			self._continue();
-
-			self.input.focus();
+			new SyncLoad(FrontEndEditor.data.nicedit.src, data, $.proxy(self, 'ajax_get_handler'));
 		},
 
 		set_input: function(content) {

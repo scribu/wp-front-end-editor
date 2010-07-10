@@ -80,7 +80,9 @@ abstract class FEE_Core {
 
 		// Autosuggest
 		if ( array_key_exists( 'terminput', $wrapped ) ) {
-			$js_dependencies[] = 'suggest';
+			$data['suggest'] = array(
+				'src' => self::get_src('suggest')
+			);
 		}
 
 		// Rich Editor
@@ -129,7 +131,7 @@ abstract class FEE_Core {
 
 			$data['image'] = array(
 				'change' => __( 'Change Image', 'front-end-editor' ),
-				'revert' => '( ' . __( 'Clear', 'front-end-editor' ) . ' )',
+				'revert' => '(' . __( 'Clear', 'front-end-editor' ) . ')',
 				'tb_close' => get_bloginfo( 'wpurl' ) . '/wp-includes/js/thickbox/tb-close.png',
 			);
 
@@ -152,6 +154,12 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 <?php
 		scbUtil::do_scripts( 'front-end-editor' );
 		scbUtil::do_styles( 'front-end-editor' );
+	}
+
+	private static function get_src( $handle ) {
+		global $wp_scripts;
+
+		return get_bloginfo('wpurl') . $wp_scripts->registered[$handle]->src;
 	}
 
 	// Register a new editable field
