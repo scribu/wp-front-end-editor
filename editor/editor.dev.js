@@ -70,6 +70,19 @@
 //_____Actual code starts here_____
 
 
+	var require = function(loaded, src, callback) {
+		if ( loaded ) {
+			callback();
+			return;
+		}
+
+		$('<script>').attr({
+			type: 'text/javascript', 
+			src: src,
+			onload: callback
+		}).prependTo('head');
+	}
+
 	var DoubleClick = {
 
 		register: function($el, callback) {
@@ -515,6 +528,14 @@
 	});
 
 	fieldTypes['rich'] = fieldTypes['textarea'].extend({
+
+		dblclick: function(ev) {
+			var self = this;
+
+			require(typeof nicEditor != 'undefined', FrontEndEditor.data.nicedit.src, function() {
+				self._super(ev); 
+			});
+		},
 
 		set_input: function(content) {
 			var self = this;

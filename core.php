@@ -87,11 +87,11 @@ abstract class FEE_Core {
 		$nicEditL10n = '';
 		if ( array_key_exists( 'rich', $wrapped ) ) {
 			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
+				'src' => $url . "nicedit/nicEdit$js_dev.js?ver=0.9r23",
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
 				'buttonList' => self::$options->ne_buttons
 			) );
 
-			wp_register_script( 'nicedit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true );
 			$nicEditL10n = array(
 				'Click to Bold' => __( 'Click to Bold', 'front-end-editor' ),
 				'Click to Italic' => __( 'Click to Italic', 'front-end-editor' ),
@@ -121,8 +121,6 @@ abstract class FEE_Core {
 				'Edit HTML' => __( 'Edit HTML', 'front-end-editor' ),
 			);
 			$nicEditL10n = 'var nicEditL10n = ' . json_encode( $nicEditL10n );
-
-			$js_dependencies[] = 'nicedit';
 		}
 
 		// Thickbox
