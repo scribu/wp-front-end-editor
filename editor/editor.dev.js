@@ -67,7 +67,7 @@
 	})();
 
 
-//_____Actual code starts here_____
+//_____Custom code starts here_____
 
 
 	var require = function(loaded, src, callback) {
@@ -79,11 +79,14 @@
 		$('<script>').attr({
 			type: 'text/javascript', 
 			src: src,
-			onload: callback
+			load: callback
 		}).prependTo('head');
 	}
 
 	var DoubleClick = {
+
+		_event: false,
+		_delayed: false,
 
 		register: function($el, callback) {
 			$el.bind({
@@ -93,9 +96,6 @@
 
 			$el.dblclick(callback);
 		},
-
-		_event: false,
-		_delayed: false,
 
 		click: function(ev) {
 			if ( DoubleClick._delayed )
@@ -271,16 +271,16 @@
 			tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.admin_url +
 				'/media-upload.php?post_id=0&type=image&TB_iframe=true&width=640&editable_image=1');
 
-			var $revert = $('<a id="fee-img-revert" href="#">').text(FrontEndEditor.data.image.revert);
+			$('<a id="fee-img-revert" href="#">')
+				.text(FrontEndEditor.data.image.revert)
+				.click(function(ev) {
+					self.ajax_set(-1);
+				})
+				.insertAfter('#TB_ajaxWindowTitle');
 
-			$revert.click(function(ev){
-				self.ajax_set(-1);
-			});
-
-			$('#TB_ajaxWindowTitle').after($revert);
 			$('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close);
 
-			$('#TB_iframeContent').bind('load', $.proxy(self, 'replace_button'));
+			$('#TB_iframeContent').load($.proxy(self, 'replace_button'));
 		},
 
 		replace_button: function(ev) {
@@ -289,14 +289,14 @@
 			var $frame = $(ev.target).contents();
 
 			$('.media-item', $frame).livequery(function(){
-				var $item = $(this);
-				var $button = $('<a href="#" class="button">').text(FrontEndEditor.data.image.change);
+				var $item = $(this),
+				var $button = $('<a href="#" class="button">')
+					.text(FrontEndEditor.data.image.change)
+					.click(function(ev){
+						self.ajax_set(self.get_content($item));
+					});
 
-				$button.click(function(ev){
-					self.ajax_set(self.get_content($item));
-				});
-
-				$(this).find(':submit, #go_button').replaceWith($button);
+				$item.find(':submit, #go_button').replaceWith($button);
 			});
 		},
 
@@ -353,6 +353,8 @@
 
 	fieldTypes['input'] = fieldTypes['base'].extend({
 
+		input_tag: '<input type="text">',
+
 		init: function($el, type, name, id) {
 			var self = this;
 
@@ -360,8 +362,6 @@
 
 			self.overlay = new Overlay(self.el);
 		},
-
-		input_tag: '<input type="text">',
 
 		create_input: function() {
 			var self = this;
@@ -436,7 +436,7 @@
 		dblclick: function(ev) {
 			var self = this;
 
-			// Button markup
+			// Buttons
 			self.save_button = $('<button>')
 				.addClass('fee-form-save')
 				.text(FrontEndEditor.data.save_text)
@@ -447,7 +447,7 @@
 				.text(FrontEndEditor.data.cancel_text)
 				.click($.proxy(self, 'form_remove'));
 
-			// Create form
+			// Form
 			self.form = ( self.type.indexOf('input') >= 0 ) ? $('<span>') : $('<div>');
 
 			self.form
