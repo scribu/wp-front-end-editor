@@ -70,18 +70,19 @@
 //_____Custom code starts here_____
 
 
-	var require = function(loaded, src, callback) {
-		if ( loaded ) {
+	var require = function(src, callback) {
+		if ( require.cache[src] ) {
 			callback();
 			return;
 		}
 
-		$('<script>').attr({
+		require.cache[src] = $('<script>').attr({
 			type: 'text/javascript', 
 			src: src,
 			load: callback
 		}).prependTo('head');
 	}
+	require.cache = [];
 
 	var DoubleClick = {
 
@@ -289,7 +290,7 @@
 			var $frame = $(ev.target).contents();
 
 			$('.media-item', $frame).livequery(function(){
-				var $item = $(this),
+				var $item = $(this);
 				var $button = $('<a href="#" class="button">')
 					.text(FrontEndEditor.data.image.change)
 					.click(function(ev){
@@ -544,7 +545,7 @@
 		ajax_get: function() {
 			var self = this;
 
-			require(typeof nicEditor != 'undefined', FrontEndEditor.data.nicedit.src, function() {
+			require(FrontEndEditor.data.nicedit.src, function() {
 				self._continue();
 			});
 
