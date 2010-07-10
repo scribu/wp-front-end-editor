@@ -527,14 +527,41 @@
 		input_tag: '<textarea rows="10">'
 	});
 
+	// simultaneously loads nicEdit and the post content
 	fieldTypes['rich'] = fieldTypes['textarea'].extend({
 
-		dblclick: function(ev) {
+		_content: undefined,
+
+		_continue: function() {
+			var self = this;
+
+			if ( typeof nicEditor != 'undefined' && typeof self._content != 'undefined' ) {
+				self.set_input(self._content);
+				self._content = undefined;
+			}
+		},
+
+		ajax_get: function() {
 			var self = this;
 
 			require(typeof nicEditor != 'undefined', FrontEndEditor.data.nicedit.src, function() {
-				self._super(ev); 
+				self._continue();
 			});
+
+			self._super();
+		},
+
+		ajax_get_handler: function(content) {
+			var self = this;
+
+			self.overlay.hide();
+			self.el.hide().after(self.form);
+
+			self._content = content;
+
+			self._continue();
+
+			self.input.focus();
 		},
 
 		set_input: function(content) {
