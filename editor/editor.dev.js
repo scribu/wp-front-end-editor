@@ -80,11 +80,14 @@
 				click	: DoubleClick.click,
 				dblclick: DoubleClick.dblclick
 			});
-
+			
 			$el.dblclick(callback);
 		},
 
 		click: function(ev) {
+		    if ( $(ev.target).is('select, option') )
+		        return;
+
 			if ( DoubleClick._delayed )
 				return;
 
