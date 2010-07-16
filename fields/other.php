@@ -65,7 +65,7 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 	function get( $id ) {
 		list( $term_id, $taxonomy ) = explode( '#', $id );
 
-		return get_term_field( $this->field, $term_id, $taxonomy, 'edit' );
+		return get_term_field( $this->field, $term_id, $taxonomy, 'raw' );
 	}
 
 	function save( $id, $content ) {
