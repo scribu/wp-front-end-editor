@@ -318,7 +318,7 @@ class FEE_Field_Option extends FEE_Field_Base {
 
 /**
  * @param string $key The option key
- * @param bool $theme_option Wether it's arbitrary theme text, or a core site option like 'home' or 'time_format'
+ * @param bool $theme_option Wether it's arbitrary theme text, or a core site option like 'description' or 'time_format'
  * @param string $type The type of UI. Can be 'input', 'textarea' or 'rich'
  * @param bool $echo Wether to echo or return the result
  */
@@ -380,6 +380,12 @@ class FEE_Field_Image extends FEE_Field_Base {
 	}
 }
 
+/**
+ * @param string $key The option key
+ * @param string $default_url An absolute URL to be used as the default
+ * @param string|array $extra_attr Extra HTML attributes for the <img> tag
+ * @param bool $echo Wether to echo or return the result
+ */
 function editable_image( $key, $default_url, $extra_attr = '', $echo = true ) {
 	$attr = wp_parse_args( $extra_attr, array(
 		'id' => $key

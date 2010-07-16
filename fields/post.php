@@ -384,6 +384,12 @@ class FEE_Field_Meta extends FEE_Field_Post {
 	}
 }
 
+/**
+ * @param int $post_id The id of a post
+ * @param string $key The meta key
+ * @param string $type The type of UI. Can be 'input', 'textarea' or 'rich'
+ * @param bool $echo Wether to echo or return the result
+ */
 function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
 	$data = get_editable_post_meta( $post_id, $key, $type, true );
 
@@ -393,6 +399,12 @@ function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
 	echo $data;
 }
 
+/**
+ * @param int $post_id The id of a post
+ * @param string $key The meta key
+ * @param string $type The type of UI. Can be 'input', 'textarea' or 'rich'
+ * @param bool $single Wether it's a custom field with a single value or multiple values
+ */
 function get_editable_post_meta( $post_id, $key, $type = 'input', $single = false ) {
 	$data = get_post_meta( $post_id, $key, $single );
 
