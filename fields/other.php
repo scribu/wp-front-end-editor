@@ -309,12 +309,21 @@ class FEE_Field_Option extends FEE_Field_Base {
 	}
 
 	function check( $key = 0 ) {
-		return current_user_can( 'manage_options' );
+		if ( 0 === strpos( $key, 'editable_option_' ) )
+			return current_user_can( 'edit_themes' );
+		else
+			return current_user_can( 'manage_options' );
 	}
 }
 
-function editable_option( $key, $safety = true, $type = 'input', $echo = true ) {
-	if ( $safety )
+/**
+ * @param string $key The option key
+ * @param bool $theme_option Wether it's arbitrary theme text, or a core site option like 'home' or 'time_format'
+ * @param string $type The type of UI. Can be 'input', 'textarea' or 'rich'
+ * @param bool $echo Wether to echo or return the result
+ */
+function editable_option( $key, $theme_option = true, $type = 'input', $echo = true ) {
+	if ( $theme_option )
 		$key = "editable_option_$key";
 
 	$output = apply_filters( 'editable_option', get_option( $key ), $key, $type );
@@ -362,12 +371,12 @@ class FEE_Field_Image extends FEE_Field_Base {
 		return $url;
 	}
 
-	function check( $id = 0 ) {
-		return current_user_can( 'edit_themes' );
-	}
-
 	private static function get_key( $key ) {
 		return 'editable_image_' . trim( strip_tags( $key ) );
+	}
+
+	function check( $id = 0 ) {
+		return current_user_can( 'edit_themes' );
 	}
 }
 
