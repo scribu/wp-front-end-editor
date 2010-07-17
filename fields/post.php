@@ -66,8 +66,9 @@ class FEE_Field_Post extends FEE_Field_Base {
 		return $content;
 	}
 
-	function check( $data = 0 ) {
-		extract( $data );
+	function check( $post_id = 0 ) {
+		if ( is_array( $post_id ) )
+			extract( $post_id );
 
 		return current_user_can( 'edit_post', $post_id );
 	}
@@ -190,7 +191,7 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 	function save( $data, $excerpt ) {
 		extract( $data );
 
-		$default_excerpt = $this->get( $post_id );
+		$default_excerpt = $this->get( $data );
 
 		if ( $excerpt == $default_excerpt )
 			return $excerpt;

@@ -10,17 +10,18 @@ class FEE_Field_Comment extends FEE_Field_Base {
 	function wrap( $content ) {
 		global $comment;
 
-		if ( !$this->check( $comment->comment_ID ) )
+		$data = array( 'comment_id' => $comment->comment_ID );
+
+		if ( !$this->check( $data ) )
 			return $content;
 
-		return parent::wrap( wpautop( $content ), array( 'comment_id' => $comment->comment_ID ) );
+		return parent::wrap( wpautop( $content ), $data );
 	}
 
 	function get( $data ) {
 		extract( $data );
 
-		$comment = get_comment( $comment_id );
-		return $comment->comment_content;
+		return get_comment( $comment_id )->comment_content;
 	}
 
 	function save( $data, $content ) {
