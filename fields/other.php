@@ -301,12 +301,14 @@ class FEE_Field_Option extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $key, $type ) {
-		if ( !$this->check( $key ) )
+		$data = compact( 'key', 'type' );
+	
+		if ( !$this->check( $data ) )
 			return $content;
 
 		$content = $this->placehold( $content );
 
-		return parent::wrap( $content, compact( 'key', 'type' ) );
+		return parent::wrap( $content, $data );
 	}
 
 	function get( $data ) {
@@ -380,7 +382,7 @@ class FEE_Field_Image extends FEE_Field_Base {
 		return get_option( self::get_key( $data ) );
 	}
 
-	function save( $id, $url ) {
+	function save( $data, $url ) {
 		if ( $url == -1 )
 			delete_option( self::get_key( $data ) );
 		else
@@ -411,7 +413,7 @@ function editable_image( $key, $default_url, $extra_attr = '', $echo = true ) {
 		'id' => $key
 	) );
 
-	if ( !$src = FEE_Field_Image::get( $key ) )
+	if ( !$src = FEE_Field_Image::get( compact( 'key' ) ) )
 		$src = $default_url;
 	$attr['src'] = $src;
 
