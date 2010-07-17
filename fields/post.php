@@ -33,11 +33,15 @@ class FEE_Field_Post extends FEE_Field_Base {
 		return $post_id;
 	}
 
-	function get( $post_id ) {
+	function get( $data ) {
+		extract( $data );
+	
 		return get_post_field( $this->field, $post_id );
 	}
 
-	function save( $post_id, $content ) {
+	function save( $data, $content ) {
+		extract( $data );
+
 		$postdata = array(
 			'ID' => $post_id,
 			$this->field => $content
@@ -62,7 +66,9 @@ class FEE_Field_Post extends FEE_Field_Base {
 		return $content;
 	}
 
-	function check( $post_id = 0 ) {
+	function check( $data = 0 ) {
+		extract( $data );
+
 		return current_user_can( 'edit_post', $post_id );
 	}
 
