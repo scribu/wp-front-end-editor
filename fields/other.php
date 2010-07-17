@@ -62,22 +62,22 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 		return parent::wrap( $this->placehold( $content ), "$term_id#$taxonomy" );
 	}
 
-	function get( $id ) {
-		list( $term_id, $taxonomy ) = explode( '#', $id );
+	function get( $data ) {
+		list( $term_id, $taxonomy ) = $data;
 
 		return get_term_field( $this->field, $term_id, $taxonomy, 'raw' );
 	}
 
-	function save( $id, $content ) {
-		list( $term_id, $taxonomy ) = explode( '#', $id );
+	function save( $data, $content ) {
+		list( $term_id, $taxonomy ) = $data;
 
 		wp_update_term( $term_id, $taxonomy, array( $this->field => $content ) );
 
 		return $content;
 	}
 
-	function check( $id = 0 ) {
-		list( $term_id, $taxonomy ) = explode( '#', $id );
+	function check( $data = 0 ) {
+		list( $term_id, $taxonomy ) = $data;
 
 		return current_user_can( get_taxonomy( $taxonomy )->cap->edit_terms );
 	}
@@ -168,16 +168,16 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		return $params;
 	}
 
-	function get( $id ) {
+	function get( $data ) {
 		return $this->do_( 'get', $id );
 	}
 
-	function save( $id, $content ) {
+	function save( $data, $content ) {
 		return $this->do_( 'save', $id, $content );
 	}
 
 	private function do_( $action, $id, $content = '' ) {
-		list( $widget_id, $sidebar_id ) = explode( '#', $id );
+		list( $widget_id, $sidebar_id ) = $data;
 
 		// Get widget type and number
 		$id_base = explode( '-', $widget_id );
@@ -223,7 +223,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		return $sidebar_widgets;
 	}
 
-	function check( $id = 0 ) {
+	function check( $data = 0 ) {
 		return current_user_can( 'edit_themes' );
 	}
 }
@@ -287,19 +287,17 @@ class FEE_Field_Option extends FEE_Field_Base {
 
 		$content = $this->placehold( $content );
 
-		$id = implode( '#', array( $key, $type ) );
-
-		return parent::wrap( $content, $id );
+		return parent::wrap( $content, array( $key, $type ) );
 	}
 
-	function get( $id ) {
-		$key = reset( explode( '#', $id ) );
+	function get( $data ) {
+		list( $key ) = $data;
 
 		return get_option( $key );
 	}
 
-	function save( $id, $content ) {
-		$key = reset( explode( '#', $id ) );
+	function save( $data, $content ) {
+		list( $key ) = $data;
 
 		update_option( $key, $content );
 
@@ -357,15 +355,15 @@ class FEE_Field_Image extends FEE_Field_Base {
 		return parent::wrap( $img, $key );
 	}
 
-	function get( $id ) {
-		return get_option( self::get_key( $id ) );
+	function get( $data ) {
+		return get_option( self::get_key( $data ) );
 	}
 
 	function save( $id, $url ) {
 		if ( $url == -1 )
-			delete_option( self::get_key( $id ) );
+			delete_option( self::get_key( $data ) );
 		else
-			update_option( self::get_key( $id ), $url );
+			update_option( self::get_key( $data ), $url );
 
 		return $url;
 	}
@@ -374,7 +372,7 @@ class FEE_Field_Image extends FEE_Field_Base {
 		return 'editable_image_' . trim( strip_tags( $key ) );
 	}
 
-	function check( $id = 0 ) {
+	function check( $data = 0 ) {
 		return current_user_can( 'edit_themes' );
 	}
 }

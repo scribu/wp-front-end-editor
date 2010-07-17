@@ -9,7 +9,6 @@ abstract class FEE_Field_Base {
 
 	/**
 	 * Constructor; nothing fancy
-	 * @return null
 	 */
 	final public function __construct( $filter, $type ) {
 		$this->filter = $filter;
@@ -21,25 +20,31 @@ abstract class FEE_Field_Base {
 
 	/**
 	 * The type of object this field operates with
+	 *
 	 * @return string
 	 */
 	abstract public static function get_object_type();
 
 	/**
 	 * Optional actions to be done once per instance
+	 *
 	 * @return null
 	 */
 	protected function setup() {}
 
 	/**
 	 * Mark the field as editable
+	 *
+	 * @param string $content Filtered content
+	 * @param mixed $data Additional data like an object id etc.
+	 *
 	 * @return string Wrapped content
 	 */
-	public function wrap( $content, $object_id, $inline = false ) {
-		if ( !$this->allow( $object_id ) )
+	public function wrap( $content, $data, $inline = false ) {
+		if ( !$this->allow( $data ) )
 			return $content;
 
-		self::$wrapped[$this->input_type] = true;
+		self::$wrapped[ $this->input_type ] = true;
 
 		if ( is_null( $content ) )
 			$content = '';
@@ -47,31 +52,35 @@ abstract class FEE_Field_Base {
 		if ( !is_scalar( $content ) )
 			trigger_error( "scalar expected. " . gettype( $content ) . " given", E_USER_WARNING );
 
-		$class = 'fee-field fee-filter-' . $this->filter;
-		$object_id = esc_attr( $object_id );
 
 		$wrap_tag = ( $inline || in_array( $this->input_type, array( 'input', 'terminput', 'image' ) ) ) ? 'span' : 'div';
 
-		return html( "$wrap_tag class='{$class}' data-fee='{$object_id}'", $content );
+		$class = 'fee-field fee-filter-' . $this->filter;
+		$data = esc_attr( json_encode( $data ) );
+
+		return html( "$wrap_tag class='{$class}' data-fee='{$data}'", $content );
 	}
 
 	/**
 	 * Retrieve the current data for the field
-	 * @return string Unfiltered content
+	 *
+	 * @return string Raw content
 	 */
-	abstract public function get( $object_id );
+	abstract public function get( $data );
 
 	/**
 	 * Save the data retrieved from the field
+	 *
 	 * @return string Saved content
 	 */
-	abstract public function save( $object_id, $content );
+	abstract public function save( $data, $content );
 
 	/**
 	 * Check user permissions
+	 *
 	 * @return bool
 	 */
-	abstract public function check( $object_id = 0 );
+	abstract public function check( $data = 0 );
 
 
 	/**
@@ -89,8 +98,33 @@ abstract class FEE_Field_Base {
 		return $content;
 	}
 
+	final protected static function convert_type( $type ) {
+		if ( !is_array( $type ) ) {
+			$type = compact( 'type' );
+		}
+
+		if ( !isset( $type['values'] ) ) {
+			switch ( $type['type'] ) {
+				case 'checkbox':
+					$type['values'] = array(
+						false => __( 'no', 'front-end-editor' ),
+						true  => __( 'yes', 'front-end-editor' ),
+					);
+					break;
+				case 'select':
+					throw new WP_Error( 'incomplete type definition' );
+				default:
+					$type['values'] = array();
+			}
+		}
+
+		return $type;
+	}
+
+
 	/**
 	 * Get the filter of the current instance
+	 *
 	 * @return string
 	 */
 	final protected function get_filter() {
@@ -100,14 +134,16 @@ abstract class FEE_Field_Base {
 
 	/**
 	 * Allow external code to block editing for certain objects
+	 *
 	 * @return bool
 	 */
-	final public function allow( $object_id ) {
-		return apply_filters( 'front_end_editor_allow_' . $this->get_object_type(), true, $object_id, $this->filter, $this->input_type );
+	final public function allow( $data ) {
+		return apply_filters( 'front_end_editor_allow_' . $this->get_object_type(), true, $data, $this->filter, $this->input_type );
 	}
 
 	/**
 	 * Get the list of used input types
+	 *
 	 * @return array
 	 */
 	final public static function get_wrapped() {

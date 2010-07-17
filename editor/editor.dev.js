@@ -573,6 +573,11 @@
 		}
 	});
 
+	fieldTypes['checkbox'] = fieldTypes['input'].extend({
+		input_tag: '<input type="checkbox">'
+		// TODO
+	});
+
 	fieldTypes['textarea'] = fieldTypes['input'].extend({
 		input_tag: '<textarea rows="10">'
 	});
@@ -718,18 +723,23 @@ $(document).ready(function($) {
 	// Create field instances
 	$.each(FrontEndEditor.data.fields, function(name, type) {
 		$('.fee-filter-' + name).each(function() {
-			var $el = $(this);
+			var $el = $(this),
+				data = $el.attr('data-fee');
 
-			var id = $el.attr('data-fee');
-
-			var parts = id.split('#');
+			try {
+				data = $.parseJSON(data);
+			} catch(e) {};
 
 			switch (name) {
-				case 'post_meta': type = parts[2]; break;
-				case 'editable_option': type = parts[1]; break;
+				case 'post_meta': 
+					type = data[2].type;
+					break;
+				case 'editable_option': 
+					type = data[1]; 
+					break;
 			}
 
-			new fieldTypes[type]($el, type, name, id);
+			new fieldTypes[type]($el, type, name, data);
 		});
 	});
 
