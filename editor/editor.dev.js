@@ -259,10 +259,10 @@
 			self.switched = true;
 		},
 
-		create_UI: null,
+		create_input: null,
 
-		content_to_UI: null,
-		content_from_UI: null,
+		content_to_input: null,
+		content_from_input: null,
 
 		content_to_front: null,
 
@@ -295,7 +295,7 @@
 
 			var data = self.ajax_args({
 				callback: 'save', 
-				content: content || self.content_from_UI()
+				content: content || self.content_from_input()
 			});
 
 			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self, 'ajax_set_handler'));
@@ -333,14 +333,14 @@
 				var $button = $('<a href="#" class="button">')
 					.text(FrontEndEditor.data.image.change)
 					.click(function(ev){
-						self.ajax_set(self.content_from_UI($item));
+						self.ajax_set(self.content_from_input($item));
 					});
 
 				$item.find(':submit, #go_button').replaceWith($button);
 			});
 		},
 
-		content_from_UI: function($item) {
+		content_from_input: function($item) {
 			var $field;
 
 			// Media library
@@ -385,7 +385,7 @@
 			self._super(ev);
 		},
 
-		content_from_UI: function($item) {
+		content_from_input: function($item) {
 			return $item.attr('id').replace('media-item-', '');
 		}
 	});
@@ -402,7 +402,7 @@
 			self.overlay = new Overlay(self.el);
 		},
 
-		create_UI: function() {
+		create_input: function() {
 			var self = this;
 
 			self.input = $(self.input_tag).attr({
@@ -413,13 +413,13 @@
 			self.input.prependTo(self.form);
 		},
 
-		content_to_UI: function(content) {
+		content_to_input: function(content) {
 			var self = this;
 
 			self.input.val(content);
 		},
 
-		content_from_UI: function() {
+		content_from_input: function() {
 			var self = this;
 
 			return self.input.val();
@@ -437,7 +437,7 @@
 
 			self.overlay.show();
 
-			self.create_UI();
+			self.create_input();
 
 			self._super();
 		},
@@ -456,7 +456,7 @@
 			self.overlay.hide();
 			self.el.hide().after(self.form);
 
-			self.content_to_UI(content);
+			self.content_to_input(content);
 
 			self.input.focus();
 		},
@@ -554,12 +554,12 @@
 
 			self.overlay.show();
 
-			self.create_UI();
+			self.create_input();
 
 			new SyncLoad(FrontEndEditor.data.suggest.src, data, $.proxy(self, 'ajax_get_handler'));
 		},
 
-		content_to_UI: function(content) {
+		content_to_input: function(content) {
 			var self = this;
 
 			self._super(content);
@@ -576,7 +576,7 @@
 	fieldTypes['checkbox'] = fieldTypes['input'].extend({
 		input_tag: '<input type="checkbox">',
 
-		content_to_UI: function(content) {
+		content_to_input: function(content) {
 			var self = this,
 				content = content ? 'checked' : '';
 
@@ -584,7 +584,7 @@
 		},
 
 
-		content_from_UI: function() {
+		content_from_input: function() {
 			var self = this;
 
 			return 0 + self.input.is(':checked');
@@ -593,7 +593,7 @@
 		content_to_front: function(content) {
 			var self = this,
 				$el = self.switched ? self.el.find('a') : self.el,
-				content = self.data.values[ self.content_from_UI() ];
+				content = self.data.values[ self.content_from_input() ];
 
 			$el.html(content);
 		}
@@ -602,7 +602,7 @@
 	fieldTypes['select'] = fieldTypes['input'].extend({
 		input_tag: '<select>',
 
-		content_to_UI: function(content) {
+		content_to_input: function(content) {
 			var self = this;
 
 			$.each(self.data.values, function(value, title) {
@@ -618,7 +618,7 @@
 			});
 		},
 
-		content_from_UI: function() {
+		content_from_input: function() {
 			var self = this;
 
 			return self.input.find(':selected').val();
@@ -640,12 +640,12 @@
 
 			self.overlay.show();
 
-			self.create_UI();
+			self.create_input();
 
 			new SyncLoad(FrontEndEditor.data.nicedit.src, data, $.proxy(self, 'ajax_get_handler'));
 		},
 
-		content_to_UI: function(content) {
+		content_to_input: function(content) {
 			var self = this;
 
 			self._super(content);
@@ -655,7 +655,7 @@
 			self.form.find('.nicEdit-main').focus();
 		},
 
-		content_from_UI: function() {
+		content_from_input: function() {
 			var self = this;
 
 			return self.pre_wpautop(self.input.val());
@@ -731,9 +731,9 @@
 
 	fieldTypes['widget'] = fieldTypes['input'].extend({
 
-		create_UI: function() {},
+		create_input: function() {},
 
-		content_to_UI: function(content) {
+		content_to_input: function(content) {
 			var self = this;
 
 			self.input = $(content);
@@ -741,7 +741,7 @@
 			self.form.prepend(content);
 		},
 
-		content_from_UI: function() {
+		content_from_input: function() {
 			return '';
 		},
 
