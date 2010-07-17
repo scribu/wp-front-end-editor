@@ -192,6 +192,8 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	private function do_( $action, $data, $content = '' ) {
+		global $wp_widget_factory;
+
 		extract( $data );
 
 		// Get widget type and number
@@ -202,10 +204,9 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		// Get widget instance
 		$widget_key = 'widget_' . $id_base;
 		$widgets = get_option( $widget_key );
-		$instance =& $widgets[$widget_nr];
+		$instance =& $widgets[ $widget_nr ];
 
 		// Get widget class
-		global $wp_widget_factory;
 		foreach ( $wp_widget_factory->widgets as $widget )
 			if ( $widget->id_base == $id_base )
 				break;
@@ -215,7 +216,8 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		}
 
 		if ( 'save' == $action ) {
-			$new_instance = stripslashes_deep( $_POST['widget-' . $id_base][$widget_nr] );
+			$new_instance = stripslashes_deep( reset( $_POST[ 'widget-' . $id_base ] ) );
+
 			$instance = $widget->update( $new_instance, $instance );
 
 			update_option( $widget_key, $widgets );
