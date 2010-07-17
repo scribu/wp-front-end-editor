@@ -259,11 +259,15 @@
 			self.switched = true;
 		},
 
-		get_content: null /* function() */,
-		set_content: null /* function(content) */,
+		create_UI: null,
 
-		ajax_get_handler: null /* function(content) */,
-		ajax_set_handler: null /* function(content) */,
+		content_to_UI: null,
+		content_from_UI: null,
+
+		content_to_front: null,
+
+		ajax_get_handler: null,
+		ajax_set_handler: null,
 
 		ajax_args: function(args) {
 			var self = this;
@@ -291,7 +295,7 @@
 
 			var data = self.ajax_args({
 				callback: 'save', 
-				content: content || self.get_content()
+				content: content || self.content_from_UI()
 			});
 
 			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self, 'ajax_set_handler'));
@@ -329,14 +333,14 @@
 				var $button = $('<a href="#" class="button">')
 					.text(FrontEndEditor.data.image.change)
 					.click(function(ev){
-						self.ajax_set(self.get_content($item));
+						self.ajax_set(self.content_from_UI($item));
 					});
 
 				$item.find(':submit, #go_button').replaceWith($button);
 			});
 		},
 
-		get_content: function($item) {
+		content_from_UI: function($item) {
 			var $field;
 
 			// Media library
@@ -381,7 +385,7 @@
 			self._super(ev);
 		},
 
-		get_content: function($item) {
+		content_from_UI: function($item) {
 			return $item.attr('id').replace('media-item-', '');
 		}
 	});
@@ -398,7 +402,7 @@
 			self.overlay = new Overlay(self.el);
 		},
 
-		create_input: function() {
+		create_UI: function() {
 			var self = this;
 
 			self.input = $(self.input_tag).attr({
@@ -409,19 +413,19 @@
 			self.input.prependTo(self.form);
 		},
 
-		set_input: function(content) {
+		content_to_UI: function(content) {
 			var self = this;
 
 			self.input.val(content);
 		},
 
-		get_content: function() {
+		content_from_UI: function() {
 			var self = this;
 
 			return self.input.val();
 		},
 
-		set_content: function(content) {
+		content_to_front: function(content) {
 			var self = this,
 				$el = self.switched ? self.el.find('a') : self.el;
 
@@ -433,7 +437,7 @@
 
 			self.overlay.show();
 
-			self.create_input();
+			self.create_UI();
 
 			self._super();
 		},
@@ -452,7 +456,7 @@
 			self.overlay.hide();
 			self.el.hide().after(self.form);
 
-			self.set_input(content);
+			self.content_to_UI(content);
 
 			self.input.focus();
 		},
@@ -460,7 +464,7 @@
 		ajax_set_handler: function(content) {
 			var self = this;
 
-			self.set_content(content);
+			self.content_to_front(content);
 
 			self.overlay.hide();
 			self.el.show();
@@ -550,12 +554,12 @@
 
 			self.overlay.show();
 
-			self.create_input();
+			self.create_UI();
 
 			new SyncLoad(FrontEndEditor.data.suggest.src, data, $.proxy(self, 'ajax_get_handler'));
 		},
 
-		set_input: function(content) {
+		content_to_UI: function(content) {
 			var self = this;
 
 			self._super(content);
@@ -572,25 +576,52 @@
 	fieldTypes['checkbox'] = fieldTypes['input'].extend({
 		input_tag: '<input type="checkbox">',
 
-		set_input: function(content) {
+		content_to_UI: function(content) {
 			var self = this,
 				content = content ? 'checked' : '';
 
 			self.input.attr('checked', content);
 		},
 
-		set_content: function(content) {
-			var self = this,
-				$el = self.switched ? self.el.find('a') : self.el,
-				content = self.data.values[ self.get_content() ];
 
-			$el.html(content);
-		},
-
-		get_content: function() {
+		content_from_UI: function() {
 			var self = this;
 
 			return 0 + self.input.is(':checked');
+		},
+
+		content_to_front: function(content) {
+			var self = this,
+				$el = self.switched ? self.el.find('a') : self.el,
+				content = self.data.values[ self.content_from_UI() ];
+
+			$el.html(content);
+		}
+	});
+
+	fieldTypes['select'] = fieldTypes['input'].extend({
+		input_tag: '<select>',
+
+		content_to_UI: function(content) {
+			var self = this;
+
+			$.each(self.data.values, function(value, title) {
+				var $option = $('<option>')
+					.attr({
+						html: value,
+						value: value,
+						selected: (content == value) ? 'selected': ''
+					})
+					.html(title);
+
+				self.input.append($option);
+			});
+		},
+
+		content_from_UI: function() {
+			var self = this;
+
+			return self.input.find(':selected').val();
 		},
 	});
 
@@ -609,12 +640,12 @@
 
 			self.overlay.show();
 
-			self.create_input();
+			self.create_UI();
 
 			new SyncLoad(FrontEndEditor.data.nicedit.src, data, $.proxy(self, 'ajax_get_handler'));
 		},
 
-		set_input: function(content) {
+		content_to_UI: function(content) {
 			var self = this;
 
 			self._super(content);
@@ -624,7 +655,7 @@
 			self.form.find('.nicEdit-main').focus();
 		},
 
-		get_content: function() {
+		content_from_UI: function() {
 			var self = this;
 
 			return self.pre_wpautop(self.input.val());
@@ -699,9 +730,10 @@
 
 
 	fieldTypes['widget'] = fieldTypes['input'].extend({
-		create_input: function() {},
 
-		set_input: function(content) {
+		create_UI: function() {},
+
+		content_to_UI: function(content) {
 			var self = this;
 
 			self.input = $(content);
@@ -709,7 +741,7 @@
 			self.form.prepend(content);
 		},
 
-		get_content: function() {
+		content_from_UI: function() {
 			return '';
 		},
 

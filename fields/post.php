@@ -411,7 +411,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 /**
  * @param int $post_id The id of a post
  * @param string $key The meta key
- * @param string $type The type of UI. Can be 'input', 'textarea' or 'rich'
+ * @param string $type The type of UI. Can be 'input', 'checkbox', 'select', 'textarea' or 'rich'
  * @param bool $echo Wether to echo or return the result
  */
 function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
