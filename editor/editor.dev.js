@@ -224,13 +224,13 @@
 
 	fieldTypes['base'] = Class.extend({
 
-		init: function($el, type, name, id) {
+		init: function($el, type, name, data) {
 			var self = this;
 
 			self.set_el($el);
 			self.type = type;
 			self.name = name;
-			self.id = id;
+			self.data = data;
 
 			DoubleClick.register(self.el, $.proxy(self, 'dblclick'));
 		},
@@ -273,7 +273,7 @@
 				nonce	: FrontEndEditor.data.nonce,
 				name	: self.name,
 				type	: self.type,
-				item_id	: self.id
+				data	: self.data
 			});
 		},
 
@@ -560,11 +560,12 @@
 		},
 
 		set_input: function(content) {
-			var self = this;
+			var self = this,
+				taxonomy = self.data[1];
 
 			self._super(content);
 
-			self.input.suggest(FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + self.id.split('#')[1], {
+			self.input.suggest(FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + taxonomy, {
 				multiple		: true,
 				resultsClass	: 'fee-suggest-results',
 				selectClass		: 'fee-suggest-over',

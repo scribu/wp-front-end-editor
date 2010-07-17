@@ -225,30 +225,27 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 		// Is user trusted?
 		check_ajax_referer( self::$nonce, 'nonce' );
 
-		$id = $_POST['item_id'];
-		$name = $_POST['name'];
-		$type = $_POST['type'];
-		$action = $_POST['callback'];
+		extract( scbUtil::array_extract( $_POST, array( 'data', 'name', 'type', 'callback' ) ) );
 
 		// Is the current field defined?
 		if ( !$instance = self::$instances[$name] )
 			die( -1 );
 
 		// Does the user have the right to do this?
-		if ( !$instance->check( $id ) || !$instance->allow( $id ) )
+		if ( !$instance->check( $data ) || !$instance->allow( $data ) )
 			die( -1 );
 
 		$args = self::get_args( $name );
 
-		if ( $action == 'save' ) {
+		if ( 'save' == $callback ) {
 			$content = stripslashes_deep( $_POST['content'] );
-			$result = $instance->save( $id, $content );
+			$result = $instance->save( $data, $content );
 			$result = @apply_filters( $name, $result );
 		}
-		elseif ( $action == 'get' ) {
-			$result = $instance->get( $id );
+		elseif ( 'get' == $callback ) {
+			$result = $instance->get( $data );
 
-			if ( $type == 'rich' )
+			if ( 'rich' == $type )
 				$result = wpautop( $result );
 		}
 
