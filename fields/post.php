@@ -356,9 +356,9 @@ class FEE_Field_Meta extends FEE_Field_Post {
 
 		if ( $this->check( $post_id ) ) {
 			if ( $single ) {
-				if ( 'checkbox' == $type['type'] ) {
+				if ( 'checkbox' == $type ) {
 					$value = (bool) get_post_meta( $post_id, $key, true );
-					$data = $type[ 'values' ][ $value ];
+					$data = $values[ $value ];
 				}
 				else {
 					$data = $this->placehold( $data );
@@ -396,7 +396,13 @@ class FEE_Field_Meta extends FEE_Field_Post {
 
 		$old_value = @$data[$i];
 
-		update_post_meta( $post_id, $key, $new_value, $old_value );
+		if ( 'checkbox' == $type )
+			$new_value = (bool) $new_value;
+
+		if ( !$new_value )
+			delete_post_meta( $post_id, $key, $old_value );
+		else
+			update_post_meta( $post_id, $key, $new_value, $old_value );
 
 		return $new_value;
 	}

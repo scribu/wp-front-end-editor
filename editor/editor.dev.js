@@ -581,11 +581,16 @@
 
 		set_content: function(content) {
 			var self = this,
-				$el = self.switched ? self.el.find('a') : self.el;
-
-				content = self.data.values[ self.input.is(':checked') ];
+				$el = self.switched ? self.el.find('a') : self.el,
+				content = self.data.values[ self.get_content() ];
 
 			$el.html(content);
+		},
+
+		get_content: function() {
+			var self = this;
+
+			return 0 + self.input.is(':checked');
 		},
 	});
 
@@ -734,13 +739,18 @@ $(document).ready(function($) {
 	// fetch all 'data-' attributes from a DOM node
 	var extract_data_attr = function(el) {
 		var	$el = $(el),
-			data = {},
-			attr;
+			data = {};
 
 		for (var i=0; i < el.attributes.length; i++) {
-			attr = el.attributes.item(i);
+			var attr = el.attributes.item(i);
 			if ( attr.specified && 0 == attr.name.indexOf('data-') ) {
-				data[attr.name.substr(5)] = attr.value;
+				var value = attr.value;
+
+				try {
+					value = $.parseJSON(value);
+				} catch(e) {};
+
+				data[attr.name.substr(5)] = value;
 			}
 		}
 
