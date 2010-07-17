@@ -13,15 +13,19 @@ class FEE_Field_Comment extends FEE_Field_Base {
 		if ( !$this->check( $comment->comment_ID ) )
 			return $content;
 
-		return parent::wrap( wpautop( $content ), $comment->comment_ID );
+		return parent::wrap( wpautop( $content ), array( 'comment_id' => $comment->comment_ID ) );
 	}
 
-	function get( $comment_id ) {
+	function get( $data ) {
+		extract( $data );
+
 		$comment = get_comment( $comment_id );
 		return $comment->comment_content;
 	}
 
-	function save( $comment_id, $content ) {
+	function save( $data, $content ) {
+		extract( $data );
+
 		wp_update_comment( array(
 			'comment_ID' => $comment_id,
 			'comment_content' => $content
@@ -30,7 +34,9 @@ class FEE_Field_Comment extends FEE_Field_Base {
 		return $content;
 	}
 
-	function check( $comment_id = 0 ) {
+	function check( $data = 0 ) {
+		extract( $data );
+
 		if ( current_user_can( 'moderate_comments' ) )
 			return true;
 
@@ -56,20 +62,22 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $term_id, $taxonomy ) {
-		if ( !$this->check( "$term_id#$taxonomy" ) )
+		$data = compact( 'term_id', 'taxonomy' );
+	
+		if ( !$this->check( $data ) )
 			return $content;
 
-		return parent::wrap( $this->placehold( $content ), "$term_id#$taxonomy" );
+		return parent::wrap( $this->placehold( $content ), $data );
 	}
 
 	function get( $data ) {
-		list( $term_id, $taxonomy ) = $data;
+		extract( $data );
 
 		return get_term_field( $this->field, $term_id, $taxonomy, 'raw' );
 	}
 
 	function save( $data, $content ) {
-		list( $term_id, $taxonomy ) = $data;
+		extract( $data );
 
 		wp_update_term( $term_id, $taxonomy, array( $this->field => $content ) );
 
@@ -77,7 +85,7 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 	}
 
 	function check( $data = 0 ) {
-		list( $term_id, $taxonomy ) = $data;
+		extract( $data );
 
 		return current_user_can( get_taxonomy( $taxonomy )->cap->edit_terms );
 	}
@@ -126,21 +134,27 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 
 		$content = $this->placehold( $content );
 
-		return parent::wrap( $content, $author_id );
+		return parent::wrap( $content, compact( 'author_id' ) );
 	}
 
 	// Retrieve the current data for the field
-	function get( $author_id ) {
+	function get( $data ) {
+		extract( $data );
+
 		return get_user_meta( $author_id, 'description', true );
 	}
 
-	function save( $author_id, $content ) {
+	function save( $data, $content ) {
+		extract( $data );
+
 		update_user_meta( $author_id, 'description', $content );
 
 		return $content;
 	}
 
-	function check( $author_id = 0 ) {
+	function check( $data = 0 ) {
+		extract( $data );
+
 		return current_user_can( 'edit_user', $author_id );
 	}
 }
@@ -158,9 +172,9 @@ class FEE_Field_Widget extends FEE_Field_Base {
 
 		$p =& $params[0];
 
-		$id = $p['widget_id'] . '#' . $p['id'];
+		$data = array( 'widget_id' => $p['widget_id'], 'sidebar_id' => $p['id'] );
 
-		list( $before, $after ) = scbUtil::split_at( '</', parent::wrap( '', $id ) );
+		list( $before, $after ) = scbUtil::split_at( '</', parent::wrap( '', $data ) );
 
 		$p['before_widget'] = $p['before_widget'] . $before;
 		$p['after_widget'] = $after . $p['after_widget'];
@@ -169,15 +183,15 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	function get( $data ) {
-		return $this->do_( 'get', $id );
+		return $this->do_( 'get', $data );
 	}
 
 	function save( $data, $content ) {
-		return $this->do_( 'save', $id, $content );
+		return $this->do_( 'save', $data, $content );
 	}
 
-	private function do_( $action, $id, $content = '' ) {
-		list( $widget_id, $sidebar_id ) = $data;
+	private function do_( $action, $data, $content = '' ) {
+		extract( $data );
 
 		// Get widget type and number
 		$id_base = explode( '-', $widget_id );
@@ -240,26 +254,30 @@ class FEE_Field_Bloginfo extends FEE_Field_Base {
 		if ( !$this->check() )
 			return $content;
 
-		if ( empty( $show ) && $content == get_option( 'blogname' ) )
+		if ( empty( $show ) && get_option( 'blogname' ) == $content )
 			$show = 'name';
 
-		if ( $show != 'description' && $show != 'name' )
+		if ( !in_array( $show, array( 'name', 'description' ) ) )
 			return $content;
 
-		return parent::wrap( $content, $show );
+		return parent::wrap( $content, compact( 'show' ) );
 	}
 
-	function get( $show ) {
+	function get( $data ) {
+		extract( $data );
+	
 		return get_option( 'blog' . $show );
 	}
 
-	function save( $show, $content ) {
+	function save( $data, $content ) {
+		extract( $data );
+
 		update_option( 'blog' . $show, $content );
 
 		return $content;
 	}
 
-	function check( $key = 0 ) {
+	function check( $data = 0 ) {
 		return current_user_can( 'manage_options' );
 	}
 }
@@ -287,17 +305,17 @@ class FEE_Field_Option extends FEE_Field_Base {
 
 		$content = $this->placehold( $content );
 
-		return parent::wrap( $content, array( $key, $type ) );
+		return parent::wrap( $content, compact( 'key', 'type' ) );
 	}
 
 	function get( $data ) {
-		list( $key ) = $data;
+		extract( $data );
 
 		return get_option( $key );
 	}
 
 	function save( $data, $content ) {
-		list( $key ) = $data;
+		extract( $data );
 
 		update_option( $key, $content );
 
@@ -306,7 +324,9 @@ class FEE_Field_Option extends FEE_Field_Base {
 		return $content;
 	}
 
-	function check( $key = 0 ) {
+	function check( $data = 0 ) {
+		extract( $data );
+
 		$cap = ( 0 === strpos( $key, 'editable_option_' ) ) ? 'edit_themes' : 'manage_options';
 
 		return current_user_can( $cap );
@@ -352,7 +372,7 @@ class FEE_Field_Image extends FEE_Field_Base {
 		if ( !$this->check() )
 			return $img;
 
-		return parent::wrap( $img, $key );
+		return parent::wrap( $img, compact( 'key' ) );
 	}
 
 	function get( $data ) {
@@ -368,7 +388,9 @@ class FEE_Field_Image extends FEE_Field_Base {
 		return $url;
 	}
 
-	private static function get_key( $key ) {
+	private static function get_key( $data ) {
+		extract( $data );
+
 		return 'editable_image_' . trim( strip_tags( $key ) );
 	}
 

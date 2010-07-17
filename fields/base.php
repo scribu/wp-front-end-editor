@@ -17,7 +17,6 @@ abstract class FEE_Field_Base {
 		$this->setup();
 	}
 
-
 	/**
 	 * The type of object this field operates with
 	 *
@@ -44,7 +43,11 @@ abstract class FEE_Field_Base {
 		if ( !$this->allow( $data ) )
 			return $content;
 
-		self::$wrapped[ $this->input_type ] = true;
+		$data = wp_parse_args( $data, array(
+			'type' => $this->input_type
+		) );
+
+		self::$wrapped[ $data['type'] ] = true;
 
 		if ( is_null( $content ) )
 			$content = '';
@@ -52,13 +55,19 @@ abstract class FEE_Field_Base {
 		if ( !is_scalar( $content ) )
 			trigger_error( "scalar expected. " . gettype( $content ) . " given", E_USER_WARNING );
 
-
 		$wrap_tag = ( $inline || in_array( $this->input_type, array( 'input', 'terminput', 'image' ) ) ) ? 'span' : 'div';
 
 		$class = 'fee-field fee-filter-' . $this->filter;
-		$data = esc_attr( json_encode( $data ) );
 
-		return html( "$wrap_tag class='{$class}' data-fee='{$data}'", $content );
+		$data_attr = array();
+		foreach ( $data as $key => $value ) {
+			if ( !is_scalar( $value ) )
+				$value = json_encode( $value );
+			$data_attr[] = "data-$key='$value'";
+		}
+		$data_attr = implode( ' ', $data_attr );
+
+		return html( "$wrap_tag class='{$class}' $data_attr", $content );
 	}
 
 	/**

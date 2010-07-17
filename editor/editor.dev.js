@@ -224,12 +224,12 @@
 
 	fieldTypes['base'] = Class.extend({
 
-		init: function($el, type, name, data) {
+		init: function($el, type, filter, data) {
 			var self = this;
 
 			self.set_el($el);
 			self.type = type;
-			self.name = name;
+			self.filter = filter;
 			self.data = data;
 
 			DoubleClick.register(self.el, $.proxy(self, 'dblclick'));
@@ -271,8 +271,7 @@
 			return $.extend(args, {
 				action	: 'front-end-editor',
 				nonce	: FrontEndEditor.data.nonce,
-				name	: self.name,
-				type	: self.type,
+				filter	: self.filter,
 				data	: self.data
 			});
 		},
@@ -387,7 +386,6 @@
 		}
 	});
 
-
 	fieldTypes['input'] = fieldTypes['base'].extend({
 
 		input_tag: '<input type="text">',
@@ -424,12 +422,10 @@
 		},
 
 		set_content: function(content) {
-			var self = this;
-			
-			if ( self.switched )
-				self.el.find('a').html(content);
-			else
-				self.el.html(content);
+			var self = this,
+				$el = self.switched ? self.el.find('a') : self.el;
+
+			$el.html(content);
 		},
 
 		ajax_get: function() {
@@ -490,7 +486,7 @@
 			self.form
 				.addClass('fee-form')
 				.addClass('fee-type-' + self.type)
-				.addClass('fee-filter-' + self.name)
+				.addClass('fee-filter-' + self.filter)
 				.append(self.save_button)
 				.append(self.cancel_button);
 
@@ -535,7 +531,7 @@
 			var keys = {ENTER: 13, ESCAPE: 27};
 			var code = (ev.keyCode || ev.which || ev.charCode || 0);
 
-			if ( code == keys.ENTER && self.type == 'input' )
+			if ( code == keys.ENTER && 'input' == self.type )
 				self.save_button.click();
 
 			if ( code == keys.ESCAPE )
@@ -560,12 +556,11 @@
 		},
 
 		set_input: function(content) {
-			var self = this,
-				taxonomy = self.data[1];
+			var self = this;
 
 			self._super(content);
 
-			self.input.suggest(FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + taxonomy, {
+			self.input.suggest(FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + self.data.taxonomy, {
 				multiple		: true,
 				resultsClass	: 'fee-suggest-results',
 				selectClass		: 'fee-suggest-over',
@@ -575,8 +570,23 @@
 	});
 
 	fieldTypes['checkbox'] = fieldTypes['input'].extend({
-		input_tag: '<input type="checkbox">'
-		// TODO
+		input_tag: '<input type="checkbox">',
+
+		set_input: function(content) {
+			var self = this,
+				content = content ? 'checked' : '';
+
+			self.input.attr('checked', content);
+		},
+
+		set_content: function(content) {
+			var self = this,
+				$el = self.switched ? self.el.find('a') : self.el;
+
+				content = self.data.values[ self.input.is(':checked') ];
+
+			$el.html(content);
+		},
 	});
 
 	fieldTypes['textarea'] = fieldTypes['input'].extend({
@@ -720,27 +730,31 @@
 	FrontEndEditor.fieldTypes = fieldTypes;
 
 $(document).ready(function($) {
-	
-	// Create field instances
-	$.each(FrontEndEditor.data.fields, function(name, type) {
-		$('.fee-filter-' + name).each(function() {
-			var $el = $(this),
-				data = $el.attr('data-fee');
 
-			try {
-				data = $.parseJSON(data);
-			} catch(e) {};
+	// fetch all 'data-' attributes from a DOM node
+	var extract_data_attr = function(el) {
+		var	$el = $(el),
+			data = {},
+			attr;
 
-			switch (name) {
-				case 'post_meta': 
-					type = data[2].type;
-					break;
-				case 'editable_option': 
-					type = data[1]; 
-					break;
+		for (var i=0; i < el.attributes.length; i++) {
+			attr = el.attributes.item(i);
+			if ( attr.specified && 0 == attr.name.indexOf('data-') ) {
+				data[attr.name.substr(5)] = attr.value;
 			}
+		}
 
-			new fieldTypes[type]($el, type, name, data);
+		return data;
+	}
+
+	// Create field instances
+	$.each(FrontEndEditor.data.fields, function(i, filter) {
+		$('.fee-filter-' + filter).each(function() {
+			var $el = $(this),
+				data = extract_data_attr(this),
+				type = data.type;
+
+			new fieldTypes[type]($el, type, filter, data);
 		});
 	});
 

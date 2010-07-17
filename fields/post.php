@@ -17,7 +17,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 		if ( !$post_id = $this->_get_id( $post_id ) )
 			return $content;
 
-		return parent::wrap( $content, $post_id );
+		return parent::wrap( $content, array( 'post_id' => $post_id ) );
 	}
 
 	protected function _get_id( $post_id = 0, $in_loop = true ) {
@@ -84,13 +84,13 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$replacements = array();
 		foreach ( $chunks as $i => $chunk )
-			$replacements[] = FEE_Field_Base::wrap( $chunk, "$post_id#$i", true );
+			$replacements[] = FEE_Field_Base::wrap( $chunk, compact( 'post_id', 'i' ), true );
 
 		return $this->replace_exact( $chunks, $replacements, $content );
 	}
 
 	function get( $data ) {
-		list( $post_id, $chunk_id ) = $data;
+		extract( $data );
 
 		$field = get_post_field( 'post_content', $post_id );
 
@@ -99,8 +99,8 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		return @$chunks[$chunk_id];
 	}
 
-	function save( $post_id, $chunk_content ) {
-		list( $post_id, $chunk_id ) = $post_id;
+	function save( $data, $chunk_content ) {
+		extract( $data );
 
 		$chunk_content = trim( $chunk_content );
 
@@ -166,7 +166,9 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 // Handles the_excerpt field
 class FEE_Field_Excerpt extends FEE_Field_Post {
 
-	function get( $post_id ) {
+	function get( $data ) {
+		extract( $data );
+
 		$post = get_post( $post_id );
 
 		$excerpt = $post->post_excerpt;
@@ -179,7 +181,9 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 		return $excerpt;
 	}
 
-	function save( $post_id, $excerpt ) {
+	function save( $data, $excerpt ) {
+		extract( $data );
+
 		$default_excerpt = $this->get( $post_id );
 
 		if ( $excerpt == $default_excerpt )
@@ -229,7 +233,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 		if ( !$post_id )
 			return $content;
 
-		$data = array( $post_id, $taxonomy );
+		$data = compact( 'post_id', 'taxonomy' );
 
 		if ( !$this->check( $data ) )
 			return $content;
@@ -240,7 +244,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	}
 
 	function get( $data ) {
-		list( $post_id, $taxonomy ) = $data;
+		extract( $data );
 
 		$tags = get_terms_to_edit( $post_id, $taxonomy );
 		$tags = str_replace( ',', ', ', $tags );
@@ -249,7 +253,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	}
 
 	function save( $data, $terms ) {
-		list( $post_id, $taxonomy ) = $data;
+		extract( $data );
 
 		wp_set_post_terms( $post_id, $terms, $taxonomy );
 
@@ -259,7 +263,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	}
 
 	function check( $data = 0 ) {
-		list( $post_id, $taxonomy ) = $data;
+		extract( $data );
 
 		return current_user_can( get_taxonomy( $taxonomy )->cap->assign_terms, $post_id );
 	}
@@ -281,7 +285,7 @@ class FEE_Field_Category extends FEE_Field_Terms {
 	}
 
 	function save( $data, $categories ) {
-		list( $post_id, $taxonomy ) = $data;
+		extract( $data );
 
 		$cat_ids = array();
 		foreach ( explode( ',', $categories ) as $cat_name ) {
@@ -312,17 +316,17 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 		if ( !$post_id = $this->_get_id( $post_id, false ) )
 			return $content;
 
-		return FEE_Field_Base::wrap( $html, array( $post_id, $size ) );
+		return FEE_Field_Base::wrap( $html, compact( 'post_id', 'size' ) );
 	}
 
 	function get( $data ) {
-		list( $post_id, $size ) = $data;
+		extract( $data );
 
 		return get_post_thumbnail_id( $post_id );
 	}
 
 	function save( $data, $thumbnail_id ) {
-		list( $post_id, $size ) = $data;
+		extract( $data );
 
 		if ( -1 == $thumbnail_id ) {
 			delete_post_meta( $post_id, '_thumbnail_id' );
@@ -341,7 +345,7 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 class FEE_Field_Meta extends FEE_Field_Post {
 
 	function wrap( $data, $post_id, $key, $type, $single ) {
-		$type = self::convert_type( $type );
+		extract( self::convert_type( $type ) );
 
 		if ( $this->check( $post_id ) ) {
 			if ( $single ) {
@@ -357,7 +361,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 
 			$r = array();
 			foreach ( $data as $i => $val ) {
-				$r[$i] = FEE_Field_Base::wrap( $val, array( $post_id, $key, $type, $i ) );
+				$r[$i] = FEE_Field_Base::wrap( $val, compact( 'post_id', 'key', 'type', 'values', 'i' ) );
 			}
 		}
 		else {
@@ -371,7 +375,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 	}
 
 	function get( $data ) {
-		list( $post_id, $key, $type, $i ) = $data;
+		extract( $data );
 
 		$data = get_post_meta( $post_id, $key );
 
@@ -379,7 +383,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 	}
 
 	function save( $data, $new_value ) {
-		list( $post_id, $key, $type, $i ) = $data;
+		extract( $data );
 
 		$data = get_post_meta( $post_id, $key );
 
@@ -413,9 +417,9 @@ function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
  * @param bool $single Wether it's a custom field with a single value or multiple values
  */
 function get_editable_post_meta( $post_id, $key, $type = 'input', $single = false ) {
-	$data = get_post_meta( $post_id, $key, $single );
+	$content = get_post_meta( $post_id, $key, $single );
 
-	return apply_filters( 'post_meta', $data, $post_id, $key, $type, $single );
+	return apply_filters( 'post_meta', $content, $post_id, $key, $type, $single );
 }
 
 /*

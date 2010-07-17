@@ -51,14 +51,10 @@ abstract class FEE_Core {
 		$js_dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '';
 
 		// Prepare data
-		$field_types = array();
-		foreach ( self::$active_fields as $name => $args )
-			$field_types[$name] = $args['type'];
-
 		$data = array(
 			'save_text' => __( 'Save', 'front-end-editor' ),
 			'cancel_text' => __( 'Cancel', 'front-end-editor' ),
-			'fields' => $field_types,
+			'fields' => array_keys( self::$active_fields ),
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'spinner' => admin_url( 'images/loading.gif' ),
 			'nonce' => wp_create_nonce( self::$nonce ),
@@ -192,24 +188,22 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	static function make_instances() {
-		self::$active_fields = self::get_fields();
-		foreach ( (array) self::$options->disabled as $name )
-			unset( self::$active_fields[$name] );
+		self::$active_fields = array_diff( self::get_fields(), (array) self::$options->disabled );
 
-		foreach ( self::$active_fields as $name => $args ) {
+		foreach ( self::$active_fields as $filter => $args ) {
 			extract( $args );
 
-			self::$instances[$name] = new $class( $name, $type );
+			self::$instances[ $filter ] = new $class( $filter, $type );
 		}
 	}
 
 	static function add_filters() {
-		foreach ( self::$active_fields as $name => $args ) {
+		foreach ( self::$active_fields as $filter => $args ) {
 			extract( $args );
 
-			$instance = self::$instances[$name];
+			$instance = self::$instances[ $filter ];
 
-			add_filter( $name, array( $instance, 'wrap' ), $priority, $argc );
+			add_filter( $filter, array( $instance, 'wrap' ), $priority, $argc );
 		}
 	}
 
@@ -218,34 +212,34 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	static function get_args( $filter ) {
-		return self::$fields[$filter];
+		return self::$fields[ $filter ];
 	}
 
 	static function ajax_response() {
 		// Is user trusted?
 		check_ajax_referer( self::$nonce, 'nonce' );
 
-		extract( scbUtil::array_extract( $_POST, array( 'data', 'name', 'type', 'callback' ) ) );
+		extract( scbUtil::array_extract( $_POST, array( 'filter', 'callback', 'data' ) ) );
 
 		// Is the current field defined?
-		if ( !$instance = self::$instances[$name] )
+		if ( !$instance = self::$instances[ $filter ] )
 			die( -1 );
 
 		// Does the user have the right to do this?
 		if ( !$instance->check( $data ) || !$instance->allow( $data ) )
 			die( -1 );
 
-		$args = self::get_args( $name );
+		$args = self::get_args( $filter );
 
 		if ( 'save' == $callback ) {
 			$content = stripslashes_deep( $_POST['content'] );
 			$result = $instance->save( $data, $content );
-			$result = @apply_filters( $name, $result );
+			$result = @apply_filters( $filter, $result );
 		}
 		elseif ( 'get' == $callback ) {
 			$result = $instance->get( $data );
 
-			if ( 'rich' == $type )
+			if ( 'rich' == $data['type'] )
 				$result = wpautop( $result );
 		}
 
