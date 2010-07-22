@@ -303,8 +303,10 @@ class FEE_Field_Option extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $key, $type ) {
-		$data = compact( 'key', 'type' );
-	
+		extract( self::convert_type( $type ) );
+
+		$data = compact( 'key', 'type', 'values' );
+
 		if ( !$this->check( $data ) )
 			return $content;
 
