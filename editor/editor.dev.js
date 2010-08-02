@@ -85,7 +85,7 @@
 		},
 
 		click: function(ev) {
-			if ( $(ev.target).is('select, option') )
+			if ( $(ev.target).is('select, option, input, button') )
 				return;
 
 			if ( DoubleClick._delayed )
