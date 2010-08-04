@@ -79,7 +79,7 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 
 First see [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
 
-Check for JavaScript errors (press Ctrl + Shift + J in Firefox).
+Next, check for JavaScript errors (In Firefox, press Ctrl + Shift + J and reload the page).
 
 = Does it work with WP Super Cache? =
 

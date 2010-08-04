@@ -85,6 +85,7 @@
 		},
 
 		click: function(ev) {
+			// TODO: instead of 'click', capture the 'submit' event
 			if ( $(ev.target).is('select, option, input, button') )
 				return;
 
