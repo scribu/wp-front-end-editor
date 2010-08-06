@@ -221,6 +221,12 @@
 	});
 
 
+	var init_nicEdit = function(id) {
+		tmp = new nicEditor(FrontEndEditor.data.nicedit).panelInstance(id);
+		return tmp.nicInstances[0];
+	}
+
+
 	var fieldTypes = {};
 
 	fieldTypes['base'] = Class.extend({
@@ -281,14 +287,20 @@
 			});
 		},
 
-		ajax_get: function() {
+		ajax_get_args: function() {
 			var self = this;
 
 			var data = self.ajax_args({
 				callback: 'get', 
 			});
+	
+			return data;
+		},
 
-			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self, 'ajax_get_handler'));
+		ajax_get: function() {
+			var self = this;
+
+			$.post(FrontEndEditor.data.ajax_url, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
 		},
 
 		ajax_set: function(content) {
@@ -549,15 +561,11 @@
 		ajax_get: function() {
 			var self = this;
 
-			var data = self.ajax_args({
-				callback: 'get', 
-			});
-
 			self.overlay.show();
 
 			self.create_input();
 
-			new SyncLoad(FrontEndEditor.data.suggest.src, data, $.proxy(self, 'ajax_get_handler'));
+			new SyncLoad(FrontEndEditor.data.suggest.src, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
 		},
 
 		content_to_input: function(content) {
@@ -635,15 +643,11 @@
 		ajax_get: function() {
 			var self = this;
 
-			var data = self.ajax_args({
-				callback: 'get', 
-			});
-
 			self.overlay.show();
 
 			self.create_input();
 
-			new SyncLoad(FrontEndEditor.data.nicedit.src, data, $.proxy(self, 'ajax_get_handler'));
+			new SyncLoad(FrontEndEditor.data.nicedit.src, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
 		},
 
 		content_to_input: function(content) {
@@ -651,7 +655,7 @@
 
 			self._super(content);
 
-			self.editor = new nicEditor(FrontEndEditor.data.nicedit).panelInstance(self.input.attr('id'));
+			self.editor = init_nicEdit(self.input.attr('id'));
 
 			self.form.find('.nicEdit-main').focus();
 		},
@@ -723,7 +727,7 @@
 		ajax_set: function() {
 			var self = this;
 
-			self.editor.nicInstances[0].saveContent();
+			self.editor.saveContent();
 
 			self._super();
 		}
@@ -734,12 +738,33 @@
 
 		create_input: function() {},
 
+		ajax_get: function() {
+			var self = this;
+
+			self.overlay.show();
+
+			self.create_input();
+
+			self.is_text_widget = ( 0 == self.data.widget_id.indexOf('text-') );
+
+			if ( FrontEndEditor.data.nicedit && self.is_text_widget )
+				new SyncLoad(FrontEndEditor.data.nicedit.src, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
+			else
+				$.post(FrontEndEditor.data.ajax_url, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
+		},
+
 		content_to_input: function(content) {
 			var self = this;
 
 			self.input = $(content);
 
 			self.form.prepend(content);
+
+			if ( self.is_text_widget ) {
+				self.editor = init_nicEdit(self.form.find('textarea').attr('id'));
+
+				self.form.find('.nicEdit-main').focus();
+			}
 		},
 
 		content_from_input: function() {
@@ -753,6 +778,9 @@
 
 			if ( 'get' == args.callback )
 				return args;
+
+			if ( self.is_text_widget )
+				self.editor.saveContent();
 
 			var data = {}, raw_data = self.form.find(':input').serializeArray();
 
