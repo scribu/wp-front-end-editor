@@ -21,11 +21,13 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	protected function _get_id( $post_id = 0, $in_loop = true ) {
+		global $post;
+	
 		if ( $in_loop && !in_the_loop() )
 			return false;
 
 		if ( !$post_id )
-			$post_id = get_the_ID();
+			$post_id = $post->ID;
 
 		if ( !$post_id || !$this->check( $post_id ) )
 			return false;
@@ -232,10 +234,12 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 class FEE_Field_Terms extends FEE_Field_Post {
 
 	function wrap( $content, $taxonomy, $before, $sep, $after ) {
+		global $post;
+	
 		if ( !in_the_loop() )
 			return $content;
 
-		$post_id = get_the_ID();
+		$post_id = $post->ID;
 
 		if ( !$post_id )
 			return $content;
