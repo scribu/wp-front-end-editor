@@ -188,7 +188,12 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	static function make_instances() {
-		self::$active_fields = array_diff( self::get_fields(), (array) self::$options->disabled );
+		$disabled = (array) self::$options->disabled;
+
+		self::$active_fields = array();
+		foreach ( self::get_fields() as $key => $data )
+			if ( !in_array( $key, $disabled ) )
+				self::$active_fields[ $key ] = $data;
 
 		foreach ( self::$active_fields as $filter => $args ) {
 			extract( $args );
