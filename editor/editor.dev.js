@@ -145,7 +145,7 @@
 	};
 
 
-	var Overlay = function($el) {
+	function Overlay($el) {
 
 		var $cover = $('<div class="fee-loading>')
 			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
@@ -746,18 +746,18 @@
 $(document).ready(function($) {
 
 	// fetch all 'data-' attributes from a DOM node
-	var extract_data_attr = function(el) {
-		var	$el = $(el),
-			data = {};
+	function extract_data_attr(el) {
+		var data = {};
 
 		for (var i=0; i < el.attributes.length; i++) {
 			var attr = el.attributes.item(i);
+
 			if ( attr.specified && 0 == attr.name.indexOf('data-') ) {
 				var value = attr.value;
 
 				try {
 					value = $.parseJSON(value);
-				} catch(e) {};
+				} catch(e) {}
 
 				data[attr.name.substr(5)] = value;
 			}
