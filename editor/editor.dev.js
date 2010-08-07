@@ -165,14 +165,13 @@
 		this.hide = function() {
 			$cover.hide();
 		};
-	}
+	};
 
 	// Do an ajax request, while loading a required script
-	// When both are complete, it calls the provided callback
-	var sync_load = function(callback, data, src) {
+	function sync_load(callback, data, src) {
 		var count = 0, content;
 
-		var proceed = function() {
+		function proceed() {
 			count++;
 			if ( 2 == count )
 				callback(content);
@@ -195,11 +194,11 @@
 	}
 	sync_load.cache = [];
 
-	var init_nicEdit = function(id) {
+	// Create a new nicEditor instance and return it
+	function init_nicEdit(id) {
 		tmp = new nicEditor(FrontEndEditor.data.nicedit).panelInstance(id);
 		return tmp.nicInstances[0];
 	}
-
 
 	var fieldTypes = {};
 
@@ -266,7 +265,7 @@
 			var self = this;
 
 			var data = self.ajax_args({
-				callback: 'get', 
+				callback: 'get'
 			});
 
 			sync_load($.proxy(self, 'ajax_get_handler'), data, self.dependency);
@@ -546,12 +545,12 @@
 		input_tag: '<input type="checkbox">',
 
 		content_to_input: function(content) {
-			var self = this,
-				content = content ? 'checked' : '';
+			var self = this;
+
+			content = content ? 'checked' : '';
 
 			self.input.attr('checked', content);
 		},
-
 
 		content_from_input: function() {
 			var self = this;
@@ -559,7 +558,7 @@
 			return 0 + self.input.is(':checked');
 		},
 
-		content_to_front: function(content) {
+		content_to_front: function() {
 			var self = this,
 				$el = self.switched ? self.el.find('a') : self.el,
 				content = self.data.values[ self.content_from_input() ];
@@ -591,7 +590,7 @@
 			var self = this;
 
 			return self.input.find(':selected').val();
-		},
+		}
 	});
 
 	fieldTypes['textarea'] = fieldTypes['input'].extend({
@@ -729,10 +728,12 @@
 			if ( self.is_text_widget )
 				self.editor.saveContent();
 
-			var data = {}, raw_data = self.form.find(':input').serializeArray();
+			var raw_data = self.form.find(':input').serializeArray(),
+				data = {};
 
-			for ( var i in raw_data )
-				data[raw_data[i].name] = raw_data[i].value;
+			$.each(raw_data, function() {
+				data[this.name] = this.value;
+			});
 
 			return $.extend(args, data);
 		}
