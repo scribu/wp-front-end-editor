@@ -145,75 +145,55 @@
 	};
 
 
-	var Overlay = Class.extend({
+	var Overlay = function($el) {
 
-		init: function($el) {
-			this.el = $el;
+		var $cover = $('<div class="fee-loading>')
+			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
+			.hide()
+			.prependTo($('body'));
 
-			this.cover = $('<div class="fee-loading>')
-				.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
-				.hide()
-				.prependTo($('body'));
-		},
-
-		show: function() {
-			this.cover
+		this.show = function() {
+			$cover
 				.css({
-					width: this.el.width(),
-					height: this.el.height()
+					width: $el.width(),
+					height: $el.height()
 				})
-				.css(this.el.offset())
+				.css($el.offset())
 				.show();
-		},
+		};
 
-		hide: function() {
-			this.cover.hide();
-		}
-	});
+		this.hide = function() {
+			$cover.hide();
+		};
+	}
 
 	// Do an ajax request, while loading a required script
 	// When both are complete, it calls the provided callback
-	var SyncLoad = Class.extend({
-		cache: [],
+	var sync_load = function(callback, data, src) {
+		var count = 0, content;
 
-		script_loaded: false,
-		content_loaded: false,
-
-		content: undefined,
-
-		init: function(callback, data, src) {
-			var self = this;
-
-			self.callback = callback;
-
-			if ( !src || self.cache[src] ) {
-				self.script_loaded = true;
-			} else {
-				self.cache[src] = $('<script>').attr({
-					type: 'text/javascript', 
-					src: src,
-					load: function() {
-						self.script_loaded = true;
-						self.proceed();
-					}
-				}).prependTo('head');
-			}
-
-			$.post(FrontEndEditor.data.ajax_url, data, function(content) {
-				self.content_loaded = true;
-				self.content = content;
-				self.proceed();
-			});
-		},
-
-		proceed: function() {
-			var self = this;
-
-			if ( self.script_loaded && self.content_loaded )
-				self.callback(self.content);
+		var proceed = function() {
+			count++;
+			if ( 2 == count )
+				callback(content);
 		}
-	});
 
+		if ( !src || sync_load.cache[src] ) {
+			proceed();
+		} else {
+			sync_load.cache[src] = $('<script>').attr({
+				type: 'text/javascript', 
+				src: src,
+				load: proceed
+			}).prependTo('head');
+		}
+
+		$.post(FrontEndEditor.data.ajax_url, data, function(data) {
+			content = data;
+			proceed();
+		});
+	}
+	sync_load.cache = [];
 
 	var init_nicEdit = function(id) {
 		tmp = new nicEditor(FrontEndEditor.data.nicedit).panelInstance(id);
@@ -289,7 +269,7 @@
 				callback: 'get', 
 			});
 
-			new SyncLoad($.proxy(self, 'ajax_get_handler'), data, self.dependency);
+			sync_load($.proxy(self, 'ajax_get_handler'), data, self.dependency);
 		},
 
 		ajax_set: function(content) {
