@@ -171,39 +171,33 @@
 		}
 	});
 
-
-	var require = function(src, callback) {
-		if ( require.cache[src] ) {
-			callback();
-			return;
-		}
-
-		require.cache[src] = $('<script>').attr({
-			type: 'text/javascript', 
-			src: src,
-			load: callback
-		}).prependTo('head');
-	}
-	require.cache = [];
-
-	// Loads a required script, while doing an ajax request
+	// Do an ajax request, while loading a required script
 	// When both are complete, it calls the provided callback
-	SyncLoad = Class.extend({
+	var SyncLoad = Class.extend({
+		cache: [],
 
 		script_loaded: false,
 		content_loaded: false,
 
 		content: undefined,
 
-		init: function(src, data, callback) {
+		init: function(callback, data, src) {
 			var self = this;
-			
+
 			self.callback = callback;
 
-			require(src, function() {
+			if ( !src || self.cache[src] ) {
 				self.script_loaded = true;
-				self.proceed();
-			});
+			} else {
+				self.cache[src] = $('<script>').attr({
+					type: 'text/javascript', 
+					src: src,
+					load: function() {
+						self.script_loaded = true;
+						self.proceed();
+					}
+				}).prependTo('head');
+			}
 
 			$.post(FrontEndEditor.data.ajax_url, data, function(content) {
 				self.content_loaded = true;
@@ -230,6 +224,7 @@
 	var fieldTypes = {};
 
 	fieldTypes['base'] = Class.extend({
+		dependency: null, // script src
 
 		init: function($el, type, filter, data) {
 			var self = this;
@@ -287,20 +282,14 @@
 			});
 		},
 
-		ajax_get_args: function() {
+		ajax_get: function() {
 			var self = this;
 
 			var data = self.ajax_args({
 				callback: 'get', 
 			});
-	
-			return data;
-		},
 
-		ajax_get: function() {
-			var self = this;
-
-			$.post(FrontEndEditor.data.ajax_url, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
+			new SyncLoad($.proxy(self, 'ajax_get_handler'), data, self.dependency);
 		},
 
 		ajax_set: function(content) {
@@ -557,16 +546,7 @@
 	});
 
 	fieldTypes['terminput'] = fieldTypes['input'].extend({
-
-		ajax_get: function() {
-			var self = this;
-
-			self.overlay.show();
-
-			self.create_input();
-
-			new SyncLoad(FrontEndEditor.data.suggest.src, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
-		},
+		dependency: FrontEndEditor.data.suggest.src,
 
 		content_to_input: function(content) {
 			var self = this;
@@ -639,16 +619,7 @@
 	});
 
 	fieldTypes['rich'] = fieldTypes['textarea'].extend({
-
-		ajax_get: function() {
-			var self = this;
-
-			self.overlay.show();
-
-			self.create_input();
-
-			new SyncLoad(FrontEndEditor.data.nicedit.src, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
-		},
+		dependency: FrontEndEditor.data.nicedit.src,
 
 		content_to_input: function(content) {
 			var self = this;
@@ -734,23 +705,19 @@
 	});
 
 
-	fieldTypes['widget'] = fieldTypes['input'].extend({
+	fieldTypes['widget'] = fieldTypes['textarea'].extend({
 
 		create_input: function() {},
 
 		ajax_get: function() {
 			var self = this;
 
-			self.overlay.show();
-
-			self.create_input();
-
 			self.is_text_widget = ( 0 == self.data.widget_id.indexOf('text-') );
 
-			if ( FrontEndEditor.data.nicedit && self.is_text_widget )
-				new SyncLoad(FrontEndEditor.data.nicedit.src, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
-			else
-				$.post(FrontEndEditor.data.ajax_url, self.ajax_get_args(), $.proxy(self, 'ajax_get_handler'));
+			if ( self.is_text_widget )
+				self.dependency = FrontEndEditor.data.nicedit.src;
+
+			self._super();
 		},
 
 		content_to_input: function(content) {
