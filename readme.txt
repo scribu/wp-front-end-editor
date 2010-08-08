@@ -25,37 +25,36 @@ To edit something, just double-click it!
 <ul>
 	<li><strong>posts & pages</strong>
 	<ul>
-		<li>title</li>
-		<li>content</li>
-		<li>excerpt</li>
-		<li>categories</li>
-		<li>tags</li>
-		<li>custom taxonomies</li>
-		<li>custom fields</li>
-		<li>thumbnail</li>
+		<li>title - `the_title()`</li>
+		<li>content - `the_content()`</li>
+		<li>excerpt - `the_excerpt()`</li>
+		<li>categories - `the_category()`</li>
+		<li>tags - `the_tags()`</li>
+		<li>custom taxonomies - `the_terms()`</li>
+		<li>custom fields - `editable_post_meta()`*</li>
+		<li>thumbnail - `the_post_thumbnail()`</li>
 	</ul></li>
-	<li><strong>comments</strong>
-	<ul>
-		<li>content</li>
-	</ul></li>
+	<li><strong>comments</strong></li>
 	<li><strong>authors</strong>
 	<ul>
-		<li>description</li>
+		<li>description - `the_author_meta()`</li>
 	</ul></li>
 	<li><strong>terms</strong>
 	<ul>
-		<li>name</li>
-		<li>description</li>
+		<li>name - `single_tag_title()`, `single_cat_title()`</li>
+		<li>description - `term_description()`</li>
 	</ul></li>
 	<li><strong>widgets</strong></li>
-	<li><strong>theme images</strong>
-	<li><strong>site info</strong>
+	<li><strong>theme images - `editable_image()`*</strong>
+	<li><strong>options</strong>
 	<ul>
-		<li>title</li>
-		<li>description</li>
-		<li>options</li>
+		<li>title - `bloginfo('name')`</li>
+		<li>description - bloginfo('description')</li>
+		<li>other - `editable_option()`*</li>
 	</ul></li>
 </ul>
+
+Template tags marked with * are defined by the plugin.
 
 There is a settings page where you can disable editable fields that you don't want, as well as other options.
 
@@ -81,13 +80,13 @@ First see [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-edit
 
 Next, check for JavaScript errors (In Firefox, press Ctrl + Shift + J and reload the page).
 
-= Does it work with WP Super Cache? =
-
-To avoid problems with WP Super Cache or W3 Total Cache, you have to disable caching for logged-in users.
-
 = If I use this plugin, won't everybody be able to edit my content? =
 
 No. To edit a field, a user must be logged in and have the right permissions. For example, to edit the post content from the front-end, a user must be able to edit the post content from the regular back-end editor.
+
+= Does it work with WP Super Cache? =
+
+To avoid problems with WP Super Cache or W3 Total Cache, you have to disable caching for logged-in users.
 
 = How can I change the hover color? =
 
