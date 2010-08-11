@@ -728,14 +728,17 @@
 			if ( self.is_text_widget )
 				self.editor.saveContent();
 
-			var raw_data = self.form.find(':input').serializeArray(),
-				data = {};
+			var raw_data = self.form.find(':input').serializeArray();
 
-			$.each(raw_data, function() {
-				data[this.name] = this.value;
+			$.each(args, function(name, value) {
+				raw_data.push({'name': name, 'value': value});
 			});
 
-			return $.extend(args, data);
+			$.each(args.data, function(name, value) {
+				raw_data.push({'name': 'data[' + name + ']', 'value': value});
+			});
+
+			return raw_data;
 		}
 	});
 
