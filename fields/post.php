@@ -276,7 +276,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	function check( $data = 0 ) {
 		extract( $data );
 
-		return current_user_can( get_taxonomy( $taxonomy )->cap->assign_terms, $post_id );
+		return current_user_can( 'edit_post', $post_id ) && current_user_can( get_taxonomy( $taxonomy )->cap->assign_terms );
 	}
 }
 
