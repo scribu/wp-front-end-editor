@@ -525,7 +525,7 @@
 	});
 
 	fieldTypes['terminput'] = fieldTypes['input'].extend({
-		dependency: FrontEndEditor.data.suggest.src,
+		dependency: FrontEndEditor.data.suggest ? FrontEndEditor.data.suggest.src : null,
 
 		content_to_input: function(content) {
 			var self = this;
@@ -598,7 +598,7 @@
 	});
 
 	fieldTypes['rich'] = fieldTypes['textarea'].extend({
-		dependency: FrontEndEditor.data.nicedit.src,
+		dependency: FrontEndEditor.data.nicedit ? FrontEndEditor.data.nicedit.src : null,
 
 		content_to_input: function(content) {
 			var self = this;
@@ -693,7 +693,7 @@
 
 			self.is_text_widget = ( 0 == self.data.widget_id.indexOf('text-') );
 
-			if ( self.is_text_widget )
+			if ( self.is_text_widget && FrontEndEditor.data.nicedit )
 				self.dependency = FrontEndEditor.data.nicedit.src;
 
 			self._super();
