@@ -141,8 +141,6 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		if ( $autop )
 			$content = wpautop( $content );
 
-debug(esc_html($content));
-
 		preg_match_all( "#<p.*?>(.*?)</p>#", $content, $matches );
 
 		return $matches[1];
