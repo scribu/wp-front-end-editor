@@ -17,7 +17,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 		if ( !$post_id = $this->_get_id( $post_id ) )
 			return $content;
 
-		return parent::wrap( $content, array( 'post_id' => $post_id ) );
+		return parent::wrap( $content, compact( 'post_id' ) );
 	}
 
 	protected function _get_id( $post_id = 0, $in_loop = true ) {
@@ -141,7 +141,9 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		if ( $autop )
 			$content = wpautop( $content );
 
-		preg_match_all( "#<p[^>]*>( .*? )</p>#", $content, $matches );
+debug(esc_html($content));
+
+		preg_match_all( "#<p.*?>(.*?)</p>#", $content, $matches );
 
 		return $matches[1];
 	}
