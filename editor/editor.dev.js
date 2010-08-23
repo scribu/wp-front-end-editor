@@ -398,6 +398,7 @@
 			var self = this;
 
 			self.input.val(content);
+			self.form.trigger('ready.fee', [self.data]);
 		},
 
 		content_from_input: function() {

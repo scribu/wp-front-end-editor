@@ -150,6 +150,8 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 <?php
 		scbUtil::do_scripts( 'front-end-editor' );
 		scbUtil::do_styles( 'front-end-editor' );
+ 
+		do_action( 'front_end_editor_loaded', $wrapped );
 	}
 
 	private static function get_src( $handle ) {
