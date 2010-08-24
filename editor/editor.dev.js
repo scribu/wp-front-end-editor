@@ -412,6 +412,7 @@
 				$el = self.switched ? self.el.find('a') : self.el;
 
 			$el.html(content);
+			self.form.trigger('saved.fee', [self.data]);
 		},
 
 		ajax_get: function() {
