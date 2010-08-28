@@ -208,36 +208,12 @@
 		init: function($el, type, filter, data) {
 			var self = this;
 
-			self.set_el($el);
+			self.el = $el;
 			self.type = type;
 			self.filter = filter;
 			self.data = data;
 
 			DoubleClick.register(self.el, $.proxy(self, 'dblclick'));
-		},
-
-		set_el: function($el) {
-			var self = this;
-
-			self.el = $el;
-
-			// From a > .front-ed > content
-			// To .front-ed > a > content
-			var $parent = self.el.parents('a');
-
-			if ( ! $parent.length )
-				return;
-
-			var $link = $parent.clone(true)
-				.html(self.el.html());
-
-			var $wrap = self.el.clone(true)
-				.html($link);
-
-			$parent.replaceWith($wrap);
-
-			self.el = $wrap;
-			self.switched = true;
 		},
 
 		create_input: null,
@@ -431,10 +407,9 @@
 		},
 
 		content_to_front: function(content) {
-			var self = this,
-				$el = self.switched ? self.el.find('a') : self.el;
+			var self = this;
 
-			$el.html(content);
+			self.el.html(content);
 			self.form.trigger('saved.fee', [self.data]);
 		},
 
@@ -460,7 +435,9 @@
 			var self = this;
 
 			self.overlay.hide();
-			self.el.hide().after(self.form);
+			self.el.hide();
+			
+			self.el.closest('a').after(self.form);
 
 			self.content_to_input(content);
 
@@ -585,10 +562,9 @@
 
 		content_to_front: function() {
 			var self = this,
-				$el = self.switched ? self.el.find('a') : self.el,
 				content = self.data.values[ self.content_from_input() ];
 
-			$el.html(content);
+			self.el.html(content);
 		}
 	});
 
