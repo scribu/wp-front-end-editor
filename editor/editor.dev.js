@@ -283,21 +283,14 @@
 		}
 	});
 
+	fieldTypes['image_base'] = fieldTypes['base'].extend({
+		button_text: FrontEndEditor.data.image.change,
 
-	fieldTypes['image'] = fieldTypes['base'].extend({
-		
-		dblclick: function(ev) {
+		dblclick: function() {
 			var self = this;
 
 			tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.admin_url +
 				'/media-upload.php?post_id=0&type=image&TB_iframe=true&width=640&editable_image=1');
-
-			$('<a id="fee-img-revert" href="#">')
-				.text(FrontEndEditor.data.image.revert)
-				.click(function(ev) {
-					self.ajax_set(-1);
-				})
-				.insertAfter('#TB_ajaxWindowTitle');
 
 			$('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close);
 
@@ -305,17 +298,16 @@
 		},
 
 		replace_button: function(ev) {
-			var self = this;
-
-			var $frame = $(ev.target).contents();
+			var self = this,
+				$frame = $(ev.target).contents();
 
 			$('.media-item', $frame).livequery(function(){
-				var $item = $(this);
-				var $button = $('<a href="#" class="button">')
-					.text(FrontEndEditor.data.image.change)
-					.click(function(ev){
-						self.ajax_set(self.content_from_input($item));
-					});
+				var $item = $(this),
+					$button = $('<a href="#" class="button">')
+						.text(self.button_text)
+						.click(function(ev){
+							self.ajax_set(self.content_from_input($item));
+						});
 
 				$item.find(':submit, #go_button').remove();
 				$item.find('.del-link').before($button);
@@ -342,6 +334,36 @@
 
 			return false;
 		},
+	});
+
+	fieldTypes['image_rich'] = fieldTypes['image_base'].extend({
+		button_text: FrontEndEditor.data.image.insert,
+
+		init: function(ne) {
+			this.ne = ne;
+			this.dblclick();
+		},
+
+		ajax_set: function(url) {
+			this.ne.nicCommand("insertImage", url);
+			tb_remove();
+		}
+	});
+
+	fieldTypes['image'] = fieldTypes['image_base'].extend({
+
+		dblclick: function(ev) {
+			var self = this;
+
+			self._super(ev);
+
+			$('<a id="fee-img-revert" href="#">')
+				.text(FrontEndEditor.data.image.revert)
+				.click(function(ev) {
+					self.ajax_set(-1);
+				})
+				.insertAfter('#TB_ajaxWindowTitle');
+		},
 
 		ajax_set_handler: function(url) {
 			var self = this;
@@ -356,7 +378,7 @@
 	});
 
 	fieldTypes['thumbnail'] = fieldTypes['image'].extend({
-		
+
 		replace_button: function(ev) {
 			var self = this;
 

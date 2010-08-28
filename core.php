@@ -40,7 +40,7 @@ abstract class FEE_Core {
 	}
 
 	static function scripts() {
-		$wrapped = FEE_Field_Base::get_wrapped();
+		$wrapped = array_keys( FEE_Field_Base::get_wrapped() );
 
 		if ( empty( $wrapped ) )
 			return;
@@ -75,7 +75,7 @@ abstract class FEE_Core {
 		}
 
 		// Autosuggest
-		if ( array_key_exists( 'terminput', $wrapped ) ) {
+		if ( in_array( 'terminput', $wrapped ) ) {
 			$data['suggest'] = array(
 				'src' => self::get_src('suggest')
 			);
@@ -83,7 +83,7 @@ abstract class FEE_Core {
 
 		// Rich Editor
 		$nicEditL10n = '';
-		if ( array_key_exists( 'rich', $wrapped ) ) {
+		if ( in_array( 'rich', $wrapped ) ) {
 			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
 				'src' => $url . "nicedit/nicEdit$js_dev.js?ver=0.9r23",
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
@@ -122,11 +122,12 @@ abstract class FEE_Core {
 		}
 
 		// Thickbox
-		if ( array_key_exists( 'image', $wrapped ) || array_key_exists( 'thumbnail', $wrapped ) ) {
+		if ( count( array_intersect( array( 'image', 'thumbnail', 'rich' ), $wrapped ) ) ) {
 			$data['admin_url'] = admin_url();
 
 			$data['image'] = array(
 				'change' => __( 'Change Image', 'front-end-editor' ),
+				'insert' => __( 'Insert Image', 'front-end-editor' ),
 				'revert' => '(' . __( 'Clear', 'front-end-editor' ) . ')',
 				'tb_close' => get_bloginfo( 'wpurl' ) . '/wp-includes/js/thickbox/tb-close.png',
 			);
