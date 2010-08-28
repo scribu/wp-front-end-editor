@@ -317,7 +317,8 @@
 						self.ajax_set(self.content_from_input($item));
 					});
 
-				$item.find(':submit, #go_button').replaceWith($button);
+				$item.find(':submit, #go_button').remove();
+				$item.find('.del-link').before($button);
 			});
 		},
 
