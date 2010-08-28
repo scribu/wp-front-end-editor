@@ -260,7 +260,7 @@
 	});
 
 	fieldTypes['image_base'] = fieldTypes['base'].extend({
-		button_text: FrontEndEditor.data.image.change,
+		button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.change : null,
 
 		dblclick: function() {
 			var self = this;
@@ -313,7 +313,7 @@
 	});
 
 	fieldTypes['image_rich'] = fieldTypes['image_base'].extend({
-		button_text: FrontEndEditor.data.image.insert,
+		button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.insert : null,
 
 		init: function(ne) {
 			this.ne = ne;
@@ -436,8 +436,11 @@
 
 			self.overlay.hide();
 			self.el.hide();
-			
-			self.el.closest('a').after(self.form);
+
+			var $parent = self.el.parents('a');
+			var $el = $parent.length ? $parent : self.el;
+
+			$el.after(self.form);
 
 			self.content_to_input(content);
 
