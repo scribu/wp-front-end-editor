@@ -58,6 +58,8 @@ Template tags marked with * are defined by the plugin.
 
 There is a settings page where you can disable editable fields that you don't want, as well as other options.
 
+Links: [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
+
 == Installation ==
 
 You can either install it automatically from the WordPress admin, or do it manually:
