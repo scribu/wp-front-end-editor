@@ -85,11 +85,11 @@
 		},
 
 		click: function(ev) {
-			// TODO: instead of 'click', capture the 'submit' event
-			if ( $(ev.target).is('select, option, input, button') )
-				return;
 
 			if ( DoubleClick._delayed )
+				return;
+
+			if ( !DoubleClick.is_regular_link( $(ev.target) ) )
 				return;
 
 			ev.stopImmediatePropagation();
@@ -101,6 +101,24 @@
 			DoubleClick._event = ev;
 
 			setTimeout(DoubleClick.resume, 300);
+		},
+
+		is_regular_link: function($target) {
+			if ( $target.is('select, option, input, button') ) // TODO: instead of 'click', capture the 'submit' event
+				return false;
+
+			if ( $target.attr('onclick') )
+				return false;
+
+			var $link = $target.closest('a');
+
+			if ( !$link.length )
+				return false;
+
+			if ( $link.attr('onclick') || !$link.attr('href') || $link.attr('href') == '#' )
+				return false;
+
+			return true;
 		},
 
 		resume: function() {
@@ -122,15 +140,10 @@
 
 			var $link = $target.closest('a');
 
-			if ( !$link.length )
-				return;
-
-			if ( typeof $link.attr('href') != 'undefined' && $link.attr('href') != '#' ) {
-				if ( $link.attr('target') == '_blank' )
-					window.open($link.attr('href'));
-				else
-					window.location.href = $link.attr('href');
-			}
+			if ( $link.attr('target') == '_blank' )
+				window.open($link.attr('href'));
+			else
+				window.location.href = $link.attr('href');
 
 			DoubleClick._event = false;
 		},
