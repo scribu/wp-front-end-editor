@@ -86,6 +86,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 	const delim = "\n\n";
 
 	function wrap( $content, $post_id = 0 ) {
+
 		if ( !$post_id = $this->_get_id( $post_id ) )
 			return $content;
 
@@ -105,7 +106,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$chunks = $this->split( $field, true );
 
-		return @$chunks[$chunk_id];
+		return @$chunks[$i];
 	}
 
 	function save( $data, $chunk_content ) {
@@ -117,7 +118,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$chunks = $this->split( $content, true );
 		$replacement = $chunks;
-		$replacement[$chunk_id] = $chunk_content;
+		$replacement[$i] = $chunk_content;
 
 		$content = $this->replace_exact( $chunks, $replacement, $content );
 
