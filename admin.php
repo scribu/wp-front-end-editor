@@ -18,7 +18,6 @@ class FEE_Admin extends scbBoxesPage {
 	}
 
 	function page_head() {
-		wp_enqueue_script( 'jquery-ui-sortable' );
 ?>
 <style type="text/css">
 .inside table.checklist {
@@ -50,10 +49,6 @@ class FEE_Admin extends scbBoxesPage {
 
 .submit {
 	clear: both !important;
-}
-
-#ne_buttons tbody td {
-	cursor: move;
 }
 </style>
 <?php
@@ -212,13 +207,6 @@ class FEE_Admin extends scbBoxesPage {
 		$table = $this->checklist_wrap( __( 'Button', $this->textdomain ), $tbody );
 
 		echo $this->form_wrap( $table, '', 'save_buttons' );
-?>
-<script type="text/javascript">
-jQuery(document).ready(function($) {
-	$('#ne_buttons tbody').sortable().disableSelection();
-});
-</script>
-<?php
 	}
 }
 

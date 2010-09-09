@@ -176,6 +176,7 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 = 2.0 =
 * smoother transitions while loading
 * translatable nicEdit
+* extra nicEdit buttons available in the settings page
 
 = 1.9 =
 * full widget editing
