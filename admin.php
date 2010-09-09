@@ -18,6 +18,7 @@ class FEE_Admin extends scbBoxesPage {
 	}
 
 	function page_head() {
+		wp_enqueue_script( 'jquery-ui-sortable' );
 ?>
 <style type="text/css">
 .inside table.checklist {
@@ -49,6 +50,10 @@ class FEE_Admin extends scbBoxesPage {
 
 .submit {
 	clear: both !important;
+}
+
+#ne_buttons tbody td {
+	cursor: move;
 }
 </style>
 <?php
@@ -177,8 +182,19 @@ class FEE_Admin extends scbBoxesPage {
 	function ne_buttons_box() {
 		echo html( 'p', __( 'Enable or disable editor buttons', $this->textdomain ) );
 
+		$ne_buttons = array(
+			'bold', 'italic', 'underline',
+			'left', 'center', 'right', 'justify',
+			'ol', 'ul',
+			'subscript', 'superscript', 'strikethrough', 'removeformat',
+			'indent', 'outdent', 'hr',
+			'fontFormat', 'fontFamily', 'forecolor',
+			'link', 'image',
+			'xhtml'
+		);
+
 		$tbody = '';
-		foreach ( apply_filters( 'front_end_editor_nicedit', $this->options->get_defaults( 'ne_buttons' ) ) as $button )
+		foreach ( apply_filters( 'front_end_editor_nicedit', $ne_buttons ) as $button )
 			$tbody .=
 			html( 'tr',
 				html( 'th scope="row" class="check-column"',
@@ -196,6 +212,13 @@ class FEE_Admin extends scbBoxesPage {
 		$table = $this->checklist_wrap( __( 'Button', $this->textdomain ), $tbody );
 
 		echo $this->form_wrap( $table, '', 'save_buttons' );
+?>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	$('#ne_buttons tbody').sortable().disableSelection();
+});
+</script>
+<?php
 	}
 }
 

@@ -322,7 +322,7 @@
 				return $field.val();
 
 			return false;
-		},
+		}
 	});
 
 	fieldTypes['image_rich'] = fieldTypes['image_base'].extend({
@@ -724,6 +724,7 @@
 			self.form.prepend(content);
 
 			if ( self.is_text_widget ) {
+			console.log(self.form.find('textarea').attr('id'));
 				self.editor = init_nicEdit(self.form.find('textarea').attr('id'));
 
 				self.form.find('.nicEdit-main').focus();

@@ -212,6 +212,9 @@ class FEE_Field_Widget extends FEE_Field_Base {
 				break;
 
 		if ( 'get' == $action ) {
+			if ( 'text' == $id_base && FEE_Core::$options->rich )
+				$instance['text'] = wpautop($instance['text']);
+
 			$widget->form( $instance );
 		}
 
