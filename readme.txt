@@ -82,10 +82,6 @@ First see [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-edit
 
 Next, check for JavaScript errors (In Firefox, press Ctrl + Shift + J and reload the page).
 
-= If I use this plugin, won't everybody be able to edit my content? =
-
-No. To edit a field, a user must be logged in and have the right permissions. For example, to edit the post content from the front-end, a user must be able to edit the post content from the regular back-end editor.
-
 = Does it work with WP Super Cache? =
 
 To avoid problems with WP Super Cache or W3 Total Cache, you have to disable caching for logged-in users.
@@ -173,24 +169,26 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 == Changelog ==
 
-= 2.0 =
-* smoother transitions while loading
-* translatable nicEdit
-* extra nicEdit buttons available in the settings page
+= 1.9.1 =
+* nicEdit: img button opens WordPress media thickbox
+* nicEdit: translatable buttons
+* nicEdit: extra buttons available in the settings page
+* load nicEdit or suggest in parallel with first edit
+* various bugfixes
 
 = 1.9 =
 * full widget editing
 * custom post type support
 * new editable field: term description
 * more robust paragraph editing
-* more robust double-click mechanism
-* nicEdit button management from the admin
+* more robust double-click handling
+* nicEdit: button management from the admin
 * removed "Reset the post date on each edit" option
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-9.html)
 
 = 1.8 =
 * added tooltip
-* restyled buttons
+* restyled save/cancel buttons
 * fixed widget editing
 * exposed JavaScript field types
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-1-8.html)
@@ -198,7 +196,7 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 = 1.7.2 =
 * fixed narrow textarea problem
 * fixed IE8 error
-* included nicEdit upload plugin
+* nicEdit: included upload plugin
 
 = 1.7.1 =
 * made date reset optional
@@ -206,8 +204,8 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 1.7 =
 * new editable fields: post thumbnails & arbitrary options
-* added font-family and font-color buttons to nicEdit
-* made the nicEdit configuration filterable
+* nicEdit: added font-family and font-color buttons
+* nicEdit: made configuration filterable
 * dropped Growfield from textareas
 * load CSS only when needed
 * standardized CSS ids and classes

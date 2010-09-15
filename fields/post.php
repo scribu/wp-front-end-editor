@@ -17,6 +17,8 @@ class FEE_Field_Post extends FEE_Field_Base {
 		if ( !$post_id = $this->_get_id( $post_id ) )
 			return $content;
 
+		$content = $this->placehold( $content );
+
 		return parent::wrap( $content, compact( 'post_id' ) );
 	}
 
@@ -65,7 +67,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 		$this->set_post_global( $post_id );
 
-		return $content;
+		return $this->placehold( $content );
 	}
 
 	function check( $post_id = 0 ) {
@@ -250,7 +252,9 @@ class FEE_Field_Terms extends FEE_Field_Post {
 		if ( !$this->check( $data ) )
 			return $content;
 
-		$content = $this->placehold( str_replace( array( $before, $after ), '', $content ) );
+		$content = str_replace( array( $before, $after ), '', $content );
+
+		$content = $this->placehold( $content );
 
 		return $before . FEE_Field_Base::wrap( $content, $data ) . $after;
 	}
@@ -269,9 +273,9 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 		wp_set_post_terms( $post_id, $terms, $taxonomy );
 
-		$response = get_the_term_list( $post_id, $taxonomy, '', ', ' );	// todo: store $sep somehow
+		$content = get_the_term_list( $post_id, $taxonomy, '', ', ' );	// todo: store $sep somehow
 
-		return $this->placehold( $response );
+		return $this->placehold( $content );
 	}
 
 	function check( $data = 0 ) {
@@ -315,9 +319,9 @@ class FEE_Field_Category extends FEE_Field_Terms {
 
 		wp_set_post_categories( $post_id, $cat_ids );
 
-		$response = get_the_term_list( $post_id, $taxonomy, '', ', ' );
+		$content = get_the_term_list( $post_id, $taxonomy, '', ', ' );
 
-		return $this->placehold( $response );
+		return $this->placehold( $content );
 	}
 }
 
@@ -409,7 +413,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 		else
 			update_post_meta( $post_id, $key, $new_value, $old_value );
 
-		return $new_value;
+		return $this->placehold( $new_value );
 	}
 }
 
@@ -439,13 +443,4 @@ function get_editable_post_meta( $post_id, $key, $type = 'input', $single = fals
 
 	return apply_filters( 'post_meta', $content, $post_id, $key, $type, $single );
 }
-
-/*
-editable_post_meta( $post_id, $key, 'checkbox', false );
-editable_post_meta( $post_id, $key, array( 'type' => 'checkbox', 'values' => array( 'no', 'yes' ) ), false );
-editable_post_meta( $post_id, $key, array( 'type' => 'checkbox', 'values' => array( true => 'yes', false => 'no' ) ), false );
-
-editable_post_meta( $post_id, $key, array( 'type' => 'select', 'values' => array( 'foo', 'bar' ) ), false );
-editable_post_meta( $post_id, $key, array( 'type' => 'select', 'values' => array( 'foo' => 'Foo', 'bar' => 'Bar' ) ), false );
-*/
 
