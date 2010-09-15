@@ -146,7 +146,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$this->set_post_global( $post_id );
 
-		die( wpautop( $chunk_content ) );
+		die( $this->get( $data ) );
 	}
 
 	private function get_dom( $content ) {
