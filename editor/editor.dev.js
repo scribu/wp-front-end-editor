@@ -208,8 +208,11 @@
 	sync_load.cache = [];
 
 	// Create a new nicEditor instance and return it
-	function init_nicEdit(id) {
-		tmp = new nicEditor(FrontEndEditor.data.nicedit).panelInstance(id);
+	function init_nicEdit($el, self) {
+		var tmp = new nicEditor(FrontEndEditor.data.nicedit).panelInstance( $el.attr('id') );
+
+		self.form.find('.nicEdit-main').focus();
+
 		return tmp.nicInstances[0];
 	}
 
@@ -622,9 +625,7 @@
 
 			self._super(content);
 
-			self.editor = init_nicEdit(self.input.attr('id'));
-
-			self.form.find('.nicEdit-main').focus();
+			self.editor = init_nicEdit(self.input, self);
 		},
 
 		content_from_input: function() {
@@ -724,9 +725,7 @@
 			self.form.prepend(content);
 
 			if ( self.is_text_widget ) {
-				self.editor = init_nicEdit(self.form.find('textarea').attr('id'));
-
-				self.form.find('.nicEdit-main').focus();
+				self.editor = init_nicEdit(self.form.find('textarea'), self);
 			}
 		},
 

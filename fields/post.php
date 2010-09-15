@@ -85,8 +85,6 @@ class FEE_Field_Post extends FEE_Field_Base {
 // Handles <p> tags in the_content
 class FEE_Field_Chunks extends FEE_Field_Post {
 
-	const delim = "\n\n";
-
 	function wrap( $content, $post_id = 0 ) {
 		if ( !$post_id = $this->_get_id( $post_id ) )
 			return $content;
@@ -107,18 +105,6 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		}
 
 		return $this->innerHTML( $dom->getElementsByTagName('body')->item(0) );
-/*
-		foreach ( $dom->getElementsByTagName('p') as $i => $node ) {
-			$new_inner_content = FEE_Field_Base::wrap( $this->innerHTML( $node ), compact( 'post_id', 'i' ) );
-
-			$new_content = $dom->createDocumentFragment();
-			$new_content->appendXML( $new_inner_content );
-
-			$node->parentNode->replaceChild( $new_content, $node );
-		}
-
-		return $this->innerHTML( $dom->getElementsByTagName('body')->item(0) );
-*/
 	}
 
 	function get( $data ) {
@@ -129,7 +115,9 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$node = $dom->getElementsByTagName('p')->item( $i );
 
-		return $dom->saveXML( $node );
+		$chunk = $dom->saveXML( $node );
+
+		return preg_replace( '#<br\s*/?>#', '<br />', $chunk );
 	}
 
 	function save( $data, $chunk_content ) {
@@ -158,11 +146,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$this->set_post_global( $post_id );
 
-		// Refresh the page if a new chunk is added
-		if ( empty( $chunk_content ) || FALSE !== strpos( $chunk_content, self::delim ) )
-			$this->force_refresh();
-
-		die( $chunk_content );
+		die( wpautop( $chunk_content ) );
 	}
 
 	private function get_dom( $content ) {
@@ -204,10 +188,6 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 	protected function replace_first( $old, $new, $subject ) {
 		return implode( $new, explode( $old, $subject, 2 ) );
-	}
-
-	protected function force_refresh() {
-		die( "<script language='javascript'>location.reload( true )</script>" );
 	}
 }
 
