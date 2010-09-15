@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-07-06 13:43+0300\n"
-"PO-Revision-Date: 2010-07-06 14:31+0200\n"
+"POT-Creation-Date: 2010-09-15 19:57+0300\n"
+"PO-Revision-Date: 2010-09-15 19:58+0200\n"
 "Last-Translator: scribu <scribu@gmail.com>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 2.0-alpha)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.9.1-alpha2)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin.php:9
 msgid "Front-end Editor"
@@ -66,203 +66,215 @@ msgstr "Afișează un tooltip deasupra elementelor editabile"
 msgid "Enable or disable editor buttons"
 msgstr "Activează sau dezactivează butoane ale editorului"
 
-#: admin.php:196
+#: admin.php:207
 msgid "Button"
 msgstr "Buton"
 
-#: core.php:59
+#: core.php:55
 msgid "Save"
 msgstr "Salvează"
 
-#: core.php:60
+#: core.php:56
 msgid "Cancel"
 msgstr "Anulează"
 
-#: core.php:74
+#: core.php:70
 msgid "Double-click to edit"
 msgstr "Fă dublu-click pentru a edita"
 
-#: core.php:102
-msgid "Change Image"
-msgstr "Schimbă imaginea"
-
-#: core.php:103
-msgid "Clear"
-msgstr "Golește"
-
-#: core.php:118
+#: core.php:94
 msgid "Click to Bold"
 msgstr "Îngroșat"
 
-#: core.php:119
+#: core.php:95
 msgid "Click to Italic"
 msgstr "Italic"
 
-#: core.php:120
+#: core.php:96
 msgid "Click to Underline"
 msgstr "Subliniat"
 
-#: core.php:121
+#: core.php:97
 msgid "Left Align"
 msgstr "Aliniere la stânga"
 
-#: core.php:122
+#: core.php:98
 msgid "Center Align"
 msgstr "Aliniere la centru"
 
-#: core.php:123
+#: core.php:99
 msgid "Right Align"
 msgstr "Aliniere la dreapta"
 
-#: core.php:124
+#: core.php:100
 msgid "Justify Align"
 msgstr "Aliniere justificată"
 
-#: core.php:125
+#: core.php:101
 msgid "Insert Ordered List"
 msgstr "Listă ordonată"
 
-#: core.php:126
+#: core.php:102
 msgid "Insert Unordered List"
 msgstr "Listă neordonată"
 
-#: core.php:127
+#: core.php:103
 msgid "Click to Subscript"
 msgstr "Indice inferior"
 
-#: core.php:128
+#: core.php:104
 msgid "Click to Superscript"
 msgstr "Indice superior"
 
-#: core.php:129
+#: core.php:105
 msgid "Click to Strike Through"
 msgstr "Barare"
 
-#: core.php:130
+#: core.php:106
 msgid "Remove Formatting"
 msgstr "Înlăturare formatare"
 
-#: core.php:131
+#: core.php:107
 msgid "Indent Text"
 msgstr "Avans la paragraf"
 
-#: core.php:132
+#: core.php:108
 msgid "Remove Indent"
 msgstr "Înlăturare avans"
 
-#: core.php:133
+#: core.php:109
 msgid "Horizontal Rule"
 msgstr "Bară orizontală"
 
-#: core.php:134
+#: core.php:110
 msgid "Select Font Size"
 msgstr "Mărimea fontului"
 
-#: core.php:135
+#: core.php:111
 msgid "Select Font Family"
 msgstr "Font"
 
-#: core.php:136
+#: core.php:112
 msgid "Select Font Format"
 msgstr "Format font"
 
-#: core.php:137
+#: core.php:113
 msgid "Add Link"
 msgstr "Adaugă legătură"
 
-#: core.php:138
+#: core.php:114
 msgid "Remove Link"
 msgstr "Înlătură legătură"
 
-#: core.php:139
+#: core.php:115
 msgid "Change Text Color"
 msgstr "Culoare text"
 
-#: core.php:140
+#: core.php:116
 msgid "Change Background Color"
 msgstr "Culoare fundal"
 
-#: core.php:141
+#: core.php:117
 msgid "Add Image"
 msgstr "Adaugă imagine"
 
-#: core.php:142
+#: core.php:118
 msgid "Upload Image"
 msgstr "Încarcă imagine"
 
-#: core.php:143
+#: core.php:119
 msgid "Edit HTML"
 msgstr "Editează HTML"
 
-#: fields/base.php:82
+#: core.php:129
+msgid "Change Image"
+msgstr "Schimbă imaginea"
+
+#: core.php:130
+msgid "Insert Image"
+msgstr "Inserează imagine"
+
+#: core.php:131
+msgid "Clear"
+msgstr "Golește"
+
+#: fields/base.php:100
 msgid "empty"
 msgstr "gol"
 
-#: front-end-editor.php:73
+#: fields/base.php:119
+msgid "no"
+msgstr ""
+
+#: fields/base.php:120
+msgid "yes"
+msgstr ""
+
+#: front-end-editor.php:77
 msgid "Post title"
 msgstr "Titlu articol"
 
-#: front-end-editor.php:79
+#: front-end-editor.php:83
 msgid "Post content"
 msgstr "Conținut articol"
 
-#: front-end-editor.php:85
+#: front-end-editor.php:89
 msgid "Post excerpt"
 msgstr "Extras articol"
 
-#: front-end-editor.php:91
+#: front-end-editor.php:95
 msgid "Post categories"
 msgstr "Categorii articol"
 
-#: front-end-editor.php:98
+#: front-end-editor.php:102
 msgid "Post tags"
 msgstr "Etichete articol"
 
-#: front-end-editor.php:105
+#: front-end-editor.php:109
 msgid "Post terms"
 msgstr "Termeni articol"
 
-#: front-end-editor.php:112
+#: front-end-editor.php:116
 msgid "Post custom fields"
 msgstr "Câmpuri personalizate articol"
 
-#: front-end-editor.php:118
+#: front-end-editor.php:122
 msgid "Post thumbnail"
 msgstr "Miniatură articol"
 
-#: front-end-editor.php:125
+#: front-end-editor.php:129
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: front-end-editor.php:131
+#: front-end-editor.php:135
 msgid "Category title"
 msgstr "Titlu categorie"
 
-#: front-end-editor.php:136
+#: front-end-editor.php:140
 msgid "Tag title"
 msgstr "Titlu etichetă"
 
-#: front-end-editor.php:141
+#: front-end-editor.php:145
 msgid "Term description"
 msgstr "Descriere termen"
 
-#: front-end-editor.php:148
+#: front-end-editor.php:152
 msgid "Author description"
 msgstr "Descriere autor"
 
-#: front-end-editor.php:155
+#: front-end-editor.php:159
 msgid "Widgets"
 msgstr "Widget-uri"
 
-#: front-end-editor.php:161
+#: front-end-editor.php:165
 msgid "Site title and description"
 msgstr "Titlu și descriere site"
 
-#: front-end-editor.php:167
+#: front-end-editor.php:171
 msgid "Site options"
 msgstr "Setări site"
 
-#: front-end-editor.php:173
+#: front-end-editor.php:177
 msgid "Theme images"
 msgstr "Imagini temă"
 

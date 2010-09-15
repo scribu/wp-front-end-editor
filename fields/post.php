@@ -88,37 +88,62 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 	const delim = "\n\n";
 
 	function wrap( $content, $post_id = 0 ) {
-
 		if ( !$post_id = $this->_get_id( $post_id ) )
 			return $content;
 
-		$chunks = $this->split( $content );
+		if ( empty( $content ) )	// todo: placehold
+			return $content;
 
-		$replacements = array();
-		foreach ( $chunks as $i => $chunk )
-			$replacements[] = FEE_Field_Base::wrap( $chunk, compact( 'post_id', 'i' ), true );
+		$dom = $this->get_dom( $content );
 
-		return $this->replace_exact( $chunks, $replacements, $content );
+		foreach ( $dom->getElementsByTagName('p') as $i => $node ) {
+			$old_content = $dom->saveXML( $node );
+			$new_content = FEE_Field_Base::wrap( $old_content, compact( 'post_id', 'i' ) );
+
+			$new_node = $dom->createDocumentFragment();
+			$new_node->appendXML( $new_content );
+
+			$node->parentNode->replaceChild( $new_node, $node );
+		}
+
+		return $this->innerHTML( $dom->getElementsByTagName('body')->item(0) );
+/*
+		foreach ( $dom->getElementsByTagName('p') as $i => $node ) {
+			$new_inner_content = FEE_Field_Base::wrap( $this->innerHTML( $node ), compact( 'post_id', 'i' ) );
+
+			$new_content = $dom->createDocumentFragment();
+			$new_content->appendXML( $new_inner_content );
+
+			$node->parentNode->replaceChild( $new_content, $node );
+		}
+
+		return $this->innerHTML( $dom->getElementsByTagName('body')->item(0) );
+*/
 	}
 
 	function get( $data ) {
 		extract( $data );
 
-		$field = get_post_field( 'post_content', $post_id );
+		$content = get_post_field( 'post_content', $post_id );
+		$dom = $this->get_dom( $content );
 
-		$chunks = $this->split( $field, true );
+		$node = $dom->getElementsByTagName('p')->item( $i );
 
-		return @$chunks[$i];
+		return $dom->saveXML( $node );
 	}
 
 	function save( $data, $chunk_content ) {
 		extract( $data );
 
-		$chunk_content = trim( $chunk_content );
-
 		$content = get_post_field( 'post_content', $post_id );
 
-		$chunks = $this->split( $content, true );
+		$dom = $this->get_dom( $content );
+
+		$chunks = array();
+		foreach ( $dom->getElementsByTagName('p') as $j => $item ) {
+			$chunks[ $j ] = $this->innerHTML( $item );
+		}
+
 		$replacement = $chunks;
 		$replacement[$i] = $chunk_content;
 
@@ -140,13 +165,24 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		die( $chunk_content );
 	}
 
-	protected function split( $content, $autop = false ) {
-		if ( $autop )
-			$content = wpautop( $content );
+	private function get_dom( $content ) {
+		$content = wpautop( $content );
 
-		preg_match_all( "#<p.*?>(.*?)</p>#", $content, $matches );
+		$dom = new DOMDocument();
 
-		return $matches[1];
+		libxml_use_internal_errors(true);
+		$dom->loadHTML( $content );
+
+		return $dom;
+	}
+
+	private function innerHTML( $node ) {
+		$doc = new DOMDocument();
+
+		foreach ( $node->childNodes as $child )
+			$doc->appendChild( $doc->importNode( $child, true ) );
+
+		return rtrim( $doc->saveHTML() );
 	}
 
 	protected function replace_exact( $old, $new, $subject ) {
