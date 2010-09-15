@@ -170,10 +170,12 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 == Changelog ==
 
 = 1.9.1 =
+* re-added nicEdit to text widgets
 * nicEdit: img button opens WordPress media thickbox
 * nicEdit: translatable buttons
 * nicEdit: extra buttons available in the settings page
-* load nicEdit or suggest in parallel with first edit
+* load nicEdit or suggest.js in parallel with first edit
+* display spinner on top of editable area
 * various bugfixes
 
 = 1.9 =
