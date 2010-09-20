@@ -121,9 +121,6 @@ abstract class scbBoxesPage extends scbAdminPage {
 			if ( method_exists( $this, $handler ) )
 				call_user_func_array( array( $this, $handler ), $args );
 		}
-
-		if ( $this->options )
-			$this->formdata = $this->options->get();
 	}
 
 	function columns( $columns ) {

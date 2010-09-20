@@ -709,9 +709,9 @@
 		ajax_get: function() {
 			var self = this;
 
-			self.is_text_widget = ( 0 == self.data.widget_id.indexOf('text-') );
+			self.rich_edit = ( 0 == self.data.widget_id.indexOf('text-') && FrontEndEditor.data.nicedit );
 
-			if ( self.is_text_widget && FrontEndEditor.data.nicedit )
+			if ( self.rich_edit )
 				self.dependency = FrontEndEditor.data.nicedit.src;
 
 			self._super();
@@ -724,7 +724,7 @@
 
 			self.form.prepend(content);
 
-			if ( self.is_text_widget ) {
+			if ( self.rich_edit ) {
 				self.editor = init_nicEdit(self.form.find('textarea'), self);
 			}
 		},
@@ -741,7 +741,7 @@
 			if ( 'get' == args.callback )
 				return args;
 
-			if ( self.is_text_widget )
+			if ( self.rich_edit )
 				self.editor.saveContent();
 
 			var raw_data = self.form.find(':input').serializeArray();
