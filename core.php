@@ -239,19 +239,24 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 
 		$args = self::get_args( $filter );
 
-		if ( 'save' == $callback ) {
-			$content = stripslashes_deep( $_POST['content'] );
-			$result = $instance->save( $data, $content );
-			$result = @apply_filters( $filter, $result );
-		}
-		elseif ( 'get' == $callback ) {
-			$result = $instance->get( $data );
+		try {
+			if ( 'save' == $callback ) {
+				$content = stripslashes_deep( $_POST['content'] );
+				$result = $instance->save( $data, $content );
+				$result = @apply_filters( $filter, $result );
+			}
+			elseif ( 'get' == $callback ) {
+				$result = $instance->get( $data );
 
-			if ( 'rich' == $data['type'] )
-				$result = wpautop( $result );
+				if ( 'rich' == $data['type'] )
+					$result = wpautop( $result );
+			}
+			$result = array( 'content' => $result );
+		} catch ( Exception $e ) {
+			$result = array( 'error' => $e->getMessage() );
 		}
 
-		die( $result );
+		die( json_encode( $result ) );
 	}
 }
 

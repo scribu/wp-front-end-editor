@@ -203,7 +203,7 @@
 		$.post(FrontEndEditor.data.ajax_url, data, function(data) {
 			content = data;
 			proceed();
-		});
+		}, 'json');
 	}
 	sync_load.cache = [];
 
@@ -271,7 +271,7 @@
 				content: content || self.content_from_input()
 			});
 
-			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self, 'ajax_set_handler'));
+			$.post(FrontEndEditor.data.ajax_url, data, $.proxy(self, 'ajax_set_handler'), 'json');
 		}
 	});
 
@@ -447,29 +447,60 @@
 			self._super();
 		},
 
-		ajax_get_handler: function(content) {
+		ajax_get_handler: function(response) {
 			var self = this;
 
-			self.overlay.hide();
-			self.el.hide();
+			var $el = self.error_handler(response);
+			if ( !$el )
+				return;
 
-			var $parent = self.el.parents('a');
-			var $el = $parent.length ? $parent : self.el;
+			self.el.hide();
 
 			$el.after(self.form);
 
-			self.content_to_input(content);
+			self.content_to_input(response.content);
 
 			self.input.focus();
 		},
 
-		ajax_set_handler: function(content) {
+		ajax_set_handler: function(response) {
 			var self = this;
 
-			self.content_to_front(content);
+			var $el = self.error_handler(response);
+			if ( !$el )
+				return;
+
+			self.content_to_front(response.content);
+
+			self.el.show();
+		},
+
+		error_handler: function(response) {
+			var self = this;
 
 			self.overlay.hide();
-			self.el.show();
+
+			var	$parent = self.el.parents('a'),
+				$el = $parent.length ? $parent : self.el;
+
+			if ( response.error ) {
+				var $error_box = $('<div class="fee-error">');
+
+				$error_box
+					.append(
+						$('<span class="fee-message">').html(response.error) 
+					)
+					.append(
+						$('<span class="fee-dismiss">x</span>').click(function() {
+							$error_box.remove();
+						})
+					);
+
+				$el.before($error_box);
+				return false;
+			}
+
+			return $el;
 		},
 
 		dblclick: function(ev) {

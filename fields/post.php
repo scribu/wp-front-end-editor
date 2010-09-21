@@ -39,12 +39,16 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 	function get( $data ) {
 		extract( $data );
-	
+
+		$this->handle_locking( $post_id );
+
 		return get_post_field( $this->field, $post_id );
 	}
 
 	function save( $data, $content ) {
 		extract( $data );
+
+		$this->handle_locking( $post_id );
 
 		$postdata = array(
 			'ID' => $post_id,
@@ -68,6 +72,19 @@ class FEE_Field_Post extends FEE_Field_Base {
 		$this->set_post_global( $post_id );
 
 		return $this->placehold( $content );
+	}
+
+	protected function handle_locking( $post_id ) {
+#		$last_user = wp_check_post_lock( $post_id );
+$last_user = 8;
+#		if ( $last_user ) {
+			$message = __( 'Error: %s is currently editing this.', 'front-end-editor' );
+			$message = sprintf( $message, esc_html( get_userdata( $last_user )->display_name ) );
+
+			throw new Exception( $message );
+#		}
+
+		wp_set_post_lock( $post_id );
 	}
 
 	function check( $post_id = 0 ) {
