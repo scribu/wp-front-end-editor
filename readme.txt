@@ -169,6 +169,9 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 == Changelog ==
 
+= 1.9.2 =
+* post locking
+
 = 1.9.1 =
 * re-added nicEdit to text widgets
 * nicEdit: img button opens WordPress media thickbox

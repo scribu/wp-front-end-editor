@@ -75,14 +75,14 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	protected function handle_locking( $post_id ) {
-#		$last_user = wp_check_post_lock( $post_id );
-$last_user = 8;
-#		if ( $last_user ) {
+		$last_user = wp_check_post_lock( $post_id );
+
+		if ( $last_user ) {
 			$message = __( 'Error: %s is currently editing this.', 'front-end-editor' );
 			$message = sprintf( $message, esc_html( get_userdata( $last_user )->display_name ) );
 
 			throw new Exception( $message );
-#		}
+		}
 
 		wp_set_post_lock( $post_id );
 	}
