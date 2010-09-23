@@ -285,8 +285,6 @@ class FEE_Field_Terms extends FEE_Field_Post {
 		if ( !$this->check( $data ) )
 			return $content;
 
-//		$raw_content = str_replace( array( $before, $after ), '', $content );
-
 		$content = $this->placehold( $content );
 
 		return FEE_Field_Base::wrap( $content, $data );

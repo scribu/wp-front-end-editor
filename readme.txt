@@ -171,6 +171,8 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 1.9.2 =
 * post locking
+* make the_tags() work no matter what args are used
+* apply esc_attr() to data attributes
 
 = 1.9.1 =
 * re-added nicEdit to text widgets
