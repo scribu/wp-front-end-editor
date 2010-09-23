@@ -57,17 +57,17 @@ abstract class FEE_Field_Base {
 
 		$wrap_tag = ( $inline || in_array( $this->input_type, array( 'input', 'terminput', 'image' ) ) ) ? 'span' : 'div';
 
-		$class = 'fee-field fee-filter-' . $this->filter;
-
 		$data_attr = array();
 		foreach ( $data as $key => $value ) {
 			if ( !is_scalar( $value ) )
 				$value = json_encode( $value );
-			$data_attr[] = "data-$key='$value'";
-		}
-		$data_attr = implode( ' ', $data_attr );
 
-		return html( "$wrap_tag class='{$class}' $data_attr", $content );
+			$data_attr[ "data-$key" ] = $value;
+		}
+
+		$data_attr['class'] = 'fee-field fee-filter-' . $this->filter;
+
+		return html( $wrap_tag, $data_attr, $content );
 	}
 
 	/**

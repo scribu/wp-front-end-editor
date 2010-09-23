@@ -280,16 +280,16 @@ class FEE_Field_Terms extends FEE_Field_Post {
 		if ( !$post_id )
 			return $content;
 
-		$data = compact( 'post_id', 'taxonomy' );
+		$data = compact( 'post_id', 'taxonomy', 'before', 'sep', 'after' );
 
 		if ( !$this->check( $data ) )
 			return $content;
 
-		$content = str_replace( array( $before, $after ), '', $content );
+//		$raw_content = str_replace( array( $before, $after ), '', $content );
 
 		$content = $this->placehold( $content );
 
-		return $before . FEE_Field_Base::wrap( $content, $data ) . $after;
+		return FEE_Field_Base::wrap( $content, $data );
 	}
 
 	function get( $data ) {
@@ -306,7 +306,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 		wp_set_post_terms( $post_id, $terms, $taxonomy );
 
-		$content = get_the_term_list( $post_id, $taxonomy, '', ', ' );	// todo: store $sep somehow
+		$content = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
 
 		return $this->placehold( $content );
 	}
