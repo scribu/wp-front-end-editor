@@ -835,31 +835,21 @@ $(document).ready(function($) {
 		});
 
 		$('.fee-field').qtip({
-			content	: controls.join('<span class="fee-separator"> | </span>'),
-			show	: { effect: 'fade' },
-			hide	: { fixed: true },
-			position: { corner: { target: 'topMiddle', tooltip: 'bottomMiddle' } },
-			style	: {
-				height: 10,
-				paddingLeft: '4px',
-				paddingRight: '4px',
-				paddingTop: '2px',
-				paddingBottom: '6px',
-				background: '#333',
-				color: '#f0f0f0',
-				textAlign: 'left',
-				lineHeight: '100%',
-				fontFamily: 'sans-serif',
-				fontSize: '13px',
-				border: {
-					width: 0,
-					radius: 5,
-					color: '#333'
-				},
+			content: controls.join('<span class="fee-separator"> | </span>'),
+			show: { effect: 'fade' },
+			hide: {	fixed: true },
+//			hide: 'click',
+			position: {
+				at: 'top center',
+				my: 'bottom center'
+			},
+			style: {
 				tip: {
-					corner: 'bottomMiddle', 
-					size: { x: 16, y: 10 }
-				}
+					corner: 'bottom center',
+					width: 16,
+					height: 10
+				},
+				classes: 'ui-tooltip-fee ui-tooltip-rounded'
 			}
 		});
 	}

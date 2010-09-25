@@ -38,14 +38,24 @@ div.fee-form, textarea.fee-form-content {
 	margin-top:-2px;
 }
 
-/* Pre-edit Controls */
-.fee-control {
-	cursor: pointer;
+/* Tooltip */
+
+.ui-tooltip-fee .ui-tooltip-wrapper {
+	background: #333;
+	color: #f0f0f0;
+	border-width: 0;
+	border-color: #333;
 }
 
-.fee-separator {
-	color: #666;
+.ui-tooltip-fee .ui-tooltip-content {
+	padding: 3px 4px 5px;
+	text-align: center;
+	font-family: sans-serif;
+	font-size: 13px;
 }
+
+.fee-control {cursor: pointer}
+.fee-separator {color: #666}
 
 /* Buttons */
 div.fee-form button {margin-top: 5px}

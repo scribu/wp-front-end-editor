@@ -67,10 +67,12 @@ abstract class FEE_Core {
 		if ( self::$options->tooltip ) {
 			$data['controls'] = array(
 				'edit' => __('Edit', 'front-end-editor'),
-				'delete' => __('Delete', 'front-end-editor')
+//				'delete' => __('Delete', 'front-end-editor')
 			);
 
-			wp_register_script( 'jquery-qtip', $url . "jquery.qtip$js_dev.js", array(), '1.0-rc3', true );
+			wp_register_style( 'jquery-qtip', $url . 'jquery.qtip.css', array(), '2.0.0pre' );
+			wp_register_script( 'jquery-qtip', $url . 'jquery.qtip.js', array(), '2.0.0pre', true );
+			$css_dependencies[] = 'jquery-qtip';
 			$js_dependencies[] = 'jquery-qtip';
 		}
 
