@@ -38,6 +38,15 @@ div.fee-form, textarea.fee-form-content {
 	margin-top:-2px;
 }
 
+/* Pre-edit Controls */
+.fee-control {
+	cursor: pointer;
+}
+
+.fee-separator {
+	color: #666;
+}
+
 /* Buttons */
 div.fee-form button {margin-top: 5px}
 span.fee-form input {margin-right: 5px}

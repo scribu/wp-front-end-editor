@@ -65,9 +65,9 @@ abstract class FEE_Core {
 
 		// qTip
 		if ( self::$options->tooltip ) {
-			$data['tooltip'] = array(
-				'icon' => $url . 'editor.png',
-				'text' => __( 'Double-click to edit', 'front-end-editor' )
+			$data['controls'] = array(
+				'edit' => __('Edit', 'front-end-editor'),
+				'delete' => __('Delete', 'front-end-editor')
 			);
 
 			wp_register_script( 'jquery-qtip', $url . "jquery.qtip$js_dev.js", array(), '1.0-rc3', true );

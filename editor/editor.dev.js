@@ -828,31 +828,38 @@ $(document).ready(function($) {
 	});
 
 	// Tooltip init
-	if ( FrontEndEditor.data.tooltip ) {
+	if ( FrontEndEditor.data.controls ) {
+		var controls = [];
+		$.each(FrontEndEditor.data.controls, function(key, value) {
+			controls.push('<span class="fee-control">' + value + '</span>');
+		});
+
 		$('.fee-field').qtip({
-			content	: FrontEndEditor.data.tooltip.text,
-			position: { corner: { target: 'topMiddle' }, adjust: { x: 0, y: -40 } },
+			content	: controls.join('<span class="fee-separator"> | </span>'),
 			show	: { effect: 'fade' },
+			hide	: { fixed: true },
+			position: { corner: { target: 'topMiddle', tooltip: 'bottomMiddle' } },
 			style	: {
 				height: 10,
-				paddingTop: '4px',
-				paddingRight: '5px',
+				paddingLeft: '4px',
+				paddingRight: '4px',
+				paddingTop: '2px',
 				paddingBottom: '6px',
-				paddingLeft: '25px',
-				background: '#bbbebf url(' + FrontEndEditor.data.tooltip.icon + ') top left no-repeat',
-				color: '#ffffff',
+				background: '#333',
+				color: '#f0f0f0',
 				textAlign: 'left',
 				lineHeight: '100%',
 				fontFamily: 'sans-serif',
-				fontSize: '14px',
-				opacity: '0.75',
+				fontSize: '13px',
 				border: {
 					width: 0,
 					radius: 5,
-					color: '#bbbebf'
+					color: '#333'
 				},
-				tip: 'bottomLeft',
-				name: 'dark'
+				tip: {
+					corner: 'bottomMiddle', 
+					size: { x: 16, y: 10 }
+				}
 			}
 		});
 	}
