@@ -344,16 +344,29 @@ class FEE_Field_Option extends FEE_Field_Base {
 }
 
 /**
- * @param string $key The option key
- * @param bool $theme_option Wether it's arbitrary theme text, or a core site option like 'description' or 'time_format'
- * @param string $type The type of UI. Can be 'input', 'textarea' or 'rich'
- * @param bool $echo Wether to echo or return the result
+ * @param array $args:
+ * - 'key' (string) The option key
+ * - 'theme_option' (bool) Wether it's arbitrary theme text, or a core site option like 'description' or 'time_format'
+ * - 'default' (mixed) The default value
+ * - 'type' (string) The type of UI. Can be 'input', 'textarea' or 'rich'
+ * - 'echo' (bool) Wether to echo or return the result
  */
-function editable_option( $key, $theme_option = true, $type = 'input', $echo = true ) {
+function editable_option( $args ) {
+	extract( wp_parse_args( $args, array(
+		'key' => '',
+		'theme_option' => true,
+		'default' => false,
+		'type' => 'input',
+		'echo' => true
+	) ) );
+
+	if ( empty( $key ) )
+		return false;
+
 	if ( $theme_option )
 		$key = "editable_option_$key";
 
-	$output = apply_filters( 'editable_option', get_option( $key ), $key, $type );
+	$output = apply_filters( 'editable_option', get_option( $key, $default ), $key, $type );
 
 	if ( $echo )
 		echo $output;
