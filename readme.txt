@@ -137,7 +137,7 @@ The editable_image() template tag is located in fields/other.php.
 
 = Can I make my own editable fields? =
 
-Yes, but you have to know your way around WordPress' internals. Here is the [developer guide](http://scribu.net/wordpress/front-end-editor/developer-guide.html) to get you started.
+Yes, but you have to know programming. Just hack away at one of the existing fields, found in `front-end-editor/fields`.
 
 == Screenshots ==
 
