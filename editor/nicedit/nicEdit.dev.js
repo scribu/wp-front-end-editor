@@ -822,7 +822,7 @@ var nicEditorButton = bkClass.extend({
 		this.updateState();
 		this.ne.fireEvent("buttonOut",this);
 	},
-	
+
 	mouseClick : function() {
 		if(this.options.command) {
 			this.ne.nicCommand(this.options.command,this.options.commandArgs);
@@ -1181,12 +1181,63 @@ nicEditors.registerPlugin(nicPlugin,nicSelectOptions);
 var nicLinkOptions = {
 	buttons : {
 		'link' : {name : __('Add Link'), type : 'nicLinkButton', tags : ['A']},
-		'unlink' : {name : __('Remove Link'),  command : 'unlink', noActive : true}
+		'unlink' : {name : __('Remove Link'),  command : 'unlink', noActive : true, tags : ['A']}
 	}
 };
 /* END CONFIG */
 
-var nicLinkButton = nicEditorAdvancedButton.extend({	
+var nicLinkButton = nicEditorAdvancedButton.extend({
+	init : function() {
+		var	button = this,
+			$ = jQuery,
+			$content = $('<div>');
+
+		$(document).delegate('.nicEdit-main a', 'click', function(ev) {
+			var	$el = $(ev.target);
+
+			$content.html('');
+
+			$content.append( $('<a>', {
+				'href'	: $el.attr('href'),
+				'target': '_blank',
+				'class'	: 'fee-link-visit',
+				'html'	: 'Visit'
+			}));
+
+			$content.append( $('<a>', {
+				'href'	: '#',
+				'class'	: 'fee-link-change',
+				'html'	: 'Change',
+			}));
+
+			$el.parents('.fee-form').delegate('.fee-link-change', 'click', function(ev) {
+				$el.parents('.nicEdit-main').focus();
+				button.mouseClick();
+				return false;
+			});
+
+			$el.qtip({
+				overwrite: false,
+				show	: { event: ev.type, ready: true },
+// TODO: find out how G Docs hides the 
+// TODO: otherwise, find out how the 'target' should actually be set
+				hide	: { event: 'click' },
+				content : $content.html().split('</a>').join('</a> '),
+				position: {
+					at: 'bottom left',
+					my: 'top left',
+					container: $el.parents('.fee-form'),
+					target: $el
+				},
+				style: {
+					classes: 'fee-click'
+				}
+			});
+		});
+
+		this.ne.addEvent('selected',this.removePane.closure(this)).addEvent('blur',this.removePane.closure(this));	
+	},
+
 	addPane : function() {
 		this.ln = this.ne.selectedInstance.selElm().parentTag('A');
 		this.addForm({
@@ -1196,7 +1247,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 			'target' : {type : 'select', txt : 'Open In', options : {'' : 'Current Window', '_blank' : 'New Window'},style : {width : '100px'}}
 		},this.ln);
 	},
-	
+
 	submit : function(e) {
 		var url = this.inputs['href'].value;
 		if(url == "http://" || url == "") {
