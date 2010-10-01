@@ -52,7 +52,7 @@ function _fee_init() {
 			'fontFormat', 'fontFamily', 'forecolor',
 			'removeformat',
 			'ul', 'ol',
-			'link', 'unlink', 'image',
+			'link', 'image',
 			'xhtml'
 		),
 	) );

@@ -1200,19 +1200,31 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 			$content.append( $('<a>', {
 				'href'	: $el.attr('href'),
 				'target': '_blank',
-				'class'	: 'fee-link-visit',
+				'class'	: 'fee-visit-link',
 				'html'	: 'Visit'
 			}));
 
 			$content.append( $('<a>', {
 				'href'	: '#',
-				'class'	: 'fee-link-change',
-				'html'	: 'Change',
+				'class'	: 'fee-change-link',
+				'html'	: 'Change'
 			}));
 
-			$el.parents('.fee-form').delegate('.fee-link-change', 'click', function(ev) {
+			$content.append( $('<a>', {
+				'href'	: '#',
+				'class'	: 'fee-remove-link',
+				'html'	: 'Remove'
+			}));
+
+			$el.parents('.fee-form').delegate('.fee-change-link', 'click', function(ev) {
 				$el.parents('.nicEdit-main').focus();
 				button.mouseClick();
+				return false;
+			});
+
+			$el.parents('.fee-form').delegate('.fee-remove-link', 'click', function(ev) {
+				$el.parents('.nicEdit-main').focus();
+				$el.replaceWith($el.html());
 				return false;
 			});
 

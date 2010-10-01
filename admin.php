@@ -185,7 +185,7 @@ class FEE_Admin extends scbBoxesPage {
 			'indent', 'outdent', 'hr',
 			'fontSize', 'fontFamily', 'fontFormat', 
 			'forecolor', 'bgcolor',
-			'link', 'unlink', 'image',
+			'link', 'image',
 			'xhtml'
 		);
 
