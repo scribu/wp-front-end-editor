@@ -1230,7 +1230,12 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 
 			$el.qtip({
 				overwrite: false,
-				show	: { event: ev.type, ready: true },
+				show	: {
+					event: ev.type, 
+					ready: true,
+					effect: false,
+					delay: 0
+				},
 // TODO: find out how G Docs hides the 
 // TODO: otherwise, find out how the 'target' should actually be set
 				hide	: { event: 'click' },
