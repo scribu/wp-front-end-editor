@@ -1195,6 +1195,11 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 		$(document).delegate('.nicEdit-main a', 'click', function(ev) {
 			var	$el = $(ev.target);
 
+			if ( $el.qtip() ) {
+				$el.qtip().show();
+				return false;
+			}
+
 			$content.html('');
 
 			$content.append( $('<a>', {
@@ -1236,15 +1241,17 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 					effect: false,
 					delay: 0
 				},
-// TODO: find out how G Docs hides the 
-// TODO: otherwise, find out how the 'target' should actually be set
-				hide	: { event: 'click' },
+				hide	: {
+					event: 'click',
+					target: $el.parents('.nicEdit-main'),
+					effect: false,
+					delay: 0
+				},
 				content : $content.html().split('</a>').join('</a> '),
 				position: {
 					at: 'bottom left',
 					my: 'top left',
 					container: $el.parents('.fee-form'),
-					target: $el
 				},
 				style: {
 					classes: 'fee-click'

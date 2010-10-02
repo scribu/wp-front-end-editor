@@ -163,7 +163,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$this->set_post_global( $post_id );
 
-		die( $this->get( $data ) );
+		return $this->get( $data );
 	}
 
 	private function get_dom( $content ) {
