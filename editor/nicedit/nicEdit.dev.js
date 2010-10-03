@@ -1189,8 +1189,7 @@ var nicLinkOptions = {
 var nicLinkButton = nicEditorAdvancedButton.extend({
 	init : function() {
 		var	button = this,
-			$ = jQuery,
-			$content = $('<div>');
+			$ = jQuery;
 
 		$(document).delegate('.nicEdit-main a', 'click', function(ev) {
 			var	$el = $(ev.target);
@@ -1200,7 +1199,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 				return false;
 			}
 
-			$content.html('');
+			var $content = $('<span>');
 
 			$content.append( $('<a>', {
 				'href'	: $el.attr('href'),
@@ -1212,26 +1211,26 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 			$content.append( $('<a>', {
 				'href'	: '#',
 				'class'	: 'fee-change-link',
-				'html'	: 'Change'
+				'html'	: 'Change',
+				'click'	: function(ev) {
+					$el.parents('.nicEdit-main').focus();
+					button.mouseClick();
+					return false;
+				}
 			}));
 
 			$content.append( $('<a>', {
 				'href'	: '#',
 				'class'	: 'fee-remove-link',
-				'html'	: 'Remove'
-			}));
+				'html'	: 'Remove',
+				'click' : function(ev) {
+					$el.parents('.nicEdit-main').focus();
+					$el.replaceWith($el.html());
+					return false;
+				}
+			}) );
 
-			$el.parents('.fee-form').delegate('.fee-change-link', 'click', function(ev) {
-				$el.parents('.nicEdit-main').focus();
-				button.mouseClick();
-				return false;
-			});
-
-			$el.parents('.fee-form').delegate('.fee-remove-link', 'click', function(ev) {
-				$el.parents('.nicEdit-main').focus();
-				$el.replaceWith($el.html());
-				return false;
-			});
+			$content.find('.fee-visit-link, .fee-change-link').after(' ');
 
 			$el.qtip({
 				overwrite: false,
@@ -1247,7 +1246,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 					effect: false,
 					delay: 0
 				},
-				content : $content.html().split('</a>').join('</a> '),
+				content : $content,
 				position: {
 					at: 'bottom left',
 					my: 'top left',
