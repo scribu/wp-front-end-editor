@@ -1,4 +1,4 @@
-# Translation of the WordPress plugin Front-end Editor 1.9.1-alpha2 by scribu.
+# Translation of the WordPress plugin Front-end Editor 1.9.5-alpha by scribu.
 # Copyright (C) 2010 scribu
 # This file is distributed under the same license as the Front-end Editor package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor 1.9.1-alpha2\n"
+"Project-Id-Version: Front-end Editor 1.9.5-alpha\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-09-15 19:57+0300\n"
+"POT-Creation-Date: 2010-10-03 03:15+0300\n"
 "PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.9.1-alpha2)  #-#-#-#-#
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.9.5-alpha)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: admin.php:9
 msgid "Front-end Editor"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Fields"
 msgstr ""
 
-#: admin.php:15 scb/AdminPage.php:371
+#: admin.php:15 scb/AdminPage.php:368
 msgid "Settings"
 msgstr ""
 
@@ -66,7 +66,7 @@ msgstr ""
 msgid "Enable or disable editor buttons"
 msgstr ""
 
-#: admin.php:207
+#: admin.php:208
 msgid "Button"
 msgstr ""
 
@@ -78,123 +78,135 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: core.php:70
+#: core.php:69
 msgid "Double-click to edit"
 msgstr ""
 
 #: core.php:94
-msgid "Click to Bold"
+msgid "Visit"
 msgstr ""
 
 #: core.php:95
-msgid "Click to Italic"
+msgid "Change"
 msgstr ""
 
 #: core.php:96
-msgid "Click to Underline"
-msgstr ""
-
-#: core.php:97
-msgid "Left Align"
-msgstr ""
-
-#: core.php:98
-msgid "Center Align"
-msgstr ""
-
-#: core.php:99
-msgid "Right Align"
-msgstr ""
-
-#: core.php:100
-msgid "Justify Align"
-msgstr ""
-
-#: core.php:101
-msgid "Insert Ordered List"
-msgstr ""
-
-#: core.php:102
-msgid "Insert Unordered List"
-msgstr ""
-
-#: core.php:103
-msgid "Click to Subscript"
+msgid "Remove"
 msgstr ""
 
 #: core.php:104
-msgid "Click to Superscript"
+msgid "Click to Bold"
 msgstr ""
 
 #: core.php:105
-msgid "Click to Strike Through"
+msgid "Click to Italic"
 msgstr ""
 
 #: core.php:106
-msgid "Remove Formatting"
+msgid "Click to Underline"
 msgstr ""
 
 #: core.php:107
-msgid "Indent Text"
+msgid "Left Align"
 msgstr ""
 
 #: core.php:108
-msgid "Remove Indent"
+msgid "Center Align"
 msgstr ""
 
 #: core.php:109
-msgid "Horizontal Rule"
+msgid "Right Align"
 msgstr ""
 
 #: core.php:110
-msgid "Select Font Size"
+msgid "Justify Align"
 msgstr ""
 
 #: core.php:111
-msgid "Select Font Family"
+msgid "Insert Ordered List"
 msgstr ""
 
 #: core.php:112
-msgid "Select Font Format"
+msgid "Insert Unordered List"
 msgstr ""
 
 #: core.php:113
-msgid "Add Link"
+msgid "Click to Subscript"
 msgstr ""
 
 #: core.php:114
-msgid "Remove Link"
+msgid "Click to Superscript"
 msgstr ""
 
 #: core.php:115
-msgid "Change Text Color"
+msgid "Click to Strike Through"
 msgstr ""
 
 #: core.php:116
-msgid "Change Background Color"
+msgid "Remove Formatting"
 msgstr ""
 
 #: core.php:117
-msgid "Add Image"
+msgid "Indent Text"
 msgstr ""
 
 #: core.php:118
-msgid "Upload Image"
+msgid "Remove Indent"
 msgstr ""
 
 #: core.php:119
-msgid "Edit HTML"
+msgid "Horizontal Rule"
+msgstr ""
+
+#: core.php:120
+msgid "Select Font Size"
+msgstr ""
+
+#: core.php:121
+msgid "Select Font Family"
+msgstr ""
+
+#: core.php:122
+msgid "Select Font Format"
+msgstr ""
+
+#: core.php:123
+msgid "Add Link"
+msgstr ""
+
+#: core.php:124
+msgid "Remove Link"
+msgstr ""
+
+#: core.php:125
+msgid "Change Text Color"
+msgstr ""
+
+#: core.php:126
+msgid "Change Background Color"
+msgstr ""
+
+#: core.php:127
+msgid "Add Image"
+msgstr ""
+
+#: core.php:128
+msgid "Upload Image"
 msgstr ""
 
 #: core.php:129
+msgid "Edit HTML"
+msgstr ""
+
+#: core.php:139
 msgid "Change Image"
 msgstr ""
 
-#: core.php:130
+#: core.php:140
 msgid "Insert Image"
 msgstr ""
 
-#: core.php:131
+#: core.php:141
 msgid "Clear"
 msgstr ""
 
@@ -208,6 +220,11 @@ msgstr ""
 
 #: fields/base.php:120
 msgid "yes"
+msgstr ""
+
+#: fields/post.php:81
+#, php-format
+msgid "Error: %s is currently editing this."
 msgstr ""
 
 #: front-end-editor.php:77
@@ -278,11 +295,11 @@ msgstr ""
 msgid "Theme images"
 msgstr ""
 
-#: scb/AdminPage.php:167
+#: scb/AdminPage.php:164
 msgid "Settings <strong>saved</strong>."
 msgstr ""
 
-#: scb/AdminPage.php:179 scb/AdminPage.php:189
+#: scb/AdminPage.php:176 scb/AdminPage.php:186
 msgid "Save Changes"
 msgstr ""
 

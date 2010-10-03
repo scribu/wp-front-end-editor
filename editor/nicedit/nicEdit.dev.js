@@ -1205,13 +1205,13 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 				'href'	: $el.attr('href'),
 				'target': '_blank',
 				'class'	: 'fee-visit-link',
-				'html'	: 'Visit'
+				'html'	: FrontEndEditor.data.nicedit.link.visit
 			}));
 
 			$content.append( $('<a>', {
 				'href'	: '#',
 				'class'	: 'fee-change-link',
-				'html'	: 'Change',
+				'html'	: FrontEndEditor.data.nicedit.link.change,
 				'click'	: function(ev) {
 					$el.parents('.nicEdit-main').focus();
 					button.mouseClick();
@@ -1222,7 +1222,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 			$content.append( $('<a>', {
 				'href'	: '#',
 				'class'	: 'fee-remove-link',
-				'html'	: 'Remove',
+				'html'	: FrontEndEditor.data.nicedit.link.remove,
 				'click' : function(ev) {
 					$el.parents('.nicEdit-main').focus();
 					$el.replaceWith($el.html());

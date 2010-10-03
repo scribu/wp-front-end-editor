@@ -89,7 +89,12 @@ abstract class FEE_Core {
 			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
 //				'src' => $url . "nicedit/nicEdit$js_dev.js?ver=0.9r23",
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
-				'buttonList' => self::$options->ne_buttons
+				'buttonList' => self::$options->ne_buttons,
+				'link' => array(
+					'visit'  => __( 'Visit', 'front-end-editor' ),
+					'change' => __( 'Change', 'front-end-editor' ),
+					'remove' => __( 'Remove', 'front-end-editor' ),
+				)
 			) );
 
 wp_register_script( 'nicEdit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true );
