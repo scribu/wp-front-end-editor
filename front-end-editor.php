@@ -182,7 +182,7 @@ function fee_register_defaults() {
 	);
 
 	foreach ( $fields as $filter => $args )
-		register_fronted_field( $filter, $args );
+		fee_register_field( $filter, $args );
 
 	// Safe hook for new editable fields to be registered
 	do_action( 'front_end_editor_fields' );
