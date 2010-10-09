@@ -270,19 +270,21 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 }
 
-/*
-Registers a new editable field
+/**
+ * Registers a new editable field
+ * 
+ * @param string $filter
+ * @param array $args(
+ * 	'class' => string The name of the field handler class ( mandatory )
+ * 	'title' => string The user-friendly title ( optional )
+ * 	'type' => string: 'input' | 'textarea' | 'rich' | 'image' ( default: input )
+ * 	'priority' => integer ( default: 11 )
+ * 	'argc' => integer ( default: 1 )
+ * )
+ */
+function fee_register_field() {
+	$args = func_get_args();
 
-@param string $filter
-@param array $args(
-	'class' => string The name of the field handler class ( mandatory )
-	'title' => string The user-friendly title ( optional )
-	'type' => string: 'input' | 'textarea' | 'rich' | 'image' ( default: input )
-	'priority' => integer ( default: 11 )
-	'argc' => integer ( default: 1 )
-)
-*/
-function register_fronted_field() {
-	return FEE_Core::register( func_get_args() );
+	return FEE_Core::register( $args );
 }
 
