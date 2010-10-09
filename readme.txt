@@ -65,7 +65,7 @@ Links: [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's S
 You can either install it automatically from the WordPress admin, or do it manually:
 
 1. Unzip "Front-end Editor" archive and put the folder into your plugins folder (/wp-content/plugins/).
-1. Activate the plugin from the Plugins menu.
+2. Activate the plugin from the Plugins menu.
 
 == Frequently Asked Questions ==
 
@@ -78,9 +78,9 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 
 = I double-click and nothing happens =
 
-First see [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
-
-Next, check for JavaScript errors. [http://getfirebug.com/](Firebug) is a great tool for this.
+1. Make sure you're logged in and have the appropriate capabilities.
+2. See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
+3. Check for JavaScript errors. [http://getfirebug.com/](Firebug) is a great tool for this.
 
 = Does it work with WP Super Cache? =
 
