@@ -805,12 +805,12 @@ $(document).ready(function($) {
 			if ( attr.specified && 0 == attr.name.indexOf('data-') ) {
 				var value = attr.value;
 
-				if ( null === value )
-					value = '';
-
 				try {
 					value = $.parseJSON(value);
 				} catch(e) {}
+
+				if ( null === value )
+					value = '';
 
 				data[ attr.name.substr(5) ] = value;
 			}
