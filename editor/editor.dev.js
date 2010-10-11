@@ -805,7 +805,7 @@ $(document).ready(function($) {
 			if ( attr.specified && 0 == attr.name.indexOf('data-') ) {
 				var value = attr.value;
 
-				if ( !value )
+				if ( null === value )
 					value = '';
 
 				try {
