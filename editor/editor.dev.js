@@ -805,11 +805,14 @@ $(document).ready(function($) {
 			if ( attr.specified && 0 == attr.name.indexOf('data-') ) {
 				var value = attr.value;
 
+				if ( !value )
+					value = '';
+
 				try {
 					value = $.parseJSON(value);
 				} catch(e) {}
 
-				data[attr.name.substr(5)] = value;
+				data[ attr.name.substr(5) ] = value;
 			}
 		}
 
