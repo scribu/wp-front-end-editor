@@ -361,7 +361,7 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 
 	function wrap( $html, $post_id, $post_thumbnail_id, $size ) {
 		if ( !$post_id = $this->_get_id( $post_id, false ) )
-			return $content;
+			return $html;
 
 		return FEE_Field_Base::wrap( $html, compact( 'post_id', 'size' ) );
 	}
