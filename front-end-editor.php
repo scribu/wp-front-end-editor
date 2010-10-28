@@ -77,6 +77,7 @@ function fee_register_defaults() {
 			'title' => __( 'Post title', 'front-end-editor' ),
 			'class' => 'FEE_Field_Post',
 			'type'  => 'input',
+			'argc'  => 2,
 		),
 
 		'the_content' => array(
