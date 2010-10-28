@@ -168,6 +168,9 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	private static function get_src( $handle ) {
 		global $wp_scripts;
 
+		if ( !is_object( $wp_scripts ) )
+			$wp_scripts = new WP_Scripts;
+
 		return get_bloginfo('wpurl') . $wp_scripts->registered[$handle]->src;
 	}
 
