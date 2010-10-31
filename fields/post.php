@@ -5,16 +5,19 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 	protected $field;
 
-	protected function setup() {
-		$this->field = str_replace( 'the_', 'post_', $this->get_filter() );
-	}
-
 	static function get_object_type() {
 		return 'post';
 	}
 
+	protected function setup() {
+		$this->field = str_replace( 'the_', 'post_', $this->get_filter() );
+	}
+
 	function wrap( $content, $post_id = 0 ) {
 		if ( !$post_id = $this->_get_id( $post_id ) )
+			return $content;
+
+		if ( 'post_content' == $this->field && FEE_Shortcode_Editable::has_shortcode( $post_id ) )
 			return $content;
 
 		$content = $this->placehold( $content );
@@ -24,7 +27,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 	protected function _get_id( $post_id = 0, $in_loop = true ) {
 		global $post;
-	
+
 		if ( $in_loop && !in_the_loop() )
 			return false;
 
@@ -96,6 +99,88 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 	protected function set_post_global( $post_id ) {
 		$GLOBALS['post'] = get_post( $post_id );
+	}
+}
+
+// Handles [editable] shortcode in the_content
+class FEE_Shortcode_Editable extends FEE_Field_Post {
+
+	const SHORTCODE = 'editable';
+
+	private static $shortcodes = array();
+
+	protected function setup() {
+		add_shortcode( self::SHORTCODE, array( $this, 'wrap' ) );
+	}
+
+	static function has_shortcode( $post_id ) {
+		return isset( self::$shortcodes[ $post_id ] );
+	}
+
+	function wrap( $atts, $content ) {
+		if ( !$post_id = $this->_get_id( $post_id ) )
+			return $content;
+
+		$content = $this->placehold( $content );
+
+		$shortcode = (int) self::$shortcodes[ $post_id ]++;
+
+		if ( isset( $atts[ 'type' ] ) )
+			$this->input_type = $atts[ 'type' ];
+
+		return FEE_Field_Base::wrap( $content, compact( 'post_id', 'shortcode' ) );
+	}
+
+	private $_data;
+	private $_content = '';
+
+	function get( $data ) {
+		extract( $data );
+
+		$this->handle_locking( $post_id );
+
+		$this->_i = $shortcode;
+
+		remove_all_shortcodes();
+		add_shortcode( self::SHORTCODE, array( $this, '_get_content' ) );
+		do_shortcode( get_post_field( 'post_content', $post_id ) );
+
+		return $this->_content;
+	}
+
+	function save( $data, $content ) {
+		extract( $data );
+
+		$this->handle_locking( $post_id );
+
+		$this->_i = $shortcode;
+		$this->_new_content = $content;
+
+		remove_all_shortcodes();
+		add_shortcode( self::SHORTCODE, array( $this, '_set_content' ) );
+
+		$post_content = do_shortcode( get_post_field( 'post_content', $post_id ) );
+
+		return $content;
+	}
+
+	function _set_content( $atts, $content ) {
+		static $i = 0;
+
+		// TODO: wrap in [editable] again
+		if ( $this->_i == $i++ )
+			$content = $this->_new_content;
+
+		return $content;
+	}
+
+	function _get_content( $atts, $content ) {
+		static $i = 0;
+
+		if ( $this->_i == $i++ )
+			$this->_content = $content;
+
+		return $content;
 	}
 }
 

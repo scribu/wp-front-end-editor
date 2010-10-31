@@ -104,7 +104,10 @@ class FEE_Admin extends scbBoxesPage {
 
 	private function fields_table( $title, $fields ) {
 		$tbody = '';
-		foreach ( $fields as $field => $args )
+		foreach ( $fields as $field => $args ) {
+			if ( empty( $args['title'] ) )
+				continue;
+
 			$tbody .=
 			html( 'tr',
 				html( 'th scope="row" class="check-column"',
@@ -116,6 +119,7 @@ class FEE_Admin extends scbBoxesPage {
 				)
 				.html( 'td', $args['title'] )
 			);
+		}
 
 		return $this->checklist_wrap( $title, $tbody );
 	}

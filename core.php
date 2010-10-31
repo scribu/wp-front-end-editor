@@ -222,6 +222,9 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 		foreach ( self::$active_fields as $filter => $args ) {
 			extract( $args );
 
+			if ( empty( $title ) )
+				continue;
+
 			$instance = self::$instances[ $filter ];
 
 			add_filter( $filter, array( $instance, 'wrap' ), $priority, $argc );

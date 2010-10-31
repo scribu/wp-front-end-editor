@@ -1,10 +1,16 @@
 <?php
 
-// All field classes should extend from this one or one of it's descendants
+/**
+ * Base class, from which all editable fields should descend
+ */
 abstract class FEE_Field_Base {
-	private $filter;
-	private $input_type;
 
+	private $filter;
+	protected $input_type;
+
+	/**
+	 * Keeps track of all wrapped fields
+	 */
 	private static $wrapped = array();
 
 	/**
@@ -85,7 +91,7 @@ abstract class FEE_Field_Base {
 	abstract public function save( $data, $content );
 
 	/**
-	 * Check user permissions
+	 * Check user capabilities
 	 *
 	 * @return bool
 	 */

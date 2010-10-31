@@ -86,6 +86,11 @@ function fee_register_defaults() {
 			'type'  => FEE_Core::$options->rich ? 'rich' : 'textarea',
 		),
 
+		'editable' => array(
+			'title' => '',
+			'class' => 'FEE_Shortcode_Editable',
+		),
+
 		'the_excerpt' => array(
 			'title' => __( 'Post excerpt', 'front-end-editor' ),
 			'class' => 'FEE_Field_Excerpt',
