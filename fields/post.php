@@ -118,10 +118,13 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 	}
 
 	function wrap( $atts, $content ) {
-		if ( !$post_id = $this->_get_id( $post_id ) )
+		if ( !$post_id = $this->_get_id() )
 			return $content;
 
-		$content = $this->placehold( $content );
+		$content = $this->placehold( trim( $content ) );
+
+		if ( !isset( self::$shortcodes[ $post_id ] ) )
+			self::$shortcodes[ $post_id ] = 0;
 
 		$shortcode = (int) self::$shortcodes[ $post_id ]++;
 
@@ -148,6 +151,15 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 		return $this->_content;
 	}
 
+	function _get_content( $atts, $content ) {
+		static $i = 0;
+
+		if ( $this->_i == $i++ )
+			$this->_content = trim( $content );
+
+		return $content;
+	}
+
 	function save( $data, $content ) {
 		extract( $data );
 
@@ -161,26 +173,37 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 
 		$post_content = do_shortcode( get_post_field( 'post_content', $post_id ) );
 
-		return $content;
+		$postdata = array(
+			'ID' => $post_id,
+			'post_content' => $post_content
+		);
+
+		wp_update_post( (object) $postdata );
+
+		return $this->placehold( trim( $content ) );
 	}
 
 	function _set_content( $atts, $content ) {
 		static $i = 0;
 
-		// TODO: wrap in [editable] again
 		if ( $this->_i == $i++ )
 			$content = $this->_new_content;
 
-		return $content;
-	}
+		$attr = '';
+		if ( !empty( $atts ) ) {
+			foreach ( $atts as $key => &$value )
+				$value = "$key='$value'";
 
-	function _get_content( $atts, $content ) {
-		static $i = 0;
+			$attr = ' ' . implode( ' ', $atts );
+		}
 
-		if ( $this->_i == $i++ )
-			$this->_content = $content;
+		// http://core.trac.wordpress.org/ticket/14481#comment:28
+		if ( empty( $content ) )
+			$content = ' ';
 
-		return $content;
+		$shortcode = '[' . self::SHORTCODE . $attr . ']' . $content . '[/' . self::SHORTCODE . ']';
+
+		return $shortcode;
 	}
 }
 
