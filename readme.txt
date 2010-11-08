@@ -80,7 +80,7 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 
 1. Make sure you're logged in and have the appropriate capabilities.
 2. See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
-3. Check for JavaScript errors. [http://getfirebug.com/](Firebug) is a great tool for this.
+3. Check for JavaScript errors. [Firebug](http://getfirebug.com/) is a great tool for this.
 
 = Does it work with WP Super Cache? =
 

@@ -352,6 +352,12 @@ class FEE_Field_Option extends FEE_Field_Base {
  * - 'echo' (bool) Wether to echo or return the result
  */
 function editable_option( $args ) {
+	if ( !is_array( $args ) ) {
+		_deprecated_argument( __FUNCTION__, '1.9.5', 'Passing individual arguments is deprecated. Use an associative array of arguments instead.' );
+		$argv = func_get_args();
+		$args = scbUtil::numeric_to_assoc( $argv, array( 'key', 'theme_option', 'type', 'echo' ) );
+	}
+
 	extract( wp_parse_args( $args, array(
 		'key' => '',
 		'theme_option' => true,
