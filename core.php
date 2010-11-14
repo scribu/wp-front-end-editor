@@ -145,8 +145,6 @@ $js_dependencies[] = 'nicEdit';
 			$css_dependencies[] = 'thickbox';
 			$js_dependencies[] = 'thickbox';
 
-			wp_register_script( 'livequery', $url . 'livequery.js', array( 'jquery' ), '1.1.0-pre', true );
-			$js_dependencies[] = 'livequery';
 		}
 
 		// Core script

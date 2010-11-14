@@ -293,16 +293,22 @@
 			var self = this,
 				$frame = $(ev.target).contents();
 
-			$('.media-item', $frame).livequery(function(){
-				var $item = $(this),
-					$button = $('<a href="#" class="button">')
-						.text(self.button_text)
-						.click(function(ev){
-							self.ajax_set(self.content_from_input($item));
-						});
+			$frame.delegate('.media-item', 'hover', function() {
+				var $item = $(this);
+
+				if ( $item.data('fee_altered') )
+					return;
+
+				var $button = $('<a href="#" class="button">')
+					.text(self.button_text)
+					.click(function(ev){
+						self.ajax_set(self.content_from_input($item));
+					});
 
 				$item.find(':submit, #go_button').remove();
 				$item.find('.del-link').before($button);
+			
+				$item.data('fee_altered', true);
 			});
 		},
 
