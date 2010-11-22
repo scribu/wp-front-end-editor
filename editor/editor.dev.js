@@ -155,7 +155,7 @@
 			// cancel delayed click
 			DoubleClick._event = false;
 		}
-	};
+	}
 
 
 	function Overlay($el) {
@@ -173,12 +173,12 @@
 				})
 				.css($el.offset())
 				.show();
-		};
+		}
 
 		this.hide = function() {
 			$cover.hide();
-		};
-	};
+		}
+	}
 
 	// Do an ajax request, while loading a required script
 	function sync_load(callback, data, src) {
@@ -216,7 +216,7 @@
 		return tmp.nicInstances[0];
 	}
 
-	var fieldTypes = {};
+	var fieldTypes = {}
 
 	fieldTypes['base'] = Class.extend({
 		dependency: null, // script src
@@ -571,7 +571,7 @@
 		keypress: function(ev) {
 			var self = this;
 
-			var keys = {ENTER: 13, ESCAPE: 27};
+			var keys = {ENTER: 13, ESCAPE: 27}
 			var code = (ev.keyCode || ev.which || ev.charCode || 0);
 
 			if ( code == keys.ENTER && 'input' == self.type )
@@ -803,7 +803,7 @@ $(document).ready(function($) {
 
 	// fetch all 'data-' attributes from a DOM node
 	function extract_data_attr(el) {
-		var data = {};
+		var data = {}
 
 		for (var i=0; i < el.attributes.length; i++) {
 			var attr = el.attributes.item(i);
