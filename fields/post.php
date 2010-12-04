@@ -140,7 +140,7 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 	function get( $data ) {
 		extract( $data );
 
-		$this->handle_locking( $post_id );
+#		$this->handle_locking( $post_id );
 
 		$this->_i = $shortcode;
 
@@ -163,7 +163,7 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 	function save( $data, $content ) {
 		extract( $data );
 
-		$this->handle_locking( $post_id );
+#		$this->handle_locking( $post_id );
 
 		$this->_i = $shortcode;
 		$this->_new_content = $content;
