@@ -1194,8 +1194,8 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 		$(document).delegate('.nicEdit-main a', 'click', function(ev) {
 			var	$el = $(ev.target);
 
-			if ( $el.qtip() ) {
-				$el.qtip().show();
+			if ( $el.data('qtip') ) {
+				$el.data('qtip').show();
 				return false;
 			}
 
@@ -1233,7 +1233,6 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 			$content.find('.fee-visit-link, .fee-change-link').after(' ');
 
 			$el.qtip({
-				overwrite: false,
 				show	: {
 					event: ev.type, 
 					ready: true,
