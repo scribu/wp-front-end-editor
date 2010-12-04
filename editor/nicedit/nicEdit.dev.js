@@ -1215,6 +1215,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 				'click'	: function(ev) {
 					$el.parents('.nicEdit-main').focus();
 					button.mouseClick();
+					$el.data('qtip').hide();
 					return false;
 				}
 			}));
