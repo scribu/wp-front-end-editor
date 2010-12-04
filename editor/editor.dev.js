@@ -209,7 +209,11 @@
 
 	// Create a new nicEditor instance and return it
 	function init_nicEdit($el, self) {
-		var tmp = new nicEditor(FrontEndEditor.data.nicedit).panelInstance( $el.attr('id') );
+		var nicArgs = FrontEndEditor.data.nicedit;
+		
+		nicArgs.maxHeight = $(window).height() - 50;
+
+		var tmp = new nicEditor(nicArgs).panelInstance( $el.attr('id') );
 
 		self.form.find('.nicEdit-main').focus();
 
