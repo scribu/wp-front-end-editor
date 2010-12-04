@@ -171,8 +171,8 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 1.9.2 =
 * nicEdit: limit height to window height
-* nicEdit: expose 'unlink' and 'bgcolor' buttons
 * nicEdit: Google Docs like link tooltip
+* nicEdit: expose 'bgcolor' button
 * make the_tags() work no matter what args are used
 * apply esc_attr() to data attributes
 
