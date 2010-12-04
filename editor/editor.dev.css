@@ -57,6 +57,21 @@ div.fee-form, textarea.fee-form-content {
 .fee-control {cursor: pointer}
 .fee-separator {color: #666}
 
+/* nicEdit tooltip */
+.fee-click.ui-tooltip .ui-tooltip-wrapper {
+	border: 1px solid #CCC;
+	background-color: #EFEFEF;
+	color: #333;
+
+	font-family: sans-serif;
+	font-size: 11px;
+}
+
+.fee-click.ui-tooltip .ui-tooltip-content {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
 /* Buttons */
 div.fee-form button {margin-top: 5px}
 span.fee-form input {margin-right: 5px}

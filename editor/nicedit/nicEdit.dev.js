@@ -1230,7 +1230,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 				}
 			}) );
 
-			$content.find('.fee-visit-link, .fee-change-link').after(' ');
+			$content.find('.fee-visit-link, .fee-change-link').after(' - ');
 
 			$el.qtip({
 				show	: {
@@ -1252,6 +1252,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 					container: $el.parents('.fee-form'),
 				},
 				style: {
+					tip: false,
 					classes: 'fee-click'
 				}
 			});
