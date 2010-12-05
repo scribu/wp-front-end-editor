@@ -1250,7 +1250,7 @@ var nicLinkButton = nicEditorAdvancedButton.extend({
 				position: {
 					at: 'bottom left',
 					my: 'top left',
-					container: $el.parents('.fee-form'),
+					container: $el.parents('.fee-form')
 				},
 				style: {
 					tip: false,
