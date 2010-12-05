@@ -207,9 +207,10 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		$instance =& $widgets[ $widget_nr ];
 
 		// Get widget class
-		foreach ( $wp_widget_factory->widgets as $widget )
+		foreach ( $wp_widget_factory->widgets as $widget ) {
 			if ( $widget->id_base == $id_base )
 				break;
+		}
 
 		// Get response
 		ob_start();
@@ -222,7 +223,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		}
 
 		if ( 'save' == $action ) {
-			$new_instance = stripslashes_deep( $_POST[ 'widget-' . $id_base ] );
+			$new_instance = stripslashes_deep( reset( $_POST[ 'widget-' . $id_base ] ) );
 
 			$instance = $widget->update( $new_instance, $instance );
 
