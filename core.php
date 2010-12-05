@@ -87,7 +87,7 @@ abstract class FEE_Core {
 		$nicEditL10n = '';
 		if ( in_array( 'rich', $wrapped ) ) {
 			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
-//				'src' => $url . "nicedit/nicEdit$js_dev.js?ver=0.9r23",
+				'src' => $url . "nicedit/nicEdit$js_dev.js?ver=0.9r23",
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
 				'buttonList' => self::$options->ne_buttons,
 				'link' => array(
@@ -97,8 +97,8 @@ abstract class FEE_Core {
 				)
 			) );
 
-wp_register_script( 'nicEdit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true );
-$js_dependencies[] = 'nicEdit';
+			#wp_register_script( 'nicEdit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true );
+			#$js_dependencies[] = 'nicEdit';
 
 			$nicEditL10n = array(
 				'Click to Bold' => __( 'Click to Bold', 'front-end-editor' ),
