@@ -69,7 +69,7 @@ div.fee-form, textarea.fee-form-content {
 
 .fee-click.ui-tooltip .ui-tooltip-content {
 	padding-top: 0;
-	padding-bottom: 0;
+	padding-bottom: 1px;
 }
 
 /* Buttons */

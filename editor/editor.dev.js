@@ -850,7 +850,7 @@ $(document).ready(function($) {
 		$('.fee-field').qtip({
 			content: controls.join('<span class="fee-separator"> | </span>'),
 			show: { effect: 'fade' },
-			hide: {	fixed: true },
+//			hide: {	fixed: true },
 //			hide: 'click',
 			position: {
 				at: 'top center',
