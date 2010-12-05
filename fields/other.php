@@ -211,15 +211,18 @@ class FEE_Field_Widget extends FEE_Field_Base {
 			if ( $widget->id_base == $id_base )
 				break;
 
+		// Get response
+		ob_start();
+
 		if ( 'get' == $action ) {
 			if ( 'text' == $id_base && FEE_Core::$options->rich )
-				$instance['text'] = wpautop($instance['text']);
+				$instance['text'] = wpautop( $instance['text'] );
 
 			$widget->form( $instance );
 		}
 
 		if ( 'save' == $action ) {
-			$new_instance = stripslashes_deep( reset( $_POST[ 'widget-' . $id_base ] ) );
+			$new_instance = stripslashes_deep( $_POST[ 'widget-' . $id_base ] );
 
 			$instance = $widget->update( $new_instance, $instance );
 
@@ -231,7 +234,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 			remove_filter( 'sidebars_widgets', array( $this, '_hack' ) );
 		}
 
-		die;
+		return ob_get_clean();
 	}
 
 	// temporarirly remove all other widgets from a specific sidebar
