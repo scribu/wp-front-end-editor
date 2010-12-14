@@ -43,7 +43,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 	function get( $data ) {
 		extract( $data );
 
-		$this->handle_locking( $post_id );
+#		$this->handle_locking( $post_id );
 
 		return get_post_field( $this->field, $post_id );
 	}
@@ -51,7 +51,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 	function save( $data, $content ) {
 		extract( $data );
 
-		$this->handle_locking( $post_id );
+#		$this->handle_locking( $post_id );
 
 		$postdata = array(
 			'ID' => $post_id,
