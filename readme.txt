@@ -169,6 +169,9 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 == Changelog ==
 
+= 1.9.2.1 =
+* disable post locking
+
 = 1.9.2 =
 * nicEdit: limit height to window height
 * nicEdit: Google Docs like link tooltip
