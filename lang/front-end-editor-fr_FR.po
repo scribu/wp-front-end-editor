@@ -80,17 +80,17 @@ msgstr ""
 #: fields/base.php:106
 #@ front-end-editor
 msgid "empty"
-msgstr "vide "
+msgstr "vide"
 
 #: front-end-editor.php:115
 #@ front-end-editor
 msgid "Post terms"
-msgstr "Termes du billet "
+msgstr "Termes du billet"
 
 #: front-end-editor.php:158
 #@ front-end-editor
 msgid "Author description"
-msgstr "Description de l'auteur "
+msgstr "Description de l'auteur"
 
 #: scb/AdminPage.php:176
 #: scb/AdminPage.php:186
@@ -171,7 +171,7 @@ msgstr "Catégories de billet"
 #: front-end-editor.php:128
 #@ front-end-editor
 msgid "Post thumbnail"
-msgstr "Miniature de billet "
+msgstr "Miniature de billet"
 
 #: front-end-editor.php:177
 #@ front-end-editor
@@ -406,6 +406,6 @@ msgstr "Erreur: %s est en train d'éditer ceci."
 #. translators: plugin header field 'Version'
 #: front-end-editor.php:0
 #@ front-end-editor
-msgid "1.9.2"
+msgid "1.9.2.1"
 msgstr ""
 
