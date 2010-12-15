@@ -41,7 +41,7 @@ function _fee_init() {
 		require_once "$dir/fields/$name.php";
 
 	$options = new scbOptions( 'front-end-editor', __FILE__, array(
-		'disabled' => array(),
+		'disabled' => array('bloginfo'),
 		'highlight' => true,
 		'tooltip' => true,
 		'rich' => true,
