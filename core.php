@@ -146,7 +146,7 @@ abstract class FEE_Core {
 		}
 
 		// Core script
-		wp_register_script( 'fee-core', $url . "editor$dev.js", $js_dependencies, self::$version, true );
+		wp_register_script( 'fee-core', $url . "core$dev.js", $js_dependencies, self::$version, true );
 		$js_dependencies[] = 'fee-core';	
 
 		if ( defined('SCRIPT_DEBUG') ) {
