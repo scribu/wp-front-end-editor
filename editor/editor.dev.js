@@ -158,25 +158,27 @@
 	};
 
 
-	function Overlay($el) {
+	function overlay($el) {
 
 		var $cover = $('<div class="fee-loading>')
 			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
 			.hide()
 			.prependTo($('body'));
 
-		this.show = function() {
-			$cover
-				.css({
-					width: $el.width(),
-					height: $el.height()
-				})
-				.css($el.offset())
-				.show();
-		};
+		return {
+			show: function() {
+				$cover
+					.css({
+						width: $el.width(),
+						height: $el.height()
+					})
+					.css($el.offset())
+					.show();
+			},
 
-		this.hide = function() {
-			$cover.hide();
+			hide: function() {
+				$cover.hide();
+			}
 		};
 	}
 
@@ -210,7 +212,7 @@
 	// Create a new nicEditor instance and return it
 	function init_nicEdit($el, self) {
 		var nicArgs = FrontEndEditor.data.nicedit;
-		
+
 		nicArgs.maxHeight = $(window).height() - 50;
 
 		var tmp = new nicEditor(nicArgs).panelInstance( $el.attr('id') );
@@ -405,7 +407,7 @@
 
 			self._super($el, type, name, id);
 
-			self.overlay = new Overlay(self.el);
+			self.overlay = overlay(self.el);
 		},
 
 		create_input: function() {
