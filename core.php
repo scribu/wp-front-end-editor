@@ -146,15 +146,18 @@ abstract class FEE_Core {
 		}
 
 		// Core script
-		wp_register_script( 'fee-core', $url . "core$dev.js", $js_dependencies, self::$version, true );
-		$js_dependencies[] = 'fee-core';	
-
 		if ( defined('SCRIPT_DEBUG') ) {
-			wp_register_script( 'fee-fields', $url . "fields$dev.js", array( 'fee-core' ), self::$version, true );
+			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
+			$js_dependencies[] = 'fee-core';
+
+			wp_register_script( 'fee-fields', $url . "fields.dev.js", array( 'fee-core' ), self::$version, true );
 			$js_dependencies[] = 'fee-fields';	
+		} else {
+			wp_register_script( 'fee-editor', $url . "editor.js", $js_dependencies, self::$version, true );
+			$js_dependencies[] = 'fee-editor';		
 		}
 
-		wp_register_style( 'fee-core', $url . "editor$dev.css", $css_dependencies, self::$version );
+		wp_register_style( 'fee-editor', $url . "editor$dev.css", $css_dependencies, self::$version );
 ?>
 <script type='text/javascript'>
 var FrontEndEditor = {};
@@ -163,7 +166,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 </script>
 <?php
 		scbUtil::do_scripts( $js_dependencies );
-		scbUtil::do_styles( 'fee-core' );
+		scbUtil::do_styles( 'fee-editor' );
  
 		do_action( 'front_end_editor_loaded', $wrapped );
 	}
