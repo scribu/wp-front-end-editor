@@ -70,40 +70,12 @@
 //_____Custom code starts here_____
 
 
-	var DoubleClick = {
+	var delayed_double_click = (function(){
 
-		_event: false,
-		_delayed: false,
+		var	event = false,
+			delayed = false;
 
-		register: function($el, callback) {
-			$el.bind({
-				click	: DoubleClick.click,
-				dblclick: DoubleClick.dblclick
-			});
-			
-			$el.dblclick(callback);
-		},
-
-		click: function(ev) {
-
-			if ( DoubleClick._delayed )
-				return;
-
-			if ( !DoubleClick.is_regular_link( $(ev.target) ) )
-				return;
-
-			ev.stopImmediatePropagation();
-			ev.preventDefault();
-
-			if ( DoubleClick._event )
-				return;
-
-			DoubleClick._event = ev;
-
-			setTimeout(DoubleClick.resume, 300);
-		},
-
-		is_regular_link: function($target) {
+		function is_regular_link($target) {
 			if ( $target.is('select, option, input, button') ) // TODO: instead of 'click', capture the 'submit' event
 				return false;
 
@@ -119,21 +91,21 @@
 				return false;
 
 			return true;
-		},
+		}
 
-		resume: function() {
-			if ( !DoubleClick._event )
+		function resume() {
+			if ( !event )
 				return;
 
-			var $target = $(DoubleClick._event.target);
+			var $target = $(event.target);
 
 			var new_event = $.Event('click');
 
-			DoubleClick._delayed = true;
+			delayed = true;
 
 			$target.trigger(new_event);
 
-			DoubleClick._delayed = false;
+			delayed = false;
 
 			if ( new_event.isDefaultPrevented() )
 				return;
@@ -145,17 +117,44 @@
 			else
 				window.location.href = $link.attr('href');
 
-			DoubleClick._event = false;
-		},
+			event = false;
+		}
 
-		dblclick: function(ev) {
+		function click(ev) {
+			if ( delayed )
+				return;
+
+			if ( !is_regular_link( $(ev.target) ) )
+				return;
+
+			ev.stopImmediatePropagation();
+			ev.preventDefault();
+
+			if ( event )
+				return;
+
+			event = ev;
+
+			setTimeout(resume, 300);
+		}
+
+		function dblclick(ev) {
 			ev.stopPropagation();
 			ev.preventDefault();
 
 			// cancel delayed click
-			DoubleClick._event = false;
+			event = false;
 		}
-	};
+
+		return function($el, callback) {
+			$el.bind({
+				click	: click,
+				dblclick: dblclick
+			});
+
+			$el.dblclick(callback);
+		};
+	}());
 
 
 	function overlay($el) {
@@ -196,7 +195,7 @@
 			proceed();
 		} else {
 			sync_load.cache[src] = $('<script>').attr({
-				type: 'text/javascript', 
+				type: 'text/javascript',
 				src: src,
 				load: proceed
 			}).prependTo('head');
@@ -235,7 +234,7 @@
 			self.filter = filter;
 			self.data = data;
 
-			DoubleClick.register(self.el, $.proxy(self, 'dblclick'));
+			delayed_double_click(self.el, $.proxy(self, 'dblclick'));
 		},
 
 		create_input: null,
@@ -273,7 +272,7 @@
 			var self = this;
 
 			var data = self.ajax_args({
-				callback: 'save', 
+				callback: 'save',
 				content: content || self.content_from_input()
 			});
 
@@ -313,7 +312,7 @@
 
 				$item.find(':submit, #go_button').remove();
 				$item.find('.del-link').before($button);
-			
+
 				$item.data('fee_altered', true);
 			});
 		},
@@ -500,7 +499,7 @@
 
 				$error_box
 					.append(
-						$('<span class="fee-message">').html(response.error) 
+						$('<span class="fee-message">').html(response.error)
 					)
 					.append(
 						$('<span class="fee-dismiss">x</span>').click(function() {
@@ -555,10 +554,10 @@
 
 		form_submit: function(ev) {
 			var self = this;
-		
+
 			self.ajax_set();
 			self.remove_form(true);
-			
+
 			ev.stopPropagation();
 			ev.preventDefault();
 		},
