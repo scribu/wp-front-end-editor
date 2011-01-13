@@ -47,8 +47,7 @@ abstract class FEE_Core {
 
 		$url = plugins_url( 'editor/', __FILE__ );
 
-		$css_dev = defined( 'STYLE_DEBUG' ) && STYLE_DEBUG ? '.dev' : '';
-		$js_dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '';
+		$dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '';
 
 		// Prepare data
 		$data = array(
@@ -87,7 +86,7 @@ abstract class FEE_Core {
 		$nicEditL10n = '';
 		if ( in_array( 'rich', $wrapped ) ) {
 			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
-				'src' => $url . "nicedit/nicEdit$js_dev.js?ver=0.9r23",
+				'src' => $url . "nicedit/nicEdit$dev.js?ver=0.9r23",
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
 				'buttonList' => self::$options->ne_buttons,
 				'link' => array(
@@ -97,7 +96,7 @@ abstract class FEE_Core {
 				)
 			) );
 
-			#wp_register_script( 'nicEdit', $url . "nicedit/nicEdit$js_dev.js", array(), '0.9r23', true );
+			#wp_register_script( 'nicEdit', $url . "nicedit/nicEdit$dev.js", array(), '0.9r23', true );
 			#$js_dependencies[] = 'nicEdit';
 
 			$nicEditL10n = array(
@@ -144,12 +143,18 @@ abstract class FEE_Core {
 
 			$css_dependencies[] = 'thickbox';
 			$js_dependencies[] = 'thickbox';
-
 		}
 
 		// Core script
-		wp_register_style( 'front-end-editor', $url . "editor$css_dev.css", $css_dependencies, self::$version );
-		wp_register_script( 'front-end-editor', $url . "editor$js_dev.js", $js_dependencies, self::$version, true );
+		wp_register_script( 'fee-core', $url . "editor$dev.js", $js_dependencies, self::$version, true );
+		$js_dependencies[] = 'fee-core';	
+
+		if ( defined('SCRIPT_DEBUG') ) {
+			wp_register_script( 'fee-fields', $url . "fields$dev.js", array( 'fee-core' ), self::$version, true );
+			$js_dependencies[] = 'fee-fields';	
+		}
+
+		wp_register_style( 'fee-core', $url . "editor$dev.css", $css_dependencies, self::$version );
 ?>
 <script type='text/javascript'>
 var FrontEndEditor = {};
@@ -157,8 +162,8 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 <?php echo $nicEditL10n; ?>
 </script>
 <?php
-		scbUtil::do_scripts( 'front-end-editor' );
-		scbUtil::do_styles( 'front-end-editor' );
+		scbUtil::do_scripts( $js_dependencies );
+		scbUtil::do_styles( 'fee-core' );
  
 		do_action( 'front_end_editor_loaded', $wrapped );
 	}
