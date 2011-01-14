@@ -1,0 +1,9 @@
+#!/bin/bash
+MINIFIER="java -jar /home/cristi/bin/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar"
+
+cd 'editor'
+
+$MINIFIER 'core.dev.js' > 'editor.js'
+cat fields/* | $MINIFIER --type 'js' >> 'editor.js'
+
+$MINIFIER 'editor.dev.css' > 'editor.css'

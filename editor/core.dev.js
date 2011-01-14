@@ -1,230 +1,225 @@
-(function($){
+// http://ejohn.org/blog/simple-javascript-inheritance/
+// Inspired by base2 and Prototype
+(function(){
+  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
 
-	if ( FrontEndEditor._loaded )
-		return;
-	FrontEndEditor._loaded = true;
+  // The base Class implementation (does nothing)
+  this.Class = function(){};
 
-	// http://ejohn.org/blog/simple-javascript-inheritance/
-	// Inspired by base2 and Prototype
-	(function(){
-	  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+  // Create a new Class that inherits from this class
+  Class.extend = function(prop) {
+	var _super = this.prototype;
 
-	  // The base Class implementation (does nothing)
-	  this.Class = function(){};
+	// Instantiate a base class (but only create the instance,
+	// don't run the init constructor)
+	initializing = true;
+	var prototype = new this();
+	initializing = false;
 
-	  // Create a new Class that inherits from this class
-	  Class.extend = function(prop) {
-		var _super = this.prototype;
+	// Copy the properties over onto the new prototype
+	for (var name in prop) {
+	  // Check if we're overwriting an existing function
+	  prototype[name] = ( typeof prop[name] == "function" &&
+	    typeof _super[name] == "function" && fnTest.test(prop[name]) ) ?
+	    (function(name, fn){
+	      return function() {
+	        var tmp = this._super;
 
-		// Instantiate a base class (but only create the instance,
-		// don't run the init constructor)
-		initializing = true;
-		var prototype = new this();
-		initializing = false;
+	        // Add a new ._super() method that is the same method
+	        // but on the super-class
+	        this._super = _super[name];
 
-		// Copy the properties over onto the new prototype
-		for (var name in prop) {
-		  // Check if we're overwriting an existing function
-		  prototype[name] = ( typeof prop[name] == "function" &&
-		    typeof _super[name] == "function" && fnTest.test(prop[name]) ) ?
-		    (function(name, fn){
-		      return function() {
-		        var tmp = this._super;
+	        // The method only need to be bound temporarily, so we
+	        // remove it when we're done executing
+	        var ret = fn.apply(this, arguments);
+	        this._super = tmp;
 
-		        // Add a new ._super() method that is the same method
-		        // but on the super-class
-		        this._super = _super[name];
+	        return ret;
+	      };
+	    })(name, prop[name]) :
+	    prop[name];
+	}
 
-		        // The method only need to be bound temporarily, so we
-		        // remove it when we're done executing
-		        var ret = fn.apply(this, arguments);
-		        this._super = tmp;
+	// The dummy class constructor
+	function Class() {
+	  // All construction is actually done in the init method
+	  if ( !initializing && this.init )
+	    this.init.apply(this, arguments);
+	}
 
-		        return ret;
-		      };
-		    })(name, prop[name]) :
-		    prop[name];
-		}
+	// Populate our constructed prototype object
+	Class.prototype = prototype;
 
-		// The dummy class constructor
-		function Class() {
-		  // All construction is actually done in the init method
-		  if ( !initializing && this.init )
-		    this.init.apply(this, arguments);
-		}
+	// Enforce the constructor to be what we expect
+	Class.constructor = Class;
 
-		// Populate our constructed prototype object
-		Class.prototype = prototype;
+	// And make this class extendable
+	Class.extend = arguments.callee;
 
-		// Enforce the constructor to be what we expect
-		Class.constructor = Class;
-
-		// And make this class extendable
-		Class.extend = arguments.callee;
-
-		return Class;
-	  };
-	})();
+	return Class;
+  };
+})();
 
 
 //_____Custom code starts here_____
 
+FrontEndEditor.fieldTypes = {};
 
-	FrontEndEditor.delayed_double_click = (function(){
+FrontEndEditor.delayed_double_click = (function(){
 
-		var	event = false,
-			delayed = false;
+	var	event = false,
+		delayed = false;
 
-		function is_regular_link($target) {
-			if ( $target.is('select, option, input, button') ) // TODO: instead of 'click', capture the 'submit' event
-				return false;
+	function is_regular_link($target) {
+		if ( $target.is('select, option, input, button') ) // TODO: instead of 'click', capture the 'submit' event
+			return false;
 
-			if ( $target.attr('onclick') )
-				return false;
+		if ( $target.attr('onclick') )
+			return false;
 
-			var $link = $target.closest('a');
+		var $link = $target.closest('a');
 
-			if ( !$link.length )
-				return false;
+		if ( !$link.length )
+			return false;
 
-			if ( $link.attr('onclick') || !$link.attr('href') || $link.attr('href') == '#' )
-				return false;
+		if ( $link.attr('onclick') || !$link.attr('href') || $link.attr('href') == '#' )
+			return false;
 
-			return true;
-		}
-
-		function resume() {
-			if ( !event )
-				return;
-
-			var $target = $(event.target);
-
-			var new_event = $.Event('click');
-
-			delayed = true;
-
-			$target.trigger(new_event);
-
-			delayed = false;
-
-			if ( new_event.isDefaultPrevented() )
-				return;
-
-			var $link = $target.closest('a');
-
-			if ( $link.attr('target') == '_blank' )
-				window.open($link.attr('href'));
-			else
-				window.location.href = $link.attr('href');
-
-			event = false;
-		}
-
-		function click(ev) {
-			if ( delayed )
-				return;
-
-			if ( !is_regular_link( $(ev.target) ) )
-				return;
-
-			ev.stopImmediatePropagation();
-			ev.preventDefault();
-
-			if ( event )
-				return;
-
-			event = ev;
-
-			setTimeout(resume, 300);
-		}
-
-		function dblclick(ev) {
-			ev.stopPropagation();
-			ev.preventDefault();
-
-			// cancel delayed click
-			event = false;
-		}
-
-		return function($el, callback) {
-			$el.bind({
-				click	: click,
-				dblclick: dblclick
-			});
-
-			$el.dblclick(callback);
-		};
-	}());
-
-
-	FrontEndEditor.overlay = function($el) {
-
-		var $cover = $('<div class="fee-loading>')
-			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
-			.hide()
-			.prependTo($('body'));
-
-		return {
-			show: function() {
-				$cover
-					.css({
-						width: $el.width(),
-						height: $el.height()
-					})
-					.css($el.offset())
-					.show();
-			},
-
-			hide: function() {
-				$cover.hide();
-			}
-		};
+		return true;
 	}
 
-	// Do an ajax request, while loading a required script
-	FrontEndEditor.sync_load = (function(){
-		var cache = [];
+	function resume() {
+		if ( !event )
+			return;
 
-		return function(callback, data, src) {
-			var count = 0, content;
+		var $target = jQuery(event.target);
 
-			function proceed() {
-				count++;
-				if ( 2 == count )
-					callback(content);
-			}
+		var new_event = jQuery.Event('click');
 
-			if ( !src || cache[src] ) {
-				proceed();
-			} else {
-				cache[src] = $('<script>').attr({
-					type: 'text/javascript',
-					src: src,
-					load: proceed
-				}).prependTo('head');
-			}
+		delayed = true;
 
-			$.post(FrontEndEditor.data.ajax_url, data, function(data) {
-				content = data;
-				proceed();
-			}, 'json');
-		};
-	}());
+		$target.trigger(new_event);
 
-	// Create a new nicEditor instance and return it
-	FrontEndEditor.init_nicEdit = function($el, self) {
-		var nicArgs = FrontEndEditor.data.nicedit, tmp;
+		delayed = false;
 
-		nicArgs.maxHeight = $(window).height() - 50;
+		if ( new_event.isDefaultPrevented() )
+			return;
 
-		tmp = new nicEditor(nicArgs).panelInstance( $el.attr('id') );
+		var $link = $target.closest('a');
 
-		self.form.find('.nicEdit-main').focus();
+		if ( $link.attr('target') == '_blank' )
+			window.open($link.attr('href'));
+		else
+			window.location.href = $link.attr('href');
 
-		return tmp.nicInstances[0];
+		event = false;
 	}
 
-$(document).ready(function($) {
+	function click(ev) {
+		if ( delayed )
+			return;
+
+		if ( !is_regular_link( jQuery(ev.target) ) )
+			return;
+
+		ev.stopImmediatePropagation();
+		ev.preventDefault();
+
+		if ( event )
+			return;
+
+		event = ev;
+
+		setTimeout(resume, 300);
+	}
+
+	function dblclick(ev) {
+		ev.stopPropagation();
+		ev.preventDefault();
+
+		// cancel delayed click
+		event = false;
+	}
+
+	return function($el, callback) {
+		$el.bind({
+			click	: click,
+			dblclick: dblclick
+		});
+
+		$el.dblclick(callback);
+	};
+}());
+
+
+FrontEndEditor.overlay = function($el) {
+
+	var $cover = jQuery('<div class="fee-loading>')
+		.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
+		.hide()
+		.prependTo(jQuery('body'));
+
+	return {
+		show: function() {
+			$cover
+				.css({
+					width: $el.width(),
+					height: $el.height()
+				})
+				.css($el.offset())
+				.show();
+		},
+
+		hide: function() {
+			$cover.hide();
+		}
+	};
+}
+
+// Do an ajax request, while loading a required script
+FrontEndEditor.sync_load = (function(){
+	var cache = [];
+
+	return function(callback, data, src) {
+		var count = 0, content;
+
+		function proceed() {
+			count++;
+			if ( 2 == count )
+				callback(content);
+		}
+
+		if ( !src || cache[src] ) {
+			proceed();
+		} else {
+			cache[src] = jQuery('<script>').attr({
+				type: 'text/javascript',
+				src: src,
+				load: proceed
+			}).prependTo('head');
+		}
+
+		jQuery.post(FrontEndEditor.data.ajax_url, data, function(data) {
+			content = data;
+			proceed();
+		}, 'json');
+	};
+}());
+
+// Create a new nicEditor instance and return it
+FrontEndEditor.init_nicEdit = function($el, self) {
+	var nicArgs = FrontEndEditor.data.nicedit, tmp;
+
+	nicArgs.maxHeight = jQuery(window).height() - 50;
+
+	tmp = new nicEditor(nicArgs).panelInstance( $el.attr('id') );
+
+	self.form.find('.nicEdit-main').focus();
+
+	return tmp.nicInstances[0];
+}
+
+jQuery(document).ready(function($) {
 
 	// fetch all 'data-' attributes from a DOM node
 	function extract_data_attr(el) {
@@ -237,7 +232,7 @@ $(document).ready(function($) {
 				var value = attr.value;
 
 				try {
-					value = $.parseJSON(value);
+					value = jQuery.parseJSON(value);
 				} catch(e) {}
 
 				if ( null === value )
@@ -251,9 +246,9 @@ $(document).ready(function($) {
 	}
 
 	// Create field instances
-	$.each(FrontEndEditor.data.fields, function(i, filter) {
-		$('.fee-filter-' + filter).each(function() {
-			var $el = $(this),
+	jQuery.each(FrontEndEditor.data.fields, function(i, filter) {
+		jQuery('.fee-filter-' + filter).each(function() {
+			var $el = jQuery(this),
 				data = extract_data_attr(this),
 				type = data.type;
 
@@ -264,11 +259,11 @@ $(document).ready(function($) {
 	// Tooltip init
 	if ( FrontEndEditor.data.controls ) {
 		var controls = [];
-		$.each(FrontEndEditor.data.controls, function(key, value) {
+		jQuery.each(FrontEndEditor.data.controls, function(key, value) {
 			controls.push('<span class="fee-control">' + value + '</span>');
 		});
 
-		$('.fee-field').qtip({
+		jQuery('.fee-field').qtip({
 			content: controls.join('<span class="fee-separator"> | </span>'),
 			show: { effect: 'fade' },
 //			hide: {	fixed: true },
@@ -288,4 +283,3 @@ $(document).ready(function($) {
 		});
 	}
 });
-})(jQuery);

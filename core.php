@@ -150,8 +150,10 @@ abstract class FEE_Core {
 			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
 			$js_dependencies[] = 'fee-core';
 
-			wp_register_script( 'fee-fields', $url . "fields.dev.js", array( 'fee-core' ), self::$version, true );
-			$js_dependencies[] = 'fee-fields';	
+			foreach ( array_slice( scandir( dirname(__FILE__) . '/editor/fields' ), 2 ) as $file ) {
+				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), self::$version, true );
+				$js_dependencies[] = "fee-fields-$file";
+			}
 		} else {
 			wp_register_script( 'fee-editor', $url . "editor.js", $js_dependencies, self::$version, true );
 			$js_dependencies[] = 'fee-editor';		
