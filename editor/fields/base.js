@@ -1,13 +1,15 @@
 FrontEndEditor.fieldTypes['base'] = Class.extend({
 	dependency: null, // script src
 
-	init: function($el, type, filter, data) {
+	init: function ($el, data, filter) {
 		var self = this;
 
-		self.el = $el;
-		self.type = type;
-		self.filter = filter;
-		self.data = data;
+		self = jQuery.extend(self, {
+			el: $el,
+			data: data,
+			filter: filter,
+			type: data.type
+		});
 
 		FrontEndEditor.delayed_double_click(self.el, jQuery.proxy(self, 'dblclick'));
 	},
@@ -22,7 +24,7 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 	ajax_get_handler: null,
 	ajax_set_handler: null,
 
-	ajax_args: function(args) {
+	ajax_args: function (args) {
 		var self = this;
 
 		return jQuery.extend(args, {
@@ -33,7 +35,7 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 		});
 	},
 
-	ajax_get: function() {
+	ajax_get: function () {
 		var self = this;
 
 		var data = self.ajax_args({
@@ -43,7 +45,7 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 		FrontEndEditor.sync_load(jQuery.proxy(self, 'ajax_get_handler'), data, self.dependency);
 	},
 
-	ajax_set: function(content) {
+	ajax_set: function (content) {
 		var self = this;
 
 		var data = self.ajax_args({

@@ -1,8 +1,8 @@
 FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].extend({
 
-	create_input: function() {},
+	create_input: jQuery.noop,
 
-	ajax_get: function() {
+	ajax_get: function () {
 		var self = this;
 
 		self.rich_edit = ( 0 == self.data.widget_id.indexOf('text-') && FrontEndEditor.data.nicedit );
@@ -13,7 +13,7 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 		self._super();
 	},
 
-	content_to_input: function(content) {
+	content_to_input: function (content) {
 		var self = this;
 
 		self.input = jQuery(content);
@@ -25,11 +25,11 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 		}
 	},
 
-	content_from_input: function() {
+	content_from_input: function () {
 		return '';
 	},
 
-	ajax_args: function(args) {
+	ajax_args: function (args) {
 		var self = this;
 
 		args = self._super(args);
@@ -42,11 +42,11 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 
 		var raw_data = self.form.find(':input').serializeArray();
 
-		jQuery.each(args, function(name, value) {
+		jQuery.each(args, function (name, value) {
 			raw_data.push({'name': name, 'value': value});
 		});
 
-		jQuery.each(args.data, function(name, value) {
+		jQuery.each(args.data, function (name, value) {
 			raw_data.push({'name': 'data[' + name + ']', 'value': value});
 		});
 

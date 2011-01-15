@@ -2,15 +2,15 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 
 	input_tag: '<input type="text">',
 
-	init: function($el, type, name, id) {
+	init: function ($el, data, filter) {
 		var self = this;
 
-		self._super($el, type, name, id);
+		self._super($el, data, filter);
 
 		self.overlay = FrontEndEditor.overlay(self.el);
 	},
 
-	create_input: function() {
+	create_input: function () {
 		var self = this;
 
 		self.input = jQuery(self.input_tag).attr({
@@ -21,27 +21,27 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		self.input.prependTo(self.form);
 	},
 
-	content_to_input: function(content) {
+	content_to_input: function (content) {
 		var self = this;
 
 		self.input.val(content);
 		self.form.trigger('ready.fee', [self.data]);
 	},
 
-	content_from_input: function() {
+	content_from_input: function () {
 		var self = this;
 
 		return self.input.val();
 	},
 
-	content_to_front: function(content) {
+	content_to_front: function (content) {
 		var self = this;
 
 		self.el.html(content);
 		self.form.trigger('saved.fee', [self.data]);
 	},
 
-	ajax_get: function() {
+	ajax_get: function () {
 		var self = this;
 
 		self.overlay.show();
@@ -51,7 +51,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		self._super();
 	},
 
-	ajax_set: function() {
+	ajax_set: function () {
 		var self = this;
 
 		self.overlay.show();
@@ -59,7 +59,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		self._super();
 	},
 
-	ajax_get_handler: function(response) {
+	ajax_get_handler: function (response) {
 		var self = this;
 
 		var $el = self.error_handler(response);
@@ -75,7 +75,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		self.input.focus();
 	},
 
-	ajax_set_handler: function(response) {
+	ajax_set_handler: function (response) {
 		var self = this;
 
 		var $el = self.error_handler(response);
@@ -87,7 +87,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		self.el.show();
 	},
 
-	error_handler: function(response) {
+	error_handler: function (response) {
 		var self = this;
 
 		self.overlay.hide();
@@ -103,7 +103,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 					jQuery('<span class="fee-message">').html(response.error)
 				)
 				.append(
-					jQuery('<span class="fee-dismiss">x</span>').click(function() {
+					jQuery('<span class="fee-dismiss">x</span>').click(function () {
 						$error_box.remove();
 					})
 				);
@@ -115,7 +115,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		return $el;
 	},
 
-	dblclick: function(ev) {
+	dblclick: function (ev) {
 		var self = this;
 
 		// Buttons
@@ -144,7 +144,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		self.ajax_get();
 	},
 
-	form_remove: function(ev) {
+	form_remove: function (ev) {
 		var self = this;
 
 		self.remove_form(false);
@@ -153,7 +153,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		ev.preventDefault();
 	},
 
-	form_submit: function(ev) {
+	form_submit: function (ev) {
 		var self = this;
 
 		self.ajax_set();
@@ -163,7 +163,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 		ev.preventDefault();
 	},
 
-	remove_form: function(with_spinner) {
+	remove_form: function (with_spinner) {
 		var self = this;
 
 		self.form.remove();
@@ -174,7 +174,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 			self.overlay.show();
 	},
 
-	keypress: function(ev) {
+	keypress: function (ev) {
 		var self = this;
 
 		var keys = {ENTER: 13, ESCAPE: 27};
@@ -191,7 +191,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 FrontEndEditor.fieldTypes['terminput'] = FrontEndEditor.fieldTypes['input'].extend({
 	dependency: FrontEndEditor.data.suggest ? FrontEndEditor.data.suggest.src : null,
 
-	content_to_input: function(content) {
+	content_to_input: function (content) {
 		var self = this;
 
 		self._super(content);
@@ -208,7 +208,7 @@ FrontEndEditor.fieldTypes['terminput'] = FrontEndEditor.fieldTypes['input'].exte
 FrontEndEditor.fieldTypes['checkbox'] = FrontEndEditor.fieldTypes['input'].extend({
 	input_tag: '<input type="checkbox">',
 
-	content_to_input: function(content) {
+	content_to_input: function (content) {
 		var self = this;
 
 		content = content ? 'checked' : '';
@@ -216,13 +216,13 @@ FrontEndEditor.fieldTypes['checkbox'] = FrontEndEditor.fieldTypes['input'].exten
 		self.input.attr('checked', content);
 	},
 
-	content_from_input: function() {
+	content_from_input: function () {
 		var self = this;
 
 		return 0 + self.input.is(':checked');
 	},
 
-	content_to_front: function() {
+	content_to_front: function () {
 		var self = this,
 			content = self.data.values[ self.content_from_input() ];
 
@@ -233,10 +233,10 @@ FrontEndEditor.fieldTypes['checkbox'] = FrontEndEditor.fieldTypes['input'].exten
 FrontEndEditor.fieldTypes['select'] = FrontEndEditor.fieldTypes['input'].extend({
 	input_tag: '<select>',
 
-	content_to_input: function(content) {
+	content_to_input: function (content) {
 		var self = this;
 
-		jQuery.each(self.data.values, function(value, title) {
+		jQuery.each(self.data.values, function (value, title) {
 			var $option = jQuery('<option>')
 				.attr({
 					html: value,
@@ -249,7 +249,7 @@ FrontEndEditor.fieldTypes['select'] = FrontEndEditor.fieldTypes['input'].extend(
 		});
 	},
 
-	content_from_input: function() {
+	content_from_input: function () {
 		var self = this;
 
 		return self.input.find(':selected').val();
@@ -263,7 +263,7 @@ FrontEndEditor.fieldTypes['textarea'] = FrontEndEditor.fieldTypes['input'].exten
 FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend({
 	dependency: FrontEndEditor.data.nicedit ? FrontEndEditor.data.nicedit.src : null,
 
-	content_to_input: function(content) {
+	content_to_input: function (content) {
 		var self = this;
 
 		self._super(content);
@@ -271,18 +271,18 @@ FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend
 		self.editor = FrontEndEditor.init_nicEdit(self.input, self);
 	},
 
-	content_from_input: function() {
+	content_from_input: function () {
 		var self = this;
 
 		return self.pre_wpautop(self.input.val());
 	},
 
 	// Copied from wp-admin/js/editor.dev.js
-	pre_wpautop: function(content) {
+	pre_wpautop: function (content) {
 		var blocklist1, blocklist2;
 
 		// Protect pre|script tags
-		content = content.replace(/<(pre|script)[^>]*>[\s\S]+?<\/\1>/g, function(a) {
+		content = content.replace(/<(pre|script)[^>]*>[\s\S]+?<\/\1>/g, function (a) {
 			a = a.replace(/<br ?\/?>[\r\n]*/g, '<wp_temp>');
 			return a.replace(/<\/?p( [^>]*)?>[\r\n]*/g, '<wp_temp>');
 		});
@@ -316,7 +316,7 @@ FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend
 		content = content.replace(/<li([^>]*)>/g, '\t<li$1>');
 
 		if ( content.indexOf('<object') != -1 ) {
-			content = content.replace(/<object[\s\S]+?<\/object>/g, function(a){
+			content = content.replace(/<object[\s\S]+?<\/object>/g, function (a) {
 				return a.replace(/[\r\n]+/g, '');
 			});
 		}
@@ -335,7 +335,7 @@ FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend
 		return content;
 	},
 
-	ajax_set: function() {
+	ajax_set: function () {
 		var self = this;
 
 		self.editor.saveContent();

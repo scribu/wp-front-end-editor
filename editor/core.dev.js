@@ -63,6 +63,7 @@
 
 //_____Custom code starts here_____
 
+
 FrontEndEditor.fieldTypes = {};
 
 FrontEndEditor.delayed_double_click = (function(){
@@ -246,20 +247,19 @@ jQuery(document).ready(function($) {
 	}
 
 	// Create field instances
-	jQuery.each(FrontEndEditor.data.fields, function(i, filter) {
-		jQuery('.fee-filter-' + filter).each(function() {
+	jQuery.each( FrontEndEditor.data.fields, function (i, filter) {
+		jQuery('.fee-filter-' + filter).each( function () {
 			var $el = jQuery(this),
-				data = extract_data_attr(this),
-				type = data.type;
+				data = extract_data_attr(this);
 
-			new FrontEndEditor.fieldTypes[type]($el, type, filter, data);
+			new FrontEndEditor.fieldTypes[data.type]($el, data, filter);
 		});
 	});
 
 	// Tooltip init
 	if ( FrontEndEditor.data.controls ) {
 		var controls = [];
-		jQuery.each(FrontEndEditor.data.controls, function(key, value) {
+		jQuery.each(FrontEndEditor.data.controls, function (key, value) {
 			controls.push('<span class="fee-control">' + value + '</span>');
 		});
 

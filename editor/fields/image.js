@@ -1,7 +1,7 @@
 FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].extend({
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.change : null,
 
-	dblclick: function() {
+	dblclick: function () {
 		var self = this;
 
 		tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.admin_url +
@@ -12,11 +12,11 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 		jQuery('#TB_iframeContent').load(jQuery.proxy(self, 'replace_button'));
 	},
 
-	replace_button: function(ev) {
+	replace_button: function (ev) {
 		var self = this,
 			$frame = jQuery(ev.target).contents();
 
-		$frame.delegate('.media-item', 'hover', function() {
+		$frame.delegate('.media-item', 'hover', function () {
 			var $item = jQuery(this);
 
 			if ( $item.data('fee_altered') )
@@ -24,7 +24,7 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 
 			var $button = jQuery('<a href="#" class="button">')
 				.text(self.button_text)
-				.click(function(ev){
+				.click(function (ev) {
 					self.ajax_set(self.content_from_input($item));
 				});
 
@@ -35,7 +35,7 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 		});
 	},
 
-	content_from_input: function($item) {
+	content_from_input: function ($item) {
 		var $field;
 
 		// Media library
@@ -60,12 +60,12 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'].extend({
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.insert : null,
 
-	init: function(ne) {
+	init: function (ne) {
 		this.ne = ne;
 		this.dblclick();
 	},
 
-	ajax_set: function(url) {
+	ajax_set: function (url) {
 		this.ne.nicCommand("insertImage", url);
 		tb_remove();
 	}
@@ -73,20 +73,20 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 
 FrontEndEditor.fieldTypes['image'] = FrontEndEditor.fieldTypes['image_base'].extend({
 
-	dblclick: function(ev) {
+	dblclick: function (ev) {
 		var self = this;
 
 		self._super(ev);
 
 		jQuery('<a id="fee-img-revert" href="#">')
 			.text(FrontEndEditor.data.image.revert)
-			.click(function(ev) {
+			.click(function (ev) {
 				self.ajax_set(-1);
 			})
 			.insertAfter('#TB_ajaxWindowTitle');
 	},
 
-	ajax_set_handler: function(url) {
+	ajax_set_handler: function (url) {
 		var self = this;
 
 		if ( url == -1 ) {
@@ -100,7 +100,7 @@ FrontEndEditor.fieldTypes['image'] = FrontEndEditor.fieldTypes['image_base'].ext
 
 FrontEndEditor.fieldTypes['thumbnail'] = FrontEndEditor.fieldTypes['image'].extend({
 
-	replace_button: function(ev) {
+	replace_button: function (ev) {
 		var self = this;
 
 		var $frame = jQuery(ev.target).contents();
@@ -110,7 +110,7 @@ FrontEndEditor.fieldTypes['thumbnail'] = FrontEndEditor.fieldTypes['image'].exte
 		self._super(ev);
 	},
 
-	content_from_input: function($item) {
+	content_from_input: function ($item) {
 		return $item.attr('id').replace('media-item-', '');
 	}
 });
