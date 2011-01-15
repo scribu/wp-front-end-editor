@@ -45,10 +45,6 @@ abstract class FEE_Core {
 		if ( empty( $wrapped ) )
 			return;
 
-		$url = plugins_url( 'editor/', __FILE__ );
-
-		$dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '';
-
 		// Prepare data
 		$data = array(
 			'save_text' => __( 'Save', 'front-end-editor' ),
@@ -58,6 +54,10 @@ abstract class FEE_Core {
 			'spinner' => admin_url( 'images/loading.gif' ),
 			'nonce' => wp_create_nonce( self::$nonce ),
 		);
+
+		$url = plugins_url( 'js/', __FILE__ );
+
+		$dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '';
 
 		$css_dependencies = array();
 		$js_dependencies = array( 'jquery' );
@@ -150,7 +150,7 @@ abstract class FEE_Core {
 			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
 			$js_dependencies[] = 'fee-core';
 
-			foreach ( array_slice( scandir( dirname(__FILE__) . '/editor/fields' ), 2 ) as $file ) {
+			foreach ( array_slice( scandir( dirname(__FILE__) . '/js/fields' ), 2 ) as $file ) {
 				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), self::$version, true );
 				$js_dependencies[] = "fee-fields-$file";
 			}
@@ -159,7 +159,7 @@ abstract class FEE_Core {
 			$js_dependencies[] = 'fee-editor';		
 		}
 
-		wp_register_style( 'fee-editor', $url . "editor$dev.css", $css_dependencies, self::$version );
+		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", __FILE__ ), $css_dependencies, self::$version );
 ?>
 <script type='text/javascript'>
 var FrontEndEditor = {};
