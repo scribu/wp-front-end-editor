@@ -217,10 +217,11 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		if ( empty( $content ) )	// todo: placehold
 			return $content;
 
-		$dom = $this->get_dom( $content );
+		$dom = $this->get_DOM( $content );
 
 		foreach ( $dom->getElementsByTagName('p') as $i => $node ) {
 			$old_content = $dom->saveXML( $node );
+
 			$new_content = FEE_Field_Base::wrap( $old_content, compact( 'post_id', 'i' ) );
 
 			$new_node = $dom->createDocumentFragment();
@@ -236,7 +237,8 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		extract( $data );
 
 		$content = get_post_field( 'post_content', $post_id );
-		$dom = $this->get_dom( $content );
+
+		$dom = $this->get_DOM( $content );
 
 		$node = $dom->getElementsByTagName('p')->item( $i );
 
@@ -250,7 +252,7 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 
 		$content = get_post_field( 'post_content', $post_id );
 
-		$dom = $this->get_dom( $content );
+		$dom = $this->get_DOM( $content );
 
 		$chunks = array();
 		foreach ( $dom->getElementsByTagName('p') as $j => $item ) {
@@ -274,24 +276,27 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		return $this->get( $data );
 	}
 
-	private function get_dom( $content ) {
-		$content = wpautop( $content );
+	private function innerHTML( $node ) {
+		$dom = $this->get_DOM('');
+		$root = $dom->createElement('body');
+		$dom->appendChild($root);
 
-		$dom = new DOMDocument();
+		foreach ( $node->childNodes as $child ) {
+			$root->appendChild( $dom->importNode( $child, true ) );
+		}
 
-		libxml_use_internal_errors(true);
-		$dom->loadHTML( $content );
+		$html = $dom->saveXML( $dom->getElementsByTagName('body')->item(0) );
 
-		return $dom;
+		return rtrim( str_replace( array('<body>','</body>'), '', $html ) );
 	}
 
-	private function innerHTML( $node ) {
-		$doc = new DOMDocument();
+	private function get_DOM( $content ) {
+		$content = wpautop( $content );
 
-		foreach ( $node->childNodes as $child )
-			$doc->appendChild( $doc->importNode( $child, true ) );
+		libxml_use_internal_errors(true);
+		$dom = DOMDocument::loadHTML( '<?xml encoding="' . esc_attr( get_option('blog_charset') ) . '">' . $content );
 
-		return rtrim( $doc->saveHTML() );
+		return $dom;
 	}
 
 	protected function replace_exact( $old, $new, $subject ) {
