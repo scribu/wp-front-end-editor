@@ -209,6 +209,7 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 
 // Handles <p> tags in the_content
 class FEE_Field_Chunks extends FEE_Field_Post {
+	private $dom;
 
 	function wrap( $content, $post_id = 0 ) {
 		if ( !$post_id = $this->_get_id( $post_id ) )
@@ -230,39 +231,29 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 			$node->parentNode->replaceChild( $new_node, $node );
 		}
 
-		return $this->innerHTML( $dom->getElementsByTagName('body')->item(0) );
+		return $this->innerHTML( $dom );
 	}
 
 	function get( $data ) {
-		extract( $data );
+		list( $node, $dom ) = $this->get_chunk_node( $data );
 
-		$content = get_post_field( 'post_content', $post_id );
-
-		$dom = $this->get_DOM( $content );
-
-		$node = $dom->getElementsByTagName('p')->item( $i );
-
-		$chunk = $dom->saveXML( $node );
-
-		return preg_replace( '#<br\s*/?>#', '<br />', $chunk );
+		return $dom->saveXML( $node );
 	}
 
 	function save( $data, $chunk_content ) {
 		extract( $data );
 
-		$content = get_post_field( 'post_content', $post_id );
+		list( $old, $dom ) = $this->get_chunk_node( $data );
 
-		$dom = $this->get_DOM( $content );
+		$new_dom = $this->get_DOM( '<p>' . $chunk_content . '</p>' );
+		$new = $dom->importNode( $new_dom->getElementsByTagName('p')->item(0), true );
 
-		$chunks = array();
-		foreach ( $dom->getElementsByTagName('p') as $j => $item ) {
-			$chunks[ $j ] = $this->innerHTML( $item );
-		}
+		foreach ( $old->attributes as $attr )
+			$new->setAttributeNode( $attr );
 
-		$replacement = $chunks;
-		$replacement[$i] = $chunk_content;
+		$old->parentNode->replaceChild( $new, $old );
 
-		$content = $this->replace_exact( $chunks, $replacement, $content );
+		$content = $this->innerHTML( $dom );
 
 		$postdata = array(
 			'ID' => $post_id,
@@ -276,48 +267,37 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		return $this->get( $data );
 	}
 
-	private function innerHTML( $node ) {
-		$dom = $this->get_DOM('');
-		$root = $dom->createElement('body');
-		$dom->appendChild($root);
+	private function get_chunk_node( $data ) {
+		extract( $data );
 
-		foreach ( $node->childNodes as $child ) {
-			$root->appendChild( $dom->importNode( $child, true ) );
-		}
+		$content = get_post_field( 'post_content', $post_id );
 
-		$html = $dom->saveXML( $dom->getElementsByTagName('body')->item(0) );
+		$dom = $this->get_DOM( $content );
 
-		return rtrim( str_replace( array('<body>','</body>'), '', $html ) );
+		return array( $dom->getElementsByTagName('p')->item($i), $dom );
 	}
 
 	private function get_DOM( $content ) {
 		$content = wpautop( $content );
 
 		libxml_use_internal_errors(true);
-		$dom = DOMDocument::loadHTML( '<?xml encoding="' . esc_attr( get_option('blog_charset') ) . '">' . $content );
-
-		return $dom;
+		return DOMDocument::loadHTML(
+			'<?xml encoding="' . esc_attr( get_option('blog_charset') ) . '">' .
+			$content
+		);
 	}
 
-	protected function replace_exact( $old, $new, $subject ) {
-		$tmp = array();
+	private function innerHTML( $dom, $node = null ) {
+		if ( is_null( $node ) )
+			$node = $dom->getElementsByTagName('body')->item(0);
 
-		$index = array_keys( $old );
+		$html = '';
 
-		foreach ( $index as $i )
-			$tmp[] = '__' . md5( $i ) . '__';
+		foreach ( $node->childNodes as $child ) {
+			$html .= $dom->saveXML( $child );
+		}
 
-		foreach ( $index as $i )
-			$subject = $this->replace_first( $old[$i], $tmp[$i], $subject );
-
-		foreach ( $index as $i )
-			$subject = $this->replace_first( $tmp[$i], $new[$i], $subject );
-
-		return $subject;
-	}
-
-	protected function replace_first( $old, $new, $subject ) {
-		return implode( $new, explode( $old, $subject, 2 ) );
+		return $html;
 	}
 }
 
