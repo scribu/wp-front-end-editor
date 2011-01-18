@@ -58,7 +58,7 @@ Template tags marked with * are defined by the plugin.
 
 There is a settings page where you can disable editable fields that you don't want, as well as other options.
 
-Links: [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
+Links: [Documentation](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 
 == Installation ==
 
@@ -82,9 +82,19 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 2. See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
 3. Check for JavaScript errors. [Firebug](http://getfirebug.com/) is a great tool for this.
 
+= Can you add the ability to create posts, instead of just editing? =
+
+No, because there already are [several plugins](http://wordpress.org/support/topic/front-end-custom-form-to-post?replies=5#post-1584286) for that already.
+
+= Can you change the wysiwyg editor to TinyMCE? =
+
+No, because TinyMCE is anything but tiny and would take a long time to load.
+
+Also because I couldn't get it to work.
+
 = Does it work with WP Super Cache? =
 
-To avoid problems with WP Super Cache or W3 Total Cache, you have to disable caching for logged-in users.
+To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling caching for logged-in users.
 
 = How can I change the hover color? =
 
@@ -93,51 +103,6 @@ You can add this line to *style.css* in your theme directory:
 `.fee-field:hover, .fee-field:hover * {background-color: mycolor !important}`
 
 where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
-
-= How can I edit custom fields? =
-
-Since custom fields can be used in so many ways, you have to make some code replacements in your theme:
-
-Replace something like this:
-
-`<?php echo get_post_meta($post->ID, 'my_key', true); ?>`
-
-with this:
-
-`<?php editable_post_meta(get_the_ID(), 'my_key', 'textarea'); ?>`
-
-The third parameter is optional and allows you to pick which type of field you want: *input*, *textarea* or *rich*.
-
-If you have a custom field with multiple values, you can use `get_editable_post_meta()`. For example:
-
-`
-<ul>
-<?php
-$values = get_editable_post_meta(get_the_ID(), 'my_key');
-foreach ( $values as $value )
-	echo '<li>' . $value . '</li>';
-?>
-</ul>
-`
-
-= How can I make theme images editable? =
-
-Again, you have to modify your theme's code. Replace something like this:
-
-`<img src="<?php bloginfo('template_url'); ?>/images/header_1.jpg" width="970" height="140" alt="<?php bloginfo('name'); ?> header image 1" title="<?php bloginfo('name'); ?> header image 1" />`
-
-with this:
-
-`<?php editable_image('header-1', 
-	get_bloginfo('template_url') . '/images/header_1.jpg', 
-	array('width' => 970, 'height' => 140, 'alt' => get_bloginfo('name'))); 
-?>`
-
-The editable_image() template tag is located in fields/other.php.
-
-= Can I make my own editable fields? =
-
-Yes, but you have to know programming. Just hack away at one of the existing fields, found in `front-end-editor/fields`.
 
 == Screenshots ==
 
