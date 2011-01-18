@@ -60,13 +60,6 @@ There is a settings page where you can disable editable fields that you don't wa
 
 Links: [Documentation](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 
-== Installation ==
-
-You can either install it automatically from the WordPress admin, or do it manually:
-
-1. Unzip "Front-end Editor" archive and put the folder into your plugins folder (/wp-content/plugins/).
-2. Activate the plugin from the Plugins menu.
-
 == Frequently Asked Questions ==
 
 = Error on activation: "Parse error: syntax error, unexpected..." =
