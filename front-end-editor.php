@@ -62,7 +62,7 @@ function _fee_init() {
 	FEE_Field_Image::init( __FILE__ );
 
 	if ( is_admin() ) {
-		require_once $dir . '/admin.php';
+		require_once $dir . '/admin/admin.php';
 		scbAdminPage::register( 'Fee_Admin', __FILE__, $options );
 	}
 

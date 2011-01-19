@@ -13,45 +13,12 @@ class FEE_Admin extends scbBoxesPage {
 		$this->boxes = array(
 			array( 'fields', __( 'Fields', $this->textdomain ), 'normal' ),
 			array( 'settings', __( 'Settings', $this->textdomain ), 'side' ),
-			array( 'ne_buttons', __( 'Editor Panel', $this->textdomain ), 'side' )
+			array( 'cleditor_controls', __( 'Editor Panel', $this->textdomain ), 'side' )
 		);
 	}
 
 	function page_head() {
-?>
-<style type="text/css">
-.inside table.checklist {
-	clear: none;
-	width: auto;
-	float: left;
-	margin-right: 1em !important;
-}
-
-.inside .checklist th input {
-	margin: 0 0 0 4px !important;
-}
-
-.inside .checklist thead th {
-	padding-top: 5px !important;
-	padding-bottom: 5px !important;
-}
-
-.checklist thead th {
-	background: #F1F1F1;
-	padding: 5px 8px 8px;
-	line-height: 1;
-	font-size: 11px;
-}
-
-.checklist .check-column, .checklist th, .checklist td {
-	padding-left: 0 !important
-}
-
-.submit {
-	clear: both !important;
-}
-</style>
-<?php
+		wp_enqueue_style( 'fee-admin', $this->plugin_url . "admin/admin.css", array(), '2.0-alpha' );
 	}
 
 	protected function checklist_wrap( $title, $tbody ) {
@@ -94,7 +61,7 @@ class FEE_Admin extends scbBoxesPage {
 			else
 				$other_fields[$field] = $args;
 
-		echo html( 'p', __( 'Enable or disable editable fields', $this->textdomain ) );
+		echo html( 'p', __( 'Enable or disable editable fields:', $this->textdomain ) );
 
 		$tables  = $this->fields_table( __( 'Post fields', $this->textdomain ), $post_fields );
 		$tables .= $this->fields_table( __( 'Other fields', $this->textdomain ), $other_fields );
@@ -137,25 +104,25 @@ class FEE_Admin extends scbBoxesPage {
 	function settings_box() {
 		$rows = array(
 			array(
-				'desc' => __( 'Enable the WYSIWYG editor', $this->textdomain ),
+				'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
 				'type' => 'checkbox',
 				'name' => 'rich',
 			),
 
 			array(
-				'desc' => __( 'Edit one paragraph at a time, instead of an entire post', $this->textdomain ),
+				'desc' => __( 'Edit one paragraph at a time, instead of an entire post.', $this->textdomain ),
 				'type' => 'checkbox',
 				'name' => 'chunks',
 			),
 
 			array(
-				'desc' => __( 'Highlight editable elements', $this->textdomain ),
+				'desc' => __( 'Highlight editable elements.', $this->textdomain ),
 				'type' => 'checkbox',
 				'name' => 'highlight',
 			),
 
 			array(
-				'desc' => __( 'Display a tooltip above editable elements', $this->textdomain ),
+				'desc' => __( 'Display a tooltip above editable elements.', $this->textdomain ),
 				'type' => 'checkbox',
 				'name' => 'tooltip',
 			),
@@ -169,43 +136,57 @@ class FEE_Admin extends scbBoxesPage {
 	}
 
 
-	function ne_buttons_handler() {
+	function cleditor_controls_handler() {
 		if ( !isset( $_POST['save_buttons'] ) )
 			return;
 
-		$this->options->ne_buttons = (array) @$_POST['ne_buttons'];
+		// TODO: validation
+		$this->options->cleditor_controls = trim( @$_POST['cleditor_controls'] );
 
 		$this->admin_msg();
 	}
 
-	function ne_buttons_box() {
-		echo html( 'p', __( 'Enable or disable editor buttons', $this->textdomain ) );
+	function cleditor_controls_box() {
+		echo html( 'p', __( 'Customize WYSIWYG editor controls:', $this->textdomain ) );
 
-		$everything =
-			"bold italic underline strikethrough subscript superscript | font size " .
-			"style | color highlight removeformat | bullets numbering | outdent " .
-			"indent | alignleft center alignright justify | undo redo | " .
-			"rule image link unlink | cut copy paste pastetext | print source";
+		$out = $this->input( array(
+			'type' => 'textarea',
+			'name' => 'cleditor_controls',
+			'extra' => array( 'id' => false )
+		), $this->options->get() );
 
-		$tbody = '';
-		foreach ( apply_filters( 'front_end_editor_nicedit', $ne_buttons ) as $button )
-			$tbody .=
-			html( 'tr',
-				html( 'th scope="row" class="check-column"',
-					$this->input( array(
-						'type' => 'checkbox',
-						'name' => 'ne_buttons[]',
-						'value' => $button,
-						'desc' => false,
-						'checked' => in_array( $button, $this->options->ne_buttons )
-					) )
-				)
-				.html( 'td', $button )
-			);
+		$out .= 
+		html( 'div', array( 'id' => 'cleditor_controls_profiles' ),
+			html( 'a', array( 'data-profile' => 'full', 'href' => '#' ), __( 'Full', $this->textdomain ) ),
+			' | ',
+			html( 'a', array( 'data-profile' => 'default', 'href' => '#' ), __( 'Default', $this->textdomain ) )
+		);
 
-		$table = $this->checklist_wrap( __( 'Button', $this->textdomain ), $tbody );
+		echo $this->form_wrap( $out, '', 'save_buttons' );
+?>
 
-		echo $this->form_wrap( $table, '', 'save_buttons' );
+<script>
+jQuery(document).ready(function ($) {
+	var profiles = {
+		'full':
+			"bold italic underline strikethrough subscript superscript | font size " +
+			"style | color highlight removeformat | bullets numbering | outdent " +
+			"indent | alignleft center alignright justify | undo redo | " +
+			"rule image link unlink | cut copy paste pastetext | print source",
+		'default':
+			"<?php echo $this->options->get_defaults( 'cleditor_controls' ); ?>"
+	}
+
+	$('#cleditor_controls_profiles').delegate( 'a', 'click', function () {
+console.log($(this).attr( 'data-profile' ));
+
+		$('#cleditor_controls textarea').val( profiles[ $(this).attr( 'data-profile' ) ] );
+
+		return false;
+	});
+});
+</script>
+<?php
 	}
 }
 
