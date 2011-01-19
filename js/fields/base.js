@@ -60,7 +60,10 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 		var self = this;
 //			nicArgs = FrontEndEditor.data.nicedit;
 
+console.log( FrontEndEditor.data.cleditor.controls );
+
 		$el.cleditor({
+			controls: FrontEndEditor.data.cleditor.controls,
 			width: self.form.width()
 		});
 	}

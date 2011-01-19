@@ -91,16 +91,20 @@ abstract class FEE_Core {
 			wp_register_script( 'cleditor', $url . "cleditor/cleditor$dev.js", array('jquery'), '1.3.0', true );
 			$js_dependencies[] = 'cleditor';
 
+			$data['cleditor'] = array(
+				'controls' => self::$options->cleditor_controls,
+#				'link' => array(
+#					'visit'  => __( 'Visit', 'front-end-editor' ),
+#					'change' => __( 'Change', 'front-end-editor' ),
+#					'remove' => __( 'Remove', 'front-end-editor' ),
+#				)
+			);
+
 /*
 			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
 				'src' => $url . "nicedit/nicEdit$dev.js?ver=0.9r23",
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
 				'buttonList' => self::$options->ne_buttons,
-				'link' => array(
-					'visit'  => __( 'Visit', 'front-end-editor' ),
-					'change' => __( 'Change', 'front-end-editor' ),
-					'remove' => __( 'Remove', 'front-end-editor' ),
-				)
 			) );
 
 			$nicEditL10n = array(

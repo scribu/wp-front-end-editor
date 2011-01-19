@@ -46,15 +46,14 @@ function _fee_init() {
 		'tooltip' => true,
 		'rich' => true,
 		'chunks' => false,
-		'ne_buttons' => array(
-			'bold', 'italic', 'strikethrough',
-			'left','center', 'right',
-			'fontFormat', 'fontFamily', 'forecolor',
-			'removeformat',
-			'ul', 'ol',
-			'link', 'image',
-			'xhtml'
-		),
+		'cleditor_controls' =>
+			"bold italic strikethrough | " .
+			"alignleft center alignright | " .
+			"font size style | " .
+			"color highlight removeformat | " .
+			"bullets numbering | " .
+			"link image | " .
+			"source"
 	) );
 
 	FEE_Core::init( $options, '1.9.2' );

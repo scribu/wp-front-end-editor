@@ -181,17 +181,11 @@ class FEE_Admin extends scbBoxesPage {
 	function ne_buttons_box() {
 		echo html( 'p', __( 'Enable or disable editor buttons', $this->textdomain ) );
 
-		$ne_buttons = array(
-			'bold', 'italic', 'underline',
-			'left', 'center', 'right', 'justify',
-			'ol', 'ul',
-			'subscript', 'superscript', 'strikethrough', 'removeformat',
-			'indent', 'outdent', 'hr',
-			'fontSize', 'fontFamily', 'fontFormat', 
-			'forecolor', 'bgcolor',
-			'link', 'image',
-			'xhtml'
-		);
+		$everything =
+			"bold italic underline strikethrough subscript superscript | font size " .
+			"style | color highlight removeformat | bullets numbering | outdent " .
+			"indent | alignleft center alignright justify | undo redo | " .
+			"rule image link unlink | cut copy paste pastetext | print source";
 
 		$tbody = '';
 		foreach ( apply_filters( 'front_end_editor_nicedit', $ne_buttons ) as $button )
