@@ -85,6 +85,13 @@ abstract class FEE_Core {
 		// Rich Editor
 		$nicEditL10n = '';
 		if ( in_array( 'rich', $wrapped ) ) {
+			wp_register_style( 'cleditor', $url . "cleditor/cleditor.css", array(), '1.3.0' );
+			$css_dependencies[] = 'cleditor';
+
+			wp_register_script( 'cleditor', $url . "cleditor/cleditor$dev.js", array('jquery'), '1.3.0', true );
+			$js_dependencies[] = 'cleditor';
+
+/*
 			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
 				'src' => $url . "nicedit/nicEdit$dev.js?ver=0.9r23",
 				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
@@ -95,9 +102,6 @@ abstract class FEE_Core {
 					'remove' => __( 'Remove', 'front-end-editor' ),
 				)
 			) );
-
-			#wp_register_script( 'nicEdit', $url . "nicedit/nicEdit$dev.js", array(), '0.9r23', true );
-			#$js_dependencies[] = 'nicEdit';
 
 			$nicEditL10n = array(
 				'Click to Bold' => __( 'Click to Bold', 'front-end-editor' ),
@@ -128,6 +132,7 @@ abstract class FEE_Core {
 				'Edit HTML' => __( 'Edit HTML', 'front-end-editor' ),
 			);
 			$nicEditL10n = 'var nicEditL10n = ' . json_encode( $nicEditL10n );
+*/
 		}
 
 		// Thickbox
@@ -164,7 +169,7 @@ abstract class FEE_Core {
 <script type='text/javascript'>
 var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
-<?php echo $nicEditL10n; ?>
+<?php // echo $nicEditL10n; ?>
 </script>
 <?php
 		scbUtil::do_scripts( $js_dependencies );

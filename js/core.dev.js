@@ -207,6 +207,7 @@ FrontEndEditor.sync_load = (function(){
 	};
 }());
 
+/*
 // Create a new nicEditor instance and return it
 FrontEndEditor.init_nicEdit = function($el, self) {
 	var nicArgs = FrontEndEditor.data.nicedit, tmp;
@@ -219,6 +220,7 @@ FrontEndEditor.init_nicEdit = function($el, self) {
 
 	return tmp.nicInstances[0];
 }
+*/
 
 jQuery(document).ready(function($) {
 

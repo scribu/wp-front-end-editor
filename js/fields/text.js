@@ -268,7 +268,7 @@ FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend
 
 		self._super(content);
 
-		self.editor = FrontEndEditor.init_nicEdit(self.input, self);
+		self.input.cleditor();
 	},
 
 	content_from_input: function () {
@@ -333,14 +333,6 @@ FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend
 		content = content.replace(/<wp_temp>/g, '\n');
 
 		return content;
-	},
-
-	ajax_set: function () {
-		var self = this;
-
-		self.editor.saveContent();
-
-		self._super();
 	}
 });
 
