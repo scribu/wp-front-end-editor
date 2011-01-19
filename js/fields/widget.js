@@ -7,10 +7,11 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 
 		self.rich_edit = ( 0 == self.data.widget_id.indexOf('text-') /* && FrontEndEditor.data.nicedit */);
 
-/*
-		if ( self.rich_edit )
-			self.dependency = FrontEndEditor.data.nicedit.src;
-*/
+		if ( self.rich_edit ) {
+//			self.dependency = FrontEndEditor.data.nicedit.src;
+
+			self.width = self.el.find('.textwidget').width();
+		}
 
 		self._super();
 	},
@@ -23,7 +24,9 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 		self.form.prepend(content);
 
 		if ( self.rich_edit ) {
-			self.form.find('textarea').cleditor();
+			self.form.find('textarea').cleditor({
+				width: self.width
+			});
 		}
 	},
 
