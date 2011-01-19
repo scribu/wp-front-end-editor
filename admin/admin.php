@@ -178,8 +178,6 @@ jQuery(document).ready(function ($) {
 	}
 
 	$('#cleditor_controls_profiles').delegate( 'a', 'click', function () {
-console.log($(this).attr( 'data-profile' ));
-
 		$('#cleditor_controls textarea').val( profiles[ $(this).attr( 'data-profile' ) ] );
 
 		return false;
