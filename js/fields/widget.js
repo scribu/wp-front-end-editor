@@ -9,8 +9,6 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 
 		if ( self.rich_edit ) {
 //			self.dependency = FrontEndEditor.data.nicedit.src;
-
-			self.width = self.el.find('.textwidget').width();
 		}
 
 		self._super();
@@ -24,9 +22,7 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 		self.form.prepend(content);
 
 		if ( self.rich_edit ) {
-			self.form.find('textarea').cleditor({
-				width: self.width
-			});
+			self.init_cleditor( self.form.find('textarea') );
 		}
 	},
 

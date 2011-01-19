@@ -54,6 +54,15 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 		});
 
 		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(self, 'ajax_set_handler'), 'json');
+	},
+
+	init_cleditor: function($el) {
+		var self = this;
+//			nicArgs = FrontEndEditor.data.nicedit;
+
+		$el.cleditor({
+			width: self.form.width()
+		});
 	}
 });
 

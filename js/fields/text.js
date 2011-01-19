@@ -268,7 +268,7 @@ FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend
 
 		self._super(content);
 
-		self.input.cleditor();
+		self.init_cleditor( self.input );
 	},
 
 	content_from_input: function () {

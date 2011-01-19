@@ -207,21 +207,6 @@ FrontEndEditor.sync_load = (function(){
 	};
 }());
 
-/*
-// Create a new nicEditor instance and return it
-FrontEndEditor.init_nicEdit = function($el, self) {
-	var nicArgs = FrontEndEditor.data.nicedit, tmp;
-
-	nicArgs.maxHeight = jQuery(window).height() - 50;
-
-	tmp = new nicEditor(nicArgs).panelInstance( $el.attr('id') );
-
-	self.form.find('.nicEdit-main').focus();
-
-	return tmp.nicInstances[0];
-}
-*/
-
 jQuery(document).ready(function($) {
 
 	// fetch all 'data-' attributes from a DOM node
