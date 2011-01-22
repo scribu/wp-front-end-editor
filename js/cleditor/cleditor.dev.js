@@ -1,10 +1,12 @@
 ﻿/**
- @preserve CLEditor WYSIWYG HTML Editor v1.3.0
+ @preserve CLEditor WYSIWYG HTML Editor v1.3.0-i18n
  http://premiumsoftware.net/cleditor
  requires jQuery v1.4.2 or later
 
  Copyright 2010, Chris Landowski, Premium Software, LLC
  Dual licensed under the MIT or GPL Version 2 licenses.
+
+ made i18n ready by scribu (mail@scribu.net)
 */
 
 // ==ClosureCompiler==
