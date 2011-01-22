@@ -14,6 +14,14 @@
 
 (function($) {
 
+  // i18n
+  if ( 'undefined' === typeof cleditorL10n )
+    cleditorL10n = {};
+
+  function __(s) {
+    return ( undefined === cleditorL10n[s] ) ? s : cleditorL10n[s];
+  }
+
   //==============
   // jQuery Plugin
   //==============
@@ -43,9 +51,15 @@
       sizes:        // sizes in the font size popup
                     "1,2,3,4,5,6,7",
       styles:       // styles in the style popup
-                    [["Paragraph", "<p>"], ["Header 1", "<h1>"], ["Header 2", "<h2>"],
-                    ["Header 3", "<h3>"],  ["Header 4","<h4>"],  ["Header 5","<h5>"],
-                    ["Header 6","<h6>"]],
+                    [
+                      [__("Paragraph"), "<p>"],
+                      [__("Header 1"), "<h1>"],
+                      [__("Header 2"), "<h2>"],
+                      [__("Header 3"), "<h3>"],
+                      [__("Header 4"), "<h4>"],
+                      [__("Header 5"), "<h5>"],
+                      [__("Header 6"), "<h6>"]
+                    ],
       useCSS:       false, // use CSS to style HTML when possible (not supported in ie)
       docType:      // Document type contained within the editor
                     '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
@@ -55,46 +69,8 @@
                     "margin:4px; font:10pt Arial,Verdana; cursor:text"
     },
 
-    // Define all usable toolbar buttons - the init string property is 
-    //   expanded during initialization back into the buttons object and 
-    //   seperate object properties are created for each button.
-    //   e.g. buttons.size.title = "Font Size"
-    buttons: {
-      // name,title,command,popupName (""=use name)
-      init:
-      "bold,,|" +
-      "italic,,|" +
-      "underline,,|" +
-      "strikethrough,,|" +
-      "subscript,,|" +
-      "superscript,,|" +
-      "font,,fontname,|" +
-      "size,Font Size,fontsize,|" +
-      "style,,formatblock,|" +
-      "color,Font Color,forecolor,|" +
-      "highlight,Text Highlight Color,hilitecolor,color|" +
-      "removeformat,Remove Formatting,|" +
-      "bullets,,insertunorderedlist|" +
-      "numbering,,insertorderedlist|" +
-      "outdent,,|" +
-      "indent,,|" +
-      "alignleft,Align Text Left,justifyleft|" +
-      "center,,justifycenter|" +
-      "alignright,Align Text Right,justifyright|" +
-      "justify,,justifyfull|" +
-      "undo,,|" +
-      "redo,,|" +
-      "rule,Insert Horizontal Rule,inserthorizontalrule|" +
-      "image,Insert Image,insertimage,url|" +
-      "link,Insert Hyperlink,createlink,url|" +
-      "unlink,Remove Hyperlink,|" +
-      "cut,,|" +
-      "copy,,|" +
-      "paste,,|" +
-      "pastetext,Paste as Text,inserthtml,|" +
-      "print,,|" +
-      "source,Show Source"
-    },
+    // Holds all usable toolbar buttons
+    buttons: {},
 
     // imagesPath - returns the path to the images folder
     imagesPath: function() { return imagesPath(); }
@@ -120,7 +96,7 @@
     return $result;
 
   };
-    
+
   //==================
   // Private Variables
   //==================
@@ -166,17 +142,53 @@
   documentClickAssigned,
 
   // Local copy of the buttons object
-  buttons = $.cleditor.buttons;
+  buttons = $.cleditor.buttons,
+
+  // name,title,command,popupName (""=use name)
+  buttonsInit = [
+    ['bold', __('Bold')],
+    ['italic', __('Italic')],
+    ['underline', __('Underline')],
+    ['strikethrough', __('Strikethrough')],
+    ['subscript', __('Subscript')],
+    ['superscript', __('Superscript')],
+    ['font', __('Font Face'), 'fontname'],
+    ['size', __('Font Size'), 'fontsize'],
+    ['style', __('Style'), 'formatblock'],
+    ['color', __('Font Color'), 'forecolor'],
+    ['highlight', __('Text Highlight Color'), 'hilitecolor', 'color'],
+    ['removeformat', __('Remove Formatting')],
+    ['bullets', __('Bullets'), 'insertunorderedlist'],
+    ['numbering', __('Numbering'), 'insertorderedlist'],
+    ['outdent', __('Outdent')],
+    ['indent', __('Indent')],
+    ['alignleft', __('Align Text Left'), 'justifyleft'],
+    ['center', __('Center'), 'justifycenter'],
+    ['alignright', __('Align Text Right'), 'justifyright'],
+    ['justify', __('Justify'), 'justifyfull'],
+    ['undo', __('Undo')],
+    ['redo', __('Redo')],
+    ['rule', __('Insert Horizontal Rule'), 'inserthorizontalrule'],
+    ['image', __('Insert Image'), 'insertimage', 'url'],
+    ['link', __('Insert Hyperlink'), 'createlink', 'url'],
+    ['unlink', __('Remove Hyperlink')],
+    ['cut', __('Cut')],
+    ['copy', __('Copy')],
+    ['paste', __('Paste')],
+    ['pastetext', __('Paste as Text'), 'inserthtml'],
+    ['print', __('Print')],
+    ['source', __('Show Source')]
+  ];
 
   //===============
   // Initialization
   //===============
 
-  // Expand the buttons.init string back into the buttons object
+  // Expand the buttonsInit array back into the buttons object
   //   and create seperate object properties for each button.
   //   e.g. buttons.size.title = "Font Size"
-  $.each(buttons.init.split("|"), function(idx, button) {
-    var items = button.split(","), name = items[0];
+  $.each(buttonsInit, function(idx, items) {
+    var name = items[0];
     buttons[name] = {
       stripIndex: idx,
       name: name,
@@ -185,7 +197,6 @@
       popupName: items[3] === "" ? name : items[3]
     };
   });
-  delete buttons.init;
 
   //============
   // Constructor
@@ -635,13 +646,13 @@
 
     // URL
     else if (popupName == "url") {
-      $popup.html('Enter URL:<br><input type=text value="http://" size=35><br><input type=button value="Submit">');
+      $popup.html(__('Enter URL:') + '<br><input type=text value="http://" size=35><br><input type=button value="' + __('Submit') + '">');
       popupTypeClass = PROMPT_CLASS;
     }
 
     // Paste as Text
     else if (popupName == "pastetext") {
-      $popup.html('Paste your content here and click submit.<br /><textarea cols=40 rows=3></textarea><br /><input type=button value=Submit>');
+      $popup.html(__('Paste your content here and click submit.') + '<br /><textarea cols=40 rows=3></textarea><br /><input type=button value="' + __('Submit') + '">');
       popupTypeClass = PROMPT_CLASS;
     }
 
