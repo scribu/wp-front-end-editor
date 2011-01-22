@@ -13,13 +13,12 @@
 // ==/ClosureCompiler==
 
 (function($) {
-
   // i18n
-  if ( 'undefined' === typeof cleditorL10n )
-    cleditorL10n = {};
+  if ( 'undefined' === typeof CLEDITOR_I18N )
+    CLEDITOR_I18N = {};
 
   function __(s) {
-    return ( undefined === cleditorL10n[s] ) ? s : cleditorL10n[s];
+    return ( undefined === CLEDITOR_I18N[s] ) ? s : CLEDITOR_I18N[s];
   }
 
   //==============
