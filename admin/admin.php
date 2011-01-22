@@ -172,7 +172,7 @@ jQuery(document).ready(function ($) {
 			"bold italic underline strikethrough subscript superscript | font size " +
 			"style | color highlight removeformat | bullets numbering | outdent " +
 			"indent | alignleft center alignright justify | undo redo | " +
-			"rule image link unlink | cut copy paste pastetext | print source",
+			"rule wpimage link unlink | cut copy paste pastetext | print source",
 		'default':
 			"<?php echo $this->options->get_defaults( 'cleditor_controls' ); ?>"
 	}

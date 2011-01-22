@@ -52,7 +52,7 @@ function _fee_init() {
 			"font size style | " .
 			"color highlight removeformat | " .
 			"bullets numbering | " .
-			"link image | " .
+			"link wpimage | " .
 			"source"
 	) );
 

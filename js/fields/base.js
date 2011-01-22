@@ -58,9 +58,6 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 
 	init_cleditor: function($el) {
 		var self = this;
-//			nicArgs = FrontEndEditor.data.nicedit;
-
-console.log( FrontEndEditor.data.cleditor.controls );
 
 		$el.cleditor({
 			controls: FrontEndEditor.data.cleditor.controls,

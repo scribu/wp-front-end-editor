@@ -57,19 +57,44 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 	}
 });
 
+// Add wpimage button
+if ( jQuery.cleditor ) {
+
 FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'].extend({
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.insert : null,
 
-	init: function (ne) {
-		this.ne = ne;
+	init: function (data) {
+		this.data = data;
 		this.dblclick();
 	},
 
 	ajax_set: function (url) {
-		this.ne.nicCommand("insertImage", url);
+		var	data = this.data,
+			editor = data.editor;
+
+		editor.execCommand(data.command, url, null, data.button);
+
 		tb_remove();
+		editor.focus();
 	}
 });
+
+jQuery.cleditor.buttons.wpimage = {
+	name: "wpimage",
+	stripIndex: 23,
+	title: "Insert Imag",
+	command: "insertImage",
+	popupName: "undefined",
+	buttonClick: function(event, data) {
+	new FrontEndEditor.fieldTypes['image_rich'](data);
+}
+};
+
+// Add the button to the default controls
+jQuery.cleditor.defaultOptions.controls = jQuery.cleditor.defaultOptions.controls
+	.replace("image ", "wpimage ");
+
+}
 
 FrontEndEditor.fieldTypes['image'] = FrontEndEditor.fieldTypes['image_base'].extend({
 
