@@ -13,6 +13,7 @@
 // ==/ClosureCompiler==
 
 (function($) {
+
   // i18n
   if ( 'undefined' === typeof CLEDITOR_I18N )
     CLEDITOR_I18N = {};
@@ -151,7 +152,7 @@
     ['strikethrough', __("Strikethrough")],
     ['subscript', __("Subscript")],
     ['superscript', __("Superscript")],
-    ['font', __("Font Face"), 'fontname'],
+    ['font', __("Font"), 'fontname'],
     ['size', __("Font Size"), 'fontsize'],
     ['style', __("Style"), 'formatblock'],
     ['color', __("Font Color"), 'forecolor'],
@@ -191,9 +192,9 @@
     buttons[name] = {
       stripIndex: idx,
       name: name,
-      title: items[1] === "" ? name.charAt(0).toUpperCase() + name.substr(1) : items[1],
-      command: items[2] === "" ? name : items[2],
-      popupName: items[3] === "" ? name : items[3]
+      title: items[1] || name.charAt(0).toUpperCase() + name.substr(1),
+      command: items[2] || name,
+      popupName: items[3] || name
     };
   });
 
