@@ -1,14 +1,15 @@
 #!/bin/bash
 MINIFIER="java -jar /home/cristi/bin/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar"
 
-cd 'js'
+cd 'js/cleditor'
+$MINIFIER 'cleditor.dev.js' > 'cleditor.js'
 
+cd '..'
 $MINIFIER 'core.dev.js' > 'editor.js'
 cat fields/* | $MINIFIER --type 'js' >> 'editor.js'
 
 cd '../css'
-
 $MINIFIER 'editor.dev.css' > 'editor.css'
 
-cd '..'
-xgettext -C --keyword=__ js/cleditor/cleditor.dev.js -o lang/cleditor/cleditor.pot
+#cd '..'
+#xgettext -C --keyword=__ js/cleditor/cleditor.dev.js -o lang/cleditor/cleditor.pot
