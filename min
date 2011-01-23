@@ -9,3 +9,5 @@ cat fields/* | $MINIFIER --type 'js' >> 'editor.js'
 cd '../css'
 
 $MINIFIER 'editor.dev.css' > 'editor.css'
+
+xgettext -C --keyword=__ js/cleditor/cleditor.dev.js -o lang/cleditor/cleditor.pot

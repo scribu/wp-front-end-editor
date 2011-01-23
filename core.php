@@ -83,7 +83,6 @@ abstract class FEE_Core {
 		}
 
 		// Rich Editor
-		$nicEditL10n = '';
 		if ( in_array( 'rich', $wrapped ) ) {
 			wp_register_style( 'cleditor', $url . "cleditor/cleditor.css", array(), '1.3.0' );
 			$css_dependencies[] = 'cleditor';
@@ -93,51 +92,20 @@ abstract class FEE_Core {
 
 			$data['cleditor'] = array(
 				'controls' => self::$options->cleditor_controls,
-#				'link' => array(
-#					'visit'  => __( 'Visit', 'front-end-editor' ),
-#					'change' => __( 'Change', 'front-end-editor' ),
-#					'remove' => __( 'Remove', 'front-end-editor' ),
-#				)
 			);
 
-/*
-			$data['nicedit'] = apply_filters( 'front_end_editor_nicedit', array(
-				'src' => $url . "nicedit/nicEdit$dev.js?ver=0.9r23",
-				'iconsPath' => $url . 'nicedit/nicEditorIcons.gif',
-				'buttonList' => self::$options->ne_buttons,
-			) );
+			load_plugin_textdomain( 'cleditor', '', FRONT_END_EDITOR_PLUGIN_BASENAME . '/lang/cleditor' );
 
-			$nicEditL10n = array(
-				'Click to Bold' => __( 'Click to Bold', 'front-end-editor' ),
-				'Click to Italic' => __( 'Click to Italic', 'front-end-editor' ),
-				'Click to Underline' => __( 'Click to Underline', 'front-end-editor' ),
-				'Left Align' => __( 'Left Align', 'front-end-editor' ),
-				'Center Align' => __( 'Center Align', 'front-end-editor' ),
-				'Right Align' => __( 'Right Align', 'front-end-editor' ),
-				'Justify Align' => __( 'Justify Align', 'front-end-editor' ),
-				'Insert Ordered List' => __( 'Insert Ordered List', 'front-end-editor' ),
-				'Insert Unordered List' => __( 'Insert Unordered List', 'front-end-editor' ),
-				'Click to Subscript' => __( 'Click to Subscript', 'front-end-editor' ),
-				'Click to Superscript' => __( 'Click to Superscript', 'front-end-editor' ),
-				'Click to Strike Through' => __( 'Click to Strike Through', 'front-end-editor' ),
-				'Remove Formatting' => __( 'Remove Formatting', 'front-end-editor' ),
-				'Indent Text' => __( 'Indent Text', 'front-end-editor' ),
-				'Remove Indent' => __( 'Remove Indent', 'front-end-editor' ),
-				'Horizontal Rule' => __( 'Horizontal Rule', 'front-end-editor' ),
-				'Select Font Size' => __( 'Select Font Size', 'front-end-editor' ),
-				'Select Font Family' => __( 'Select Font Family', 'front-end-editor' ),
-				'Select Font Format' => __( 'Select Font Format', 'front-end-editor' ),
-				'Add Link' => __( 'Add Link', 'front-end-editor' ),
-				'Remove Link' => __( 'Remove Link', 'front-end-editor' ),
-				'Change Text Color' => __( 'Change Text Color', 'front-end-editor' ),
-				'Change Background Color' => __( 'Change Background Color', 'front-end-editor' ),
-				'Add Image' => __( 'Add Image', 'front-end-editor' ),
-				'Upload Image' => __( 'Upload Image', 'front-end-editor' ),
-				'Edit HTML' => __( 'Edit HTML', 'front-end-editor' ),
-			);
-			$nicEditL10n = 'var nicEditL10n = ' . json_encode( $nicEditL10n );
-*/
+			$cledit_i18n = array();
+			foreach ( get_translations_for_domain('cleditor')->entries as $entry ) {
+				$cledit_i18n[ $entry->singular ] = $entry->translations[0];
+			}
 		}
+
+		if ( !empty( $cledit_i18n ) )
+			$cledit_i18n = 'CLEDITOR_I18N = ' . json_encode( $cledit_i18n );
+		else
+			$cledit_i18n = '';
 
 		// Thickbox
 		if ( count( array_intersect( array( 'image', 'thumbnail', 'rich' ), $wrapped ) ) ) {
@@ -173,7 +141,7 @@ abstract class FEE_Core {
 <script type='text/javascript'>
 var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
-<?php // echo $nicEditL10n; ?>
+<?php echo $cledit_i18n; ?>
 </script>
 <?php
 		scbUtil::do_scripts( $js_dependencies );

@@ -79,16 +79,13 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 	}
 });
 
-jQuery.cleditor.buttons.wpimage = {
+jQuery.cleditor.buttons.wpimage = jQuery.extend(jQuery.cleditor.buttons.image, {
 	name: "wpimage",
-	stripIndex: 23,
-	title: "Insert Imag",
-	command: "insertImage",
 	popupName: "undefined",
 	buttonClick: function(event, data) {
-	new FrontEndEditor.fieldTypes['image_rich'](data);
-}
-};
+		new FrontEndEditor.fieldTypes['image_rich'](data);
+	}
+});
 
 // Add the button to the default controls
 jQuery.cleditor.defaultOptions.controls = jQuery.cleditor.defaultOptions.controls
