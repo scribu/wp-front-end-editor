@@ -92,6 +92,11 @@ abstract class FEE_Core {
 
 			$data['cleditor'] = array(
 				'controls' => self::$options->cleditor_controls,
+				'link' => array(
+					'visit'  => __( 'Visit', 'front-end-editor' ),
+					'change' => __( 'Change', 'front-end-editor' ),
+					'remove' => __( 'Remove', 'front-end-editor' ),
+				)
 			);
 
 			load_plugin_textdomain( 'cleditor', '', FRONT_END_EDITOR_PLUGIN_BASENAME . '/lang/cleditor' );
