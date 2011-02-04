@@ -1,0 +1,323 @@
+# Translation of the WordPress plugin Front-end Editor 1.9.2 by scribu.
+# Copyright (C) 2010 scribu
+# This file is distributed under the same license as the Front-end Editor package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Front-end Editor 1.9.2\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2010-12-05 07:30+0200\n"
+"PO-Revision-Date: 2011-02-04 16:03+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.9.2)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: admin.php:9
+msgid "Front-end Editor"
+msgstr "Екранен редактор"
+
+#: admin.php:14
+msgid "Fields"
+msgstr "Полета"
+
+#: admin.php:15
+#: scb/AdminPage.php:368
+msgid "Settings"
+msgstr "Настройки"
+
+#: admin.php:16
+msgid "Editor Panel"
+msgstr "Поле за редакция"
+
+#: admin.php:97
+msgid "Enable or disable editable fields"
+msgstr "Включване/изключване редакцията на полетата"
+
+#: admin.php:99
+msgid "Post fields"
+msgstr "Полета към публикацията"
+
+#: admin.php:100
+msgid "Other fields"
+msgstr "Други полета"
+
+#: admin.php:140
+msgid "Enable the WYSIWYG editor"
+msgstr "Включване на визуален редактор WYSIWYG"
+
+#: admin.php:146
+msgid "Edit one paragraph at a time, instead of an entire post"
+msgstr "Редакция по параграфи, вместо на цялата публикация"
+
+#: admin.php:152
+msgid "Highlight editable elements"
+msgstr "Осветяване елементите, разрешени за редакция"
+
+#: admin.php:158
+msgid "Display a tooltip above editable elements"
+msgstr "Показване на пояснение над редактируемите елементи"
+
+#: admin.php:182
+msgid "Enable or disable editor buttons"
+msgstr "Включване/изключване на бутоните за редакция"
+
+#: admin.php:212
+msgid "Button"
+msgstr "Бутон"
+
+#: core.php:55
+msgid "Save"
+msgstr "Запазване"
+
+#: core.php:56
+msgid "Cancel"
+msgstr "Отмяна"
+
+#: core.php:69
+msgid "Double-click to edit"
+msgstr "За да редактирате, щракнете два пъти!"
+
+#: core.php:94
+msgid "Visit"
+msgstr "Виж"
+
+#: core.php:95
+msgid "Change"
+msgstr "Промени"
+
+#: core.php:96
+msgid "Remove"
+msgstr "Изтрий"
+
+#: core.php:104
+msgid "Click to Bold"
+msgstr "Щракни за \"Удебелен\" шрифт"
+
+#: core.php:105
+msgid "Click to Italic"
+msgstr "Щракни за \"Наклонен\" шрифт"
+
+#: core.php:106
+msgid "Click to Underline"
+msgstr "Шракни за подчертаване"
+
+#: core.php:107
+msgid "Left Align"
+msgstr "Подравняване наляво"
+
+#: core.php:108
+msgid "Center Align"
+msgstr "Центриране"
+
+#: core.php:109
+msgid "Right Align"
+msgstr "Подравняване надясно"
+
+#: core.php:110
+msgid "Justify Align"
+msgstr "Двустранно подравняване"
+
+#: core.php:111
+msgid "Insert Ordered List"
+msgstr "Вмъкване на номериран списък"
+
+#: core.php:112
+msgid "Insert Unordered List"
+msgstr "Вмъкване на неномериран списък"
+
+#: core.php:113
+msgid "Click to Subscript"
+msgstr "Щракни за \"долен индекс\""
+
+#: core.php:114
+msgid "Click to Superscript"
+msgstr "Щракни за \"горен индекс\""
+
+#: core.php:115
+msgid "Click to Strike Through"
+msgstr "Щракни за зачертаване"
+
+#: core.php:116
+msgid "Remove Formatting"
+msgstr "Премахване на форматирането"
+
+#: core.php:117
+msgid "Indent Text"
+msgstr "Отместване на текста"
+
+#: core.php:118
+msgid "Remove Indent"
+msgstr "Премахване на отместването"
+
+#: core.php:119
+msgid "Horizontal Rule"
+msgstr "Хоризонтален плъзгач"
+
+#: core.php:120
+msgid "Select Font Size"
+msgstr "Размер на шрифта"
+
+#: core.php:121
+msgid "Select Font Family"
+msgstr "Шрифт"
+
+#: core.php:122
+msgid "Select Font Format"
+msgstr "Формат на шрифта"
+
+#: core.php:123
+msgid "Add Link"
+msgstr "Добавяне на хипервръзка"
+
+#: core.php:124
+msgid "Remove Link"
+msgstr "Премахване на хипервръзка"
+
+#: core.php:125
+msgid "Change Text Color"
+msgstr "Промяна цвета на текста"
+
+#: core.php:126
+msgid "Change Background Color"
+msgstr "Промяна фона на текста"
+
+#: core.php:127
+msgid "Add Image"
+msgstr "Добавяне на изображение"
+
+#: core.php:128
+msgid "Upload Image"
+msgstr "Изпращане на изображение"
+
+#: core.php:129
+msgid "Edit HTML"
+msgstr "Редакция на кода"
+
+#: core.php:139
+msgid "Change Image"
+msgstr "Промяна на изображение"
+
+#: core.php:140
+msgid "Insert Image"
+msgstr "Вмъкване на изображение"
+
+#: core.php:141
+msgid "Clear"
+msgstr "Изчистване"
+
+#: fields/base.php:106
+msgid "empty"
+msgstr "празно поле"
+
+#: fields/base.php:125
+msgid "no"
+msgstr "не"
+
+#: fields/base.php:126
+msgid "yes"
+msgstr "да"
+
+#: fields/post.php:84
+#, php-format
+msgid "Error: %s is currently editing this."
+msgstr "Грешка: В момента %s редактира това поле."
+
+#: front-end-editor.php:77
+msgid "Post title"
+msgstr "Заглавие на публикацията"
+
+#: front-end-editor.php:84
+msgid "Post content"
+msgstr "Съдържание на публикацията"
+
+#: front-end-editor.php:95
+msgid "Post excerpt"
+msgstr "Откъс от публикацията"
+
+#: front-end-editor.php:101
+msgid "Post categories"
+msgstr "Категории към публикациията"
+
+#: front-end-editor.php:108
+msgid "Post tags"
+msgstr "Етикети към публикацията"
+
+#: front-end-editor.php:115
+msgid "Post terms"
+msgstr "Термини към публикацията"
+
+#: front-end-editor.php:122
+msgid "Post custom fields"
+msgstr "Персонални полета към публикацията"
+
+#: front-end-editor.php:128
+msgid "Post thumbnail"
+msgstr "Миниатюра към публикацията"
+
+#: front-end-editor.php:135
+msgid "Comment text"
+msgstr "Коментар"
+
+#: front-end-editor.php:141
+msgid "Category title"
+msgstr "Заглавие на категорията"
+
+#: front-end-editor.php:146
+msgid "Tag title"
+msgstr "Заглавие на етикета"
+
+#: front-end-editor.php:151
+msgid "Term description"
+msgstr "Описание на термина"
+
+#: front-end-editor.php:158
+msgid "Author description"
+msgstr "Описание на автора"
+
+#: front-end-editor.php:165
+msgid "Widgets"
+msgstr "Джаджи"
+
+#: front-end-editor.php:171
+msgid "Site title and description"
+msgstr "Заглавие и описание на сайта"
+
+#: front-end-editor.php:177
+msgid "Site options"
+msgstr "Настройки на сайта"
+
+#: front-end-editor.php:183
+msgid "Theme images"
+msgstr "Изображения към шаблона"
+
+#: scb/AdminPage.php:164
+msgid "Settings <strong>saved</strong>."
+msgstr "Настройките са <strong>запазени</strong>."
+
+#: scb/AdminPage.php:176
+#: scb/AdminPage.php:186
+msgid "Save Changes"
+msgstr "Запазване на настройките"
+
+#. Plugin URI of the plugin/theme
+msgid "http://scribu.net/wordpress/front-end-editor"
+msgstr "http://scribu.net/wordpress/front-end-editor"
+
+#. Description of the plugin/theme
+msgid "Allows you to edit your posts without going through the admin interface"
+msgstr "Позволява лесно редактиране на отделните елементи на сайта направо от самия сайт, а не чрез панела за управление."
+
+#. Author of the plugin/theme
+msgid "scribu"
+msgstr "scribu"
+
+#. Author URI of the plugin/theme
+msgid "http://scribu.net/"
+msgstr "http://scribu.net/"
+
