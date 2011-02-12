@@ -4,8 +4,7 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 	dblclick: function () {
 		var self = this;
 
-		tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.admin_url +
-			'/media-upload.php?post_id=0&type=image&TB_iframe=true&width=640&editable_image=1');
+		tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.image.url);
 
 		jQuery('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close);
 
