@@ -123,6 +123,9 @@ abstract class FEE_Core {
 
 		// Core script
 		if ( defined('SCRIPT_DEBUG') ) {
+			wp_register_script( 'jquery-delayed-double-click', $url . 'jquery.delayed-double-click.js', array('jquery'), self::$version, true );
+			$js_dependencies[] = 'jquery-delayed-double-click';
+
 			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
 			$js_dependencies[] = 'fee-core';
 
