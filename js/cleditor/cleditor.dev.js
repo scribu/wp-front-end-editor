@@ -72,7 +72,42 @@
     },
 
     // Holds all usable toolbar buttons
-    buttons: {},
+    buttons: {
+      init: [
+        ['bold', __("Bold")],
+        ['italic', __("Italic")],
+        ['underline', __("Underline")],
+        ['strikethrough', __("Strikethrough")],
+        ['subscript', __("Subscript")],
+        ['superscript', __("Superscript")],
+        ['font', __("Font"), 'fontname'],
+        ['size', __("Text size"), 'fontsize'],
+        ['style', __("Style"), 'formatblock'],
+        ['color', __("Text color"), 'forecolor'],
+        ['highlight', __("Highlight color"), 'hilitecolor', 'color'],
+        ['removeformat', __("Remove formatting")],
+        ['bullets', __("Unordered list"), 'insertunorderedlist'],
+        ['numbering', __("Ordered list"), 'insertorderedlist'],
+        ['outdent', __("Outdent")],
+        ['indent', __("Indent")],
+        ['alignleft', __("Align left"), 'justifyleft'],
+        ['center', __("Align center"), 'justifycenter'],
+        ['alignright', __("Align right"), 'justifyright'],
+        ['justify', __("Align full"), 'justifyfull'],
+        ['undo', __("Undo")],
+        ['redo', __("Redo")],
+        ['rule', __("Insert horizontal rule"), 'inserthorizontalrule'],
+        ['image', __("Insert image"), 'insertimage', 'url'],
+        ['link', __("Insert link"), 'createlink', 'url'],
+        ['unlink', __("Remove link")],
+        ['cut', __("Cut")],
+        ['copy', __("Copy")],
+        ['paste', __("Paste")],
+        ['pastetext', __("Paste as text"), 'inserthtml'],
+        ['print', __("Print")],
+        ['source', __("Show source")]
+      ]
+    },
 
     // imagesPath - returns the path to the images folder
     imagesPath: function() { return imagesPath(); }
@@ -144,43 +179,7 @@
   documentClickAssigned,
 
   // Local copy of the buttons object
-  buttons = $.cleditor.buttons,
-
-  // name,title,command,popupName (""=use name)
-  buttonsInit = [
-    ['bold', __("Bold")],
-    ['italic', __("Italic")],
-    ['underline', __("Underline")],
-    ['strikethrough', __("Strikethrough")],
-    ['subscript', __("Subscript")],
-    ['superscript', __("Superscript")],
-    ['font', __("Font"), 'fontname'],
-    ['size', __("Text size"), 'fontsize'],
-    ['style', __("Style"), 'formatblock'],
-    ['color', __("Text color"), 'forecolor'],
-    ['highlight', __("Highlight color"), 'hilitecolor', 'color'],
-    ['removeformat', __("Remove formatting")],
-    ['bullets', __("Unordered list"), 'insertunorderedlist'],
-    ['numbering', __("Ordered list"), 'insertorderedlist'],
-    ['outdent', __("Outdent")],
-    ['indent', __("Indent")],
-    ['alignleft', __("Align left"), 'justifyleft'],
-    ['center', __("Align center"), 'justifycenter'],
-    ['alignright', __("Align right"), 'justifyright'],
-    ['justify', __("Align full"), 'justifyfull'],
-    ['undo', __("Undo")],
-    ['redo', __("Redo")],
-    ['rule', __("Insert horizontal rule"), 'inserthorizontalrule'],
-    ['image', __("Insert image"), 'insertimage', 'url'],
-    ['link', __("Insert link"), 'createlink', 'url'],
-    ['unlink', __("Remove link")],
-    ['cut', __("Cut")],
-    ['copy', __("Copy")],
-    ['paste', __("Paste")],
-    ['pastetext', __("Paste as text"), 'inserthtml'],
-    ['print', __("Print")],
-    ['source', __("Show source")]
-  ];
+  buttons = $.cleditor.buttons;
 
   //===============
   // Initialization
@@ -189,7 +188,7 @@
   // Expand the buttonsInit array back into the buttons object
   //   and create seperate object properties for each button.
   //   e.g. buttons.size.title = "Font Size"
-  $.each(buttonsInit, function(idx, items) {
+  $.each(buttons.init, function(idx, items) {
     var name = items[0];
     buttons[name] = {
       stripIndex: idx,
@@ -199,6 +198,8 @@
       popupName: items[3] || name
     };
   });
+  
+  delete buttons.init;
 
   //============
   // Constructor
