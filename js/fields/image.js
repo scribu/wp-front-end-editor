@@ -85,8 +85,8 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 	buttons.wpimage.popupName = undefined;
 	buttons.wpimage.buttonClick = function(event, data) {
 		new FrontEndEditor.fieldTypes['image_rich'](data);
-	}
-})();
+	};
+}());
 
 // Add the button to the default controls
 jQuery.cleditor.defaultOptions.controls = jQuery.cleditor.defaultOptions.controls
@@ -109,10 +109,11 @@ FrontEndEditor.fieldTypes['image'] = FrontEndEditor.fieldTypes['image_base'].ext
 			.insertAfter('#TB_ajaxWindowTitle');
 	},
 
-	ajax_set_handler: function (url) {
-		var self = this;
+	ajax_set_handler: function (response) {
+		var self = this,
+			url = response.content;
 
-		if ( url == -1 ) {
+		if ( '-1' === url ) {
 			window.location.reload(true);
 		} else {
 			self.el.find('img').attr('src', url);
