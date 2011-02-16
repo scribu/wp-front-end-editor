@@ -4,7 +4,7 @@
 		delayed = false;
 
 	function is_regular_link($target) {
-		if ( $target.is('select, option, input, button') ) // TODO: instead of 'click', capture the 'submit' event
+		if ( $target.is('select, option, input, button') )
 			return false;
 
 		if ( $target.attr('onclick') )
@@ -21,13 +21,8 @@
 		return true;
 	}
 
-	function resume() {
-		if ( !event )
-			return;
-
-		var $target = jQuery(event.target);
-
-		var new_event = jQuery.Event('click');
+	function isDefaultUsuallyPrevented($target, type) {
+		var new_event = jQuery.Event(type);
 
 		delayed = true;
 
@@ -35,7 +30,16 @@
 
 		delayed = false;
 
-		if ( new_event.isDefaultPrevented() )
+		return new_event.isDefaultPrevented();
+	}
+
+	function resume() {
+		if ( !event )
+			return;
+
+		var $target = jQuery(event.target);
+
+		if ( isDefaultUsuallyPrevented($target, event.type) )
 			return;
 
 		var $link = $target.closest('a');
