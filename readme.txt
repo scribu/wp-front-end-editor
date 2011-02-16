@@ -129,7 +129,8 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 1.9.3 =
 * switch to CLEditor
-* fix encoding issues with paragraph editing
+* fixed encoding issues with paragraph editing
+* fixed image fields handling
 
 = 1.9.2.1 =
 * disable post locking
