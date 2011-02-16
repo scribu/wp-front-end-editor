@@ -68,7 +68,7 @@ FrontEndEditor.fieldTypes = {};
 
 FrontEndEditor.overlay = function($el) {
 
-	var $cover = jQuery('<div class="fee-loading>')
+	var $cover = jQuery('<div>', {'class': 'fee-loading'})
 		.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
 		.hide()
 		.prependTo(jQuery('body'));
