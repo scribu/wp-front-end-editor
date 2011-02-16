@@ -17,7 +17,7 @@
 (function($) {
 
   // i18n
-  if ( undefined === CLEDITOR_I18N )
+  if ( 'undefined' === typeof CLEDITOR_I18N )
     CLEDITOR_I18N = {};
 
   function __(s) {
@@ -106,9 +106,9 @@
         ['cut', __("Cut")],
         ['copy', __("Copy")],
         ['paste', __("Paste")],
-        ['pastetext', __("Paste as text"), 'inserthtml'],
+        ['pastetext', __("Paste as text"), 'inserthtml', 'pastetext'],
         ['print', __("Print")],
-        ['source', __("Show source")]
+        ['source', __("Show source"), false]
       ]
     },
 
@@ -197,7 +197,7 @@
       stripIndex: idx,
       name: name,
       title: items[1] || name.charAt(0).toUpperCase() + name.substr(1),
-      command: items[2] || name,
+      command: ( false !== items[2] ) ? items[2] || name : undefined,
       popupName: items[3]
     };
   });
