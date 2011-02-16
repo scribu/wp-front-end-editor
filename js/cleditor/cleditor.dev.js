@@ -17,7 +17,7 @@
 (function($) {
 
   // i18n
-  if ( 'undefined' === typeof CLEDITOR_I18N )
+  if ( undefined === CLEDITOR_I18N )
     CLEDITOR_I18N = {};
 
   function __(s) {
