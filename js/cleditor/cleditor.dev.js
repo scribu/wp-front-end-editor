@@ -198,7 +198,7 @@
       name: name,
       title: items[1] || name.charAt(0).toUpperCase() + name.substr(1),
       command: items[2] || name,
-      popupName: items[3] || name
+      popupName: items[3]
     };
   });
   
