@@ -71,7 +71,10 @@
                     "margin:4px; font:10pt Arial,Verdana; cursor:text"
     },
 
-    // Holds all usable toolbar buttons
+    // Define all usable toolbar buttons - the init property is 
+    //   expanded during initialization back into the buttons object and 
+    //   seperate object properties are created for each button.
+    //   e.g. buttons.size.title = "Font Size"
     buttons: {
       init: [
         ['bold', __("Bold")],
