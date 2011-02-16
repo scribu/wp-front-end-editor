@@ -15,12 +15,12 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 		var self = this;
 
 		jQuery(ev.target).contents().delegate('.media-item', 'hover', function () {
-			var $item = jQuery(this);
+			var $item = jQuery(this), $button;
 
 			if ( $item.data('fee_altered') )
 				return;
 
-			var $button = jQuery('<a href="#" class="button">')
+			$button = jQuery('<a href="#" class="button">')
 				.text(self.button_text)
 				.click(function (ev) {
 					self.ajax_set(self.content_from_input($item));
@@ -67,10 +67,9 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 	},
 
 	ajax_set: function (url) {
-		var	data = this.data,
-			editor = data.editor;
+		var editor = this.data.editor;
 
-		editor.execCommand(data.command, url, null, data.button);
+		editor.execCommand(this.data.command, url, null, this.data.button);
 
 		tb_remove();
 		editor.focus();
@@ -86,11 +85,11 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 	buttons.wpimage.buttonClick = function(event, data) {
 		new FrontEndEditor.fieldTypes['image_rich'](data);
 	};
-}());
 
-// Add the button to the default controls
-jQuery.cleditor.defaultOptions.controls = jQuery.cleditor.defaultOptions.controls
-	.replace("image ", "wpimage ");
+	// Add the button to the default controls
+	jQuery.cleditor.defaultOptions.controls = jQuery.cleditor.defaultOptions.controls
+		.replace("image ", "wpimage ");
+}());
 
 }
 
@@ -114,7 +113,7 @@ FrontEndEditor.fieldTypes['image'] = FrontEndEditor.fieldTypes['image_base'].ext
 			url = response.content;
 
 		if ( '-1' === url ) {
-			window.location.reload(true);
+			location.reload(true);
 		} else {
 			self.el.find('img').attr('src', url);
 			tb_remove();

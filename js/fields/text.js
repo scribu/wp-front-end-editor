@@ -1,4 +1,4 @@
-FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
+FrontEndEditor.fieldTypes.input['input'] = FrontEndEditor.fieldTypes['base'].extend({
 
 	input_tag: '<input type="text">',
 
@@ -60,9 +60,9 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 	},
 
 	ajax_get_handler: function (response) {
-		var self = this;
+		var self = this,
+			$el = self.error_handler(response);
 
-		var $el = self.error_handler(response);
 		if ( !$el )
 			return;
 
@@ -76,9 +76,9 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 	},
 
 	ajax_set_handler: function (response) {
-		var self = this;
+		var self = this,
+			$el = self.error_handler(response);
 
-		var $el = self.error_handler(response);
 		if ( !$el )
 			return;
 
@@ -88,12 +88,11 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 	},
 
 	error_handler: function (response) {
-		var self = this;
+		var self = this,
+			$parent = self.el.parents('a'),
+			$el = $parent.length ? $parent : self.el;
 
 		self.overlay.hide();
-
-		var	$parent = self.el.parents('a'),
-			$el = $parent.length ? $parent : self.el;
 
 		if ( response.error ) {
 			var $error_box = jQuery('<div class="fee-error">');
@@ -175,15 +174,14 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 	},
 
 	keypress: function (ev) {
-		var self = this;
+		var self = this,
+			keys = {ENTER: 13, ESCAPE: 27},
+			code = (ev.keyCode || ev.which || ev.charCode || 0);
 
-		var keys = {ENTER: 13, ESCAPE: 27};
-		var code = (ev.keyCode || ev.which || ev.charCode || 0);
-
-		if ( code == keys.ENTER && 'input' == self.type )
+		if ( code === keys.ENTER && 'input' === self.type )
 			self.save_button.click();
 
-		if ( code == keys.ESCAPE )
+		if ( code === keys.ESCAPE )
 			self.cancel_button.click();
 	}
 });
@@ -219,7 +217,7 @@ FrontEndEditor.fieldTypes['checkbox'] = FrontEndEditor.fieldTypes['input'].exten
 	content_from_input: function () {
 		var self = this;
 
-		return 0 + self.input.is(':checked');
+		return Number(self.input.is(':checked'));
 	},
 
 	content_to_front: function () {
@@ -241,7 +239,7 @@ FrontEndEditor.fieldTypes['select'] = FrontEndEditor.fieldTypes['input'].extend(
 				.attr({
 					html: value,
 					value: value,
-					selected: (content == value) ? 'selected': ''
+					selected: (content === value) ? 'selected': ''
 				})
 				.html(title);
 

@@ -46,9 +46,8 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 	},
 
 	ajax_set: function (content) {
-		var self = this;
-
-		var data = self.ajax_args({
+		var self = this,
+			data = self.ajax_args({
 			callback: 'save',
 			content: content || self.content_from_input()
 		});
