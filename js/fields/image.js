@@ -12,10 +12,9 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 	},
 
 	replace_button: function (ev) {
-		var self = this,
-			$frame = jQuery(ev.target).contents();
+		var self = this;
 
-		$frame.delegate('.media-item', 'hover', function () {
+		jQuery(ev.target).contents().delegate('.media-item', 'hover', function () {
 			var $item = jQuery(this);
 
 			if ( $item.data('fee_altered') )
@@ -124,9 +123,7 @@ FrontEndEditor.fieldTypes['thumbnail'] = FrontEndEditor.fieldTypes['image'].exte
 	replace_button: function (ev) {
 		var self = this;
 
-		var $frame = jQuery(ev.target).contents();
-
-		$frame.find('#tab-type_url').remove();
+		jQuery(ev.target).contents().find('#tab-type_url').remove();
 
 		self._super(ev);
 	},
