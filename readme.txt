@@ -128,9 +128,10 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 == Changelog ==
 
 = 1.9.3 =
-* switch to CLEditor
+* switched to CLEditor
 * fixed encoding issues with paragraph editing
 * fixed image fields handling
+* fixed typo which made spinner not show
 
 = 1.9.2.1 =
 * disable post locking
