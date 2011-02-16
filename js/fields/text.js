@@ -1,11 +1,9 @@
-FrontEndEditor.fieldTypes.input['input'] = FrontEndEditor.fieldTypes['base'].extend({
+FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 
 	input_tag: '<input type="text">',
 
-	init: function ($el, data, filter) {
+	start: function () {
 		var self = this;
-
-		self._super($el, data, filter);
 
 		self.overlay = FrontEndEditor.overlay(self.el);
 	},

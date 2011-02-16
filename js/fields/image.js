@@ -61,11 +61,6 @@ if ( jQuery.cleditor ) {
 FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'].extend({
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.insert : null,
 
-	init: function (data) {
-		this.data = data;
-		this.dblclick();
-	},
-
 	ajax_set: function (url) {
 		var editor = this.data.editor;
 
@@ -83,7 +78,10 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 	buttons.wpimage.name = 'wpimage';
 	buttons.wpimage.popupName = undefined;
 	buttons.wpimage.buttonClick = function(event, data) {
-		new FrontEndEditor.fieldTypes['image_rich'](data);
+		var editor = new FrontEndEditor.fieldTypes['image_rich']();
+
+		editor.data = data;
+		editor.dblclick();
 	};
 
 	// Add the button to the default controls

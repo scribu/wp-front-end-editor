@@ -1,19 +1,7 @@
 FrontEndEditor.fieldTypes['base'] = Class.extend({
 	dependency: null, // script src
 
-	init: function ($el, data, filter) {
-		var self = this;
-
-		self = jQuery.extend(self, {
-			el: $el,
-			data: data,
-			filter: filter,
-			type: data.type
-		});
-
-		FrontEndEditor.delayed_double_click(self.el, jQuery.proxy(self, 'dblclick'));
-	},
-
+	start: jQuery.noop,
 	create_input: null,
 
 	content_to_input: null,

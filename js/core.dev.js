@@ -68,7 +68,7 @@ FrontEndEditor.fieldTypes = {};
 
 FrontEndEditor.delayed_double_click = (function(){
 
-	var	event = false,
+	var event = false,
 		delayed = false;
 
 	function is_regular_link($target) {
@@ -83,7 +83,7 @@ FrontEndEditor.delayed_double_click = (function(){
 		if ( !$link.length )
 			return false;
 
-		if ( $link.attr('onclick') || !$link.attr('href') || $link.attr('href') == '#' )
+		if ( $link.attr('onclick') || !$link.attr('href') || '#' === $link.attr('href') )
 			return false;
 
 		return true;
@@ -108,10 +108,10 @@ FrontEndEditor.delayed_double_click = (function(){
 
 		var $link = $target.closest('a');
 
-		if ( $link.attr('target') == '_blank' )
-			window.open($link.attr('href'));
+		if ( '_blank' === $link.attr('target') )
+			open($link.attr('href'));
 		else
-			window.location.href = $link.attr('href');
+			location.href = $link.attr('href');
 
 		event = false;
 	}
@@ -175,7 +175,7 @@ FrontEndEditor.overlay = function($el) {
 			$cover.hide();
 		}
 	};
-}
+};
 
 // Do an ajax request, while loading a required script
 FrontEndEditor.sync_load = (function(){
@@ -186,7 +186,7 @@ FrontEndEditor.sync_load = (function(){
 
 		function proceed() {
 			count++;
-			if ( 2 == count )
+			if ( 2 === count )
 				callback(content);
 		}
 
@@ -211,12 +211,12 @@ jQuery(document).ready(function($) {
 
 	// fetch all 'data-' attributes from a DOM node
 	function extract_data_attr(el) {
-		var data = {};
+		var i, data = {};
 
-		for (var i=0; i < el.attributes.length; i++) {
+		for (i = 0; i < el.attributes.length; i++) {
 			var attr = el.attributes.item(i);
 
-			if ( attr.specified && 0 == attr.name.indexOf('data-') ) {
+			if ( attr.specified && 0 === attr.name.indexOf('data-') ) {
 				var value = attr.value;
 
 				try {
@@ -234,12 +234,21 @@ jQuery(document).ready(function($) {
 	}
 
 	// Create field instances
-	jQuery.each( FrontEndEditor.data.fields, function (i, filter) {
-		jQuery('.fee-filter-' + filter).each( function () {
+	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
+		jQuery('.fee-filter-' + filter).each(function () {
 			var $el = jQuery(this),
-				data = extract_data_attr(this);
+				data = extract_data_attr(this),
+				editor = new FrontEndEditor.fieldTypes[data.type]();
 
-			new FrontEndEditor.fieldTypes[data.type]($el, data, filter);
+			editor = jQuery.extend(editor, {
+				el: $el,
+				data: data,
+				filter: filter,
+				type: data.type
+			});
+			editor.start();
+
+			FrontEndEditor.delayed_double_click($el, jQuery.proxy(editor, 'dblclick'));
 		});
 	});
 
