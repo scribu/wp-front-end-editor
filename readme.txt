@@ -1,6 +1,6 @@
 === Front-end Editor ===
 Contributors: scribu
-Donate link: http://scribu.net/paypal
+Donate link: http://scribu.net/wordpress/front-end-editor
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
 Tested up to: 3.1
