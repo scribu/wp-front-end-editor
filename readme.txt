@@ -20,45 +20,9 @@ To edit something, just double-click it!
 * compatible with any theme, out of the box
 * light and fast
 
-**Editable fields:**
-
-<ul>
-	<li><strong>posts & pages</strong>
-	<ul>
-		<li>title - `the_title()`</li>
-		<li>content - `the_content()`</li>
-		<li>excerpt - `the_excerpt()`</li>
-		<li>categories - `the_category()`</li>
-		<li>tags - `the_tags()`</li>
-		<li>custom taxonomies - `the_terms()`</li>
-		<li>custom fields - `editable_post_meta()`*</li>
-		<li>thumbnail - `the_post_thumbnail()`</li>
-	</ul></li>
-	<li><strong>comments</strong></li>
-	<li><strong>authors</strong>
-	<ul>
-		<li>description - `the_author_meta()`</li>
-	</ul></li>
-	<li><strong>terms</strong>
-	<ul>
-		<li>name - `single_tag_title()`, `single_cat_title()`</li>
-		<li>description - `term_description()`</li>
-	</ul></li>
-	<li><strong>widgets</strong></li>
-	<li><strong>theme images - `editable_image()`*</strong>
-	<li><strong>options</strong>
-	<ul>
-		<li>title - `bloginfo('name')`</li>
-		<li>description - bloginfo('description')</li>
-		<li>other - `editable_option()`*</li>
-	</ul></li>
-</ul>
-
-Template tags marked with * are defined by the plugin.
-
 There is a settings page where you can disable editable fields that you don't want, as well as other options.
 
-Links: [Documentation](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
+Links: [Wiki](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 
 == Frequently Asked Questions ==
 
