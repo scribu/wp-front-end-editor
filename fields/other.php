@@ -248,7 +248,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 	}
 
 	function check( $data = 0 ) {
-		return current_user_can( 'edit_themes' );
+		return current_user_can( 'edit_theme_options' );
 	}
 }
 
@@ -341,7 +341,7 @@ class FEE_Field_Option extends FEE_Field_Base {
 	function check( $data = 0 ) {
 		extract( $data );
 
-		$cap = ( 0 === strpos( $key, 'editable_option_' ) ) ? 'edit_themes' : 'manage_options';
+		$cap = ( 0 === strpos( $key, 'editable_option_' ) ) ? 'edit_theme_options' : 'manage_options';
 
 		return current_user_can( $cap );
 	}
@@ -428,7 +428,7 @@ class FEE_Field_Image extends FEE_Field_Base {
 	}
 
 	function check( $data = 0 ) {
-		return current_user_can( 'edit_themes' );
+		return current_user_can( 'edit_theme_options' );
 	}
 }
 
