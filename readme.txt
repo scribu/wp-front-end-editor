@@ -96,6 +96,7 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 * fixed encoding issues with paragraph editing
 * fixed image fields handling
 * fixed typo which made spinner not show
+* check 'edit_theme_options' capability instead of 'edit_themes'
 
 = 1.9.2.1 =
 * disable post locking
