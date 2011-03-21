@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 1.9.3-alpha\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2011-01-23 03:37+0200\n"
+"POT-Creation-Date: 2011-03-21 19:11+0200\n"
 "PO-Revision-Date: 2011-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "Fields"
 msgstr ""
 
-#: admin/admin.php:15 scb/AdminPage.php:368
+#: admin/admin.php:15 scb/AdminPage.php:369
 msgid "Settings"
 msgstr ""
 
@@ -87,15 +87,15 @@ msgstr ""
 msgid "Double-click to edit"
 msgstr ""
 
-#: core.php:115
+#: core.php:114
 msgid "Change Image"
 msgstr ""
 
-#: core.php:116
+#: core.php:115
 msgid "Insert Image"
 msgstr ""
 
-#: core.php:117
+#: core.php:116
 msgid "Clear"
 msgstr ""
 
@@ -184,11 +184,11 @@ msgstr ""
 msgid "Theme images"
 msgstr ""
 
-#: scb/AdminPage.php:164
+#: scb/AdminPage.php:165
 msgid "Settings <strong>saved</strong>."
 msgstr ""
 
-#: scb/AdminPage.php:176 scb/AdminPage.php:186
+#: scb/AdminPage.php:177 scb/AdminPage.php:187
 msgid "Save Changes"
 msgstr ""
 

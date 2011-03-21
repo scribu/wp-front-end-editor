@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-23 03:45+0200\n"
+"POT-Creation-Date: 2011-03-21 19:10+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,130 +45,130 @@ msgstr ""
 msgid "Header 6"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:151
+#: js/cleditor/cleditor.dev.js:80
 msgid "Bold"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:152
+#: js/cleditor/cleditor.dev.js:81
 msgid "Italic"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:153
+#: js/cleditor/cleditor.dev.js:82
 msgid "Underline"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:154
+#: js/cleditor/cleditor.dev.js:83
 msgid "Strikethrough"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:155
+#: js/cleditor/cleditor.dev.js:84
 msgid "Subscript"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:156
+#: js/cleditor/cleditor.dev.js:85
 msgid "Superscript"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:157
+#: js/cleditor/cleditor.dev.js:86
 msgid "Font"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:158
+#: js/cleditor/cleditor.dev.js:87
 msgid "Text size"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:159
+#: js/cleditor/cleditor.dev.js:88
 msgid "Style"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:160
+#: js/cleditor/cleditor.dev.js:89
 msgid "Text color"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:161
+#: js/cleditor/cleditor.dev.js:90
 msgid "Highlight color"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:162
+#: js/cleditor/cleditor.dev.js:91
 msgid "Remove formatting"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:163
+#: js/cleditor/cleditor.dev.js:92
 msgid "Unordered list"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:164
+#: js/cleditor/cleditor.dev.js:93
 msgid "Ordered list"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:165
+#: js/cleditor/cleditor.dev.js:94
 msgid "Outdent"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:166
+#: js/cleditor/cleditor.dev.js:95
 msgid "Indent"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:167
+#: js/cleditor/cleditor.dev.js:96
 msgid "Align left"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:168
+#: js/cleditor/cleditor.dev.js:97
 msgid "Align center"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:169
+#: js/cleditor/cleditor.dev.js:98
 msgid "Align right"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:170
+#: js/cleditor/cleditor.dev.js:99
 msgid "Align full"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:171
+#: js/cleditor/cleditor.dev.js:100
 msgid "Undo"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:172
+#: js/cleditor/cleditor.dev.js:101
 msgid "Redo"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:173
+#: js/cleditor/cleditor.dev.js:102
 msgid "Insert horizontal rule"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:174
+#: js/cleditor/cleditor.dev.js:103
 msgid "Insert image"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:175
+#: js/cleditor/cleditor.dev.js:104
 msgid "Insert link"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:176
+#: js/cleditor/cleditor.dev.js:105
 msgid "Remove link"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:177
+#: js/cleditor/cleditor.dev.js:106
 msgid "Cut"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:178
+#: js/cleditor/cleditor.dev.js:107
 msgid "Copy"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:179
+#: js/cleditor/cleditor.dev.js:108
 msgid "Paste"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:180
+#: js/cleditor/cleditor.dev.js:109
 msgid "Paste as text"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:181
+#: js/cleditor/cleditor.dev.js:110
 msgid "Print"
 msgstr ""
 
-#: js/cleditor/cleditor.dev.js:182
+#: js/cleditor/cleditor.dev.js:111
 msgid "Show source"
 msgstr ""
