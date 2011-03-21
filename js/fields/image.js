@@ -85,6 +85,8 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 
 			editor.data = data;
 			editor.dblclick();
+
+			return false;
 		}
 	};
 
