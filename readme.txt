@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress/front-end-editor
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 1.9.2.1
+Stable tag: trunk
 
 Want to edit something? Just double-click it!
 
@@ -97,6 +97,7 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 * fixed image fields handling
 * fixed typo which made spinner not show
 * check 'edit_theme_options' capability instead of 'edit_themes'
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-9-3.html)
 
 = 1.9.2.1 =
 * disable post locking
