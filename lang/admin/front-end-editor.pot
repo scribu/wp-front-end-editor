@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 1.9.3-alpha\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2011-03-21 19:11+0200\n"
+"POT-Creation-Date: 2011-03-21 19:18+0200\n"
 "PO-Revision-Date: 2011-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,7 +68,7 @@ msgid "Customize WYSIWYG editor controls:"
 msgstr ""
 
 #: admin/admin.php:160
-msgid "Full"
+msgid "All"
 msgstr ""
 
 #: admin/admin.php:162

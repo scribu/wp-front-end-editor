@@ -157,7 +157,7 @@ class FEE_Admin extends scbBoxesPage {
 
 		$out .= 
 		html( 'div', array( 'id' => 'cleditor_controls_profiles' ),
-			html( 'a', array( 'data-profile' => 'full', 'href' => '#' ), __( 'Full', $this->textdomain ) ),
+			html( 'a', array( 'data-profile' => 'full', 'href' => '#' ), __( 'All', $this->textdomain ) ),
 			' | ',
 			html( 'a', array( 'data-profile' => 'default', 'href' => '#' ), __( 'Default', $this->textdomain ) )
 		);
