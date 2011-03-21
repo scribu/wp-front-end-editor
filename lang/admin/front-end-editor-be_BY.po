@@ -1,0 +1,132 @@
+"Project-Id-Version: Clean Options\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2009-08-15 15:41+0300\n"
+"PO-Revision-Date: 2009-08-17 02:11+0300\n"
+"Last-Translator: Fat Cow <zhr@tut.by>\n"
+"Language-Team: Fat Cow <zhr@tut.by>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Belarusian\n"
+"X-Poedit-Country: BELARUS\n"
+"X-Poedit-KeywordsList: __\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: admin.php:10
+msgid "Fields"
+msgstr "Палі"
+
+#: admin.php:11
+#: scb/AdminPage.php:275
+msgid "Settings"
+msgstr "Налады"
+
+#: admin.php:41
+#: admin.php:85
+#: scb/AdminPage.php:107
+msgid "Settings <strong>saved</strong>."
+msgstr "Налады <strong>захаваны</strong>."
+
+#: admin.php:47
+msgid "Enable or disable editable fields"
+msgstr "Уключыць ці адключыць рэдагуемыя палі"
+
+#: admin.php:53
+msgid "Field name"
+msgstr "Імя поля"
+
+#: admin.php:74
+#: admin.php:106
+msgid "Save changes"
+msgstr "Захаваць налады"
+
+#: admin.php:92
+msgid "Rich text editor"
+msgstr "RTE-рэдактар"
+
+#: admin.php:93
+msgid "Enable the WYSIWYG editor"
+msgstr "Уключыць WYSIWYG рэдактар"
+
+#: admin.php:99
+msgid "Edit paragraphs"
+msgstr "Рэдагаваць абзацы"
+
+#: admin.php:100
+msgid "Edit one paragraph at a time, instead of an entire post"
+msgstr "Рэдагаваць абзац замест цэлага паста"
+
+#: core.php:98
+msgid "Save"
+msgstr "Захаваць"
+
+#: core.php:99
+msgid "Cancel"
+msgstr "Адмена"
+
+#: fields.php:42
+msgid "empty"
+msgstr "ачыціць"
+
+#: fields.php:442
+msgid "Post/page title"
+msgstr "Загаловак паста/старонкі"
+
+#: fields.php:448
+msgid "Post/page content"
+msgstr "Утрыманне паста/старонкі"
+
+#: fields.php:454
+msgid "Post/page excerpt"
+msgstr "Вытрымка паста/старонкі"
+
+#: fields.php:460
+msgid "Post tags"
+msgstr "Тэгі паста"
+
+#: fields.php:466
+#, fuzzy
+msgid "Post terms"
+msgstr "Тэгі паста"
+
+#: fields.php:472
+msgid "Post/page custom fields"
+msgstr "Карыстацкія палі паста/старонкі"
+
+#: fields.php:478
+msgid "Comment text"
+msgstr "Тэкст каментара"
+
+#: fields.php:484
+msgid "Text widget content"
+msgstr "Утрыманне тэкставага виджета"
+
+#: fields.php:489
+msgid "Text widget title"
+msgstr "Загаловак тэкставага виджета"
+
+#. Plugin Name of an extension
+msgid "Front-end Editor"
+msgstr "Front-end рэдактар"
+
+#. Plugin URI of an extension
+msgid "http://scribu.net/wordpress/front-end-editor"
+msgstr "http://scribu.net/wordpress/front-end-editor"
+
+#. Description of an extension
+msgid "Allows you to edit your posts without going through the admin interface"
+msgstr "Дазволіць вам рэдагаваць пост без выкарыстання адміністратарскай панэлі"
+
+#. Author of an extension
+msgid "scribu"
+msgstr "scribu"
+
+#. Author URI of an extension
+msgid "http://scribu.net/"
+msgstr "http://scribu.net/"
+
+#~ msgid "[none]"
+#~ msgstr "[не]"
+

@@ -1,0 +1,121 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
+"POT-Creation-Date: 2009-07-04 19:18+0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: scribu <scribu@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: admin.php:10
+msgid "Fields"
+msgstr "Alanlar"
+
+#: admin.php:11
+#: inc/scb/AdminPage.php:275
+msgid "Settings"
+msgstr "Ayarlar"
+
+#: admin.php:41
+#: admin.php:85
+#: inc/scb/AdminPage.php:107
+msgid "Settings <strong>saved</strong>."
+msgstr "Ayarlar <strong>kaydedildi</strong>."
+
+#: admin.php:47
+msgid "Enable or disable editable fields"
+msgstr "Düzenlenebilecek alanları etkinleştir veya pasifleştir"
+
+#: admin.php:53
+msgid "Field name"
+msgstr "Alan adı"
+
+#: admin.php:74
+#: admin.php:106
+msgid "Save changes"
+msgstr "Değişiklikleri kaydet"
+
+#: admin.php:92
+msgid "Rich text editor"
+msgstr "Görsel metin düzenleyicisi "
+
+#: admin.php:93
+msgid "Enable the WYSIWYG editor"
+msgstr "WYSIWYG'yi etkinleştir"
+
+#: admin.php:99
+msgid "Edit paragraphs"
+msgstr "Paragraflari düzenle"
+
+#: admin.php:100
+msgid "Edit one paragraph at a time, instead of an entire post"
+msgstr "Bütün bir yazıyı düzenlemek yerine, paragrafları birer birer düzenle"
+
+#: core.php:98
+msgid "Save"
+msgstr "Kaydet"
+
+#: core.php:99
+msgid "Cancel"
+msgstr "İptal"
+
+#: fields.php:241
+msgid "[none]"
+msgstr "[hiçbiri]"
+
+#: fields.php:397
+msgid "Post/page title"
+msgstr "Yazı/sayfa başlığı"
+
+#: fields.php:403
+msgid "Post/page content"
+msgstr "Yazı/sayfa içeriği"
+
+#: fields.php:409
+msgid "Post/page excerpt"
+msgstr "Yazı/sayfa özeti"
+
+#: fields.php:415
+msgid "Post tags"
+msgstr "Yazı etiketleri"
+
+#: fields.php:421
+msgid "Post/page custom fields"
+msgstr "Yazı/sayfa özel alanları"
+
+#: fields.php:427
+msgid "Comment text"
+msgstr "Yorum metni"
+
+#: fields.php:433
+msgid "Text widget content"
+msgstr "Metin widget içeriği"
+
+#: fields.php:438
+msgid "Text widget title"
+msgstr "Metin widget başlığı"
+
+#. Plugin Name of an extension
+msgid "Front-end Editor"
+msgstr "Front-end Editor"
+
+#. Plugin URI of an extension
+msgid "http://scribu.net/wordpress/front-end-editor"
+msgstr "http://scribu.net/wordpress/front-end-editor"
+
+# Descripci&oacute;n de una extensi&oacute;n
+#. Description of an extension
+msgid "Allows you to edit your posts without going through the admin interface"
+msgstr "Admin ekranına girmeden yazılarınızı değiştirmenizi sağlar. "
+
+#. Author of an extension
+msgid "scribu"
+msgstr "scribu"
+
+#. Author URI of an extension
+msgid "http://scribu.net/"
+msgstr "http://scribu.net/"
+
