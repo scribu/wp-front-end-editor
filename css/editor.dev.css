@@ -49,19 +49,12 @@ div.fee-form, textarea.fee-form-content {
 	font-family: sans-serif;
 }
 
-/*.fee-control {cursor: pointer}*/
-.fee-separator {color: #666}
+.ui-tooltip-tip canvas {margin-top: -1px}
 
-/* nicEdit tooltip */
-.fee-click.ui-tooltip .ui-tooltip-content {
-	padding-top: 0;
-	padding-bottom: 1px;
-	border: 1px solid #CCC;
-	color: #333;
-	background-color: #EFEFEF;
-	font-family: sans-serif;
-	font-size: 11px;
-}
+/*
+.fee-control {cursor: pointer}
+.fee-separator {color: #666}
+*/
 
 /* Buttons */
 div.fee-form button {margin-top: 5px}

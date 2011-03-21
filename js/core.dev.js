@@ -184,8 +184,8 @@ jQuery(document).ready(function($) {
 			style: {
 				tip: {
 					corner: 'bottom center',
-					width: 13,
-					height: 8
+					width: 14,
+					height: 7
 				},
 				classes: 'ui-tooltip-fee ui-tooltip-rounded'
 			}

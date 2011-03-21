@@ -69,8 +69,8 @@ abstract class FEE_Core {
 //				'delete' => __('Delete', 'front-end-editor')
 			);
 
-			wp_register_style( 'jquery-qtip', $url . 'qtip/jquery.qtip.css', array(), '2.0.0pre' );
-			wp_register_script( 'jquery-qtip', $url . 'qtip/jquery.qtip.js', array(), '2.0.0pre', true );
+			wp_register_style( 'jquery-qtip', $url . 'qtip/jquery.qtip.min.css', array(), '2.0.0pre' );
+			wp_register_script( 'jquery-qtip', $url . 'qtip/jquery.qtip.min.js', array(), '2.0.0pre', true );
 			$css_dependencies[] = 'jquery-qtip';
 			$js_dependencies[] = 'jquery-qtip';
 		}
