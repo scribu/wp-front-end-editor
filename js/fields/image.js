@@ -14,7 +14,7 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 	replace_button: function (ev) {
 		var self = this;
 
-		jQuery(ev.target).contents().delegate('.media-item', 'hover', function () {
+		jQuery(ev.target).contents().delegate('.media-item', 'mouseenter', function () {
 			var $item = jQuery(this), $button;
 
 			if ( $item.data('fee_altered') )
@@ -74,14 +74,18 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 (function () {
 	var buttons = jQuery.cleditor.buttons;
 
-	buttons.wpimage = buttons.image;
-	buttons.wpimage.name = 'wpimage';
-	buttons.wpimage.popupName = undefined;
-	buttons.wpimage.buttonClick = function(event, data) {
-		var editor = new FrontEndEditor.fieldTypes['image_rich']();
+	buttons.wpimage = {
+		'command': buttons.image.command,
+		'stripIndex': buttons.image.stripIndex,
+		'title': buttons.image.title,
+		'name': 'wpimage',
+		'popupName': undefined,
+		'buttonClick': function(event, data) {
+			var editor = new FrontEndEditor.fieldTypes['image_rich']();
 
-		editor.data = data;
-		editor.dblclick();
+			editor.data = data;
+			editor.dblclick();
+		}
 	};
 
 	// Add the button to the default controls
