@@ -151,7 +151,15 @@ jQuery(document).ready(function($) {
 		jQuery('.fee-filter-' + filter).each(function () {
 			var $el = jQuery(this),
 				data = extract_data_attr(this),
-				editor = new FrontEndEditor.fieldTypes[data.type]();
+				editor;
+
+			if ( undefined === FrontEndEditor.fieldTypes[data.type] ) {
+				if ( undefined !== console )
+					console.warn('invalid field type', this);
+				return;
+			}
+
+			editor = new FrontEndEditor.fieldTypes[data.type]();
 
 			editor = jQuery.extend(editor, {
 				el: $el,
