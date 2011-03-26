@@ -56,7 +56,7 @@ function _fee_init() {
 			"source"
 	) );
 
-	FEE_Core::init( $options, '1.9.3' );
+	FEE_Core::init( $options, '1.9.3.1-alpha' );
 
 	FEE_Field_Option::init( __FILE__ );
 	FEE_Field_Image::init( __FILE__ );

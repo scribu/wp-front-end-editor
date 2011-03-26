@@ -91,6 +91,9 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 == Changelog ==
 
+= 1.9.3.1 =
+* introduced fee_cleditor_css filter
+
 = 1.9.3 =
 * switched to CLEditor
 * fixed encoding issues with paragraph editing
