@@ -535,7 +535,7 @@
     // Get the command value
     if (buttonName == "font")
       // Opera returns the fontfamily wrapped in quotes
-      value = target.style.fontFamily.replace('"', "");
+      value = target.style.fontFamily.replace(/"/g, "");
     else if (buttonName == "size") {
       if (target.tagName == "DIV")
         target = target.children[0];

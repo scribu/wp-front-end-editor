@@ -48,7 +48,8 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 
 		$el.cleditor({
 			controls: FrontEndEditor.data.cleditor.controls,
-			width: self.form.width()
+			width: self.form.width(),
+			bodyStyle: 'cursor:text; margin:4px; ' + FrontEndEditor.data.cleditor.css.replace(/"/g, "'")
 		});
 	}
 });
