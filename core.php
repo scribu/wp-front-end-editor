@@ -92,7 +92,8 @@ abstract class FEE_Core {
 
 			$data['cleditor'] = array(
 				'controls' => self::$options->cleditor_controls,
-				'css' => apply_filters( 'fee_cleditor_css', '' )
+				'css' => apply_filters( 'fee_cleditor_css', '' ),
+				'height' => apply_filters( 'fee_cleditor_height', 250 ),
 			);
 
 			load_plugin_textdomain( 'cleditor', '', FRONT_END_EDITOR_PLUGIN_BASENAME . '/lang/cleditor' );
