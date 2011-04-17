@@ -129,14 +129,41 @@ button.fee-form-cancel {
 	color: #D54E21 !important;
 }
 
-#fee-overlay {
-	background: transparent;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	border: 2px solid #9fd8ee;
-	padding: 2px;
+/* Overlay */
+.fee-overlay-top,
+.fee-overlay-right,
+.fee-overlay-bottom,
+.fee-overlay-left {
+	background-color: #9fd8ee;
 	position: absolute;
 	z-index: 999;
+}
+
+.fee-overlay-top,
+.fee-overlay-bottom {
+	height: 2px;
+}
+
+.fee-overlay-left,
+.fee-overlay-right {
+	width: 2px;
+}
+
+.fee-overlay-top {
+	-webkit-border-top-left-radius: 2px;
+	-webkit-border-top-right-radius: 2px;
+	-moz-border-radius-topleft: 2px;
+	-moz-border-radius-topright: 2px;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+}
+
+.fee-overlay-bottom {
+	-webkit-border-bottom-right-radius: 2px;
+	-webkit-border-bottom-left-radius: 2px;
+	-moz-border-radius-bottomright: 2px;
+	-moz-border-radius-bottomleft: 2px;
+	border-bottom-right-radius: 2px;
+	border-bottom-left-radius: 2px;
 }
 

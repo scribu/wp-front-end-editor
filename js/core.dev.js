@@ -148,27 +148,52 @@ jQuery(document).ready(function($) {
 
 
 	// Create field instances
-	var $overlay = jQuery('<div id="fee-overlay">').hide()
-		.appendTo('body')
-		.mouseout(function () {
-			$overlay.hide();
-		});
+	var OVERLAY_BORDER = 2;
+	var overlays = {};
+	jQuery.each(['top', 'right', 'bottom', 'left'], function(i, key) {
+		overlays[key] = jQuery('<div class="fee-overlay-' + key + '">').hide().appendTo('body');
+	});
 
 	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
 		jQuery('.fee-filter-' + filter)
 		.mouseover(function () {
 			var $self = jQuery(this),
-				offset = $self.offset();
+				offset = $self.offset(),
+				dims = {
+					width: $self.outerWidth(),
+					height: $self.outerHeight()
+				};
 
-			$overlay
-				.css({
-					width: $self.width() + 'px',
-					height: $self.height() + 'px',
-					top: (offset.top - 4) + 'px',
-					left: (offset.left - 4) + 'px',
-				})
-				.show();
-		})		
+			overlays.top.css({
+				'width': (dims.width + OVERLAY_BORDER * 2) + 'px',
+				'top': (offset.top - OVERLAY_BORDER) + 'px',
+				'left': (offset.left - OVERLAY_BORDER) + 'px'
+			}).show();
+
+			overlays.bottom.css({
+				'width': (dims.width + OVERLAY_BORDER * 2) + 'px',
+				'top': (offset.top + dims.height) + 'px',
+				'left': (offset.left - OVERLAY_BORDER) + 'px'
+			}).show();
+
+			overlays.left.css({
+				'height': dims.height + 'px',
+				'top': offset.top + 'px',
+				'left': (offset.left - OVERLAY_BORDER) + 'px'
+			}).show();
+
+			overlays.right.css({
+				'height': dims.height + 'px',
+				'top': offset.top + 'px',
+				'left': (offset.left + dims.width) + 'px'
+			}).show();
+		})
+		.mouseout(function () {
+			overlays.top.hide();
+			overlays.right.hide();
+			overlays.bottom.hide();
+			overlays.left.hide();
+		})
 		.each(function () {
 			var $el = jQuery(this),
 				data = extract_data_attr(this),
