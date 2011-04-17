@@ -149,6 +149,7 @@ jQuery(document).ready(function($) {
 
 	// Create field instances
 	var OVERLAY_BORDER = 2,
+		OVERLAY_PADDING = 2,
 		overlays = {},
 		overlay_box = jQuery('<div>Edit</div>').addClass('fee-overlay-edit').hide().appendTo('body'),
 		overlay_lock = false,
@@ -176,34 +177,40 @@ jQuery(document).ready(function($) {
 
 			// Add 'Edit' box
 			overlay_box.css({
-				'top': (offset.top - OVERLAY_BORDER) + 'px',
-				'left': (offset.left - overlay_box.outerWidth()) + 'px'
+				'top': (offset.top - OVERLAY_PADDING - OVERLAY_BORDER) + 'px',
+				'left': (offset.left - overlay_box.outerWidth() - OVERLAY_PADDING) + 'px'
 			}).show();
 
 			// Add overlay as individual divs
-			overlays.top.css({
-				'width': (dims.width + OVERLAY_BORDER * 2) + 'px',
-				'top': (offset.top - OVERLAY_BORDER) + 'px',
-				'left': (offset.left - OVERLAY_BORDER) + 'px'
-			}).show();
+			var topbottom = {
+				'width': (dims.width + OVERLAY_PADDING * 2 + OVERLAY_BORDER * 2) + 'px',
+				'left': (offset.left - OVERLAY_PADDING - OVERLAY_BORDER) + 'px'
+			};
 
-			overlays.bottom.css({
-				'width': (dims.width + OVERLAY_BORDER * 2) + 'px',
-				'top': (offset.top + dims.height) + 'px',
-				'left': (offset.left - OVERLAY_BORDER) + 'px'
-			}).show();
+			overlays.top
+				.css(topbottom)
+				.css('top', (offset.top - OVERLAY_PADDING - OVERLAY_BORDER) + 'px')
+				.show();
 
-			overlays.left.css({
-				'height': dims.height + 'px',
-				'top': offset.top + 'px',
-				'left': (offset.left - OVERLAY_BORDER) + 'px'
-			}).show();
+			overlays.bottom
+				.css(topbottom)
+				.css('top', (offset.top + dims.height + OVERLAY_PADDING) + 'px')
+				.show();
 
-			overlays.right.css({
-				'height': dims.height + 'px',
-				'top': offset.top + 'px',
-				'left': (offset.left + dims.width) + 'px'
-			}).show();
+			var leftright = {
+				'height': (dims.height + OVERLAY_PADDING * 2) + 'px',			
+				'top': (offset.top - OVERLAY_PADDING) + 'px',
+			}
+
+			overlays.left
+				.css(leftright)
+				.css('left', (offset.left - OVERLAY_PADDING - OVERLAY_BORDER) + 'px')
+				.show();
+
+			overlays.right
+				.css(leftright)
+				.css('left', (offset.left + dims.width + OVERLAY_PADDING) + 'px')
+				.show();
 		})
 		.mouseout(function () {
 			overlay_timeout = setTimeout(function () {
