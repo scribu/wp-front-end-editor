@@ -153,11 +153,24 @@ jQuery(document).ready(function($) {
 		overlays = {},
 		overlay_box = jQuery('<div>Edit</div>').addClass('fee-overlay-edit').hide().appendTo('body'),
 		overlay_lock = false,
-		overlay_timeout;
+		overlay_timeout,
+		overlay_hide = function () {
+			overlay_timeout = setTimeout(function () {
+				if ( overlay_lock )
+					return;
+
+				overlay_box.hide();
+
+				overlays.top.hide();
+				overlays.right.hide();
+				overlays.bottom.hide();
+				overlays.left.hide();
+			}, 200);
+		};
 
 	overlay_box
 		.mouseover(function () { overlay_lock = true; })
-		.mouseout(function () { overlay_lock = false; });
+		.mouseout(function () { overlay_lock = false; overlay_hide() });
 
 	jQuery.each(['top', 'right', 'bottom', 'left'], function(i, key) {
 		overlays[key] = jQuery('<div>').addClass('fee-overlay-' + key).hide().appendTo('body');
@@ -212,19 +225,7 @@ jQuery(document).ready(function($) {
 				.css('left', (offset.left + dims.width + OVERLAY_PADDING) + 'px')
 				.show();
 		})
-		.mouseout(function () {
-			overlay_timeout = setTimeout(function () {
-				if ( overlay_lock )
-					return;
-
-				overlay_box.hide();
-
-				overlays.top.hide();
-				overlays.right.hide();
-				overlays.bottom.hide();
-				overlays.left.hide();
-			}, 200);
-		})
+		.mouseout(overlay_hide)
 		.each(function () {
 			var $el = jQuery(this),
 				data = extract_data_attr(this),
