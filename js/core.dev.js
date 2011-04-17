@@ -146,9 +146,30 @@ jQuery(document).ready(function($) {
 		return data;
 	}
 
+
 	// Create field instances
+	var $overlay = jQuery('<div id="fee-overlay">').hide()
+		.appendTo('body')
+		.mouseout(function () {
+			$overlay.hide();
+		});
+
 	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
-		jQuery('.fee-filter-' + filter).each(function () {
+		jQuery('.fee-filter-' + filter)
+		.mouseover(function () {
+			var $self = jQuery(this),
+				offset = $self.offset();
+
+			$overlay
+				.css({
+					width: $self.width() + 'px',
+					height: $self.height() + 'px',
+					top: (offset.top - 4) + 'px',
+					left: (offset.left - 4) + 'px',
+				})
+				.show();
+		})		
+		.each(function () {
 			var $el = jQuery(this),
 				data = extract_data_attr(this),
 				editor;

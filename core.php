@@ -28,15 +28,6 @@ abstract class FEE_Core {
 
 		add_action( 'wp_head', array( __CLASS__, 'add_filters' ), 100 );
 		add_action( 'wp_footer', array( __CLASS__, 'scripts' ) );
-
-		if ( self::$options->highlight )
-			add_action( 'wp_head', array( __CLASS__, 'highlight' ) );
-	}
-
-	static function highlight() {
-?>
-<style type='text/css'>.fee-field:hover, .fee-field:hover > * {background-color: #ffffa5}</style>
-<?php
 	}
 
 	static function scripts() {
