@@ -148,10 +148,18 @@ jQuery(document).ready(function($) {
 
 
 	// Create field instances
-	var OVERLAY_BORDER = 2;
-	var overlays = {};
+	var OVERLAY_BORDER = 2,
+		overlays = {},
+		overlay_box = jQuery('<div>Edit</div>').addClass('fee-overlay-edit').hide().appendTo('body'),
+		overlay_lock = false,
+		overlay_timeout;
+
+	overlay_box
+		.mouseover(function () { overlay_lock = true; })
+		.mouseout(function () { overlay_lock = false; });
+
 	jQuery.each(['top', 'right', 'bottom', 'left'], function(i, key) {
-		overlays[key] = jQuery('<div class="fee-overlay-' + key + '">').hide().appendTo('body');
+		overlays[key] = jQuery('<div>').addClass('fee-overlay-' + key).hide().appendTo('body');
 	});
 
 	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
@@ -164,6 +172,15 @@ jQuery(document).ready(function($) {
 					height: $self.outerHeight()
 				};
 
+			clearTimeout(overlay_timeout);
+
+			// Add 'Edit' box
+			overlay_box.css({
+				'top': (offset.top - OVERLAY_BORDER) + 'px',
+				'left': (offset.left - overlay_box.outerWidth()) + 'px'
+			}).show();
+
+			// Add overlay as individual divs
 			overlays.top.css({
 				'width': (dims.width + OVERLAY_BORDER * 2) + 'px',
 				'top': (offset.top - OVERLAY_BORDER) + 'px',
@@ -189,10 +206,17 @@ jQuery(document).ready(function($) {
 			}).show();
 		})
 		.mouseout(function () {
-			overlays.top.hide();
-			overlays.right.hide();
-			overlays.bottom.hide();
-			overlays.left.hide();
+			overlay_timeout = setTimeout(function () {
+				if ( overlay_lock )
+					return;
+
+				overlay_box.hide();
+
+				overlays.top.hide();
+				overlays.right.hide();
+				overlays.bottom.hide();
+				overlays.left.hide();
+			}, 200);
 		})
 		.each(function () {
 			var $el = jQuery(this),

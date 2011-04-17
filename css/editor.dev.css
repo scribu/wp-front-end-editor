@@ -133,10 +133,22 @@ button.fee-form-cancel {
 .fee-overlay-top,
 .fee-overlay-right,
 .fee-overlay-bottom,
-.fee-overlay-left {
+.fee-overlay-left,
+.fee-overlay-edit {
 	background-color: #9fd8ee;
 	position: absolute;
 	z-index: 999;
+}
+
+.fee-overlay-edit {
+	-webkit-border-radius: 2px;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius: 2px;
+	-moz-border-radius-bottomright: 0;
+	border-radius: 2px;
+	border-bottom-right-radius: 0;
+	cursor: pointer;
+	padding: 2px;
 }
 
 .fee-overlay-top,
