@@ -38,24 +38,6 @@ div.fee-form, textarea.fee-form-content {
 	margin-top:-2px;
 }
 
-/* Tooltip */
-
-.ui-tooltip-fee .ui-tooltip-content {
-	text-align: center;
-	border-width: 0;
-	border-color: #333;
-	background: #333;
-	color: #f0f0f0;
-	font-family: sans-serif;
-}
-
-.ui-tooltip-tip canvas {margin-top: -1px}
-
-/*
-.fee-control {cursor: pointer}
-.fee-separator {color: #666}
-*/
-
 /* Buttons */
 div.fee-form button {margin-top: 5px}
 span.fee-form input {margin-right: 5px}

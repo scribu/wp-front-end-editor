@@ -42,8 +42,6 @@ function _fee_init() {
 
 	$options = new scbOptions( 'front-end-editor', __FILE__, array(
 		'disabled' => array('bloginfo'),
-		'highlight' => true,
-		'tooltip' => true,
 		'rich' => true,
 		'chunks' => false,
 		'cleditor_controls' =>

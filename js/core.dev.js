@@ -172,31 +172,4 @@ jQuery(document).ready(function($) {
 			$el.delayedDblClick( jQuery.proxy(editor, 'dblclick') );
 		});
 	});
-
-	// Tooltip init
-	if ( FrontEndEditor.data.controls ) {
-		var controls = [];
-		jQuery.each(FrontEndEditor.data.controls, function (key, value) {
-			controls.push('<span class="fee-control">' + value + '</span>');
-		});
-
-		jQuery('.fee-field').qtip({
-			content: controls.join('<span class="fee-separator"> | </span>'),
-			show: { effect: 'fade' },
-//			hide: {	fixed: true },
-//			hide: 'click',
-			position: {
-				at: 'top center',
-				my: 'bottom center'
-			},
-			style: {
-				tip: {
-					corner: 'bottom center',
-					width: 14,
-					height: 7
-				},
-				classes: 'ui-tooltip-fee ui-tooltip-rounded'
-			}
-		});
-	}
 });

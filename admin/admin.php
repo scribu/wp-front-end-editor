@@ -114,18 +114,6 @@ class FEE_Admin extends scbBoxesPage {
 				'type' => 'checkbox',
 				'name' => 'chunks',
 			),
-
-			array(
-				'desc' => __( 'Highlight editable elements.', $this->textdomain ),
-				'type' => 'checkbox',
-				'name' => 'highlight',
-			),
-
-			array(
-				'desc' => __( 'Display a tooltip above editable elements.', $this->textdomain ),
-				'type' => 'checkbox',
-				'name' => 'tooltip',
-			),
 		);
 
 		$out = '';

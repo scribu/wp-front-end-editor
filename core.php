@@ -62,19 +62,6 @@ abstract class FEE_Core {
 		$css_dependencies = array();
 		$js_dependencies = array( 'jquery' );
 
-		// qTip
-		if ( self::$options->tooltip ) {
-			$data['controls'] = array(
-				'edit' => __('Double-click to edit', 'front-end-editor'),
-//				'delete' => __('Delete', 'front-end-editor')
-			);
-
-			wp_register_style( 'jquery-qtip', $url . 'qtip/jquery.qtip.min.css', array(), '2.0.0pre' );
-			wp_register_script( 'jquery-qtip', $url . 'qtip/jquery.qtip.min.js', array(), '2.0.0pre', true );
-			$css_dependencies[] = 'jquery-qtip';
-			$js_dependencies[] = 'jquery-qtip';
-		}
-
 		// Autosuggest
 		if ( in_array( 'terminput', $wrapped ) ) {
 			$data['suggest'] = array(
