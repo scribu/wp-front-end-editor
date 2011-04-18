@@ -152,10 +152,13 @@ jQuery(document).ready(function($) {
 	(function () {
 		var OVERLAY_BORDER = 2,
 			OVERLAY_PADDING = 2,
-			overlays = {},
-			overlay_box = jQuery('<div>Edit</div>').addClass('fee-overlay-edit').hide().appendTo('body'),
 			overlay_lock = false,
-			overlay_timeout;
+			overlay_timeout,
+			overlays = {},
+			overlay_box = jQuery('<div>', {
+				'class': 'fee-overlay-edit',
+				'html': FrontEndEditor.data.edit_text
+			}).hide().appendTo('body');
 
 		overlay_box
 			.mouseover(function () { overlay_lock = true; })

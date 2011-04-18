@@ -38,6 +38,7 @@ abstract class FEE_Core {
 
 		// Prepare data
 		$data = array(
+			'edit_text' => __( 'Edit', 'front-end-editor' ),
 			'save_text' => __( 'Save', 'front-end-editor' ),
 			'cancel_text' => __( 'Cancel', 'front-end-editor' ),
 			'fields' => array_keys( self::$active_fields ),
