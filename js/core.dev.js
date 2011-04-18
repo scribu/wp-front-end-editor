@@ -183,7 +183,7 @@ jQuery(document).ready(function($) {
 					return;
 
 				overlay_hide_immediately();
-			}, 200);
+			}, 300);
 		};
 		
 		overlay_show = function (callback) {
