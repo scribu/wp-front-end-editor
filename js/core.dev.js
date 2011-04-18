@@ -169,8 +169,6 @@ jQuery(document).ready(function($) {
 		});
 
 		function overlay_hide_immediately() {
-			overlay_box.unbind('click');
-
 			overlay_box.hide();
 
 			overlays.top.hide();
@@ -197,6 +195,8 @@ jQuery(document).ready(function($) {
 				};
 
 			clearTimeout(overlay_timeout);
+
+			overlay_box.unbind('click');
 
 			overlay_box.bind('click', overlay_hide_immediately);
 			overlay_box.bind('click', callback);
