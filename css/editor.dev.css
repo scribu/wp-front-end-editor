@@ -147,8 +147,14 @@ button.fee-form-cancel {
 	-moz-border-radius-bottomright: 0;
 	border-radius: 2px;
 	border-bottom-right-radius: 0;
+	color: #161616;
 	cursor: pointer;
 	padding: 2px;
+	font-family: sans-serif;
+}
+
+.fee-overlay-edit:hover {
+	color: #fff;
 }
 
 .fee-overlay-top,
