@@ -146,14 +146,25 @@ jQuery(document).ready(function($) {
 		return data;
 	}
 
+	// Init overlay methods
+	var overlay_hide, overlay_show;
 
-	// Create field instances
-	var OVERLAY_BORDER = 2,
-		OVERLAY_PADDING = 2,
-		overlays = {},
-		overlay_box = jQuery('<div>Edit</div>').addClass('fee-overlay-edit').hide().appendTo('body'),
-		overlay_lock = false,
-		overlay_timeout,
+	(function () {
+		var OVERLAY_BORDER = 2,
+			OVERLAY_PADDING = 2,
+			overlays = {},
+			overlay_box = jQuery('<div>Edit</div>').addClass('fee-overlay-edit').hide().appendTo('body'),
+			overlay_lock = false,
+			overlay_timeout;
+
+		overlay_box
+			.mouseover(function () { overlay_lock = true; })
+			.mouseout(function () { overlay_lock = false; overlay_hide() });
+
+		jQuery.each(['top', 'right', 'bottom', 'left'], function(i, key) {
+			overlays[key] = jQuery('<div>').addClass('fee-overlay-' + key).hide().appendTo('body');
+		});
+
 		overlay_hide = function () {
 			overlay_timeout = setTimeout(function () {
 				if ( overlay_lock )
@@ -167,18 +178,8 @@ jQuery(document).ready(function($) {
 				overlays.left.hide();
 			}, 200);
 		};
-
-	overlay_box
-		.mouseover(function () { overlay_lock = true; })
-		.mouseout(function () { overlay_lock = false; overlay_hide() });
-
-	jQuery.each(['top', 'right', 'bottom', 'left'], function(i, key) {
-		overlays[key] = jQuery('<div>').addClass('fee-overlay-' + key).hide().appendTo('body');
-	});
-
-	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
-		jQuery('.fee-filter-' + filter)
-		.mouseover(function () {
+		
+		overlay_show = function () {
 			var $self = jQuery(this),
 				offset = $self.offset(),
 				dims = {
@@ -224,30 +225,36 @@ jQuery(document).ready(function($) {
 				.css(leftright)
 				.css('left', (offset.left + dims.width + OVERLAY_PADDING) + 'px')
 				.show();
-		})
-		.mouseout(overlay_hide)
-		.each(function () {
-			var $el = jQuery(this),
-				data = extract_data_attr(this),
-				editor;
+		};
+	}());
 
-			if ( undefined === FrontEndEditor.fieldTypes[data.type] ) {
-				if ( undefined !== console )
-					console.warn('invalid field type', this);
-				return;
-			}
+	// Create field instances
+	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
+		jQuery('.fee-filter-' + filter)
+			.mouseover(overlay_show)
+			.mouseout(overlay_hide)
+			.each(function () {
+				var $el = jQuery(this),
+					data = extract_data_attr(this),
+					editor;
 
-			editor = new FrontEndEditor.fieldTypes[data.type]();
+				if ( undefined === FrontEndEditor.fieldTypes[data.type] ) {
+					if ( undefined !== console )
+						console.warn('invalid field type', this);
+					return;
+				}
 
-			editor = jQuery.extend(editor, {
-				el: $el,
-				data: data,
-				filter: filter,
-				type: data.type
+				editor = new FrontEndEditor.fieldTypes[data.type]();
+
+				editor = jQuery.extend(editor, {
+					el: $el,
+					data: data,
+					filter: filter,
+					type: data.type
+				});
+				editor.start();
+
+				$el.delayedDblClick( jQuery.proxy(editor, 'dblclick') );
 			});
-			editor.start();
-
-			$el.delayedDblClick( jQuery.proxy(editor, 'dblclick') );
-		});
 	});
 });
