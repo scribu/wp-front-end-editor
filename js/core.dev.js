@@ -168,21 +168,27 @@ jQuery(document).ready(function($) {
 			overlays[key] = jQuery('<div>').addClass('fee-overlay-' + key).hide().appendTo('body');
 		});
 
+		function overlay_hide_immediately() {
+			overlay_box.unbind('click');
+
+			overlay_box.hide();
+
+			overlays.top.hide();
+			overlays.right.hide();
+			overlays.bottom.hide();
+			overlays.left.hide();		
+		}
+
 		overlay_hide = function () {
 			overlay_timeout = setTimeout(function () {
 				if ( overlay_lock )
 					return;
 
-				overlay_box.hide();
-
-				overlays.top.hide();
-				overlays.right.hide();
-				overlays.bottom.hide();
-				overlays.left.hide();
+				overlay_hide_immediately();
 			}, 200);
 		};
 		
-		overlay_show = function () {
+		overlay_show = function (callback) {
 			var $self = jQuery(this),
 				offset = $self.offset(),
 				dims = {
@@ -191,6 +197,9 @@ jQuery(document).ready(function($) {
 				};
 
 			clearTimeout(overlay_timeout);
+
+			overlay_box.bind('click', overlay_hide_immediately);
+			overlay_box.bind('click', callback);
 
 			// Add 'Edit' box
 			overlay_box.css({
@@ -234,7 +243,6 @@ jQuery(document).ready(function($) {
 	// Create field instances
 	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
 		jQuery('.fee-filter-' + filter)
-			.mouseover(overlay_show)
 			.mouseout(overlay_hide)
 			.each(function () {
 				var $el = jQuery(this),
@@ -257,7 +265,9 @@ jQuery(document).ready(function($) {
 				});
 				editor.start();
 
-				$el.delayedDblClick( jQuery.proxy(editor, 'dblclick') );
+				$el.mouseover(function () {
+					overlay_show.call( this, jQuery.proxy(editor, 'dblclick') );
+				});
 			});
 	});
 });
