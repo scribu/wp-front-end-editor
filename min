@@ -12,4 +12,4 @@ cd '../css'
 $MINIFIER 'editor.dev.css' > 'editor.css'
 
 cd '..'
-xgettext -C --keyword=__ js/cleditor/cleditor.dev.js -o lang/cleditor/cleditor.pot
+#xgettext -C --keyword=__ js/cleditor/cleditor.dev.js -o lang/cleditor/cleditor.pot

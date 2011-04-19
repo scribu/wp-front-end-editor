@@ -190,8 +190,8 @@ jQuery(document).ready(function($) {
 			var $self = jQuery(this),
 				offset = $self.offset(),
 				dims = {
-					width: $self.outerWidth(),
-					height: $self.outerHeight()
+					width: $self.width(),
+					height: $self.height()
 				};
 
 			clearTimeout(overlay_timeout);
