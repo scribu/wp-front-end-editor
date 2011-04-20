@@ -91,7 +91,8 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 == Changelog ==
 
-= 1.9.4 =
+= 2.0 =
+* new ui
 * introduced fee_cleditor_css filter
 * introduced fee_cleditor_height filter
 
