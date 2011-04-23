@@ -61,8 +61,6 @@ abstract class FEE_Field_Base {
 		if ( !is_scalar( $content ) )
 			trigger_error( "scalar expected. " . gettype( $content ) . " given", E_USER_WARNING );
 
-		$wrap_tag = ( $inline || in_array( $this->input_type, array( 'input', 'terminput', 'image' ) ) ) ? 'span' : 'div';
-
 		$data_attr = array();
 		foreach ( $data as $key => $value ) {
 			if ( !is_scalar( $value ) )
@@ -73,7 +71,10 @@ abstract class FEE_Field_Base {
 
 		$data_attr['class'] = 'fee-field fee-filter-' . $this->filter;
 
-		return html( $wrap_tag, $data_attr, $content );
+		if ( $inline || in_array( $data['type'], array( 'input', 'image' ) ) )
+			$data_attr['class'] .= ' fee-inline';
+
+		return html( 'div', $data_attr, $content );
 	}
 
 	/**

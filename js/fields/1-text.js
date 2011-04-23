@@ -127,7 +127,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 			.click(jQuery.proxy(self, 'form_remove'));
 
 		// Form
-		self.form = ( self.type.indexOf('input') >= 0 ) ? jQuery('<span>') : jQuery('<div>');
+		self.form = jQuery('<div>');
 
 		self.form
 			.addClass('fee-form')
@@ -135,6 +135,9 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 			.addClass('fee-filter-' + self.filter)
 			.append(self.save_button)
 			.append(self.cancel_button);
+
+		if ( self.el.hasClass('fee-inline') )
+			self.form.addClass('fee-inline');
 
 		self.form.bind('keypress', jQuery.proxy(self, 'keypress'));
 

@@ -9,6 +9,10 @@ div.fee-form, textarea.fee-form-content {
 	width: 100% !important;
 }
 
+div.fee-inline {
+	display: inline;
+}
+
 .fee-loading {
 	position: absolute;
 	z-index: 9999;
