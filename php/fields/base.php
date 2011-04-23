@@ -61,6 +61,8 @@ abstract class FEE_Field_Base {
 		if ( !is_scalar( $content ) )
 			trigger_error( "scalar expected. " . gettype( $content ) . " given", E_USER_WARNING );
 
+		$data = apply_filters( 'front_end_editor_wrap', $data, $this->filter );
+
 		$data_attr = array();
 		foreach ( $data as $key => $value ) {
 			if ( !is_scalar( $value ) )
