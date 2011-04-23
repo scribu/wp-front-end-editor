@@ -46,6 +46,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 				'taxonomy' => $taxonomy,
 				'hierarchical' => true,
 				'selected' => $selected,
+				'show_option_none' => __( '&mdash; None &mdash;', 'front-end-editor' ),
 				'echo' => false
 			) );
 		}
