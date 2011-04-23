@@ -47,7 +47,7 @@ abstract class FEE_Core {
 			'nonce' => wp_create_nonce( self::$nonce ),
 		);
 
-		$url = plugins_url( 'js/', __FILE__ );
+		$url = plugins_url( 'js/', FRONT_END_EDITOR_MAIN_FILE );
 
 		$dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '';
 
@@ -75,7 +75,7 @@ abstract class FEE_Core {
 				'height' => apply_filters( 'fee_cleditor_height', 250 ),
 			);
 
-			load_plugin_textdomain( 'cleditor', '', FRONT_END_EDITOR_PLUGIN_BASENAME . '/lang/cleditor' );
+			load_plugin_textdomain( 'cleditor', '', dirname( plugin_basename( FRONT_END_EDITOR_MAIN_FILE ) ) . '/lang/cleditor' );
 
 			$cledit_i18n = array();
 			foreach ( get_translations_for_domain('cleditor')->entries as $entry ) {
@@ -107,7 +107,7 @@ abstract class FEE_Core {
 			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
 			$js_dependencies[] = 'fee-core';
 
-			foreach ( array_slice( scandir( dirname(__FILE__) . '/js/fields' ), 2 ) as $file ) {
+			foreach ( array_slice( scandir( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields' ), 2 ) as $file ) {
 				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), self::$version, true );
 				$js_dependencies[] = "fee-fields-$file";
 			}
@@ -116,7 +116,7 @@ abstract class FEE_Core {
 			$js_dependencies[] = 'fee-editor';		
 		}
 
-		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", __FILE__ ), $css_dependencies, self::$version );
+		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, self::$version );
 ?>
 <script type='text/javascript'>
 var FrontEndEditor = {};

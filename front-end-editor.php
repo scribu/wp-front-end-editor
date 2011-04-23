@@ -29,10 +29,10 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Load scbFramework
 require dirname( __FILE__ ) . '/scb/load.php';
 
-define( 'FRONT_END_EDITOR_PLUGIN_BASENAME', dirname( plugin_basename( __FILE__ ) ) );
+define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
 
 function _fee_init() {
-	$dir = dirname( __FILE__ );
+	$dir = dirname( __FILE__ ) . '/php';
 
 	// Load files
 	require_once $dir . '/core.php';
@@ -60,9 +60,9 @@ function _fee_init() {
 	FEE_Field_Image::init( __FILE__ );
 
 	if ( is_admin() ) {
-		load_plugin_textdomain( 'front-end-editor', '', FRONT_END_EDITOR_PLUGIN_BASENAME . '/lang/admin' );
+		load_plugin_textdomain( 'front-end-editor', '', dirname( plugin_basename( FRONT_END_EDITOR_MAIN_FILE ) ) . '/lang/admin' );
 
-		require_once $dir . '/admin/admin.php';
+		require_once dirname( __FILE__ ) . '/admin/admin.php';
 		scbAdminPage::register( 'Fee_Admin', __FILE__, $options );
 	}
 
