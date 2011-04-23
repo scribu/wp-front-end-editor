@@ -14,3 +14,13 @@ FrontEndEditor.fieldTypes['terminput'] = FrontEndEditor.fieldTypes['input'].exte
 		});
 	}
 });
+
+FrontEndEditor.fieldTypes['termselect'] = FrontEndEditor.fieldTypes['select'].extend({
+	content_to_input: function (content) {
+		var self = this,
+			$dropdown = jQuery(content);
+
+		self.input.replaceWith( $dropdown );
+		self.input = $dropdown;
+	}
+});

@@ -5,7 +5,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 	function wrap( $content, $taxonomy, $before, $sep, $after ) {
 		global $post;
-	
+
 		if ( !in_the_loop() )
 			return $content;
 
@@ -21,22 +21,44 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 		$content = $this->placehold( $content );
 
+		$data['type'] = is_taxonomy_hierarchical( $taxonomy ) ? 'termselect' : 'terminput';
+
 		return FEE_Field_Base::wrap( $content, $data );
 	}
 
 	function get( $data ) {
 		extract( $data );
 
-		$tags = get_terms_to_edit( $post_id, $taxonomy );
-		$tags = str_replace( ',', ', ', $tags );
+		if ( 'terminput' == $type ) {
+			$tags = get_terms_to_edit( $post_id, $taxonomy );
+			$tags = str_replace( ',', ', ', $tags );
 
-		return $tags;
+			return $tags;
+		} else {
+			$terms = get_the_terms( $post_id, $taxonomy );
+
+			if ( empty( $terms ) )
+				$selected = 0;
+			else
+				$selected = reset( $terms )->term_id;
+
+			return wp_dropdown_categories( array(
+				'taxonomy' => $taxonomy,
+				'hierarchical' => true,
+				'selected' => $selected,
+				'echo' => false
+			) );
+		}
 	}
 
 	function save( $data, $terms ) {
 		extract( $data );
 
-		wp_set_post_terms( $post_id, $terms, $taxonomy );
+		if ( 'terminput' == $type ) {
+			wp_set_post_terms( $post_id, $terms, $taxonomy );
+		} else {
+			wp_set_object_terms( $post_id, absint( $terms ), $taxonomy );
+		}
 
 		$content = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
 
@@ -63,30 +85,6 @@ class FEE_Field_Category extends FEE_Field_Terms {
 
 	function wrap( $content, $sep, $parents ) {
 		return parent::wrap( $content, 'category', '', $sep, '' );
-	}
-
-	function save( $data, $categories ) {
-		extract( $data );
-
-		$cat_ids = array();
-		foreach ( explode( ',', $categories ) as $cat_name ) {
-			if ( !$cat = get_cat_ID( trim( $cat_name ) ) ) {
-				$args = wp_insert_term( $cat_name, $taxonomy );
-
-				if ( is_wp_error( $args ) )
-					continue;
-
-				$cat = $args['term_id'];
-			}
-
-			$cat_ids[] = $cat;
-		}
-
-		wp_set_post_categories( $post_id, $cat_ids );
-
-		$content = get_the_term_list( $post_id, $taxonomy, '', ', ' );
-
-		return $this->placehold( $content );
 	}
 }
 
