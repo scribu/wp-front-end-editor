@@ -37,7 +37,7 @@ function _fee_init() {
 	// Load files
 	require_once $dir . '/core.php';
 
-	foreach ( array( 'base', 'post', 'other' ) as $name )
+	foreach ( array( 'base', 'post', 'taxonomy', 'other' ) as $name )
 		require_once "$dir/fields/$name.php";
 
 	$options = new scbOptions( 'front-end-editor', __FILE__, array(
