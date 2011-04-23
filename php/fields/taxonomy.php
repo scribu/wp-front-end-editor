@@ -44,8 +44,9 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 			return wp_dropdown_categories( array(
 				'taxonomy' => $taxonomy,
-				'hierarchical' => true,
 				'selected' => $selected,
+				'hide_empty' => false,
+				'hierarchical' => true,
 				'show_option_none' => __( '&mdash; None &mdash;', 'front-end-editor' ),
 				'echo' => false
 			) );
