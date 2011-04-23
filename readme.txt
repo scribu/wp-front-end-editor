@@ -92,7 +92,9 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 == Changelog ==
 
 = 2.0 =
-* new ui
+* replaced double-click action with an 'Edit' overlay
+* added dropdown for editing terms in hierarchical taxonomies
+* introduced front_end_editor_wrap filter
 * introduced fee_cleditor_css filter
 * introduced fee_cleditor_height filter
 
