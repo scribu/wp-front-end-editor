@@ -4,7 +4,12 @@
 	padding: 0 !important;
 	border-width: 0 !important;
 }
+
 div.fee-form, textarea.fee-form-content {
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	clear: both !important;
 	width: 100% !important;
 }
