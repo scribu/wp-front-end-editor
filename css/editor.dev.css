@@ -44,9 +44,6 @@ div.fee-form, textarea.fee-form-content {
 }
 
 /* Buttons */
-div.fee-form button {margin-top: 5px}
-span.fee-form input {margin-right: 5px}
-.fee-form button + button {margin-left: 5px}
 
 .fee-form button {
 	text-decoration: none !important;
@@ -59,10 +56,12 @@ span.fee-form input {margin-right: 5px}
 	-khtml-border-radius: 11px;
 	-webkit-border-radius: 11px;
 	border-radius: 11px;
-	-moz-box-sizing: content-box;
-	-webkit-box-sizing: content-box;
-	-khtml-box-sizing: content-box;
-	box-sizing: content-box;
+	margin-left: 5px;
+}
+
+div.fee-form button {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 button.fee-form-save {
@@ -84,6 +83,11 @@ button.fee-form-cancel {
 
 .fee-form-cancel:hover {
 	border: 1px solid #666 !important;
+}
+
+/* Select */
+span.fee-form select {
+	vertical-align: -2px;
 }
 
 /* Rich Editor */
