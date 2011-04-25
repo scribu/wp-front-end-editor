@@ -74,9 +74,11 @@ abstract class FEE_Field_Base {
 		$data_attr['class'] = 'fee-field fee-filter-' . $this->filter;
 
 		if ( $inline || in_array( $data['type'], array( 'input', 'image' ) ) )
-			$data_attr['class'] .= ' fee-inline';
+			$wrap_tag = 'span';
+		else
+			$wrap_tag = 'div';
 
-		return html( 'div', $data_attr, $content );
+		return html( $wrap_tag, $data_attr, $content );
 	}
 
 	/**
