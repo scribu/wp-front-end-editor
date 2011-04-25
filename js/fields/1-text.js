@@ -127,7 +127,7 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 			.click(jQuery.proxy(self, 'form_remove'));
 
 		// Form
-		self.form = self.el.is('span') ? jQuery('<span>') : jQuery('<div>');
+		self.form = ( self.type.indexOf('input') >= 0 ) ? jQuery('<span>') : jQuery('<div>');
 
 		self.form
 			.addClass('fee-form')

@@ -45,7 +45,7 @@ abstract class FEE_Field_Base {
 	 *
 	 * @return string Wrapped content
 	 */
-	public function wrap( $content, $data, $inline = false ) {
+	public function wrap( $content, $data ) {
 		if ( !$this->allow( $data ) )
 			return $content;
 
@@ -73,12 +73,7 @@ abstract class FEE_Field_Base {
 
 		$data_attr['class'] = 'fee-field fee-filter-' . $this->filter;
 
-		if ( $inline || in_array( $data['type'], array( 'input', 'image' ) ) )
-			$wrap_tag = 'span';
-		else
-			$wrap_tag = 'div';
-
-		return html( $wrap_tag, $data_attr, $content );
+		return html( 'span', $data_attr, $content );
 	}
 
 	/**
