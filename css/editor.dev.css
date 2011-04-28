@@ -144,26 +144,27 @@ span.fee-form select {
 .fee-overlay-bottom,
 .fee-overlay-left,
 .fee-overlay-edit {
-	background-color: #9fd8ee;
+	background-color: #aaa;
 	position: absolute;
 	z-index: 999;
 }
 
 .fee-overlay-edit {
 	-webkit-border-radius: 2px;
-	-webkit-border-bottom-right-radius: 0;
 	-moz-border-radius: 2px;
-	-moz-border-radius-bottomright: 0;
 	border-radius: 2px;
-	border-bottom-right-radius: 0;
-	color: #161616;
+	color: #fff;
 	cursor: pointer;
-	padding: 2px;
-	font-family: sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	font-weight: 300;
+	line-height: 18px;
+	padding: 2px 4px;
+	z-index: 1000;
 }
 
 .fee-overlay-edit:hover {
-	color: #fff;
+	background-color: #777;
 }
 
 .fee-overlay-top,
