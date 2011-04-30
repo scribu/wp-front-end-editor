@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress/front-end-editor
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 1.9.3
+Stable tag: trunk
 
 Want to edit something? Just double-click it!
 
@@ -12,7 +12,7 @@ Want to edit something? Just double-click it!
 
 Front-end Editor is a plugin that lets you make changes to your content *directly* from your site. No need to load the admin backend just to correct a typo.
 
-[youtube http://www.youtube.com/watch?v=q-fHMMKI-q8]
+[youtube http://www.youtube.com/watch?v=c6P7M_oG-NY]
 
 **Goals:**
 
@@ -97,6 +97,7 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 * introduced front_end_editor_wrap filter
 * introduced fee_cleditor_css filter
 * introduced fee_cleditor_height filter
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-2-0.html)
 
 = 1.9.3 =
 * switched to CLEditor
