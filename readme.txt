@@ -12,7 +12,7 @@ Want to edit something? Just double-click it!
 
 Front-end Editor is a plugin that lets you make changes to your content *directly* from your site. No need to load the admin backend just to correct a typo.
 
-To edit something, just double-click it!
+[youtube http://www.youtube.com/watch?v=q-fHMMKI-q8]
 
 **Goals:**
 
