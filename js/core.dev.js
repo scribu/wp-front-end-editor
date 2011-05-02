@@ -258,7 +258,7 @@ jQuery(document).ready(function($) {
 				editor.start();
 
 				$el.mouseover(function () {
-					overlay_show.call( this, jQuery.proxy(editor, 'dblclick') );
+					overlay_show.call( this, jQuery.proxy(editor, 'start_editing') );
 				});
 			});
 	});

@@ -116,7 +116,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 		return $el;
 	},
 
-	dblclick: function (ev) {
+	start_editing: function (ev) {
 		var self = this;
 
 		// Buttons

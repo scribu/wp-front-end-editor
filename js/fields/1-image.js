@@ -1,7 +1,7 @@
 FrontEndEditor.define_field( 'image_base', 'base', {
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.change : null,
 
-	dblclick: function () {
+	start_editing: function () {
 		var self = this;
 
 		tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.image.url);
@@ -88,7 +88,7 @@ FrontEndEditor.define_field( 'image_rich', 'image_base', {
 			var editor = new FrontEndEditor.fieldTypes['image_rich']();
 
 			editor.data = data;
-			editor.dblclick();
+			editor.start_editing();
 
 			return false;
 		}
@@ -104,7 +104,7 @@ FrontEndEditor.define_field( 'image_rich', 'image_base', {
 
 FrontEndEditor.define_field( 'image', 'image_base', {
 
-	dblclick: function (ev) {
+	start_editing: function (ev) {
 		var self = this;
 
 		self._super(ev);
