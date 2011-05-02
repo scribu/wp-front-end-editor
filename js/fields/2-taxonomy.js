@@ -20,7 +20,8 @@ if ( FrontEndEditor.data.suggest ) {
 
 FrontEndEditor.define_field( 'termselect', 'select', {
 	content_to_input: function (content) {
-		var self = this,
+		var
+			self = this,
 			$dropdown = jQuery(content);
 
 		self.input.replaceWith( $dropdown );

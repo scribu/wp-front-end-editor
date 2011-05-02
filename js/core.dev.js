@@ -16,10 +16,11 @@ jQuery.extend( FrontEndEditor, {
 	},
 
 	overlay: function($el) {
-		var $cover = jQuery('<div>', {'class': 'fee-loading'})
-			.css('background-image', 'url(' + this.data.spinner + ')')
-			.hide()
-			.prependTo(jQuery('body'));
+		var
+			$cover = jQuery('<div>', {'class': 'fee-loading'})
+				.css('background-image', 'url(' + this.data.spinner + ')')
+				.hide()
+				.prependTo(jQuery('body'));
 
 		return {
 			show: function() {
@@ -100,7 +101,8 @@ jQuery(function($) {
 	var hover_hide, hover_show;
 
 	(function () {
-		var HOVER_BORDER = 2,
+		var
+			HOVER_BORDER = 2,
 			HOVER_PADDING = 2,
 			hover_lock = false,
 			hover_timeout,
@@ -133,7 +135,8 @@ jQuery(function($) {
 		};
 
 		hover_show = function (callback) {
-			var $self = jQuery(this),
+			var
+				$self = jQuery(this),
 				offset = $self.offset(),
 				dims = {
 					width: $self.width(),
@@ -177,7 +180,8 @@ jQuery(function($) {
 		jQuery('.fee-filter-' + filter)
 			.mouseout(hover_hide)
 			.each(function () {
-				var $el = jQuery(this),
+				var
+					$el = jQuery(this),
 					data = extract_data_attr(this),
 					editor;
 

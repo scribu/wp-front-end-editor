@@ -50,7 +50,8 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	ajax_set: function () {
-		var	self = this,
+		var
+			self = this,
 			data = self.ajax_args({
 				callback: 'save',
 				content: self.content_from_input()
@@ -62,7 +63,8 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	ajax_get_handler: function (response) {
-		var self = this,
+		var
+			self = this,
 			$el = self.error_handler(response);
 
 		if ( !$el )
@@ -78,7 +80,8 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	ajax_set_handler: function (response) {
-		var self = this,
+		var
+			self = this,
 			$el = self.error_handler(response);
 
 		if ( !$el )
@@ -90,7 +93,8 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	error_handler: function (response) {
-		var self = this,
+		var
+			self = this,
 			$parent = self.el.parents('a'),
 			$el = $parent.length ? $parent : self.el;
 
@@ -176,7 +180,8 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	keypress: function (ev) {
-		var self = this,
+		var
+			self = this,
 			keys = {ENTER: 13, ESCAPE: 27},
 			code = (ev.keyCode || ev.which || ev.charCode || 0);
 
@@ -207,7 +212,8 @@ FrontEndEditor.define_field( 'checkbox', 'input', {
 	},
 
 	content_to_front: function () {
-		var self = this,
+		var
+			self = this,
 			content = self.data.values[ self.content_from_input() ];
 
 		self.el.html(content);
@@ -222,13 +228,12 @@ FrontEndEditor.define_field( 'select', 'input', {
 		var self = this;
 
 		jQuery.each(self.data.values, function (value, title) {
-			var $option = jQuery('<option>')
-				.attr({
-					html: value,
+			var
+				$option = jQuery('<option>', {
 					value: value,
+					html: title,
 					selected: (content === value) ? 'selected': ''
-				})
-				.html(title);
+				});
 
 			self.input.append($option);
 		});

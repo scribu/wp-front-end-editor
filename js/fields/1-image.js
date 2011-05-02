@@ -118,7 +118,8 @@ FrontEndEditor.define_field( 'image', 'image_base', {
 	},
 
 	ajax_set_handler: function (response) {
-		var self = this,
+		var
+			self = this,
 			url = response.content;
 
 		if ( '-1' === url ) {

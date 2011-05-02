@@ -7,10 +7,11 @@ FrontEndEditor.define_field( 'base', false, {
 	ajax_set_handler: null,
 
 	ajax_get: function () {
-		var self = this,
-			data = self.ajax_args({
-				callback: 'get'
-			});
+		var
+		self = this,
+		data = self.ajax_args({
+			callback: 'get'
+		});
 
 		FrontEndEditor.sync_load(jQuery.proxy(self, 'ajax_get_handler'), data, self.dependency);
 	},
