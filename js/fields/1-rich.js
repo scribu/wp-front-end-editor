@@ -1,5 +1,10 @@
+(function() {
+
+if ( !FrontEndEditor.data.cleditor )
+	return;
+
 FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend({
-	dependency: FrontEndEditor.data.nicedit ? FrontEndEditor.data.nicedit.src : null,
+	dependency: FrontEndEditor.data.cleditor.src,
 
 	init_cleditor: function($el) {
 		var self = this;
@@ -85,3 +90,4 @@ FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend
 	}
 });
 
+}());

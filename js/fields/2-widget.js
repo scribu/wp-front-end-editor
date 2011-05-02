@@ -1,6 +1,6 @@
 (function() {
 
-var ancestor = FrontEndEditor.data.cleditor ? 'rich' : 'textarea';
+var ancestor = FrontEndEditor.fieldTypes['rich'] ? 'rich' : 'textarea';
 
 FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes[ancestor].extend({
 
