@@ -5,7 +5,8 @@ cd 'js/cleditor'
 $MINIFIER 'cleditor.dev.js' > 'cleditor.js'
 
 cd '..'
-$MINIFIER 'core.dev.js' > 'editor.js'
+$MINIFIER 'class.js' > 'editor.js'
+$MINIFIER 'core.dev.js' >> 'editor.js'
 cat fields/* | $MINIFIER --type 'js' >> 'editor.js'
 
 cd '../css'
