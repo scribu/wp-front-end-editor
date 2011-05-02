@@ -2,14 +2,22 @@ jQuery.extend( FrontEndEditor, {
 	fieldTypes: {},
 
 	define_field: function(field_name, field_ancestor, methods) {
-		var ancestor = field_ancestor ? FrontEndEditor.fieldTypes[field_ancestor] : Class;
+		var ancestor = field_ancestor ? this.fieldTypes[field_ancestor] : Class;
 
-		FrontEndEditor.fieldTypes[field_name] = ancestor.extend(methods);
+		this.fieldTypes[field_name] = ancestor.extend(methods);
+	},
+
+	is_field_defined: function(field_name) {
+		return Boolean(this.fieldTypes[field_name]);
+	},
+
+	get_field_instance: function(field_name) {
+		return new this.fieldTypes[field_name]();
 	},
 
 	overlay: function($el) {
 		var $cover = jQuery('<div>', {'class': 'fee-loading'})
-			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
+			.css('background-image', 'url(' + this.data.spinner + ')')
 			.hide()
 			.prependTo(jQuery('body'));
 
@@ -53,7 +61,7 @@ jQuery.extend( FrontEndEditor, {
 				}).prependTo('head');
 			}
 
-			jQuery.post(FrontEndEditor.data.ajax_url, data, function(data) {
+			jQuery.post(this.data.ajax_url, data, function(data) {
 				content = data;
 				proceed();
 			}, 'json');
@@ -61,7 +69,8 @@ jQuery.extend( FrontEndEditor, {
 	}())
 });
 
-jQuery(document).ready(function($) {
+
+jQuery(function($) {
 
 	// fetch all 'data-' attributes from a DOM node
 	function extract_data_attr(el) {
@@ -172,13 +181,13 @@ jQuery(document).ready(function($) {
 					data = extract_data_attr(this),
 					editor;
 
-				if ( undefined === FrontEndEditor.fieldTypes[data.type] ) {
+				if ( !FrontEndEditor.is_field_defined(data.type) ) {
 					if ( undefined !== console )
 						console.warn('invalid field type', this);
 					return;
 				}
 
-				editor = new FrontEndEditor.fieldTypes[data.type]();
+				editor = FrontEndEditor.get_field_instance(data.type);
 
 				editor = jQuery.extend(editor, {
 					el: $el,

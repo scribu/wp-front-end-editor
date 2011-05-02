@@ -85,7 +85,7 @@ FrontEndEditor.define_field( 'image_rich', 'image_base', {
 		'name': 'wpimage',
 		'popupName': undefined,
 		'buttonClick': function(event, data) {
-			var editor = new FrontEndEditor.fieldTypes['image_rich']();
+			var editor = FrontEndEditor.get_field_instance('image_rich');
 
 			editor.data = data;
 			editor.start_editing();

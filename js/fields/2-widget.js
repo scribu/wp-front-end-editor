@@ -1,6 +1,6 @@
 (function() {
 
-var ancestor = FrontEndEditor.fieldTypes['rich'] ? 'rich' : 'textarea';
+var ancestor = FrontEndEditor.is_field_defined('rich') ? 'rich' : 'textarea';
 
 FrontEndEditor.define_field( 'widget', ancestor, {
 
