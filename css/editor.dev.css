@@ -167,15 +167,9 @@ span.fee-form select {
 
 .fee-overlay-left {
 	width: 2px;
-	-webkit-border-bottom-left-radius: 2px;
-	-moz-border-radius-bottomleft: 2px;
-	border-bottom-left-radius: 2px;
 }
 
 .fee-overlay-top {
 	height: 2px;
-	-webkit-border-top-right-radius: 2px;
-	-moz-border-radius-topright: 2px;
-	border-top-right-radius: 2px;
 }
 
