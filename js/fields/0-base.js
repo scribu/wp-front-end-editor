@@ -6,17 +6,6 @@ FrontEndEditor.define_field( 'base', false, {
 	ajax_get_handler: null,
 	ajax_set_handler: null,
 
-	ajax_args: function (args) {
-		var self = this;
-
-		return jQuery.extend(args, {
-			action	: 'front-end-editor',
-			nonce	: FrontEndEditor.data.nonce,
-			filter	: self.filter,
-			data	: self.data
-		});
-	},
-
 	ajax_get: function () {
 		var self = this,
 			data = self.ajax_args({
@@ -35,5 +24,16 @@ FrontEndEditor.define_field( 'base', false, {
 
 		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(self, 'ajax_set_handler'), 'json');
 	},
+
+	ajax_args: function (args) {
+		var self = this;
+
+		return jQuery.extend(args, {
+			action	: 'front-end-editor',
+			nonce	: FrontEndEditor.data.nonce,
+			filter	: self.filter,
+			data	: self.data
+		});
+	}
 });
 

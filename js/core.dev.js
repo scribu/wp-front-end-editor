@@ -63,68 +63,68 @@
 
 //_____Custom code starts here_____
 
+jQuery.extend( FrontEndEditor, {
+	fieldTypes: {},
 
-FrontEndEditor.fieldTypes = {};
+	define_field: function(field_name, field_ancestor, methods) {
+		var ancestor = field_ancestor ? FrontEndEditor.fieldTypes[field_ancestor] : Class;
 
-FrontEndEditor.define_field = function(field_name, field_ancestor, methods) {
-	var ancestor = field_ancestor ? FrontEndEditor.fieldTypes[field_ancestor] : Class;
+		FrontEndEditor.fieldTypes[field_name] = ancestor.extend(methods);
+	},
 
-	FrontEndEditor.fieldTypes[field_name] = ancestor.extend(methods);
-};
+	overlay: function($el) {
+		var $cover = jQuery('<div>', {'class': 'fee-loading'})
+			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
+			.hide()
+			.prependTo(jQuery('body'));
 
-FrontEndEditor.overlay = function($el) {
+		return {
+			show: function() {
+				$cover
+					.css({
+						width: $el.width(),
+						height: $el.height()
+					})
+					.css($el.offset())
+					.show();
+			},
 
-	var $cover = jQuery('<div>', {'class': 'fee-loading'})
-		.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
-		.hide()
-		.prependTo(jQuery('body'));
+			hide: function() {
+				$cover.hide();
+			}
+		};
+	},
 
-	return {
-		show: function() {
-			$cover
-				.css({
-					width: $el.width(),
-					height: $el.height()
-				})
-				.css($el.offset())
-				.show();
-		},
+	// Do an ajax request, while loading a required script
+	sync_load: (function(){
+		var cache = [];
 
-		hide: function() {
-			$cover.hide();
-		}
-	};
-};
+		return function(callback, data, src) {
+			var count = 0, content;
 
-// Do an ajax request, while loading a required script
-FrontEndEditor.sync_load = (function(){
-	var cache = [];
+			function proceed() {
+				count++;
+				if ( 2 === count )
+					callback(content);
+			}
 
-	return function(callback, data, src) {
-		var count = 0, content;
+			if ( !src || cache[src] ) {
+				proceed();
+			} else {
+				cache[src] = jQuery('<script>').attr({
+					type: 'text/javascript',
+					src: src,
+					load: proceed
+				}).prependTo('head');
+			}
 
-		function proceed() {
-			count++;
-			if ( 2 === count )
-				callback(content);
-		}
-
-		if ( !src || cache[src] ) {
-			proceed();
-		} else {
-			cache[src] = jQuery('<script>').attr({
-				type: 'text/javascript',
-				src: src,
-				load: proceed
-			}).prependTo('head');
-		}
-
-		jQuery.post(FrontEndEditor.data.ajax_url, data, function(data) {
-			content = data;
-			proceed();
-		}, 'json');
-	};
-}());
+			jQuery.post(FrontEndEditor.data.ajax_url, data, function(data) {
+				content = data;
+				proceed();
+			}, 'json');
+		};
+	}())
+});
 
 jQuery(document).ready(function($) {
 
