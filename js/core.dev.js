@@ -66,6 +66,12 @@
 
 FrontEndEditor.fieldTypes = {};
 
+FrontEndEditor.define_field = function(field_name, field_ancestor, methods) {
+	var ancestor = field_ancestor ? FrontEndEditor.fieldTypes[field_ancestor] : Class;
+
+	FrontEndEditor.fieldTypes[field_name] = ancestor.extend(methods);
+};
+
 FrontEndEditor.overlay = function($el) {
 
 	var $cover = jQuery('<div>', {'class': 'fee-loading'})

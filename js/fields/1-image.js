@@ -1,4 +1,4 @@
-FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].extend({
+FrontEndEditor.define_field( 'image_base', 'base', {
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.change : null,
 
 	dblclick: function () {
@@ -58,10 +58,11 @@ FrontEndEditor.fieldTypes['image_base'] = FrontEndEditor.fieldTypes['base'].exte
 	}
 });
 
+
 // Add wpimage button
 if ( jQuery.cleditor ) {
 
-FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'].extend({
+FrontEndEditor.define_field( 'image_rich', 'image_base', {
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.insert : null,
 
 	ajax_set: function (url) {
@@ -100,7 +101,8 @@ FrontEndEditor.fieldTypes['image_rich'] = FrontEndEditor.fieldTypes['image_base'
 
 }
 
-FrontEndEditor.fieldTypes['image'] = FrontEndEditor.fieldTypes['image_base'].extend({
+
+FrontEndEditor.define_field( 'image', 'image_base', {
 
 	dblclick: function (ev) {
 		var self = this;
@@ -128,8 +130,8 @@ FrontEndEditor.fieldTypes['image'] = FrontEndEditor.fieldTypes['image_base'].ext
 	}
 });
 
-FrontEndEditor.fieldTypes['thumbnail'] = FrontEndEditor.fieldTypes['image'].extend({
 
+FrontEndEditor.define_field( 'thumbnail', 'image', {
 	replace_button: function (ev) {
 		var self = this;
 

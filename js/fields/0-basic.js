@@ -1,4 +1,4 @@
-FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
+FrontEndEditor.define_field( 'input', 'base', {
 
 	input_tag: '<input type="text">',
 
@@ -188,7 +188,8 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 	}
 });
 
-FrontEndEditor.fieldTypes['checkbox'] = FrontEndEditor.fieldTypes['input'].extend({
+
+FrontEndEditor.define_field( 'checkbox', 'input', {
 	input_tag: '<input type="checkbox">',
 
 	content_to_input: function (content) {
@@ -213,7 +214,8 @@ FrontEndEditor.fieldTypes['checkbox'] = FrontEndEditor.fieldTypes['input'].exten
 	}
 });
 
-FrontEndEditor.fieldTypes['select'] = FrontEndEditor.fieldTypes['input'].extend({
+
+FrontEndEditor.define_field( 'select', 'input', {
 	input_tag: '<select>',
 
 	content_to_input: function (content) {
@@ -239,7 +241,8 @@ FrontEndEditor.fieldTypes['select'] = FrontEndEditor.fieldTypes['input'].extend(
 	}
 });
 
-FrontEndEditor.fieldTypes['textarea'] = FrontEndEditor.fieldTypes['input'].extend({
+
+FrontEndEditor.define_field( 'textarea', 'input', {
 	input_tag: '<textarea rows="10">'
 });
 

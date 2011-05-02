@@ -1,4 +1,4 @@
-FrontEndEditor.fieldTypes['base'] = Class.extend({
+FrontEndEditor.define_field( 'base', false, {
 	dependency: null, // script src
 
 	start: jQuery.noop,

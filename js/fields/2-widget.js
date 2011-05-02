@@ -2,7 +2,7 @@
 
 var ancestor = FrontEndEditor.fieldTypes['rich'] ? 'rich' : 'textarea';
 
-FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes[ancestor].extend({
+FrontEndEditor.define_field( 'widget', ancestor, {
 
 	create_input: jQuery.noop,
 

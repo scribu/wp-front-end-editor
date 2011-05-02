@@ -3,7 +3,8 @@
 if ( !FrontEndEditor.data.cleditor )
 	return;
 
-FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend({
+FrontEndEditor.define_field( 'rich', 'textarea', {
+
 	dependency: FrontEndEditor.data.cleditor.src,
 
 	init_cleditor: function($el) {

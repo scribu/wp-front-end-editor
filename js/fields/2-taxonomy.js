@@ -1,5 +1,6 @@
 if ( FrontEndEditor.data.suggest ) {
-	FrontEndEditor.fieldTypes['terminput'] = FrontEndEditor.fieldTypes['input'].extend({
+
+	FrontEndEditor.define_field( 'terminput', 'input', {
 		dependency: FrontEndEditor.data.suggest.src,
 
 		content_to_input: function (content) {
@@ -17,7 +18,7 @@ if ( FrontEndEditor.data.suggest ) {
 	});
 }
 
-FrontEndEditor.fieldTypes['termselect'] = FrontEndEditor.fieldTypes['select'].extend({
+FrontEndEditor.define_field( 'termselect', 'select', {
 	content_to_input: function (content) {
 		var self = this,
 			$dropdown = jQuery(content);
