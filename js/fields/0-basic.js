@@ -50,11 +50,15 @@ FrontEndEditor.fieldTypes['input'] = FrontEndEditor.fieldTypes['base'].extend({
 	},
 
 	ajax_set: function () {
-		var self = this;
+		var	self = this,
+			data = self.ajax_args({
+				callback: 'save',
+				content: self.content_from_input()
+			});
 
 		self.overlay.show();
 
-		self._super();
+		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(self, 'ajax_set_handler'), 'json');
 	},
 
 	ajax_get_handler: function (response) {
