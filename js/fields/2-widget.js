@@ -1,18 +1,10 @@
-FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].extend({
+(function() {
+
+var ancestor = FrontEndEditor.data.cleditor ? 'rich' : 'textarea';
+
+FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes[ancestor].extend({
 
 	create_input: jQuery.noop,
-
-	ajax_get: function () {
-		var self = this;
-
-		self.rich_edit = ( 0 == self.data.widget_id.indexOf('text-') /* && FrontEndEditor.data.nicedit */);
-
-		if ( self.rich_edit ) {
-//			self.dependency = FrontEndEditor.data.nicedit.src;
-		}
-
-		self._super();
-	},
 
 	content_to_input: function (content) {
 		var self = this;
@@ -21,7 +13,7 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 
 		self.form.prepend(content);
 
-		if ( self.rich_edit ) {
+		if ( 0 == self.data.widget_id.indexOf('text-') && 'rich' == ancestor ) {
 			self.init_cleditor( self.form.find('textarea') );
 		}
 	},
@@ -54,3 +46,4 @@ FrontEndEditor.fieldTypes['widget'] = FrontEndEditor.fieldTypes['textarea'].exte
 	}
 });
 
+}());

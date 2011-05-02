@@ -1,6 +1,17 @@
 FrontEndEditor.fieldTypes['rich'] = FrontEndEditor.fieldTypes['textarea'].extend({
 	dependency: FrontEndEditor.data.nicedit ? FrontEndEditor.data.nicedit.src : null,
 
+	init_cleditor: function($el) {
+		var self = this;
+
+		$el.cleditor({
+			controls: FrontEndEditor.data.cleditor.controls,
+			width: self.form.width(),
+			height: FrontEndEditor.data.cleditor.height,
+			bodyStyle: 'cursor:text; margin:4px; ' + FrontEndEditor.data.cleditor.css.replace(/"/g, "'")
+		});
+	},
+
 	content_to_input: function (content) {
 		var self = this;
 

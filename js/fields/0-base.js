@@ -35,16 +35,5 @@ FrontEndEditor.fieldTypes['base'] = Class.extend({
 
 		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(self, 'ajax_set_handler'), 'json');
 	},
-
-	init_cleditor: function($el) {
-		var self = this;
-
-		$el.cleditor({
-			controls: FrontEndEditor.data.cleditor.controls,
-			width: self.form.width(),
-			height: FrontEndEditor.data.cleditor.height,
-			bodyStyle: 'cursor:text; margin:4px; ' + FrontEndEditor.data.cleditor.css.replace(/"/g, "'")
-		});
-	}
 });
 
