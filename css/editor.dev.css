@@ -140,8 +140,6 @@ span.fee-form select {
 
 /* Overlay */
 .fee-overlay-top,
-.fee-overlay-right,
-.fee-overlay-bottom,
 .fee-overlay-left,
 .fee-overlay-edit {
 	background-color: #aaa;
