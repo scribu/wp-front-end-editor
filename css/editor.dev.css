@@ -90,11 +90,6 @@ span.fee-form select {
 	vertical-align: -2px;
 }
 
-/* Rich Editor */
-.nicEdit-selected:focus {
-	outline: none;
-}
-
 /* Suggest */
 .fee-suggest-results {
 	padding: 0;
