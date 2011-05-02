@@ -133,16 +133,16 @@ span.fee-form select {
 	color: #D54E21 !important;
 }
 
-/* Overlay */
-.fee-overlay-top,
-.fee-overlay-left,
-.fee-overlay-edit {
+/* Hover */
+.fee-hover-top,
+.fee-hover-left,
+.fee-hover-edit {
 	background-color: #aaa;
 	position: absolute;
 	z-index: 999;
 }
 
-.fee-overlay-edit {
+.fee-hover-edit {
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
 	border-radius: 2px;
@@ -156,15 +156,15 @@ span.fee-form select {
 	z-index: 1000;
 }
 
-.fee-overlay-edit:hover {
+.fee-hover-edit:hover {
 	background-color: #777;
 }
 
-.fee-overlay-left {
+.fee-hover-left {
 	width: 2px;
 }
 
-.fee-overlay-top {
+.fee-hover-top {
 	height: 2px;
 }
 

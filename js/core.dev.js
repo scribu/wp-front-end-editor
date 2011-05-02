@@ -152,47 +152,43 @@ jQuery(document).ready(function($) {
 		return data;
 	}
 
-	// Init overlay methods
-	var overlay_hide, overlay_show;
+	// Init hover methods
+	var hover_hide, hover_show;
 
 	(function () {
-		var OVERLAY_BORDER = 2,
-			OVERLAY_PADDING = 2,
-			overlay_lock = false,
-			overlay_timeout,
-			overlays = {},
-			overlay_box = jQuery('<div>', {
-				'class': 'fee-overlay-edit',
-				'html': FrontEndEditor.data.edit_text
+		var HOVER_BORDER = 2,
+			HOVER_PADDING = 2,
+			hover_lock = false,
+			hover_timeout,
+			hover_borders = {},
+			hover_box = jQuery('<div>', {
+				'class': 'fee-hover-edit',
+				'html': FrontEndEditor.data.edit_text,
+				'mouseover': function () { hover_lock = true; },
+				'mouseout': function () { hover_lock = false; hover_hide(); }
 			}).hide().appendTo('body');
 
-		overlay_box
-			.mouseover(function () { overlay_lock = true; })
-			.mouseout(function () { overlay_lock = false; overlay_hide() });
-
-		jQuery.each(['top', 'right', 'bottom', 'left'], function(i, key) {
-			overlays[key] = jQuery('<div>').addClass('fee-overlay-' + key).hide().appendTo('body');
+		jQuery.each(['top', 'left'], function(i, key) {
+			hover_borders[key] = jQuery('<div>').addClass('fee-hover-' + key).hide().appendTo('body');
 		});
 
-		function overlay_hide_immediately() {
-			overlay_box.hide();
+		function hover_hide_immediately() {
+			hover_box.hide();
 
-			overlays.top.hide();
-			overlays.right.hide();
-			overlays.bottom.hide();
-			overlays.left.hide();		
+			hover_borders.top.hide();
+			hover_borders.left.hide();
 		}
 
-		overlay_hide = function () {
-			overlay_timeout = setTimeout(function () {
-				if ( overlay_lock )
+		hover_hide = function () {
+			hover_timeout = setTimeout(function () {
+				if ( hover_lock )
 					return;
 
-				overlay_hide_immediately();
+				hover_hide_immediately();
 			}, 300);
 		};
-		
-		overlay_show = function (callback) {
+
+		hover_show = function (callback) {
 			var $self = jQuery(this),
 				offset = $self.offset(),
 				dims = {
@@ -200,33 +196,33 @@ jQuery(document).ready(function($) {
 					height: $self.height()
 				};
 
-			clearTimeout(overlay_timeout);
+			clearTimeout(hover_timeout);
 
-			overlay_box.unbind('click');
+			hover_box.unbind('click');
 
-			overlay_box.bind('click', overlay_hide_immediately);
-			overlay_box.bind('click', callback);
+			hover_box.bind('click', hover_hide_immediately);
+			hover_box.bind('click', callback);
 
 			// Add 'Edit' box
-			overlay_box.css({
-				'top': (offset.top - OVERLAY_PADDING - OVERLAY_BORDER) + 'px',
-				'left': (offset.left - overlay_box.outerWidth() - OVERLAY_PADDING) + 'px'
+			hover_box.css({
+				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px',
+				'left': (offset.left - hover_box.outerWidth() - HOVER_PADDING) + 'px'
 			}).show();
 
-			// Add overlay as individual divs
-			overlays.top
+			// Add hover as individual divs
+			hover_borders.top
 				.css({
-					'width': (dims.width + OVERLAY_PADDING * 2 + OVERLAY_BORDER * 2) + 'px',
-					'left': (offset.left - OVERLAY_PADDING - OVERLAY_BORDER) + 'px',
-					'top': (offset.top - OVERLAY_PADDING - OVERLAY_BORDER) + 'px'
+					'width': (dims.width + HOVER_PADDING * 2 + HOVER_BORDER * 2) + 'px',
+					'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px',
+					'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px'
 				})
 				.show();
 
-			overlays.left
+			hover_borders.left
 				.css({
-					'height': (dims.height + OVERLAY_PADDING * 2) + 'px',			
-					'top': (offset.top - OVERLAY_PADDING) + 'px',
-					'left': (offset.left - OVERLAY_PADDING - OVERLAY_BORDER) + 'px'
+					'height': (dims.height + HOVER_PADDING * 2) + 'px',
+					'top': (offset.top - HOVER_PADDING) + 'px',
+					'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px'
 				})
 				.show();
 		};
@@ -235,7 +231,7 @@ jQuery(document).ready(function($) {
 	// Create field instances
 	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
 		jQuery('.fee-filter-' + filter)
-			.mouseout(overlay_hide)
+			.mouseout(hover_hide)
 			.each(function () {
 				var $el = jQuery(this),
 					data = extract_data_attr(this),
@@ -258,7 +254,7 @@ jQuery(document).ready(function($) {
 				editor.start();
 
 				$el.mouseover(function () {
-					overlay_show.call( this, jQuery.proxy(editor, 'start_editing') );
+					hover_show.call( this, jQuery.proxy(editor, 'start_editing') );
 				});
 			});
 	});
