@@ -1,7 +1,4 @@
-(function() {
-
-if ( !FrontEndEditor.data.cleditor )
-	return;
+if ( FrontEndEditor.data.cleditor ) {
 
 FrontEndEditor.define_field( 'rich', 'textarea', {
 
@@ -91,4 +88,4 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 	}
 });
 
-}());
+}
