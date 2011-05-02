@@ -167,31 +167,17 @@ span.fee-form select {
 	background-color: #777;
 }
 
-.fee-overlay-top,
-.fee-overlay-bottom {
-	height: 2px;
-}
-
-.fee-overlay-left,
-.fee-overlay-right {
+.fee-overlay-left {
 	width: 2px;
+	-webkit-border-bottom-left-radius: 2px;
+	-moz-border-radius-bottomleft: 2px;
+	border-bottom-left-radius: 2px;
 }
 
 .fee-overlay-top {
-	-webkit-border-top-left-radius: 2px;
+	height: 2px;
 	-webkit-border-top-right-radius: 2px;
-	-moz-border-radius-topleft: 2px;
 	-moz-border-radius-topright: 2px;
-	border-top-left-radius: 2px;
 	border-top-right-radius: 2px;
-}
-
-.fee-overlay-bottom {
-	-webkit-border-bottom-right-radius: 2px;
-	-webkit-border-bottom-left-radius: 2px;
-	-moz-border-radius-bottomright: 2px;
-	-moz-border-radius-bottomleft: 2px;
-	border-bottom-right-radius: 2px;
-	border-bottom-left-radius: 2px;
 }
 

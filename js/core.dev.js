@@ -208,34 +208,20 @@ jQuery(document).ready(function($) {
 			}).show();
 
 			// Add overlay as individual divs
-			var topbottom = {
-				'width': (dims.width + OVERLAY_PADDING * 2 + OVERLAY_BORDER * 2) + 'px',
-				'left': (offset.left - OVERLAY_PADDING - OVERLAY_BORDER) + 'px'
-			};
-
 			overlays.top
-				.css(topbottom)
-				.css('top', (offset.top - OVERLAY_PADDING - OVERLAY_BORDER) + 'px')
+				.css({
+					'width': (dims.width + OVERLAY_PADDING * 2 + OVERLAY_BORDER * 2) + 'px',
+					'left': (offset.left - OVERLAY_PADDING - OVERLAY_BORDER) + 'px',
+					'top': (offset.top - OVERLAY_PADDING - OVERLAY_BORDER) + 'px'
+				})
 				.show();
-
-			overlays.bottom
-				.css(topbottom)
-				.css('top', (offset.top + dims.height + OVERLAY_PADDING) + 'px')
-				.show();
-
-			var leftright = {
-				'height': (dims.height + OVERLAY_PADDING * 2) + 'px',			
-				'top': (offset.top - OVERLAY_PADDING) + 'px',
-			}
 
 			overlays.left
-				.css(leftright)
-				.css('left', (offset.left - OVERLAY_PADDING - OVERLAY_BORDER) + 'px')
-				.show();
-
-			overlays.right
-				.css(leftright)
-				.css('left', (offset.left + dims.width + OVERLAY_PADDING) + 'px')
+				.css({
+					'height': (dims.height + OVERLAY_PADDING * 2) + 'px',			
+					'top': (offset.top - OVERLAY_PADDING) + 'px',
+					'left': (offset.left - OVERLAY_PADDING - OVERLAY_BORDER) + 'px'
+				})
 				.show();
 		};
 	}());
