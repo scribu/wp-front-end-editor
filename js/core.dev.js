@@ -164,12 +164,18 @@ jQuery(function($) {
 
 			hover_borders.top
 				.css(position)
-				.css('width', (dims.width + HOVER_PADDING * 2 + HOVER_BORDER * 2) + 'px')
+				.css({
+					'width': (dims.width + HOVER_PADDING * 2) + 'px',
+					'height': HOVER_BORDER
+				})
 				.show();
 
 			hover_borders.left
 				.css(position)
-				.css('height', (dims.height + HOVER_PADDING * 2) + 'px')
+				.css({
+					'height': (dims.height + HOVER_PADDING * 2) + 'px',
+					'width': HOVER_BORDER
+				})
 				.show();
 		};
 	}());
