@@ -157,20 +157,19 @@ jQuery(function($) {
 			}).show();
 
 			// Add hover as individual divs
+			var position = {
+				'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px',
+				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px'
+			};
+
 			hover_borders.top
-				.css({
-					'width': (dims.width + HOVER_PADDING * 2 + HOVER_BORDER * 2) + 'px',
-					'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px',
-					'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px'
-				})
+				.css(position)
+				.css('width', (dims.width + HOVER_PADDING * 2 + HOVER_BORDER * 2) + 'px')
 				.show();
 
 			hover_borders.left
-				.css({
-					'height': (dims.height + HOVER_PADDING * 2) + 'px',
-					'top': (offset.top - HOVER_PADDING) + 'px',
-					'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px'
-				})
+				.css(position)
+				.css('height', (dims.height + HOVER_PADDING * 2) + 'px')
 				.show();
 		};
 	}());
