@@ -93,6 +93,7 @@ If you want to translate this plugin, please read [this](http://scribu.net/wordp
 
 = 2.0.1 =
 * removed right and bottom borders when hovering
+* fixed incorrect dimensions in Webkit browsers
 
 = 2.0 =
 * replaced double-click action with an 'Edit' overlay

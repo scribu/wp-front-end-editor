@@ -125,6 +125,13 @@ jQuery(function($) {
 			hover_borders.left.hide();
 		}
 
+		function get_dims($el) {
+			return {
+				'width': $el.width(),
+				'height': $el.height()
+			};
+		}
+
 		hover_hide = function () {
 			hover_timeout = setTimeout(function () {
 				if ( hover_lock )
@@ -138,10 +145,13 @@ jQuery(function($) {
 			var
 				$self = jQuery(this),
 				offset = $self.offset(),
-				dims = {
-					width: $self.width(),
-					height: $self.height()
-				};
+				dims = get_dims($self);
+
+			// Webkit really doesn't like block elements inside inline elements
+			if ( dims.width > $self.parent().width() ) {
+				$self.css('display', 'block');
+				dims = get_dims($self);
+			}
 
 			clearTimeout(hover_timeout);
 
