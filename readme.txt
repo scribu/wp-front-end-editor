@@ -33,7 +33,7 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 `var_dump(PHP_VERSION);`
 <br>
 
-= I double-click and nothing happens =
+= Nothing happens after activating it =
 
 1. Make sure you're logged in and have the appropriate capabilities.
 2. See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
