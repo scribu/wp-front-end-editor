@@ -107,7 +107,7 @@ abstract class FEE_Field_Base {
 	}
 
 	protected function placehold( $content ) {
-		if ( empty( $content ) )
+		if ( '' === $content )
 			$content = $this->placeholder();
 
 		return $content;
