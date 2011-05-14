@@ -28,11 +28,15 @@ class FEE_Field_Post extends FEE_Field_Base {
 	protected function _get_id( $post_id = 0, $in_loop = true ) {
 		global $post;
 
-		if ( $in_loop && !in_the_loop() )
-			return false;
+		if ( $in_loop ) {
+			if ( !in_the_loop() )
+				return false;
 
-		if ( !$post_id )
+			if ( $post_id && $post->ID != $post_id )
+				return false;
+
 			$post_id = $post->ID;
+		}
 
 		if ( !$post_id || !$this->check( $post_id ) )
 			return false;
