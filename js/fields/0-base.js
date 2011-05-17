@@ -32,7 +32,6 @@ FrontEndEditor.define_field( 'base', false, {
 		return jQuery.extend(args, {
 			action	: 'front-end-editor',
 			nonce	: FrontEndEditor.data.nonce,
-			filter	: self.filter,
 			data	: self.data
 		});
 	}

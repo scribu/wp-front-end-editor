@@ -41,7 +41,6 @@ abstract class FEE_Core {
 			'edit_text' => __( 'Edit', 'front-end-editor' ),
 			'save_text' => __( 'Save', 'front-end-editor' ),
 			'cancel_text' => __( 'Cancel', 'front-end-editor' ),
-			'fields' => array_keys( self::$active_fields ),
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'spinner' => admin_url( 'images/loading.gif' ),
 			'nonce' => wp_create_nonce( self::$nonce ),
@@ -110,13 +109,14 @@ abstract class FEE_Core {
 			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
 			$js_dependencies[] = 'fee-core';
 
-			foreach ( array_slice( scandir( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields' ), 2 ) as $file ) {
+			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
+				$file = basename( $file );
 				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), self::$version, true );
 				$js_dependencies[] = "fee-fields-$file";
 			}
 		} else {
 			wp_register_script( 'fee-editor', $url . "editor.js", $js_dependencies, self::$version, true );
-			$js_dependencies[] = 'fee-editor';		
+			$js_dependencies[] = 'fee-editor';
 		}
 
 		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, self::$version );
@@ -129,7 +129,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 <?php
 		scbUtil::do_scripts( $js_dependencies );
 		scbUtil::do_styles( 'fee-editor' );
- 
+
 		do_action( 'front_end_editor_loaded', $wrapped );
 	}
 
@@ -211,7 +211,9 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 		// Is user trusted?
 		check_ajax_referer( self::$nonce, 'nonce' );
 
-		extract( scbUtil::array_extract( $_POST, array( 'filter', 'callback', 'data' ) ) );
+		extract( scbUtil::array_extract( $_POST, array( 'callback', 'data' ) ) );
+
+		$filter = $data['filter'];
 
 		// Is the current field defined?
 		if ( !$instance = self::$instances[ $filter ] )
@@ -246,7 +248,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 
 /**
  * Registers a new editable field
- * 
+ *
  * @param string $filter
  * @param array $args(
  * 	'class' => string The name of the field handler class ( mandatory )

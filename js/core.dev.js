@@ -191,34 +191,32 @@ jQuery(function($) {
 	}());
 
 	// Create field instances
-	jQuery.each(FrontEndEditor.data.fields, function (i, filter) {
-		jQuery('.fee-filter-' + filter).each(function () {
-			var
-				$el = jQuery(this),
-				data = extract_data_attr(this),
-				editor;
+	jQuery('.fee-field').each(function () {
+		var
+			$el = jQuery(this),
+			data = extract_data_attr(this),
+			editor;
 
-			if ( !FrontEndEditor.is_field_defined(data.type) ) {
-				if ( undefined !== console )
-					console.warn('invalid field type', this);
-				return;
-			}
+		if ( !FrontEndEditor.is_field_defined(data.type) ) {
+			if ( undefined !== console )
+				console.warn('invalid field type', this);
+			return;
+		}
 
-			editor = FrontEndEditor.get_field_instance(data.type);
+		editor = FrontEndEditor.get_field_instance(data.type);
 
-			editor = jQuery.extend(editor, {
-				el: $el,
-				data: data,
-				filter: filter,
-				type: data.type
-			});
-			editor.start();
+		editor = jQuery.extend(editor, {
+			el: $el,
+			data: data,
+			filter: data.filter,
+			type: data.type
+		});
+		editor.start();
 
-			// Bind hover to element
-			$el.mouseout(hover_hide)
-			   .mouseover(function () {
-				hover_show.call( this, jQuery.proxy(editor, 'start_editing') );
-			});
+		// Bind hover to element
+		$el.mouseout(hover_hide)
+		   .mouseover(function () {
+			hover_show.call( this, jQuery.proxy(editor, 'start_editing') );
 		});
 	});
 });

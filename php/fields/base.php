@@ -63,6 +63,8 @@ abstract class FEE_Field_Base {
 
 		$data = apply_filters( 'front_end_editor_wrap', $data, $this->filter );
 
+		$data['filter'] = $this->filter;
+
 		$data_attr = array();
 		foreach ( $data as $key => $value ) {
 			if ( !is_scalar( $value ) )
@@ -71,7 +73,7 @@ abstract class FEE_Field_Base {
 			$data_attr[ "data-$key" ] = $value;
 		}
 
-		$data_attr['class'] = 'fee-field fee-filter-' . $this->filter;
+		$data_attr['class'] = 'fee-field';
 
 		return html( 'span', $data_attr, $content );
 	}
