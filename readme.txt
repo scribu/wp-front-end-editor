@@ -20,7 +20,7 @@ Front-end Editor is a plugin that lets you make changes to your content *directl
 * compatible with any theme, out of the box
 * light and fast
 
-There is a settings page where you can disable editable fields that you don't want, as well as other options.
+You can edit posts, pages, custom post types, comments, widgets and many [more elements](http://github.com/scribu/wp-front-end-editor/wiki/List-of-editable-elements).
 
 Links: [**Wiki**](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 
