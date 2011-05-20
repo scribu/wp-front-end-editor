@@ -69,26 +69,6 @@ where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CS
 4. Changing a theme image
 5. The settings page
 
-== Translations ==
-
-* Danish - [Georg](http://wordpress.blogos.dk/)
-* Dutch - [Ron Hartman](http://www.fr-fanatic.com/)
-* French - [Li-An](http://www.li-an.fr)
-* Italian - [Gianni Diurno](http://gidibao.net)
-* Georgian - Levani Melikishvili
-* German - Gottfried, Dominik Heyberg
-* Japaneze - kzh
-* Norwegian - John Myrstad
-* Polish - [Expromo](http://expromo.pl)
-* Portuguese - [Fernanda Foertter](http://www.hpcprogrammer.com)
-* Belarusian - [M. Comfi](http://www.comfi.com)
-* Russian - BoreS
-* Spanish - [Esteban](http://netmdp.com/)
-* Swedish - [Müfit Kiper](http://kitkonsult.se/)
-* Turkish - [Burak Gulbahce](http://www.saylangoz.com/wordpress/)
-
-If you want to translate this plugin, please read [this](http://scribu.net/wordpress/translating-plugins.html).
-
 == Changelog ==
 
 = 2.0.1 =
