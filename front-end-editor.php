@@ -30,6 +30,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 require dirname( __FILE__ ) . '/scb/load.php';
 
 define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
+define( 'SCRIPT_DEBUG',true); 
 
 function _fee_init() {
 	$dir = dirname( __FILE__ ) . '/php';
