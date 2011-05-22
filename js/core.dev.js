@@ -106,7 +106,7 @@ jQuery(function($) {
 			HOVER_PADDING = 2,
 			hover_lock = false,
 			hover_timeout,
-			hover_borders = {},
+			hover_border = jQuery('<div>').addClass('fee-hover-border').hide().appendTo('body');
 			hover_box = jQuery('<div>', {
 				'class': 'fee-hover-edit',
 				'html': FrontEndEditor.data.edit_text,
@@ -114,15 +114,9 @@ jQuery(function($) {
 				'mouseout': function () { hover_lock = false; hover_hide(); }
 			}).hide().appendTo('body');
 
-		jQuery.each(['top', 'left'], function(i, key) {
-			hover_borders[key] = jQuery('<div>').addClass('fee-hover-' + key).hide().appendTo('body');
-		});
-
 		function hover_hide_immediately() {
 			hover_box.hide();
-
-			hover_borders.top.hide();
-			hover_borders.left.hide();
+			hover_border.hide();
 		}
 
 		function get_dims($el) {
@@ -167,23 +161,11 @@ jQuery(function($) {
 				'left': (offset.left - hover_box.outerWidth() - HOVER_PADDING) + 'px'
 			}).show();
 
-			// Add hover as individual divs
-			var position = {
-				'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px',
-				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px'
-			};
-
-			hover_borders.top
-				.css(position)
+			// Add hover border
+			hover_border
 				.css({
-					'width': (dims.width + HOVER_PADDING * 2) + 'px',
-					'height': HOVER_BORDER
-				})
-				.show();
-
-			hover_borders.left
-				.css(position)
-				.css({
+					'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px',
+					'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px',
 					'height': (dims.height + HOVER_PADDING * 2) + 'px',
 					'width': HOVER_BORDER
 				})
