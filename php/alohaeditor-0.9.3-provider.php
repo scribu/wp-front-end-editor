@@ -217,6 +217,7 @@ abstract class FEE_AlohaEditor {
 	 */
 	static function printAlohaEditorInit() {
 	?>
+	//TODO Fix this hardcoded path!
 	GENTICS_Aloha_base = '/wp-content/plugins/wp-front-end-editor/alohaeditor/WebContent/';
 	<?
 	}
