@@ -15,21 +15,12 @@ abstract class FEE_AlohaEditor {
 
 		//wp_register_script('aewip',  'js/aewip.js', array (), '0.10', false);
 		wp_register_script('aloha.config', plugins_url('js/alohaeditor-config.js', FRONT_END_EDITOR_MAIN_FILE), array (), '0.9.3', false);
-		wp_register_script('aloha.init', plugins_url('js/alohaeditor-init.js.php', FRONT_END_EDITOR_MAIN_FILE), array (), '0.9.3', false);
 
 		// Deregister jquery and register aloha jquery version
 		wp_deregister_script('jquery');
 		wp_register_script('jquery', FEE_AlohaEditor::_getAlohaSrcBaseUrl() . 'deps/jquery-1.4.4.js', array (), '0.9.3', false);
 
-
 		if (is_user_logged_in() && !is_admin()) {
-
-			//load jquery
-			//wp_enqueue_script('jquery');
-
-			// Initalize aloha
-			wp_enqueue_script('aloha.init');
-
 			// Load format plugin and all aloha dependencies
 			wp_enqueue_script('aloha.format');
 			wp_enqueue_script('aloha.highlighteditables');
@@ -41,6 +32,7 @@ abstract class FEE_AlohaEditor {
 			// Load the aloha editor configuration
 			wp_enqueue_script('aloha.config');
 
+			add_action( 'wp_print_scripts', array(__CLASS__, 'printAlohaEditorInit') );
 		}
 	}
 
@@ -213,9 +205,8 @@ abstract class FEE_AlohaEditor {
 	 * This function will print the aloha editor initialiation javascript
 	 */
 	static function printAlohaEditorInit() {
-	?>
-	//TODO Fix this hardcoded path!
-	GENTICS_Aloha_base = '/wp-content/plugins/wp-front-end-editor/alohaeditor/WebContent/';
-	<?
+		echo "<script type='text/javascript'>";
+		echo "GENTICS_Aloha_base = '" . self::_getAlohaSrcBaseUrl() . "';\n";
+		echo "</script>";
 	}
 }
