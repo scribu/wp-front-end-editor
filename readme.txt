@@ -1,18 +1,18 @@
 === Front-end Editor ===
 Contributors: scribu
-Donate link: http://scribu.net/paypal
+Donate link: http://scribu.net/wordpress/front-end-editor
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
-Tested up to: 3.1-beta
-Stable tag: 1.9.2
+Tested up to: 3.1
+Stable tag: trunk
 
-Want to edit something? Just double-click it!
+Edit content inline, without going to the admin area.
 
 == Description ==
 
 Front-end Editor is a plugin that lets you make changes to your content *directly* from your site. No need to load the admin backend just to correct a typo.
 
-To edit something, just double-click it!
+[youtube http://www.youtube.com/watch?v=c6P7M_oG-NY]
 
 **Goals:**
 
@@ -20,52 +20,9 @@ To edit something, just double-click it!
 * compatible with any theme, out of the box
 * light and fast
 
-**Editable fields:**
+You can edit posts, pages, custom post types, comments, widgets and many [more elements](http://github.com/scribu/wp-front-end-editor/wiki/List-of-editable-elements).
 
-<ul>
-	<li><strong>posts & pages</strong>
-	<ul>
-		<li>title - `the_title()`</li>
-		<li>content - `the_content()`</li>
-		<li>excerpt - `the_excerpt()`</li>
-		<li>categories - `the_category()`</li>
-		<li>tags - `the_tags()`</li>
-		<li>custom taxonomies - `the_terms()`</li>
-		<li>custom fields - `editable_post_meta()`*</li>
-		<li>thumbnail - `the_post_thumbnail()`</li>
-	</ul></li>
-	<li><strong>comments</strong></li>
-	<li><strong>authors</strong>
-	<ul>
-		<li>description - `the_author_meta()`</li>
-	</ul></li>
-	<li><strong>terms</strong>
-	<ul>
-		<li>name - `single_tag_title()`, `single_cat_title()`</li>
-		<li>description - `term_description()`</li>
-	</ul></li>
-	<li><strong>widgets</strong></li>
-	<li><strong>theme images - `editable_image()`*</strong>
-	<li><strong>options</strong>
-	<ul>
-		<li>title - `bloginfo('name')`</li>
-		<li>description - bloginfo('description')</li>
-		<li>other - `editable_option()`*</li>
-	</ul></li>
-</ul>
-
-Template tags marked with * are defined by the plugin.
-
-There is a settings page where you can disable editable fields that you don't want, as well as other options.
-
-Links: [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
-
-== Installation ==
-
-You can either install it automatically from the WordPress admin, or do it manually:
-
-1. Unzip "Front-end Editor" archive and put the folder into your plugins folder (/wp-content/plugins/).
-2. Activate the plugin from the Plugins menu.
+Links: [**Wiki**](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 
 == Frequently Asked Questions ==
 
@@ -76,15 +33,25 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 `var_dump(PHP_VERSION);`
 <br>
 
-= I double-click and nothing happens =
+= Nothing happens after activating it =
 
 1. Make sure you're logged in and have the appropriate capabilities.
 2. See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
 3. Check for JavaScript errors. [Firebug](http://getfirebug.com/) is a great tool for this.
 
+= Can you add the ability to create posts, instead of just editing? =
+
+No, because there already are [several plugins](http://wordpress.org/support/topic/front-end-custom-form-to-post?replies=5#post-1584286) for that already.
+
+= Can you change the wysiwyg editor to TinyMCE? =
+
+No, because TinyMCE is anything but tiny and would take a long time to load.
+
+Also because I couldn't get it to work.
+
 = Does it work with WP Super Cache? =
 
-To avoid problems with WP Super Cache or W3 Total Cache, you have to disable caching for logged-in users.
+To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling caching for logged-in users.
 
 = How can I change the hover color? =
 
@@ -94,51 +61,6 @@ You can add this line to *style.css* in your theme directory:
 
 where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
 
-= How can I edit custom fields? =
-
-Since custom fields can be used in so many ways, you have to make some code replacements in your theme:
-
-Replace something like this:
-
-`<?php echo get_post_meta($post->ID, 'my_key', true); ?>`
-
-with this:
-
-`<?php editable_post_meta(get_the_ID(), 'my_key', 'textarea'); ?>`
-
-The third parameter is optional and allows you to pick which type of field you want: *input*, *textarea* or *rich*.
-
-If you have a custom field with multiple values, you can use `get_editable_post_meta()`. For example:
-
-`
-<ul>
-<?php
-$values = get_editable_post_meta(get_the_ID(), 'my_key');
-foreach ( $values as $value )
-	echo '<li>' . $value . '</li>';
-?>
-</ul>
-`
-
-= How can I make theme images editable? =
-
-Again, you have to modify your theme's code. Replace something like this:
-
-`<img src="<?php bloginfo('template_url'); ?>/images/header_1.jpg" width="970" height="140" alt="<?php bloginfo('name'); ?> header image 1" title="<?php bloginfo('name'); ?> header image 1" />`
-
-with this:
-
-`<?php editable_image('header-1', 
-	get_bloginfo('template_url') . '/images/header_1.jpg', 
-	array('width' => 970, 'height' => 140, 'alt' => get_bloginfo('name'))); 
-?>`
-
-The editable_image() template tag is located in fields/other.php.
-
-= Can I make my own editable fields? =
-
-Yes, but you have to know programming. Just hack away at one of the existing fields, found in `front-end-editor/fields`.
-
 == Screenshots ==
 
 1. The tooltip
@@ -147,27 +69,31 @@ Yes, but you have to know programming. Just hack away at one of the existing fie
 4. Changing a theme image
 5. The settings page
 
-== Translations ==
-
-* Danish - [Georg](http://wordpress.blogos.dk/)
-* Dutch - [Ron Hartman](http://www.fr-fanatic.com/)
-* French - [Li-An](http://www.li-an.fr)
-* Italian - [Gianni Diurno](http://gidibao.net)
-* Georgian - Levani Melikishvili
-* German - Gottfried, Dominik Heyberg
-* Japaneze - kzh
-* Norwegian - John Myrstad
-* Polish - [Expromo](http://expromo.pl)
-* Portuguese - [Fernanda Foertter](http://www.hpcprogrammer.com)
-* Belarusian - [M. Comfi](http://www.comfi.com)
-* Russian - BoreS
-* Spanish - [Esteban](http://netmdp.com/)
-* Swedish - [Müfit Kiper](http://kitkonsult.se/)
-* Turkish - [Burak Gulbahce](http://www.saylangoz.com/wordpress/)
-
-If you want to translate this plugin, please read [this](http://scribu.net/wordpress/translating-plugins.html).
-
 == Changelog ==
+
+= 2.0.1 =
+* removed right and bottom borders when hovering
+* fixed incorrect dimensions in Webkit browsers
+* fixed invalid placeholding when content is '0'
+
+= 2.0 =
+* replaced double-click action with an 'Edit' overlay
+* added dropdown for editing terms in hierarchical taxonomies
+* introduced front_end_editor_wrap filter
+* introduced fee_cleditor_css filter
+* introduced fee_cleditor_height filter
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-2-0.html)
+
+= 1.9.3 =
+* switched to CLEditor
+* fixed encoding issues with paragraph editing
+* fixed image fields handling
+* fixed typo which made spinner not show
+* check 'edit_theme_options' capability instead of 'edit_themes'
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-1-9-3.html)
+
+= 1.9.2.1 =
+* disable post locking
 
 = 1.9.2 =
 * nicEdit: limit height to window height

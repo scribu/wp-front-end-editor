@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 1.9.2
+Version: 2.0.1
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -29,41 +29,41 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // Load scbFramework
 require dirname( __FILE__ ) . '/scb/load.php';
 
-function _fee_init() {
-	load_plugin_textdomain( 'front-end-editor', '', dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
+define( 'SCRIPT_DEBUG',true); 
 
-	$dir = dirname( __FILE__ );
+function _fee_init() {
+	$dir = dirname( __FILE__ ) . '/php';
 
 	// Load files
 	require_once $dir . '/core.php';
 
-	foreach ( array( 'base', 'post', 'other' ) as $name )
+	foreach ( array( 'base', 'post', 'taxonomy', 'other' ) as $name )
 		require_once "$dir/fields/$name.php";
 
 	$options = new scbOptions( 'front-end-editor', __FILE__, array(
-		'disabled' => array(),
-		'highlight' => true,
-		'tooltip' => true,
+		'disabled' => array('bloginfo'),
 		'rich' => true,
 		'chunks' => false,
-		'ne_buttons' => array(
-			'bold', 'italic', 'strikethrough',
-			'left','center', 'right',
-			'fontFormat', 'fontFamily', 'forecolor',
-			'removeformat',
-			'ul', 'ol',
-			'link', 'image',
-			'xhtml'
-		),
+		'cleditor_controls' =>
+			"bold italic strikethrough | " .
+			"alignleft center alignright | " .
+			"font size style | " .
+			"color highlight removeformat | " .
+			"bullets numbering | " .
+			"link wpimage | " .
+			"source"
 	) );
 
-	FEE_Core::init( $options, '1.9.2' );
+	FEE_Core::init( $options, '2.0.1' );
 
 	FEE_Field_Option::init( __FILE__ );
 	FEE_Field_Image::init( __FILE__ );
 
 	if ( is_admin() ) {
-		require_once $dir . '/admin.php';
+		load_plugin_textdomain( 'front-end-editor', '', dirname( plugin_basename( FRONT_END_EDITOR_MAIN_FILE ) ) . '/lang/admin' );
+
+		require_once dirname( __FILE__ ) . '/admin/admin.php';
 		scbAdminPage::register( 'Fee_Admin', __FILE__, $options );
 	}
 

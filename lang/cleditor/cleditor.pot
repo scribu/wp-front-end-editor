@@ -1,0 +1,174 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-21 19:10+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: js/cleditor/cleditor.dev.js:57
+msgid "Paragraph"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:58
+msgid "Header 1"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:59
+msgid "Header 2"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:60
+msgid "Header 3"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:61
+msgid "Header 4"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:62
+msgid "Header 5"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:63
+msgid "Header 6"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:80
+msgid "Bold"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:81
+msgid "Italic"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:82
+msgid "Underline"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:83
+msgid "Strikethrough"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:84
+msgid "Subscript"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:85
+msgid "Superscript"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:86
+msgid "Font"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:87
+msgid "Text size"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:88
+msgid "Style"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:89
+msgid "Text color"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:90
+msgid "Highlight color"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:91
+msgid "Remove formatting"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:92
+msgid "Unordered list"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:93
+msgid "Ordered list"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:94
+msgid "Outdent"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:95
+msgid "Indent"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:96
+msgid "Align left"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:97
+msgid "Align center"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:98
+msgid "Align right"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:99
+msgid "Align full"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:100
+msgid "Undo"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:101
+msgid "Redo"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:102
+msgid "Insert horizontal rule"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:103
+msgid "Insert image"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:104
+msgid "Insert link"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:105
+msgid "Remove link"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:106
+msgid "Cut"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:107
+msgid "Copy"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:108
+msgid "Paste"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:109
+msgid "Paste as text"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:110
+msgid "Print"
+msgstr ""
+
+#: js/cleditor/cleditor.dev.js:111
+msgid "Show source"
+msgstr ""

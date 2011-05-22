@@ -1,0 +1,181 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version:  \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
+"POT-Creation-Date: 2011-04-23 15:13:51+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin/admin.php:9
+msgid "Front-end Editor"
+msgstr ""
+
+#: admin/admin.php:14
+msgid "Fields"
+msgstr ""
+
+#: admin/admin.php:15 scb/AdminPage.php:369
+msgid "Settings"
+msgstr ""
+
+#: admin/admin.php:16
+msgid "Editor Panel"
+msgstr ""
+
+#: admin/admin.php:64
+msgid "Enable or disable editable fields:"
+msgstr ""
+
+#: admin/admin.php:66
+msgid "Post fields"
+msgstr ""
+
+#: admin/admin.php:67
+msgid "Other fields"
+msgstr ""
+
+#: admin/admin.php:107
+msgid "Enable the WYSIWYG editor."
+msgstr ""
+
+#: admin/admin.php:113
+msgid "Edit one paragraph at a time, instead of an entire post."
+msgstr ""
+
+#: admin/admin.php:138
+msgid "Customize WYSIWYG editor controls:"
+msgstr ""
+
+#: admin/admin.php:148
+msgid "All"
+msgstr ""
+
+#: admin/admin.php:150
+msgid "Default"
+msgstr ""
+
+#: scb/AdminPage.php:165
+msgid "Settings <strong>saved</strong>."
+msgstr ""
+
+#: scb/AdminPage.php:177 scb/AdminPage.php:187
+msgid "Save Changes"
+msgstr ""
+
+#: front-end-editor.php:76
+msgid "Post title"
+msgstr ""
+
+#: front-end-editor.php:83
+msgid "Post content"
+msgstr ""
+
+#: front-end-editor.php:94
+msgid "Post excerpt"
+msgstr ""
+
+#: front-end-editor.php:100
+msgid "Post categories"
+msgstr ""
+
+#: front-end-editor.php:107
+msgid "Post tags"
+msgstr ""
+
+#: front-end-editor.php:114
+msgid "Post terms"
+msgstr ""
+
+#: front-end-editor.php:121
+msgid "Post custom fields"
+msgstr ""
+
+#: front-end-editor.php:127
+msgid "Post thumbnail"
+msgstr ""
+
+#: front-end-editor.php:134
+msgid "Comment text"
+msgstr ""
+
+#: front-end-editor.php:140
+msgid "Category title"
+msgstr ""
+
+#: front-end-editor.php:145
+msgid "Tag title"
+msgstr ""
+
+#: front-end-editor.php:150
+msgid "Term description"
+msgstr ""
+
+#: front-end-editor.php:157
+msgid "Author description"
+msgstr ""
+
+#: front-end-editor.php:164
+msgid "Widgets"
+msgstr ""
+
+#: front-end-editor.php:170
+msgid "Site title and description"
+msgstr ""
+
+#: front-end-editor.php:176
+msgid "Site options"
+msgstr ""
+
+#: front-end-editor.php:182
+msgid "Theme images"
+msgstr ""
+
+#: php/fields/taxonomy.php:49
+msgid "&mdash; None &mdash;"
+msgstr ""
+
+#: php/fields/post.php:84
+msgid "Error: %s is currently editing this."
+msgstr ""
+
+#: php/fields/base.php:109
+msgid "empty"
+msgstr ""
+
+#: php/fields/base.php:128
+msgid "no"
+msgstr ""
+
+#: php/fields/base.php:129
+msgid "yes"
+msgstr ""
+
+#: php/core.php:41
+msgid "Edit"
+msgstr ""
+
+#: php/core.php:42
+msgid "Save"
+msgstr ""
+
+#: php/core.php:43
+msgid "Cancel"
+msgstr ""
+
+#: php/core.php:95
+msgid "Change Image"
+msgstr ""
+
+#: php/core.php:96
+msgid "Insert Image"
+msgstr ""
+
+#: php/core.php:97
+msgid "Clear"
+msgstr ""
