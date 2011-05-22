@@ -141,7 +141,7 @@ jQuery(function($) {
 			}, 300);
 		};
 
-		hover_show = function (callback) {
+		hover_show = function (callback, mouse_vert_pos) {
 			var
 				$self = jQuery(this),
 				offset = $self.offset(),
@@ -161,8 +161,9 @@ jQuery(function($) {
 			hover_box.bind('click', callback);
 
 			// Add 'Edit' box
+			var normal_height = mouse_vert_pos - hover_box.outerHeight()/2; 
 			hover_box.css({
-				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px',
+				'top': (Math.max(offset.top, normal_height) - HOVER_PADDING - HOVER_BORDER) + 'px',
 				'left': (offset.left - hover_box.outerWidth() - HOVER_PADDING) + 'px'
 			}).show();
 
@@ -215,8 +216,8 @@ jQuery(function($) {
 
 		// Bind hover to element
 		$el.mouseout(hover_hide)
-		   .mouseover(function () {
-			hover_show.call( this, jQuery.proxy(editor, 'start_editing') );
+		   .mouseover(function (ev) {
+			hover_show.call( this, jQuery.proxy(editor, 'start_editing'), ev.pageY );
 		});
 	});
 });
