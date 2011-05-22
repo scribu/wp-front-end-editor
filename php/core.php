@@ -23,9 +23,13 @@ abstract class FEE_Core {
 	}
 
 	static function _init() {
-		if ( !is_user_logged_in() || apply_filters( 'front_end_editor_disable', false ) )
+		if ( !is_user_logged_in() || apply_filters( 'front_end_editor_disable', false ) ) {
 			return;
-
+		}
+		// Aloha Editor
+		FEE_AlohaEditor::registerAloha();
+		FEE_AlohaEditor::enqueueAloha();
+			
 		add_action( 'wp_head', array( __CLASS__, 'add_filters' ), 100 );
 		add_action( 'wp_footer', array( __CLASS__, 'scripts' ) );
 	}
@@ -33,8 +37,9 @@ abstract class FEE_Core {
 	static function scripts() {
 		$wrapped = array_keys( FEE_Field_Base::get_wrapped() );
 
-		if ( empty( $wrapped ) )
+		if ( empty( $wrapped ) ) {
 			return;
+		}
 
 		// Prepare data
 		$data = array(
@@ -51,7 +56,7 @@ abstract class FEE_Core {
 		$dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '';
 
 		$css_dependencies = array();
-		$js_dependencies = array( 'jquery' );
+//		$js_dependencies = array( 'jquery' );
 
 		// Autosuggest
 		if ( in_array( 'terminput', $wrapped ) ) {
@@ -59,28 +64,31 @@ abstract class FEE_Core {
 				'src' => self::get_src('suggest')
 			);
 		}
+		
+	
 
-		// Rich Editor
-		if ( in_array( 'rich', $wrapped ) ) {
-			wp_register_style( 'cleditor', $url . "cleditor/cleditor.css", array(), '1.3.0' );
-			$css_dependencies[] = 'cleditor';
-
-			wp_register_script( 'cleditor', $url . "cleditor/cleditor$dev.js", array('jquery'), '1.3.0', true );
-			$js_dependencies[] = 'cleditor';
-
-			$data['cleditor'] = array(
-				'controls' => self::$options->cleditor_controls,
-				'css' => apply_filters( 'fee_cleditor_css', '' ),
-				'height' => apply_filters( 'fee_cleditor_height', 250 ),
-			);
-
-			load_plugin_textdomain( 'cleditor', '', dirname( plugin_basename( FRONT_END_EDITOR_MAIN_FILE ) ) . '/lang/cleditor' );
-
-			$cledit_i18n = array();
-			foreach ( get_translations_for_domain('cleditor')->entries as $entry ) {
-				$cledit_i18n[ $entry->singular ] = $entry->translations[0];
-			}
-		}
+		
+//		// Rich Editor
+//		if ( in_array( 'rich', $wrapped ) ) {
+//			wp_register_style( 'cleditor', $url . "cleditor/cleditor.css", array(), '1.3.0' );
+//			$css_dependencies[] = 'cleditor';
+//
+//			wp_register_script( 'cleditor', $url . "cleditor/cleditor$dev.js", array('jquery'), '1.3.0', true );
+//			$js_dependencies[] = 'cleditor';
+//
+//			$data['cleditor'] = array(
+//				'controls' => self::$options->cleditor_controls,
+//				'css' => apply_filters( 'fee_cleditor_css', '' ),
+//				'height' => apply_filters( 'fee_cleditor_height', 250 ),
+//			);
+//
+//			load_plugin_textdomain( 'cleditor', '', dirname( plugin_basename( FRONT_END_EDITOR_MAIN_FILE ) ) . '/lang/cleditor' );
+//
+//			$cledit_i18n = array();
+//			foreach ( get_translations_for_domain('cleditor')->entries as $entry ) {
+//				$cledit_i18n[ $entry->singular ] = $entry->translations[0];
+//			}
+//		}
 
 		if ( !empty( $cledit_i18n ) )
 			$cledit_i18n = 'CLEDITOR_I18N = ' . json_encode( $cledit_i18n );
@@ -102,24 +110,26 @@ abstract class FEE_Core {
 		}
 
 		// Core script
-		if ( defined('SCRIPT_DEBUG') ) {
-			wp_register_script( 'fee-class', $url . "class.js", array(), '1.0', true );
-			$js_dependencies[] = 'fee-class';
+//		if ( defined('SCRIPT_DEBUG') ) {
+//			wp_register_script( 'fee-class', $url . "class.js", array(), '1.0', true );
+//			$js_dependencies[] = 'fee-class';
 
-			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
-			$js_dependencies[] = 'fee-core';
+//			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
+//			$js_dependencies[] = 'fee-core';
 
-			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
-				$file = basename( $file );
-				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), self::$version, true );
-				$js_dependencies[] = "fee-fields-$file";
-			}
-		} else {
-			wp_register_script( 'fee-editor', $url . "editor.js", $js_dependencies, self::$version, true );
-			$js_dependencies[] = 'fee-editor';
-		}
+//			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
+//				$file = basename( $file );
+//				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), self::$version, true );
+//				$js_dependencies[] = "fee-fields-$file";
+//			}
+//		} else {
+//			wp_register_script( 'fee-editor', $url . "editor.js", $js_dependencies, self::$version, true );
+//			$js_dependencies[] = 'fee-editor';
+//		}
 
-		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, self::$version );
+//		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, self::$version );
+		
+		FEE_AlohaEditor::printAlohaEditableConfiguration();
 ?>
 <script type='text/javascript'>
 var FrontEndEditor = {};

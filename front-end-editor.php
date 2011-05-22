@@ -37,9 +37,12 @@ function _fee_init() {
 
 	// Load files
 	require_once $dir . '/core.php';
+	require_once $dir . '/alohaeditor.php';
 
-	foreach ( array( 'base', 'post', 'taxonomy', 'other' ) as $name )
+
+	foreach ( array( 'base', 'post', 'taxonomy', 'other' ) as $name ) {
 		require_once "$dir/fields/$name.php";
+	}
 
 	$options = new scbOptions( 'front-end-editor', __FILE__, array(
 		'disabled' => array('bloginfo'),
@@ -187,8 +190,9 @@ function fee_register_defaults() {
 		),
 	);
 
-	foreach ( $fields as $filter => $args )
+	foreach ( $fields as $filter => $args ) {
 		fee_register_field( $filter, $args );
+	}
 
 	// Safe hook for new editable fields to be registered
 	do_action( 'front_end_editor_fields' );
