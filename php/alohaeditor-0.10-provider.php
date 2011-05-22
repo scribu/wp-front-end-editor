@@ -2,6 +2,7 @@
 
 /**
  * This class handles all aloha specific actions like configuration and script dependency management
+ * It will provide aloha editor 0.10
  */
 abstract class FEE_AlohaEditor {
 

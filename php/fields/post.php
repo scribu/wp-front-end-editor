@@ -14,11 +14,13 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $post_id = 0 ) {
-		if ( !$post_id = $this->_get_id( $post_id ) )
+		if ( !$post_id = $this->_get_id( $post_id ) ) {
 			return $content;
+		}
 
-		if ( 'post_content' == $this->field && FEE_Shortcode_Editable::has_shortcode( $post_id ) )
+		if ( 'post_content' == $this->field && FEE_Shortcode_Editable::has_shortcode( $post_id ) ) {
 			return $content;
+		}
 
 		$content = $this->placehold( $content );
 
@@ -29,17 +31,20 @@ class FEE_Field_Post extends FEE_Field_Base {
 		global $post;
 
 		if ( $in_loop ) {
-			if ( !in_the_loop() )
+			if ( !in_the_loop() ) {
 				return false;
+			}
 
-			if ( $post_id && $post->ID != $post_id )
+			if ( $post_id && $post->ID != $post_id ) {
 				return false;
+			}
 
 			$post_id = $post->ID;
 		}
 
-		if ( !$post_id || !$this->check( $post_id ) )
+		if ( !$post_id || !$this->check( $post_id ) ) {
 			return false;
+		}
 
 		return $post_id;
 	}
@@ -95,8 +100,9 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	function check( $post_id = 0 ) {
-		if ( is_array( $post_id ) )
+		if ( is_array( $post_id ) ) {
 			extract( $post_id );
+		}
 
 		return current_user_can( 'edit_post', $post_id );
 	}
@@ -122,18 +128,21 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 	}
 
 	function wrap( $atts, $content ) {
-		if ( !$post_id = $this->_get_id() )
+		if ( !$post_id = $this->_get_id() ) {
 			return $content;
-
+		}
+			
 		$content = $this->placehold( trim( $content ) );
 
-		if ( !isset( self::$shortcodes[ $post_id ] ) )
+		if ( !isset( self::$shortcodes[ $post_id ] ) ) {
 			self::$shortcodes[ $post_id ] = 0;
+		}
 
 		$shortcode = (int) self::$shortcodes[ $post_id ]++;
 
-		if ( isset( $atts[ 'type' ] ) )
+		if ( isset( $atts[ 'type' ] ) ) {
 			$this->input_type = $atts[ 'type' ];
+		}
 
 		return FEE_Field_Base::wrap( $content, compact( 'post_id', 'shortcode' ) );
 	}
@@ -158,8 +167,9 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 	function _get_content( $atts, $content ) {
 		static $i = 0;
 
-		if ( $this->_i == $i++ )
+		if ( $this->_i == $i++ ) {
 			$this->_content = trim( $content );
+		}
 
 		return $content;
 	}
@@ -190,8 +200,9 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 	function _set_content( $atts, $content ) {
 		static $i = 0;
 
-		if ( $this->_i == $i++ )
+		if ( $this->_i == $i++ ) {
 			$content = $this->_new_content;
+		}
 
 		$attr = '';
 		if ( !empty( $atts ) ) {
@@ -211,16 +222,22 @@ class FEE_Shortcode_Editable extends FEE_Field_Post {
 	}
 }
 
+// TODO Remove this class. Aloha can handle p's
 // Handles <p> tags in the_content
 class FEE_Field_Chunks extends FEE_Field_Post {
 	private $dom;
 
 	function wrap( $content, $post_id = 0 ) {
-		if ( !$post_id = $this->_get_id( $post_id ) )
+		
+		
+		if ( !$post_id = $this->_get_id( $post_id ) ) {
 			return $content;
+		}
 
-		if ( empty( $content ) )	// todo: placehold
+		if ( empty( $content ) ) {
+			// todo: placehold
 			return $content;
+		}	
 
 		$dom = $this->get_DOM( $content );
 
@@ -252,8 +269,9 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 		$new_dom = $this->get_DOM( '<p>' . $chunk_content . '</p>' );
 		$new = $dom->importNode( $new_dom->getElementsByTagName('p')->item(0), true );
 
-		foreach ( $old->attributes as $attr )
+		foreach ( $old->attributes as $attr ) {
 			$new->setAttributeNode( $attr );
+		}
 
 		$old->parentNode->replaceChild( $new, $old );
 
@@ -292,8 +310,9 @@ class FEE_Field_Chunks extends FEE_Field_Post {
 	}
 
 	private function innerHTML( $dom, $node = null ) {
-		if ( is_null( $node ) )
+		if ( is_null( $node ) ) {
 			$node = $dom->getElementsByTagName('body')->item(0);
+		}
 
 		$html = '';
 
@@ -328,8 +347,9 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 
 		$default_excerpt = $this->get( $data );
 
-		if ( $excerpt == $default_excerpt )
+		if ( $excerpt == $default_excerpt ) {
 			return $excerpt;
+		}
 
 		$postdata = array(
 			'ID' => $post_id,
@@ -367,8 +387,9 @@ class FEE_Field_Excerpt extends FEE_Field_Post {
 class FEE_Field_Thumbnail extends FEE_Field_Post {
 
 	function wrap( $html, $post_id, $post_thumbnail_id, $size ) {
-		if ( !$post_id = $this->_get_id( $post_id, false ) )
+		if ( !$post_id = $this->_get_id( $post_id, false ) ) {
 			return $html;
+		}
 
 		return FEE_Field_Base::wrap( $html, compact( 'post_id', 'size' ) );
 	}
@@ -443,13 +464,16 @@ class FEE_Field_Meta extends FEE_Field_Post {
 
 		$old_value = @$data[$i];
 
-		if ( 'checkbox' == $type )
+		if ( 'checkbox' == $type ) {
 			$new_value = (bool) $new_value;
+		}
 
-		if ( !$new_value )
+		if ( !$new_value ) {
 			delete_post_meta( $post_id, $key, $old_value );
-		else
+		}
+		else {
 			update_post_meta( $post_id, $key, $new_value, $old_value );
+		}
 
 		return $this->placehold( $new_value );
 	}
@@ -464,8 +488,10 @@ class FEE_Field_Meta extends FEE_Field_Post {
 function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
 	$data = get_editable_post_meta( $post_id, $key, $type, true );
 
-	if ( !$echo )
+	if ( !$echo ) {
 		return $data;
+	}
+		
 
 	echo $data;
 }

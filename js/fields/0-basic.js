@@ -49,12 +49,12 @@ FrontEndEditor.define_field( 'input', 'base', {
 		self._super();
 	},
 
-	ajax_set: function () {
-		var
-			self = this,
-			data = self.ajax_args({
+	ajax_set: function (contentData) {
+		
+		var	self = this;
+		var data = self.ajax_args({
 				callback: 'save',
-				content: self.content_from_input()
+				content: contentData!= undefined ? contentData : self.content_from_input()
 			});
 
 		self.overlay.show();
@@ -63,12 +63,12 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	ajax_get_handler: function (response) {
-		var
-			self = this,
-			$el = self.error_handler(response);
+		var	self = this;
+		var $el = self.error_handler(response);
 
-		if ( !$el )
+		if ( !$el ) {
 			return;
+		}
 
 		self.el.hide();
 
@@ -80,12 +80,12 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	ajax_set_handler: function (response) {
-		var
-			self = this,
-			$el = self.error_handler(response);
+		var	self = this;
+		var $el = self.error_handler(response);
 
-		if ( !$el )
+		if ( !$el ) {
 			return;
+		}
 
 		self.content_to_front(response.content);
 
@@ -93,10 +93,9 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	error_handler: function (response) {
-		var
-			self = this,
-			$parent = self.el.parents('a'),
-			$el = $parent.length ? $parent : self.el;
+		var	self = this;
+		var $parent = self.el.parents('a');
+		var $el = $parent.length ? $parent : self.el;
 
 		self.overlay.hide();
 
@@ -122,7 +121,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 
 	start_editing: function (ev) {
 		var self = this;
-
+		
 		// Buttons
 		self.save_button = jQuery('<button>')
 			.addClass('fee-form-save')
@@ -143,7 +142,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 			.addClass('fee-filter-' + self.filter)
 			.append(self.save_button)
 			.append(self.cancel_button);
-
+		
 		self.form.bind('keypress', jQuery.proxy(self, 'keypress'));
 
 		self.ajax_get();
@@ -175,21 +174,23 @@ FrontEndEditor.define_field( 'input', 'base', {
 
 		self.el.show();
 
-		if ( true === with_spinner )
+		if ( true === with_spinner ) {
 			self.overlay.show();
+		}
 	},
 
 	keypress: function (ev) {
-		var
-			self = this,
+		var	self = this,
 			keys = {ENTER: 13, ESCAPE: 27},
 			code = (ev.keyCode || ev.which || ev.charCode || 0);
 
-		if ( code === keys.ENTER && 'input' === self.type )
+		if ( code === keys.ENTER && 'input' === self.type ) {
 			self.save_button.click();
+		}
 
-		if ( code === keys.ESCAPE )
+		if ( code === keys.ESCAPE ) {
 			self.cancel_button.click();
+		}
 	}
 });
 

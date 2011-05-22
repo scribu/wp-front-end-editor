@@ -16,8 +16,7 @@ jQuery.extend( FrontEndEditor, {
 	},
 
 	overlay: function($el) {
-		var
-			$cover = jQuery('<div>', {'class': 'fee-loading'})
+		var	$cover = jQuery('<div>', {'class': 'fee-loading'})
 				.css('background-image', 'url(' + this.data.spinner + ')')
 				.hide()
 				.prependTo(jQuery('body'));
@@ -87,8 +86,9 @@ jQuery(function($) {
 					value = jQuery.parseJSON(value);
 				} catch(e) {}
 
-				if ( null === value )
+				if ( null === value ) {
 					value = '';
+				}
 
 				data[ attr.name.substr(5) ] = value;
 			}
@@ -101,8 +101,7 @@ jQuery(function($) {
 	var hover_hide, hover_show;
 
 	(function () {
-		var
-			HOVER_BORDER = 2,
+		var HOVER_BORDER = 2,
 			HOVER_PADDING = 2,
 			hover_lock = false,
 			hover_timeout,
@@ -120,7 +119,6 @@ jQuery(function($) {
 
 		function hover_hide_immediately() {
 			hover_box.hide();
-
 			hover_borders.top.hide();
 			hover_borders.left.hide();
 		}
@@ -134,8 +132,9 @@ jQuery(function($) {
 
 		hover_hide = function () {
 			hover_timeout = setTimeout(function () {
-				if ( hover_lock )
+				if ( hover_lock ) {
 					return;
+				}
 
 				hover_hide_immediately();
 			}, 300);
@@ -192,17 +191,18 @@ jQuery(function($) {
 
 	// Create field instances
 	jQuery('.fee-field').each(function () {
-		var
-			$el = jQuery(this),
+		var	$el = jQuery(this),
 			data = extract_data_attr(this),
 			editor;
 
 		if ( !FrontEndEditor.is_field_defined(data.type) ) {
-			if ( undefined !== console )
+			if ( undefined !== console ) {
 				console.warn('invalid field type', this);
+			}
 			return;
 		}
 
+	
 		editor = FrontEndEditor.get_field_instance(data.type);
 
 		editor = jQuery.extend(editor, {
@@ -214,8 +214,7 @@ jQuery(function($) {
 		editor.start();
 
 		// Bind hover to element
-		$el.mouseout(hover_hide)
-		   .mouseover(function () {
+		$el.mouseout(hover_hide).mouseover(function () {
 			hover_show.call( this, jQuery.proxy(editor, 'start_editing') );
 		});
 	});

@@ -2,6 +2,7 @@
 
 /**
  * This class handles all aloha specific actions like configuration and script dependency management
+ * It will provide aloha editor version 0.9.3
  */
 abstract class FEE_AlohaEditor {
 
@@ -24,7 +25,7 @@ abstract class FEE_AlohaEditor {
 		if (is_user_logged_in() && !is_admin()) {
 			
 			//load jquery
-//			wp_enqueue_script('jquery');
+			//wp_enqueue_script('jquery');
 
 			// Initalize aloha
 			wp_enqueue_script('aloha.init');
@@ -41,21 +42,6 @@ abstract class FEE_AlohaEditor {
 			wp_enqueue_script('aloha.config');
 
 		}
-	}
-
-	/**
-	 * Prints the script that enables editables
-	 */
-	static function printAlohaEditableConfiguration() {
-	?>		
-	<script type="text/javascript">
-	 $(document).ready(function() {
-		$('.fee-field').aloha();
-			
-	 });
-	</script> 
-	<?
-
 	}
 
 	/**

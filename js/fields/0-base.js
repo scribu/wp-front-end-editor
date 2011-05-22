@@ -7,9 +7,8 @@ FrontEndEditor.define_field( 'base', false, {
 	ajax_set_handler: null,
 
 	ajax_get: function () {
-		var
-		self = this,
-		data = self.ajax_args({
+		var	self = this;
+		var data = self.ajax_args({
 			callback: 'get'
 		});
 
@@ -17,11 +16,11 @@ FrontEndEditor.define_field( 'base', false, {
 	},
 
 	ajax_set: function (content) {
-		var	self = this,
-			data = self.ajax_args({
+		var	self = this;
+		var	data = self.ajax_args({
 				callback: 'save',
 				content: content
-			});
+		});
 
 		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(self, 'ajax_set_handler'), 'json');
 	},

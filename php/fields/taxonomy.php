@@ -6,18 +6,21 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	function wrap( $content, $taxonomy, $before, $sep, $after ) {
 		global $post;
 
-		if ( !in_the_loop() )
+		if ( !in_the_loop() ) {
 			return $content;
+		}
 
 		$post_id = $post->ID;
 
-		if ( !$post_id )
+		if ( !$post_id ) {
 			return $content;
+		}
 
 		$data = compact( 'post_id', 'taxonomy', 'before', 'sep', 'after' );
 
-		if ( !$this->check( $data ) )
+		if ( !$this->check( $data ) ) {
 			return $content;
+		}
 
 		$content = $this->placehold( $content );
 
