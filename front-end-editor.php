@@ -37,7 +37,7 @@ function _fee_init() {
 
 	// Load files
 	require_once $dir . '/core.php';
-	require_once $dir . '/alohaeditor.php';
+	require_once $dir . '/alohaeditor-0.9.3-provider.php';
 
 
 	foreach ( array( 'base', 'post', 'taxonomy', 'other' ) as $name ) {
