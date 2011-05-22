@@ -31,8 +31,6 @@ abstract class FEE_AlohaEditor {
 
 			// Load the aloha editor configuration
 			wp_enqueue_script('aloha.config');
-
-			add_action( 'wp_print_scripts', array(__CLASS__, 'printAlohaEditorInit') );
 		}
 	}
 
@@ -198,15 +196,5 @@ abstract class FEE_AlohaEditor {
 		} else {
 			//TODO decide whether we should use the build version
 		}
-	}
-
-
-	/**
-	 * This function will print the aloha editor initialiation javascript
-	 */
-	static function printAlohaEditorInit() {
-		echo "<script type='text/javascript'>";
-		echo "GENTICS_Aloha_base = '" . self::_getAlohaSrcBaseUrl() . "';\n";
-		echo "</script>";
 	}
 }
