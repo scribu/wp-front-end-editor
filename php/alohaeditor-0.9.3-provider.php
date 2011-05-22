@@ -7,8 +7,8 @@
 abstract class FEE_AlohaEditor {
 
 	/**
-	 * Enqueues the aloha editor dependencies depending on user status. 
-	 * Enqueuing will only performed if the user is loggedin and outsite 
+	 * Enqueues the aloha editor dependencies depending on user status.
+	 * Enqueuing will only performed if the user is loggedin and outsite
 	 * of the admin area (dashboard).
 	 */
 	static function enqueueAloha() {
@@ -23,21 +23,21 @@ abstract class FEE_AlohaEditor {
 
 
 		if (is_user_logged_in() && !is_admin()) {
-			
+
 			//load jquery
 			//wp_enqueue_script('jquery');
 
 			// Initalize aloha
 			wp_enqueue_script('aloha.init');
-			
+
 			// Load format plugin and all aloha dependencies
 			wp_enqueue_script('aloha.format');
 			wp_enqueue_script('aloha.highlighteditables');
 			//wp_enqueue_script('aloha.ribbon');
 			//wp_enqueue_script('aloha.table');
 			//wp_enqueue_script('aloha.list');
-			
-			
+
+
 			// Load the aloha editor configuration
 			wp_enqueue_script('aloha.config');
 
@@ -48,17 +48,14 @@ abstract class FEE_AlohaEditor {
 	 * Returns the absolute baseurl to the aloha editor plugin directory
 	 */
 	static function _getAlohaPluginsBaseUrl() {
-		return FEE_AlohaEditor :: _getAlohaSrcBaseUrl() . 'plugins/';
+		return self::_getAlohaSrcBaseUrl() . 'plugins/';
 	}
 
 	/**
 	 * Returns the absolute baseurl to the aloha editor src directory
 	 */
 	static function _getAlohaSrcBaseUrl() {
-
-		$baseUrl = plugins_url('/', 'wp-front-end-editor');
-		$baseUrl = $baseUrl . 'wp-front-end-editor/';
-		return $baseUrl . 'alohaeditor/WebContent/';
+		return plugins_url('alohaeditor/WebContent/', FRONT_END_EDITOR_MAIN_FILE);
 	}
 
 	/**
@@ -66,8 +63,8 @@ abstract class FEE_AlohaEditor {
 	 */
 	static function registerAloha() {
 
-		$alohaSrcBaseUrl = FEE_AlohaEditor :: _getAlohaSrcBaseUrl();
-		$alohaPluginsBaseUrl = FEE_AlohaEditor :: _getAlohaPluginsBaseUrl();
+		$alohaSrcBaseUrl = self::_getAlohaSrcBaseUrl();
+		$alohaPluginsBaseUrl = self::_getAlohaPluginsBaseUrl();
 
 		//Include no deps version for development
 		if (defined('SCRIPT_DEBUG')) {
@@ -99,7 +96,7 @@ abstract class FEE_AlohaEditor {
 
 		// Aloha JQuery Deps
 		wp_register_script('jquery.aloha.ext', $alohaSrcBaseUrl .  'utils/jquery.js', array (), '0.9.3', false);
-		
+
 		// Other deps
 		wp_register_script('lang', $alohaSrcBaseUrl . 'utils/lang.js', array (), '0.9.3', false);
 		wp_register_script('range', $alohaSrcBaseUrl . 'utils/range.js', array (), '0.9.3', false);
@@ -110,8 +107,8 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('ext-alohaproxy', $alohaSrcBaseUrl . 'core/ext-alohaproxy.js', array (), '0.9.3', false);
 		wp_register_script('ext-alohareader',$alohaSrcBaseUrl . 'core/ext-alohareader.js', array (), '0.9.3', false);
 		wp_register_script('ext-alohatreeloader',$alohaSrcBaseUrl.'core/ext-alohatreeloader.js', array (), '0.9.3', false);
-		
-		
+
+
 		// register core dependencies
 		wp_register_script('core', $alohaSrcBaseUrl . 'core/core.js', array (
 			'jquery',
@@ -119,7 +116,7 @@ abstract class FEE_AlohaEditor {
 			'jquery.getUrlParam',
 			'jquery.prettyPhoto',
 			'jquery.cookie',
-			'ext-jquery-adapter-debug',			
+			'ext-jquery-adapter-debug',
 			'ext-foundation-debug',
 			'cmp-foundation-debug',
 			'data-foundation-debug',
@@ -147,8 +144,8 @@ abstract class FEE_AlohaEditor {
 			'ext-alohareader',
 			'ext-alohatreeloader'
 		), '0.9.3', false);
-	
-		
+
+
 
 		// register ui scripts
 		wp_register_script('ui', $alohaSrcBaseUrl . 'core/ui.js', array (), '0.9.3', false);
@@ -205,13 +202,13 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('aloha.link', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Link/LinkList.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.paste', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Paste/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.wordpastehandler', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Paste/wordpastehandler.js', $plugindeps, '0.9.3', false);
-		
+
 		} else {
 			//TODO decide whether we should use the build version
 		}
 	}
 
-	
+
 	/**
 	 * This function will print the aloha editor initialiation javascript
 	 */
@@ -231,13 +228,13 @@ abstract class FEE_AlohaEditor {
 	GENTICS.Aloha.settings = {
 		logLevels: {'error': true, 'warn': true, 'info': true, 'debug': false},
 		errorhandling : false,
-		ribbon: false,	
+		ribbon: false,
 		"i18n": {
 			// you can either let the system detect the users language (set acceptLanguage on server)
-			// In PHP this would would be '<?=$_SERVER['HTTP_ACCEPT_LANGUAGE']?>' resulting in 
+			// In PHP this would would be '<?=$_SERVER['HTTP_ACCEPT_LANGUAGE']?>' resulting in
 			// "acceptLanguage": 'de-de,de;q=0.8,it;q=0.6,en-us;q=0.7,en;q=0.2'
-			// or set current on server side to be in sync with your backend system 
-			"current": "en" 
+			// or set current on server side to be in sync with your backend system
+			"current": "en"
 		},
 		"repositories": {
 		 	"com.gentics.aloha.repositories.LinkList": {
@@ -256,21 +253,21 @@ abstract class FEE_AlohaEditor {
 				config : [ 'b', 'i','sub','sup'],
 			  	editables : {
 					// no formatting allowed for title
-					'#title'	: [ ], 
+					'#title'	: [ ],
 					// formatting for all editable DIVs
-					'div'		: [ 'b', 'i', 'del', 'sub', 'sup'  ], 
+					'div'		: [ 'b', 'i', 'del', 'sub', 'sup'  ],
 					// content is a DIV and has class .article so it gets both buttons
 					'.article'	: [ 'b', 'i', 'p', 'title', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'removeFormat']
 			  	}
 			},
-		 	"com.gentics.aloha.plugins.List": { 
+		 	"com.gentics.aloha.plugins.List": {
 			 	// all elements with no specific configuration get an UL, just for fun :)
 				config : [ 'ul' ],
 			  	editables : {
 					// Even if this is configured it is not set because OL and UL are not allowed in H1.
-					'#title'	: [ 'ol' ], 
+					'#title'	: [ 'ol' ],
 					// all divs get OL
-					'div'		: [ 'ol' ], 
+					'div'		: [ 'ol' ],
 					// content is a DIV. It would get only OL but with class .article it also gets UL.
 					'.article'	: [ 'ul' ]
 			  	}
@@ -302,16 +299,16 @@ abstract class FEE_AlohaEditor {
 				  	}
 			  	}
 			},
-		 	"com.gentics.aloha.plugins.Table": { 
+		 	"com.gentics.aloha.plugins.Table": {
 			 	// all elements with no specific configuration are not allowed to insert tables
 				config : [ ],
 			  	editables : {
 					// Allow insert tables only into .article
-					'.article'	: [ 'table' ] 
+					'.article'	: [ 'table' ]
 			  	}
 			}
 	  	}
-	};		
+	};
 	<?
 	}
 }
