@@ -75,7 +75,9 @@ abstract class FEE_Field_Base {
 
 		$data_attr['class'] = 'fee-field';
 
-		return html( 'span', $data_attr, $content );
+		$wrap_tag = in_array( $this->input_type, array( 'textarea', 'rich', 'widget' ) ) ? 'div' : 'span';
+
+		return html( $wrap_tag, $data_attr, $content );
 	}
 
 	/**
