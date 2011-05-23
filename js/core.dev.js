@@ -97,40 +97,51 @@ jQuery(function($) {
 		return data;
 	}
 
+	function get_dims($el) {
+		return {
+			'width': $el.width(),
+			'height': $el.height()
+		};
+	}
+
 	// Init hover methods
-	var hover_hide, hover_show;
+	var hover_init;
 
 	(function () {
-		var HOVER_BORDER = 2,
+		var
+			HOVER_BORDER = 2,
 			HOVER_PADDING = 2,
 			hover_lock = false,
 			hover_timeout,
-			hover_borders = {},
-			hover_box = jQuery('<div>', {
-				'class': 'fee-hover-edit',
-				'html': FrontEndEditor.data.edit_text,
-				'mouseover': function () { hover_lock = true; },
-				'mouseout': function () { hover_lock = false; hover_hide(); }
-			}).hide().appendTo('body');
+			hover_border,
+			hover_box,
+			mouse_vert_pos;
 
-		jQuery.each(['top', 'left'], function(i, key) {
-			hover_borders[key] = jQuery('<div>').addClass('fee-hover-' + key).hide().appendTo('body');
-		});
+		// Init hover border
+		hover_border = jQuery('<div>')
+			.addClass('fee-hover-border')
+			.css('width', HOVER_BORDER)
+			.hide().appendTo('body');
+
+		// Init hover box
+		hover_box = jQuery('<div>', {
+			'class': 'fee-hover-edit',
+			'html': FrontEndEditor.data.edit_text,
+			'mouseover': function () { hover_lock = true; },
+			'mouseout': function () { hover_lock = false; hover_hide(); }
+		}).hide().appendTo('body');
+
+		function box_position_vert() {
+			var normal_height = mouse_vert_pos - hover_box.outerHeight()/2;
+			hover_box.css('top', (normal_height - HOVER_BORDER) + 'px');
+		}
 
 		function hover_hide_immediately() {
 			hover_box.hide();
-			hover_borders.top.hide();
-			hover_borders.left.hide();
+			hover_border.hide();
 		}
 
-		function get_dims($el) {
-			return {
-				'width': $el.width(),
-				'height': $el.height()
-			};
-		}
-
-		hover_hide = function () {
+		function hover_hide() {
 			hover_timeout = setTimeout(function () {
 				if ( hover_lock ) {
 					return;
@@ -140,7 +151,7 @@ jQuery(function($) {
 			}, 300);
 		};
 
-		hover_show = function (callback) {
+		function hover_show(callback) {
 			var
 				$self = jQuery(this),
 				offset = $self.offset(),
@@ -159,33 +170,32 @@ jQuery(function($) {
 			hover_box.bind('click', hover_hide_immediately);
 			hover_box.bind('click', callback);
 
-			// Add 'Edit' box
-			hover_box.css({
-				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px',
-				'left': (offset.left - hover_box.outerWidth() - HOVER_PADDING) + 'px'
-			}).show();
+			// Position 'Edit' box
+			hover_box.css('left', (offset.left - hover_box.outerWidth() - HOVER_PADDING) + 'px');
+			box_position_vert();
+			hover_box.show();
 
-			// Add hover as individual divs
-			var position = {
+			// Position hover border
+			hover_border.css({
 				'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px',
-				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px'
-			};
+				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px',
+				'height': (dims.height + HOVER_PADDING * 2) + 'px',
+			}).show();
+		};
 
-			hover_borders.top
-				.css(position)
-				.css({
-					'width': (dims.width + HOVER_PADDING * 2) + 'px',
-					'height': HOVER_BORDER
-				})
-				.show();
-
-			hover_borders.left
-				.css(position)
-				.css({
-					'height': (dims.height + HOVER_PADDING * 2) + 'px',
-					'width': HOVER_BORDER
-				})
-				.show();
+		hover_init = function ($el, callback) {
+			$el
+			   .mouseover(function (ev) {
+				mouse_vert_pos = ev.pageY;
+				hover_show.call(this, callback);
+			   })
+			   .mouseout(function (ev) {
+				hover_hide();
+			   })
+			   .mousemove(function (ev) {
+				mouse_vert_pos = ev.pageY;
+				box_position_vert();
+			   });
 		};
 	}());
 
@@ -213,9 +223,6 @@ jQuery(function($) {
 		});
 		editor.start();
 
-		// Bind hover to element
-		$el.mouseout(hover_hide).mouseover(function () {
-			hover_show.call( this, jQuery.proxy(editor, 'start_editing') );
-		});
+		hover_init( $el, jQuery.proxy(editor, 'start_editing') );
 	});
 });

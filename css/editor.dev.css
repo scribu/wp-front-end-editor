@@ -134,8 +134,7 @@ span.fee-form select {
 }
 
 /* Hover */
-.fee-hover-top,
-.fee-hover-left,
+.fee-hover-border,
 .fee-hover-edit {
 	background-color: #aaa;
 	position: absolute;
