@@ -186,7 +186,7 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('aloha.table', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Table/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.list',  $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.List/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.link', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Link/plugin.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha.highlighteditables', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.HighlightEditables/plugin.js', $plugindeps, '0.9.3', false);
+		//wp_register_script('aloha.highlighteditables', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.HighlightEditables/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.TOC', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.TOC/plugin.js' ,$plugindeps, '0.9.3', false);
 		wp_register_script('aloha.delicious', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Link/delicious.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.link', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Link/LinkList.js', $plugindeps, '0.9.3', false);
