@@ -49,11 +49,13 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 		 if ( console != undefined ) {
 			 console.log('Saving' + content + " for post with id "  + postId);
 		 }
-		 
+		//unsubscribe from the event because we only want to handle it once
+		jQuery(GENTICS.Aloha).unbind("editableDeactivated");
 		// blur the currently active editable
 		if (GENTICS.Aloha.activeEditable) {
 			this.lastActiveEditable = GENTICS.Aloha.activeEditable;
 			GENTICS.Aloha.activeEditable.blur();
+			GENTICS.Aloha.activeEditable.disable();
 		}
 		 
 		 that.ajax_set(content);
@@ -68,6 +70,7 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 		var that = this;
 		that.el.aloha();
 		that.el.focus();
+		console.log('enable');
 		GENTICS.Aloha.EventRegistry.subscribe(GENTICS.Aloha, "editableDeactivated", jQuery.proxy(that, 'save_editable') );
 	},
 
