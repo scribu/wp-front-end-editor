@@ -84,7 +84,7 @@ function fee_register_defaults() {
 
 		'the_content' => array(
 			'title' => __( 'Post content', 'front-end-editor' ),
-			'class' => FEE_Core::$options->chunks ? 'FEE_Field_Chunks' : 'FEE_Field_Post',
+			'class' => 'FEE_Field_Post',
 			'type'  => FEE_Core::$options->rich ? 'rich' : 'textarea',
 		),
 
