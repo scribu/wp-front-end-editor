@@ -1,6 +1,6 @@
-//if ( FrontEndEditor.data.cleditor ) {
-
 FrontEndEditor.define_field( 'rich', 'textarea', {
+	
+	lastActiveEditable: null,
 	
 	/**
 	 * Load the content for this rich element via ajax from the backend 
@@ -49,7 +49,16 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 		 if ( console != undefined ) {
 			 console.log('Saving' + content + " for post with id "  + postId);
 		 }
+		 
+		// blur the currently active editable
+		if (GENTICS.Aloha.activeEditable) {
+			this.lastActiveEditable = GENTICS.Aloha.activeEditable;
+			GENTICS.Aloha.activeEditable.blur();
+		}
+		 
 		 that.ajax_set(content);
+		 
+
 	},
 
 	/**
@@ -120,5 +129,3 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 //		return content;
 //	}
 });
-
-//}

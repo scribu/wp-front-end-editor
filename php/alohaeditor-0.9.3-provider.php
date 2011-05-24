@@ -27,6 +27,7 @@ abstract class FEE_AlohaEditor {
 			//wp_enqueue_script('aloha.ribbon');
 			wp_enqueue_script('aloha.table');
 			wp_enqueue_script('aloha.list');
+			wp_enqueue_script('aloha.fee');
 
 
 			// Load the aloha editor configuration
@@ -55,7 +56,8 @@ abstract class FEE_AlohaEditor {
 
 		$alohaSrcBaseUrl = self::_getAlohaSrcBaseUrl();
 		$alohaPluginsBaseUrl = self::_getAlohaPluginsBaseUrl();
-
+		
+		
 		//Include no deps version for development
 		if (defined('SCRIPT_DEBUG')) {
 
@@ -192,7 +194,8 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('aloha.link', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Link/LinkList.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.paste', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Paste/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.wordpastehandler', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Paste/wordpastehandler.js', $plugindeps, '0.9.3', false);
-
+		wp_register_script('aloha.fee', plugins_url('aloha-plugins', FRONT_END_EDITOR_MAIN_FILE). '/com.gentics.aloha.plugins.Fee/plugin.js',$plugindeps,'0.9.3',false);
+		
 		} else {
 			//TODO decide whether we should use the build version
 		}
