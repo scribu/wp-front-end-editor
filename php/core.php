@@ -64,14 +64,6 @@ abstract class FEE_Core {
 			);
 		}
 		
-	
-
-		if ( !empty( $cledit_i18n ) ) {
-			$cledit_i18n = 'CLEDITOR_I18N = ' . json_encode( $cledit_i18n );
-		}
-		else {
-			$cledit_i18n = '';
-		}
 
 		// Thickbox
 		if ( count( array_intersect( array( 'image', 'thumbnail', 'rich' ), $wrapped ) ) ) {
@@ -111,7 +103,6 @@ abstract class FEE_Core {
 <script type='text/javascript'>
 var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
-<?php echo $cledit_i18n; ?>
 </script>
 <?php
 		scbUtil::do_scripts( $js_dependencies );
