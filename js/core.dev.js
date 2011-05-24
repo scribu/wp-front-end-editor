@@ -38,6 +38,18 @@ jQuery.extend( FrontEndEditor, {
 		};
 	},
 
+	edit_lock: function() {
+		this._editing = true;
+	},
+
+	edit_unlock: function() {
+		this._editing = false;
+	},
+
+	is_editing: function() {
+		return this._editing;
+	},
+
 	// Do an ajax request, while loading a required script
 	sync_load: (function(){
 		var cache = [];
@@ -186,6 +198,9 @@ jQuery(function($) {
 		hover_init = function ($el, callback) {
 			$el
 			   .mouseover(function (ev) {
+				if ( FrontEndEditor.is_editing() )
+					return;
+
 				mouse_vert_pos = ev.pageY;
 				hover_show.call(this, callback);
 			   })

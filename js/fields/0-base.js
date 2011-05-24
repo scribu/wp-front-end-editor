@@ -7,31 +7,29 @@ FrontEndEditor.define_field( 'base', false, {
 	ajax_set_handler: null,
 
 	ajax_get: function () {
-		var	self = this;
-		var data = self.ajax_args({
+		var data = this.ajax_args({
 			callback: 'get'
 		});
 
-		FrontEndEditor.sync_load(jQuery.proxy(self, 'ajax_get_handler'), data, self.dependency);
+		FrontEndEditor.edit_lock();
+		FrontEndEditor.sync_load(jQuery.proxy(this, 'ajax_get_handler'), data, this.dependency);
 	},
 
 	ajax_set: function (content) {
-		var	self = this;
-		var	data = self.ajax_args({
-				callback: 'save',
-				content: content
+		var data = this.ajax_args({
+			callback: 'save',
+			content: content
 		});
 
-		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(self, 'ajax_set_handler'), 'json');
+		FrontEndEditor.edit_unlock();
+		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(this, 'ajax_set_handler'), 'json');
 	},
 
 	ajax_args: function (args) {
-		var self = this;
-
 		return jQuery.extend(args, {
 			action	: 'front-end-editor',
 			nonce	: FrontEndEditor.data.nonce,
-			data	: self.data
+			data	: this.data
 		});
 	}
 });

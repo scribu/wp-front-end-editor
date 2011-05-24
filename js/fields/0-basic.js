@@ -3,101 +3,83 @@ FrontEndEditor.define_field( 'input', 'base', {
 	input_tag: '<input type="text">',
 
 	start: function () {
-		var self = this;
-
-		self.overlay = FrontEndEditor.overlay(self.el);
+		this.overlay = FrontEndEditor.overlay(this.el);
 	},
 
 	create_input: function () {
-		var self = this;
-
-		self.input = jQuery(self.input_tag).attr({
+		this.input = jQuery(this.input_tag).attr({
 			'id'    : 'fee-' + new Date().getTime(),
 			'class' : 'fee-form-content'
 		});
 
-		self.input.prependTo(self.form);
+		this.input.prependTo(this.form);
 	},
 
 	content_to_input: function (content) {
-		var self = this;
-
-		self.input.val(content);
-		self.form.trigger('ready.fee', [self.data]);
+		this.input.val(content);
+		this.form.trigger('ready.fee', [this.data]);
 	},
 
 	content_from_input: function () {
-		var self = this;
-
-		return self.input.val();
+		return this.input.val();
 	},
 
 	content_to_front: function (content) {
-		var self = this;
-
-		self.el.html(content);
-		self.form.trigger('saved.fee', [self.data]);
+		this.el.html(content);
+		this.form.trigger('saved.fee', [this.data]);
 	},
 
 	ajax_get: function () {
-		var self = this;
-
-		self.overlay.show();
-
-		self.create_input();
-
-		self._super();
+		this.overlay.show();
+		this.create_input();
+		this._super();
 	},
 
 	ajax_set: function (contentData) {
-		
-		var	self = this;
-		var data = self.ajax_args({
-				callback: 'save',
-				content: contentData!= undefined ? contentData : self.content_from_input()
-			});
+		var data = this.ajax_args({
+			callback: 'save',
+			content: contentData!= undefined ? contentData : this.content_from_input()
+		});
 
-		self.overlay.show();
+		this.overlay.show();
 
-		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(self, 'ajax_set_handler'), 'json');
+		FrontEndEditor.edit_unlock();
+		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(this, 'ajax_set_handler'), 'json');
 	},
 
 	ajax_get_handler: function (response) {
-		var	self = this;
-		var $el = self.error_handler(response);
+		var $el = this.error_handler(response);
 
 		if ( !$el ) {
 			return;
 		}
 
-		self.el.hide();
+		this.el.hide();
 
-		$el.after(self.form);
+		$el.after(this.form);
 
-		self.content_to_input(response.content);
+		this.content_to_input(response.content);
 
-		self.input.focus();
+		this.input.focus();
 	},
 
 	ajax_set_handler: function (response) {
-		var	self = this;
-		var $el = self.error_handler(response);
+		var $el = this.error_handler(response);
 
 		if ( !$el ) {
 			return;
 		}
 
-		self.content_to_front(response.content);
+		this.content_to_front(response.content);
 
-		self.el.show();
+		this.el.show();
 	},
 
 	error_handler: function (response) {
-		var	self = this;
-		var $parent = self.el.parents('a');
-		var $el = $parent.length ? $parent : self.el;
+		var $parent = this.el.closest('a');
+		var $el = $parent.length ? $parent : this.el;
 
-		self.overlay.hide();
+		this.overlay.hide();
 
 		if ( response.error ) {
 			var $error_box = jQuery('<div class="fee-error">');
@@ -120,76 +102,68 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	start_editing: function (ev) {
-		var self = this;
-		
 		// Buttons
-		self.save_button = jQuery('<button>')
+		this.save_button = jQuery('<button>')
 			.addClass('fee-form-save')
 			.text(FrontEndEditor.data.save_text)
-			.click(jQuery.proxy(self, 'form_submit'));
+			.click(jQuery.proxy(this, 'form_submit'));
 
-		self.cancel_button = jQuery('<button>')
+		this.cancel_button = jQuery('<button>')
 			.addClass('fee-form-cancel')
 			.text(FrontEndEditor.data.cancel_text)
-			.click(jQuery.proxy(self, 'form_remove'));
+			.click(jQuery.proxy(this, 'form_remove'));
 
 		// Form
-		self.form = (jQuery.inArray(self.type, ['input', 'terminput', 'termselect']) > -1) ? jQuery('<span>') : jQuery('<div>');
+		this.form = (jQuery.inArray(this.type, ['input', 'terminput', 'termselect']) > -1) ? jQuery('<span>') : jQuery('<div>');
 
-		self.form
+		this.form
 			.addClass('fee-form')
-			.addClass('fee-type-' + self.type)
-			.addClass('fee-filter-' + self.filter)
-			.append(self.save_button)
-			.append(self.cancel_button);
+			.addClass('fee-type-' + this.type)
+			.addClass('fee-filter-' + this.filter)
+			.append(this.save_button)
+			.append(this.cancel_button);
 		
-		self.form.bind('keypress', jQuery.proxy(self, 'keypress'));
+		this.form.bind('keypress', jQuery.proxy(this, 'keypress'));
 
-		self.ajax_get();
+		this.ajax_get();
 	},
 
 	form_remove: function (ev) {
-		var self = this;
+		this.remove_form(false);
 
-		self.remove_form(false);
+		FrontEndEditor.edit_unlock();
 
-		ev.stopPropagation();
-		ev.preventDefault();
+		return false;
 	},
 
 	form_submit: function (ev) {
-		var self = this;
+		this.ajax_set();
+		this.remove_form(true);
 
-		self.ajax_set();
-		self.remove_form(true);
-
-		ev.stopPropagation();
-		ev.preventDefault();
+		return false;
 	},
 
 	remove_form: function (with_spinner) {
-		var self = this;
+		this.form.remove();
 
-		self.form.remove();
-
-		self.el.show();
+		this.el.show();
 
 		if ( true === with_spinner ) {
-			self.overlay.show();
+			this.overlay.show();
 		}
 	},
 
 	keypress: function (ev) {
-		var	self = this,
+		var
 			keys = {ENTER: 13, ESCAPE: 27},
 			code = (ev.keyCode || ev.which || ev.charCode || 0);
 
-		if ( code === keys.ENTER && 'input' === self.type ) {
-			self.save_button.click();
+		if ( code === keys.ENTER && 'input' === this.type ) {
+			this.save_button.click();
 		}
 
 		if ( code === keys.ESCAPE ) {
-			self.cancel_button.click();
+			this.cancel_button.click();
 		}
 	}
 });
@@ -199,25 +173,17 @@ FrontEndEditor.define_field( 'checkbox', 'input', {
 	input_tag: '<input type="checkbox">',
 
 	content_to_input: function (content) {
-		var self = this;
-
 		content = content ? 'checked' : '';
 
-		self.input.attr('checked', content);
+		this.input.attr('checked', content);
 	},
 
 	content_from_input: function () {
-		var self = this;
-
-		return Number(self.input.is(':checked'));
+		return Number(this.input.is(':checked'));
 	},
 
 	content_to_front: function () {
-		var
-			self = this,
-			content = self.data.values[ self.content_from_input() ];
-
-		self.el.html(content);
+		this.el.html(this.data.values[this.content_from_input()]);
 	}
 });
 
@@ -229,21 +195,16 @@ FrontEndEditor.define_field( 'select', 'input', {
 		var self = this;
 
 		jQuery.each(self.data.values, function (value, title) {
-			var
-				$option = jQuery('<option>', {
-					value: value,
-					html: title,
-					selected: (content === value) ? 'selected': ''
-				});
-
-			self.input.append($option);
+			self.input.append(jQuery('<option>', {
+				value: value,
+				html: title,
+				selected: (content === value) ? 'selected': ''
+			}));
 		});
 	},
 
 	content_from_input: function () {
-		var self = this;
-
-		return self.input.find(':selected').val();
+		return this.input.find(':selected').val();
 	}
 });
 
@@ -251,4 +212,3 @@ FrontEndEditor.define_field( 'select', 'input', {
 FrontEndEditor.define_field( 'textarea', 'input', {
 	input_tag: '<textarea rows="10">'
 });
-

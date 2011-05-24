@@ -1,82 +1,48 @@
 FrontEndEditor.define_field( 'rich', 'textarea', {
-	
+
 	lastActiveEditable: null,
-	
-	/**
-	 * Load the content for this rich element via ajax from the backend 
-	 */
-	ajax_get: function () {
-		var that = this;
 
-		that.overlay.show();
-		
-		var data = that.ajax_args({
-			callback: 'get'
-		});
+	create_input: jQuery.noop,
 
-		FrontEndEditor.sync_load(jQuery.proxy(that, 'ajax_get_handler'), data, that.dependency);
-
-	},
-	
 	/**
 	 * Handle the response for the content loading
 	 */
 	ajax_get_handler: function (response) {
-		var	that = this;
-		var $el = that.error_handler(response);
+		var $el = this.error_handler(response);
 
 		if ( !$el ) {
 			return;
 		}
 
-		//Replace the displayed content with the raw content from the database
-		that.el.html(response.content);
-		that.enable_editable();
-		
+		// Replace the displayed content with the raw content from the database
+		this.el.html(response.content);
+
+		// Activate Aloha
+		this.el.aloha();
+		this.el.focus();
+		GENTICS.Aloha.EventRegistry.subscribe(GENTICS.Aloha, "editableDeactivated", jQuery.proxy(this, 'save_editable') );
 	},
-	
-	content_to_front: function(content) {
-		var	that = this;
-		that.el.html(content);
-	},
-	
+
 	/**
 	 * Callback that gets called when the editable gets deactivated.
 	 */
 	save_editable: function (event, editableDiv) {
-		 var that = this;
-		 var postId = editableDiv.editable.obj.attr('data-post_id');
-		 var content = editableDiv.editable.getContents();
-		 if ( console != undefined ) {
-			 console.log('Saving' + content + " for post with id "  + postId);
-		 }
 		// unsubscribe from the event because we only want to handle it once
 		jQuery(GENTICS.Aloha).unbind("editableDeactivated");
+
 		// blur the currently active editable
 		if (GENTICS.Aloha.activeEditable) {
-			that.el.unbind('click');
-			that.el.unbind('mousedown');
-			that.el.unbind('focus');
-			that.el.unbind('dblclick');
-			that.el.removeClass('GENTICS_editable');
-			that.lastActiveEditable = GENTICS.Aloha.activeEditable;
+			this.el.unbind('click');
+			this.el.unbind('mousedown');
+			this.el.unbind('focus');
+			this.el.unbind('dblclick');
+			this.el.removeClass('GENTICS_editable');
+			this.lastActiveEditable = GENTICS.Aloha.activeEditable;
 			GENTICS.Aloha.activeEditable.blur();
 			GENTICS.Aloha.activeEditable.disable();
 		}
-		 
-		 that.ajax_set(content);
-		 
 
-	},
-
-	/**
-	 * Enable this element for aloha editing
-	 */
-	enable_editable: function () {
-		var that = this;
-		that.el.aloha();
-		that.el.focus();
-		GENTICS.Aloha.EventRegistry.subscribe(GENTICS.Aloha, "editableDeactivated", jQuery.proxy(that, 'save_editable') );
+		this.ajax_set(editableDiv.editable.getContents());
 	},
 
 //	// Copied from wp-admin/js/editor.dev.js

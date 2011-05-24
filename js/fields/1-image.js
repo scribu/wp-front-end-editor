@@ -2,13 +2,11 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.change : null,
 
 	start_editing: function () {
-		var self = this;
-
 		tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.image.url);
 
 		jQuery('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close);
 
-		jQuery('#TB_iframeContent').load(jQuery.proxy(self, 'replace_button'));
+		jQuery('#TB_iframeContent').load(jQuery.proxy(this, 'replace_button'));
 	},
 
 	replace_button: function (ev) {
