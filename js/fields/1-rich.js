@@ -30,7 +30,7 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 		}
 
 		//Replace the displayed content with the raw content from the database
-		//that.el.html(response.content);
+		that.el.html(response.content);
 		that.enable_editable();
 		
 	},
