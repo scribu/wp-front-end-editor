@@ -73,7 +73,7 @@ GENTICS.Aloha.settings = {
 			config : [ ],
 			editables : {
 				// Allow insert tables only into .article
-				'.article'	: [ 'table' ]
+				'.fee-field'	: [ 'table' ]
 			}
 		}
 	}
