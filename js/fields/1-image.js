@@ -17,7 +17,7 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 		jQuery(ev.target).contents().delegate('.media-item', 'mouseenter', function () {
 			var $item = jQuery(this), $button;
 
-			if ( $item.find('.progress').length )
+			if ( !$item.find('.pinkynail').length )
 				return;	// not done uploading yet
 
 			if ( $item.data('fee_altered') )
