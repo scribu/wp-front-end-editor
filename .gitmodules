@@ -4,3 +4,6 @@
 [submodule "alohaeditor"]
 	path = alohaeditor
 	url = git://github.com/gentics/Aloha-Editor.git
+[submodule "aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles"]
+	path = aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles
+	url = git@github.com:Jotschi/Aloha-Plugin-DragAndDropFiles.git
