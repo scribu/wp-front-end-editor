@@ -47,7 +47,7 @@ abstract class FEE_AlohaEditor {
 	 * Returns the absolute baseurl to the aloha editor src directory
 	 */
 	static function _getAlohaSrcBaseUrl() {
-		return plugins_url('alohaeditor/WebContent/', FRONT_END_EDITOR_MAIN_FILE);
+		return plugins_url('aloha-editor/WebContent/', FRONT_END_EDITOR_MAIN_FILE);
 	}
 
 	/**
@@ -58,7 +58,7 @@ abstract class FEE_AlohaEditor {
 		$alohaSrcBaseUrl = self::_getAlohaSrcBaseUrl();
 		$alohaPluginsBaseUrl = self::_getAlohaPluginsBaseUrl();
 		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins/', FRONT_END_EDITOR_MAIN_FILE);
-		
+
 		//Include no deps version for development
 		if (defined('SCRIPT_DEBUG')) {
 
@@ -196,14 +196,14 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('aloha.paste', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Paste/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.wordpastehandler', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Paste/wordpastehandler.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.fee', $alohaCustomPluginsBaseUrl. 'com.gentics.aloha.plugins.Fee/plugin.js',$plugindeps,'0.9.3',false);
-		
+
 		// Image Plugin
 		wp_register_script('aloha.image', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.image/plugin.js',$plugindeps,'0.9.3',false);
 		// Drag and Drop plugin
 		wp_register_script('aloha.draganddropfiles.xhruploader', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/deps/Ext.ux.XHRUpload.js',array(),'0.9.3',false);
 		//wp_register_script('aloha.draganddropfiles.uploader', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/lib/uploader.js',array(),'0.9.3',false);
 		wp_register_script('aloha.draganddropfiles.repository', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/lib/DropFilesRepository.js',array(),'0.9.3',false);
-		
+
 		$dragAndDropDependencies = array('aloha.draganddropfiles.xhruploader','aloha.draganddropfiles.repository','aloha.image');
 		//array_push($dragAndDropDependencies,$plugindeps);
 		wp_register_script('aloha.draganddropfiles', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/plugin.js',$dragAndDropDependencies,'0.9.3',false);

@@ -1,12 +1,12 @@
 [submodule "scb"]
 	path = scb
 	url = git@github.com:scribu/wp-scb-framework.git
-[submodule "alohaeditor"]
-	path = alohaeditor
+[submodule "aloha-editor"]
+	path = aloha-editor
 	url = git://github.com/gentics/Aloha-Editor.git
-[submodule "aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles"]
-	path = aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles
-	url = git@github.com:Jotschi/Aloha-Plugin-DragAndDropFiles.git
 [submodule "aloha-plugins/com.gentics.aloha.plugins.Image"]
 	path = aloha-plugins/com.gentics.aloha.plugins.Image
 	url = git@github.com:Jotschi/Aloha-Plugin-Image.git
+[submodule "aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles"]
+	path = aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles
+	url = git@github.com:Jotschi/Aloha-Plugin-DragAndDropFiles.git
