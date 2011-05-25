@@ -26,8 +26,10 @@ abstract class FEE_AlohaEditor {
 			wp_enqueue_script('aloha.table');
 			wp_enqueue_script('aloha.list');
 			wp_enqueue_script('aloha.fee');
-			wp_enqueue_script('aloha.image');
-			wp_enqueue_script('aloha.draganddropfiles');
+			if (defined('ALOHA_FEE_EXPERIMENTAL')) {
+				wp_enqueue_script('aloha.image');
+				wp_enqueue_script('aloha.draganddropfiles');
+			}
 
 			// Load the aloha editor configuration
 			wp_enqueue_script('aloha.config');
