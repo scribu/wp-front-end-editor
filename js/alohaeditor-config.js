@@ -17,6 +17,18 @@ GENTICS.Aloha.settings = {
 		}
 	},
 	"plugins": {
+		"com.gentics.aloha.plugins.DragAndDropFiles": {
+			config : { 'drop' : {'max_file_size': '200000',
+	   										 'upload': {//'uploader_class':GENTICS.Aloha.Uploader, //this is the default
+	   										 			'config': {
+		   										 			'url': '/content/',
+		   										 			'extra_headers':{'Accept':'application/json'},
+		   										 			'additional_params': {"location":""},
+					   										'www_encoded': false 
+					   										}
+	   							}
+					}
+		},
 		"com.gentics.aloha.plugins.Format": {
 			// all elements with no specific configuration get this configuration
 			config : [ 'b', 'i','sub','sup'],

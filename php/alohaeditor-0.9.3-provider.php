@@ -23,12 +23,11 @@ abstract class FEE_AlohaEditor {
 		if (is_user_logged_in() && !is_admin()) {
 			// Load format plugin and all aloha dependencies
 			wp_enqueue_script('aloha.format');
-			//wp_enqueue_script('aloha.highlighteditables');
-			//wp_enqueue_script('aloha.ribbon');
 			wp_enqueue_script('aloha.table');
 			wp_enqueue_script('aloha.list');
 			wp_enqueue_script('aloha.fee');
-
+			wp_enqueue_script('aloha.image');
+			wp_enqueue_script('aloha.draganddropfiles');
 
 			// Load the aloha editor configuration
 			wp_enqueue_script('aloha.config');
@@ -56,7 +55,7 @@ abstract class FEE_AlohaEditor {
 
 		$alohaSrcBaseUrl = self::_getAlohaSrcBaseUrl();
 		$alohaPluginsBaseUrl = self::_getAlohaPluginsBaseUrl();
-		
+		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins', FRONT_END_EDITOR_MAIN_FILE);
 		
 		//Include no deps version for development
 		if (defined('SCRIPT_DEBUG')) {
@@ -194,8 +193,18 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('aloha.link', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Link/LinkList.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.paste', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Paste/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.wordpastehandler', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Paste/wordpastehandler.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha.fee', plugins_url('aloha-plugins', FRONT_END_EDITOR_MAIN_FILE). '/com.gentics.aloha.plugins.Fee/plugin.js',$plugindeps,'0.9.3',false);
+		wp_register_script('aloha.fee', $alohaCustomPluginsBaseUrl. 'com.gentics.aloha.plugins.Fee/plugin.js',$plugindeps,'0.9.3',false);
 		
+		// Image Plugin
+		wp_register_script('aloha.image', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.image/plugin.js',$plugindeps,'0.9.3',false);
+		// Drag and Drop plugin
+		wp_register_script('aloha.draganddropfiles.xhruploader', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/deps/Ext.ux.XHRUpload.js',array(),'0.9.3',false);
+		//wp_register_script('aloha.draganddropfiles.uploader', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/lib/uploader.js',array(),'0.9.3',false);
+		wp_register_script('aloha.draganddropfiles.repository', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/lib/DropFilesRepository.js',array(),'0.9.3',false);
+		
+		$dragAndDropDependencies = array('aloha.draganddropfiles.xhruploader','aloha.draganddropfiles.repository','aloha.image');
+		//array_push($dragAndDropDependencies,$plugindeps);
+		wp_register_script('aloha.draganddropfiles', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/plugin.js',$dragAndDropDependencies,'0.9.3',false);
 		} else {
 			//TODO decide whether we should use the build version
 		}
