@@ -2,7 +2,7 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.change : null,
 
 	start_editing: function () {
-		tb_show(FrontEndEditor.data.image.change, FrontEndEditor.data.image.url);
+		tb_show(this.button_text, FrontEndEditor.data.image.url);
 
 		jQuery('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close);
 
@@ -59,45 +59,27 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 });
 
 
-// Add wpimage button
-if ( jQuery.cleditor ) {
+if ( GENTICS ) {
 
 FrontEndEditor.define_field( 'image_rich', 'image_base', {
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.insert : null,
 
-	ajax_set: function (url) {
-		var editor = this.data.editor;
+	start_editing: function() {
+		jQuery('#GENTICS_floatingmenu_shadow, .GENTICS_floatingmenu').hide();
+		this._super();
+	},
 
-		editor.execCommand(this.data.command, url, null, this.data.button);
+	ajax_set: function (url) {
+		GENTICS.Utils.Dom.insertIntoDOM(
+			jQuery('<img>').attr('src', url),
+			GENTICS.Aloha.Selection.getRangeObject(),
+			jQuery(GENTICS.Aloha.activeEditable.obj)
+		);
 
 		tb_remove();
-		editor.focus();
+		jQuery('#GENTICS_floatingmenu_shadow, .GENTICS_floatingmenu').show();
 	}
 });
-
-(function () {
-	var buttons = jQuery.cleditor.buttons;
-
-	buttons.wpimage = {
-		'command': buttons.image.command,
-		'stripIndex': buttons.image.stripIndex,
-		'title': buttons.image.title,
-		'name': 'wpimage',
-		'popupName': undefined,
-		'buttonClick': function(event, data) {
-			var editor = FrontEndEditor.get_field_instance('image_rich');
-
-			editor.data = data;
-			editor.start_editing();
-
-			return false;
-		}
-	};
-
-	// Add the button to the default controls
-	jQuery.cleditor.defaultOptions.controls = jQuery.cleditor.defaultOptions.controls
-		.replace("image ", "wpimage ");
-}());
 
 }
 

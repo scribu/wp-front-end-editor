@@ -159,3 +159,6 @@ span.fee-form select {
 	background-color: #777;
 }
 
+button.ImageWP {
+	background: url('../aloha-plugins/com.gentics.aloha.plugins.ImageWP/img/image.gif') no-repeat scroll 0 0 transparent !important
+}

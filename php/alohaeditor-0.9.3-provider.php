@@ -26,6 +26,7 @@ abstract class FEE_AlohaEditor {
 			wp_enqueue_script('aloha.table');
 			wp_enqueue_script('aloha.list');
 			wp_enqueue_script('aloha.fee');
+			wp_enqueue_script('aloha.imagewp');
 			if (defined('ALOHA_FEE_EXPERIMENTAL')) {
 				wp_enqueue_script('aloha.image');
 				wp_enqueue_script('aloha.draganddropfiles');
@@ -195,7 +196,8 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('aloha.link', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Link/LinkList.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.paste', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Paste/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha.wordpastehandler', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Paste/wordpastehandler.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha.fee', $alohaCustomPluginsBaseUrl. 'com.gentics.aloha.plugins.Fee/plugin.js',$plugindeps,'0.9.3',false);
+		wp_register_script('aloha.fee', $alohaCustomPluginsBaseUrl. 'com.gentics.aloha.plugins.FEE/plugin.js',$plugindeps,'0.9.3',false);
+		wp_register_script('aloha.imagewp', $alohaCustomPluginsBaseUrl. 'com.gentics.aloha.plugins.ImageWP/plugin.js',$plugindeps,'0.9.3',false);
 
 		// Image Plugin
 		wp_register_script('aloha.image', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.image/plugin.js',$plugindeps,'0.9.3',false);
