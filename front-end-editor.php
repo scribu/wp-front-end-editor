@@ -34,10 +34,8 @@ define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
 function _fee_init() {
 	$dir = dirname( __FILE__ ) . '/php';
 
-	// Load files
 	require_once $dir . '/core.php';
 	require_once $dir . '/alohaeditor-0.9.3-provider.php';
-
 
 	foreach ( array( 'base', 'post', 'taxonomy', 'other' ) as $name ) {
 		require_once "$dir/fields/$name.php";
@@ -46,15 +44,6 @@ function _fee_init() {
 	$options = new scbOptions( 'front-end-editor', __FILE__, array(
 		'disabled' => array('bloginfo'),
 		'rich' => true,
-		'chunks' => false,
-		'cleditor_controls' =>
-			"bold italic strikethrough | " .
-			"alignleft center alignright | " .
-			"font size style | " .
-			"color highlight removeformat | " .
-			"bullets numbering | " .
-			"link wpimage | " .
-			"source"
 	) );
 
 	FEE_Core::init( $options, '2.0.2-alpha' );
@@ -63,7 +52,7 @@ function _fee_init() {
 	FEE_Field_Image::init( __FILE__ );
 
 	if ( is_admin() ) {
-		load_plugin_textdomain( 'front-end-editor', '', dirname( plugin_basename( FRONT_END_EDITOR_MAIN_FILE ) ) . '/lang/admin' );
+		load_plugin_textdomain( 'front-end-editor', '', dirname( plugin_basename( __FILE__ ) ) . '/lang/admin' );
 
 		require_once dirname( __FILE__ ) . '/admin/admin.php';
 		scbAdminPage::register( 'Fee_Admin', __FILE__, $options );

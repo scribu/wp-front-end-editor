@@ -13,7 +13,6 @@ class FEE_Admin extends scbBoxesPage {
 		$this->boxes = array(
 			array( 'fields', __( 'Fields', $this->textdomain ), 'normal' ),
 			array( 'settings', __( 'Settings', $this->textdomain ), 'side' ),
-			array( 'cleditor_controls', __( 'Editor Panel', $this->textdomain ), 'side' )
 		);
 	}
 
@@ -121,58 +120,6 @@ class FEE_Admin extends scbBoxesPage {
 			$out .= html( 'p', $this->input( $row ) );
 
 		echo $this->form_wrap( $out, '', 'save_settings' );
-	}
-
-
-	function cleditor_controls_handler() {
-		if ( !isset( $_POST['save_buttons'] ) )
-			return;
-
-		// TODO: validation
-		$this->options->cleditor_controls = trim( @$_POST['cleditor_controls'] );
-
-		$this->admin_msg();
-	}
-
-	function cleditor_controls_box() {
-		echo html( 'p', __( 'Customize WYSIWYG editor controls:', $this->textdomain ) );
-
-		$out = $this->input( array(
-			'type' => 'textarea',
-			'name' => 'cleditor_controls',
-			'extra' => array( 'id' => false )
-		), $this->options->get() );
-
-		$out .= 
-		html( 'div', array( 'id' => 'cleditor_controls_profiles' ),
-			html( 'a', array( 'data-profile' => 'full', 'href' => '#' ), __( 'All', $this->textdomain ) ),
-			' | ',
-			html( 'a', array( 'data-profile' => 'default', 'href' => '#' ), __( 'Default', $this->textdomain ) )
-		);
-
-		echo $this->form_wrap( $out, '', 'save_buttons' );
-?>
-
-<script>
-jQuery(document).ready(function ($) {
-	var profiles = {
-		'full':
-			"bold italic underline strikethrough subscript superscript | font size " +
-			"style | color highlight removeformat | bullets numbering | outdent " +
-			"indent | alignleft center alignright justify | undo redo | " +
-			"rule wpimage link unlink | cut copy paste pastetext | print source",
-		'default':
-			"<?php echo $this->options->get_defaults( 'cleditor_controls' ); ?>"
-	}
-
-	$('#cleditor_controls_profiles').delegate( 'a', 'click', function () {
-		$('#cleditor_controls textarea').val( profiles[ $(this).attr( 'data-profile' ) ] );
-
-		return false;
-	});
-});
-</script>
-<?php
 	}
 }
 
