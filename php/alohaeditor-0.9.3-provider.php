@@ -55,7 +55,7 @@ abstract class FEE_AlohaEditor {
 
 		$alohaSrcBaseUrl = self::_getAlohaSrcBaseUrl();
 		$alohaPluginsBaseUrl = self::_getAlohaPluginsBaseUrl();
-		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins', FRONT_END_EDITOR_MAIN_FILE);
+		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins/', FRONT_END_EDITOR_MAIN_FILE);
 		
 		//Include no deps version for development
 		if (defined('SCRIPT_DEBUG')) {
