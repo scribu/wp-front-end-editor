@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress/front-end-editor
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: trunk
+Stable tag: 2.0.1
 
 Edit content inline, without going to the admin area.
 
@@ -70,6 +70,9 @@ where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CS
 5. The settings page
 
 == Changelog ==
+
+= 2.0.2 =
+* made Edit button follow mouse vertically and removed top border
 
 = 2.0.1 =
 * removed right and bottom borders when hovering

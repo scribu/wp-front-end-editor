@@ -75,7 +75,9 @@ abstract class FEE_Field_Base {
 
 		$data_attr['class'] = 'fee-field';
 
-		return html( 'span', $data_attr, $content );
+		$wrap_tag = in_array( $data['type'], array( 'textarea', 'rich', 'widget' ) ) ? 'div' : 'span';
+
+		return html( $wrap_tag, $data_attr, $content );
 	}
 
 	/**
@@ -109,7 +111,7 @@ abstract class FEE_Field_Base {
 	}
 
 	protected function placehold( $content ) {
-		if ( '' === $content )
+		if ( '' === (string) $content )
 			$content = $this->placeholder();
 
 		return $content;
