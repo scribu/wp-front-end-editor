@@ -111,7 +111,7 @@ abstract class FEE_Field_Base {
 	}
 
 	protected function placehold( $content ) {
-		if ( '' === $content )
+		if ( '' === (string) $content )
 			$content = $this->placeholder();
 
 		return $content;
