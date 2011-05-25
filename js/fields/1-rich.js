@@ -39,7 +39,7 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 			this.el.removeClass('GENTICS_editable');
 			this.lastActiveEditable = GENTICS.Aloha.activeEditable;
 			GENTICS.Aloha.activeEditable.blur();
-			GENTICS.Aloha.activeEditable.disable();
+  		    GENTICS.Aloha.activeEditable.disable();
 		}
 
 		this.ajax_set(editableDiv.editable.getContents());
