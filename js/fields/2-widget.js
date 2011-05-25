@@ -1,38 +1,37 @@
-(function() {
+FrontEndEditor.define_field( 'widget', 'textarea', {
 
-var ancestor = FrontEndEditor.is_field_defined('rich') ? 'rich' : 'textarea';
-
-FrontEndEditor.define_field( 'widget', ancestor, {
+	start: function () {
+		this._rich = (0 === this.data.widget_id.indexOf('text-') && FrontEndEditor.is_field_defined('rich'));
+		this._super();
+	},
 
 	create_input: jQuery.noop,
 
 	content_to_input: function (content) {
-		var self = this;
+		this.input = jQuery(content);
 
-		self.input = jQuery(content);
+		this.form.prepend(content);
 
-		self.form.prepend(content);
-
-		if ( 0 == self.data.widget_id.indexOf('text-') && 'rich' == ancestor ) {
-			self.init_cleditor( self.form.find('textarea') );
+		if (this._rich) {
+			this.form.find('textarea').aloha();
 		}
 	},
 
-	content_from_input: function () {
-		var self = this;
-
-		return self.form.find('textarea').val();
-	},
-
 	ajax_args: function (args) {
-		var self = this;
+		var self = this, raw_data;
 
 		args = self._super(args);
 
 		if ( 'get' == args.callback )
 			return args;
 
-		var raw_data = self.form.find(':input').serializeArray();
+		if (self._rich) {
+			jQuery.each(GENTICS.Aloha.editables, function (i, editable) {
+				self.form.find('textarea').val( editable.getContents() );
+			});
+		}
+
+		raw_data = self.form.find(':input').serializeArray();
 
 		jQuery.each(args, function (name, value) {
 			raw_data.push({'name': name, 'value': value});
@@ -45,5 +44,3 @@ FrontEndEditor.define_field( 'widget', ancestor, {
 		return raw_data;
 	}
 });
-
-}());

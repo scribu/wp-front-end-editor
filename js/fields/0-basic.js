@@ -38,7 +38,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 	ajax_set: function (contentData) {
 		var data = this.ajax_args({
 			callback: 'save',
-			content: contentData!= undefined ? contentData : this.content_from_input()
+			content: contentData || this.content_from_input()
 		});
 
 		this.overlay.show();
