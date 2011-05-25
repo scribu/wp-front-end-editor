@@ -27,7 +27,7 @@ GENTICS.Aloha.settings = {
 					   										'www_encoded': false 
 					   										}
 	   							}
-					}
+			}     }
 		},
 		"com.gentics.aloha.plugins.Format": {
 			// all elements with no specific configuration get this configuration
