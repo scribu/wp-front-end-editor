@@ -12,12 +12,13 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 			var $thickbox = jQuery(ev.target).contents();
 
 			self.thickbox_load($thickbox);
+
+			if ( jQuery.noop !== self.media_item_manipulation )
+				self.media_item_handler($thickbox);
 		});
 	},
 
-	thickbox_load: null,
-
-	fetch_image_html: function ($thickbox) {
+	thickbox_load: function ($thickbox) {
 		var self = this;
 
 		$thickbox.delegate('.media-item :submit', 'click', function () {
@@ -38,7 +39,7 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 		});
 	},
 
-	replace_button: function ($thickbox) {
+	media_item_handler: function ($thickbox) {
 		var self = this;
 
 		$thickbox.delegate('.media-item', 'mouseenter', function () {
@@ -52,11 +53,15 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 				return;	// already modified
 			}
 
-			$item.find('#go_button').remove();
-			$item.find(':submit').val(self.button_text);
+			self.media_item_manipulation($item);
 
 			$item.data('fee_altered', true);
 		});
+	},
+
+	media_item_manipulation: function ($item) {
+		$item.find('#go_button').remove();
+		$item.find(':submit').val(this.button_text);
 	}
 });
 
@@ -71,9 +76,7 @@ FrontEndEditor.define_field( 'image_rich', 'image_base', {
 		this._super();
 	},
 
-	thickbox_load: function ($thickbox) {
-		this.fetch_image_html($thickbox);
-	},
+	media_item_manipulation: jQuery.noop,
 
 	image_html_handler: function (html) {
 		GENTICS.Utils.Dom.insertIntoDOM(
@@ -106,10 +109,9 @@ FrontEndEditor.define_field( 'image', 'image_base', {
 			.insertAfter('#TB_ajaxWindowTitle');
 	},
 
-	thickbox_load: function ($thickbox) {
-		// TODO: hide the image link UI
-		this.replace_button($thickbox);
-		this.fetch_image_html($thickbox);
+	media_item_manipulation: function($item) {
+		$item.find('tbody tr').not('.image-size, .submit').remove();
+		this._super($item);
 	},
 
 	image_html_handler: function (html) {
@@ -140,8 +142,6 @@ FrontEndEditor.define_field( 'thumbnail', 'image', {
 
 		$thickbox.find('#tab-type_url').remove();
 
-		self.replace_button($thickbox);
-
 		$thickbox.delegate('.media-item :submit', 'click', function () {
 			var
 				$item = jQuery(this).closest('.media-item'),
@@ -151,6 +151,11 @@ FrontEndEditor.define_field( 'thumbnail', 'image', {
 
 			return false;
 		});
+	},
+
+	media_item_manipulation: function($item) {
+		$item.find('tbody tr').not('.submit').remove();
+		this._super($item);
 	}
 });
 
