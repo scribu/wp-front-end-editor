@@ -26,10 +26,11 @@ abstract class FEE_Core {
 		if ( !is_user_logged_in() || apply_filters( 'front_end_editor_disable', false ) ) {
 			return;
 		}
+
 		// Aloha Editor
-		FEE_AlohaEditor::registerAloha();
-		FEE_AlohaEditor::enqueueAloha();
-			
+		FEE_AlohaEditor::register();
+		FEE_AlohaEditor::enqueue();
+
 		add_action( 'wp_head', array( __CLASS__, 'add_filters' ), 100 );
 		add_action( 'wp_footer', array( __CLASS__, 'scripts' ) );
 	}
@@ -63,7 +64,7 @@ abstract class FEE_Core {
 				'src' => self::get_src('suggest')
 			);
 		}
-		
+
 
 		// Thickbox
 		if ( count( array_intersect( array( 'image', 'thumbnail', 'rich' ), $wrapped ) ) ) {
@@ -98,7 +99,7 @@ abstract class FEE_Core {
 		}
 
 		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, self::$version );
-		
+
 ?>
 <script type='text/javascript'>
 var FrontEndEditor = {};

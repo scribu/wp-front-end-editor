@@ -1,36 +1,32 @@
 <?php
 
 /**
- * This class handles all aloha specific actions like configuration and script dependency management
- * It will provide aloha editor version 0.9.3
+ * This class handles all Aloha specific actions like configuration and script dependency management
+ * It will provide Aloha Editor version 0.9.3
  */
 abstract class FEE_AlohaEditor {
 
 	/**
-	 * Enqueues the aloha editor dependencies depending on user status.
-	 * Enqueuing will only performed if the user is loggedin and outsite
-	 * of the admin area (dashboard).
+	 * Enqueues the Aloha Editor scripts
 	 */
-	static function enqueueAloha() {
-		if (is_user_logged_in() && !is_admin()) {
-			wp_enqueue_script('aloha-plugin-format');
-			wp_enqueue_script('aloha-plugin-link');
-			wp_enqueue_script('aloha-plugin-list');
-			wp_enqueue_script('aloha-plugin-table');
-			wp_enqueue_script('aloha-plugin-fee');
-			wp_enqueue_script('aloha-plugin-imagewp');
+	static function enqueue() {
+		wp_enqueue_script('aloha-plugin-format');
+		wp_enqueue_script('aloha-plugin-link');
+		wp_enqueue_script('aloha-plugin-list');
+		wp_enqueue_script('aloha-plugin-table');
+		wp_enqueue_script('aloha-plugin-fee');
+		wp_enqueue_script('aloha-plugin-imagewp');
 
-			if (defined('ALOHA_FEE_EXPERIMENTAL')) {
-				wp_enqueue_script('aloha-plugin-image');
-				wp_enqueue_script('aloha-plugin-draganddropfiles');
-			}
+		if ( defined('ALOHA_FEE_EXPERIMENTAL') ) {
+			wp_enqueue_script('aloha-plugin-image');
+			wp_enqueue_script('aloha-plugin-draganddropfiles');
 		}
 	}
 
 	/**
-	 * Registers the aloha editor depdencies and plugins
+	 * Registers the Aloha Editor depdencies and plugins
 	 */
-	static function registerAloha() {
+	static function register() {
 		$alohaSrcBaseUrl = plugins_url('aloha-editor/WebContent/', FRONT_END_EDITOR_MAIN_FILE);
 		$alohaPluginsBaseUrl = plugins_url('aloha-editor/WebContent/plugins/', FRONT_END_EDITOR_MAIN_FILE);
 		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins/', FRONT_END_EDITOR_MAIN_FILE);
