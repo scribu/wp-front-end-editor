@@ -2,18 +2,47 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.change : null,
 
 	start_editing: function () {
-		tb_show(this.button_text, FrontEndEditor.data.image.url);
+		var self = this;
+
+		tb_show(self.button_text, FrontEndEditor.data.image.url);
 
 		jQuery('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close);
 
-		jQuery('#TB_iframeContent').load(jQuery.proxy(this, 'replace_button'));
+		jQuery('#TB_iframeContent').load( function (ev) {
+			var $thickbox = jQuery(ev.target).contents();
+
+			self.thickbox_load($thickbox);
+		});
 	},
 
-	replace_button: function (ev) {
+	thickbox_load: null,
+
+	fetch_image_html: function ($thickbox) {
 		var self = this;
 
-		jQuery(ev.target).contents().delegate('.media-item', 'mouseenter', function () {
-			var $item = jQuery(this), $button;
+		$thickbox.delegate('.media-item :submit', 'click', function () {
+			var
+				$button = jQuery(this),
+				data = $button.closest('form').serializeArray();
+
+			data.push({name: $button.attr('name'), value: $button.attr('name')});
+			data.push({name: 'action', value: 'fee_image_insert'});
+
+			jQuery.post(
+				FrontEndEditor.data.ajax_url,
+				data,
+				jQuery.proxy(self, 'image_html_handler')
+			);
+
+			return false;
+		});
+	},
+
+	replace_button: function ($thickbox) {
+		var self = this;
+
+		$thickbox.delegate('.media-item', 'mouseenter', function () {
+			var $item = jQuery(this);
 
 			if ( !$item.find('.pinkynail').length ) {
 				return;	// not done uploading yet
@@ -21,40 +50,13 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 
 			if ( $item.data('fee_altered') ) {
 				return;	// already modified
-			}				
+			}
 
-			$button = jQuery('<a href="#" class="button">')
-				.text(self.button_text)
-				.click(function (ev) {
-					self.ajax_set(self.content_from_input($item));
-				});
-
-			$item.find(':submit, #go_button').remove();
-			$item.find('.del-link').before($button);
+			$item.find('#go_button').remove();
+			$item.find(':submit').val(self.button_text);
 
 			$item.data('fee_altered', true);
 		});
-	},
-
-	content_from_input: function ($item) {
-		var $field;
-
-		// Media library
-		$field = $item.find('.urlfile');
-		if ( $field.length )
-			return $field.attr('title');
-
-		// From URL (embed)
-		$field = $item.find('#embed-src');
-		if ( $field.length )
-			return $field.val();
-
-		// From URL
-		$field = $item.find('#src');
-		if ( $field.length )
-			return $field.val();
-
-		return false;
 	}
 });
 
@@ -69,28 +71,11 @@ FrontEndEditor.define_field( 'image_rich', 'image_base', {
 		this._super();
 	},
 
-	replace_button: function (ev) {
-		var self = this;
-
-		jQuery(ev.target).contents().delegate('.media-item :submit', 'click', function () {
-			var
-				$button = jQuery(this),
-				data = $button.closest('form').serializeArray();
-
-			data.push({name: $button.attr('name'), value: $button.attr('name')});
-			data.push({name: 'action', value: 'fee_image_insert'});
-
-			jQuery.post(
-				FrontEndEditor.data.ajax_url,
-				data,
-				jQuery.proxy(self, 'ajax_set_handler')
-			);
-
-			return false;
-		});
+	thickbox_load: function ($thickbox) {
+		this.fetch_image_html($thickbox);
 	},
 
-	ajax_set_handler: function (html) {
+	image_html_handler: function (html) {
 		GENTICS.Utils.Dom.insertIntoDOM(
 			jQuery(html),
 			GENTICS.Aloha.Selection.getRangeObject(),
@@ -107,28 +92,41 @@ FrontEndEditor.define_field( 'image_rich', 'image_base', {
 
 FrontEndEditor.define_field( 'image', 'image_base', {
 
-	start_editing: function (ev) {
+	start_editing: function () {
 		var self = this;
 
-		self._super(ev);
+		self._super();
 
 		jQuery('<a id="fee-img-revert" href="#">')
 			.text(FrontEndEditor.data.image.revert)
 			.click(function (ev) {
 				self.ajax_set(-1);
+				return false;
 			})
 			.insertAfter('#TB_ajaxWindowTitle');
 	},
 
+	thickbox_load: function ($thickbox) {
+		// TODO: hide the image link UI
+		this.replace_button($thickbox);
+		this.fetch_image_html($thickbox);
+	},
+
+	image_html_handler: function (html) {
+		var $html = jQuery(html);
+		if ( $html.is('a') )
+			$html = $html.find('img');
+
+		this.ajax_set( $html.attr('src') );
+	},
+
 	ajax_set_handler: function (response) {
-		var
-			self = this,
-			url = response.content;
+		var url = response.content;
 
 		if ( '-1' === url ) {
 			location.reload(true);
 		} else {
-			self.el.find('img').attr('src', url);
+			this.el.find('img').attr('src', url);
 			tb_remove();
 		}
 	}
@@ -136,16 +134,23 @@ FrontEndEditor.define_field( 'image', 'image_base', {
 
 
 FrontEndEditor.define_field( 'thumbnail', 'image', {
-	replace_button: function (ev) {
+
+	thickbox_load: function ($thickbox) {
 		var self = this;
 
-		jQuery(ev.target).contents().find('#tab-type_url').remove();
+		$thickbox.find('#tab-type_url').remove();
 
-		self._super(ev);
-	},
+		self.replace_button($thickbox);
 
-	content_from_input: function ($item) {
-		return $item.attr('id').replace('media-item-', '');
+		$thickbox.delegate('.media-item :submit', 'click', function () {
+			var
+				$item = jQuery(this).closest('.media-item'),
+				attr_id = $item.attr('id').replace('media-item-', '');
+
+			self.ajax_set(attr_id);
+
+			return false;
+		});
 	}
 });
 
