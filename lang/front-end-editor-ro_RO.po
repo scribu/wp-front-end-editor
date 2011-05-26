@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
-"POT-Creation-Date: 2011-04-23 15:13:51+00:00\n"
-"PO-Revision-Date: 2011-04-23 18:16+0200\n"
+"POT-Creation-Date: 2011-05-26 13:41:44+00:00\n"
+"PO-Revision-Date: 2011-05-26 16:42+0200\n"
 "Last-Translator: scribu <mail@scribu.net>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "Language: \n"
@@ -29,41 +29,21 @@ msgstr "Câmpuri"
 msgid "Settings"
 msgstr "Setări"
 
-#: admin/admin.php:16
-msgid "Editor Panel"
-msgstr "Panou editor"
-
-#: admin/admin.php:64
+#: admin/admin.php:63
 msgid "Enable or disable editable fields:"
 msgstr "Activează sau dezactivează câmpurile editabile:"
 
-#: admin/admin.php:66
+#: admin/admin.php:65
 msgid "Post fields"
 msgstr "Câmpuri articol"
 
-#: admin/admin.php:67
+#: admin/admin.php:66
 msgid "Other fields"
 msgstr "Alte câmpuri"
 
-#: admin/admin.php:107
+#: admin/admin.php:106
 msgid "Enable the WYSIWYG editor."
 msgstr "Activează editorul WYSIWYG."
-
-#: admin/admin.php:113
-msgid "Edit one paragraph at a time, instead of an entire post."
-msgstr "Editează câte un singur paragraf, în loc de articolul întreg."
-
-#: admin/admin.php:138
-msgid "Customize WYSIWYG editor controls:"
-msgstr "Personalizează controalele editorului WYSIWYG:"
-
-#: admin/admin.php:148
-msgid "All"
-msgstr "Toate"
-
-#: admin/admin.php:150
-msgid "Default"
-msgstr "Implicit"
 
 #: scb/AdminPage.php:165
 msgid "Settings <strong>saved</strong>."
@@ -74,196 +54,248 @@ msgstr "Setări <strong>salvate</strong>."
 msgid "Save Changes"
 msgstr "Salvează schimbările"
 
-#: front-end-editor.php:76
+#: front-end-editor.php:68
 msgid "Post title"
 msgstr "Titlu articol"
 
-#: front-end-editor.php:83
+#: front-end-editor.php:75
 msgid "Post content"
 msgstr "Conținut articol"
 
-#: front-end-editor.php:94
+#: front-end-editor.php:86
 msgid "Post excerpt"
 msgstr "Extras articol"
 
-#: front-end-editor.php:100
+#: front-end-editor.php:92
 msgid "Post categories"
 msgstr "Categorii articol"
 
-#: front-end-editor.php:107
+#: front-end-editor.php:99
 msgid "Post tags"
 msgstr "Etichete articol"
 
-#: front-end-editor.php:114
+#: front-end-editor.php:106
 msgid "Post terms"
 msgstr "Termeni articol"
 
-#: front-end-editor.php:121
+#: front-end-editor.php:113
 msgid "Post custom fields"
 msgstr "Câmpuri personalizate articol"
 
-#: front-end-editor.php:127
+#: front-end-editor.php:119
 msgid "Post thumbnail"
 msgstr "Miniatură articol"
 
-#: front-end-editor.php:134
+#: front-end-editor.php:126
 msgid "Comment text"
 msgstr "Text comentariu"
 
-#: front-end-editor.php:140
+#: front-end-editor.php:132
 msgid "Category title"
 msgstr "Titlu categorie"
 
-#: front-end-editor.php:145
+#: front-end-editor.php:137
 msgid "Tag title"
 msgstr "Titlu etichetă"
 
-#: front-end-editor.php:150
+#: front-end-editor.php:142
 msgid "Term description"
 msgstr "Descriere termen"
 
-#: front-end-editor.php:157
+#: front-end-editor.php:149
 msgid "Author description"
 msgstr "Descriere autor"
 
-#: front-end-editor.php:164
+#: front-end-editor.php:156
 msgid "Widgets"
 msgstr "Widget-uri"
 
-#: front-end-editor.php:170
+#: front-end-editor.php:162
 msgid "Site title and description"
 msgstr "Titlu și descriere site"
 
-#: front-end-editor.php:176
+#: front-end-editor.php:168
 msgid "Site options"
 msgstr "Setări site"
 
-#: front-end-editor.php:182
+#: front-end-editor.php:174
 msgid "Theme images"
 msgstr "Imagini temă"
 
-#: php/fields/taxonomy.php:49
+#: php/fields/taxonomy.php:53
 msgid "&mdash; None &mdash;"
 msgstr "&mdash; Nici una &mdash;"
 
-#: php/fields/post.php:84
+#: php/fields/post.php:93
 msgid "Error: %s is currently editing this."
 msgstr "Eroare: %s editează asta acum."
 
-#: php/fields/base.php:109
+#: php/fields/base.php:110
 msgid "empty"
 msgstr "gol"
 
-#: php/fields/base.php:128
+#: php/fields/base.php:129
 msgid "no"
 msgstr "nu"
 
-#: php/fields/base.php:129
+#: php/fields/base.php:130
 msgid "yes"
 msgstr "da"
 
-#: php/core.php:41
+#: php/core.php:46
 msgid "Edit"
 msgstr "Editează"
 
-#: php/core.php:42
+#: php/core.php:47
 msgid "Save"
 msgstr "Salvează"
 
-#: php/core.php:43
+#: php/core.php:48
 msgid "Cancel"
 msgstr "Anulează"
 
-#: php/core.php:95
+#: php/core.php:72
 msgid "Change Image"
 msgstr "Schimbă imaginea"
 
-#: php/core.php:96
+#: php/core.php:73
 msgid "Insert Image"
 msgstr "Inserează imagine"
 
-#: php/core.php:97
+#: php/core.php:74
 msgid "Clear"
 msgstr "Golește"
 
+#~ msgid "Edit one paragraph at a time, instead of an entire post."
+#~ msgstr "Editează câte un singur paragraf, în loc de articolul întreg."
+
+#~ msgid "Editor Panel"
+#~ msgstr "Panou editor"
+
+#~ msgid "Customize WYSIWYG editor controls:"
+#~ msgstr "Personalizează controalele editorului WYSIWYG:"
+
+#~ msgid "All"
+#~ msgstr "Toate"
+
+#~ msgid "Default"
+#~ msgstr "Implicit"
+
 #~ msgid "Highlight editable elements."
 #~ msgstr "Scoate în evidență elementele editabile."
+
 #~ msgid "Display a tooltip above editable elements."
 #~ msgstr "Afișează un tooltip deasupra elementelor editabile."
+
 #~ msgid "Double-click to edit"
 #~ msgstr "Fă dublu-click pentru a edita"
+
 #~ msgid ""
 #~ "Allows you to edit your posts without going through the admin interface"
 #~ msgstr ""
 #~ "Permite editarea articolelor fără a merge în interfața de administrare"
+
 #~ msgid "Enable or disable editor buttons"
 #~ msgstr "Activează sau dezactivează butoane ale editorului"
+
 #~ msgid "Button"
 #~ msgstr "Buton"
+
 #~ msgid "Click to Bold"
 #~ msgstr "Îngroșat"
+
 #~ msgid "Click to Italic"
 #~ msgstr "Italic"
+
 #~ msgid "Click to Underline"
 #~ msgstr "Subliniat"
+
 #~ msgid "Left Align"
 #~ msgstr "Aliniere la stânga"
+
 #~ msgid "Center Align"
 #~ msgstr "Aliniere la centru"
+
 #~ msgid "Right Align"
 #~ msgstr "Aliniere la dreapta"
+
 #~ msgid "Justify Align"
 #~ msgstr "Aliniere justificată"
+
 #~ msgid "Insert Ordered List"
 #~ msgstr "Listă ordonată"
+
 #~ msgid "Insert Unordered List"
 #~ msgstr "Listă neordonată"
+
 #~ msgid "Click to Subscript"
 #~ msgstr "Indice inferior"
+
 #~ msgid "Click to Superscript"
 #~ msgstr "Indice superior"
+
 #~ msgid "Click to Strike Through"
 #~ msgstr "Barare"
+
 #~ msgid "Remove Formatting"
 #~ msgstr "Înlăturare formatare"
+
 #~ msgid "Indent Text"
 #~ msgstr "Avans la paragraf"
+
 #~ msgid "Remove Indent"
 #~ msgstr "Înlăturare avans"
+
 #~ msgid "Horizontal Rule"
 #~ msgstr "Bară orizontală"
+
 #~ msgid "Select Font Size"
 #~ msgstr "Mărimea fontului"
+
 #~ msgid "Select Font Family"
 #~ msgstr "Font"
+
 #~ msgid "Select Font Format"
 #~ msgstr "Format font"
+
 #~ msgid "Add Link"
 #~ msgstr "Adaugă legătură"
+
 #~ msgid "Remove Link"
 #~ msgstr "Înlătură legătură"
+
 #~ msgid "Change Text Color"
 #~ msgstr "Culoare text"
+
 #~ msgid "Change Background Color"
 #~ msgstr "Culoare fundal"
+
 #~ msgid "Add Image"
 #~ msgstr "Adaugă imagine"
+
 #~ msgid "Upload Image"
 #~ msgstr "Încarcă imagine"
+
 #~ msgid "Reset the post date on each edit"
 #~ msgstr "Resetează data postului la fiecare editare"
+
 #~ msgid "Text widget content"
 #~ msgstr "Conținut widget text"
+
 #~ msgid "Rich text editor"
 #~ msgstr "Editor de text avansat"
+
 #~ msgid "Edit paragraphs"
 #~ msgstr "Editează paragrafe"
+
 #~ msgid "Date reset"
 #~ msgstr "Resetare dată"
+
 #~ msgid "Field name"
 #~ msgstr "Nume câmp"
+
 #~ msgid "Save changes"
 #~ msgstr "Salvează schimbările"
+
 #~ msgid "[none]"
 #~ msgstr "[niciuna]"
-

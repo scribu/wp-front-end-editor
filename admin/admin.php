@@ -107,12 +107,6 @@ class FEE_Admin extends scbBoxesPage {
 				'type' => 'checkbox',
 				'name' => 'rich',
 			),
-
-			array(
-				'desc' => __( 'Edit one paragraph at a time, instead of an entire post.', $this->textdomain ),
-				'type' => 'checkbox',
-				'name' => 'chunks',
-			),
 		);
 
 		$out = '';
