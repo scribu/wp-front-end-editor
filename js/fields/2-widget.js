@@ -1,7 +1,7 @@
 FrontEndEditor.define_field( 'widget', 'textarea', {
 
 	start: function () {
-		this._rich = (0 === this.data.widget_id.indexOf('text-') && FrontEndEditor.is_field_defined('rich'));
+		this._rich = (0 === this.data.widget_id.indexOf('text-') && typeof GENTICS !== 'undefined');
 		this._super();
 	},
 

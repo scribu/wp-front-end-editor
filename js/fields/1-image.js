@@ -69,7 +69,7 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 });
 
 
-if ( GENTICS ) {
+if ( typeof GENTICS !== 'undefined' ) {
 
 FrontEndEditor.define_field( 'image_rich', 'image_base', {
 	button_text: FrontEndEditor.data.image ? FrontEndEditor.data.image.insert : null,

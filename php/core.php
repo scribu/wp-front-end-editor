@@ -28,8 +28,10 @@ abstract class FEE_Core {
 		}
 
 		// Aloha Editor
-		FEE_AlohaEditor::register();
-		FEE_AlohaEditor::enqueue();
+		if ( self::$options->rich ) {
+			FEE_AlohaEditor::register();
+			FEE_AlohaEditor::enqueue();
+		}
 
 		add_action( 'wp_head', array( __CLASS__, 'add_filters' ), 100 );
 		add_action( 'wp_footer', array( __CLASS__, 'scripts' ) );
