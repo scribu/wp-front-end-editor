@@ -69,9 +69,30 @@ FrontEndEditor.define_field( 'image_rich', 'image_base', {
 		this._super();
 	},
 
-	ajax_set: function (url) {
+	replace_button: function (ev) {
+		var self = this;
+
+		jQuery(ev.target).contents().delegate('.media-item :submit', 'click', function () {
+			var
+				$button = jQuery(this),
+				data = $button.closest('form').serializeArray();
+
+			data.push({name: $button.attr('name'), value: $button.attr('name')});
+			data.push({name: 'action', value: 'fee_image_insert'});
+
+			jQuery.post(
+				FrontEndEditor.data.ajax_url,
+				data,
+				jQuery.proxy(self, 'ajax_set_handler')
+			);
+
+			return false;
+		});
+	},
+
+	ajax_set_handler: function (html) {
 		GENTICS.Utils.Dom.insertIntoDOM(
-			jQuery('<img>').attr('src', url),
+			jQuery(html),
 			GENTICS.Aloha.Selection.getRangeObject(),
 			jQuery(GENTICS.Aloha.activeEditable.obj)
 		);

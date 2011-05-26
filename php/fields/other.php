@@ -64,7 +64,7 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 
 	function wrap( $content, $term_id, $taxonomy ) {
 		$data = compact( 'term_id', 'taxonomy' );
-	
+
 		if ( !$this->check( $data ) )
 			return $content;
 
@@ -275,7 +275,7 @@ class FEE_Field_Bloginfo extends FEE_Field_Base {
 
 	function get( $data ) {
 		extract( $data );
-	
+
 		return get_option( 'blog' . $show );
 	}
 
@@ -392,7 +392,17 @@ class FEE_Field_Image extends FEE_Field_Base {
 	}
 
 	static function init( $file ) {
+		add_action( 'wp_ajax_fee_image_insert', array( __CLASS__, 'image_insert' ) );
 		register_uninstall_hook( $file, array( __CLASS__, 'uninstall' ) );
+	}
+
+	static function image_insert() {
+		add_filter( 'media_send_to_editor', array( __CLASS__, '_capture_html' ), 99 );
+		media_upload_form_handler();
+	}
+
+	static function _capture_html( $html ) {
+		die( $html );
 	}
 
 	static function uninstall() {
