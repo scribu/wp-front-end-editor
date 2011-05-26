@@ -30,7 +30,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 require dirname( __FILE__ ) . '/scb/load.php';
 
 define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
-define( 'SCRIPT_DEBUG',true); 
 
 function _fee_init() {
 	$dir = dirname( __FILE__ ) . '/php';
@@ -83,7 +82,7 @@ function fee_register_defaults() {
 		'the_content' => array(
 			'title' => __( 'Post content', 'front-end-editor' ),
 			'class' => FEE_Core::$options->chunks ? 'FEE_Field_Chunks' : 'FEE_Field_Post',
-			'type'  => FEE_Core::$options->rich ? 'rich' : 'textarea',
+			'type'  => 'rich',
 		),
 
 		'editable' => array(
