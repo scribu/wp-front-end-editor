@@ -21,6 +21,7 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 	thickbox_load: function ($thickbox) {
 		var self = this;
 
+		// Submit the form to our own ajax handler, to get back the HTML
 		$thickbox.delegate('.media-item :submit', 'click', function () {
 			var
 				$button = jQuery(this),
@@ -42,6 +43,8 @@ FrontEndEditor.define_field( 'image_base', 'base', {
 	media_item_handler: function ($thickbox) {
 		var self = this;
 
+		// Jump through hoops to manipulate each media item,
+		// including those that have just been uploaded
 		$thickbox.delegate('.media-item', 'mouseenter', function () {
 			var $item = jQuery(this);
 
@@ -100,6 +103,7 @@ FrontEndEditor.define_field( 'image', 'image_base', {
 
 		self._super();
 
+		// Add a Revert button to the thickbox chrome
 		jQuery('<a id="fee-img-revert" href="#">')
 			.text(FrontEndEditor.data.image.revert)
 			.click(function (ev) {
@@ -145,9 +149,9 @@ FrontEndEditor.define_field( 'thumbnail', 'image', {
 		$thickbox.delegate('.media-item :submit', 'click', function () {
 			var
 				$item = jQuery(this).closest('.media-item'),
-				attr_id = $item.attr('id').replace('media-item-', '');
+				attachment_id = $item.attr('id').replace('media-item-', '');
 
-			self.ajax_set(attr_id);
+			self.ajax_set(attachment_id);
 
 			return false;
 		});
