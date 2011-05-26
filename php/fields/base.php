@@ -53,6 +53,9 @@ abstract class FEE_Field_Base {
 			'type' => $this->input_type
 		) );
 
+		if ( 'rich' == $data['type'] && !FEE_Core::$options->rich )
+			$data['type'] = 'textarea';
+
 		self::$wrapped[ $data['type'] ] = true;
 
 		if ( is_null( $content ) )

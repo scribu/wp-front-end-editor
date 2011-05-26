@@ -74,7 +74,7 @@ function fee_register_defaults() {
 		'the_content' => array(
 			'title' => __( 'Post content', 'front-end-editor' ),
 			'class' => 'FEE_Field_Post',
-			'type'  => FEE_Core::$options->rich ? 'rich' : 'textarea',
+			'type'  => 'rich',
 		),
 
 		'editable' => array(
