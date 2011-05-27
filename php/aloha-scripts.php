@@ -10,6 +10,13 @@ abstract class FEE_AlohaEditor {
 	 * Enqueues the Aloha Editor scripts
 	 */
 	static function enqueue() {
+		wp_enqueue_style( 'aloha' );
+		wp_enqueue_style( 'ext' );
+		wp_enqueue_style( 'ext-theme-gray' );
+		wp_enqueue_style( 'pretty-photo' );
+		wp_enqueue_style( 'aloha-table' );
+		wp_enqueue_style( 'aloha-link' );
+
 		wp_enqueue_script('aloha-plugin-format');
 		wp_enqueue_script('aloha-plugin-link');
 		wp_enqueue_script('aloha-plugin-list');
@@ -136,7 +143,7 @@ abstract class FEE_AlohaEditor {
 			'aloha-ui',
 			'aloha-ui-attributefield',
 			'aloha-ui-browser',
-			'aloha-css',
+		//	'aloha-css',
 			'aloha-editable',
 			'aloha-ribbon',
 			'aloha-event',
@@ -154,6 +161,15 @@ abstract class FEE_AlohaEditor {
 			'aloha-repositoryobjects'
 		);
 
+		// register styles
+		wp_register_style( 'aloha', $alohaSrcBaseUrl . 'css/aloha.css', array(), '0.9.3' );
+	//	wp_register_style( 'ext', $alohaSrcBaseUrl . 'deps/extjs/resources/css/ext-all.css', array(), '0.9.3' );
+		wp_register_style( 'ext', plugins_url( 'css/ext-all.css', FRONT_END_EDITOR_MAIN_FILE ), array(), '0.9.3' ); // remove extraneous CSS reset
+		wp_register_style( 'ext-theme-gray', $alohaSrcBaseUrl . 'deps/extjs/resources/css/xtheme-gray.css', array(), '0.9.3' );
+		wp_register_style( 'pretty-photo', $alohaSrcBaseUrl . 'deps/prettyPhoto/resources/css/prettyPhoto.css', array(), '0.9.3' );
+		wp_register_style( 'aloha-highlight', $alohaSrcBaseUrl . 'plugins/com.gentics.aloha.plugins.HighlightEditables/css/HighlightEditables.css', array(), '0.9.3' );
+		wp_register_style( 'aloha-table', $alohaSrcBaseUrl . 'plugins/com.gentics.aloha.plugins.Table/resources/table.css', array(), '0.9.3' );
+		wp_register_style( 'aloha-link', $alohaSrcBaseUrl . 'plugins/com.gentics.aloha.plugins.Link/css/Link.css', array(), '0.9.3' );
 
 		// register plugins
 		wp_register_script('aloha-plugin-format', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Format/plugin.js', $plugindeps, '0.9.3', false);
