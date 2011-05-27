@@ -39,8 +39,8 @@ abstract class FEE_AlohaEditor {
 	 */
 	static function register() {
 		$alohaSrcBaseUrl = plugins_url('aloha-editor/WebContent/', FRONT_END_EDITOR_MAIN_FILE);
-		$alohaPluginsBaseUrl = plugins_url('aloha-editor/WebContent/plugins/', FRONT_END_EDITOR_MAIN_FILE);
-		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins/', FRONT_END_EDITOR_MAIN_FILE);
+		$alohaPluginsBaseUrl = $alohaSrcBaseUrl . 'plugins/com.gentics.aloha.plugins.';
+		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins/com.gentics.aloha.plugins.', FRONT_END_EDITOR_MAIN_FILE);
 
 		//Include no deps version for development
 		if (defined('SCRIPT_DEBUG')) {
@@ -171,33 +171,33 @@ abstract class FEE_AlohaEditor {
 		wp_register_style( 'ext', plugins_url( 'css/ext-all.css', FRONT_END_EDITOR_MAIN_FILE ), array(), '0.9.3' ); // remove extraneous CSS reset
 		wp_register_style( 'ext-theme-gray', $alohaSrcBaseUrl . 'deps/extjs/resources/css/xtheme-gray.css', array(), '0.9.3' );
 		wp_register_style( 'pretty-photo', $alohaSrcBaseUrl . 'deps/prettyPhoto/resources/css/prettyPhoto.css', array(), '0.9.3' );
-		wp_register_style( 'aloha-highlight', $alohaSrcBaseUrl . 'plugins/com.gentics.aloha.plugins.HighlightEditables/css/HighlightEditables.css', array(), '0.9.3' );
-		wp_register_style( 'aloha-table', $alohaSrcBaseUrl . 'plugins/com.gentics.aloha.plugins.Table/resources/table.css', array(), '0.9.3' );
-		wp_register_style( 'aloha-link', $alohaSrcBaseUrl . 'plugins/com.gentics.aloha.plugins.Link/css/Link.css', array(), '0.9.3' );
+		wp_register_style( 'aloha-highlight', $alohaPluginsBaseUrl . 'HighlightEditables/css/HighlightEditables.css', array(), '0.9.3' );
+		wp_register_style( 'aloha-table', $alohaPluginsBaseUrl . 'Table/resources/table.css', array(), '0.9.3' );
+		wp_register_style( 'aloha-link', $alohaPluginsBaseUrl . 'Link/css/Link.css', array(), '0.9.3' );
 
 		// register plugins
-		wp_register_script('aloha-plugin-format', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Format/plugin.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-table', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Table/plugin.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-list',  $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.List/plugin.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-link', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Link/plugin.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-highlighteditables', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.HighlightEditables/plugin.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-TOC', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.TOC/plugin.js' ,$plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-delicious', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Link/delicious.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-link', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Link/LinkList.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-paste', $alohaPluginsBaseUrl . 'com.gentics.aloha.plugins.Paste/plugin.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-wordpastehandler', $alohaPluginsBaseUrl .'com.gentics.aloha.plugins.Paste/wordpastehandler.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-fee', $alohaCustomPluginsBaseUrl. 'com.gentics.aloha.plugins.FEE/plugin.js',$plugindeps,'0.9.3',false);
-		wp_register_script('aloha-plugin-imagewp', $alohaCustomPluginsBaseUrl. 'com.gentics.aloha.plugins.ImageWP/plugin.js',$plugindeps,'0.9.3',false);
+		wp_register_script('aloha-plugin-format', $alohaPluginsBaseUrl . 'Format/plugin.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-table', $alohaPluginsBaseUrl . 'Table/plugin.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-list',  $alohaPluginsBaseUrl . 'List/plugin.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-link', $alohaPluginsBaseUrl . 'Link/plugin.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-highlighteditables', $alohaPluginsBaseUrl . 'HighlightEditables/plugin.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-TOC', $alohaPluginsBaseUrl .'TOC/plugin.js' ,$plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-delicious', $alohaPluginsBaseUrl .'Link/delicious.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-link', $alohaPluginsBaseUrl .'Link/LinkList.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-paste', $alohaPluginsBaseUrl . 'Paste/plugin.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-wordpastehandler', $alohaPluginsBaseUrl .'Paste/wordpastehandler.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-fee', $alohaCustomPluginsBaseUrl. 'FEE/plugin.js',$plugindeps,'0.9.3',false);
+		wp_register_script('aloha-plugin-imagewp', $alohaCustomPluginsBaseUrl. 'ImageWP/plugin.js',$plugindeps,'0.9.3',false);
 
 		// Image Plugin
-		wp_register_script('aloha-plugin-image', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.image/plugin.js',$plugindeps,'0.9.3',false);
+		wp_register_script('aloha-plugin-image', $alohaCustomPluginsBaseUrl . 'image/plugin.js',$plugindeps,'0.9.3',false);
 		// Drag and Drop plugin
-		wp_register_script('aloha-plugin-draganddropfiles.xhruploader', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/deps/Ext.ux.XHRUpload.js',array(),'0.9.3',false);
-		//wp_register_script('aloha-plugin-draganddropfiles.uploader', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/lib/uploader.js',array(),'0.9.3',false);
-		wp_register_script('aloha-plugin-draganddropfiles.repository', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/lib/DropFilesRepository.js',array(),'0.9.3',false);
+		wp_register_script('aloha-plugin-draganddropfiles.xhruploader', $alohaCustomPluginsBaseUrl . 'DragAndDropFiles/deps/Ext.ux.XHRUpload.js',array(),'0.9.3',false);
+		//wp_register_script('aloha-plugin-draganddropfiles.uploader', $alohaCustomPluginsBaseUrl . 'DragAndDropFiles/lib/uploader.js',array(),'0.9.3',false);
+		wp_register_script('aloha-plugin-draganddropfiles.repository', $alohaCustomPluginsBaseUrl . 'DragAndDropFiles/lib/DropFilesRepository.js',array(),'0.9.3',false);
 
 		$dragAndDropDependencies = array('aloha-plugin-draganddropfiles.xhruploader','aloha.draganddropfiles.repository','aloha.image');
-		wp_register_script('aloha-plugin-draganddropfiles', $alohaCustomPluginsBaseUrl . 'com.gentics.aloha.plugins.DragAndDropFiles/plugin.js',$dragAndDropDependencies,'0.9.3',false);
+		wp_register_script('aloha-plugin-draganddropfiles', $alohaCustomPluginsBaseUrl . 'DragAndDropFiles/plugin.js',$dragAndDropDependencies,'0.9.3',false);
 		} else {
 			//TODO decide whether we should use the build version
 		}
