@@ -13,7 +13,7 @@ abstract class FEE_AlohaEditor {
 		wp_enqueue_style( 'aloha' );
 		wp_enqueue_style( 'ext' );
 		wp_enqueue_style( 'ext-theme-gray' );
-		wp_enqueue_style( 'pretty-photo' );
+	//	wp_enqueue_style( 'pretty-photo' );
 		wp_enqueue_style( 'aloha-table' );
 		wp_enqueue_style( 'aloha-link' );
 
@@ -89,7 +89,7 @@ abstract class FEE_AlohaEditor {
 			'jquery',
 			'jquery-json',
 			'jquery-getUrlParam',
-			'jquery-prettyPhoto',
+		//	'jquery-prettyPhoto',
 			'jquery-cookie',
 			'ext-jquery-adapter-debug',
 			'ext-foundation-debug',
