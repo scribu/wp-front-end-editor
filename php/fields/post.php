@@ -446,7 +446,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 		if ( 'checkbox' == $type )
 			$new_value = (bool) $new_value;
 
-		if ( !$new_value )
+		if ( '' === (string) $new_value )
 			delete_post_meta( $post_id, $key, $old_value );
 		else
 			update_post_meta( $post_id, $key, $new_value, $old_value );
