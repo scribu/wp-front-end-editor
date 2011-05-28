@@ -24,6 +24,8 @@ You can edit posts, pages, custom post types, comments, widgets and many [more e
 
 Links: [**Wiki**](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 
+Additional icons by [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/).
+
 == Frequently Asked Questions ==
 
 = Error on activation: "Parse error: syntax error, unexpected..." =

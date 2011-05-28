@@ -6,7 +6,7 @@ GENTICS.Aloha.FEE = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.p
 	init: function () {
 		// create the Save button
 		var save_button = new GENTICS.Aloha.ui.Button({
-			'iconClass' : 'GENTICS_button Example_strong',
+			'iconClass' : 'SaveFEE',
 			'size' : 'small',
 			'onclick' : jQuery.proxy(this, 'save'),
 			'tooltip' : FrontEndEditor.data.save_text
@@ -14,7 +14,7 @@ GENTICS.Aloha.FEE = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.p
 
 		// create the Cancel button
 		var cancel_button = new GENTICS.Aloha.ui.Button({
-			'iconClass' : 'GENTICS_button Example_strong',
+			'iconClass' : 'CancelFEE',
 			'size' : 'small',
 			'onclick' : jQuery.proxy(this, 'cancel'),
 			'tooltip' : FrontEndEditor.data.cancel_text

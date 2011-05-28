@@ -159,6 +159,15 @@ span.fee-form select {
 	background-color: #777;
 }
 
+/* Aloha Editor */
 button.ImageWP {
-	background: url('../aloha-plugins/com.gentics.aloha.plugins.ImageWP/img/image.gif') no-repeat scroll 0 0 transparent !important
+	background: url('../aloha-plugins/com.gentics.aloha.plugins.ImageWP/img/image.gif') no-repeat center transparent !important;
+}
+
+button.SaveFEE {
+	background: url('../img/save.png') no-repeat center transparent !important;
+}
+
+button.CancelFEE {
+	background: url('../img/cancel.png') no-repeat center transparent !important;
 }
