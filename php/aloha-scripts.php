@@ -70,7 +70,7 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('pkg-forms-debug', $alohaSrcBaseUrl . 'deps/extjs/pkg-forms-debug.js', array (), '0.9.3', false);
 
 		// Aloha JQuery Deps
-		wp_register_script('jquery-aloha.ext', $alohaSrcBaseUrl .  'utils/jquery.js', array (), '0.9.3', false);
+		wp_register_script('aloha-jquery-utils', $alohaSrcBaseUrl .  'utils/jquery.js', array (), '0.9.3', false);
 
 		// Other deps
 		wp_register_script('aloha-lang', $alohaSrcBaseUrl . 'utils/lang.js', array (), '0.9.3', false);
@@ -108,7 +108,7 @@ abstract class FEE_AlohaEditor {
 			'pkg-toolbars-debug',
 			'pkg-menu-debug',
 			'pkg-forms-debug',
-			'jquery-aloha.ext',
+			'aloha-jquery-utils',
 			'aloha-lang',
 			'aloha-range',
 			'aloha-position',
@@ -131,7 +131,7 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('aloha-event', $alohaSrcBaseUrl . 'core/event.js', array (), '0.9.3', false);
 		wp_register_script('aloha-floatingmenu', $alohaSrcBaseUrl . 'core/floatingmenu.js', array (), '0.9.3', false);
 		wp_register_script('aloha-ierange-m2', $alohaSrcBaseUrl . 'core/ierange-m2.js', array (), '0.9.3', false);
-		wp_register_script('aloha-jquery.aloha', $alohaSrcBaseUrl . 'core/jquery.aloha.js', array (), '0.9.3', false);
+		wp_register_script('aloha-jquery', $alohaSrcBaseUrl . 'core/jquery.aloha.js', array (), '0.9.3', false);
 		wp_register_script('aloha-log', $alohaSrcBaseUrl . 'core/log.js', array (), '0.9.3', false);
 		wp_register_script('aloha-markup', $alohaSrcBaseUrl . 'core/markup.js', array (), '0.9.3', false);
 		wp_register_script('aloha-message', $alohaSrcBaseUrl . 'core/message.js', array (), '0.9.3', false);
@@ -153,7 +153,7 @@ abstract class FEE_AlohaEditor {
 			'aloha-event',
 			'aloha-floatingmenu',
 			'aloha-ierange-m2',
-			'aloha-jquery.aloha',
+			'aloha-jquery',
 			'aloha-log',
 			'aloha-markup',
 			'aloha-message',
