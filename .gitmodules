@@ -10,3 +10,6 @@
 [submodule "aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles"]
 	path = aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles
 	url = git@github.com:Jotschi/Aloha-Plugin-DragAndDropFiles.git
+[submodule "aloha-plugins/com.gentics.aloha.plugins.Link"]
+	path = aloha-plugins/com.gentics.aloha.plugins.Link
+	url = git://github.com/scribu/Aloha-Plugin-Link.git

@@ -179,7 +179,7 @@ abstract class FEE_AlohaEditor {
 		wp_register_script('aloha-plugin-format', $alohaPluginsBaseUrl . 'Format/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha-plugin-table', $alohaPluginsBaseUrl . 'Table/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha-plugin-list',  $alohaPluginsBaseUrl . 'List/plugin.js', $plugindeps, '0.9.3', false);
-		wp_register_script('aloha-plugin-link', $alohaPluginsBaseUrl . 'Link/plugin.js', $plugindeps, '0.9.3', false);
+		wp_register_script('aloha-plugin-link', $alohaCustomPluginsBaseUrl . 'Link/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha-plugin-highlighteditables', $alohaPluginsBaseUrl . 'HighlightEditables/plugin.js', $plugindeps, '0.9.3', false);
 		wp_register_script('aloha-plugin-TOC', $alohaPluginsBaseUrl .'TOC/plugin.js' ,$plugindeps, '0.9.3', false);
 		wp_register_script('aloha-plugin-delicious', $alohaPluginsBaseUrl .'Link/delicious.js', $plugindeps, '0.9.3', false);
