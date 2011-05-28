@@ -5,7 +5,7 @@ GENTICS.Aloha.FEE = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.p
 
 	init: function () {
 		// create the Save button
-		var save_button = new GENTICS.Aloha.ui.Button({
+		this.saveButton = new GENTICS.Aloha.ui.Button({
 			'iconClass' : 'SaveFEE',
 			'size' : 'small',
 			'onclick' : jQuery.proxy(this, 'save'),
@@ -13,7 +13,7 @@ GENTICS.Aloha.FEE = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.p
 		});
 
 		// create the Cancel button
-		var cancel_button = new GENTICS.Aloha.ui.Button({
+		this.cancelButton = new GENTICS.Aloha.ui.Button({
 			'iconClass' : 'CancelFEE',
 			'size' : 'small',
 			'onclick' : jQuery.proxy(this, 'cancel'),
@@ -23,14 +23,14 @@ GENTICS.Aloha.FEE = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.p
 		// add buttons to the floating menu
 		GENTICS.Aloha.FloatingMenu.addButton(
 			'GENTICS.Aloha.continuoustext',
-			save_button,
+			this.saveButton,
 			GENTICS.Aloha.i18n(GENTICS.Aloha, 'floatingmenu.tab.format'),
 			4
 		);
 
 		GENTICS.Aloha.FloatingMenu.addButton(
 			'GENTICS.Aloha.continuoustext',
-			cancel_button,
+			this.cancelButton,
 			GENTICS.Aloha.i18n(GENTICS.Aloha, 'floatingmenu.tab.format'),
 			4
 		);

@@ -13,6 +13,8 @@ FrontEndEditor.define_field( 'widget', 'textarea', {
 		this.form.prepend(content);
 
 		if (this._rich) {
+			GENTICS.Aloha.FEE.saveButton.hide();
+			GENTICS.Aloha.FEE.cancelButton.hide();
 			this.form.find('textarea').aloha();
 		}
 	},
@@ -26,6 +28,8 @@ FrontEndEditor.define_field( 'widget', 'textarea', {
 			return args;
 
 		if (self._rich) {
+			GENTICS.Aloha.FEE.saveButton.show();
+			GENTICS.Aloha.FEE.cancelButton.show();
 			jQuery.each(GENTICS.Aloha.editables, function (i, editable) {
 				self.form.find('textarea').val( editable.getContents() );
 			});
