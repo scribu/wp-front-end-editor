@@ -22,6 +22,9 @@ FrontEndEditor.define_field( 'input', 'base', {
 	content_to_input: function (content) {
 		var self = this;
 
+		if ( false === content )
+			content = '';
+
 		self.input.val(content);
 		self.form.trigger('ready.fee', [self.data]);
 	},
