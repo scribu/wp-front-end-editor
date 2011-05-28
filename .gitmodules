@@ -1,6 +1,6 @@
 [submodule "scb"]
 	path = scb
-	url = git@github.com:scribu/wp-scb-framework.git
+	url = git://github.com/scribu/wp-scb-framework.git
 [submodule "aloha-editor"]
 	path = aloha-editor
 	url = git://github.com/gentics/Aloha-Editor.git
