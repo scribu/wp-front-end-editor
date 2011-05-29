@@ -73,8 +73,11 @@ where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CS
 
 == Changelog ==
 
-= 2.0.2 =
+= 2.1 =
+* switched to Aloha Editor
 * made Edit button follow mouse vertically and removed top border
+* better image handling
+* other bugfixes
 
 = 2.0.1 =
 * removed right and bottom borders when hovering
