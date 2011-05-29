@@ -2,11 +2,9 @@
 
 // Acceptance test. Just drop this file into your mu-plugins folder.
 
-add_action('loop_start', function() {
-	static $done;
-	if ( $done )
+add_action('loop_start', function( $wp_query ) {
+	if ( $wp_query !== $GLOBALS['wp_the_query'] )
 		return;
-	$done = true;
 
 	echo '<strong>Input post meta:</strong><br>';
 	echo html( 'div', editable_post_meta(get_the_ID(), 'price', 'input', false ) );
