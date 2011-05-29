@@ -14,35 +14,16 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 			return;
 		}
 
-		// Replace the displayed content with the raw content from the database
-		this.el.html(response.content);
+		this.form_create();
 
-		// Activate Aloha
-		this.el.aloha();
-		this.el.focus();
-		GENTICS.Aloha.EventRegistry.subscribe(GENTICS.Aloha, "editableDeactivated", jQuery.proxy(this, 'save_editable') );
-	},
+		this.form.html(response.content);
 
-	/**
-	 * Callback that gets called when the editable gets deactivated.
-	 */
-	save_editable: function (event, editableDiv) {
-		// unsubscribe from the event because we only want to handle it once
-		jQuery(GENTICS.Aloha).unbind("editableDeactivated");
+		this.el.hide();
+		this.form.insertAfter($el);
 
-		// blur the currently active editable
-		if (GENTICS.Aloha.activeEditable) {
-			this.el.unbind('click');
-			this.el.unbind('mousedown');
-			this.el.unbind('focus');
-			this.el.unbind('dblclick');
-			this.el.removeClass('GENTICS_editable');
-			this.lastActiveEditable = GENTICS.Aloha.activeEditable;
-			GENTICS.Aloha.activeEditable.blur();
-  		    GENTICS.Aloha.activeEditable.disable();
-		}
-
-		this.ajax_set(editableDiv.editable.getContents());
+		this.form.aloha();
+		this.form.focus();
+		GENTICS.Aloha.FEE.current_field = this;
 	},
 
 //	// Copied from wp-admin/js/editor.dev.js

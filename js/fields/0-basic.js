@@ -75,6 +75,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 		this.el.show();
 	},
 
+	// Returns the element after which the form should be inserted
 	error_handler: function (response) {
 		var $parent = this.el.closest('a');
 		var $el = $parent.length ? $parent : this.el;
@@ -102,30 +103,38 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	start_editing: function (ev) {
-		// Buttons
-		this.save_button = jQuery('<button>')
-			.addClass('fee-form-save')
-			.text(FrontEndEditor.data.save_text)
-			.click(jQuery.proxy(this, 'form_submit'));
 
-		this.cancel_button = jQuery('<button>')
-			.addClass('fee-form-cancel')
-			.text(FrontEndEditor.data.cancel_text)
-			.click(jQuery.proxy(this, 'form_remove'));
+		this.save_button = jQuery('<button>', {
+			'class': 'fee-form-save',
+			'text' : FrontEndEditor.data.save_text,
+			'click': jQuery.proxy(this, 'form_submit')
+		});
 
-		// Form
-		this.form = (jQuery.inArray(this.type, ['input', 'terminput', 'termselect']) > -1) ? jQuery('<span>') : jQuery('<div>');
+		this.cancel_button = jQuery('<button>', {
+			'class': 'fee-form-cancel',
+			'text' : FrontEndEditor.data.cancel_text,
+			'click': jQuery.proxy(this, 'form_remove')
+		});
+
+		this.form_create();
+
+		this.form
+			.append(this.save_button)
+			.append(this.cancel_button);
+
+		this.ajax_get();
+	},
+
+	form_create: function() {
+		this.form = (jQuery.inArray(this.type, ['input', 'terminput', 'termselect']) > -1) ?
+			jQuery('<span>') : jQuery('<div>');
 
 		this.form
 			.addClass('fee-form')
 			.addClass('fee-type-' + this.type)
-			.addClass('fee-filter-' + this.filter)
-			.append(this.save_button)
-			.append(this.cancel_button);
-		
-		this.form.bind('keypress', jQuery.proxy(this, 'keypress'));
+			.addClass('fee-filter-' + this.filter);
 
-		this.ajax_get();
+		this.form.keypress(jQuery.proxy(this, 'keypress'));
 	},
 
 	form_remove: function (ev) {

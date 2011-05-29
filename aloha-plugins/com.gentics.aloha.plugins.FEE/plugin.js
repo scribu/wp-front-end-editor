@@ -37,10 +37,19 @@ GENTICS.Aloha.FEE = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.p
 	},
 
 	save: function() {
-		alert('save');
+		this.current_field.ajax_set( GENTICS.Aloha.activeEditable.getContents() );
+
+		this.disableAloha();
 	},
 
 	cancel: function() {
-		alert('cancel');
+		this.current_field.form_remove();
+
+		this.disableAloha();
+	},
+
+	disableAloha: function() {
+		GENTICS.Aloha.activeEditable.destroy();
+		GENTICS.Aloha.FloatingMenu.floatTo({left: -9999});
 	}
 });
