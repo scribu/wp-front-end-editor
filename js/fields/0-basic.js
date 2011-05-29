@@ -126,8 +126,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	form_create: function() {
-		this.form = (jQuery.inArray(this.type, ['input', 'terminput', 'termselect']) > -1) ?
-			jQuery('<span>') : jQuery('<div>');
+		this.form = this.el.is('span') ? jQuery('<span>') : jQuery('<div>');
 
 		this.form
 			.addClass('fee-form')
