@@ -50,6 +50,6 @@ GENTICS.Aloha.FEE = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.p
 
 	disableAloha: function() {
 		GENTICS.Aloha.activeEditable.destroy();
-		GENTICS.Aloha.FloatingMenu.floatTo({left: -9999});
+		GENTICS.Aloha.deactivateEditable()
 	}
 });
