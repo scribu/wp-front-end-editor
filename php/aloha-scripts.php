@@ -19,7 +19,7 @@ abstract class FEE_AlohaEditor {
 
 		// Aloha 0.9.3 isn't compatible with newer versions of jQuery :(
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', plugins_url('aloha-editor/WebContent/', FRONT_END_EDITOR_MAIN_FILE). 'deps/jquery-1.4.4.js', array(), '1.4.4', false);
+		wp_register_script('jquery', plugins_url('aloha-editor/WebContent/', FRONT_END_EDITOR_MAIN_FILE). 'deps/jquery-1.4.2.js', array(), '1.4.2', false);
 
 		wp_enqueue_script('aloha-plugin-format');
 		wp_enqueue_script('aloha-plugin-link');
