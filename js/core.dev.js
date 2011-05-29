@@ -15,14 +15,14 @@ jQuery.extend( FrontEndEditor, {
 		return new this.fieldTypes[field_name]();
 	},
 
-	overlay: function($el) {
-		var	$cover = jQuery('<div>', {'class': 'fee-loading'})
-				.css('background-image', 'url(' + this.data.spinner + ')')
-				.hide()
-				.prependTo(jQuery('body'));
+	overlay: (function() {
+		var $cover = jQuery('<div>', {'class': 'fee-loading'})
+			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
+			.hide()
+			.prependTo(jQuery('body'));
 
 		return {
-			show: function() {
+			cover: function($el) {
 				$cover
 					.css({
 						width: $el.width(),
@@ -36,7 +36,7 @@ jQuery.extend( FrontEndEditor, {
 				$cover.hide();
 			}
 		};
-	},
+	}()),
 
 	edit_lock: function() {
 		this._editing = true;

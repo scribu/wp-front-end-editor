@@ -2,10 +2,6 @@ FrontEndEditor.define_field( 'input', 'base', {
 
 	input_tag: '<input type="text">',
 
-	start: function () {
-		this.overlay = FrontEndEditor.overlay(this.el);
-	},
-
 	create_input: function () {
 		this.input = jQuery(this.input_tag).attr({
 			'id'    : 'fee-' + new Date().getTime(),
@@ -30,7 +26,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	ajax_get: function () {
-		this.overlay.show();
+		FrontEndEditor.overlay.cover(this.el);
 		this.create_input();
 		this._super();
 	},
@@ -41,7 +37,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 			content: contentData || this.content_from_input()
 		});
 
-		this.overlay.show();
+		FrontEndEditor.overlay.cover(this.form);
 
 		FrontEndEditor.edit_unlock();
 		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(this, 'ajax_set_handler'), 'json');
@@ -72,15 +68,17 @@ FrontEndEditor.define_field( 'input', 'base', {
 
 		this.content_to_front(response.content);
 
+		this.form.hide();
 		this.el.show();
 	},
 
 	// Returns the element after which the form should be inserted
 	error_handler: function (response) {
-		var $parent = this.el.closest('a');
-		var $el = $parent.length ? $parent : this.el;
+		var
+			$parent = this.el.closest('a'),
+			$el = $parent.length ? $parent : this.el;
 
-		this.overlay.hide();
+		FrontEndEditor.overlay.hide();
 
 		if ( response.error ) {
 			var $error_box = jQuery('<div class="fee-error">');
@@ -137,7 +135,8 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	form_remove: function (ev) {
-		this.remove_form(false);
+		this.form.remove();
+		this.el.show();
 
 		FrontEndEditor.edit_unlock();
 
@@ -146,19 +145,8 @@ FrontEndEditor.define_field( 'input', 'base', {
 
 	form_submit: function (ev) {
 		this.ajax_set();
-		this.remove_form(true);
 
 		return false;
-	},
-
-	remove_form: function (with_spinner) {
-		this.form.remove();
-
-		this.el.show();
-
-		if ( true === with_spinner ) {
-			this.overlay.show();
-		}
 	},
 
 	keypress: function (ev) {
