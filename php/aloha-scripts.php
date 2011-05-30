@@ -26,31 +26,30 @@ abstract class FEE_AlohaEditor {
 	}
 
 	private static function enqueue_plugins() {
-		$alohaPluginsBaseUrl = plugins_url('aloha-editor/WebContent/plugins/com.gentics.aloha.plugins.', FRONT_END_EDITOR_MAIN_FILE);
-		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins/com.gentics.aloha.plugins.', FRONT_END_EDITOR_MAIN_FILE);
-
 		// Core plugins
+		$alohaPluginsBaseUrl = plugins_url('aloha-editor/WebContent/plugins/com.gentics.aloha.plugins.', FRONT_END_EDITOR_MAIN_FILE);
+
 		wp_register_script('aloha-plugin-format', $alohaPluginsBaseUrl . 'Format/plugin.js', array(), self::VERSION);
 		wp_register_script('aloha-plugin-table', $alohaPluginsBaseUrl . 'Table/plugin.js', array(), self::VERSION);
 		wp_register_script('aloha-plugin-list',  $alohaPluginsBaseUrl . 'List/plugin.js', array(), self::VERSION);
-		wp_register_script('aloha-plugin-link', $alohaCustomPluginsBaseUrl . 'Link/plugin.js', array(), self::VERSION);
+		wp_register_script('aloha-plugin-link', $alohaPluginsBaseUrl . 'Link/plugin.js', array(), self::VERSION);
+		wp_register_script('aloha-plugin-linklist', $alohaPluginsBaseUrl .'Link/LinkList.js', array(), self::VERSION);
 		wp_register_script('aloha-plugin-highlighteditables', $alohaPluginsBaseUrl . 'HighlightEditables/plugin.js', array(), self::VERSION);
 		wp_register_script('aloha-plugin-TOC', $alohaPluginsBaseUrl .'TOC/plugin.js' ,array(), self::VERSION);
 		wp_register_script('aloha-plugin-delicious', $alohaPluginsBaseUrl .'Link/delicious.js', array(), self::VERSION);
-		wp_register_script('aloha-plugin-link', $alohaPluginsBaseUrl .'Link/LinkList.js', array(), self::VERSION);
 		wp_register_script('aloha-plugin-paste', $alohaPluginsBaseUrl . 'Paste/plugin.js', array(), self::VERSION);
 		wp_register_script('aloha-plugin-wordpastehandler', $alohaPluginsBaseUrl .'Paste/wordpastehandler.js', array(), self::VERSION);
-
-		// Custom Plugins
-		wp_register_script('aloha-plugin-fee', $alohaCustomPluginsBaseUrl. 'FEE/plugin.js', array(), self::VERSION);
-		wp_register_script('aloha-plugin-imagewp', $alohaCustomPluginsBaseUrl. 'ImageWP/plugin.js', array(), self::VERSION);
 
 		wp_enqueue_script('aloha-plugin-format');
 		wp_enqueue_script('aloha-plugin-link');
 		wp_enqueue_script('aloha-plugin-list');
 		wp_enqueue_script('aloha-plugin-table');
-		wp_enqueue_script('aloha-plugin-fee');
-		wp_enqueue_script('aloha-plugin-imagewp');
+
+		// Custom Plugins
+		$alohaCustomPluginsBaseUrl = plugins_url('aloha-plugins/', FRONT_END_EDITOR_MAIN_FILE);
+
+		wp_enqueue_script('aloha-plugin-wp-savecancel', $alohaCustomPluginsBaseUrl. 'wpSaveCancel/plugin.js', array(), self::VERSION);
+		wp_enqueue_script('aloha-plugin-wp-image', $alohaCustomPluginsBaseUrl. 'wpImage/plugin.js', array(), self::VERSION);
 	}
 
 	private static function enqueue_debug() {
@@ -109,6 +108,7 @@ abstract class FEE_AlohaEditor {
 	// Returns an array containing the lines found in one of the *-includes.txt files
 	private static function get_deps_in_file( $file_name ) {
 		$deps = array();
+
 		$file = fopen( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/aloha-editor/build/' . $file_name, 'r' );
 		while ( ($path = fgets($file)) !== false ) {
 			$handle = str_replace( '.', '-', strtolower( substr( basename( rtrim( $path ) ), 0, -3 ) ) );

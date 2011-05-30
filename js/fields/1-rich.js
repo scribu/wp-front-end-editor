@@ -23,7 +23,8 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 
 		this.form.aloha();
 		this.form.focus();
-		GENTICS.Aloha.FEE.current_field = this;
+
+		GENTICS.Aloha.wpSaveCancel.current_field = this;
 	},
 
 //	// Copied from wp-admin/js/editor.dev.js

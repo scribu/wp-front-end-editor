@@ -4,6 +4,3 @@
 [submodule "aloha-editor"]
 	path = aloha-editor
 	url = git://github.com/scribu/Aloha-Editor.git
-[submodule "aloha-plugins/com.gentics.aloha.plugins.Link"]
-	path = aloha-plugins/com.gentics.aloha.plugins.Link
-	url = git://github.com/scribu/Aloha-Plugin-Link.git

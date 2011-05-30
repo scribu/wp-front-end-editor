@@ -1,7 +1,7 @@
 /**
  * Plugin that adds the Save and cancel buttons
  */
-GENTICS.Aloha.FEE = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.plugins.FEE'), {
+GENTICS.Aloha.wpSaveCancel = jQuery.extend( new GENTICS.Aloha.Plugin('org.fee.plugins.wpSaveCancel'), {
 
 	init: function () {
 		// create the Save button

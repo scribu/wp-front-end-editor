@@ -55,7 +55,7 @@ abstract class FEE_Core {
 
 		$url = plugins_url( 'js/', FRONT_END_EDITOR_MAIN_FILE );
 
-		$dev = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '.dev' : '';
+		$dev = defined( 'SCRIPT_DEBUG' ) ? '.dev' : '';
 
 		$css_dependencies = array();
 
@@ -65,7 +65,6 @@ abstract class FEE_Core {
 				'src' => self::get_src('suggest')
 			);
 		}
-
 
 		// Thickbox
 		if ( count( array_intersect( array( 'image', 'thumbnail', 'rich' ), $wrapped ) ) ) {

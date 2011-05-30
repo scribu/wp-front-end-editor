@@ -161,7 +161,7 @@ span.fee-form select {
 
 /* Aloha Editor */
 button.ImageWP {
-	background: url('../aloha-plugins/com.gentics.aloha.plugins.ImageWP/img/image.gif') no-repeat center transparent !important;
+	background: url('../aloha-plugins/wpImage/img/image.gif') no-repeat center transparent !important;
 }
 
 button.SaveFEE {

@@ -1,7 +1,7 @@
 /**
  * Plugin for integrating the WordPress media thickbox
  */
-GENTICS.Aloha.ImageWP = jQuery.extend( new GENTICS.Aloha.Plugin('com.gentics.aloha.plugins.ImageWP'), {
+GENTICS.Aloha.wpImage = jQuery.extend( new GENTICS.Aloha.Plugin('org.fee.plugins.wpImage'), {
 
 	init: function () {
 		// create a new button
