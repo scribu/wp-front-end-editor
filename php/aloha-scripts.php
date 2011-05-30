@@ -32,6 +32,23 @@ abstract class FEE_AlohaEditor {
 			wp_enqueue_script('aloha-plugin-image');
 			wp_enqueue_script('aloha-plugin-draganddropfiles');
 		}
+
+		add_action( 'wp_head', array( __CLASS__, 'config' ) );
+	}
+
+	static function config() {
+		$i18n = reset( explode( '_', get_locale() ) );
+
+?>
+		<script type="text/javascript">
+			GENTICS.Aloha.settings = {
+				logLevels: {'error': true, 'warn': true, 'info': false, 'debug': false},
+				errorhandling: false,
+				ribbon: false,
+				i18n: {current: '<?php echo $i18n; ?>'}
+			};
+		</script>
+<?php
 	}
 
 	/**
