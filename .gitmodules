@@ -3,13 +3,7 @@
 	url = git://github.com/scribu/wp-scb-framework.git
 [submodule "aloha-editor"]
 	path = aloha-editor
-	url = git://github.com/gentics/Aloha-Editor.git
-[submodule "aloha-plugins/com.gentics.aloha.plugins.Image"]
-	path = aloha-plugins/com.gentics.aloha.plugins.Image
-	url = git@github.com:Jotschi/Aloha-Plugin-Image.git
-[submodule "aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles"]
-	path = aloha-plugins/com.gentics.aloha.plugins.DragAndDropFiles
-	url = git@github.com:Jotschi/Aloha-Plugin-DragAndDropFiles.git
+	url = git://github.com/scribu/Aloha-Editor.git
 [submodule "aloha-plugins/com.gentics.aloha.plugins.Link"]
 	path = aloha-plugins/com.gentics.aloha.plugins.Link
 	url = git://github.com/scribu/Aloha-Plugin-Link.git

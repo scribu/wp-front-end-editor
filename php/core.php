@@ -29,7 +29,6 @@ abstract class FEE_Core {
 
 		// Aloha Editor
 		if ( self::$options->rich ) {
-			FEE_AlohaEditor::register();
 			FEE_AlohaEditor::enqueue();
 		}
 
