@@ -9,11 +9,12 @@ abstract class FEE_AlohaEditor {
 	private static $alohaSrcBaseUrl;
 
 	public static function enqueue() {
-		self::$alohaSrcBaseUrl = plugins_url('aloha-editor/WebContent/', FRONT_END_EDITOR_MAIN_FILE);
+		self::$alohaSrcBaseUrl  = plugin_dir_url( FRONT_END_EDITOR_MAIN_FILE );
+		self::$alohaSrcBaseUrl .= defined('SCRIPT_DEBUG') ? 'aloha-editor/WebContent/' : 'aloha-build/';
 
 		// Aloha 0.9.3 isn't compatible with newer versions of jQuery :(
 		wp_deregister_script('jquery');
-		wp_register_script('jquery', plugins_url('aloha-editor/WebContent/deps/jquery-1.4.2.js', FRONT_END_EDITOR_MAIN_FILE), array(), '1.4.2', false);
+		wp_register_script('jquery', self::$alohaSrcBaseUrl . 'deps/jquery-1.4.2.js', array(), '1.4.2', false);
 
 		if ( defined('SCRIPT_DEBUG') )
 			self::enqueue_debug();
@@ -27,7 +28,7 @@ abstract class FEE_AlohaEditor {
 
 	private static function enqueue_plugins() {
 		// Core plugins
-		$alohaPluginsBaseUrl = plugins_url('aloha-editor/WebContent/plugins/com.gentics.aloha.plugins.', FRONT_END_EDITOR_MAIN_FILE);
+		$alohaPluginsBaseUrl = self::$alohaSrcBaseUrl . 'plugins/com.gentics.aloha.plugins.';
 
 		wp_register_script('aloha-plugin-format', $alohaPluginsBaseUrl . 'Format/plugin.js', array(), self::VERSION);
 		wp_register_script('aloha-plugin-table', $alohaPluginsBaseUrl . 'Table/plugin.js', array(), self::VERSION);
@@ -77,7 +78,7 @@ abstract class FEE_AlohaEditor {
 	}
 
 	private static function enqueue_compressed() {
-		wp_enqueue_script( 'aloha-editor', plugins_url('aloha-editor/build/out/aloha-0.9.3/aloha/aloha.js', FRONT_END_EDITOR_MAIN_FILE), array('jquery'), self::VERSION );
+		wp_enqueue_script( 'aloha-editor', self::$alohaSrcBaseUrl . 'aloha.js', array('jquery'), self::VERSION );
 	}
 
 	static function config() {
