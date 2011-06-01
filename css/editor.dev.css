@@ -171,3 +171,7 @@ button.SaveFEE {
 button.CancelFEE {
 	background: url('../img/cancel.png') no-repeat center transparent !important;
 }
+
+.x-toolbar-ct table {
+  border-spacing:0px !important;
+}
