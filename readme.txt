@@ -53,14 +53,6 @@ Also because I couldn't get it to work.
 
 To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling caching for logged-in users.
 
-= How can I change the hover color? =
-
-You can add this line to *style.css* in your theme directory:
-
-`.fee-field:hover, .fee-field:hover * {background-color: mycolor !important}`
-
-where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CSS/css_colors.asp).
-
 == Screenshots ==
 
 1. The tooltip
@@ -76,6 +68,7 @@ where *mycolor* is one of these values: [CSS colors](http://www.w3schools.com/CS
 * made Edit button follow mouse vertically and removed top border
 * better image handling
 * other bugfixes
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-2-1.html)
 
 = 2.0.1 =
 * removed right and bottom borders when hovering
