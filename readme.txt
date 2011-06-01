@@ -1,18 +1,16 @@
 === Front-end Editor ===
-Contributors: scribu
+Contributors: scribu, Jotschi
 Donate link: http://scribu.net/wordpress/front-end-editor
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
 Tested up to: 3.1
-Stable tag: 2.0.1
+Stable tag: trunk
 
 Edit content inline, without going to the admin area.
 
 == Description ==
 
 Front-end Editor is a plugin that lets you make changes to your content *directly* from your site. No need to load the admin backend just to correct a typo.
-
-[youtube http://www.youtube.com/watch?v=c6P7M_oG-NY]
 
 **Goals:**
 
