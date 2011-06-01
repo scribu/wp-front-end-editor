@@ -9,14 +9,16 @@ abstract class FEE_AlohaEditor {
 	private static $alohaSrcBaseUrl;
 
 	public static function enqueue() {
+		$enable_debugging = defined('SCRIPT_DEBUG') && is_dir( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/aloha-editor/' );
+
 		self::$alohaSrcBaseUrl  = plugin_dir_url( FRONT_END_EDITOR_MAIN_FILE );
-		self::$alohaSrcBaseUrl .= defined('SCRIPT_DEBUG') ? 'aloha-editor/WebContent/' : 'aloha-build/';
+		self::$alohaSrcBaseUrl .= $enable_debugging ? 'aloha-editor/WebContent/' : 'aloha-build/';
 
 		// Aloha 0.9.3 isn't compatible with newer versions of jQuery :(
 		wp_deregister_script('jquery');
 		wp_register_script('jquery', self::$alohaSrcBaseUrl . 'deps/jquery-1.4.2.js', array(), '1.4.2', false);
 
-		if ( defined('SCRIPT_DEBUG') )
+		if ( $enable_debugging )
 			self::enqueue_debug();
 		else
 			self::enqueue_compressed();
