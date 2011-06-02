@@ -58,7 +58,7 @@ function _fee_init() {
 		scbAdminPage::register( 'FEE_Admin', __FILE__, $options );
 	}
 
-	add_action( 'init', 'fee_register_defaults' );
+	add_action( 'front_end_editor_fields', 'fee_register_defaults', 0 );
 }
 scb_init( '_fee_init' );
 
@@ -181,8 +181,5 @@ function fee_register_defaults() {
 	foreach ( $fields as $filter => $args ) {
 		fee_register_field( $filter, $args );
 	}
-
-	// Safe hook for new editable fields to be registered
-	do_action( 'front_end_editor_fields' );
 }
 

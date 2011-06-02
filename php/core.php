@@ -15,11 +15,10 @@ abstract class FEE_Core {
 		self::$options = $options;
 		self::$version = $version;
 
-		add_action( 'front_end_editor_fields', array( __CLASS__, 'make_instances' ), 100 );
-
 		add_action( 'wp_ajax_front-end-editor', array( __CLASS__, 'ajax_response' ) );
 
 		add_action( 'template_redirect', array( __CLASS__, '_init' ) );
+		// TODO: Add equivalent hook for BuddyPress
 	}
 
 	static function _init() {
@@ -27,7 +26,8 @@ abstract class FEE_Core {
 			return;
 		}
 
-		// Aloha Editor
+		self::make_instances();
+
 		if ( self::$options->rich ) {
 			FEE_AlohaEditor::enqueue();
 		}
@@ -151,6 +151,9 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	static function make_instances() {
+		// Safe hook for new editable fields to be registered
+		do_action( 'front_end_editor_fields' );
+
 		$disabled = (array) self::$options->disabled;
 
 		self::$active_fields = array();
@@ -193,6 +196,8 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 		extract( scbUtil::array_extract( $_POST, array( 'callback', 'data' ) ) );
 
 		$filter = $data['filter'];
+
+		self::make_instances();
 
 		// Is the current field defined?
 		if ( !$instance = self::$instances[ $filter ] )
