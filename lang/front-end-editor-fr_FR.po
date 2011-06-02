@@ -19,331 +19,156 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
-#: admin.php:97
-#@ front-end-editor
-msgid "Enable or disable editable fields"
-msgstr "Activer ou désactiver les champs éditables"
-
-#: admin.php:140
-#@ front-end-editor
-msgid "Enable the WYSIWYG editor"
-msgstr "Activer l'éditeur WYSIWYG"
-
-#: admin.php:15
-#: scb/AdminPage.php:368
+#: admin/admin.php:15
+#: scb/AdminPage.php:369
 #@ front-end-editor
 msgid "Settings"
 msgstr "Réglages"
 
-#: front-end-editor.php:108
+#: front-end-editor.php:99
 #@ front-end-editor
 msgid "Post tags"
 msgstr "Tags du billet"
 
-#: front-end-editor.php:135
+#: front-end-editor.php:126
 #@ front-end-editor
 msgid "Comment text"
 msgstr "Commentaires"
 
-#: core.php:55
+#: php/core.php:49
 #@ front-end-editor
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: core.php:56
+#: php/core.php:50
 #@ front-end-editor
 msgid "Cancel"
 msgstr "Annuler"
 
-#: admin.php:14
+#: admin/admin.php:14
 #@ front-end-editor
 msgid "Fields"
 msgstr "Champs"
 
-#: scb/AdminPage.php:164
+#: scb/AdminPage.php:165
 #@ front-end-editor
 msgid "Settings <strong>saved</strong>."
 msgstr "Réglages <strong>sauvegardés</strong>."
 
-#: admin.php:146
-#@ front-end-editor
-msgid "Edit one paragraph at a time, instead of an entire post"
-msgstr "Éditer paragraphe par paragraphe plutôt que le contenu entier du billet."
-
 #. translators: plugin header field 'Name'
-#: admin.php:9
+#: admin/admin.php:9
 #: front-end-editor.php:0
 #@ front-end-editor
 msgid "Front-end Editor"
-msgstr ""
+msgstr "Front-end Editor"
 
-#: fields/base.php:106
+#: php/fields/base.php:113
 #@ front-end-editor
 msgid "empty"
-msgstr "vide "
+msgstr "vide"
 
-#: front-end-editor.php:115
+#: front-end-editor.php:106
 #@ front-end-editor
 msgid "Post terms"
-msgstr "Termes du billet "
+msgstr "Termes du billet"
 
-#: front-end-editor.php:158
+#: front-end-editor.php:149
 #@ front-end-editor
 msgid "Author description"
-msgstr "Description de l'auteur "
+msgstr "Description de l'auteur"
 
-#: scb/AdminPage.php:176
-#: scb/AdminPage.php:186
+#: scb/AdminPage.php:177
+#: scb/AdminPage.php:187
 #@ front-end-editor
 msgid "Save Changes"
 msgstr "Sauvegarder les modifications"
 
-#: admin.php:152
-#@ front-end-editor
-msgid "Highlight editable elements"
-msgstr "Surlignage des éléments éditables"
-
-#: front-end-editor.php:171
+#: front-end-editor.php:162
 #@ front-end-editor
 msgid "Site title and description"
 msgstr "Titre du site et description"
 
-#: front-end-editor.php:77
+#: front-end-editor.php:68
 #@ front-end-editor
 msgid "Post title"
 msgstr "Titre du billet"
 
-#: front-end-editor.php:84
+#: front-end-editor.php:75
 #@ front-end-editor
 msgid "Post content"
 msgstr "Contenu du billet"
 
-#: front-end-editor.php:95
+#: front-end-editor.php:86
 #@ front-end-editor
 msgid "Post excerpt"
 msgstr "Extrait du billet"
 
-#: front-end-editor.php:122
+#: front-end-editor.php:113
 #@ front-end-editor
 msgid "Post custom fields"
 msgstr "Champs personnalisés du billet"
 
-#: front-end-editor.php:141
+#: front-end-editor.php:132
 #@ front-end-editor
 msgid "Category title"
 msgstr "Titre de catégorie"
 
-#: front-end-editor.php:146
+#: front-end-editor.php:137
 #@ front-end-editor
 msgid "Tag title"
 msgstr "Titre de tag"
 
-#: admin.php:99
+#: admin/admin.php:65
 #@ front-end-editor
 msgid "Post fields"
 msgstr "Champs des billets"
 
-#: admin.php:100
+#: admin/admin.php:66
 #@ front-end-editor
 msgid "Other fields"
 msgstr "Autres champs"
 
-#: core.php:139
+#: php/core.php:73
 #@ front-end-editor
 msgid "Change Image"
 msgstr "Changer d'image"
 
-#: front-end-editor.php:183
+#: front-end-editor.php:174
 #@ front-end-editor
 msgid "Theme images"
 msgstr "Images du thème"
 
-#: core.php:141
+#: php/core.php:75
 #@ front-end-editor
 msgid "Clear"
 msgstr "Nettoyer"
 
-#: front-end-editor.php:101
+#: front-end-editor.php:92
 #@ front-end-editor
 msgid "Post categories"
 msgstr "Catégories de billet"
 
-#: front-end-editor.php:128
+#: front-end-editor.php:119
 #@ front-end-editor
 msgid "Post thumbnail"
-msgstr "Miniature de billet "
+msgstr "Miniature de billet"
 
-#: front-end-editor.php:177
+#: front-end-editor.php:168
 #@ front-end-editor
 msgid "Site options"
 msgstr "Options du site"
 
-#: admin.php:158
-#@ front-end-editor
-msgid "Display a tooltip above editable elements"
-msgstr "Afficher une info bulle au dessus des éléments éditables"
-
-#: core.php:69
-#@ front-end-editor
-msgid "Double-click to edit"
-msgstr "Double cliquer pour éditer"
-
-#: admin.php:16
-#@ front-end-editor
-msgid "Editor Panel"
-msgstr "Panneau d'édition"
-
-#: admin.php:182
-#@ front-end-editor
-msgid "Enable or disable editor buttons"
-msgstr "Activer ou désactiver les boutons d'édition"
-
-#: admin.php:212
-#@ front-end-editor
-msgid "Button"
-msgstr "Bouton"
-
-#: core.php:104
-#@ front-end-editor
-msgid "Click to Bold"
-msgstr "Clic pour Gras"
-
-#: core.php:105
-#@ front-end-editor
-msgid "Click to Italic"
-msgstr "Clic pour Italique"
-
-#: core.php:106
-#@ front-end-editor
-msgid "Click to Underline"
-msgstr "Clic pour Souligner"
-
-#: core.php:107
-#@ front-end-editor
-msgid "Left Align"
-msgstr "Alignement gauche"
-
-#: core.php:108
-#@ front-end-editor
-msgid "Center Align"
-msgstr "Alignement centré"
-
-#: core.php:109
-#@ front-end-editor
-msgid "Right Align"
-msgstr "Alignement droite"
-
-#: core.php:110
-#@ front-end-editor
-msgid "Justify Align"
-msgstr "Alignement justifié"
-
-#: core.php:111
-#@ front-end-editor
-msgid "Insert Ordered List"
-msgstr "Insérer une liste ordonnée"
-
-#: core.php:112
-#@ front-end-editor
-msgid "Insert Unordered List"
-msgstr "Insérer une liste non ordonnée"
-
-#: core.php:113
-#@ front-end-editor
-msgid "Click to Subscript"
-msgstr "Clic pour Indice"
-
-#: core.php:114
-#@ front-end-editor
-msgid "Click to Superscript"
-msgstr "Clic pour Exposant"
-
-#: core.php:115
-#@ front-end-editor
-msgid "Click to Strike Through"
-msgstr "Cliquez pour Barrer"
-
-#: core.php:116
-#@ front-end-editor
-msgid "Remove Formatting"
-msgstr "Retirer le formatage"
-
-#: core.php:117
-#@ front-end-editor
-msgid "Indent Text"
-msgstr "Texte en retrait"
-
-#: core.php:118
-#@ front-end-editor
-msgid "Remove Indent"
-msgstr "Retirer le retrait"
-
-#: core.php:119
-#@ front-end-editor
-msgid "Horizontal Rule"
-msgstr "Ligne horizontale"
-
-#: core.php:120
-#@ front-end-editor
-msgid "Select Font Size"
-msgstr "Sélection de la taille de police"
-
-#: core.php:121
-#@ front-end-editor
-msgid "Select Font Family"
-msgstr "Sélection de la police"
-
-#: core.php:122
-#@ front-end-editor
-msgid "Select Font Format"
-msgstr "Sélection du format de police"
-
-#: core.php:123
-#@ front-end-editor
-msgid "Add Link"
-msgstr "Ajouter un lien"
-
-#: core.php:124
-#@ front-end-editor
-msgid "Remove Link"
-msgstr "Retirer un lien"
-
-#: core.php:125
-#@ front-end-editor
-msgid "Change Text Color"
-msgstr "Changer la couleur de texte"
-
-#: core.php:126
-#@ front-end-editor
-msgid "Change Background Color"
-msgstr "Changer la couleur d'arrière-plan"
-
-#: core.php:127
-#@ front-end-editor
-msgid "Add Image"
-msgstr "Ajouter une image"
-
-#: core.php:128
-#@ front-end-editor
-msgid "Upload Image"
-msgstr "Uploader une image"
-
-#: core.php:129
-#@ front-end-editor
-msgid "Edit HTML"
-msgstr "Éditer en HTML"
-
-#: core.php:140
+#: php/core.php:74
 #@ front-end-editor
 msgid "Insert Image"
 msgstr "Insérer une image"
 
-#: fields/base.php:125
+#: php/fields/base.php:132
 #@ front-end-editor
 msgid "no"
 msgstr "non"
 
-#: fields/base.php:126
+#: php/fields/base.php:133
 #@ front-end-editor
 msgid "yes"
 msgstr "oui"
@@ -352,7 +177,7 @@ msgstr "oui"
 #: front-end-editor.php:0
 #@ front-end-editor
 msgid "http://scribu.net/wordpress/front-end-editor"
-msgstr ""
+msgstr "http://scribu.net/wordpress/front-end-editor"
 
 #. translators: plugin header field 'Description'
 #: front-end-editor.php:0
@@ -364,48 +189,53 @@ msgstr "Vous permet d'éditer vos billets sans passer par l'interface d'administ
 #: front-end-editor.php:0
 #@ front-end-editor
 msgid "scribu"
-msgstr ""
+msgstr "scribu"
 
 #. translators: plugin header field 'AuthorURI'
 #: front-end-editor.php:0
 #@ front-end-editor
 msgid "http://scribu.net/"
-msgstr ""
+msgstr "http://scribu.net/"
 
-#: front-end-editor.php:151
+#: front-end-editor.php:142
 #@ front-end-editor
 msgid "Term description"
 msgstr "Description de terme"
 
-#: front-end-editor.php:165
+#: front-end-editor.php:156
 #@ front-end-editor
 msgid "Widgets"
-msgstr ""
+msgstr "Widgets"
 
-#: core.php:94
-#@ front-end-editor
-msgid "Visit"
-msgstr "Visitez"
-
-#: core.php:95
-#@ front-end-editor
-msgid "Change"
-msgstr "Changer"
-
-#: core.php:96
-#@ front-end-editor
-msgid "Remove"
-msgstr "Retirer"
-
-#: fields/post.php:84
+#: php/fields/post.php:93
 #, php-format
 #@ front-end-editor
 msgid "Error: %s is currently editing this."
 msgstr "Erreur: %s est en train d'éditer ceci."
 
+#: admin/admin.php:63
+#@ front-end-editor
+msgid "Enable or disable editable fields:"
+msgstr "Activer ou désactiver les champs d'édition:"
+
+#: admin/admin.php:106
+#@ front-end-editor
+msgid "Enable the WYSIWYG editor."
+msgstr "Activer l'éditeur WYSIWYG (visuel)."
+
 #. translators: plugin header field 'Version'
 #: front-end-editor.php:0
 #@ front-end-editor
-msgid "1.9.2"
-msgstr ""
+msgid "2.1"
+msgstr "2.1"
+
+#: php/core.php:48
+#@ front-end-editor
+msgid "Edit"
+msgstr "Éditer"
+
+#: php/fields/taxonomy.php:53
+#@ front-end-editor
+msgid "&mdash; None &mdash;"
+msgstr "&mdash; Aucun &mdash;"
 
