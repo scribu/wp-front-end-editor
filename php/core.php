@@ -151,9 +151,6 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	static function make_instances() {
-		// Safe hook for new editable fields to be registered
-		do_action( 'front_end_editor_fields' );
-
 		$disabled = (array) self::$options->disabled;
 
 		self::$active_fields = array();
@@ -182,6 +179,10 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	static function get_fields() {
+		// Safe hook for new editable fields to be registered
+		if ( !did_action( 'front_end_editor_fields' ) )
+			do_action( 'front_end_editor_fields' );
+
 		return self::$fields;
 	}
 
