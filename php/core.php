@@ -150,6 +150,10 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 		return true;
 	}
 
+	static function get_title( $filter ) {
+		return self::$fields[$filter]['title'];
+	}
+
 	static function make_instances() {
 		$disabled = (array) self::$options->disabled;
 

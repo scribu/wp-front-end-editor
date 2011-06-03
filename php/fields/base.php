@@ -14,6 +14,11 @@ abstract class FEE_Field_Base {
 	private static $wrapped = array();
 
 	/**
+	 * Keep track of when the placeholder is used
+	 */
+	protected $was_placeholded;
+
+	/**
 	 * Constructor; nothing fancy
 	 */
 	final public function __construct( $filter, $type ) {
@@ -78,6 +83,9 @@ abstract class FEE_Field_Base {
 
 		$data_attr['class'] = 'fee-field';
 
+		if ( $this->was_placeholded )
+			$data_attr['title'] = FEE_Core::get_title( $this->filter );
+
 		$wrap_tag = in_array( $data['type'], array( 'textarea', 'rich', 'widget' ) ) ? 'div' : 'span';
 
 		return html( $wrap_tag, $data_attr, $content );
@@ -114,8 +122,12 @@ abstract class FEE_Field_Base {
 	}
 
 	protected function placehold( $content ) {
-		if ( '' === (string) $content )
+		if ( '' === (string) $content ) {
 			$content = $this->placeholder();
+			$this->was_placeholded = true;
+		} else {
+			$this->was_placeholded = false;
+		}
 
 		return $content;
 	}
