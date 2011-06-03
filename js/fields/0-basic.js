@@ -68,7 +68,7 @@ FrontEndEditor.define_field( 'input', 'base', {
 
 		this.content_to_front(response.content);
 
-		this.form.hide();
+		this.form.remove();
 		this.el.show();
 	},
 
