@@ -23,10 +23,18 @@ jQuery.extend( FrontEndEditor, {
 
 		return {
 			cover: function($el) {
+				var $bgcolor;
+				$el.parents().each(function() {
+					$bgcolor = $(this).css('background-color');
+					if ( 'transparent' !== $bgcolor )
+						return false;
+				});
+
 				$cover
 					.css({
-						width: $el.width(),
-						height: $el.height()
+						'width': $el.width(),
+						'height': $el.height(),
+						'background-color': $bgcolor
 					})
 					.css($el.offset())
 					.show();

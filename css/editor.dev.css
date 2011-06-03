@@ -17,7 +17,6 @@ div.fee-form, textarea.fee-form-content {
 .fee-loading {
 	position: absolute;
 	z-index: 9999;
-	background-color: #fff;
 	background-position: center center;
 	background-repeat: no-repeat;
 	text-align: center;
