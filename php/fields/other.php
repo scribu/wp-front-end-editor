@@ -95,27 +95,15 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 // Handles single_*_title fields
 class FEE_Field_Single_Title extends FEE_Field_Term_Field {
 
-	private $taxonomy;
-
 	function setup() {
-		remove_filter( $this->get_filter(), 'strip_tags' );
-
-		list( $a, $tax, $b ) = explode( '_', $this->get_filter() );
-
-		$translate = array(
-			'cat' => 'category',
-			'tag' => 'post_tag'
-		);
-
-		$this->taxonomy = $translate[$tax];
 		$this->field = 'name';
+		remove_filter( $this->get_filter(), 'strip_tags' );
 	}
 
 	function wrap( $title ) {
-		if ( !$term = get_term_by( 'name', $title, $this->taxonomy ) )
-			return $title;
+		$term = get_queried_object();
 
-		return parent::wrap( $title, $term->term_id, $this->taxonomy );
+		return parent::wrap( $title, $term->term_id, $term->taxonomy );
 	}
 }
 

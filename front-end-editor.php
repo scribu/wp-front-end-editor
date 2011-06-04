@@ -138,6 +138,11 @@ function fee_register_defaults() {
 			'class' => 'FEE_Field_Single_Title',
 		),
 
+		'single_term_title' => array(
+			'title' => __( 'Term title', 'front-end-editor' ),
+			'class' => 'FEE_Field_Single_Title',
+		),
+
 		'term_description' => array(
 			'title' => __( 'Term description', 'front-end-editor' ),
 			'class' => 'FEE_Field_Term_Field',
