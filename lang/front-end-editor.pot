@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
-"POT-Creation-Date: 2011-05-26 13:41:44+00:00\n"
+"POT-Creation-Date: 2011-06-04 08:47:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,35 +49,35 @@ msgid "Save Changes"
 msgstr ""
 
 #: front-end-editor.php:68
-msgid "Post title"
+msgid "Title"
 msgstr ""
 
 #: front-end-editor.php:75
-msgid "Post content"
+msgid "Content"
 msgstr ""
 
 #: front-end-editor.php:86
-msgid "Post excerpt"
+msgid "Excerpt"
 msgstr ""
 
 #: front-end-editor.php:92
-msgid "Post categories"
+msgid "Categories"
 msgstr ""
 
 #: front-end-editor.php:99
-msgid "Post tags"
+msgid "Tags"
 msgstr ""
 
 #: front-end-editor.php:106
-msgid "Post terms"
+msgid "Terms"
 msgstr ""
 
 #: front-end-editor.php:113
-msgid "Post custom fields"
+msgid "Custom fields"
 msgstr ""
 
 #: front-end-editor.php:119
-msgid "Post thumbnail"
+msgid "Thumbnail"
 msgstr ""
 
 #: front-end-editor.php:126
@@ -124,38 +124,38 @@ msgstr ""
 msgid "Error: %s is currently editing this."
 msgstr ""
 
-#: php/fields/base.php:110
+#: php/fields/base.php:121
 msgid "empty"
 msgstr ""
 
-#: php/fields/base.php:129
+#: php/fields/base.php:144
 msgid "no"
 msgstr ""
 
-#: php/fields/base.php:130
+#: php/fields/base.php:145
 msgid "yes"
 msgstr ""
 
-#: php/core.php:46
+#: php/core.php:48
 msgid "Edit"
 msgstr ""
 
-#: php/core.php:47
+#: php/core.php:49
 msgid "Save"
 msgstr ""
 
-#: php/core.php:48
+#: php/core.php:50
 msgid "Cancel"
 msgstr ""
 
-#: php/core.php:72
+#: php/core.php:73
 msgid "Change Image"
 msgstr ""
 
-#: php/core.php:73
+#: php/core.php:74
 msgid "Insert Image"
 msgstr ""
 
-#: php/core.php:74
+#: php/core.php:75
 msgid "Clear"
 msgstr ""

@@ -65,14 +65,14 @@ scb_init( '_fee_init' );
 function fee_register_defaults() {
 	$fields = array(
 		'the_title' => array(
-			'title' => __( 'Post title', 'front-end-editor' ),
+			'title' => __( 'Title', 'front-end-editor' ),
 			'class' => 'FEE_Field_Post',
 			'type'  => 'input',
 			'argc'  => 2,
 		),
 
 		'the_content' => array(
-			'title' => __( 'Post content', 'front-end-editor' ),
+			'title' => __( 'Content', 'front-end-editor' ),
 			'class' => 'FEE_Field_Post',
 			'type'  => 'rich',
 		),
@@ -83,40 +83,40 @@ function fee_register_defaults() {
 		),
 
 		'the_excerpt' => array(
-			'title' => __( 'Post excerpt', 'front-end-editor' ),
+			'title' => __( 'Excerpt', 'front-end-editor' ),
 			'class' => 'FEE_Field_Excerpt',
 			'type'  => 'textarea',
 		),
 
 		'the_category' => array(
-			'title' => __( 'Post categories', 'front-end-editor' ),
+			'title' => __( 'Categories', 'front-end-editor' ),
 			'class' => 'FEE_Field_Category',
 			'type'  => 'terminput',
 			'argc'  => 3,
 		),
 
 		'the_tags' => array(
-			'title' => __( 'Post tags', 'front-end-editor' ),
+			'title' => __( 'Tags', 'front-end-editor' ),
 			'class' => 'FEE_Field_Tags',
 			'type'  => 'terminput',
 			'argc'  => 4,
 		),
 
 		'the_terms' => array(
-			'title' => __( 'Post terms', 'front-end-editor' ),
+			'title' => __( 'Terms', 'front-end-editor' ),
 			'class' => 'FEE_Field_Terms',
 			'type'  => 'terminput',
 			'argc'  => 5,
 		),
 
 		'post_meta' => array(
-			'title' => __( 'Post custom fields', 'front-end-editor' ),
+			'title' => __( 'Custom fields', 'front-end-editor' ),
 			'class' => 'FEE_Field_Meta',
 			'argc'  => 5,
 		),
 
 		'post_thumbnail_html' => array(
-			'title' => __( 'Post thumbnail', 'front-end-editor' ),
+			'title' => __( 'Thumbnail', 'front-end-editor' ),
 			'class' => 'FEE_Field_Thumbnail',
 			'type'  => 'thumbnail',
 			'argc'  => 4,
