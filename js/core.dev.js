@@ -25,7 +25,7 @@ jQuery.extend( FrontEndEditor, {
 			cover: function($el) {
 				var $bgcolor;
 				$el.parents().each(function() {
-					$bgcolor = $(this).css('background-color');
+					$bgcolor = jQuery(this).css('background-color');
 					if ( 'transparent' !== $bgcolor )
 						return false;
 				});
