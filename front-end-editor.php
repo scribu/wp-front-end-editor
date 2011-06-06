@@ -80,6 +80,11 @@ function fee_register_defaults() {
 			'type'  => 'rich',
 		),
 
+		'editable' => array(
+			'title' => '',
+			'class' => 'FEE_Shortcode_Editable',
+		),
+
 		'the_excerpt' => array(
 			'title' => __( 'Excerpt', 'front-end-editor' ),
 			'class' => 'FEE_Field_Excerpt',
