@@ -24,7 +24,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 		$content = $this->placehold( $content );
 
-		$data['type'] = is_taxonomy_hierarchical( $taxonomy ) ? 'termselect' : 'terminput';
+		$data['type'] = is_taxonomy_hierarchical( $taxonomy ) ? FEE_Core::$options->taxonomy_ui : 'terminput';
 
 		return FEE_Field_Base::wrap( $content, $data );
 	}

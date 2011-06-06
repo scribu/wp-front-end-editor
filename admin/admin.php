@@ -94,24 +94,38 @@ class FEE_Admin extends scbBoxesPage {
 		if ( !isset( $_POST['save_settings'] ) )
 			return;
 
-		foreach ( array( 'rich', 'chunks', 'highlight', 'tooltip' ) as $key )
-			$this->options->$key = (bool) @$_POST[$key];
+		$this->options->rich = isset( $_POST['rich'] );
+
+		if ( isset( $_POST['taxonomy_ui'] ) && in_array( $_POST['taxonomy_ui'], array( 'termselect', 'terminput' ) ) )
+			$this->options->taxonomy_ui = $_POST['taxonomy_ui'];
 
 		$this->admin_msg();
 	}
 
 	function settings_box() {
-		$rows = array(
-			array(
-				'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
-				'type' => 'checkbox',
-				'name' => 'rich',
-			),
-		);
 
-		$out = '';
-		foreach ( $rows as $row )
-			$out .= html( 'p', $this->input( $row ) );
+		$out = html( 'p', $this->input( array(
+			'name' => 'rich',
+			'type' => 'checkbox',
+			'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
+		) ) );
+
+		$out .= html( 'p',
+			__( 'To edit categories, use a:', $this->textdomain ),
+			' ',
+			$this->input( array(
+				'name' => 'taxonomy_ui',
+				'type' => 'radio',
+				'values' => array(
+					'termselect',
+					'terminput',
+				),
+				'desc' => array(
+					__( 'dropdown', $this->textdomain ),
+					__( 'text field', $this->textdomain ),
+				)
+			) )
+		);
 
 		echo $this->form_wrap( $out, '', 'save_settings' );
 	}

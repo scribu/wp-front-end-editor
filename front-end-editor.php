@@ -48,6 +48,7 @@ function _fee_init() {
 	$options = new scbOptions( 'front-end-editor', __FILE__, array(
 		'disabled' => array('bloginfo'),
 		'rich' => true,
+		'taxonomy_ui' => 'termselect'
 	) );
 
 	FEE_Core::init( $options );
@@ -93,21 +94,18 @@ function fee_register_defaults() {
 		'the_category' => array(
 			'title' => __( 'Categories', 'front-end-editor' ),
 			'class' => 'FEE_Field_Category',
-			'type'  => 'terminput',
 			'argc'  => 3,
 		),
 
 		'the_tags' => array(
 			'title' => __( 'Tags', 'front-end-editor' ),
 			'class' => 'FEE_Field_Tags',
-			'type'  => 'terminput',
 			'argc'  => 4,
 		),
 
 		'the_terms' => array(
 			'title' => __( 'Terms', 'front-end-editor' ),
 			'class' => 'FEE_Field_Terms',
-			'type'  => 'terminput',
 			'argc'  => 5,
 		),
 
