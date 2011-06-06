@@ -90,7 +90,7 @@ jQuery.extend( FrontEndEditor, {
 });
 
 
-jQuery(function($) {
+jQuery(function() {
 
 	// fetch all 'data-' attributes from a DOM node
 	function extract_data_attr(el) {
@@ -169,7 +169,7 @@ jQuery(function($) {
 
 				hover_hide_immediately();
 			}, 300);
-		};
+		}
 
 		function hover_show(callback) {
 			var
@@ -199,9 +199,9 @@ jQuery(function($) {
 			hover_border.css({
 				'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px',
 				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px',
-				'height': (dims.height + HOVER_PADDING * 2) + 'px',
+				'height': (dims.height + HOVER_PADDING * 2) + 'px'
 			}).show();
-		};
+		}
 
 		hover_init = function ($el, callback) {
 			$el
@@ -212,12 +212,12 @@ jQuery(function($) {
 				mouse_vert_pos = ev.pageY;
 				hover_show.call(this, callback);
 			   })
-			   .mouseout(function (ev) {
-				hover_hide();
-			   })
 			   .mousemove(function (ev) {
 				mouse_vert_pos = ev.pageY;
 				box_position_vert();
+			   })
+			   .mouseout(function () {
+				hover_hide();
 			   });
 		};
 	}());
@@ -234,7 +234,6 @@ jQuery(function($) {
 			}
 			return;
 		}
-
 	
 		editor = FrontEndEditor.get_field_instance(data.type);
 
