@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  \n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
-"POT-Creation-Date: 2011-06-04 08:47:44+00:00\n"
+"POT-Creation-Date: 2011-06-06 04:32:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,8 +36,20 @@ msgstr ""
 msgid "Other fields"
 msgstr ""
 
-#: admin/admin.php:106
+#: admin/admin.php:110
 msgid "Enable the WYSIWYG editor."
+msgstr ""
+
+#: admin/admin.php:114
+msgid "To edit categories, use a:"
+msgstr ""
+
+#: admin/admin.php:124
+msgid "dropdown"
+msgstr ""
+
+#: admin/admin.php:125
+msgid "text field"
 msgstr ""
 
 #: scb/AdminPage.php:165
@@ -48,27 +60,27 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: front-end-editor.php:68
+#: front-end-editor.php:71
 msgid "Title"
 msgstr ""
 
-#: front-end-editor.php:75
+#: front-end-editor.php:78
 msgid "Content"
 msgstr ""
 
-#: front-end-editor.php:86
+#: front-end-editor.php:89
 msgid "Excerpt"
 msgstr ""
 
-#: front-end-editor.php:92
+#: front-end-editor.php:95
 msgid "Categories"
 msgstr ""
 
-#: front-end-editor.php:99
+#: front-end-editor.php:101
 msgid "Tags"
 msgstr ""
 
-#: front-end-editor.php:106
+#: front-end-editor.php:107
 msgid "Terms"
 msgstr ""
 
@@ -93,26 +105,30 @@ msgid "Tag title"
 msgstr ""
 
 #: front-end-editor.php:142
+msgid "Term title"
+msgstr ""
+
+#: front-end-editor.php:147
 msgid "Term description"
 msgstr ""
 
-#: front-end-editor.php:149
+#: front-end-editor.php:154
 msgid "Author description"
 msgstr ""
 
-#: front-end-editor.php:156
+#: front-end-editor.php:161
 msgid "Widgets"
 msgstr ""
 
-#: front-end-editor.php:162
+#: front-end-editor.php:167
 msgid "Site title and description"
 msgstr ""
 
-#: front-end-editor.php:168
+#: front-end-editor.php:173
 msgid "Site options"
 msgstr ""
 
-#: front-end-editor.php:174
+#: front-end-editor.php:179
 msgid "Theme images"
 msgstr ""
 
@@ -124,38 +140,38 @@ msgstr ""
 msgid "Error: %s is currently editing this."
 msgstr ""
 
-#: php/fields/base.php:121
+#: php/fields/base.php:124
 msgid "empty"
 msgstr ""
 
-#: php/fields/base.php:144
+#: php/fields/base.php:147
 msgid "no"
 msgstr ""
 
-#: php/fields/base.php:145
+#: php/fields/base.php:148
 msgid "yes"
 msgstr ""
 
-#: php/core.php:48
+#: php/core.php:46
 msgid "Edit"
 msgstr ""
 
-#: php/core.php:49
+#: php/core.php:47
 msgid "Save"
 msgstr ""
 
-#: php/core.php:50
+#: php/core.php:48
 msgid "Cancel"
 msgstr ""
 
-#: php/core.php:73
+#: php/core.php:71
 msgid "Change Image"
 msgstr ""
 
-#: php/core.php:74
+#: php/core.php:72
 msgid "Insert Image"
 msgstr ""
 
-#: php/core.php:75
+#: php/core.php:73
 msgid "Clear"
 msgstr ""

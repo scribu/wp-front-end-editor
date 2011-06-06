@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor 0.7.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
-"POT-Creation-Date: 2011-06-04 08:47:44+00:00\n"
-"PO-Revision-Date: 2011-06-04 11:50+0200\n"
+"POT-Creation-Date: 2011-06-06 04:32:40+00:00\n"
+"PO-Revision-Date: 2011-06-06 07:34+0200\n"
 "Last-Translator: scribu <mail@scribu.net>\n"
 "Language-Team: ROMANIAN <LL@li.org>\n"
 "Language: \n"
@@ -41,9 +41,21 @@ msgstr "Câmpuri articol"
 msgid "Other fields"
 msgstr "Alte câmpuri"
 
-#: admin/admin.php:106
+#: admin/admin.php:110
 msgid "Enable the WYSIWYG editor."
 msgstr "Activează editorul WYSIWYG."
+
+#: admin/admin.php:114
+msgid "To edit categories, use a:"
+msgstr "Pentru a edita categorii foloește:"
+
+#: admin/admin.php:124
+msgid "dropdown"
+msgstr "listă derulantă"
+
+#: admin/admin.php:125
+msgid "text field"
+msgstr "câmp text"
 
 #: scb/AdminPage.php:165
 msgid "Settings <strong>saved</strong>."
@@ -54,27 +66,27 @@ msgstr "Setări <strong>salvate</strong>."
 msgid "Save Changes"
 msgstr "Salvează schimbările"
 
-#: front-end-editor.php:68
+#: front-end-editor.php:71
 msgid "Title"
 msgstr "Titlu"
 
-#: front-end-editor.php:75
+#: front-end-editor.php:78
 msgid "Content"
 msgstr "Conținut"
 
-#: front-end-editor.php:86
+#: front-end-editor.php:89
 msgid "Excerpt"
 msgstr "Extras"
 
-#: front-end-editor.php:92
+#: front-end-editor.php:95
 msgid "Categories"
 msgstr "Categorii"
 
-#: front-end-editor.php:99
+#: front-end-editor.php:101
 msgid "Tags"
 msgstr "Etichete"
 
-#: front-end-editor.php:106
+#: front-end-editor.php:107
 msgid "Terms"
 msgstr "Termeni"
 
@@ -99,26 +111,30 @@ msgid "Tag title"
 msgstr "Titlu etichetă"
 
 #: front-end-editor.php:142
+msgid "Term title"
+msgstr "Titlu termen"
+
+#: front-end-editor.php:147
 msgid "Term description"
 msgstr "Descriere termen"
 
-#: front-end-editor.php:149
+#: front-end-editor.php:154
 msgid "Author description"
 msgstr "Descriere autor"
 
-#: front-end-editor.php:156
+#: front-end-editor.php:161
 msgid "Widgets"
 msgstr "Widget-uri"
 
-#: front-end-editor.php:162
+#: front-end-editor.php:167
 msgid "Site title and description"
 msgstr "Titlu și descriere site"
 
-#: front-end-editor.php:168
+#: front-end-editor.php:173
 msgid "Site options"
 msgstr "Setări site"
 
-#: front-end-editor.php:174
+#: front-end-editor.php:179
 msgid "Theme images"
 msgstr "Imagini temă"
 
@@ -130,47 +146,44 @@ msgstr "&mdash; Nici una &mdash;"
 msgid "Error: %s is currently editing this."
 msgstr "Eroare: %s editează asta acum."
 
-#: php/fields/base.php:121
+#: php/fields/base.php:124
 msgid "empty"
 msgstr "gol"
 
-#: php/fields/base.php:144
+#: php/fields/base.php:147
 msgid "no"
 msgstr "nu"
 
-#: php/fields/base.php:145
+#: php/fields/base.php:148
 msgid "yes"
 msgstr "da"
 
-#: php/core.php:48
+#: php/core.php:46
 msgid "Edit"
 msgstr "Editează"
 
-#: php/core.php:49
+#: php/core.php:47
 msgid "Save"
 msgstr "Salvează"
 
-#: php/core.php:50
+#: php/core.php:48
 msgid "Cancel"
 msgstr "Anulează"
 
-#: php/core.php:73
+#: php/core.php:71
 msgid "Change Image"
 msgstr "Schimbă imaginea"
 
-#: php/core.php:74
+#: php/core.php:72
 msgid "Insert Image"
 msgstr "Inserează imagine"
 
-#: php/core.php:75
+#: php/core.php:73
 msgid "Clear"
 msgstr "Golește"
 
 #~ msgid "Post title"
 #~ msgstr "Titlu articol"
-
-#~ msgid "Post categories"
-#~ msgstr "Categorii articol"
 
 #~ msgid "Post tags"
 #~ msgstr "Etichete articol"

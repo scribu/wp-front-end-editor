@@ -64,6 +64,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 == Changelog ==
 
 = 2.1.1 =
+* added option to disable dropdown for categories
 * added single_term_title field
 * set field name as title attribute on placeholders
 * fixed issue with righ-aligned images in content
