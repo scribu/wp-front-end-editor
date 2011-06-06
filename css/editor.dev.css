@@ -5,6 +5,18 @@
 	border-width: 0 !important;
 }
 
+/* Clearfix */
+.fee-clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+* html .fee-clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .fee-clearfix { zoom: 1; } /* IE7 */
+
 div.fee-form, textarea.fee-form-content {
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;

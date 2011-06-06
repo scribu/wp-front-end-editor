@@ -88,6 +88,9 @@ abstract class FEE_Field_Base {
 
 		$wrap_tag = in_array( $data['type'], array( 'textarea', 'rich', 'widget' ) ) ? 'div' : 'span';
 
+		if ( 'div' == $wrap_tag )
+			$data_attr['class'] .= ' fee-clearfix';
+
 		return html( $wrap_tag, $data_attr, $content );
 	}
 
