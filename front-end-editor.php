@@ -26,10 +26,12 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Load scbFramework
-require dirname( __FILE__ ) . '/scb/load.php';
+define( 'FRONT_END_EDITOR_VERSION', '2.1.1-alpha' );
 
 define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
+
+// Load scbFramework
+require dirname( __FILE__ ) . '/scb/load.php';
 
 function _fee_init() {
 	load_plugin_textdomain( 'front-end-editor', '', basename( dirname( __FILE__ ) ) . '/lang' );
@@ -48,7 +50,7 @@ function _fee_init() {
 		'rich' => true,
 	) );
 
-	FEE_Core::init( $options, '2.1' );
+	FEE_Core::init( $options );
 
 	FEE_Field_Option::init( __FILE__ );
 	FEE_Field_Image::init( __FILE__ );

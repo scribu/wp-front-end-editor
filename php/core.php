@@ -8,12 +8,10 @@ abstract class FEE_Core {
 	private static $instances = array();
 
 	private static $plugin_url;
-	private static $version;
 	private static $nonce = 'front-editor';
 
-	static function init( $options, $version ) {
+	static function init( $options ) {
 		self::$options = $options;
-		self::$version = $version;
 
 		add_action( 'wp_ajax_front-end-editor', array( __CLASS__, 'ajax_response' ) );
 
@@ -85,20 +83,20 @@ abstract class FEE_Core {
 			wp_register_script( 'fee-class', $url . "class.js", array(), '1.0', true );
 			$js_dependencies[] = 'fee-class';
 
-			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, self::$version, true );
+			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, FRONT_END_EDITOR_VERSION, true );
 			$js_dependencies[] = 'fee-core';
 
 			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
 				$file = basename( $file );
-				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), self::$version, true );
+				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), FRONT_END_EDITOR_VERSION, true );
 				$js_dependencies[] = "fee-fields-$file";
 			}
 		} else {
-			wp_register_script( 'fee-editor', $url . "editor.js", $js_dependencies, self::$version, true );
+			wp_register_script( 'fee-editor', $url . "editor.js", $js_dependencies, FRONT_END_EDITOR_VERSION, true );
 			$js_dependencies[] = 'fee-editor';
 		}
 
-		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, self::$version );
+		wp_register_style( 'fee-editor', plugins_url( "css/editor$dev.css", FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, FRONT_END_EDITOR_VERSION );
 
 ?>
 <script type='text/javascript'>
