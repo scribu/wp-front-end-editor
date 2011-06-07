@@ -24,7 +24,7 @@ FrontEndEditor.define_field( 'widget', 'textarea', {
 
 		args = self._super(args);
 
-		if ( 'get' == args.callback )
+		if ( 'get' === args.callback )
 			return args;
 
 		if (self._rich) {

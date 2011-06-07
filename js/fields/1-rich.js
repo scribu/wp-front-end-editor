@@ -25,7 +25,7 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 		this.form.focus();
 
 		GENTICS.Aloha.wpSaveCancel.current_field = this;
-	},
+	}
 
 //	// Copied from wp-admin/js/editor.dev.js
 //	pre_wpautop: function (content) {
