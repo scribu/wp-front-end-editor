@@ -145,7 +145,7 @@ function fee_register_defaults() {
 			'argc'  => 3,
 		),
 
-		'the_author_description' => array(
+		'get_the_author_description' => array(
 			'title' => __( 'Author description', 'front-end-editor' ),
 			'class' => 'FEE_Field_Author_Desc',
 			'type'  => 'textarea',

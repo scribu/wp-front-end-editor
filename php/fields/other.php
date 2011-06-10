@@ -115,10 +115,11 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $author_id = '' ) {
-		if ( !$author_id )
-			return $content;
 
-		if ( !$this->check( $author_id ) )
+		if ( !$author_id )
+			$author_id = $GLOBALS['authordata']->ID;
+
+		if ( !$this->check( compact( 'author_id' ) ) )
 			return $content;
 
 		$content = $this->placehold( $content );
