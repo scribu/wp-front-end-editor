@@ -219,7 +219,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 				$result = @apply_filters( $filter, $result );
 			}
 			elseif ( 'get' == $callback ) {
-				$result = $instance->get( $data );
+				$result = (string) $instance->get( $data );
 
 				if ( 'rich' == $data['type'] )
 					$result = wpautop( $result );
