@@ -69,6 +69,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 * set field name as title attribute on placeholders
 * use background color as base for ajax loading overlay
 * fixed issue with right-aligned images in content
+* fixed author description editing
 
 = 2.1 =
 * switched to Aloha Editor
