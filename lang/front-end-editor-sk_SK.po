@@ -1,0 +1,183 @@
+# Copyright (C) 2010 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Front end editor Slovak 2.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
+"POT-Creation-Date: 2011-06-06 04:32:40+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2011-06-10 06:16+0100\n"
+"Last-Translator: \n"
+"Language-Team: Rado <rado@regionweb.sk>\n"
+"X-Poedit-Language: Slovak\n"
+"X-Poedit-Country: SLOVAKIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: admin/admin.php:9
+msgid "Front-end Editor"
+msgstr "Front-end Editor"
+
+#: admin/admin.php:14
+msgid "Fields"
+msgstr "Polia"
+
+#: admin/admin.php:15
+#: scb/AdminPage.php:369
+msgid "Settings"
+msgstr "Nastavenia"
+
+#: admin/admin.php:63
+msgid "Enable or disable editable fields:"
+msgstr "Povoliť alebo zakázať editovateľné polia"
+
+#: admin/admin.php:65
+msgid "Post fields"
+msgstr "Polia príspevku"
+
+#: admin/admin.php:66
+msgid "Other fields"
+msgstr "Ostatné polia"
+
+#: admin/admin.php:110
+msgid "Enable the WYSIWYG editor."
+msgstr "Povoliť WYSIWYG editor"
+
+#: admin/admin.php:114
+msgid "To edit categories, use a:"
+msgstr "Na úpravu kategórií použiť:"
+
+#: admin/admin.php:124
+msgid "dropdown"
+msgstr "rolovacie menu"
+
+#: admin/admin.php:125
+msgid "text field"
+msgstr "textové pole"
+
+#: scb/AdminPage.php:165
+msgid "Settings <strong>saved</strong>."
+msgstr "Nastavenia sú <strong>uložené</strong>"
+
+#: scb/AdminPage.php:177
+#: scb/AdminPage.php:187
+msgid "Save Changes"
+msgstr "Uložiť zmeny"
+
+#: front-end-editor.php:71
+msgid "Title"
+msgstr "Nadpis"
+
+#: front-end-editor.php:78
+msgid "Content"
+msgstr "Obsah"
+
+#: front-end-editor.php:89
+msgid "Excerpt"
+msgstr "Zhrnutie"
+
+#: front-end-editor.php:95
+msgid "Categories"
+msgstr "Kategórie"
+
+#: front-end-editor.php:101
+msgid "Tags"
+msgstr "Značky"
+
+#: front-end-editor.php:107
+msgid "Terms"
+msgstr "Termíny"
+
+#: front-end-editor.php:113
+msgid "Custom fields"
+msgstr "Vlastné polia"
+
+#: front-end-editor.php:119
+msgid "Thumbnail"
+msgstr "Miniatúra"
+
+#: front-end-editor.php:126
+msgid "Comment text"
+msgstr "Text komentára"
+
+#: front-end-editor.php:132
+msgid "Category title"
+msgstr "Názov kategórie"
+
+#: front-end-editor.php:137
+msgid "Tag title"
+msgstr "Názov značky"
+
+#: front-end-editor.php:142
+msgid "Term title"
+msgstr "Názov termínu"
+
+#: front-end-editor.php:147
+msgid "Term description"
+msgstr "Popis termínu"
+
+#: front-end-editor.php:154
+msgid "Author description"
+msgstr "Popis autora"
+
+#: front-end-editor.php:161
+msgid "Widgets"
+msgstr "Widgety"
+
+#: front-end-editor.php:167
+msgid "Site title and description"
+msgstr "Názov a popis stránky"
+
+#: front-end-editor.php:173
+msgid "Site options"
+msgstr "Nastavenia stránky"
+
+#: front-end-editor.php:179
+msgid "Theme images"
+msgstr "Obrázky témy"
+
+#: php/fields/taxonomy.php:53
+msgid "&mdash; None &mdash;"
+msgstr "&mdash; Žiaden &mdash;"
+
+#: php/fields/post.php:93
+msgid "Error: %s is currently editing this."
+msgstr "Chyba: %s momentálne upravuje túto časť."
+
+#: php/fields/base.php:124
+msgid "empty"
+msgstr "prázdne"
+
+#: php/fields/base.php:147
+msgid "no"
+msgstr "nie"
+
+#: php/fields/base.php:148
+msgid "yes"
+msgstr "áno"
+
+#: php/core.php:46
+msgid "Edit"
+msgstr "Upraviť"
+
+#: php/core.php:47
+msgid "Save"
+msgstr "Uložiť"
+
+#: php/core.php:48
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#: php/core.php:71
+msgid "Change Image"
+msgstr "Zmeniť obrázok"
+
+#: php/core.php:72
+msgid "Insert Image"
+msgstr "Vložiť obrázok"
+
+#: php/core.php:73
+msgid "Clear"
+msgstr "Vyčistiť"
+
