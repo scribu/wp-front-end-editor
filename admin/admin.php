@@ -20,23 +20,6 @@ class FEE_Admin extends scbBoxesPage {
 		wp_enqueue_style( 'fee-admin', $this->plugin_url . "admin/admin.css", array(), '2.0-alpha' );
 	}
 
-	protected function checklist_wrap( $title, $tbody ) {
-		$thead =
-		html( 'tr',
-			 html( 'th scope="col" class="check-column"', '<input type="checkbox" />' )
-			.html( 'th scope="col"', $title )
-		);
-
-		$table =
-		html( 'table class="checklist widefat"',
-			 html( 'thead', $thead )
-			.html( 'tbody', $tbody )
-		);
-
-		return $table;
-	}
-
-
 	function fields_handler() {
 		if ( !isset( $_POST['manage_fields'] ) )
 			return;
@@ -69,25 +52,32 @@ class FEE_Admin extends scbBoxesPage {
 	}
 
 	private function fields_table( $title, $fields ) {
-		$tbody = '';
+		$data = array(
+			'col-title' => $title
+		);
+
 		foreach ( $fields as $field => $args ) {
 			if ( empty( $args['title'] ) )
 				continue;
 
-			$tbody .=
-			html( 'tr',
-				html( 'th scope="row" class="check-column"',
-					$this->input( array(
-						'type' => 'checkbox',
-						'name' => $field,
-						'checked' => !in_array( $field, (array) $this->options->disabled )
-					) )
-				)
-				.html( 'td', $args['title'] )
+			$data['fields'][] = array(
+				'name' => $field,
+				'checked' => ( !in_array( $field, (array) $this->options->disabled ) ) ? 'checked' : false,
+				'title' => $args['title']
 			);
 		}
 
-		return $this->checklist_wrap( $title, $tbody );
+		return self::mustache_render( 'fields-table.html', $data );
+	}
+
+	private static function mustache_render( $file, $data ) {
+		if ( !class_exists( 'Mustache' ) )
+			require dirname(FRONT_END_EDITOR_MAIN_FILE) . '/mustache/Mustache.php';
+
+		$template_path = dirname(__FILE__) . '/' . $file;
+
+		$m = new Mustache;
+		return $m->render( file_get_contents( $template_path ), $data );
 	}
 
 	function settings_handler() {

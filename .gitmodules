@@ -4,3 +4,6 @@
 [submodule "aloha-editor"]
 	path = aloha-editor
 	url = git://github.com/scribu/Aloha-Editor.git
+[submodule "mustache"]
+	path = mustache
+	url = git://github.com/bobthecow/mustache.php.git

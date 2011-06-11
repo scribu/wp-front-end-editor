@@ -1,0 +1,18 @@
+<table class="checklist widefat">
+	<thead>
+		<tr>
+			<th class="check-column" scope="col"><input type="checkbox"></th>
+			<th scope="col">{{col-title}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#fields}}
+		<tr>
+			<th class="check-column" scope="row">
+				<input type="checkbox" {{checked}} value="1" name="{{name}}">
+			</th>
+			<td>{{title}}</td>
+		</tr>
+		{{/fields}}
+	</tbody>
+</table>
