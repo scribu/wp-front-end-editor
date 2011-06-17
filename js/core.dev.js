@@ -204,21 +204,22 @@ jQuery(function() {
 		}
 
 		hover_init = function ($el, callback) {
-			$el
-			   .mouseover(function (ev) {
-				if ( FrontEndEditor.is_editing() )
-					return;
+			$el.bind({
+				mouseover: function (ev) {
+					if ( FrontEndEditor.is_editing() )
+						return;
 
-				mouse_vert_pos = ev.pageY;
-				hover_show.call(this, callback);
-			   })
-			   .mousemove(function (ev) {
-				mouse_vert_pos = ev.pageY;
-				box_position_vert();
-			   })
-			   .mouseout(function () {
-				hover_hide();
-			   });
+					mouse_vert_pos = ev.pageY;
+					hover_show.call(this, callback);
+				},
+
+				mousemove: function (ev) {
+					mouse_vert_pos = ev.pageY;
+					box_position_vert();
+				},
+
+				mouseout: hover_hide
+			});
 		};
 	}());
 
