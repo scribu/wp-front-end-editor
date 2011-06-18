@@ -3,7 +3,7 @@ Contributors: scribu, Jotschi
 Donate link: http://scribu.net/wordpress/front-end-editor
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
-Tested up to: 3.1
+Tested up to: 3.2
 Stable tag: 2.1.1
 
 Edit content inline, without going to the admin area.
@@ -62,6 +62,9 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 5. The settings page
 
 == Changelog ==
+
+= 2.1.2 =
+* properly handle hierarchical taxonomies edited via text input
 
 = 2.1.1 =
 * added option to disable dropdown for categories
