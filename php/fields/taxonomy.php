@@ -59,10 +59,27 @@ class FEE_Field_Terms extends FEE_Field_Post {
 	function save( $data, $terms ) {
 		extract( $data );
 
-		if ( 'terminput' == $type ) {
+		if ( 'termselect' == $type ) {
+			wp_set_object_terms( $post_id, absint( $terms ), $taxonomy );
+		} elseif ( !is_taxonomy_hierarchical( $taxonomy ) ) {
 			wp_set_post_terms( $post_id, $terms, $taxonomy );
 		} else {
-			wp_set_object_terms( $post_id, absint( $terms ), $taxonomy );
+			$term_ids = array();
+			foreach ( explode( ',', $terms ) as $term_name ) {
+				$term = get_term_by( 'name', trim( $term_name ), $taxonomy );
+				if ( !$term ) {
+					$r = wp_insert_term( $term_name, $taxonomy );
+
+					if ( is_wp_error( $r ) )
+						continue;
+
+					$term_ids[] = (int) $r['term_id'];
+				} else {
+					$term_ids[] = (int) $term->term_id;
+				}
+			}
+
+			wp_set_object_terms( $post_id, $term_ids, $taxonomy );
 		}
 
 		$content = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
