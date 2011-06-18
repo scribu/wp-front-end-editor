@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MINIFIER="java -jar /home/cristi/bin/yuicompressor-2.4.2/build/yuicompressor-2.4.2.jar"
+MINIFIER="java -jar $HOME/bin/yuicompressor-2.4.6.jar"
 
 cd 'js'
 $MINIFIER 'class.js' > 'editor.js'
