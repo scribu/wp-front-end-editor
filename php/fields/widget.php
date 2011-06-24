@@ -15,7 +15,14 @@ class FEE_Field_Widget extends FEE_Field_Base {
 
 		$data = array( 'widget_id' => $p['widget_id'], 'sidebar_id' => $p['id'] );
 
-		list( $before, $after ) = scbUtil::split_at( '</', parent::wrap( '', $data ) );
+		// Text widgets are handled differently
+		if ( 0 === strpos( $p['widget_id'], 'text-' ) ) {
+			$wrap = html( 'div', array( 'class' => 'fee-text-widget-helper', 'data-widget_id' => $p['widget_id'] ), '' );
+		} else {
+			$wrap = parent::wrap( '', $data );
+		}
+
+		list( $before, $after ) = scbUtil::split_at( '</', $wrap );
 
 		$p['before_widget'] = $p['before_widget'] . $before;
 		$p['after_widget'] = $after . $p['after_widget'];
@@ -31,9 +38,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		return $this->do_( 'save', $data, $content );
 	}
 
-	private function do_( $action, $data, $content = '' ) {
-		global $wp_widget_factory;
-
+	protected function do_( $action, $data, $content = '' ) {
 		extract( $data );
 
 		// Get widget type and number
@@ -47,8 +52,8 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		$instance =& $widgets[ $widget_nr ];
 
 		// Get widget class
-		foreach ( $wp_widget_factory->widgets as $widget ) {
-			if ( $widget->id_base == $id_base )
+		foreach ( $GLOBALS['wp_widget_factory']->widgets as $widget_obj ) {
+			if ( $widget_obj->id_base == $id_base )
 				break;
 		}
 
@@ -56,16 +61,13 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		ob_start();
 
 		if ( 'get' == $action ) {
-			if ( 'text' == $id_base && FEE_Core::$options->rich )
-				$instance['text'] = wpautop( $instance['text'] );
-
-			$widget->form( $instance );
+			$widget_obj->form( $instance );
 		}
 
 		if ( 'save' == $action ) {
 			$new_instance = stripslashes_deep( reset( $_POST[ 'widget-' . $id_base ] ) );
 
-			$instance = $widget->update( $new_instance, $instance );
+			$instance = $widget_obj->update( $new_instance, $instance );
 
 			update_option( $widget_key, $widgets );
 
@@ -78,7 +80,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		return ob_get_clean();
 	}
 
-	// temporarirly remove all other widgets from a specific sidebar
+	// temporarily remove all other widgets from a specific sidebar
 	function _hack( $sidebar_widgets ) {
 		extract( $this->data );
 
@@ -89,6 +91,57 @@ class FEE_Field_Widget extends FEE_Field_Base {
 
 	function check( $data = 0 ) {
 		return current_user_can( 'edit_theme_options' );
+	}
+}
+
+class FEE_Field_Widget_Text extends FEE_Field_Widget {
+	protected $field;
+
+	protected function setup() {
+		$this->field = str_replace( 'widget_', '', $this->get_filter() );
+	}
+
+	function wrap( $content, $instance, $id_base = null ) {
+		// Only target text widgets
+		if ( 'title' == $this->field && 'text' != $id_base )
+			return $content;
+
+		if ( 'text' == $this->field )
+			$content = $this->placehold($content);
+
+		return FEE_Field_Base::wrap( $content, array() );
+	}
+
+	protected function do_( $action, $data, $content = '' ) {
+		extract( $data );
+
+		// Get widget type and number
+		$id_base = explode( '-', $widget_id );
+		$widget_nr = array_pop( $id_base );
+		$id_base = implode( '-', $id_base );
+
+		// Get widget instance
+		$widget_key = 'widget_' . $id_base;
+		$widgets = get_option( $widget_key );
+
+		$old_content =& $widgets[$widget_nr][$this->field];
+
+		if ( 'get' == $action ) {
+			return $old_content;
+		}
+
+		if ( 'save' == $action ) {
+			$old_content = $content;
+			$widgets[$widget_nr]['filter'] = true;
+
+			update_option( $widget_key, $widgets );
+
+			if ( 'text' == $this->field ) {
+				$content = wpautop( $this->placehold( $content ) );
+			}
+
+			return $content;
+		}
 	}
 }
 

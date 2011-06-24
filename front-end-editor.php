@@ -120,8 +120,22 @@ function fee_register_defaults() {
 		),
 
 		// Widget fields
+		'widget_title' => array(
+			'title' => __( 'Text widget title', 'front-end-editor' ),
+			'class' => 'FEE_Field_Widget_Text',
+			'type'  => 'input',
+			'argc'  => 3,
+		),
+
+		'widget_text' => array(
+			'title' => __( 'Text widget content', 'front-end-editor' ),
+			'class' => 'FEE_Field_Widget_Text',
+			'type' => 'rich',
+			'argc'  => 2,
+		),
+
 		'dynamic_sidebar_params' => array(
-			'title' => __( 'Widgets', 'front-end-editor' ),
+			'title' => __( 'Other widgets', 'front-end-editor' ),
 			'class' => 'FEE_Field_Widget',
 			'type'  => 'widget',
 		),

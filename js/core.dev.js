@@ -223,6 +223,19 @@ jQuery(function() {
 		};
 	}());
 
+	// Text widget fields hack
+	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each(function() {
+		var
+			$el = jQuery(this),
+			id = $el.closest('.fee-text-widget-helper').attr('data-widget_id');
+
+		if ( id )
+			$el.attr('data-widget_id', id);
+		else
+			// undo wrap; can't find widget id
+			$el.replaceWith($el.html());
+	});
+
 	// Create field instances
 	jQuery('.fee-field').each(function () {
 		var	$el = jQuery(this),
