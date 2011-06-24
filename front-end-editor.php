@@ -67,6 +67,7 @@ scb_init( '_fee_init' );
 
 function fee_register_defaults() {
 	$fields = array(
+		// Post fields
 		'the_title' => array(
 			'title' => __( 'Title', 'front-end-editor' ),
 			'class' => 'FEE_Field_Post',
@@ -86,6 +87,20 @@ function fee_register_defaults() {
 			'type'  => 'textarea',
 		),
 
+		'post_meta' => array(
+			'title' => __( 'Custom fields', 'front-end-editor' ),
+			'class' => 'FEE_Field_Meta',
+			'argc'  => 5,
+		),
+
+		'post_thumbnail_html' => array(
+			'title' => __( 'Thumbnail', 'front-end-editor' ),
+			'class' => 'FEE_Field_Thumbnail',
+			'type'  => 'thumbnail',
+			'argc'  => 4,
+		),
+
+		// Taxonomy fields
 		'the_category' => array(
 			'title' => __( 'Categories', 'front-end-editor' ),
 			'class' => 'FEE_Field_Category',
@@ -104,19 +119,14 @@ function fee_register_defaults() {
 			'argc'  => 5,
 		),
 
-		'post_meta' => array(
-			'title' => __( 'Custom fields', 'front-end-editor' ),
-			'class' => 'FEE_Field_Meta',
-			'argc'  => 5,
+		// Widget fields
+		'dynamic_sidebar_params' => array(
+			'title' => __( 'Widgets', 'front-end-editor' ),
+			'class' => 'FEE_Field_Widget',
+			'type'  => 'widget',
 		),
 
-		'post_thumbnail_html' => array(
-			'title' => __( 'Thumbnail', 'front-end-editor' ),
-			'class' => 'FEE_Field_Thumbnail',
-			'type'  => 'thumbnail',
-			'argc'  => 4,
-		),
-
+		// Other fields
 		'comment_text' => array(
 			'title' => __( 'Comment text', 'front-end-editor' ),
 			'class' => 'FEE_Field_Comment',
@@ -150,12 +160,6 @@ function fee_register_defaults() {
 			'class' => 'FEE_Field_Author_Desc',
 			'type'  => 'textarea',
 			'argc'  => 2,
-		),
-
-		'dynamic_sidebar_params' => array(
-			'title' => __( 'Widgets', 'front-end-editor' ),
-			'class' => 'FEE_Field_Widget',
-			'type'  => 'widget',
 		),
 
 		'bloginfo' => array(
