@@ -65,6 +65,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 = 2.1.2 =
 * properly handle hierarchical taxonomies edited via text input
+* text widgets: edit title and content individually again
 
 = 2.1.1 =
 * added option to disable dropdown for categories
