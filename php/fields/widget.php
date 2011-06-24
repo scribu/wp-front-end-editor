@@ -13,14 +13,11 @@ class FEE_Field_Widget extends FEE_Field_Base {
 
 		$p =& $params[0];
 
-		$data = array( 'widget_id' => $p['widget_id'], 'sidebar_id' => $p['id'] );
-
 		// Text widgets are handled differently
-		if ( 0 === strpos( $p['widget_id'], 'text-' ) ) {
-			$wrap = html( 'div', array( 'class' => 'fee-text-widget-helper', 'data-widget_id' => $p['widget_id'] ), '' );
-		} else {
-			$wrap = parent::wrap( '', $data );
-		}
+		if ( 0 === strpos( $p['widget_id'], 'text-' ) )
+			return $params;
+
+		$wrap = parent::wrap( '', array( 'widget_id' => $p['widget_id'], 'sidebar_id' => $p['id'] ) );
 
 		list( $before, $after ) = scbUtil::split_at( '</', $wrap );
 

@@ -227,7 +227,7 @@ jQuery(function() {
 	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each(function() {
 		var
 			$el = jQuery(this),
-			id = $el.closest('.fee-text-widget-helper').attr('data-widget_id');
+			id = $el.closest('.widget_text').attr('id');
 
 		if ( id )
 			$el.attr('data-widget_id', id);
