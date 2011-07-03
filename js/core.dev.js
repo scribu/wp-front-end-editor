@@ -124,10 +124,7 @@ jQuery(function() {
 		};
 	}
 
-	// Init hover methods
-	var hover_init;
-
-	(function () {
+	var hover_init = (function () {
 		var
 			HOVER_BORDER = 2,
 			HOVER_PADDING = 2,
@@ -147,8 +144,13 @@ jQuery(function() {
 		hover_box = jQuery('<div>', {
 			'class': 'fee-hover-edit',
 			'html': FrontEndEditor.data.edit_text,
-			'mouseover': function () { hover_lock = true; },
-			'mouseout': function () { hover_lock = false; hover_hide(); }
+			'mouseover': function () {
+				hover_lock = true;
+			},
+			'mouseout': function () {
+				hover_lock = false;
+				hover_hide();
+			}
 		}).hide().appendTo('body');
 
 		function box_position_vert() {
@@ -203,7 +205,7 @@ jQuery(function() {
 			}).show();
 		}
 
-		hover_init = function ($el, callback) {
+		return function ($el, callback) {
 			$el.bind({
 				mouseover: function (ev) {
 					if ( FrontEndEditor.is_editing() )
@@ -237,12 +239,13 @@ jQuery(function() {
 
 		editor = FrontEndEditor.get_field_instance(data.type);
 
-		editor = jQuery.extend(editor, {
+		jQuery.extend(editor, {
 			el: $el,
 			data: data,
 			filter: data.filter,
 			type: data.type
 		});
+
 		editor.start();
 
 		hover_init( $el, jQuery.proxy(editor, 'start_editing') );
