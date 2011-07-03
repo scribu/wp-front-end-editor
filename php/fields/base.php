@@ -135,7 +135,7 @@ abstract class FEE_Field_Base {
 		return $content;
 	}
 
-	final protected static function convert_type( $type ) {
+	final protected static function expand_input_type( $type ) {
 		if ( !is_array( $type ) ) {
 			$type = compact( 'type' );
 		}

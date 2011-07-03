@@ -204,7 +204,7 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 class FEE_Field_Meta extends FEE_Field_Post {
 
 	function wrap( $data, $post_id, $key, $type, $single ) {
-		extract( self::convert_type( $type ) );
+		extract( self::expand_input_type( $type ) );
 
 		if ( $this->check( $post_id ) ) {
 			if ( $single ) {

@@ -206,7 +206,7 @@ class FEE_Field_Option extends FEE_Field_Base {
 	}
 
 	function wrap( $content, $key, $type ) {
-		extract( self::convert_type( $type ) );
+		extract( self::expand_input_type( $type ) );
 
 		$data = compact( 'key', 'type', 'values' );
 
