@@ -223,6 +223,31 @@ jQuery(function() {
 		};
 	}());
 
+	FrontEndEditor.make_editable = function () {
+		var	$el = jQuery(this),
+			data = extract_data_attr(this),
+			editor;
+
+		if ( !FrontEndEditor.is_field_defined(data.type) ) {
+			if ( undefined !== console ) {
+				console.warn('invalid field type', this);
+			}
+			return;
+		}
+
+		editor = FrontEndEditor.get_field_instance(data.type);
+
+		editor = jQuery.extend(editor, {
+			el: $el,
+			data: data,
+			filter: data.filter,
+			type: data.type
+		});
+		editor.start();
+
+		hover_init( $el, jQuery.proxy(editor, 'start_editing') );
+	};
+
 	// Text widget fields hack
 	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each(function() {
 		var
@@ -237,28 +262,5 @@ jQuery(function() {
 	});
 
 	// Create field instances
-	jQuery('.fee-field').each(function () {
-		var	$el = jQuery(this),
-			data = extract_data_attr(this),
-			editor;
-
-		if ( !FrontEndEditor.is_field_defined(data.type) ) {
-			if ( undefined !== console ) {
-				console.warn('invalid field type', this);
-			}
-			return;
-		}
-	
-		editor = FrontEndEditor.get_field_instance(data.type);
-
-		editor = jQuery.extend(editor, {
-			el: $el,
-			data: data,
-			filter: data.filter,
-			type: data.type
-		});
-		editor.start();
-
-		hover_init( $el, jQuery.proxy(editor, 'start_editing') );
-	});
+	jQuery('.fee-field').each(FrontEndEditor.make_editable);
 });
