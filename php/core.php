@@ -156,11 +156,13 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 		$disabled = (array) self::$options->disabled;
 
 		self::$active_fields = array();
-		foreach ( self::get_fields() as $key => $data )
-			if ( !in_array( $key, $disabled ) )
-				self::$active_fields[ $key ] = $data;
 
-		foreach ( self::$active_fields as $filter => $args ) {
+		foreach ( self::get_fields() as $filter => $args ) {
+			if ( in_array( $filter, $disabled ) )
+				continue;
+
+			self::$active_fields[ $filter ] = $args;
+
 			extract( $args );
 
 			self::$instances[ $filter ] = new $class( $filter, $type );
