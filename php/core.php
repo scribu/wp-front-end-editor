@@ -24,8 +24,6 @@ abstract class FEE_Core {
 			return;
 		}
 
-		self::make_instances();
-
 		if ( self::$options->rich ) {
 			FEE_AlohaEditor::enqueue();
 		}
@@ -152,7 +150,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 		return self::$fields[$filter]['title'];
 	}
 
-	static function make_instances() {
+	private static function make_instances() {
 		$disabled = (array) self::$options->disabled;
 
 		self::$active_fields = array();
@@ -170,6 +168,8 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	static function add_filters() {
+		self::make_instances();
+
 		foreach ( self::$active_fields as $filter => $args ) {
 			extract( $args );
 
