@@ -198,7 +198,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	static function ajax_response() {
 		check_ajax_referer( self::NONCE, 'nonce' );
 
-		extract( scbUtil::array_extract( $_POST, array( 'callback', 'data' ) ) );
+		extract( wp_array_slice_assoc( $_POST, array( 'callback', 'data' ) ) );
 
 		$filter = $data['filter'];
 
