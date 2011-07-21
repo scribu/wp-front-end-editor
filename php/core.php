@@ -1,6 +1,8 @@
 <?php
 
 abstract class FEE_Core {
+	const NONCE = 'front-end-editor';
+
 	static $options;
 
 	private static $fields;
@@ -8,7 +10,6 @@ abstract class FEE_Core {
 	private static $instances = array();
 
 	private static $plugin_url;
-	private static $nonce = 'front-editor';
 
 	static function init( $options ) {
 		self::$options = $options;
@@ -46,7 +47,7 @@ abstract class FEE_Core {
 			'cancel_text' => __( 'Cancel', 'front-end-editor' ),
 			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'spinner' => admin_url( 'images/loading.gif' ),
-			'nonce' => wp_create_nonce( self::$nonce ),
+			'nonce' => wp_create_nonce( self::NONCE ),
 		);
 
 		$url = plugins_url( 'js/', FRONT_END_EDITOR_MAIN_FILE );
@@ -195,8 +196,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	static function ajax_response() {
-		// Is user trusted?
-		check_ajax_referer( self::$nonce, 'nonce' );
+		check_ajax_referer( self::NONCE, 'nonce' );
 
 		extract( scbUtil::array_extract( $_POST, array( 'callback', 'data' ) ) );
 
