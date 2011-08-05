@@ -203,6 +203,17 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 // Handles post_meta field
 class FEE_Field_Meta extends FEE_Field_Post {
 
+	function setup() {
+		add_filter( 'post_meta', array( __CLASS__, 'prewrap' ), 9, 4 );
+	}
+
+	function prewrap( $data, $post_id, $key, $type ) {
+		if ( 'rich' == $type )
+			$data = wpautop( $data );
+
+		return $data;
+	}
+
 	function wrap( $data, $post_id, $key, $type, $single ) {
 		extract( self::expand_input_type( $type ) );
 
@@ -259,7 +270,7 @@ class FEE_Field_Meta extends FEE_Field_Post {
 			update_post_meta( $post_id, $key, $new_value, $old_value );
 		}
 
-		return $this->placehold( $new_value );
+		return $this->placehold( $this->prewrap( $new_value, $post_id, $key, $type ) );
 	}
 }
 
@@ -275,7 +286,6 @@ function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
 	if ( !$echo ) {
 		return $data;
 	}
-
 
 	echo $data;
 }

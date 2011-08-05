@@ -218,7 +218,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 			if ( 'save' == $callback ) {
 				$content = stripslashes_deep( $_POST['content'] );
 				$result = $instance->save( $data, $content );
-				$result = @apply_filters( $filter, $result );
+				$result = @apply_filters( $filter, $result ); // TODO: remove, since additional arguments aren't passed
 			}
 			elseif ( 'get' == $callback ) {
 				$result = (string) $instance->get( $data );
