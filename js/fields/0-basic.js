@@ -32,9 +32,12 @@ FrontEndEditor.define_field( 'input', 'base', {
 	},
 
 	ajax_set: function (contentData) {
+		if ( 0 == arguments.length )
+			contentData = this.content_from_input();
+
 		var data = this.ajax_args({
 			callback: 'save',
-			content: contentData || this.content_from_input()
+			content: contentData
 		});
 
 		FrontEndEditor.overlay.cover(this.form);
