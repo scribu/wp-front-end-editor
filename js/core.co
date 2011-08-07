@@ -211,8 +211,7 @@ jQuery ->
 		if id
 			$el.attr('data-widget_id', id)
 		else
-			# undo wrap; can't find widget id
-			$el.replaceWith $el.html()
+			$el.unwrap()
 
 	# Create field instances
 	jQuery('.fee-field').each FrontEndEditor.make_editable
