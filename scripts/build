@@ -3,8 +3,7 @@
 MINIFIER="java -jar $HOME/bin/yuicompressor-2.4.6.jar"
 
 cd 'js'
-$MINIFIER 'core.dev.js' >> 'editor.js'
-cat fields/*.co | coco -c -s | $MINIFIER --type 'js' >> 'editor.js'
+cat core.co fields/*.co | coco -cs | $MINIFIER --type 'js' > 'editor.js'
 
 cd '../css'
 $MINIFIER 'editor.dev.css' > 'editor.css'

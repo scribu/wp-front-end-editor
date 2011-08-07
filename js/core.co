@@ -1,0 +1,219 @@
+jQuery.extend FrontEndEditor,
+	fieldTypes: {}
+
+	is_field_defined: (field_name) ->
+		return Boolean(@fieldTypes[field_name])
+
+	get_field_instance: (field_name) ->
+		return new @fieldTypes[field_name]()
+
+	overlay: do ->
+		$cover = jQuery('<div>', 'class': 'fee-loading')
+			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
+			.hide()
+			.prependTo(jQuery('body'))
+
+		return
+			cover: ($el) ->
+				bgcolor = void
+				$el.parents().each(->
+					bgcolor := jQuery(this).css('background-color')
+					if 'transparent' !== bgcolor
+						return false
+				)
+
+				$cover
+					.css(
+						'width': $el.width()
+						'height': $el.height()
+						'background-color': bgcolor
+					)
+					.css($el.offset())
+					.show()
+
+			hide: ->
+				$cover.hide()
+
+	edit_lock: ->
+		@_editing = true
+
+	edit_unlock: ->
+		@_editing = false
+
+	is_editing: ->
+		return @_editing
+
+	# Do an ajax request, while loading a required script
+	sync_load: do ->
+		cache = []
+
+		return (callback, data, src) ->
+			count = 0
+			content = void
+
+			proceed = ->
+				count++
+				if 2 === count
+					callback(content)
+
+			if !src || cache[src]
+				proceed()
+			else
+				cache[src] = jQuery('<script>').attr(
+					type: 'text/javascript'
+					src: src
+					load: proceed
+				).prependTo('head')
+
+			jQuery.post(@data.ajax_url, data, (data) ->
+				content := data
+				proceed()
+			, 'json')
+
+
+jQuery ->
+
+	# fetch all 'data-' attributes from a DOM node
+	extract_data_attr = (el) ->
+		data = {}
+
+		for attr of el.attributes
+			if attr.specified && 0 === attr.name.indexOf('data-')
+				value = attr.value
+
+				try
+					value = jQuery.parseJSON(value)
+
+				if null === value
+					value = ''
+
+				data[ attr.name.substr(5) ] = value
+
+		return data
+
+	get_dims = ($el) ->
+		return
+			'width': $el.width()
+			'height': $el.height()
+
+	hover_init = do ->
+		HOVER_BORDER = 2
+		HOVER_PADDING = 2
+		hover_lock = false
+		hover_timeout = void
+		mouse_vert_pos = void
+
+		# Init hover border
+		hover_border = jQuery('<div>')
+			.addClass('fee-hover-border')
+			.css('width', HOVER_BORDER)
+			.hide().appendTo('body')
+
+		# Init hover box
+		hover_box = jQuery('<div>',
+			'class': 'fee-hover-edit'
+			'html': FrontEndEditor.data.edit_text
+			'mouseover': ->
+				hover_lock := true
+			'mouseout': ->
+				hover_lock := false
+				hover_hide()
+		).hide().appendTo('body')
+
+		box_position_vert = ->
+			normal_height = mouse_vert_pos - hover_box.outerHeight()/2
+			hover_box.css('top', (normal_height - HOVER_BORDER) + 'px')
+
+		hover_hide_immediately = ->
+			hover_box.hide()
+			hover_border.hide()
+
+		hover_hide = ->
+			hover_timeout := setTimeout(->
+				if hover_lock
+					return
+
+				hover_hide_immediately()
+			, 300)
+
+		hover_show = (callback) ->
+			$self = jQuery(this)
+			offset = $self.offset()
+			dims = get_dims($self)
+
+			# Webkit really doesn't like block elements inside inline elements
+			if dims.width > $self.parent().width()
+				$self.css('display', 'block')
+				dims = get_dims($self)
+
+			clearTimeout(hover_timeout)
+
+			hover_box.unbind('click')
+
+			hover_box.bind('click', hover_hide_immediately)
+			hover_box.bind('click', callback)
+
+			# Position 'Edit' box
+			hover_box.css('left', (offset.left - hover_box.outerWidth() - HOVER_PADDING) + 'px')
+			box_position_vert()
+			hover_box.show()
+
+			# Position hover border
+			hover_border.css(
+				'left': (offset.left - HOVER_PADDING - HOVER_BORDER) + 'px'
+				'top': (offset.top - HOVER_PADDING - HOVER_BORDER) + 'px'
+				'height': (dims.height + HOVER_PADDING * 2) + 'px'
+			).show()
+
+		return ($el, callback) ->
+			$el.bind(
+				mouseover: (ev) ->
+					if FrontEndEditor.is_editing()
+						return
+
+					mouse_vert_pos := ev.pageY
+					hover_show.call(this, callback)
+
+				mousemove: (ev) ->
+					mouse_vert_pos := ev.pageY
+					box_position_vert()
+
+				mouseout: hover_hide
+			)
+
+	FrontEndEditor.make_editable = ->
+		$el = jQuery(this)
+		data = extract_data_attr(this)
+
+		if !FrontEndEditor.is_field_defined(data.type)
+			if console?
+				console.warn('invalid field type', this)
+			return
+
+		editor = FrontEndEditor.get_field_instance(data.type)
+
+		jQuery.extend(editor,
+			el: $el
+			data: data
+			filter: data.filter
+			type: data.type
+		)
+
+		editor.start()
+
+		hover_init $el, jQuery.proxy(editor, 'start_editing')
+
+	# Text widget fields hack
+	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each ->
+		$el = jQuery(this)
+		id = $el.closest('.widget_text').attr('id')
+
+		if id
+			$el.attr('data-widget_id', id)
+		else
+			# undo wrap; can't find widget id
+			$el.replaceWith $el.html()
+
+	# Create field instances
+	jQuery('.fee-field').each FrontEndEditor.make_editable
+

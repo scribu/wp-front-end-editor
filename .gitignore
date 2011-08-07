@@ -1,5 +1,5 @@
 aloha-build
-js/editor.js
+js/*.js
 js/fields/*.js
 css/editor.css
 .project

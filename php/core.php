@@ -79,7 +79,7 @@ abstract class FEE_Core {
 
 		// Core script
 		if ( defined('SCRIPT_DEBUG') ) {
-			wp_register_script( 'fee-core', $url . "core.dev.js", $js_dependencies, FRONT_END_EDITOR_VERSION, true );
+			wp_register_script( 'fee-core', $url . 'core.js', $js_dependencies, FRONT_END_EDITOR_VERSION, true );
 			$js_dependencies[] = 'fee-core';
 
 			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
