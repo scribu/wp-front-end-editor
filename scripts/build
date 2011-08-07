@@ -3,7 +3,6 @@
 MINIFIER="java -jar $HOME/bin/yuicompressor-2.4.6.jar"
 
 cd 'js'
-$MINIFIER 'class.js' > 'editor.js'
 $MINIFIER 'core.dev.js' >> 'editor.js'
 cat fields/*.js | $MINIFIER --type 'js' >> 'editor.js'
 
