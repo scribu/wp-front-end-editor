@@ -1,0 +1,33 @@
+class FrontEndEditor.fieldTypes.base
+	dependency: null # script src
+
+	start: jQuery.noop
+
+	start_editing: null
+
+	ajax_get_handler: null
+	ajax_set_handler: null
+
+	ajax_get: ->
+		data = @ajax_args(
+			callback: 'get'
+		)
+
+		FrontEndEditor.edit_lock()
+		FrontEndEditor.sync_load(jQuery.proxy(@ajax_get_handler, this), data, @dependency)
+
+	ajax_set: (content) ->
+		data = @ajax_args(
+			callback: 'save'
+			content: content
+		)
+
+		FrontEndEditor.edit_unlock()
+		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(@ajax_set_handler, this), 'json')
+
+	ajax_args: (args) ->
+		return jQuery.extend(args
+			action : 'front-end-editor'
+			nonce  : FrontEndEditor.data.nonce
+			data   : @data
+		)

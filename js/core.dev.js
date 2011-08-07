@@ -1,12 +1,6 @@
 jQuery.extend( FrontEndEditor, {
 	fieldTypes: {},
 
-	define_field: function(field_name, field_ancestor, methods) {
-		var ancestor = field_ancestor ? this.fieldTypes[field_ancestor] : Class;
-
-		this.fieldTypes[field_name] = ancestor.extend(methods);
-	},
-
 	is_field_defined: function(field_name) {
 		return Boolean(this.fieldTypes[field_name]);
 	},

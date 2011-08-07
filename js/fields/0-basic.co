@@ -1,0 +1,172 @@
+class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
+
+	input_tag: '<input type="text">'
+
+	start_editing: (ev) ->
+
+		@save_button = jQuery('<button>',
+			'class': 'fee-form-save'
+			'text' : FrontEndEditor.data.save_text
+			'click': jQuery.proxy(@form_submit, this)
+		)
+
+		@cancel_button = jQuery('<button>',
+			'class': 'fee-form-cancel'
+			'text' : FrontEndEditor.data.cancel_text
+			'click': jQuery.proxy(@form_remove, this)
+		)
+
+		@form_create()
+
+		@form
+			.append(@save_button)
+			.append(@cancel_button)
+
+		@ajax_get()
+
+	form_create: ->
+		@form = if @el.is('span') then jQuery('<span>') else jQuery('<div>')
+
+		@form
+			.addClass('fee-form')
+			.addClass('fee-type-' + @type)
+			.addClass('fee-filter-' + @filter)
+
+		@form.keypress(jQuery.proxy(@keypress, this))
+
+	form_remove: (ev) ->
+		@form.remove()
+		@el.show()
+
+		FrontEndEditor.edit_unlock()
+
+		return false
+
+	form_submit: (ev) ->
+		@ajax_set()
+
+		return false
+
+	keypress: (ev) ->
+		keys = {ENTER: 13, ESCAPE: 27}
+		code = ev.keyCode || ev.which || ev.charCode || 0
+
+		if code === keys.ENTER && 'input' === @type
+			@save_button.click()
+
+		if code === keys.ESCAPE
+			@cancel_button.click()
+
+	create_input: ->
+		@input = jQuery(@input_tag).attr(
+			'id'    : 'fee-' + new Date().getTime()
+			'class' : 'fee-form-content'
+		)
+
+		@input.prependTo(@form)
+
+	content_to_input: (content) ->
+		@input.val(content)
+		@form.trigger('ready.fee', [@data])
+
+	content_from_input: ->
+		return @input.val()
+
+	content_to_front: (content) ->
+		@el.html(content)
+		@form.trigger('saved.fee', [@data])
+
+	ajax_get: ->
+		FrontEndEditor.overlay.cover(@el)
+		@create_input()
+		super ...
+
+	ajax_set: (contentData) ->
+		if 0 == arguments.length
+			contentData = @content_from_input()
+
+		data = @ajax_args(
+			callback: 'save'
+			content: contentData
+		)
+
+		FrontEndEditor.overlay.cover(@form)
+
+		FrontEndEditor.edit_unlock()
+		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(@ajax_set_handler, this), 'json')
+
+	ajax_get_handler: (response) ->
+		$el = @error_handler(response)
+
+		if !$el
+			return
+
+		@el.hide()
+
+		$el.after(@form)
+
+		@content_to_input(response.content)
+
+		@input.focus()
+
+	ajax_set_handler: (response) ->
+		$el = @error_handler(response)
+
+		if !$el
+			return
+
+		@content_to_front(response.content)
+
+		@form.remove()
+		@el.show()
+
+	# Returns the element after which the form should be inserted
+	error_handler: (response) ->
+		$parent = @el.closest('a')
+		$el = if $parent.length then $parent else @el
+
+		FrontEndEditor.overlay.hide()
+
+		if response.error
+			jQuery('<div class="fee-error">')
+				.append(jQuery('<span class="fee-message">').html(response.error))
+				.append(jQuery('<span class="fee-dismiss">x</span>').click(->
+					$error_box.remove()
+				))
+				.insertBefore($el)
+			return false
+
+		return $el
+
+
+class FrontEndEditor.fieldTypes.checkbox extends FrontEndEditor.fieldTypes.input
+	input_tag: '<input type="checkbox">'
+
+	content_to_input: (content) ->
+		@input.prop('checked', content)
+
+	content_from_input: ->
+		return Number(@input.is(':checked'))
+
+	content_to_front: ->
+		@el.html(@data.values[@content_from_input()])
+
+
+class FrontEndEditor.fieldTypes.select extends FrontEndEditor.fieldTypes.input
+	input_tag: '<select>'
+
+	content_to_input: (content) ->
+		jQuery.each(@data.values, (value, title) ~>
+			@input.append(jQuery('<option>',
+				value: value
+				html: title
+				selected: if content === value then 'selected' else ''
+			))
+		)
+
+	content_from_input: ->
+		return @input.find(':selected').val()
+
+
+class FrontEndEditor.fieldTypes.textarea extends FrontEndEditor.fieldTypes.input
+	input_tag: '<textarea rows="10">'

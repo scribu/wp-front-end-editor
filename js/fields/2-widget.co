@@ -1,0 +1,28 @@
+class FrontEndEditor.fieldTypes.widget extends FrontEndEditor.fieldTypes.textarea
+
+	create_input: jQuery.noop
+
+	content_to_input: (content) ->
+		@input = jQuery(content)
+
+		@form.prepend(content)
+
+	ajax_args: (args) ->
+		raw_data
+
+		args = super ...
+
+		if 'get' === args.callback
+			return args
+
+		raw_data = @form.find(':input').serializeArray()
+
+		jQuery.each(args, (name, value) ->
+			raw_data.push('name': name, 'value': value)
+		)
+
+		jQuery.each(args.data, (name, value) ->
+			raw_data.push('name': 'data[' + name + ']', 'value': value)
+		)
+
+		return raw_data
