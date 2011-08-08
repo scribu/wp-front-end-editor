@@ -18,10 +18,11 @@ FrontEndEditor.define_field( 'rich', 'textarea', {
 		this.el.hide();
 		this.form.insertAfter($el);
 
+		GENTICS.Aloha.wpSaveCancel.current_field = this;
+
 		this.form.aloha();
 		this.form.focus();
-
-		GENTICS.Aloha.wpSaveCancel.current_field = this;
+		GENTICS.Aloha.Selection.updateSelection() // makes the floating menu appear
 	},
 
 	ajax_set: function (content) {
