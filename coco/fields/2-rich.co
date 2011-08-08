@@ -17,10 +17,11 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 		@el.hide()
 		@form.insertAfter($el)
 
+		GENTICS.Aloha.wpSaveCancel.current_field = this
+
 		@form.aloha()
 		@form.focus()
-
-		GENTICS.Aloha.wpSaveCancel.current_field = this
+		GENTICS.Aloha.Selection.updateSelection() # makes the floating menu appear
 
 	ajax_set: (content) ->
 		super.call this, @cleanup(content)
