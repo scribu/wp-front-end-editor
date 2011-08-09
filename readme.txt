@@ -4,7 +4,7 @@ Donate link: http://scribu.net/wordpress/front-end-editor
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Requires at least: 3.0
 Tested up to: 3.2
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 
 Edit content inline, without going to the admin area.
 
@@ -64,6 +64,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 == Changelog ==
 
 = 2.1.2 =
+* show Aloha toolbar immediately after clicking 'Edit'
 * properly handle hierarchical taxonomies edited via text input
 * text widgets: edit title and content individually again
 * fix bug that prevented saving empty content via Aloha

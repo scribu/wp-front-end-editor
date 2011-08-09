@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 2.1.2-alpha2
+Version: 2.1.3-alpha
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -26,7 +26,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-define( 'FRONT_END_EDITOR_VERSION', '2.1.2-alpha2' );
+define( 'FRONT_END_EDITOR_VERSION', '2.1.2' );
 
 define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
 
