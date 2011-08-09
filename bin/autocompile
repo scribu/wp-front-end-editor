@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd coco
+coco -cw core.co fields/*.co
