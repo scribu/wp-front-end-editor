@@ -31,7 +31,7 @@ define( 'FRONT_END_EDITOR_VERSION', '2.1.2-alpha2' );
 define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
 
 // Load scbFramework
-require dirname( __FILE__ ) . '/scb/load.php';
+require dirname( __FILE__ ) . '/lib/scb/load.php';
 
 function _fee_init() {
 	load_plugin_textdomain( 'front-end-editor', '', basename( dirname( __FILE__ ) ) . '/lang' );

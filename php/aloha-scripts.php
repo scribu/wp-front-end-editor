@@ -6,13 +6,17 @@
  */
 abstract class FEE_AlohaEditor {
 	const VERSION = '0.9.3';
+
+	private static $aloha_src_path;
 	private static $alohaSrcBaseUrl;
 
 	public static function enqueue() {
-		$enable_debugging = defined('SCRIPT_DEBUG') && is_dir( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/aloha-editor/' );
+		self::$aloha_src_path = dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/lib/aloha-editor/';
+
+		$enable_debugging = defined('SCRIPT_DEBUG') && is_dir( self::$aloha_src_path );
 
 		self::$alohaSrcBaseUrl  = plugin_dir_url( FRONT_END_EDITOR_MAIN_FILE );
-		self::$alohaSrcBaseUrl .= $enable_debugging ? 'aloha-editor/WebContent/' : 'aloha-build/';
+		self::$alohaSrcBaseUrl .= $enable_debugging ? 'lib/aloha-editor/WebContent/' : 'aloha-build/';
 
 		// Aloha 0.9.3 isn't compatible with newer versions of jQuery :(
 		wp_deregister_script('jquery');
@@ -112,7 +116,7 @@ abstract class FEE_AlohaEditor {
 	private static function get_deps_in_file( $file_name ) {
 		$deps = array();
 
-		$file = fopen( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/aloha-editor/build/' . $file_name, 'r' );
+		$file = fopen( self::$aloha_src_path . '/build/' . $file_name, 'r' );
 		while ( ($path = fgets($file)) !== false ) {
 			$handle = str_replace( '.', '-', strtolower( substr( basename( rtrim( $path ) ), 0, -3 ) ) );
 

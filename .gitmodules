@@ -1,9 +1,9 @@
 [submodule "scb"]
-	path = scb
+	path = lib/scb
 	url = git://github.com/scribu/wp-scb-framework.git
 [submodule "aloha-editor"]
-	path = aloha-editor
+	path = lib/aloha-editor
 	url = git://github.com/scribu/Aloha-Editor.git
 [submodule "mustache"]
-	path = mustache
+	path = lib/mustache
 	url = git://github.com/bobthecow/mustache.php.git

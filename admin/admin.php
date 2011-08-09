@@ -72,7 +72,7 @@ class FEE_Admin extends scbBoxesPage {
 
 	private static function mustache_render( $file, $data ) {
 		if ( !class_exists( 'Mustache' ) )
-			require dirname(FRONT_END_EDITOR_MAIN_FILE) . '/mustache/Mustache.php';
+			require dirname(FRONT_END_EDITOR_MAIN_FILE) . '/lib/mustache/Mustache.php';
 
 		$template_path = dirname(__FILE__) . '/' . $file;
 
