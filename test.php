@@ -34,7 +34,9 @@ add_action('loop_start', function( $wp_query ) {
 	editable_image( 'test', 'http://localhost/wp/wp-content/themes/twentyten/images/headers/fern.jpg' );
 	echo '</div>';
 
-	echo '<strong>Post thumbnail:</strong><br>';
-	echo get_the_post_thumbnail( get_the_ID() );
+	if ( function_exists( 'get_the_post_thumbnail' ) ) {
+		echo '<strong>Post thumbnail:</strong><br>';
+		echo get_the_post_thumbnail( get_the_ID() );
+	}
 });
 
