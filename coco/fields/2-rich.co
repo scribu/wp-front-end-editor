@@ -1,5 +1,8 @@
 class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
+	ajax_set: (content) ->
+		super(@cleanup(content))
+
 	lastActiveEditable: null
 
 	create_input: jQuery.noop
@@ -22,9 +25,6 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 		@form.aloha()
 		@form.focus()
 		GENTICS.Aloha.Selection.updateSelection() # makes the floating menu appear
-
-	ajax_set: (content) ->
-		super.call this, @cleanup(content)
 
 	# Copied from wp-admin/js/editor.dev.js (_wp_Nop)
 	cleanup: (content) ->
