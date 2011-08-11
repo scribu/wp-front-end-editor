@@ -50,7 +50,7 @@ abstract class FEE_Core {
 			'nonce' => wp_create_nonce( self::NONCE ),
 		);
 
-		$url = plugins_url( 'coco/', FRONT_END_EDITOR_MAIN_FILE );
+		$url = plugins_url( 'js/', FRONT_END_EDITOR_MAIN_FILE );
 
 		$css_dependencies = array();
 
@@ -80,7 +80,7 @@ abstract class FEE_Core {
 			wp_register_script( 'fee-core', $url . 'core.js', $js_dependencies, FRONT_END_EDITOR_VERSION, true );
 			$js_dependencies[] = 'fee-core';
 
-			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/coco/fields/*.js' ) as $file ) {
+			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
 				$file = basename( $file );
 				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), FRONT_END_EDITOR_VERSION, true );
 				$js_dependencies[] = "fee-fields-$file";

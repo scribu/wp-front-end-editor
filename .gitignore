@@ -1,7 +1,4 @@
 aloha-build
 build
-
-coco/core.js
-coco/fields/*.js
-
+js
 .project

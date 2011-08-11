@@ -1,4 +1,3 @@
 #!/bin/bash
 
-cd coco
-coco -cw core.co fields/*.co
+coco --watch --output js --compile coco
