@@ -15,12 +15,10 @@ jQuery.extend FrontEndEditor,
 
 		return
 			cover: ($el) ->
-				bgcolor = void
-				$el.parents().each(->
-					bgcolor := jQuery(this).css('background-color')
+				for parent of $el.parents()
+					bgcolor = jQuery(parent).css('background-color')
 					if 'transparent' !== bgcolor
 						return false
-				)
 
 				$cover
 					.css(

@@ -8,8 +8,6 @@ class FrontEndEditor.fieldTypes.widget extends FrontEndEditor.fieldTypes.textare
 		@form.prepend(content)
 
 	ajax_args: (args) ->
-		raw_data
-
 		args = super ...
 
 		if 'get' === args.callback
@@ -17,12 +15,10 @@ class FrontEndEditor.fieldTypes.widget extends FrontEndEditor.fieldTypes.textare
 
 		raw_data = @form.find(':input').serializeArray()
 
-		jQuery.each(args, (name, value) ->
+		for name, value in args
 			raw_data.push('name': name, 'value': value)
-		)
 
-		jQuery.each(args.data, (name, value) ->
+		for name, value in args.data
 			raw_data.push('name': 'data[' + name + ']', 'value': value)
-		)
 
 		return raw_data
