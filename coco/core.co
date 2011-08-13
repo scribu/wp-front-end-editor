@@ -18,7 +18,7 @@ jQuery.extend FrontEndEditor,
 				for parent of $el.parents()
 					bgcolor = jQuery(parent).css('background-color')
 					if 'transparent' !== bgcolor
-						return false
+						break
 
 				$cover
 					.css(
