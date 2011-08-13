@@ -41,34 +41,6 @@ jQuery.extend FrontEndEditor,
 	is_editing: ->
 		return @_editing
 
-	# Do an ajax request, while loading a required script
-	sync_load: do ->
-		cache = []
-
-		return (callback, data, src) ->
-			count = 0
-			content = void
-
-			proceed = ->
-				count++
-				if 2 === count
-					callback(content)
-
-			if !src || cache[src]
-				proceed()
-			else
-				cache[src] = jQuery('<script>').attr(
-					type: 'text/javascript'
-					src: src
-					load: proceed
-				).prependTo('head')
-
-			jQuery.post(@data.ajax_url, data, (data) ->
-				content := data
-				proceed()
-			, 'json')
-
-
 jQuery ->
 
 	# fetch all 'data-' attributes from a DOM node

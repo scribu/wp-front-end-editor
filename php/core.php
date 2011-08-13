@@ -11,6 +11,8 @@ abstract class FEE_Core {
 
 	private static $plugin_url;
 
+	private static $js_dependencies = array();
+
 	static function init( $options ) {
 		self::$options = $options;
 
@@ -56,9 +58,7 @@ abstract class FEE_Core {
 
 		// Autosuggest
 		if ( in_array( 'terminput', $wrapped ) ) {
-			$data['suggest'] = array(
-				'src' => self::get_src('suggest')
-			);
+			self::$js_dependencies[] = 'suggest';
 		}
 
 		// Thickbox
@@ -72,22 +72,19 @@ abstract class FEE_Core {
 			);
 
 			$css_dependencies[] = 'thickbox';
-			$js_dependencies[] = 'thickbox';
+			self::$js_dependencies[] = 'thickbox';
 		}
 
 		// Core script
 		if ( defined('SCRIPT_DEBUG') ) {
-			wp_register_script( 'fee-core', $url . 'core.js', $js_dependencies, FRONT_END_EDITOR_VERSION, true );
-			$js_dependencies[] = 'fee-core';
+			self::register_script( 'fee-core', $url . 'core.js' );
 
 			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
 				$file = basename( $file );
-				wp_register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ), FRONT_END_EDITOR_VERSION, true );
-				$js_dependencies[] = "fee-fields-$file";
+				self::register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ) );
 			}
 		} else {
-			wp_register_script( 'fee-editor', $url . "editor.js", $js_dependencies, FRONT_END_EDITOR_VERSION, true );
-			$js_dependencies[] = 'fee-editor';
+			self::register_script( 'fee-editor', $url . "editor.js" );
 		}
 
 		// Core style
@@ -100,19 +97,15 @@ var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 </script>
 <?php
-		scbUtil::do_scripts( $js_dependencies );
+		scbUtil::do_scripts( self::$js_dependencies );
 		scbUtil::do_styles( 'fee-editor' );
 
 		do_action( 'front_end_editor_loaded', $wrapped );
 	}
 
-	private static function get_src( $handle ) {
-		global $wp_scripts;
-
-		if ( !is_object( $wp_scripts ) )
-			$wp_scripts = new WP_Scripts;
-
-		return get_bloginfo('wpurl') . $wp_scripts->registered[$handle]->src;
+	private static function register_script( $handle, $src, $dependencies = array() ) {
+		wp_register_script( $handle, $src, $dependencies, FRONT_END_EDITOR_VERSION, true );
+		self::$js_dependencies[] = $handle;
 	}
 
 	// Register a new editable field

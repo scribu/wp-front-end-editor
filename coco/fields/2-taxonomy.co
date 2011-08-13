@@ -1,17 +1,13 @@
-if FrontEndEditor.data.suggest
+class FrontEndEditor.fieldTypes.terminput extends FrontEndEditor.fieldTypes.input
+	content_to_input: (content) ->
+		super ...
 
-	class FrontEndEditor.fieldTypes.terminput extends FrontEndEditor.fieldTypes.input
-		dependency: FrontEndEditor.data.suggest.src,
-
-		content_to_input: (content) ->
-			super ...
-
-			@input.suggest(FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + @data.taxonomy,
-				multiple     : true
-				resultsClass : 'fee-suggest-results'
-				selectClass  : 'fee-suggest-over'
-				matchClass   : 'fee-suggest-match'
-			)
+		@input.suggest FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + @data.taxonomy, {
+			multiple     : true
+			resultsClass : 'fee-suggest-results'
+			selectClass  : 'fee-suggest-over'
+			matchClass   : 'fee-suggest-match'
+		}
 
 class FrontEndEditor.fieldTypes.termselect extends FrontEndEditor.fieldTypes.select
 	content_to_input: (content) ->
