@@ -13,14 +13,7 @@ class FrontEndEditor.fieldTypes.widget extends FrontEndEditor.fieldTypes.textare
 		if 'get' === args.callback
 			return args
 
-		raw_data = @form.find(':input').serializeArray()
+		for input of @form.find(':input').serializeArray()
+			args[input.name] = input.value
 
-		data = delete args.data
-
-		for name, value in args
-			raw_data.push('name': name, 'value': value)
-
-		for name, value in data
-			raw_data.push('name': 'data[' + name + ']', 'value': value)
-
-		return raw_data
+		return args
