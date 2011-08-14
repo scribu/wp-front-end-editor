@@ -65,6 +65,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 = 2.2 =
 * introduce groups of editable elements
+* prevent warnings caused by faulty widgets
 * switch to Coco
 
 = 2.1.2 =
