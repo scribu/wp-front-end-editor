@@ -1,6 +1,7 @@
-aloha-editor
+lib/mustache/examples
+lib/mustache/test
+lib/aloha-editor
 coco
+js
 css
 bin
-mustache/examples
-mustache/test
