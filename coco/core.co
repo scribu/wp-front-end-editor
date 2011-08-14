@@ -1,3 +1,21 @@
+# fetch all 'data-' attributes from a DOM node
+extract_data_attr = (el) ->
+	data = {}
+
+	for attr of el.attributes
+		if attr.specified && 0 === attr.name.indexOf('data-')
+			value = attr.value
+
+			try
+				value = jQuery.parseJSON(value)
+
+			if null === value
+				value = ''
+
+			data[ attr.name.substr(5) ] = value
+
+	return data
+
 jQuery.extend FrontEndEditor,
 	fieldTypes: {}
 
@@ -47,27 +65,7 @@ jQuery.extend FrontEndEditor,
 	is_editing: ->
 		return @_editing
 
-jQuery ->
-
-	# fetch all 'data-' attributes from a DOM node
-	extract_data_attr = (el) ->
-		data = {}
-
-		for attr of el.attributes
-			if attr.specified && 0 === attr.name.indexOf('data-')
-				value = attr.value
-
-				try
-					value = jQuery.parseJSON(value)
-
-				if null === value
-					value = ''
-
-				data[ attr.name.substr(5) ] = value
-
-		return data
-
-	FrontEndEditor.make_editable = (el, with_hover) ->
+	make_editable: (el, with_hover) ->
 		$el = jQuery(el)
 		data = extract_data_attr(el)
 
@@ -87,6 +85,9 @@ jQuery ->
 			FrontEndEditor.hover_init $el, editor.~start_editing
 
 		return editor
+
+
+jQuery ->
 
 	# Text widget fields hack
 	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each ->
