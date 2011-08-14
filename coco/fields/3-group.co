@@ -41,6 +41,8 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 		for editor, i of @editors
 			editor.ajax_get_handler(response[i])
 
+		@editors[0].input?.focus()
+
 	ajax_set_handler: (response) ->
 		for editor, i of @editors
 			editor.ajax_set_handler(response[i])
