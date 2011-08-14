@@ -37,13 +37,21 @@ GENTICS.Aloha.wpSaveCancel = jQuery.extend( new GENTICS.Aloha.Plugin('org.fee.pl
 	},
 
 	save: function() {
-		this.current_field.ajax_set( GENTICS.Aloha.activeEditable.getContents() );
+		if (this.group != null) {
+			this.group.ajax_set();
+		} else {
+			this.current_field.ajax_set();
+		}
 
 		this.disableAloha();
 	},
 
 	cancel: function() {
-		this.current_field.form_remove();
+		if (this.group != null) {
+			this.group.form_remove();
+		} else {
+			this.current_field.form_remove();
+		}
 
 		this.disableAloha();
 	},

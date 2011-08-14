@@ -1,9 +1,22 @@
 class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 	editors: [],
 
+	start: ->
+		@has_aloha = false
+
+		if GENTICS.Aloha?
+			for editor of @editors
+				if 'rich' == editor.get_type()
+					@has_aloha = true
+					return
+
 	start_editing: (ev) ->
 		@form_create()
-		@buttons_create()
+
+		if @has_aloha
+			GENTICS.Aloha.wpSaveCancel.group = this
+		else
+			@buttons_create()
 
 		@ajax_get()
 
@@ -27,7 +40,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 	keypress: jQuery.noop
 
-	ajax_set: (contentData) ->
+	ajax_set: ->
 		super ...
 
 		FrontEndEditor.overlay.cover(@el)

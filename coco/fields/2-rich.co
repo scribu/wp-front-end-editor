@@ -1,7 +1,7 @@
 class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
-	ajax_set: (content) ->
-		super(@cleanup(content))
+	content_from_input: ->
+		@cleanup GENTICS.Aloha.activeEditable.getContents()
 
 	lastActiveEditable: null
 
