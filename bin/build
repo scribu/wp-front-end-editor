@@ -1,10 +1,16 @@
 #!/bin/bash
 
-MINIFIER="java -jar $HOME/bin/yuicompressor-2.4.6.jar"
-
 mkdir build 2> /dev/null
 
-$MINIFIER 'css/core.css' > 'build/editor.css'
+if [ "raw"=$1 ]; then
+	cp 'css/core.css' 'build/editor.css'
+	cd 'coco'
+	cat core.co hover.co fields/*.co | coco -cs > '../build/editor.js'
+else
+	MINIFIER="java -jar $HOME/bin/yuicompressor-2.4.6.jar"
 
-cd 'coco'
-cat core.co fields/*.co | coco -cs | $MINIFIER --type 'js' > '../build/editor.js'
+	$MINIFIER 'css/core.css' > 'build/editor.css'
+
+	cd 'coco'
+	cat core.co hover.co fields/*.co | coco -cs | $MINIFIER --type 'js' > '../build/editor.js'
+fi
