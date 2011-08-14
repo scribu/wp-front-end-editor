@@ -24,7 +24,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 		@form
 			.addClass('fee-form')
-			.addClass('fee-type-' + @type)
+			.addClass('fee-type-' + @get_type())
 			.addClass('fee-filter-' + @filter)
 
 		@form.keypress(this.~keypress)
@@ -52,7 +52,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		keys = {ENTER: 13, ESCAPE: 27}
 		code = ev.keyCode || ev.which || ev.charCode || 0
 
-		if code === keys.ENTER && 'input' === @type
+		if code === keys.ENTER && 'input' === @get_type()
 			@save_button.click()
 
 		if code === keys.ESCAPE

@@ -78,7 +78,6 @@ jQuery.extend FrontEndEditor,
 			el: $el
 			data: data
 			filter: data.filter
-			type: data.type
 		})
 
 		if with_hover
