@@ -86,7 +86,6 @@ abstract class FEE_Core {
 			$css_path = 'css/core.css';
 		} else {
 			$min = defined('SCRIPT_DEBUG') ? '' : '.min';
-			debug($min);
 			self::register_script( 'fee-editor', "build/editor$min.js" );
 
 			$css_path = 'build/editor.css';
