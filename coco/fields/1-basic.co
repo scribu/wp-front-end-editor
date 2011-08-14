@@ -3,6 +3,10 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 	input_tag: '<input type="text">'
 
 	start_editing: (ev) ->
+		@form_create()
+		@ajax_get()
+
+	form_create: ->
 
 		@save_button = jQuery('<button>',
 			'class': 'fee-form-save'
@@ -16,15 +20,6 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			'click': jQuery.proxy(@form_remove, this)
 		)
 
-		@form_create()
-
-		@form
-			.append(@save_button)
-			.append(@cancel_button)
-
-		@ajax_get()
-
-	form_create: ->
 		@form = if @el.is('span') then jQuery('<span>') else jQuery('<div>')
 
 		@form
@@ -33,6 +28,12 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			.addClass('fee-filter-' + @filter)
 
 		@form.keypress(jQuery.proxy(@keypress, this))
+
+		@form
+			.append(@save_button)
+			.append(@cancel_button)
+
+		@create_input()
 
 	form_remove: (ev) ->
 		@form.remove()
@@ -67,18 +68,15 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 	content_to_input: (content) ->
 		@input.val(content)
-		@form.trigger('ready.fee', [@data])
 
 	content_from_input: ->
 		return @input.val()
 
 	content_to_front: (content) ->
 		@el.html(content)
-		@form.trigger('saved.fee', [@data])
 
 	ajax_get: ->
 		FrontEndEditor.overlay.cover(@el)
-		@create_input()
 		super ...
 
 	ajax_set: (contentData) ->

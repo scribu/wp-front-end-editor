@@ -188,11 +188,23 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	static function ajax_response() {
 		check_ajax_referer( self::NONCE, 'nonce' );
 
+		self::make_instances();
+
 		extract( wp_array_slice_assoc( $_POST, array( 'callback', 'data' ) ) );
 
-		$filter = $data['filter'];
+		if ( isset( $_POST['group'] ) ) {
+			foreach ( $data as $i => $single_data ) {
+				$r[$i] = self::single_ajax_response( $callback, $single_data );
+			}
+		} else {
+			$r = self::single_ajax_response( $callback, $data );
+		}
 
-		self::make_instances();
+		die( json_encode( $r ) );
+	}
+
+	private static function single_ajax_response( $callback, $data ) {
+		$filter = $data['filter'];
 
 		// Is the current field defined?
 		if ( !$instance = self::$instances[ $filter ] )
@@ -221,7 +233,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 			$result = array( 'error' => $e->getMessage() );
 		}
 
-		die( json_encode( $result ) );
+		return $result;
 	}
 }
 

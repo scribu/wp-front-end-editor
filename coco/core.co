@@ -4,8 +4,14 @@ jQuery.extend FrontEndEditor,
 	is_field_defined: (field_name) ->
 		return Boolean(@fieldTypes[field_name])
 
-	get_field_instance: (field_name) ->
-		return new @fieldTypes[field_name]()
+	get_field_instance: (field_name, data) ->
+		editor = new @fieldTypes[field_name]()
+
+		jQuery.extend(editor, data)
+
+		editor.start()
+
+		return editor
 
 	overlay: do ->
 		$cover = jQuery('<div>', 'class': 'fee-loading')
@@ -151,27 +157,26 @@ jQuery ->
 				mouseout: hover_hide
 			)
 
-	FrontEndEditor.make_editable = ->
-		$el = jQuery(this)
-		data = extract_data_attr(this)
+	FrontEndEditor.make_editable = (el, with_hover) ->
+		$el = jQuery(el)
+		data = extract_data_attr(el)
 
 		if !FrontEndEditor.is_field_defined(data.type)
 			if console?
-				console.warn('invalid field type', this)
+				console.warn('invalid field type', el)
 			return
 
-		editor = FrontEndEditor.get_field_instance(data.type)
-
-		jQuery.extend(editor,
+		editor = FrontEndEditor.get_field_instance(data.type, {
 			el: $el
 			data: data
 			filter: data.filter
 			type: data.type
-		)
+		})
 
-		editor.start()
+		if with_hover
+			hover_init $el, editor.~start_editing
 
-		hover_init $el, jQuery.proxy(editor, 'start_editing')
+		return editor
 
 	# Text widget fields hack
 	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each ->
@@ -183,6 +188,21 @@ jQuery ->
 		else
 			$el.unwrap()
 
-	# Create field instances
-	jQuery('.fee-field').each FrontEndEditor.make_editable
+	# Create group instances
+	jQuery('.fee-group').each ->
+		$container = jQuery(this)
+		$elements = $container.find('.fee-field').removeClass('fee-field')
 
+		if !$elements.length
+			return
+
+		editor = FrontEndEditor.get_field_instance('group', {
+			container: $container,
+			editors: (FrontEndEditor.make_editable(el) for el of $elements)
+		})
+
+		hover_init $container, editor.~ajax_get
+
+	# Create field instances
+	for el of jQuery('.fee-field')
+		FrontEndEditor.make_editable(el, true)

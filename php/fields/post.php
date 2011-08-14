@@ -10,7 +10,15 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	protected function setup() {
+		add_action( 'post_class', array( __CLASS__, 'post_class' ) );
 		$this->field = str_replace( 'the_', 'post_', $this->get_filter() );
+	}
+
+	static function post_class( $classes ) {
+		// TODO: check an option
+		$classes[] = 'fee-group';
+
+		return $classes;
 	}
 
 	function wrap( $content, $post_id = 0 ) {
