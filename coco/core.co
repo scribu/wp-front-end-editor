@@ -111,7 +111,7 @@ jQuery ->
 			editors: (FrontEndEditor.make_editable(el) for el of $elements)
 		})
 
-		FrontEndEditor.hover_init $container, editor.~ajax_get
+		FrontEndEditor.hover_init $container, editor.~start_editing
 
 	# Create field instances
 	for el of jQuery('.fee-field')

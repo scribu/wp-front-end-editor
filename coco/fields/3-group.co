@@ -1,6 +1,15 @@
 class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 	editors: [],
 
+	start_editing: (ev) ->
+		@buttons_create()
+		@form_create()
+
+		@ajax_get()
+
+	form_create: ->
+		void
+
 	ajax_args: (args) ->
 		args = super ...
 
@@ -9,6 +18,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 				group    : true,
 				data     : for editor of @editors
 					editor.form_create()
+					editor.input_create()
 					editor.data
 			}
 
