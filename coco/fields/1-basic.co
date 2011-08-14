@@ -11,13 +11,13 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@save_button = jQuery('<button>',
 			'class': 'fee-form-save'
 			'text' : FrontEndEditor.data.save_text
-			'click': jQuery.proxy(@form_submit, this)
+			'click': this.~form_submit
 		)
 
 		@cancel_button = jQuery('<button>',
 			'class': 'fee-form-cancel'
 			'text' : FrontEndEditor.data.cancel_text
-			'click': jQuery.proxy(@form_remove, this)
+			'click': this.~form_remove
 		)
 
 		@form = if @el.is('span') then jQuery('<span>') else jQuery('<div>')
@@ -27,7 +27,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			.addClass('fee-type-' + @type)
 			.addClass('fee-filter-' + @filter)
 
-		@form.keypress(jQuery.proxy(@keypress, this))
+		@form.keypress(this.~keypress)
 
 		@form
 			.append(@save_button)
@@ -91,7 +91,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		FrontEndEditor.overlay.cover(@form)
 
 		FrontEndEditor.edit_unlock()
-		jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(@ajax_set_handler, this), 'json')
+		jQuery.post(FrontEndEditor.data.ajax_url, data, this.~ajax_set_handler, 'json')
 
 	ajax_get_handler: (response) ->
 		$el = @error_handler(response)
