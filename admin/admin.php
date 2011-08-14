@@ -85,8 +85,9 @@ class FEE_Admin extends scbBoxesPage {
 			return;
 
 		$this->options->rich = isset( $_POST['rich'] );
+		$this->options->group_post = isset( $_POST['group_post'] );
 
-		if ( isset( $_POST['taxonomy_ui'] ) && in_array( $_POST['taxonomy_ui'], array( 'termselect', 'terminput' ) ) )
+		if ( in_array( $_POST['taxonomy_ui'], array( 'termselect', 'terminput' ) ) )
 			$this->options->taxonomy_ui = $_POST['taxonomy_ui'];
 
 		$this->admin_msg();
@@ -98,6 +99,12 @@ class FEE_Admin extends scbBoxesPage {
 			'name' => 'rich',
 			'type' => 'checkbox',
 			'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
+		) ) );
+
+		$out .= html( 'p', $this->input( array(
+			'name' => 'group_post',
+			'type' => 'checkbox',
+			'desc' => __( 'Edit all post fields at once.', $this->textdomain ),
 		) ) );
 
 		$out .= html( 'p',

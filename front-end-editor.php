@@ -48,6 +48,7 @@ function _fee_init() {
 	$options = new scbOptions( 'front-end-editor', __FILE__, array(
 		'disabled' => array('bloginfo'),
 		'rich' => true,
+		'group_post' => false,
 		'taxonomy_ui' => 'termselect'
 	) );
 
