@@ -108,7 +108,7 @@ jQuery ->
 			return
 
 		editor = FrontEndEditor.get_field_instance('group', {
-			container: $container,
+			el: $container,
 			editors: (FrontEndEditor.make_editable(el) for el of $elements)
 		})
 

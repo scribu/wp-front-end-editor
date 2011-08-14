@@ -1,18 +1,18 @@
-class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.base
+class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 	editors: [],
 
-	ajax_get: ->
-		data = {
-			callback : 'get',
-			action   : 'front-end-editor',
-			group    : true,
-			nonce    : FrontEndEditor.data.nonce,
-			data     : for editor of @editors
-				editor.form_create()
-				editor.data
-		}
+	ajax_args: (args) ->
+		args = super ...
 
-		jQuery.post FrontEndEditor.data.ajax_url, data, this.~ajax_get_handler, 'json'
+		if 'get' === args.callback
+			jQuery.extend args, {
+				group    : true,
+				data     : for editor of @editors
+					editor.form_create()
+					editor.data
+			}
+
+		args
 
 	ajax_get_handler: (response) ->
 		for editor, i of @editors
