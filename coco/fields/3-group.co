@@ -22,19 +22,27 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		super ...
 
+	content_from_input: ->
+		editor.content_from_input() for editor of @editors
+
 	keypress: jQuery.noop
 
 	ajax_args: (args) ->
 		args = super ...
 
-		if 'get' === args.callback
-			jQuery.extend args, {
-				group : true,
-				data  : (editor.data for editor of @editors)
-			}
+		jQuery.extend args, {
+			group : true,
+			data  : (editor.data for editor of @editors)
+		}
 
 		args
 
 	ajax_get_handler: (response) ->
 		for editor, i of @editors
 			editor.ajax_get_handler(response[i])
+
+	ajax_set_handler: (response) ->
+		for editor, i of @editors
+			editor.ajax_set_handler(response[i])
+
+		@form.remove()

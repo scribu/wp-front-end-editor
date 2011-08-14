@@ -193,18 +193,23 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 
 		extract( wp_array_slice_assoc( $_POST, array( 'callback', 'data' ) ) );
 
+		if ( 'save' == $callback )
+			$content = stripslashes_deep( $_POST['content'] );
+		else
+			$content = null;
+
 		if ( isset( $_POST['group'] ) ) {
 			foreach ( $data as $i => $single_data ) {
-				$r[$i] = self::single_ajax_response( $callback, $single_data );
+				$r[$i] = self::single_ajax_response( $callback, $single_data, @$content[$i] );
 			}
 		} else {
-			$r = self::single_ajax_response( $callback, $data );
+			$r = self::single_ajax_response( $callback, $data, $content );
 		}
 
 		die( json_encode( $r ) );
 	}
 
-	private static function single_ajax_response( $callback, $data ) {
+	private static function single_ajax_response( $callback, $data, $content ) {
 		$filter = $data['filter'];
 
 		// Is the current field defined?
@@ -219,7 +224,6 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 
 		try {
 			if ( 'save' == $callback ) {
-				$content = stripslashes_deep( $_POST['content'] );
 				$result = $instance->save( $data, $content );
 				$result = @apply_filters( $filter, $result ); // TODO: remove, since additional arguments aren't passed
 			}
