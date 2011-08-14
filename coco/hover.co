@@ -1,4 +1,4 @@
-do ->
+FrontEndEditor.hover_init = do ->
 	get_dims = ($el) ->
 		return
 			'width': $el.width()
@@ -72,7 +72,7 @@ do ->
 			'height': (dims.height + HOVER_PADDING * 2) + 'px'
 		).show()
 
-	FrontEndEditor.hover_init = ($el, callback) ->
+	return ($el, callback) ->
 		$el.bind(
 			mouseover: (ev) ->
 				if FrontEndEditor.is_editing()
