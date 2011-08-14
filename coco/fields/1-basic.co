@@ -3,8 +3,8 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 	input_tag: '<input type="text">'
 
 	start_editing: (ev) ->
-		@buttons_create()
 		@form_create()
+		@buttons_create()
 		@input_create()
 
 		@ajax_get()
@@ -22,8 +22,11 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			'click': this.~form_remove
 		)
 
-	form_create: ->
+		@form
+			.append(@save_button)
+			.append(@cancel_button)
 
+	form_create: ->
 		@form = if @el.is('span') then jQuery('<span>') else jQuery('<div>')
 
 		@form
@@ -32,10 +35,6 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			.addClass('fee-filter-' + @filter)
 
 		@form.keypress(this.~keypress)
-
-		@form
-			.append(@save_button)
-			.append(@cancel_button)
 
 	form_remove: (ev) ->
 		@form.remove()

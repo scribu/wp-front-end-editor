@@ -2,13 +2,16 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 	editors: [],
 
 	start_editing: (ev) ->
-		@buttons_create()
 		@form_create()
+		@buttons_create()
 
 		@ajax_get()
 
 	form_create: ->
-		void
+		super ...
+		@el.append(@form)
+
+	keypress: jQuery.noop
 
 	ajax_args: (args) ->
 		args = super ...
