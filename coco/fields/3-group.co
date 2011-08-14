@@ -22,9 +22,6 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		super ...
 
-	form_submit: (ev) ->
-		...
-
 	keypress: jQuery.noop
 
 	ajax_args: (args) ->
@@ -32,8 +29,8 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		if 'get' === args.callback
 			jQuery.extend args, {
-				group    : true,
-				data     : (editor.data for editor of @editors)
+				group : true,
+				data  : (editor.data for editor of @editors)
 			}
 
 		args

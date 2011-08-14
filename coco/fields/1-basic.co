@@ -84,10 +84,10 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		if 0 == arguments.length
 			contentData = @content_from_input()
 
-		data = @ajax_args(
+		data = @ajax_args {
 			callback: 'save'
 			content: contentData
-		)
+		}
 
 		FrontEndEditor.overlay.cover(@form)
 
