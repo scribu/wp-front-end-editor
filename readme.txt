@@ -63,6 +63,10 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 == Changelog ==
 
+= 2.2 =
+* introduce groups of editable elements
+* switch to Coco
+
 = 2.1.2 =
 * show Aloha toolbar immediately after clicking 'Edit'
 * properly handle hierarchical taxonomies edited via text input
