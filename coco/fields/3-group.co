@@ -27,6 +27,11 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 	keypress: jQuery.noop
 
+	ajax_set: (contentData) ->
+		super ...
+
+		FrontEndEditor.overlay.cover(@el)
+
 	ajax_args: (args) ->
 		args = super ...
 
