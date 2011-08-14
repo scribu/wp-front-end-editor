@@ -5,7 +5,7 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 	lastActiveEditable: null
 
-	create_input: jQuery.noop
+	input_create: jQuery.noop
 
 	ajax_get_handler: (response) ->
 		$el = @error_handler(response)

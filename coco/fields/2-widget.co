@@ -1,6 +1,6 @@
 class FrontEndEditor.fieldTypes.widget extends FrontEndEditor.fieldTypes.textarea
 
-	create_input: jQuery.noop
+	input_create: jQuery.noop
 
 	content_to_input: (content) ->
 		@input = jQuery(content)

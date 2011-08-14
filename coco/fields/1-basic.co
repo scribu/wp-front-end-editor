@@ -33,7 +33,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			.append(@save_button)
 			.append(@cancel_button)
 
-		@create_input()
+		@input_create()
 
 	form_remove: (ev) ->
 		@form.remove()
@@ -58,7 +58,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		if code === keys.ESCAPE
 			@cancel_button.click()
 
-	create_input: ->
+	input_create: ->
 		@input = jQuery(@input_tag).attr(
 			'id'    : 'fee-' + new Date().getTime()
 			'class' : 'fee-form-content'
