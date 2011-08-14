@@ -52,8 +52,6 @@ abstract class FEE_Core {
 			'nonce' => wp_create_nonce( self::NONCE ),
 		);
 
-		$url = plugins_url( 'js/', FRONT_END_EDITOR_MAIN_FILE );
-
 		$css_dependencies = array();
 
 		// Autosuggest
@@ -76,20 +74,25 @@ abstract class FEE_Core {
 		}
 
 		// Core script
-		if ( defined('SCRIPT_DEBUG') ) {
-			self::register_script( 'fee-core', $url . 'core.js' );
-			self::register_script( 'fee-hover', $url . 'hover.js' );
+		if ( defined('FEE_DEBUG') ) {
+			self::register_script( 'fee-core', 'js/core.js' );
+			self::register_script( 'fee-hover', 'js/hover.js' );
 
 			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
 				$file = basename( $file );
-				self::register_script( "fee-fields-$file", $url . "fields/$file", array( 'fee-core' ) );
+				self::register_script( "fee-fields-$file", "js/fields/$file", array( 'fee-core' ) );
 			}
+
+			$css_path = 'css/core.css';
 		} else {
-			self::register_script( 'fee-editor', $url . "editor.js" );
+			$min = defined('SCRIPT_DEBUG') ? '' : '.min';
+			debug($min);
+			self::register_script( 'fee-editor', "build/editor$min.js" );
+
+			$css_path = 'build/editor.css';
 		}
 
 		// Core style
-		$css_path = defined('SCRIPT_DEBUG') ? 'css/core.css' : 'build/editor.css';
 		wp_register_style( 'fee-editor', plugins_url( $css_path, FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, FRONT_END_EDITOR_VERSION );
 
 ?>
@@ -105,6 +108,7 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	private static function register_script( $handle, $src, $dependencies = array() ) {
+		$src = plugins_url( $src, FRONT_END_EDITOR_MAIN_FILE );
 		wp_register_script( $handle, $src, $dependencies, FRONT_END_EDITOR_VERSION, true );
 		self::$js_dependencies[] = $handle;
 	}
