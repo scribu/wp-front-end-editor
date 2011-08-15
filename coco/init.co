@@ -1,0 +1,30 @@
+jQuery ->
+
+	# Text widget fields hack
+	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each ->
+		$el = jQuery(this)
+		id = $el.closest('.widget_text').attr('id')
+
+		if id
+			$el.attr('data-widget_id', id)
+		else
+			$el.unwrap()
+
+	# Create group instances
+	jQuery('.fee-group').each ->
+		$container = jQuery(this)
+		$elements = $container.find('.fee-field').removeClass('fee-field')
+
+		if !$elements.length
+			return
+
+		editor = FrontEndEditor.get_field_instance 'group', {
+			el: $container,
+			editors: (FrontEndEditor.make_editable(el) for el of $elements)
+		}
+
+		FrontEndEditor.hover_init $container, editor.~start_editing
+
+	# Create field instances
+	for el of jQuery('.fee-field')
+		FrontEndEditor.make_editable el, true

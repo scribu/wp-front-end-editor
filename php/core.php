@@ -75,8 +75,9 @@ abstract class FEE_Core {
 
 		// Core script
 		if ( defined('FEE_DEBUG') ) {
-			self::register_script( 'fee-core', 'js/core.js' );
-			self::register_script( 'fee-hover', 'js/hover.js' );
+			foreach ( array( 'core', 'hover', 'init' ) as $handle ) {
+				self::register_script( "fee-$handle", "js/$handle.js" );
+			}
 
 			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
 				$file = basename( $file );
