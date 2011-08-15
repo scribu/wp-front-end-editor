@@ -12,14 +12,20 @@ class FEE_Field_Post extends FEE_Field_Base {
 	protected function setup() {
 		$this->field = str_replace( 'the_', 'post_', $this->get_filter() );
 
-		if ( FEE_Core::$options->group_post )
+		if ( FEE_Core::$options->group_post ) {
 			add_action( 'post_class', array( __CLASS__, 'post_class' ) );
+			add_action( 'edit_post_link', array( __CLASS__, 'edit_post_link' ) );
+		}
 	}
 
 	static function post_class( $classes ) {
 		$classes[] = 'fee-group';
 
 		return $classes;
+	}
+
+	static function edit_post_link( $link ) {
+		return str_replace( 'post-edit-link', 'post-edit-link fee-edit-button', $link );
 	}
 
 	function wrap( $content, $post_id = 0 ) {

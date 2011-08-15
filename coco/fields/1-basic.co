@@ -2,12 +2,14 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 	input_tag: '<input type="text">'
 
-	start_editing: (ev) ->
+	start_editing: ->
 		@form_create()
 		@buttons_create()
 		@input_create()
 
 		@ajax_get()
+
+		false
 
 	buttons_create: ->
 		@save_button = jQuery('<button>',
@@ -40,7 +42,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@form.remove()
 		@el.show()
 
-		FrontEndEditor.edit_unlock()
+		FrontEndEditor.edit_unlock(@el)
 
 		return false
 
@@ -91,7 +93,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 		FrontEndEditor.overlay.cover(@form)
 
-		FrontEndEditor.edit_unlock()
+		FrontEndEditor.edit_unlock(@el)
 		jQuery.post(FrontEndEditor.data.ajax_url, data, this.~ajax_set_handler, 'json')
 
 	ajax_get_handler: (response) ->

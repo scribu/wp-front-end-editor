@@ -33,11 +33,13 @@ jQuery.extend FrontEndEditor,
 		return editor
 
 	# Editing
-	edit_lock: ->
+	edit_lock: ($el) ->
 		@_editing = true
+		$el.trigger('edit_start')
 
-	edit_unlock: ->
+	edit_unlock: ($el) ->
 		@_editing = false
+		$el.trigger('edit_stop')
 
 	is_editing: ->
 		return @_editing

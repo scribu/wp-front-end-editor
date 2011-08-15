@@ -14,7 +14,8 @@ class FrontEndEditor.fieldTypes.base
 			callback: 'get'
 		}
 
-		FrontEndEditor.edit_lock()
+		FrontEndEditor.edit_lock(@el)
+
 		jQuery.post FrontEndEditor.data.ajax_url, data, this.~ajax_get_handler, 'json'
 
 	ajax_set: (content) ->
@@ -23,7 +24,8 @@ class FrontEndEditor.fieldTypes.base
 			content: content
 		}
 
-		FrontEndEditor.edit_unlock()
+		FrontEndEditor.edit_unlock(@el)
+
 		jQuery.post FrontEndEditor.data.ajax_url, data, this.~ajax_set_handler, 'json'
 
 	ajax_args: (args) ->

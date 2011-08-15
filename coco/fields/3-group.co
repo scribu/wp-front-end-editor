@@ -20,6 +20,8 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		@ajax_get()
 
+		false
+
 	form_create: ->
 		for editor of @editors
 			editor.form_create()
