@@ -3,10 +3,11 @@ jQuery ->
 	# Text widget fields hack
 	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each ->
 		$el = jQuery(this)
-		id = $el.closest('.widget_text').attr('id')
+		$widget = $el.closest('.widget_text')
 
-		if id
-			$el.attr('data-widget_id', id)
+		if $widget.length
+			$el.attr('data-widget_id', $widget.attr('id'))
+			$widget.addClass('fee-group')
 		else
 			$el.unwrap()
 
