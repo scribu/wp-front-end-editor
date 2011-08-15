@@ -11,7 +11,7 @@ jQuery ->
 		else
 			$el.unwrap()
 
-#	# Create group instances
+	# Create group instances
 	jQuery('.fee-group').each ->
 		$container = jQuery(this)
 		$elements = $container.find('.fee-field').removeClass('fee-field')
