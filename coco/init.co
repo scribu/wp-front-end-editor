@@ -11,7 +11,7 @@ jQuery ->
 		else
 			$el.unwrap()
 
-	# Create group instances
+#	# Create group instances
 	jQuery('.fee-group').each ->
 		$container = jQuery(this)
 		$elements = $container.find('.fee-field').removeClass('fee-field')
@@ -19,10 +19,9 @@ jQuery ->
 		if !$elements.length
 			return
 
-		editor = FrontEndEditor.get_field_instance 'group', {
-			el: $container,
-			editors: (FrontEndEditor.make_editable(el) for el of $elements)
-		}
+		editors = (FrontEndEditor.make_editable(el) for el of $elements)
+
+		editor = new FrontEndEditor.fieldTypes['group'] $container, editors
 
 		FrontEndEditor.hover_init $container, editor.~start_editing
 

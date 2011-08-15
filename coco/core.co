@@ -16,34 +16,20 @@ extract_data_attr = (el) ->
 
 	return data
 
-jQuery.extend FrontEndEditor,
-	# Field types
+FrontEndEditor <<<
 	fieldTypes: {}
-
-	is_field_defined: (field_name) ->
-		return Boolean(@fieldTypes[field_name])
-
-	get_field_instance: (field_name, data) ->
-		editor = new @fieldTypes[field_name]()
-
-		jQuery.extend(editor, data)
-
-		editor.start()
-
-		return editor
 
 	# Editing
 	edit_lock: ($el) ->
-		@_editing = true
+		FrontEndEditor._editing = true
 		$el.trigger('edit_start')
 
 	edit_unlock: ($el) ->
-		@_editing = false
+		FrontEndEditor._editing = false
 		$el.trigger('edit_stop')
 
 	is_editing: ->
-		return @_editing
-
+		return FrontEndEditor._editing
 
 	# Misc
 	overlay: do ->
@@ -75,16 +61,13 @@ jQuery.extend FrontEndEditor,
 		$el = jQuery(el)
 		data = extract_data_attr(el)
 
-		if !FrontEndEditor.is_field_defined(data.type)
-			if console?
+		fieldType = FrontEndEditor.fieldTypes[data.type]
+		if not fieldType
+			if console
 				console.warn('invalid field type', el)
 			return
 
-		editor = FrontEndEditor.get_field_instance(data.type, {
-			el: $el
-			data: data
-			filter: data.filter
-		})
+		editor = new fieldType $el, data
 
 		if with_hover
 			FrontEndEditor.hover_init $el, editor.~start_editing

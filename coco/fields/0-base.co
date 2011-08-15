@@ -1,8 +1,10 @@
 class FrontEndEditor.fieldTypes.base
+	($el, data) ->
+		@el = $el
+		@data = data
+
 	get_type: ->
 		@constructor.displayName
-
-	start: jQuery.noop
 
 	start_editing: null
 
@@ -14,7 +16,7 @@ class FrontEndEditor.fieldTypes.base
 			callback: 'get'
 		}
 
-		FrontEndEditor.edit_lock(@el)
+		FrontEndEditor.edit_lock @el
 
 		jQuery.post FrontEndEditor.data.ajax_url, data, this.~ajax_get_handler, 'json'
 
@@ -24,7 +26,7 @@ class FrontEndEditor.fieldTypes.base
 			content: content
 		}
 
-		FrontEndEditor.edit_unlock(@el)
+		FrontEndEditor.edit_unlock @el
 
 		jQuery.post FrontEndEditor.data.ajax_url, data, this.~ajax_set_handler, 'json'
 

@@ -34,7 +34,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@form
 			.addClass('fee-form')
 			.addClass('fee-type-' + @get_type())
-			.addClass('fee-filter-' + @filter)
+			.addClass('fee-filter-' + @data.filter)
 
 		@form.keypress(this.~keypress)
 
