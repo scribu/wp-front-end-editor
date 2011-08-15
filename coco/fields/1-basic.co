@@ -34,7 +34,6 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@form
 			.addClass('fee-form')
 			.addClass('fee-type-' + @get_type())
-			.addClass('fee-filter-' + @data.filter)
 
 		@form.keypress(this.~keypress)
 
@@ -82,19 +81,13 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		FrontEndEditor.overlay.cover(@el)
 		super ...
 
-	ajax_set: (contentData) ->
+	ajax_set_args: (contentData) ->
+		FrontEndEditor.overlay.cover(@form)
+
 		if 0 == arguments.length
 			contentData = @content_from_input()
 
-		data = @ajax_args {
-			callback: 'save'
-			content: contentData
-		}
-
-		FrontEndEditor.overlay.cover(@form)
-
-		FrontEndEditor.edit_unlock(@el)
-		jQuery.post(FrontEndEditor.data.ajax_url, data, this.~ajax_set_handler, 'json')
+		super contentData
 
 	ajax_get_handler: (response) ->
 		$el = @error_handler(response)

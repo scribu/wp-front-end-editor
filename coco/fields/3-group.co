@@ -30,7 +30,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		super ...
 
-		@el.append(@form)
+		@el.append @form
 
 	form_remove: (ev) ->
 		for editor of @editors
@@ -46,27 +46,26 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 	ajax_set: ->
 		super ...
 
-		FrontEndEditor.overlay.cover(@el)
+		FrontEndEditor.overlay.cover @el
 
-	ajax_args: (args) ->
+	ajax_args: ->
 		args = super ...
 
-		jQuery.extend args, {
+		args <<<
 			group : true,
 			data  : (editor.data for editor of @editors)
-		}
 
 		args
 
 	ajax_get_handler: (response) ->
 		for editor, i of @editors
-			editor.ajax_get_handler(response[i])
+			editor.ajax_get_handler response[i]
 
 		@editors[0].input?.focus()
 
 	ajax_set_handler: (response) ->
 		for editor, i of @editors
-			editor.ajax_set_handler(response[i])
+			editor.ajax_set_handler response[i]
 
 		@form.remove()
 

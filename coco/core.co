@@ -67,7 +67,11 @@ FrontEndEditor <<<
 				console.warn('invalid field type', el)
 			return
 
-		editor = new fieldType $el, data
+		editor = new fieldType
+
+		editor <<<
+			el: $el
+			data: data
 
 		if with_hover
 			FrontEndEditor.hover_init $el, editor.~start_editing

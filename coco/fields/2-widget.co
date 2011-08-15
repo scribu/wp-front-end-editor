@@ -7,20 +7,16 @@ class FrontEndEditor.fieldTypes.widget extends FrontEndEditor.fieldTypes.textare
 
 		@form.prepend(content)
 
-	ajax_args: (args) ->
+	ajax_set_args: ->
 		args = super ...
-
-		if 'get' === args.callback
-			return args
 
 		for {name, value} of @form.find(':input').serializeArray()
 			args[name] =
 				if void === args[name]
 					value
-				else
-					if jQuery.isArray( args[name] )
+				else if jQuery.isArray( args[name] )
 						args[name].concat(value)
-					else
-						[args[name], value]
+				else
+					[args[name], value]
 
 		return args

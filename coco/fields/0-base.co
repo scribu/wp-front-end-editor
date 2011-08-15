@@ -1,7 +1,4 @@
 class FrontEndEditor.fieldTypes.base
-	($el, data) ->
-		@el = $el
-		@data = data
 
 	get_type: ->
 		@constructor.displayName
@@ -12,27 +9,37 @@ class FrontEndEditor.fieldTypes.base
 	ajax_set_handler: null
 
 	ajax_get: ->
-		data = @ajax_args {
-			callback: 'get'
-		}
-
 		FrontEndEditor.edit_lock @el
 
-		jQuery.post FrontEndEditor.data.ajax_url, data, this.~ajax_get_handler, 'json'
+		args = @ajax_get_args ...
+
+		jQuery.post FrontEndEditor.data.ajax_url, args, this.~ajax_get_handler, 'json'
 
 	ajax_set: (content) ->
-		data = @ajax_args {
-			callback: 'save'
-			content: content
-		}
-
 		FrontEndEditor.edit_unlock @el
 
-		jQuery.post FrontEndEditor.data.ajax_url, data, this.~ajax_set_handler, 'json'
+		args = @ajax_set_args ...
 
-	ajax_args: (args) ->
-		jQuery.extend args, {
-			action : 'front-end-editor'
-			nonce  : FrontEndEditor.data.nonce
-			data   : @data
-		}
+		jQuery.post FrontEndEditor.data.ajax_url, args, this.~ajax_set_handler, 'json'
+
+	ajax_get_args: ->
+		args = @ajax_args()
+
+		args <<<
+			callback: 'get'
+
+		args
+
+	ajax_set_args: (content) ->
+		args = @ajax_args()
+
+		args <<<
+			callback: 'save'
+			content: content
+
+		args
+
+	ajax_args: ->
+		action : 'front-end-editor'
+		nonce  : FrontEndEditor.data.nonce
+		data   : @data
