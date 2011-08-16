@@ -17,6 +17,10 @@
 * html .fee-clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .fee-clearfix { zoom: 1; } /* IE7 */
 
+.fee-disabled {
+	visibility: collapse;
+}
+
 div.fee-form, textarea.fee-form-content {
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;

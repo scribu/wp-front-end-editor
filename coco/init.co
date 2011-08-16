@@ -39,12 +39,12 @@ jQuery ->
 			$button.click editor.~start_editing
 
 			$container.bind {
-				'edit_start': (ev) ->
-					$button.hide()
+				edit_start: (ev) ->
+					$button.addClass 'fee-disabled'
 
 					ev.stopPropagation()
-				'edit_stop': (ev) ->
-					$button.show()
+				edit_stop: (ev) ->
+					$button.removeClass 'fee-disabled'
 
 					ev.stopPropagation()
 			}
