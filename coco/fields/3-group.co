@@ -70,4 +70,4 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 		for editor, i of @editors
 			editor.ajax_set_handler response[i]
 
-		@form.remove()
+		@form_remove()
