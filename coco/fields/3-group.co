@@ -5,7 +5,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		@has_aloha = false
 
-		if GENTICS.Aloha?
+		if GENTICS?.Aloha
 			for editor of @editors
 				if 'rich' == editor.get_type()
 					@has_aloha = true

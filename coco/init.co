@@ -23,7 +23,33 @@ jQuery ->
 
 		editor = new FrontEndEditor.fieldTypes['group'] $container, editors
 
-		FrontEndEditor.hover_init $container, editor.~start_editing
+		if FrontEndEditor.data.add_buttons
+			$button = jQuery '<span>', {
+				class: 'fee-edit-button'
+				text: FrontEndEditor.data.edit_text
+			}
+
+			$button.appendTo $container
+		else
+			$button = $container.find '.fee-edit-button'
+			if not $button.length
+				$button = $container.find '.post-edit-link'
+
+		if $button.length
+			$button.click editor.~start_editing
+
+			$container.bind {
+				'edit_start': (ev) ->
+					$button.hide()
+
+					ev.stopPropagation()
+				'edit_stop': (ev) ->
+					$button.show()
+
+					ev.stopPropagation()
+			}
+		else
+			FrontEndEditor.hover_init $container, editor.~start_editing
 
 	# Create field instances
 	for el of jQuery('.fee-field')

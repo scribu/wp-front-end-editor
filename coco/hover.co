@@ -73,34 +73,17 @@ FrontEndEditor.hover_init = do ->
 		).show()
 
 	return ($el, callback) ->
-		$button = $el.find '.fee-edit-button'
+		$el.bind {
+			mouseover: (ev) ->
+				if FrontEndEditor.is_editing()
+					return
 
-		if $button.length
-			$button.click callback
+				mouse_vert_pos := ev.pageY
+				hover_show.call(this, callback)
 
-			$el.bind {
-				'edit_start': (ev) ->
-					$button.hide()
+			mousemove: (ev) ->
+				mouse_vert_pos := ev.pageY
+				box_position_vert()
 
-					ev.stopPropagation()
-				'edit_stop': (ev) ->
-					$button.show()
-
-					ev.stopPropagation()
-			}
-
-		else
-			$el.bind {
-				mouseover: (ev) ->
-					if FrontEndEditor.is_editing()
-						return
-
-					mouse_vert_pos := ev.pageY
-					hover_show.call(this, callback)
-
-				mousemove: (ev) ->
-					mouse_vert_pos := ev.pageY
-					box_position_vert()
-
-				mouseout: hover_hide
-			}
+			mouseout: hover_hide
+		}

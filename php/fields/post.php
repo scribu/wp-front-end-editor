@@ -14,7 +14,6 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 		if ( FEE_Core::$options->group_post ) {
 			add_action( 'post_class', array( __CLASS__, 'post_class' ) );
-			add_action( 'edit_post_link', array( __CLASS__, 'edit_post_link' ) );
 		}
 	}
 
@@ -22,10 +21,6 @@ class FEE_Field_Post extends FEE_Field_Base {
 		$classes[] = 'fee-group';
 
 		return $classes;
-	}
-
-	static function edit_post_link( $link ) {
-		return str_replace( 'post-edit-link', 'post-edit-link fee-edit-button', $link );
 	}
 
 	function wrap( $content, $post_id = 0 ) {

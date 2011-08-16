@@ -47,8 +47,11 @@ abstract class FEE_Core {
 			'edit_text' => __( 'Edit', 'front-end-editor' ),
 			'save_text' => __( 'Save', 'front-end-editor' ),
 			'cancel_text' => __( 'Cancel', 'front-end-editor' ),
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
+
+			'add_buttons' => current_theme_supports( 'fee-automatic-buttons' ),
 			'spinner' => admin_url( 'images/loading.gif' ),
+
+			'ajax_url' => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( self::NONCE ),
 		);
 
