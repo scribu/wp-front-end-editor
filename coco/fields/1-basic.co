@@ -3,15 +3,15 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 	input_tag: '<input type="text">'
 
 	start_editing: ->
-		@form_create()
-		@buttons_create()
-		@input_create()
+		@create_form()
+		@create_buttons()
+		@create_input()
 
 		@ajax_get()
 
 		false
 
-	buttons_create: ->
+	create_buttons: ->
 		@save_button = jQuery('<button>',
 			'class': 'fee-form-save'
 			'text' : FrontEndEditor.data.save_text
@@ -21,14 +21,14 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@cancel_button = jQuery('<button>',
 			'class': 'fee-form-cancel'
 			'text' : FrontEndEditor.data.cancel_text
-			'click': this.~form_remove
+			'click': this.~remove_form
 		)
 
 		@form
 			.append(@save_button)
 			.append(@cancel_button)
 
-	form_create: ->
+	create_form: ->
 		@form = if @el.is('span') then jQuery('<span>') else jQuery('<div>')
 
 		@form
@@ -37,7 +37,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 		@form.keypress(this.~keypress)
 
-	form_remove: (ev) ->
+	remove_form: (ev) ->
 		@form.remove()
 		@el.show()
 
@@ -60,7 +60,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		if code === keys.ESCAPE
 			@cancel_button.click()
 
-	input_create: ->
+	create_input: ->
 		@input = jQuery(@input_tag).attr(
 			'id'    : 'fee-' + new Date().getTime()
 			'class' : 'fee-form-content'
