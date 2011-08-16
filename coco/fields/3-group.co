@@ -69,4 +69,5 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		@form.remove()
 
-		GENTICS.Aloha.wpSaveCancel.group = void
+		if @has_aloha
+			GENTICS.Aloha.wpSaveCancel.group = void
