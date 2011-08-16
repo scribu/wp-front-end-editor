@@ -38,6 +38,9 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		super ...
 
+		if @has_aloha
+			GENTICS.Aloha.wpSaveCancel.group = void
+
 	content_from_input: ->
 		editor.content_from_input() for editor of @editors
 
@@ -68,6 +71,3 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 			editor.ajax_set_handler response[i]
 
 		@form.remove()
-
-		if @has_aloha
-			GENTICS.Aloha.wpSaveCancel.group = void
