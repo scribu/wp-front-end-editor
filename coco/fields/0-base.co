@@ -5,22 +5,31 @@ class FrontEndEditor.fieldTypes.base
 
 	start_editing: null
 
-	ajax_get_handler: null
-	ajax_set_handler: null
-
 	ajax_get: ->
 		FrontEndEditor.edit_lock @el
 
-		args = @ajax_get_args ...
+		@_ajax_request {
+			data: @ajax_get_args ...
+			success: this.~ajax_get_handler,
+		}
 
-		jQuery.post FrontEndEditor.data.ajax_url, args, this.~ajax_get_handler, 'json'
+	ajax_set: ->
+		@_ajax_request {
+			data: @ajax_set_args ...
+			success: this.~ajax_set_handler
+		}
 
-	ajax_set: (content) ->
-		FrontEndEditor.edit_unlock @el
+	_ajax_request: (args) ->
+		args <<<
+			url: FrontEndEditor.data.ajax_url
+			type: 'POST'
+			dataType: 'json'
 
-		args = @ajax_set_args ...
+		jQuery.ajax args
 
-		jQuery.post FrontEndEditor.data.ajax_url, args, this.~ajax_set_handler, 'json'
+	ajax_get_handler: null
+
+	ajax_set_handler: null
 
 	ajax_get_args: ->
 		args = @ajax_args()

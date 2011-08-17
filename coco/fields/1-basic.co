@@ -15,7 +15,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@save_button = jQuery('<button>',
 			'class': 'fee-form-save'
 			'text' : FrontEndEditor.data.save_text
-			'click': this.~form_submit
+			'click': this.~submit_form
 		)
 
 		@cancel_button = jQuery('<button>',
@@ -37,7 +37,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 		@form.keypress(this.~keypress)
 
-	remove_form: (ev) ->
+	remove_form: ->
 		@form.remove()
 		@el.show()
 
@@ -45,7 +45,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 		return false
 
-	form_submit: (ev) ->
+	submit_form: (ev) ->
 		@ajax_set()
 
 		return false
@@ -111,8 +111,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 		@content_to_front(response.content)
 
-		@form.remove()
-		@el.show()
+		@remove_form()
 
 	# Returns the element after which the form should be inserted
 	error_handler: (response) ->
