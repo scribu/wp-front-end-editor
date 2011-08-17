@@ -7,6 +7,11 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 	create_input: jQuery.noop
 
+	start_editing: (ev) ->
+		super ...
+
+		GENTICS.Aloha.wpSaveCancel.current_field = this
+
 	ajax_get_handler: (response) ->
 		$el = @error_handler(response)
 
@@ -19,8 +24,6 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 		@el.hide()
 		@form.insertAfter($el)
-
-		GENTICS.Aloha.wpSaveCancel.current_field = this
 
 		@form.aloha()
 		@form.focus()
