@@ -1,194 +1,242 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor in italiano\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2010-06-19 14:51+0300\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
+"POT-Creation-Date: 2011-06-24 17:08:11+00:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Gianni Diurno (aka gidibao) <gidibao[at]gmail[dot]com>\n"
-"Language-Team: Gianni Diurno | gidibao.net <gidibao[at]gmail[dot]com>\n"
+"Language-Team: Gianni Diurno | gidibao.net & charmingpress.com\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Italian\n"
 "X-Poedit-Country: ITALY\n"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.9)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: admin.php:9
-msgid "Front-end Editor"
-msgstr "Front-end Editor"
-
-#: admin.php:14
-msgid "Fields"
-msgstr "Campi"
-
-#: admin.php:15
-#: scb/AdminPage.php:377
-msgid "Settings"
-msgstr "Impostazioni"
-
-#: admin.php:16
-msgid "Editor Panel"
-msgstr "Pannello editor"
-
-#: admin.php:97
-msgid "Enable or disable editable fields"
-msgstr "Attiva o disattiva i campi modificabili"
-
-#: admin.php:99
-msgid "Post fields"
-msgstr "Campi articolo"
-
-#: admin.php:100
-msgid "Other fields"
-msgstr "Altri campi"
-
-#: admin.php:136
-msgid "Enable the WYSIWYG editor"
-msgstr "Attiva l'editor WYSIWYG"
-
-#: admin.php:142
-msgid "Edit one paragraph at a time, instead of an entire post"
-msgstr "Modifica un paragrafo alla volta invece di operare su tutto l'articolo"
-
-#: admin.php:148
-msgid "Highlight editable elements"
-msgstr "Evidenzia gli elementi modificabili"
-
-#: admin.php:154
-msgid "Display a tooltip above editable elements"
-msgstr "Mostra un tooltip sopra gli elementi modificabili"
-
-#: admin.php:178
-msgid "Enable or disable editor buttons"
-msgstr "Attiva o disattiva i pulsanti dell'editor"
-
-#: admin.php:196
-msgid "Button"
-msgstr "Pulsante"
-
-#: core.php:59
-msgid "Save"
-msgstr "Salva"
-
-#: core.php:60
-msgid "Cancel"
-msgstr "Annulla"
-
-#: core.php:74
-msgid "Double-click to edit"
-msgstr "Doppio click per modificare"
-
-#: core.php:102
-msgid "Change Image"
-msgstr "Cambia immagine"
-
-#: core.php:103
-msgid "Clear"
-msgstr "Svuota"
-
-#: fields/base.php:82
-msgid "empty"
-msgstr "vuoto"
-
-#: front-end-editor.php:73
-msgid "Post title"
-msgstr "Titolo articolo"
-
-#: front-end-editor.php:79
-msgid "Post content"
-msgstr "Contenuto articolo"
-
-#: front-end-editor.php:85
-msgid "Post excerpt"
-msgstr "Riassunto articolo"
-
-#: front-end-editor.php:91
-msgid "Post categories"
-msgstr "Categorie articolo"
-
-#: front-end-editor.php:98
-msgid "Post tags"
-msgstr "Tag articolo"
-
-#: front-end-editor.php:105
-msgid "Post terms"
-msgstr "Termini articolo"
-
-#: front-end-editor.php:112
-msgid "Post custom fields"
-msgstr "Campi personalizzati articolo"
-
-#: front-end-editor.php:118
-msgid "Post thumbnail"
-msgstr "Miniatura articolo"
-
-#: front-end-editor.php:125
-msgid "Comment text"
-msgstr "Testo commenti"
-
-#: front-end-editor.php:131
-msgid "Category title"
-msgstr "Titolo categoria"
-
-#: front-end-editor.php:136
-msgid "Tag title"
-msgstr "Titolo tag"
-
-#: front-end-editor.php:141
-msgid "Term description"
-msgstr "Descrizione termine"
-
-#: front-end-editor.php:148
-msgid "Author description"
-msgstr "Descrizione autore"
-
-#: front-end-editor.php:155
-msgid "Widgets"
-msgstr "Widget"
-
-#: front-end-editor.php:161
-msgid "Site title and description"
-msgstr "Nome e descrizione del sito"
-
-#: front-end-editor.php:167
-msgid "Site options"
-msgstr "Opzioni sito"
-
-#: front-end-editor.php:173
-msgid "Theme images"
-msgstr "Immagini tema"
-
-#: scb/AdminPage.php:167
+#: scb/AdminPage.php:165
 msgid "Settings <strong>saved</strong>."
 msgstr "Le impostazioni sono state <strong>salvate</strong>."
 
-#: scb/AdminPage.php:180
-#: scb/AdminPage.php:191
+#: scb/AdminPage.php:178
+#: scb/AdminPage.php:189
 msgid "Save Changes"
 msgstr "Salva le modifiche"
 
-#. Plugin URI of the plugin/theme
-msgid "http://scribu.net/wordpress/front-end-editor"
-msgstr "http://scribu.net/wordpress/front-end-editor"
+#: scb/AdminPage.php:371
+#: admin/admin.php:15
+msgid "Settings"
+msgstr "Impostazioni"
 
-#. Description of the plugin/theme
-msgid "Allows you to edit your posts without going through the admin interface"
-msgstr "Ti permette la modifica dei tuoi articoli senza utilizzare l'interfaccia di amministrazione"
+#: front-end-editor.php:72
+msgid "Title"
+msgstr "Titolo"
 
-#. Author of the plugin/theme
-msgid "scribu"
-msgstr "scribu"
+#: front-end-editor.php:79
+msgid "Content"
+msgstr "Contenuti"
 
-#. Author URI of the plugin/theme
-msgid "http://scribu.net/"
-msgstr "http://scribu.net/"
+#: front-end-editor.php:85
+msgid "Excerpt"
+msgstr "Estratti"
+
+#: front-end-editor.php:91
+msgid "Custom fields"
+msgstr "Campi personalizzati"
+
+#: front-end-editor.php:97
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+#: front-end-editor.php:105
+msgid "Categories"
+msgstr "Categorie"
+
+#: front-end-editor.php:111
+msgid "Tags"
+msgstr "Tag"
+
+#: front-end-editor.php:117
+msgid "Terms"
+msgstr "Termini"
+
+#: front-end-editor.php:124
+msgid "Text widget title"
+msgstr "Testo titolo widget"
+
+#: front-end-editor.php:131
+msgid "Text widget content"
+msgstr "Contenuto widget di testo"
+
+#: front-end-editor.php:138
+msgid "Other widgets"
+msgstr "Altri widget"
+
+#: front-end-editor.php:145
+msgid "Comment text"
+msgstr "Testo commenti"
+
+#: front-end-editor.php:151
+msgid "Category title"
+msgstr "Titolo categoria"
+
+#: front-end-editor.php:156
+msgid "Tag title"
+msgstr "Titolo tag"
+
+#: front-end-editor.php:161
+msgid "Term title"
+msgstr "Titolo termine"
+
+#: front-end-editor.php:166
+msgid "Term description"
+msgstr "Descrizione termine"
+
+#: front-end-editor.php:173
+msgid "Author description"
+msgstr "Descrizione autore"
+
+#: front-end-editor.php:180
+msgid "Site title and description"
+msgstr "Nome e descrizione del sito"
+
+#: front-end-editor.php:186
+msgid "Site options"
+msgstr "Opzioni sito"
+
+#: front-end-editor.php:192
+msgid "Theme images"
+msgstr "Immagini tema"
+
+#: admin/admin.php:9
+msgid "Front-end Editor"
+msgstr "Front-end Editor"
+
+#: admin/admin.php:14
+msgid "Fields"
+msgstr "Campi"
+
+#: admin/admin.php:46
+msgid "Enable or disable editable fields:"
+msgstr "Attiva o disattiva i campi modificabili:"
+
+#: admin/admin.php:48
+msgid "Post fields"
+msgstr "Campi articolo"
+
+#: admin/admin.php:49
+msgid "Other fields"
+msgstr "Altri campi"
+
+#: admin/admin.php:100
+msgid "Enable the WYSIWYG editor."
+msgstr "Attiva editor WYSIWYG."
+
+#: admin/admin.php:104
+msgid "To edit categories, use a:"
+msgstr "Per modifica categorie, usa:"
+
+#: admin/admin.php:114
+msgid "dropdown"
+msgstr "dropdown"
+
+#: admin/admin.php:115
+msgid "text field"
+msgstr "campo testo"
+
+#: php/fields/base.php:124
+msgid "empty"
+msgstr "vuoto"
+
+#: php/fields/base.php:147
+msgid "no"
+msgstr "no"
+
+#: php/fields/base.php:148
+msgid "yes"
+msgstr "sì"
+
+#: php/fields/taxonomy.php:53
+msgid "&mdash; None &mdash;"
+msgstr "&mdash; Nessuno &mdash;"
+
+#: php/fields/post.php:89
+msgid "Error: %s is currently editing this."
+msgstr "Errore: %s sta in questo momento modificando."
+
+#: php/core.php:46
+msgid "Edit"
+msgstr "Modifica"
+
+#: php/core.php:47
+msgid "Save"
+msgstr "Salva"
+
+#: php/core.php:48
+msgid "Cancel"
+msgstr "Annulla"
+
+#: php/core.php:71
+msgid "Change Image"
+msgstr "Cambia immagine"
+
+#: php/core.php:72
+msgid "Insert Image"
+msgstr "Inserisci immagine"
+
+#: php/core.php:73
+msgid "Clear"
+msgstr "Svuota"
+
+#~ msgid "Editor Panel"
+#~ msgstr "Pannello editor"
+
+#~ msgid "Edit one paragraph at a time, instead of an entire post"
+#~ msgstr ""
+#~ "Modifica un paragrafo alla volta invece di operare su tutto l'articolo"
+
+#~ msgid "Highlight editable elements"
+#~ msgstr "Evidenzia gli elementi modificabili"
+
+#~ msgid "Display a tooltip above editable elements"
+#~ msgstr "Mostra un tooltip sopra gli elementi modificabili"
+
+#~ msgid "Enable or disable editor buttons"
+#~ msgstr "Attiva o disattiva i pulsanti dell'editor"
+
+#~ msgid "Button"
+#~ msgstr "Pulsante"
+
+#~ msgid "Double-click to edit"
+#~ msgstr "Doppio click per modificare"
+
+#~ msgid "Post title"
+#~ msgstr "Titolo articolo"
+
+#~ msgid "Post tags"
+#~ msgstr "Tag articolo"
+
+#~ msgid "Post terms"
+#~ msgstr "Termini articolo"
+
+#~ msgid "Widgets"
+#~ msgstr "Widget"
+
+#~ msgid "http://scribu.net/wordpress/front-end-editor"
+#~ msgstr "http://scribu.net/wordpress/front-end-editor"
+
+#~ msgid ""
+#~ "Allows you to edit your posts without going through the admin interface"
+#~ msgstr ""
+#~ "Ti permette la modifica dei tuoi articoli senza utilizzare l'interfaccia "
+#~ "di amministrazione"
+
+#~ msgid "scribu"
+#~ msgstr "scribu"
+
+#~ msgid "http://scribu.net/"
+#~ msgstr "http://scribu.net/"
 
 #~ msgid "Reset the post date on each edit"
 #~ msgstr "Ripristina la data dell'articolo ad ogni modifica"
-
-#~ msgid "Text widget content"
-#~ msgstr "Contenuto widget di testo"
 
 #~ msgid "Rich text editor"
 #~ msgstr "Editor avanzato"
