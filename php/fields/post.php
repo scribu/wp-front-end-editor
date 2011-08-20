@@ -1,7 +1,6 @@
 <?php
 
-// Handles the_title and the_content fields
-class FEE_Field_Post extends FEE_Field_Base {
+abstract class FEE_Field_Post extends FEE_Field_Base {
 
 	protected $field;
 
@@ -10,7 +9,7 @@ class FEE_Field_Post extends FEE_Field_Base {
 	}
 
 	protected function setup() {
-		$this->field = str_replace( 'the_', 'post_', $this->get_filter() );
+		$this->field = str_replace( 'the_', 'post_', $this->filter );
 
 		if ( FEE_Core::$options->group_post ) {
 			add_action( 'post_class', array( __CLASS__, 'post_class' ) );
@@ -86,10 +85,21 @@ class FEE_Field_Post extends FEE_Field_Base {
 		}
 
 		wp_update_post( (object) $postdata );
+	}
 
-		$this->set_post_global( $post_id );
+	function check( $post_id = 0 ) {
+		if ( is_array( $post_id ) ) {
+			extract( $post_id );
+		}
 
-		return $this->placehold( $content );
+		return current_user_can( 'edit_post', $post_id );
+	}
+
+	protected function set_post_global( $post_id ) {
+		global $post;
+
+		$post = get_post( $post_id );
+		setup_postdata( $post );
 	}
 
 	protected function handle_locking( $post_id ) {
@@ -104,81 +114,68 @@ class FEE_Field_Post extends FEE_Field_Base {
 
 		wp_set_post_lock( $post_id );
 	}
+}
 
-	function check( $post_id = 0 ) {
-		if ( is_array( $post_id ) ) {
-			extract( $post_id );
-		}
 
-		return current_user_can( 'edit_post', $post_id );
-	}
+// Handles the_title field
+class FEE_Field_Post_Title extends FEE_Field_Post {
 
-	protected function set_post_global( $post_id ) {
-		$GLOBALS['post'] = get_post( $post_id );
+	function get_filtered( $data ) {
+		$this->set_post_global( $data['post_id'] );
+
+		return $this->placehold( get_the_title() );
 	}
 }
 
+
+// Handles the_content field
+class FEE_Field_Post_Content extends FEE_Field_Post {
+
+	function get_filtered( $data ) {
+		$this->set_post_global( $data['post_id'] );
+
+		ob_start();
+		the_content();
+		return $this->placehold( ob_get_clean() );
+	}
+}
+
+
 // Handles the_excerpt field
-class FEE_Field_Excerpt extends FEE_Field_Post {
+class FEE_Field_Post_Excerpt extends FEE_Field_Post {
 
 	function get( $data ) {
-		extract( $data );
+		$post = get_post( $data['post_id'] );
 
-		$post = get_post( $post_id );
+		$this->set_post_global( $data['post_id'] );
 
-		$excerpt = $post->post_excerpt;
-
-		if ( empty( $excerpt ) ) {
-			$this->set_post_global( $post_id );
-			$excerpt = $this->trim_excerpt( $post->post_content );
-		}
-
-		return $excerpt;
+		return wp_trim_excerpt( $post->post_excerpt );
 	}
 
 	function save( $data, $excerpt ) {
-		extract( $data );
-
-		$default_excerpt = $this->get( $data );
-
-		if ( $excerpt == $default_excerpt ) {
-			return $excerpt;
+		if ( $excerpt == $this->get( $data ) ) {
+			return;
 		}
 
 		$postdata = array(
-			'ID' => $post_id,
+			'ID' => $data['post_id'],
 			'post_excerpt' => $excerpt
 		);
 
 		wp_update_post( (object) $postdata );
-
-		$this->set_post_global( $post_id );
-
-		if ( empty( $excerpt ) )
-			return $default_excerpt;
-
-		return $excerpt;
 	}
 
-	// Copy-paste from wp_trim_excerpt()
-	private function trim_excerpt( $text ) {
-		$text = apply_filters( 'the_content', $text );
-		$text = str_replace( ']]>', ']]&gt;', $text );
-		$text = strip_tags( $text );
-		$excerpt_length = apply_filters( 'excerpt_length', 55 );
-		$words = explode( ' ', $text, $excerpt_length + 1 );
-		if ( count( $words ) > $excerpt_length ) {
-			array_pop( $words );
-			array_push( $words, '[...]' );
-			$text = implode( ' ', $words );
-		}
+	function get_filtered( $data ) {
+		$this->set_post_global( $data['post_id'] );
 
-		return apply_filters( 'get_the_excerpt', $text );
+		ob_start();
+		the_excerpt();
+		return ob_get_clean();
 	}
 }
 
 // Handles the post thumbnail
-class FEE_Field_Thumbnail extends FEE_Field_Post {
+class FEE_Field_Post_Thumbnail extends FEE_Field_Post {
 
 	function wrap( $html, $post_id, $post_thumbnail_id, $size ) {
 		if ( !$post_id = $this->_get_id( $post_id, false ) ) {
@@ -199,10 +196,18 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 
 		if ( -1 == $thumbnail_id ) {
 			delete_post_meta( $post_id, '_thumbnail_id' );
-			return -1;
+		} else {
+			update_post_meta( $post_id, '_thumbnail_id', $thumbnail_id );
 		}
+	}
 
-		update_post_meta( $post_id, '_thumbnail_id', $thumbnail_id );
+	function get_filtered( $data ) {
+		extract( $data );
+
+		$thumbnail_id = get_post_thumbnail_id( $post_id );
+
+		if ( !$thumbnail_id )
+			return -1;
 
 		list( $url ) = image_downsize( $thumbnail_id, $size );
 
@@ -210,8 +215,9 @@ class FEE_Field_Thumbnail extends FEE_Field_Post {
 	}
 }
 
+
 // Handles post_meta field
-class FEE_Field_Meta extends FEE_Field_Post {
+class FEE_Field_Post_Meta extends FEE_Field_Post {
 
 	function setup() {
 		add_filter( 'post_meta', array( __CLASS__, 'prewrap' ), 9, 4 );
@@ -279,8 +285,12 @@ class FEE_Field_Meta extends FEE_Field_Post {
 		else {
 			update_post_meta( $post_id, $key, $new_value, $old_value );
 		}
+	}
 
-		return $this->placehold( $this->prewrap( $new_value, $post_id, $key, $type ) );
+	function get_filtered( $data ) {
+		extract( $data );
+
+		return $this->placehold( editable_post_meta( $post_id, $key, $type, false ) );
 	}
 }
 

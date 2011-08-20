@@ -71,32 +71,32 @@ function fee_register_defaults() {
 		// Post fields
 		'the_title' => array(
 			'title' => __( 'Title', 'front-end-editor' ),
-			'class' => 'FEE_Field_Post',
+			'class' => 'FEE_Field_Post_Title',
 			'type'  => 'input',
 			'argc'  => 2,
 		),
 
 		'the_content' => array(
 			'title' => __( 'Content', 'front-end-editor' ),
-			'class' => 'FEE_Field_Post',
+			'class' => 'FEE_Field_Post_Content',
 			'type'  => 'rich',
 		),
 
 		'the_excerpt' => array(
 			'title' => __( 'Excerpt', 'front-end-editor' ),
-			'class' => 'FEE_Field_Excerpt',
+			'class' => 'FEE_Field_Post_Excerpt',
 			'type'  => 'textarea',
 		),
 
 		'post_meta' => array(
 			'title' => __( 'Custom fields', 'front-end-editor' ),
-			'class' => 'FEE_Field_Meta',
+			'class' => 'FEE_Field_Post_Meta',
 			'argc'  => 5,
 		),
 
 		'post_thumbnail_html' => array(
 			'title' => __( 'Thumbnail', 'front-end-editor' ),
-			'class' => 'FEE_Field_Thumbnail',
+			'class' => 'FEE_Field_Post_Thumbnail',
 			'type'  => 'thumbnail',
 			'argc'  => 4,
 		),

@@ -81,6 +81,10 @@ class FEE_Field_Terms extends FEE_Field_Post {
 
 			wp_set_object_terms( $post_id, $term_ids, $taxonomy );
 		}
+	}
+
+	function get_filtered( $data ) {
+		extract( $data );
 
 		$content = get_the_term_list( $post_id, $taxonomy, $before, $sep, $after );
 

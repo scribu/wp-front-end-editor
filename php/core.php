@@ -231,8 +231,8 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 
 		try {
 			if ( 'save' == $callback ) {
-				$result = $instance->save( $data, $content );
-				$result = @apply_filters( $filter, $result ); // TODO: remove, since additional arguments aren't passed
+				$instance->save( $data, $content );
+				$result = $instance->get_filtered( $data );
 			}
 			elseif ( 'get' == $callback ) {
 				$result = (string) $instance->get( $data );

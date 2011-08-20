@@ -35,6 +35,19 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		return $this->do_( 'save', $data, $content );
 	}
 
+	function get_filtered( $data ) {
+		extract( $data );
+
+		ob_start();
+
+		$this->data = compact( 'sidebar_id', 'widget_id' );
+		add_filter( 'sidebars_widgets', array( $this, '_hack' ) );
+		dynamic_sidebar( $sidebar_id );
+		remove_filter( 'sidebars_widgets', array( $this, '_hack' ) );
+
+		return ob_get_clean();
+	}
+
 	protected function do_( $action, $data, $content = '' ) {
 		extract( $data );
 
@@ -55,10 +68,10 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		}
 
 		// Get response
-		ob_start();
-
 		if ( 'get' == $action ) {
+			ob_start();
 			$widget_obj->form( $instance );
+			return ob_get_clean();
 		}
 
 		if ( 'save' == $action ) {
@@ -67,14 +80,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 			$instance = $widget_obj->update( $new_instance, $instance );
 
 			update_option( $widget_key, $widgets );
-
-			$this->data = compact( 'sidebar_id', 'widget_id' );
-			add_filter( 'sidebars_widgets', array( $this, '_hack' ) );
-			dynamic_sidebar( $sidebar_id );
-			remove_filter( 'sidebars_widgets', array( $this, '_hack' ) );
 		}
-
-		return ob_get_clean();
 	}
 
 	// temporarily remove all other widgets from a specific sidebar
@@ -95,7 +101,7 @@ class FEE_Field_Widget_Text extends FEE_Field_Widget {
 	protected $field;
 
 	protected function setup() {
-		$this->field = str_replace( 'widget_', '', $this->get_filter() );
+		$this->field = str_replace( 'widget_', '', $this->filter );
 	}
 
 	function wrap( $content, $instance = null, $id_base = null ) {
@@ -127,18 +133,24 @@ class FEE_Field_Widget_Text extends FEE_Field_Widget {
 			return $old_content;
 		}
 
+		if ( 'get_filtered' == $action ) {
+			if ( 'text' == $this->field ) {
+				$old_content = wpautop( $this->placehold( $old_content ) );
+			}
+
+			return $old_content;
+		}
+
 		if ( 'save' == $action ) {
 			$old_content = $content;
 			$widgets[$widget_nr]['filter'] = true;
 
 			update_option( $widget_key, $widgets );
-
-			if ( 'text' == $this->field ) {
-				$content = wpautop( $this->placehold( $content ) );
-			}
-
-			return $content;
 		}
+	}
+
+	function get_filtered( $data ) {
+		return $this->do_( 'get_filtered', $data );
 	}
 }
 

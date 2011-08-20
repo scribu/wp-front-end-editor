@@ -29,6 +29,9 @@ add_action('loop_start', function( $wp_query ) {
 		'echo' => false
 	) ) );
 
+	echo '<strong>Post excerpt:</strong><br>';
+	the_excerpt();
+
 	echo '<div style="overflow:hidden">';
 	echo '<strong>Editable image:</strong><br>';
 	editable_image( 'test', 'http://localhost/wp/wp-content/themes/twentyten/images/headers/fern.jpg' );

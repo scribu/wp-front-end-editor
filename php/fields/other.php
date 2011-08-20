@@ -31,8 +31,12 @@ class FEE_Field_Comment extends FEE_Field_Base {
 			'comment_ID' => $comment_id,
 			'comment_content' => $content
 		) );
+	}
 
-		return $content;
+	function get_filtered( $data ) {
+		extract( $data );
+
+		return wpautop( get_comment( $comment_id )->comment_content );
 	}
 
 	function check( $data = 0 ) {
@@ -59,7 +63,7 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 	}
 
 	function setup() {
-		$this->field = str_replace( 'term_', '', $this->get_filter() );
+		$this->field = str_replace( 'term_', '', $this->filter );
 	}
 
 	function wrap( $content, $term_id, $taxonomy ) {
@@ -85,6 +89,12 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 		return $content;
 	}
 
+	function get_filtered( $data ) {
+		extract( $data );
+
+		return get_term_field( $this->field, $term_id, $taxonomy );
+	}
+
 	function check( $data = 0 ) {
 		extract( $data );
 
@@ -97,7 +107,7 @@ class FEE_Field_Single_Title extends FEE_Field_Term_Field {
 
 	function setup() {
 		$this->field = 'name';
-		remove_filter( $this->get_filter(), 'strip_tags' );
+		remove_filter( $this->filter, 'strip_tags' );
 	}
 
 	function wrap( $title ) {
@@ -142,6 +152,12 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 		return $content;
 	}
 
+	function get_filtered( $data ) {
+		extract( $data );
+
+		return get_the_author_meta( 'description', $author_id );
+	}
+
 	function check( $data = 0 ) {
 		extract( $data );
 
@@ -179,8 +195,10 @@ class FEE_Field_Bloginfo extends FEE_Field_Base {
 		extract( $data );
 
 		update_option( 'blog' . $show, $content );
+	}
 
-		return $content;
+	function get_filtered( $data ) {
+		return get_bloginfo( $data['show'] );
 	}
 
 	function check( $data = 0 ) {
@@ -228,10 +246,12 @@ class FEE_Field_Option extends FEE_Field_Base {
 		extract( $data );
 
 		update_option( $key, $content );
+	}
 
-		$content = $this->placehold( $content );
+	function get_filtered( $data ) {
+		extract( $data );
 
-		return $content;
+		return $this->placehold( get_option( $key ) );
 	}
 
 	function check( $data = 0 ) {
@@ -323,8 +343,10 @@ class FEE_Field_Image extends FEE_Field_Base {
 			delete_option( self::get_key( $data ) );
 		else
 			update_option( self::get_key( $data ), $url );
+	}
 
-		return $url;
+	function get_filtered( $data ) {
+		return $this->get( $data );
 	}
 
 	private static function get_key( $data ) {

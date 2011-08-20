@@ -5,16 +5,16 @@
  */
 abstract class FEE_Field_Base {
 
-	private $filter;
+	protected $filter;
 	protected $input_type;
 
 	/**
-	 * Keeps track of all wrapped fields
+	 * Keeps track of all wrapped fields.
 	 */
 	private static $wrapped = array();
 
 	/**
-	 * Keep track of when the placeholder is used
+	 * Keeps track of when the placeholder is used.
 	 */
 	protected $was_placeholded;
 
@@ -29,21 +29,21 @@ abstract class FEE_Field_Base {
 	}
 
 	/**
-	 * The type of object this field operates with
+	 * Returns the type of object this field operates with.
 	 *
 	 * @return string
 	 */
 	abstract public static function get_object_type();
 
 	/**
-	 * Optional actions to be done once per instance
+	 * Optional actions to be done once per field type.
 	 *
 	 * @return null
 	 */
 	protected function setup() {}
 
 	/**
-	 * Mark the field as editable
+	 * Mark the field as editable.
 	 *
 	 * @param string $content Filtered content
 	 * @param mixed $data Additional data like an object id etc.
@@ -95,21 +95,26 @@ abstract class FEE_Field_Base {
 	}
 
 	/**
-	 * Retrieve the current data for the field
+	 * Retrieve the current data for the field.
 	 *
 	 * @return string Raw content
 	 */
 	abstract public function get( $data );
 
 	/**
-	 * Save the data retrieved from the field
-	 *
-	 * @return string Saved content
+	 * Save the data retrieved from the field.
 	 */
 	abstract public function save( $data, $content );
 
 	/**
-	 * Check user capabilities
+	 * Return the content to be displayed.
+	 *
+	 * @return mixed Filtered content
+	 */
+	abstract public function get_filtered( $data );
+
+	/**
+	 * Check user capabilities.
 	 *
 	 * @return bool
 	 */
@@ -117,7 +122,8 @@ abstract class FEE_Field_Base {
 
 
 	/**
-	 * Generate a standard placeholder
+	 * Generate a standard placeholder.
+	 *
 	 * @return string
 	 */
 	protected function placeholder() {
@@ -157,17 +163,6 @@ abstract class FEE_Field_Base {
 
 		return $type;
 	}
-
-
-	/**
-	 * Get the filter of the current instance
-	 *
-	 * @return string
-	 */
-	final protected function get_filter() {
-		return $this->filter;
-	}
-
 
 	/**
 	 * Allow external code to block editing for certain objects
