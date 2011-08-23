@@ -101,3 +101,16 @@ function editable_image( $key, $default_url, $extra_attr = '', $echo = true ) {
 	return $img;
 }
 
+function fee_inject_dummy_post( $replace_first = true, $post_type = 'post' ) {
+	global $wp_query;
+
+	require_once( ABSPATH . '/wp-admin/includes/post.php' );
+
+	$post = get_default_post_to_edit( $post_type, true );
+
+	if ( $replace_first )
+		$wp_query->posts[0] = $post;
+	else
+		array_unshift( $wp_query->posts, $post );
+}
+

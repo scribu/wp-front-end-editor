@@ -51,6 +51,10 @@ jQuery ->
 		else
 			FrontEndEditor.hover_init $container, editor.~start_editing
 
+		# Automatically start editing auto-drafts
+		if $container.is '.status-auto-draft'
+			editor.start_editing()
+
 	# Create field instances
 	for el of jQuery('.fee-field')
 		FrontEndEditor.make_editable el, true
