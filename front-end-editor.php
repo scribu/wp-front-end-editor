@@ -42,7 +42,7 @@ function _fee_init() {
 	require_once $dir . '/aloha-scripts.php';
 	require_once $dir . '/core.php';
 
-	foreach ( array( 'base', 'post', 'taxonomy', 'widget', 'other' ) as $name ) {
+	foreach ( array( 'base', 'post', 'widget', 'other' ) as $name ) {
 		require_once "$dir/fields/$name.php";
 	}
 
