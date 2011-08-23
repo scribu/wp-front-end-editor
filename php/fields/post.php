@@ -120,6 +120,15 @@ abstract class FEE_Field_Post extends FEE_Field_Base {
 // Handles the_title field
 class FEE_Field_Post_Title extends FEE_Field_Post {
 
+	function get( $data ) {
+		extract( $data );
+
+		if ( 'auto-draft' == get_post_field( 'post_status', $post_id ) )
+			return '';
+
+		return get_post_field( $this->field, $post_id, 'edit' );
+	}
+
 	function get_filtered( $data ) {
 		$this->set_post_global( $data['post_id'] );
 
