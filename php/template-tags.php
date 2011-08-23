@@ -80,20 +80,7 @@ function editable_image( $key, $default_url, $extra_attr = '', $echo = true ) {
 		$src = $default_url;
 	$attr['src'] = $src;
 
-	$attr_str = '';
-	foreach ( $attr as $a_key => $a_value ) {
-		$a_key = trim( strip_tags( $a_key ) );
-		$a_value = trim( esc_attr( $a_value ) );
-
-		if ( empty( $a_key ) )
-			continue;
-
-		$attr_str .= " $a_key='$a_value'";
-	}
-
-	$attr_str = ltrim( $attr_str );
-
-	$img = apply_filters( 'editable_image', "<img $attr_str />", $key, $default_url );
+	$img = apply_filters( 'editable_image', html( 'img', $attr ), $key, $default_url );
 
 	if ( $echo )
 		echo $img;
