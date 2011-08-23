@@ -57,7 +57,7 @@ FrontEndEditor <<<
 			hide: ->
 				$cover.hide()
 
-	make_editable: (el, with_hover) ->
+	make_editable: (el, single) ->
 		$el = jQuery(el)
 		data = extract_data_attr(el)
 
@@ -73,7 +73,8 @@ FrontEndEditor <<<
 			el: $el
 			data: data
 
-		if with_hover
+		if single
 			FrontEndEditor.hover_init $el, editor.~start_editing
+			$el.data 'fee-editor', editor
 
 		return editor
