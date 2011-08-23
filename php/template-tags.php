@@ -101,7 +101,7 @@ function editable_image( $key, $default_url, $extra_attr = '', $echo = true ) {
 	return $img;
 }
 
-function fee_inject_dummy_post( $replace_first = true, $post_type = 'post' ) {
+function fee_inject_dummy_post( $post_type = 'post', $replace_first = true ) {
 	global $wp_query;
 
 	require_once( ABSPATH . '/wp-admin/includes/post.php' );
