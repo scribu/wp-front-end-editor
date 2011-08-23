@@ -104,8 +104,8 @@ var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 </script>
 <?php
-		scbUtil::do_scripts( self::$js_dependencies );
 		scbUtil::do_styles( 'fee-editor' );
+		scbUtil::do_scripts( self::$js_dependencies );
 
 		do_action( 'front_end_editor_loaded', $wrapped );
 	}
