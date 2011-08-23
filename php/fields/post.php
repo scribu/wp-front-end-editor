@@ -174,6 +174,7 @@ class FEE_Field_Post_Excerpt extends FEE_Field_Post {
 	}
 }
 
+
 // Handles the post thumbnail
 class FEE_Field_Post_Thumbnail extends FEE_Field_Post {
 
@@ -292,33 +293,5 @@ class FEE_Field_Post_Meta extends FEE_Field_Post {
 
 		return $this->placehold( editable_post_meta( $post_id, $key, $type, false ) );
 	}
-}
-
-/**
- * @param int $post_id The id of a post
- * @param string $key The meta key
- * @param string $type The type of UI. Can be 'input', 'checkbox', 'select', 'textarea' or 'rich'
- * @param bool $echo Wether to echo or return the result
- */
-function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
-	$data = get_editable_post_meta( $post_id, $key, $type, true );
-
-	if ( !$echo ) {
-		return $data;
-	}
-
-	echo $data;
-}
-
-/**
- * @param int $post_id The id of a post
- * @param string $key The meta key
- * @param string $type The type of UI. Can be 'input', 'textarea' or 'rich'
- * @param bool $single Wether it's a custom field with a single value or multiple values
- */
-function get_editable_post_meta( $post_id, $key, $type = 'input', $single = false ) {
-	$content = get_post_meta( $post_id, $key, $single );
-
-	return apply_filters( 'post_meta', $content, $post_id, $key, $type, $single );
 }
 

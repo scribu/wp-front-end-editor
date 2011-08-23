@@ -38,8 +38,9 @@ function _fee_init() {
 
 	$dir = dirname( __FILE__ ) . '/php';
 
-	require_once $dir . '/core.php';
+	require_once $dir . '/template-tags.php';
 	require_once $dir . '/aloha-scripts.php';
+	require_once $dir . '/core.php';
 
 	foreach ( array( 'base', 'post', 'taxonomy', 'widget', 'other' ) as $name ) {
 		require_once "$dir/fields/$name.php";
