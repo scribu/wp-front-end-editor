@@ -42,7 +42,9 @@ jQuery ->
 
 		editors = (FrontEndEditor.make_editable(el) for el of $elements)
 
-		editor = new FrontEndEditor.fieldTypes['group'] $container, editors
+		fieldType = if $container.hasClass 'status-auto-draft' then 'createPost' else 'group'
+
+		editor = new FrontEndEditor.fieldTypes[fieldType] $container, editors
 
 		$button = get_group_button $container
 
@@ -70,4 +72,4 @@ jQuery ->
 
 jQuery(window).load ->
 	# Automatically start editing the first auto-draft
-	jQuery('.fee-group.status-auto-draft').data('fee-editor').start_editing()
+	jQuery('.fee-group.status-auto-draft').data('fee-editor')?.start_editing()

@@ -209,6 +209,12 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 			foreach ( $data as $i => $single_data ) {
 				$r[$i] = self::single_ajax_response( $callback, $single_data, @$content[$i] );
 			}
+
+			if ( isset( $_POST['createPost'] ) ) {
+				$post_id = $data[0]['post_id'];
+				wp_publish_post( $post_id );
+				$r = array( 'permalink' => get_permalink( $post_id ) );
+			}
 		} else {
 			$r = self::single_ajax_response( $callback, $data, $content );
 		}

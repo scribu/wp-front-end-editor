@@ -44,7 +44,7 @@ add_action('loop_start', function( $wp_query ) {
 });
 
 add_action('template_redirect', function() {
-	if ( !is_page() ) {
+	if ( !is_single() ) {
 		fee_inject_dummy_post();
 	}
 });
