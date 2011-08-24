@@ -57,5 +57,6 @@ jQuery ->
 	for el of jQuery('.fee-field')
 		FrontEndEditor.make_editable el, true
 
+jQuery(window).load ->
 	# Automatically start editing the first auto-draft
 	jQuery('.fee-group.status-auto-draft').data('fee-editor').start_editing()

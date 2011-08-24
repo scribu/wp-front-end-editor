@@ -97,6 +97,7 @@ abstract class FEE_Core {
 
 		// Core style
 		wp_register_style( 'fee-editor', plugins_url( $css_path, FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, FRONT_END_EDITOR_VERSION );
+		scbUtil::do_styles( 'fee-editor' );
 
 ?>
 <script type='text/javascript'>
@@ -104,7 +105,6 @@ var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 </script>
 <?php
-		scbUtil::do_styles( 'fee-editor' );
 		scbUtil::do_scripts( self::$js_dependencies );
 
 		do_action( 'front_end_editor_loaded', $wrapped );
