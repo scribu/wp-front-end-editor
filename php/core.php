@@ -207,6 +207,8 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 
 		if ( isset( $_POST['group'] ) ) {
 			foreach ( $data as $i => $single_data ) {
+				if ( isset( $_POST['commonData'] ) )
+					$single_data = array_merge( $single_data, $_POST['commonData'] );
 				$r[$i] = self::single_ajax_response( $callback, $single_data, @$content[$i] );
 			}
 
