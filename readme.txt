@@ -65,6 +65,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 = 2.2 =
 * introduce groups of editable elements
+* introduced fee_insert_dummy_post() for creating posts
 * prevent warnings caused by faulty widgets
 * switch to Coco
 
