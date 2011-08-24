@@ -1,3 +1,24 @@
+get_group_button = ($container) ->
+	$button = $container.find '.fee-edit-button'
+	if $button.length
+		return $button
+
+	if FrontEndEditor.data.add_buttons
+		$button = jQuery '<span>', {
+			class: 'fee-edit-button'
+			text: FrontEndEditor.data.edit_text
+		}
+
+		$button.appendTo $container
+
+		return $button
+
+	$button = $container.find '.post-edit-link'
+	if $button.length
+		return $button
+
+	return false
+
 jQuery ->
 
 	# Text widget fields hack
@@ -23,19 +44,9 @@ jQuery ->
 
 		editor = new FrontEndEditor.fieldTypes['group'] $container, editors
 
-		if FrontEndEditor.data.add_buttons
-			$button = jQuery '<span>', {
-				class: 'fee-edit-button'
-				text: FrontEndEditor.data.edit_text
-			}
+		$button = get_group_button $container
 
-			$button.appendTo $container
-		else
-			$button = $container.find '.fee-edit-button'
-			if not $button.length
-				$button = $container.find '.post-edit-link'
-
-		if $button.length
+		if $button
 			$button.click editor.~start_editing
 
 			$container.bind {
