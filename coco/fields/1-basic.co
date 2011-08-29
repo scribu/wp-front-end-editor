@@ -132,19 +132,6 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		return $el
 
 
-class FrontEndEditor.fieldTypes.checkbox extends FrontEndEditor.fieldTypes.input
-	input_tag: '<input type="checkbox">'
-
-	content_to_input: (content) ->
-		@input.prop('checked', content)
-
-	content_from_input: ->
-		return Number(@input.is(':checked'))
-
-	content_to_front: ->
-		@el.html(@data.values[@content_from_input()])
-
-
 class FrontEndEditor.fieldTypes.select extends FrontEndEditor.fieldTypes.input
 	input_tag: '<select>'
 

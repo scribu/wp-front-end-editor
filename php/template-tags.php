@@ -3,7 +3,7 @@
 /**
  * @param int $post_id The id of a post
  * @param string $key The meta key
- * @param string $type The type of UI. Can be 'input', 'checkbox', 'select', 'textarea' or 'rich'
+ * @param string $type The type of UI.
  * @param bool $echo Wether to echo or return the result
  */
 function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
@@ -19,7 +19,7 @@ function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
 /**
  * @param int $post_id The id of a post
  * @param string $key The meta key
- * @param string $type The type of UI. Can be 'input', 'textarea' or 'rich'
+ * @param string $type The type of UI.
  * @param bool $single Wether it's a custom field with a single value or multiple values
  */
 function get_editable_post_meta( $post_id, $key, $type = 'input', $single = false ) {
@@ -33,7 +33,7 @@ function get_editable_post_meta( $post_id, $key, $type = 'input', $single = fals
  * - 'key' (string) The option key
  * - 'theme_option' (bool) Wether it's arbitrary theme text, or a core site option like 'description' or 'time_format'
  * - 'default' (mixed) The default value
- * - 'type' (string) The type of UI. Can be 'input', 'textarea' or 'rich'
+ * - 'type' (string) The type of UI.
  * - 'echo' (bool) Wether to echo or return the result
  */
 function editable_option( $args ) {

@@ -147,17 +147,10 @@ abstract class FEE_Field_Base {
 		}
 
 		if ( !isset( $type['values'] ) ) {
-			switch ( $type['type'] ) {
-				case 'checkbox':
-					$type['values'] = array(
-						false => __( 'no', 'front-end-editor' ),
-						true  => __( 'yes', 'front-end-editor' ),
-					);
-					break;
-				case 'select':
-					throw new WP_Error( 'incomplete type definition' );
-				default:
-					$type['values'] = array();
+			if ( 'select' == $type['type'] ) {
+				throw new WP_Error( 'incomplete type definition' );
+			} else {
+				$type['values'] = array();
 			}
 		}
 
