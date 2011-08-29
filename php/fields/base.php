@@ -54,9 +54,17 @@ abstract class FEE_Field_Base {
 		if ( !$this->allow( $data ) )
 			return $content;
 
-		$data = wp_parse_args( $data, array(
-			'type' => $this->input_type
-		) );
+		if ( isset( $data['ui'] ) ) {
+			if ( is_array( $data['ui'] ) )
+				$data = array_merge( $data['ui'], $data );
+			else
+				$data['type'] = $data['ui'];
+
+			unset( $data['ui'] );
+		}
+
+		if ( !isset( $data['type'] ) )
+			$data['type'] = $this->input_type;
 
 		if ( 'rich' == $data['type'] && !FEE_Core::$options->rich )
 			$data['type'] = 'textarea';
@@ -139,22 +147,6 @@ abstract class FEE_Field_Base {
 		}
 
 		return $content;
-	}
-
-	final protected static function expand_input_type( $type ) {
-		if ( !is_array( $type ) ) {
-			$type = compact( 'type' );
-		}
-
-		if ( !isset( $type['values'] ) ) {
-			if ( 'select' == $type['type'] ) {
-				throw new WP_Error( 'incomplete type definition' );
-			} else {
-				$type['values'] = array();
-			}
-		}
-
-		return $type;
 	}
 
 	/**

@@ -350,16 +350,14 @@ class FEE_Field_Post_Meta extends FEE_Field_Post {
 		add_filter( 'post_meta', array( __CLASS__, 'prewrap' ), 9, 4 );
 	}
 
-	function prewrap( $data, $post_id, $key, $type ) {
-		if ( 'rich' == $type )
+	function prewrap( $data, $post_id, $key, $ui ) {
+		if ( 'rich' == $ui )
 			$data = wpautop( $data );
 
 		return $data;
 	}
 
-	function wrap( $data, $post_id, $key, $type, $single ) {
-		extract( self::expand_input_type( $type ) );
-
+	function wrap( $data, $post_id, $key, $ui, $single ) {
 		if ( $this->check( $post_id ) ) {
 			if ( $single ) {
 				$data = array( $this->placehold( $data ) );
@@ -367,7 +365,7 @@ class FEE_Field_Post_Meta extends FEE_Field_Post {
 
 			$r = array();
 			foreach ( $data as $i => $val ) {
-				$r[$i] = FEE_Field_Base::wrap( $val, compact( 'post_id', 'key', 'type', 'values', 'i' ) );
+				$r[$i] = FEE_Field_Base::wrap( $val, compact( 'post_id', 'key', 'ui', 'i' ) );
 			}
 		}
 		else {

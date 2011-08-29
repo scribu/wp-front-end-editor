@@ -3,11 +3,11 @@
 /**
  * @param int $post_id The id of a post
  * @param string $key The meta key
- * @param string $type The type of UI.
+ * @param string|array $ui The type of UI.
  * @param bool $echo Wether to echo or return the result
  */
-function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
-	$data = get_editable_post_meta( $post_id, $key, $type, true );
+function editable_post_meta( $post_id, $key, $ui = 'input', $echo = true ) {
+	$data = get_editable_post_meta( $post_id, $key, $ui, true );
 
 	if ( !$echo ) {
 		return $data;
@@ -19,13 +19,13 @@ function editable_post_meta( $post_id, $key, $type = 'input', $echo = true ) {
 /**
  * @param int $post_id The id of a post
  * @param string $key The meta key
- * @param string $type The type of UI.
+ * @param string|array $ui The type of UI.
  * @param bool $single Wether it's a custom field with a single value or multiple values
  */
-function get_editable_post_meta( $post_id, $key, $type = 'input', $single = false ) {
+function get_editable_post_meta( $post_id, $key, $ui = 'input', $single = false ) {
 	$content = get_post_meta( $post_id, $key, $single );
 
-	return apply_filters( 'post_meta', $content, $post_id, $key, $type, $single );
+	return apply_filters( 'post_meta', $content, $post_id, $key, $ui, $single );
 }
 
 /**
@@ -33,21 +33,21 @@ function get_editable_post_meta( $post_id, $key, $type = 'input', $single = fals
  * - 'key' (string) The option key
  * - 'theme_option' (bool) Wether it's arbitrary theme text, or a core site option like 'description' or 'time_format'
  * - 'default' (mixed) The default value
- * - 'type' (string) The type of UI.
+ * - 'ui' (string|array) The type of UI.
  * - 'echo' (bool) Wether to echo or return the result
  */
 function editable_option( $args ) {
 	if ( !is_array( $args ) ) {
 		_deprecated_argument( __FUNCTION__, '1.9.5', 'Passing individual arguments is deprecated. Use an associative array of arguments instead.' );
 		$argv = func_get_args();
-		$args = scbUtil::numeric_to_assoc( $argv, array( 'key', 'theme_option', 'type', 'echo' ) );
+		$args = scbUtil::numeric_to_assoc( $argv, array( 'key', 'theme_option', 'ui', 'echo' ) );
 	}
 
 	extract( wp_parse_args( $args, array(
 		'key' => '',
 		'theme_option' => true,
 		'default' => false,
-		'type' => 'input',
+		'ui' => 'input',
 		'echo' => true
 	) ) );
 
@@ -57,7 +57,7 @@ function editable_option( $args ) {
 	if ( $theme_option )
 		$key = "editable_option_$key";
 
-	$output = apply_filters( 'editable_option', get_option( $key, $default ), $key, $type );
+	$output = apply_filters( 'editable_option', get_option( $key, $default ), $key, $ui );
 
 	if ( $echo )
 		echo $output;
@@ -88,6 +88,10 @@ function editable_image( $key, $default_url, $extra_attr = '', $echo = true ) {
 	return $img;
 }
 
+/**
+ * @param string $post_type The type of the post (Default: 'post')
+ * @param bool $replace_first Wether to replace the first post in the loop or not (Default: true)
+ */
 function fee_inject_dummy_post( $post_type = 'post', $replace_first = true ) {
 	global $wp_query;
 

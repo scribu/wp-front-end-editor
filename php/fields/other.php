@@ -228,10 +228,8 @@ class FEE_Field_Option extends FEE_Field_Base {
 		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'editable!_option!_%' ESCAPE '!'" );
 	}
 
-	function wrap( $content, $key, $type ) {
-		extract( self::expand_input_type( $type ) );
-
-		$data = compact( 'key', 'type', 'values' );
+	function wrap( $content, $key, $ui ) {
+		$data = compact( 'key', 'ui' );
 
 		if ( !$this->check( $data ) )
 			return $content;
