@@ -2,12 +2,10 @@
 
 mkdir build 2> /dev/null
 
-MINIFIER="java -jar $HOME/bin/yuicompressor-2.4.6.jar"
-
-$MINIFIER 'css/core.css' > 'build/editor.css'
+sqwish css/core.css -o build/editor.css > /dev/null
 
 cd 'coco'
 cat core.co hover.co init.co fields/*.co | coco -cs > '../build/editor.js'
 
 cd ../build
-$MINIFIER 'editor.js' > 'editor.min.js'
+uglifyjs 'editor.js' > 'editor.min.js'
