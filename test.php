@@ -54,7 +54,7 @@ class FEE_Tests {
 	}
 
 	function create_post() {
-		if ( !is_single() ) {
+		if ( is_page('create-post') ) {
 			fee_inject_dummy_post();
 		}
 	}
