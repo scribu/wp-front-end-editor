@@ -53,19 +53,20 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		dataArr = (editor.data for editor of @editors)
 
-		# copy all properties from first field
-		commonData = {...dataArr[0]}
+		if dataArr.length > 1
+			# copy all properties from first field
+			commonData = {...dataArr[0]}
 
-		# keep only common props
-		for i from 1 to dataArr.length-1
-			for own key, value in commonData
-				if value !== dataArr[i][key]
-					delete commonData[key]
+			# keep only common props
+			for i from 1 to dataArr.length-1
+				for own key, value in commonData
+					if value !== dataArr[i][key]
+						delete commonData[key]
 
-		# remove common props from specific data
-		for own key in commonData
-			for data of dataArr
-				delete data[key]
+			# remove common props from specific data
+			for own key in commonData
+				for data of dataArr
+					delete data[key]
 
 		args <<<
 			group: true
