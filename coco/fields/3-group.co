@@ -51,9 +51,13 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 	ajax_args: ->
 		args = super ...
 
+		args.group = true
+
 		dataArr = (editor.data for editor of @editors)
 
-		if dataArr.length > 1
+		if dataArr.length == 1
+			args.data = dataArr
+		else
 			# copy all properties from first field
 			commonData = {...dataArr[0]}
 
@@ -63,15 +67,16 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 					if value !== dataArr[i][key]
 						delete commonData[key]
 
-			# remove common props from specific data
-			for own key in commonData
+			# construct new dataArr with only the distinct props
+			args.data =
 				for data of dataArr
-					delete data[key]
+					item = {}
+					for own key in data
+						if key not in commonData
+							item[key] = data[key]
+					item
 
-		args <<<
-			group: true
-			commonData: commonData
-			data: dataArr
+			args.commonData = commonData
 
 		args
 
