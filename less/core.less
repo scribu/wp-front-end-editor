@@ -207,19 +207,20 @@ span.fee-form select {
 
 /* Aloha Editor */
 @button-background (@url) {
-	background: url(@url) no-repeat center transparent !important;
+	background: no-repeat center transparent !important;
+	background-image: @url;
 }
 
 button.ImageWP {
-	@button-background('../aloha-plugins/wpImage/img/image.gif');
+	@button-background(url('../aloha-plugins/wpImage/img/image.gif'));
 }
 
 button.SaveFEE {
-	@button-background('../img/save.png');
+	@button-background(url('../img/save.png'));
 }
 
 button.CancelFEE {
-	@button-background('../img/cancel.png');
+	@button-background(url('../img/cancel.png'));
 }
 
 .x-toolbar-ct table {
