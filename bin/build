@@ -2,7 +2,8 @@
 
 mkdir build 2> /dev/null
 
-sqwish css/core.css -o build/editor.css > /dev/null
+./lib/less/plessc less/core.less css/editor.css
+sqwish css/editor.css -o build/editor.css > /dev/null
 
 cd 'coco'
 cat core.co hover.co init.co fields/*.co | coco -cs > '../build/editor.js'

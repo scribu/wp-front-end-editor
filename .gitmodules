@@ -7,3 +7,6 @@
 [submodule "mustache"]
 	path = lib/mustache
 	url = git://github.com/bobthecow/mustache.php.git
+[submodule "lib/less"]
+	path = lib/less
+	url = git://github.com/leafo/lessphp.git
