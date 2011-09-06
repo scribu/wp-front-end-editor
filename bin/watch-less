@@ -1,0 +1,3 @@
+#!/bin/bash
+
+./lib/less/plessc -w less/core.less css/core.css
