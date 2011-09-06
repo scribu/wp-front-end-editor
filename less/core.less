@@ -1,8 +1,7 @@
-/* Main */
-.fee-field, .fee-form {
-	margin: 0 !important;
-	padding: 0 !important;
-	border-width: 0 !important;
+@border-radius (@radius) {
+	-moz-border-radius: @radius;
+	-webkit-border-radius: @radius;
+	border-radius: @radius;
 }
 
 /* Clearfix */
@@ -17,11 +16,20 @@
 * html .fee-clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .fee-clearfix { zoom: 1; } /* IE7 */
 
+/* Main */
+.fee-field,
+.fee-form {
+	margin: 0 !important;
+	padding: 0 !important;
+	border-width: 0 !important;
+}
+
 .fee-disabled {
 	visibility: collapse;
 }
 
-div.fee-form, textarea.fee-form-content {
+div.fee-form,
+textarea.fee-form-content {
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -41,25 +49,21 @@ div.fee-form, textarea.fee-form-content {
 }
 
 .fee-error {
-	background-color:#CC4433;
-	color:white;
-	padding:0.2em 0.4em;
-	-moz-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
+	background-color: #C43;
+	color: #FFF;
+	padding: .2em .4em;
+	@border-radius(5px);
 }
 
 .fee-dismiss {
 	display: block;
 	float: right;
 	cursor: pointer;
-	margin-right:2px;
-	margin-top:-2px;
+	margin-right: 2px;
+	margin-top: -2px;
 }
 
 /* Buttons */
-
 .fee-form button {
 	text-decoration: none !important;
 	line-height: 14px !important;
@@ -67,11 +71,8 @@ div.fee-form, textarea.fee-form-content {
 	vertical-align: middle !important;
 	padding: 2px 8px !important;
 	cursor: pointer !important;
-	-moz-border-radius: 11px;
-	-khtml-border-radius: 11px;
-	-webkit-border-radius: 11px;
-	border-radius: 11px;
 	margin-left: 5px;
+	@border-radius(11px);
 }
 
 div.fee-form button {
@@ -83,21 +84,21 @@ button.fee-form-save {
 	background-color: #23779f;
 	color: #fff;
 	border: 1px solid #1c5e7f;
-	font-weight: bold;
-}
+	font-weight: 700;
 
-.fee-form-save:hover {
-	border: 1px solid #000 !important;
+	&:hover {
+		border: 1px solid #000 !important;
+	}
 }
 
 button.fee-form-cancel {
 	background-color: #fcfcfc;
 	color: #808080;
 	border: 1px solid #ddd;
-}
 
-.fee-form-cancel:hover {
-	border: 1px solid #666 !important;
+	&:hover {
+		border: 1px solid #666 !important;
+	}
 }
 
 /* Select */
@@ -116,18 +117,46 @@ span.fee-form select {
 	border-width: 1px;
 	border-style: solid;
 }
-.fee-suggest-results li {padding: 2px 5px; white-space: nowrap;	text-align: left}
-.fee-suggest-match {text-decoration: underline}
-.fee-suggest-over {cursor: pointer}
+
+.fee-suggest-results li {
+	padding: 2px 5px;
+	white-space: nowrap;
+	text-align: left;
+}
+
+.fee-suggest-match {
+	text-decoration: underline;
+}
+
+.fee-suggest-over {
+	cursor: pointer;
+}
 
 /* Suggest colors */
-.fee-suggest-results {background-color: #fff; border-color: #808080}
-.fee-suggest-results li {color: #101010}
-.fee-suggest-match {color: #000}
-.fee-suggest-over {background-color: #f0f0b8}
+.fee-suggest-results {
+	background-color: #fff;
+	border-color: gray;
+}
+
+.fee-suggest-results li {
+	color: #101010;
+}
+
+.fee-suggest-match {
+	color: #000;
+}
+
+.fee-suggest-over {
+	background-color: #f0f0b8;
+}
 
 /* Widget */
-.fee-form.fee-type-widget input.widefat, .fee-form.fee-type-widget textarea.widefat {display: block; width: 100%}
+.fee-form.fee-type-widget {
+	input.widefat, textarea.widefat {
+		display: block;
+		width: 100%;
+	}
+}
 
 /* Image */
 #TB_window #TB_title {
@@ -140,12 +169,16 @@ span.fee-form select {
 	display: block;
 	float: left;
 	padding: 6px 10px 0;
-}
-#fee-img-revert:link, #fee-img-revert:active, #fee-img-revert:visited {
-	color: #21759B !important;
-}
-#fee-img-revert:hover {
-	color: #D54E21 !important;
+
+	&:link,
+	&:active,
+	&:visited {
+		color: #21759B !important;
+	}
+
+	&:hover {
+		color: #D54E21 !important;
+	}
 }
 
 /* Hover */
@@ -157,9 +190,6 @@ span.fee-form select {
 }
 
 .fee-hover-edit {
-	-webkit-border-radius: 2px;
-	-moz-border-radius: 2px;
-	border-radius: 2px;
 	color: #fff;
 	cursor: pointer;
 	font-family: Helvetica, Arial, sans-serif;
@@ -168,10 +198,11 @@ span.fee-form select {
 	line-height: 18px;
 	padding: 2px 4px;
 	z-index: 1000;
-}
+	@border-radius(2px);
 
-.fee-hover-edit:hover {
-	background-color: #777;
+	&:hover {
+		background-color: #777;
+	}
 }
 
 /* Aloha Editor */
@@ -188,5 +219,5 @@ button.CancelFEE {
 }
 
 .x-toolbar-ct table {
-  border-spacing:0px !important;
+	border-spacing: 0 !important;
 }
