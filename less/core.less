@@ -1,4 +1,4 @@
-@border-radius (@radius) {
+@border-radius(@radius) {
 	-moz-border-radius: @radius;
 	-webkit-border-radius: @radius;
 	border-radius: @radius;
@@ -206,21 +206,23 @@ span.fee-form select {
 }
 
 /* Aloha Editor */
-@button-background (@url) {
+@button-background(@url) {
 	background: no-repeat center transparent !important;
 	background-image: @url;
 }
 
-button.ImageWP {
-	@button-background(url('../aloha-plugins/wpImage/img/image.gif'));
-}
+button {
+	&.ImageWP {
+		@button-background(url('../aloha-plugins/wpImage/img/image.gif'));
+	}
 
-button.SaveFEE {
-	@button-background(url('../img/save.png'));
-}
+	&.SaveFEE {
+		@button-background(url('../img/save.png'));
+	}
 
-button.CancelFEE {
-	@button-background(url('../img/cancel.png'));
+	&.CancelFEE {
+		@button-background(url('../img/cancel.png'));
+	}
 }
 
 .x-toolbar-ct table {
