@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor v0.8.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
-"POT-Creation-Date: 2011-06-06 04:32:40+00:00\n"
-"PO-Revision-Date: 2011-06-22 23:51+0100\n"
-"Last-Translator: Molakki <kontakt@molakki.no>\n"
+"POT-Creation-Date: 2011-06-24 17:08:11+00:00\n"
+"PO-Revision-Date: 2011-09-07 15:52+0100\n"
+"Last-Translator: Molakki <kontakt@molakki.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,6 +17,100 @@ msgstr ""
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: scb/AdminPage.php:165
+msgid "Settings <strong>saved</strong>."
+msgstr "Innstillinger lagret"
+
+#: scb/AdminPage.php:178
+#: scb/AdminPage.php:189
+msgid "Save Changes"
+msgstr "Lagre endringer"
+
+#: scb/AdminPage.php:371
+#: admin/admin.php:15
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: front-end-editor.php:72
+msgid "Title"
+msgstr "Tittel"
+
+#: front-end-editor.php:79
+msgid "Content"
+msgstr "Innhold"
+
+#: front-end-editor.php:85
+msgid "Excerpt"
+msgstr "Utdrag"
+
+#: front-end-editor.php:91
+msgid "Custom fields"
+msgstr "Tilpassede felt"
+
+#: front-end-editor.php:97
+msgid "Thumbnail"
+msgstr "Fremhevet bilde"
+
+#: front-end-editor.php:105
+msgid "Categories"
+msgstr "Kategorier"
+
+#: front-end-editor.php:111
+msgid "Tags"
+msgstr "Stikkord"
+
+#: front-end-editor.php:117
+msgid "Terms"
+msgstr "Terminologier"
+
+#: front-end-editor.php:124
+msgid "Text widget title"
+msgstr "Tittel av tekstwidgeter"
+
+#: front-end-editor.php:131
+msgid "Text widget content"
+msgstr "Innhold av tekstwidgeter"
+
+#: front-end-editor.php:138
+msgid "Other widgets"
+msgstr "Andre widgeter"
+
+#: front-end-editor.php:145
+msgid "Comment text"
+msgstr "Kommentarer"
+
+#: front-end-editor.php:151
+msgid "Category title"
+msgstr "Tittel på kategori"
+
+#: front-end-editor.php:156
+msgid "Tag title"
+msgstr "Tittel på stikkord"
+
+#: front-end-editor.php:161
+msgid "Term title"
+msgstr "Terminologi-tittel"
+
+#: front-end-editor.php:166
+msgid "Term description"
+msgstr "Terminologi-beskrivelse"
+
+#: front-end-editor.php:173
+msgid "Author description"
+msgstr "Beskrivelse av forfatter"
+
+#: front-end-editor.php:180
+msgid "Site title and description"
+msgstr "Sidetittel og slagord"
+
+#: front-end-editor.php:186
+msgid "Site options"
+msgstr "Sideinnstillinger"
+
+#: front-end-editor.php:192
+msgid "Theme images"
+msgstr "Temabilder"
+
 #: admin/admin.php:9
 msgid "Front-end Editor"
 msgstr "Innebygd endringsmodul"
@@ -25,127 +119,33 @@ msgstr "Innebygd endringsmodul"
 msgid "Fields"
 msgstr "Felter"
 
-#: admin/admin.php:15
-#: scb/AdminPage.php:369
-msgid "Settings"
-msgstr "Innstillinger"
-
-#: admin/admin.php:63
+#: admin/admin.php:46
 msgid "Enable or disable editable fields:"
 msgstr "Aktiver eller deaktiver redigerbare felter:"
 
-#: admin/admin.php:65
+#: admin/admin.php:48
 msgid "Post fields"
 msgstr "Innleggsfelter"
 
-#: admin/admin.php:66
+#: admin/admin.php:49
 msgid "Other fields"
 msgstr "Andre felt"
 
-#: admin/admin.php:110
+#: admin/admin.php:100
 msgid "Enable the WYSIWYG editor."
 msgstr "Aktiver WYSIWYG-editoren"
 
-#: admin/admin.php:114
+#: admin/admin.php:104
 msgid "To edit categories, use a:"
 msgstr "For å endre på kategorier, bruk et:"
 
-#: admin/admin.php:124
+#: admin/admin.php:114
 msgid "dropdown"
 msgstr "dropdown-vindu"
 
-#: admin/admin.php:125
+#: admin/admin.php:115
 msgid "text field"
 msgstr "tekstfelt"
-
-#: scb/AdminPage.php:165
-msgid "Settings <strong>saved</strong>."
-msgstr "Innstillinger lagret"
-
-#: scb/AdminPage.php:177
-#: scb/AdminPage.php:187
-msgid "Save Changes"
-msgstr "Lagre endringer"
-
-#: front-end-editor.php:71
-msgid "Title"
-msgstr "Tittel"
-
-#: front-end-editor.php:78
-msgid "Content"
-msgstr "Innhold"
-
-#: front-end-editor.php:89
-msgid "Excerpt"
-msgstr "Utdrag"
-
-#: front-end-editor.php:95
-msgid "Categories"
-msgstr "Kategorier"
-
-#: front-end-editor.php:101
-msgid "Tags"
-msgstr "Stikkord"
-
-#: front-end-editor.php:107
-msgid "Terms"
-msgstr "Terminologier"
-
-#: front-end-editor.php:113
-msgid "Custom fields"
-msgstr "Tilpassede felt"
-
-#: front-end-editor.php:119
-msgid "Thumbnail"
-msgstr "Fremhevet bilde"
-
-#: front-end-editor.php:126
-msgid "Comment text"
-msgstr "Kommentarer"
-
-#: front-end-editor.php:132
-msgid "Category title"
-msgstr "Tittel på kategori"
-
-#: front-end-editor.php:137
-msgid "Tag title"
-msgstr "Tittel på stikkord"
-
-#: front-end-editor.php:142
-msgid "Term title"
-msgstr "Terminologi-tittel"
-
-#: front-end-editor.php:147
-msgid "Term description"
-msgstr "Terminologi-beskrivelse"
-
-#: front-end-editor.php:154
-msgid "Author description"
-msgstr "Beskrivelse av forfatter"
-
-#: front-end-editor.php:161
-msgid "Widgets"
-msgstr "Widgeter"
-
-#: front-end-editor.php:167
-msgid "Site title and description"
-msgstr "Sidetittel og slagord"
-
-#: front-end-editor.php:173
-msgid "Site options"
-msgstr "Sideinnstillinger"
-
-#: front-end-editor.php:179
-msgid "Theme images"
-msgstr "Temabilder"
-
-#: php/fields/taxonomy.php:53
-msgid "&mdash; None &mdash;"
-msgstr "&mdash; Ingen &mdash;"
-
-#: php/fields/post.php:93
-msgid "Error: %s is currently editing this."
-msgstr "Feil: %s redigerer denne filen akkurat nå."
 
 #: php/fields/base.php:124
 msgid "empty"
@@ -158,6 +158,14 @@ msgstr "nei"
 #: php/fields/base.php:148
 msgid "yes"
 msgstr "ja"
+
+#: php/fields/taxonomy.php:53
+msgid "&mdash; None &mdash;"
+msgstr "&mdash; Ingen &mdash;"
+
+#: php/fields/post.php:89
+msgid "Error: %s is currently editing this."
+msgstr "Feil: %s redigerer denne filen akkurat nå."
 
 #: php/core.php:46
 msgid "Edit"
@@ -182,6 +190,9 @@ msgstr "Sett inn bilde"
 #: php/core.php:73
 msgid "Clear"
 msgstr "Nullstill"
+
+#~ msgid "Widgets"
+#~ msgstr "Widgeter"
 
 #~ msgid "Rich text editor"
 #~ msgstr "Rik tekst-editor"
