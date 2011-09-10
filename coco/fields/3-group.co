@@ -1,8 +1,5 @@
 class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
-	($container, editors) ->
-		@el = $container
-		@editors = editors
-
+	(@el, @editors) ->
 		@has_aloha = false
 
 		if GENTICS?.Aloha
