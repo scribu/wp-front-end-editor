@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor v0.8\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
-"POT-Creation-Date: 2009-04-16 17:41+0300\n"
-"PO-Revision-Date: 2009-04-16 17:42+0200\n"
-"Last-Translator: scribu <scribu@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-09-21 22:34+0100\n"
+"PO-Revision-Date: 2011-09-21 22:37+0100\n"
+"Last-Translator: Li-An <lian00@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,229 +13,222 @@ msgstr ""
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ../\n"
-"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Textdomain-Support: yes"
 
-#: admin/admin.php:15
-#: scb/AdminPage.php:369
-#@ front-end-editor
-msgid "Settings"
-msgstr "Réglages"
+# @ front-end-editor
+#: front-end-editor.php:72
+msgid "Title"
+msgstr "Titre"
 
-#: front-end-editor.php:99
-#@ front-end-editor
-msgid "Post tags"
-msgstr "Tags du billet"
+# @ front-end-editor
+#: front-end-editor.php:79
+msgid "Content"
+msgstr "Contenu"
 
-#: front-end-editor.php:126
-#@ front-end-editor
+# @ front-end-editor
+#: front-end-editor.php:85
+msgid "Excerpt"
+msgstr "Extrait"
+
+# @ front-end-editor
+#: front-end-editor.php:91
+msgid "Custom fields"
+msgstr "Champs personnalisés"
+
+# @ front-end-editor
+#: front-end-editor.php:97
+msgid "Thumbnail"
+msgstr "Miniature"
+
+# @ front-end-editor
+#: front-end-editor.php:105
+msgid "Categories"
+msgstr "Catégorie"
+
+#: front-end-editor.php:111
+msgid "Tags"
+msgstr "Mots-clef"
+
+#: front-end-editor.php:117
+msgid "Terms"
+msgstr "Termes"
+
+# @ front-end-editor
+#: front-end-editor.php:124
+msgid "Text widget title"
+msgstr "Titre de widget texte"
+
+#: front-end-editor.php:131
+msgid "Text widget content"
+msgstr "Contenu de widget texte"
+
+# @ front-end-editor
+#: front-end-editor.php:138
+msgid "Other widgets"
+msgstr "Autres widgets"
+
+# @ front-end-editor
+#: front-end-editor.php:145
 msgid "Comment text"
 msgstr "Commentaires"
 
-#: php/core.php:49
-#@ front-end-editor
-msgid "Save"
-msgstr "Sauvegarder"
-
-#: php/core.php:50
-#@ front-end-editor
-msgid "Cancel"
-msgstr "Annuler"
-
-#: admin/admin.php:14
-#@ front-end-editor
-msgid "Fields"
-msgstr "Champs"
-
-#: scb/AdminPage.php:165
-#@ front-end-editor
-msgid "Settings <strong>saved</strong>."
-msgstr "Réglages <strong>sauvegardés</strong>."
-
-#. translators: plugin header field 'Name'
-#: admin/admin.php:9
-#: front-end-editor.php:0
-#@ front-end-editor
-msgid "Front-end Editor"
-msgstr "Front-end Editor"
-
-#: php/fields/base.php:113
-#@ front-end-editor
-msgid "empty"
-msgstr "vide"
-
-#: front-end-editor.php:106
-#@ front-end-editor
-msgid "Post terms"
-msgstr "Termes du billet"
-
-#: front-end-editor.php:149
-#@ front-end-editor
-msgid "Author description"
-msgstr "Description de l'auteur"
-
-#: scb/AdminPage.php:177
-#: scb/AdminPage.php:187
-#@ front-end-editor
-msgid "Save Changes"
-msgstr "Sauvegarder les modifications"
-
-#: front-end-editor.php:162
-#@ front-end-editor
-msgid "Site title and description"
-msgstr "Titre du site et description"
-
-#: front-end-editor.php:68
-#@ front-end-editor
-msgid "Post title"
-msgstr "Titre du billet"
-
-#: front-end-editor.php:75
-#@ front-end-editor
-msgid "Post content"
-msgstr "Contenu du billet"
-
-#: front-end-editor.php:86
-#@ front-end-editor
-msgid "Post excerpt"
-msgstr "Extrait du billet"
-
-#: front-end-editor.php:113
-#@ front-end-editor
-msgid "Post custom fields"
-msgstr "Champs personnalisés du billet"
-
-#: front-end-editor.php:132
-#@ front-end-editor
+# @ front-end-editor
+#: front-end-editor.php:151
 msgid "Category title"
 msgstr "Titre de catégorie"
 
-#: front-end-editor.php:137
-#@ front-end-editor
+# @ front-end-editor
+#: front-end-editor.php:156
 msgid "Tag title"
 msgstr "Titre de tag"
 
-#: admin/admin.php:65
-#@ front-end-editor
-msgid "Post fields"
-msgstr "Champs des billets"
+# @ front-end-editor
+#: front-end-editor.php:161
+msgid "Term title"
+msgstr "Titre de terme"
 
-#: admin/admin.php:66
-#@ front-end-editor
-msgid "Other fields"
-msgstr "Autres champs"
-
-#: php/core.php:73
-#@ front-end-editor
-msgid "Change Image"
-msgstr "Changer d'image"
-
-#: front-end-editor.php:174
-#@ front-end-editor
-msgid "Theme images"
-msgstr "Images du thème"
-
-#: php/core.php:75
-#@ front-end-editor
-msgid "Clear"
-msgstr "Nettoyer"
-
-#: front-end-editor.php:92
-#@ front-end-editor
-msgid "Post categories"
-msgstr "Catégories de billet"
-
-#: front-end-editor.php:119
-#@ front-end-editor
-msgid "Post thumbnail"
-msgstr "Miniature de billet"
-
-#: front-end-editor.php:168
-#@ front-end-editor
-msgid "Site options"
-msgstr "Options du site"
-
-#: php/core.php:74
-#@ front-end-editor
-msgid "Insert Image"
-msgstr "Insérer une image"
-
-#: php/fields/base.php:132
-#@ front-end-editor
-msgid "no"
-msgstr "non"
-
-#: php/fields/base.php:133
-#@ front-end-editor
-msgid "yes"
-msgstr "oui"
-
-#. translators: plugin header field 'PluginURI'
-#: front-end-editor.php:0
-#@ front-end-editor
-msgid "http://scribu.net/wordpress/front-end-editor"
-msgstr "http://scribu.net/wordpress/front-end-editor"
-
-#. translators: plugin header field 'Description'
-#: front-end-editor.php:0
-#@ front-end-editor
-msgid "Allows you to edit your posts without going through the admin interface"
-msgstr "Vous permet d'éditer vos billets sans passer par l'interface d'administration"
-
-#. translators: plugin header field 'Author'
-#: front-end-editor.php:0
-#@ front-end-editor
-msgid "scribu"
-msgstr "scribu"
-
-#. translators: plugin header field 'AuthorURI'
-#: front-end-editor.php:0
-#@ front-end-editor
-msgid "http://scribu.net/"
-msgstr "http://scribu.net/"
-
-#: front-end-editor.php:142
-#@ front-end-editor
+# @ front-end-editor
+#: front-end-editor.php:166
 msgid "Term description"
 msgstr "Description de terme"
 
-#: front-end-editor.php:156
-#@ front-end-editor
-msgid "Widgets"
-msgstr "Widgets"
+# @ front-end-editor
+#: front-end-editor.php:173
+msgid "Author description"
+msgstr "Description de l'auteur"
 
-#: php/fields/post.php:93
-#, php-format
-#@ front-end-editor
-msgid "Error: %s is currently editing this."
-msgstr "Erreur: %s est en train d'éditer ceci."
+# @ front-end-editor
+#: front-end-editor.php:180
+msgid "Site title and description"
+msgstr "Titre du site et description"
 
-#: admin/admin.php:63
-#@ front-end-editor
+# @ front-end-editor
+#: front-end-editor.php:186
+msgid "Site options"
+msgstr "Options du site"
+
+# @ front-end-editor
+#: front-end-editor.php:192
+msgid "Theme images"
+msgstr "Images du thème"
+
+# @ front-end-editor
+#: admin/admin.php:9
+msgid "Front-end Editor"
+msgstr "Front-end Editor"
+
+# @ front-end-editor
+#: admin/admin.php:14
+msgid "Fields"
+msgstr "Champs"
+
+# @ front-end-editor
+#: admin/admin.php:15
+#: scb/AdminPage.php:348
+msgid "Settings"
+msgstr "Réglages"
+
+# @ front-end-editor
+#: admin/admin.php:46
 msgid "Enable or disable editable fields:"
 msgstr "Activer ou désactiver les champs d'édition:"
 
-#: admin/admin.php:106
-#@ front-end-editor
+# @ front-end-editor
+#: admin/admin.php:48
+msgid "Post fields"
+msgstr "Champs des billets"
+
+# @ front-end-editor
+#: admin/admin.php:49
+msgid "Other fields"
+msgstr "Autres champs"
+
+# @ front-end-editor
+#: admin/admin.php:100
 msgid "Enable the WYSIWYG editor."
 msgstr "Activer l'éditeur WYSIWYG (visuel)."
 
-#. translators: plugin header field 'Version'
-#: front-end-editor.php:0
-#@ front-end-editor
-msgid "2.1"
-msgstr "2.1"
+# @ front-end-editor
+#: admin/admin.php:104
+msgid "To edit categories, use a:"
+msgstr "Pour éditer les catégories, utiliser un:"
 
-#: php/core.php:48
-#@ front-end-editor
+#: admin/admin.php:114
+msgid "dropdown"
+msgstr "menu déroulant"
+
+# @ front-end-editor
+#: admin/admin.php:115
+msgid "text field"
+msgstr "champ de texte"
+
+# @ front-end-editor
+#: php/core.php:45
 msgid "Edit"
 msgstr "Éditer"
 
+# @ front-end-editor
+#: php/core.php:46
+msgid "Save"
+msgstr "Sauvegarder"
+
+# @ front-end-editor
+#: php/core.php:47
+msgid "Cancel"
+msgstr "Annuler"
+
+# @ front-end-editor
+#: php/core.php:70
+msgid "Change Image"
+msgstr "Changer d'image"
+
+# @ front-end-editor
+#: php/core.php:71
+msgid "Insert Image"
+msgstr "Insérer une image"
+
+# @ front-end-editor
+#: php/core.php:72
+msgid "Clear"
+msgstr "Nettoyer"
+
+# @ front-end-editor
+#: php/fields/base.php:124
+msgid "empty"
+msgstr "vide"
+
+# @ front-end-editor
+#: php/fields/base.php:147
+msgid "no"
+msgstr "non"
+
+# @ front-end-editor
+#: php/fields/base.php:148
+msgid "yes"
+msgstr "oui"
+
+# @ front-end-editor
+#: php/fields/post.php:89
+#, php-format
+msgid "Error: %s is currently editing this."
+msgstr "Erreur: %s est en train d'éditer ceci."
+
+# @ front-end-editor
 #: php/fields/taxonomy.php:53
-#@ front-end-editor
 msgid "&mdash; None &mdash;"
 msgstr "&mdash; Aucun &mdash;"
+
+# @ front-end-editor
+#: scb/AdminPage.php:163
+msgid "Settings <strong>saved</strong>."
+msgstr "Réglages <strong>sauvegardés</strong>."
+
+# @ front-end-editor
+#: scb/AdminPage.php:176
+#: scb/AdminPage.php:187
+msgid "Save Changes"
+msgstr "Sauvegarder les modifications"
 
