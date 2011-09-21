@@ -98,13 +98,13 @@ class FEE_Field_Widget_Text extends FEE_Field_Widget {
 		$this->field = str_replace( 'widget_', '', $this->get_filter() );
 	}
 
-	function wrap( $content, $instance, $id_base = null ) {
+	function wrap( $content, $instance = null, $id_base = null ) {
 		// Only target text widgets
-		if ( 'title' == $this->field && 'text' != $id_base )
+		if ( 'title' == $this->field && ( !$id_base || 'text' != $id_base ) )
 			return $content;
 
 		if ( 'text' == $this->field )
-			$content = $this->placehold($content);
+			$content = $this->placehold( $content );
 
 		return FEE_Field_Base::wrap( $content, array() );
 	}
