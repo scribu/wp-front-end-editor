@@ -65,7 +65,7 @@ abstract class FEE_Core {
 		// Thickbox
 		if ( count( array_intersect( array( 'image', 'thumbnail', 'rich' ), $wrapped ) ) ) {
 			$data['image'] = array(
-				'url' => admin_url( 'media-upload.php?post_id=0&type=image&editable_image=1&TB_iframe=true&width=640' ),
+				'url' => admin_url( 'media-upload.php?post_id=0&editable_image=1&TB_iframe=true&width=640' ),
 				'change' => __( 'Change Image', 'front-end-editor' ),
 				'insert' => __( 'Insert Image', 'front-end-editor' ),
 				'revert' => '(' . __( 'Clear', 'front-end-editor' ) . ')',
