@@ -27,10 +27,6 @@ abstract class FEE_Core {
 			return;
 		}
 
-		if ( self::$options->rich ) {
-			FEE_AlohaEditor::enqueue();
-		}
-
 		add_action( 'wp_head', array( __CLASS__, 'add_filters' ), 100 );
 		add_action( 'wp_footer', array( __CLASS__, 'scripts' ) );
 	}
@@ -82,7 +78,7 @@ abstract class FEE_Core {
 				self::register_script( "fee-$handle", "js/$handle.js" );
 			}
 
-			foreach ( glob( dirname( FRONT_END_EDITOR_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
+			foreach ( glob( dirname( FEE_MAIN_FILE ) . '/js/fields/*.js' ) as $file ) {
 				$file = basename( $file );
 				self::register_script( "fee-fields-$file", "js/fields/$file", array( 'fee-core' ) );
 			}
@@ -96,7 +92,7 @@ abstract class FEE_Core {
 		}
 
 		// Core style
-		wp_register_style( 'fee-editor', plugins_url( $css_path, FRONT_END_EDITOR_MAIN_FILE ), $css_dependencies, FRONT_END_EDITOR_VERSION );
+		wp_register_style( 'fee-editor', plugins_url( $css_path, FEE_MAIN_FILE ), $css_dependencies, FEE_VERSION );
 		scbUtil::do_styles( 'fee-editor' );
 
 ?>
@@ -111,8 +107,8 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 	}
 
 	private static function register_script( $handle, $src, $dependencies = array() ) {
-		$src = plugins_url( $src, FRONT_END_EDITOR_MAIN_FILE );
-		wp_register_script( $handle, $src, $dependencies, FRONT_END_EDITOR_VERSION, true );
+		$src = plugins_url( $src, FEE_MAIN_FILE );
+		wp_register_script( $handle, $src, $dependencies, FEE_VERSION, true );
 		self::$js_dependencies[] = $handle;
 	}
 

@@ -26,9 +26,9 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-define( 'FRONT_END_EDITOR_VERSION', '2.2-alpha3' );
+define( 'FEE_VERSION', '2.2-alpha3' );
 
-define( 'FRONT_END_EDITOR_MAIN_FILE', __FILE__ );
+define( 'FEE_MAIN_FILE', __FILE__ );
 
 // Load scbFramework
 require dirname( __FILE__ ) . '/lib/scb/load.php';
@@ -39,7 +39,6 @@ function _fee_init() {
 	$dir = dirname( __FILE__ ) . '/php';
 
 	require_once $dir . '/template-tags.php';
-	require_once $dir . '/aloha-scripts.php';
 	require_once $dir . '/core.php';
 
 	foreach ( array( 'base', 'post', 'widget', 'other' ) as $name ) {
