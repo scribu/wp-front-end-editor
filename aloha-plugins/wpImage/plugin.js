@@ -1,27 +1,43 @@
 /**
  * Plugin for integrating the WordPress media thickbox
  */
-GENTICS.Aloha.wpImage = jQuery.extend( new GENTICS.Aloha.Plugin('org.fee.plugins.wpImage'), {
+define([
+	// js
+	'aloha/jquery',
+	'aloha/plugin',
+	'aloha/floatingmenu',
+	'i18n!aloha/nls/i18n'
+],
+function WPImagePlugin ( aQuery, Plugin, FloatingMenu, i18nCore) {
+	
+	var jQuery = aQuery;
+	var $ = aQuery;
+	var GENTICS = window.GENTICS, Aloha = window.Aloha;
 
-	init: function () {
-		// create a new button
-		var button = new GENTICS.Aloha.ui.Button({
-			'iconClass' : 'ImageWP',
-			'size' : 'small',
-			'onclick' : jQuery.proxy(this, 'insert'),
-			'tooltip' : FrontEndEditor.data.image.insert
-		});
+	return Plugin.create('org.fee.plugins.wpImage', {
 
-		// add it to the floating menu
-		GENTICS.Aloha.FloatingMenu.addButton(
-			'GENTICS.Aloha.continuoustext',
-			button,
-			GENTICS.Aloha.i18n(GENTICS.Aloha, 'floatingmenu.tab.insert'),
-			2
-		);
-	},
+		init: function () {
+			
+			// create a new button
+			var button = new Aloha.ui.Button({
+				'iconClass' : 'ImageWP',
+				'size' : 'small',
+				'onclick' : jQuery.proxy(this, 'insert'),
+				'tooltip' : FrontEndEditor.data.image.insert
+			});
 
-	insert: function() {
-		FrontEndEditor.get_field_instance('image_rich').start_editing();
-	}
+			// add it to the floating menu
+			FloatingMenu.addButton(
+				'GENTICS.Aloha.continuoustext',
+				button,
+				i18nCore.t('floatingmenu.tab.insert'),
+				2
+			);
+		},
+
+		insert: function() {
+			FrontEndEditor.get_field_instance('image_rich').start_editing();
+		}
+		
+	});	
 });

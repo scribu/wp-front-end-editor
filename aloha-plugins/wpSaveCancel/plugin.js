@@ -1,11 +1,24 @@
 /**
  * Plugin that adds the Save and cancel buttons
  */
-GENTICS.Aloha.wpSaveCancel = jQuery.extend( new GENTICS.Aloha.Plugin('org.fee.plugins.wpSaveCancel'), {
+define([
+	// js
+	'aloha/jquery',
+	'aloha/plugin',
+	'aloha/floatingmenu',
+	'i18n!aloha/nls/i18n'
+],
+function WPImagePlugin ( aQuery, Plugin, FloatingMenu, i18nCore) {
+	
+	var jQuery = aQuery;
+	var $ = aQuery;
+	var GENTICS = window.GENTICS, Aloha = window.Aloha;
 
-	init: function () {
+	return Plugin.create('org.fee.plugins.wpSaveCancel', {
+
+		init: function () {
 		// create the Save button
-		this.saveButton = new GENTICS.Aloha.ui.Button({
+		this.saveButton = new Aloha.ui.Button({
 			'iconClass' : 'SaveFEE',
 			'size' : 'small',
 			'onclick' : jQuery.proxy(this, 'save'),
@@ -13,7 +26,7 @@ GENTICS.Aloha.wpSaveCancel = jQuery.extend( new GENTICS.Aloha.Plugin('org.fee.pl
 		});
 
 		// create the Cancel button
-		this.cancelButton = new GENTICS.Aloha.ui.Button({
+		this.cancelButton = new Aloha.ui.Button({
 			'iconClass' : 'CancelFEE',
 			'size' : 'small',
 			'onclick' : jQuery.proxy(this, 'cancel'),
@@ -21,17 +34,17 @@ GENTICS.Aloha.wpSaveCancel = jQuery.extend( new GENTICS.Aloha.Plugin('org.fee.pl
 		});
 
 		// add buttons to the floating menu
-		GENTICS.Aloha.FloatingMenu.addButton(
+		FloatingMenu.addButton(
 			'GENTICS.Aloha.continuoustext',
 			this.saveButton,
-			GENTICS.Aloha.i18n(GENTICS.Aloha, 'floatingmenu.tab.format'),
+			i18nCore.t('floatingmenu.tab.format'),
 			4
 		);
 
-		GENTICS.Aloha.FloatingMenu.addButton(
+		FloatingMenu.addButton(
 			'GENTICS.Aloha.continuoustext',
 			this.cancelButton,
-			GENTICS.Aloha.i18n(GENTICS.Aloha, 'floatingmenu.tab.format'),
+			i18nCore.t('floatingmenu.tab.format'),
 			4
 		);
 	},
@@ -49,6 +62,6 @@ GENTICS.Aloha.wpSaveCancel = jQuery.extend( new GENTICS.Aloha.Plugin('org.fee.pl
 	},
 
 	disableAloha: function() {
-		GENTICS.Aloha.deactivateEditable()
+		Aloha.deactivateEditable()
 	}
 });
