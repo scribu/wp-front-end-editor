@@ -1,7 +1,6 @@
-lib/aloha-editor/demo
-lib/aloha-editor/test
-lib/aloha-editor/build.txt
-build
-js
-css
-.project
+/lib/aloha-editor/demo/
+/lib/aloha-editor/test/
+/lib/aloha-editor/build.txt
+/build/
+/js/
+/css/
