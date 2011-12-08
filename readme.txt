@@ -40,7 +40,7 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 
 = Can you add the ability to create posts, instead of just editing? =
 
-No, because there already are [several plugins](http://wordpress.org/support/topic/front-end-custom-form-to-post?replies=5#post-1584286) for that already.
+No, because there are [several plugins](http://wordpress.org/support/topic/front-end-custom-form-to-post?replies=5#post-1584286) for that already.
 
 = Can you change the wysiwyg editor to TinyMCE? =
 
