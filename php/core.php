@@ -58,6 +58,11 @@ abstract class FEE_Core {
 			self::$js_dependencies[] = 'suggest';
 		}
 
+		if ( in_array( 'rich', $wrapped ) ) {
+			wp_register_style( 'aloha-editor', plugins_url( 'lib/aloha-editor/css/aloha.css', FEE_MAIN_FILE ), array(), ALOHA_VERSION );
+			$css_dependencies[] = 'aloha-editor';
+		}
+
 		// Thickbox
 		if ( count( array_intersect( array( 'image', 'thumbnail', 'rich' ), $wrapped ) ) ) {
 			$data['image'] = array(
@@ -100,7 +105,25 @@ abstract class FEE_Core {
 var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 </script>
-<?php
+
+<?php if ( in_array( 'rich', $wrapped ) ) {
+	$plugins = array(
+		'common/format',
+		'common/list',
+		'common/link',
+		'common/table',
+		'common/undo',
+		'common/paste',
+		'common/block',
+		'extra/cite',
+	);
+
+	echo html( 'script', array(
+		'src' => plugins_url( 'lib/aloha-editor/lib/aloha.js', FEE_MAIN_FILE ),
+		'data-aloha-plugins' => implode( ',', $plugins )
+	) );
+}
+
 		scbUtil::do_scripts( self::$js_dependencies );
 
 		do_action( 'front_end_editor_loaded', $wrapped );
