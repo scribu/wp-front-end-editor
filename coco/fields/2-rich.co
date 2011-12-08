@@ -10,7 +10,11 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 	start_editing: (ev) ->
 		super ...
 
-		GENTICS.Aloha.wpSaveCancel.current_field = this
+		Aloha.require( ['fee/wpSaveCancel-plugin'], ( wpSaveCancel ) ->
+			wpSaveCancel.current_field = this
+			return
+		)
+		
 
 	ajax_get_handler: (response) ->
 		$el = @error_handler(response)
@@ -27,7 +31,13 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 		@form.aloha()
 		@form.focus()
-		GENTICS.Aloha.Selection.updateSelection() # makes the floating menu appear
+		
+		Aloha.require( ['aloha/selection'], ( Selection ) ->
+			Selection.updateSelection() # makes the floating menu appear
+			return
+		)
+		
+		
 
 	# Copied from wp-admin/js/editor.dev.js (_wp_Nop)
 	cleanup: (content) ->
