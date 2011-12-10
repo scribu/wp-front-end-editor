@@ -9,7 +9,7 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 			this.saveButton = new Aloha.ui.Button(
 				'iconClass' : 'SaveFEE',
 				'size' : 'small',
-				'onclick' : jQuery.proxy(this, 'save'),
+				'onclick' : this.~save,
 				'tooltip' : FrontEndEditor.data.save_text
 			)
 
@@ -17,7 +17,7 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 			this.cancelButton = new Aloha.ui.Button(
 				'iconClass' : 'CancelFEE',
 				'size' : 'small',
-				'onclick' : jQuery.proxy(this, 'cancel'),
+				'onclick' : this.~cancel,
 				'tooltip' : FrontEndEditor.data.cancel_text
 			)
 
