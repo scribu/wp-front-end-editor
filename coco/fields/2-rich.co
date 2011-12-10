@@ -1,7 +1,7 @@
 class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 	content_from_input: ->
-		@cleanup GENTICS.Aloha.activeEditable.getContents()
+		@cleanup Aloha.activeEditable.getContents()
 
 	lastActiveEditable: null
 

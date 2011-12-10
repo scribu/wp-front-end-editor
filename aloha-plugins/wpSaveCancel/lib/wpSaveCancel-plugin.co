@@ -23,14 +23,14 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 
 			# add buttons to the floating menu
 			FloatingMenu.addButton(
-				'GENTICS.Aloha.continuoustext',
+				'Aloha.continuoustext',
 				this.saveButton,
 				i18nCore.t('floatingmenu.tab.format'),
 				4
 			)
 
 			FloatingMenu.addButton(
-				'GENTICS.Aloha.continuoustext',
+				'Aloha.continuoustext',
 				this.cancelButton,
 				i18nCore.t('floatingmenu.tab.format'),
 				4
