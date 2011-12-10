@@ -41,10 +41,12 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 		save: ->
 			FrontEndEditor.current_field.ajax_set()
 
-			Aloha.deactivateEditable()
+			@cancel()
 
 		cancel: ->
-			FrontEndEditor.current_field.remove_form()
+			FrontEndEditor.current_field.form.mahalo()
 
-			Aloha.deactivateEditable()
+			FloatingMenu.refreshShadow()
+
+			FrontEndEditor.current_field.remove_form()
 	})
