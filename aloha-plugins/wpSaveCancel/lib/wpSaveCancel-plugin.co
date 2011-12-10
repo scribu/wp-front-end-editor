@@ -3,7 +3,7 @@
 define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin, FloatingMenu, i18nCore) ->
 	Aloha = window.Aloha
 
-	return Plugin.create('org.fee.plugins.wpSaveCancel', {
+	return Plugin.create('wpSaveCancel', {
 		init: ->
 			# create the Save button
 			this.saveButton = new Aloha.ui.Button(
