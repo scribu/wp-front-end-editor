@@ -7,18 +7,20 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 		init: ->
 			# create the Save button
 			this.saveButton = new Aloha.ui.Button(
+				'name' : 'wpSave',
 				'iconClass' : 'SaveFEE',
 				'size' : 'small',
 				'onclick' : this.~save,
-				'tooltip' : FrontEndEditor.data.save_text
+				'label' : FrontEndEditor.data.save_text
 			)
 
 			# create the Cancel button
 			this.cancelButton = new Aloha.ui.Button(
+				'name' : 'wpCancel',
 				'iconClass' : 'CancelFEE',
 				'size' : 'small',
 				'onclick' : this.~cancel,
-				'tooltip' : FrontEndEditor.data.cancel_text
+				'label' : FrontEndEditor.data.cancel_text
 			)
 
 			# add buttons to the floating menu

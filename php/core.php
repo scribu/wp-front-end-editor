@@ -111,6 +111,9 @@ Aloha.settings = {
 	jQuery: jQuery,
 	bundles: {
 		fee: '../../../aloha-plugins'
+	},
+	floatingmenu: {
+		width: 475
 	}
 };
 </script>

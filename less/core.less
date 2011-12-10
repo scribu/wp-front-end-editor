@@ -206,22 +206,18 @@ span.fee-form select {
 }
 
 /* Aloha Editor */
-@button-background(@url) {
-	background: no-repeat center transparent !important;
-	background-image: @url;
-}
-
 button {
 	&.ImageWP {
-		@button-background(url('../aloha-plugins/wpImage/img/image.gif'));
+		background-image: url('../aloha-plugins/wpImage/img/image.gif');
 	}
 
 	&.SaveFEE {
-		@button-background(url('../img/save.png'));
+		background-image: url('../img/save.png');
+		font-weight: bold;
 	}
 
 	&.CancelFEE {
-		@button-background(url('../img/cancel.png'));
+		background-image: url('../img/cancel.png');
 	}
 }
 
