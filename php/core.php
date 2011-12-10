@@ -107,7 +107,11 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 
 var Aloha = {};
 Aloha.settings = {
-	jQuery: jQuery
+	logLevels: { 'error': true, 'warn': true, 'info': true, 'debug': false, 'deprecated': true },
+	jQuery: jQuery,
+	bundles: {
+		fee: '../../../aloha-plugins'
+	}
 };
 </script>
 
@@ -121,6 +125,7 @@ Aloha.settings = {
 		'common/paste',
 		'common/block',
 		'extra/cite',
+		'fee/wpSaveCancel',
 	);
 
 	echo html( 'script', array(

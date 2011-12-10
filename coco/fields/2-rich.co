@@ -10,10 +10,10 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 	start_editing: (ev) ->
 		super ...
 
-		Aloha.require( ['../../../aloha-plugins/wpSaveCancel/lib/wpSaveCancel-plugin'], (wpSaveCancel) ~>
-			wpSaveCancel.current_field = this
-			return
-		)
+		#Aloha.require( ['fee/wpSaveCancel'], (wpSaveCancel) ~>
+			#wpSaveCancel.current_field = this
+			#return
+		#)
 
 	ajax_get_handler: (response) ->
 		$el = @error_handler(response)
