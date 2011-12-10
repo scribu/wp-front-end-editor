@@ -11,3 +11,6 @@ cat core.co hover.co init.co fields/*.co | coco -cs > '../build/editor.js'
 
 cd ../build
 uglifyjs 'editor.js' > 'editor.min.js'
+
+cd ../aloha-plugins
+coco -cb wpSaveCancel/
