@@ -26,12 +26,10 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 		@form.insertAfter($el)
 
 		@form.aloha()
-		@form.focus()
 
-		Aloha.require( ['aloha/selection'], ( Selection ) ->
-			Selection.updateSelection() # makes the floating menu appear
-			return
-		)
+		# hack to get the floating menu to show up immediately
+		@form.focus()
+		@form.dblclick()
 
 	# Copied from wp-admin/js/editor.dev.js (_wp_Nop)
 	cleanup: (content) ->
