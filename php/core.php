@@ -104,6 +104,11 @@ abstract class FEE_Core {
 <script type='text/javascript'>
 var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
+
+var Aloha = {};
+Aloha.settings = {
+	jQuery: jQuery
+};
 </script>
 
 <?php if ( in_array( 'rich', $wrapped ) ) {
