@@ -39,15 +39,12 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 			)
 
 		save: ->
-			this.current_field.ajax_set()
+			FrontEndEditor.current_field.ajax_set()
 
-			this.disableAloha()
+			Aloha.deactivateEditable()
 
 		cancel: ->
-			this.current_field.remove_form()
+			FrontEndEditor.current_field.remove_form()
 
-			this.disableAloha()
-
-		disableAloha: ->
 			Aloha.deactivateEditable()
 	})
