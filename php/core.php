@@ -114,6 +114,9 @@ Aloha.settings = {
 	},
 	floatingmenu: {
 		width: 475
+	},
+	sidebar: {
+		disabled: true
 	}
 };
 </script>
