@@ -120,6 +120,11 @@ Aloha.settings = {
 	},
 	sidebar: {
 		disabled: true
+	},
+	plugins: {
+		format: {
+			config: ['b', 'i', 'del', 'sub', 'sup', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'removeFormat'],
+		}
 	}
 };
 </script>
