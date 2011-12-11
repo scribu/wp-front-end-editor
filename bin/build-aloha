@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# usage: ./bin/build-aloha wpSaveCancel
+#    or: ./bin/build-aloha wpSaveCancel -w
+
+plugin=$1
+
+dir=aloha-plugins/$plugin/lib/
+
+mkdir -p $dir
+
+coco $2 -o $dir/ coco/aloha/$plugin-plugin

@@ -13,9 +13,7 @@ cat core.co hover.co init.co fields/*.co | coco -cs > '../build/editor.js'
 
 # aloha plugins
 for plugin in 'wpSaveCancel' 'wpImage'; do
-	dir=../aloha-plugins/$plugin/lib/
-	mkdir -p $dir
-	cat aloha/$plugin.co | coco -cbs > $dir/$plugin-plugin.js
+	../bin/build-aloha $plugin
 done
 
 cd ../build
