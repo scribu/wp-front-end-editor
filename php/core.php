@@ -104,7 +104,10 @@ abstract class FEE_Core {
 <script type='text/javascript'>
 var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
+</script>
 
+<?php if ( in_array( 'rich', $wrapped ) ) { ?>
+<script type='text/javascript'>
 var Aloha = {};
 Aloha.settings = {
 	logLevels: { 'error': true, 'warn': true, 'info': true, 'debug': false, 'deprecated': true },
@@ -120,8 +123,7 @@ Aloha.settings = {
 	}
 };
 </script>
-
-<?php if ( in_array( 'rich', $wrapped ) ) {
+<?php
 	$plugins = array(
 		'common/format',
 		'common/list',
@@ -138,7 +140,7 @@ Aloha.settings = {
 	echo html( 'script', array(
 		'src' => plugins_url( 'lib/aloha-editor/lib/aloha.js', FEE_MAIN_FILE ),
 		'data-aloha-plugins' => implode( ',', $plugins )
-	) );
+	) ) . "\n";
 }
 
 		scbUtil::do_scripts( self::$js_dependencies );
