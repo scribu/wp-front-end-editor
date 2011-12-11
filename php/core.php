@@ -128,6 +128,7 @@ Aloha.settings = {
 		'common/paste',
 		'common/block',
 		'extra/cite',
+		'fee/wpImage',
 		'fee/wpSaveCancel',
 	);
 
