@@ -22,5 +22,6 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 			)
 
 		insert: ->
-			FrontEndEditor.get_field_instance('image_rich').start_editing()
+			instance = new FrontEndEditor.fieldTypes.image_rich
+			instance.start_editing()
 	})

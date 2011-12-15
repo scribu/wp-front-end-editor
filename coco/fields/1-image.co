@@ -106,14 +106,13 @@ class FrontEndEditor.fieldTypes.thumbnail extends FrontEndEditor.fieldTypes.imag
 		$item.find('tbody tr').not('.submit').remove()
 		super ...
 
-if GENTICS?
-
+Aloha?.require( ['aloha/selection'], (Selection) ->
 	class FrontEndEditor.fieldTypes.image_rich extends FrontEndEditor.fieldTypes.image_base
 
 		button_text: FrontEndEditor.data.image?.insert
 
 		start_editing: ->
-			jQuery('#GENTICS_floatingmenu_shadow, .GENTICS_floatingmenu').hide()
+			jQuery('.aloha-floatingmenu, #aloha-floatingmenu-shadow').hide()
 			super ...
 
 		media_item_manipulation: jQuery.noop
@@ -121,11 +120,10 @@ if GENTICS?
 		image_html_handler: (html) ->
 			GENTICS.Utils.Dom.insertIntoDOM(
 				jQuery(html)
-				GENTICS.Aloha.Selection.getRangeObject()
-				jQuery(GENTICS.Aloha.activeEditable.obj)
+				Selection.getRangeObject()
+				Aloha.activeEditable.obj
 			)
 
 			tb_remove()
-			jQuery('#GENTICS_floatingmenu_shadow, .GENTICS_floatingmenu').show()
-
-
+			jQuery('.aloha-floatingmenu, #aloha-floatingmenu-shadow').show()
+)
