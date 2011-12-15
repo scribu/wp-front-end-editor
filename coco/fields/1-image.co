@@ -7,7 +7,7 @@ class FrontEndEditor.fieldTypes.image_base extends FrontEndEditor.fieldTypes.bas
 
 		jQuery('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close)
 
-		jQuery('#TB_iframeContent').load( (ev) ~>
+		jQuery('#TB_iframeContent').load (ev) ~>
 			iframe = ev.currentTarget.contentWindow
 			$thickbox = iframe.jQuery(iframe.document)
 
@@ -22,7 +22,6 @@ class FrontEndEditor.fieldTypes.image_base extends FrontEndEditor.fieldTypes.bas
 				$thickbox.ajaxComplete (event, request) ~>
 					item_id = jQuery(request.responseText).find('.media-item-info').attr('id')
 					@media_item_manipulation $thickbox.find('#' + item_id).closest('.media-item')
-		)
 
 	thickbox_load: ($thickbox) ->
 		# Submit the form to our own ajax handler, to get back the HTML
@@ -58,7 +57,7 @@ class FrontEndEditor.fieldTypes.image extends FrontEndEditor.fieldTypes.image_ba
 			.insertAfter('#TB_ajaxWindowTitle')
 
 	media_item_manipulation: ($item) ->
-		$item.find('tbody tr').not('.image-size, .submit').remove()
+		$item.find('tbody tr').not('.image-size, .submit').hide()
 		super ...
 
 	image_html_handler: (html) ->
@@ -66,7 +65,7 @@ class FrontEndEditor.fieldTypes.image extends FrontEndEditor.fieldTypes.image_ba
 		if $html.is('a')
 			$html = $html.find('img')
 
-		@ajax_set( $html.attr('src') )
+		@ajax_set $html.attr('src')
 
 	ajax_set_handler: (response) ->
 		url = response.content
@@ -96,6 +95,7 @@ class FrontEndEditor.fieldTypes.thumbnail extends FrontEndEditor.fieldTypes.imag
 	media_item_manipulation: ($item) ->
 		$item.find('tbody tr').not('.submit').remove()
 		super ...
+
 
 Aloha?.require( ['aloha/selection'], (Selection) ->
 	class FrontEndEditor.fieldTypes.image_rich extends FrontEndEditor.fieldTypes.image_base
