@@ -44,7 +44,7 @@ class FEE_Tests {
 
 		echo '<div style="overflow:hidden">';
 		echo '<strong>Editable image:</strong><br>';
-		editable_image( 'test', 'http://localhost/wp/wp-content/themes/twentyten/images/headers/fern.jpg' );
+		editable_image( 'test', 'http://wp.dev/wp-content/themes/twentyeleven/images/headers/wheel-thumbnail.jpg' );
 		echo '</div>';
 
 		if ( function_exists( 'get_the_post_thumbnail' ) ) {
