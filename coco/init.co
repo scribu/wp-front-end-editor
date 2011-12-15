@@ -13,10 +13,6 @@ get_group_button = ($container) ->
 
 		return $button
 
-	$button = $container.find '.post-edit-link'
-	if $button.length
-		return $button
-
 	return false
 
 jQuery ->
