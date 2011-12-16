@@ -96,41 +96,42 @@ class FEE_Admin extends scbBoxesPage {
 	}
 
 	function settings_box() {
+		$fields = array(
+			array(
+				'name' => 'rich',
+				'type' => 'checkbox',
+				'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
+				'wrap' => html( 'p id="fee-rich"', scbForms::TOKEN )
+			),
 
-		$out = html( 'p id="fee-rich"', $this->input( array(
-			'name' => 'rich',
-			'type' => 'checkbox',
-			'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
-		) ) );
+			array(
+				'name' => 'group_post',
+				'type' => 'checkbox',
+				'desc' => __( 'Edit all post fields at once.', $this->textdomain ),
+				'wrap' => html( 'p id="fee-group-post"', scbForms::TOKEN )
+			),
 
-		$out .= html( 'p id="fee-group-post"', $this->input( array(
-			'name' => 'group_post',
-			'type' => 'checkbox',
-			'desc' => __( 'Edit all post fields at once.', $this->textdomain ),
-		) ) );
+			array(
+				'name' => 'group_post_button',
+				'type' => 'checkbox',
+				'desc' => __( 'Begin editing using existing edit link (experimental).', $this->textdomain ),
+				'wrap' => html( 'p id="fee-group-post-button"', scbForms::TOKEN )
+			),
 
-		$out .= html( 'p id="fee-group-post-button"', $this->input( array(
-			'name' => 'group_post_button',
-			'type' => 'checkbox',
-			'desc' => __( 'Begin editing using existing edit link (experimental).', $this->textdomain ),
-		) ) );
-
-		$out .= html( 'p id="fee-taxonomy-ui"',
-			__( 'To edit categories, use a:', $this->textdomain ),
-			' ',
-			$this->input( array(
+			array(
 				'name' => 'taxonomy_ui',
 				'type' => 'radio',
 				'values' => array(
-					'termselect',
-					'terminput',
+					'termselect' => __( 'dropdown', $this->textdomain ),
+					'terminput' => __( 'text field', $this->textdomain ),
 				),
-				'desc' => array(
-					__( 'dropdown', $this->textdomain ),
-					__( 'text field', $this->textdomain ),
-				)
-			) )
+				'desc' => __( 'To edit categories, use a:', $this->textdomain ),
+				'desc_pos' => 'before',
+				'wrap' => html( 'p id="fee-taxonomy-ui"', scbForms::TOKEN )
+			)
 		);
+
+		$out = implode( ' ', array_map( array( $this, 'input' ), $fields ) );
 
 		echo $this->form_wrap( $out, '', 'save_settings' );
 	}
