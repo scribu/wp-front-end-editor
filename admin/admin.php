@@ -17,7 +17,8 @@ class FEE_Admin extends scbBoxesPage {
 	}
 
 	function page_head() {
-		wp_enqueue_style( 'fee-admin', $this->plugin_url . "admin/admin.css", array(), '2.0-alpha' );
+		wp_enqueue_style( 'fee-admin', $this->plugin_url . 'admin/admin.css', array(), FEE_VERSION );
+		wp_enqueue_script( 'fee-admin', $this->plugin_url . 'admin/admin.js', array( 'jquery' ), FEE_VERSION, true );
 	}
 
 	function fields_handler() {
@@ -86,6 +87,7 @@ class FEE_Admin extends scbBoxesPage {
 
 		$this->options->rich = isset( $_POST['rich'] );
 		$this->options->group_post = isset( $_POST['group_post'] );
+		$this->options->group_post_button = $this->options->group_post && isset( $_POST['group_post_button'] );
 
 		if ( in_array( $_POST['taxonomy_ui'], array( 'termselect', 'terminput' ) ) )
 			$this->options->taxonomy_ui = $_POST['taxonomy_ui'];
@@ -95,19 +97,25 @@ class FEE_Admin extends scbBoxesPage {
 
 	function settings_box() {
 
-		$out = html( 'p', $this->input( array(
+		$out = html( 'p id="fee-rich"', $this->input( array(
 			'name' => 'rich',
 			'type' => 'checkbox',
 			'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
 		) ) );
 
-		$out .= html( 'p', $this->input( array(
+		$out .= html( 'p id="fee-group-post"', $this->input( array(
 			'name' => 'group_post',
 			'type' => 'checkbox',
 			'desc' => __( 'Edit all post fields at once.', $this->textdomain ),
 		) ) );
 
-		$out .= html( 'p',
+		$out .= html( 'p id="fee-group-post-button"', $this->input( array(
+			'name' => 'group_post_button',
+			'type' => 'checkbox',
+			'desc' => __( 'Begin editing using existing edit link (experimental).', $this->textdomain ),
+		) ) );
+
+		$out .= html( 'p id="fee-taxonomy-ui"',
 			__( 'To edit categories, use a:', $this->textdomain ),
 			' ',
 			$this->input( array(

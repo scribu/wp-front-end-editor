@@ -28,3 +28,8 @@
 #fields .submit {
 	clear: both !important;
 }
+
+#fee-group-post-button {
+	padding-left: 19px;
+}
+
