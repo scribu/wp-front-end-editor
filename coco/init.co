@@ -18,8 +18,8 @@ get_group_button = ($container) ->
 jQuery ->
 
 	# Text widget fields hack
-	jQuery('[data-filter="widget_title"], [data-filter="widget_text"]').each ->
-		$el = jQuery(this)
+	for el of jQuery('[data-filter="widget_title"], [data-filter="widget_text"]')
+		$el = jQuery(el)
 		$widget = $el.closest('.widget_text')
 
 		if $widget.length
@@ -29,8 +29,8 @@ jQuery ->
 			$el.unwrap()
 
 	# Create group instances
-	jQuery('.fee-group').each ->
-		$container = jQuery(this)
+	for el of jQuery('.fee-group')
+		$container = jQuery(el)
 		$elements = $container.find('.fee-field').removeClass('fee-field')
 
 		if !$elements.length
@@ -50,11 +50,10 @@ jQuery ->
 			$container.bind {
 				edit_start: (ev) ->
 					$button.addClass 'fee-disabled'
-
 					ev.stopPropagation()
+
 				edit_stop: (ev) ->
 					$button.removeClass 'fee-disabled'
-
 					ev.stopPropagation()
 			}
 		else
