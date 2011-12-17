@@ -36,7 +36,11 @@ jQuery ->
 		if !$elements.length
 			return
 
-		editors = (FrontEndEditor.make_editable(el) for el of $elements)
+		editors =
+			for el of $elements
+				editor = FrontEndEditor.make_editable(el)
+				editor.part_of_group = true
+				editor
 
 		fieldType = if $container.hasClass 'status-auto-draft' then 'createPost' else 'group'
 

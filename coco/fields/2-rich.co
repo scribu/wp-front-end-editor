@@ -30,9 +30,10 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 		@form.aloha()
 
-		# hack to get the floating menu to show up immediately
-		@form.focus()
-		@form.dblclick()
+		if not @part_of_group
+			# hack to get the floating menu to show up immediately
+			@form.focus()
+			@form.dblclick()
 
 	# Copied from wp-admin/js/editor.dev.js (_wp_Nop)
 	cleanup: (content) ->
