@@ -14,6 +14,41 @@ class FEE_Admin extends scbBoxesPage {
 			array( 'fields', __( 'Fields', $this->textdomain ), 'normal' ),
 			array( 'settings', __( 'Settings', $this->textdomain ), 'side' ),
 		);
+
+		$this->settings_fields = array(
+			array(
+				'name' => 'rich',
+				'type' => 'checkbox',
+				'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
+				'wrap' => html( 'p id="fee-rich"', scbForms::TOKEN )
+			),
+
+			array(
+				'name' => 'group_post',
+				'type' => 'checkbox',
+				'desc' => __( 'Edit all post fields at once.', $this->textdomain ),
+				'wrap' => html( 'p id="fee-group-post"', scbForms::TOKEN )
+			),
+
+			array(
+				'name' => 'group_post_button',
+				'type' => 'checkbox',
+				'desc' => __( 'Begin editing using existing edit link (experimental).', $this->textdomain ),
+				'wrap' => html( 'p id="fee-group-post-button"', scbForms::TOKEN )
+			),
+
+			array(
+				'name' => 'taxonomy_ui',
+				'type' => 'radio',
+				'values' => array(
+					'termselect' => __( 'dropdown', $this->textdomain ),
+					'terminput' => __( 'text field', $this->textdomain ),
+				),
+				'desc' => __( 'To edit categories, use a:', $this->textdomain ),
+				'desc_pos' => 'before',
+				'wrap' => html( 'p id="fee-taxonomy-ui"', scbForms::TOKEN )
+			)
+		);
 	}
 
 	function page_head() {
@@ -85,53 +120,18 @@ class FEE_Admin extends scbBoxesPage {
 		if ( !isset( $_POST['save_settings'] ) )
 			return;
 
-		$this->options->rich = isset( $_POST['rich'] );
-		$this->options->group_post = isset( $_POST['group_post'] );
-		$this->options->group_post_button = $this->options->group_post && isset( $_POST['group_post_button'] );
+		$to_update = scbForms::validate_post_data( $this->settings_fields );
 
-		if ( in_array( $_POST['taxonomy_ui'], array( 'termselect', 'terminput' ) ) )
-			$this->options->taxonomy_ui = $_POST['taxonomy_ui'];
+		if ( !$to_update['group_post'] )
+			$to_update['group_post_button'] = false;
+
+		$this->options->update( $to_update );
 
 		$this->admin_msg();
 	}
 
 	function settings_box() {
-		$fields = array(
-			array(
-				'name' => 'rich',
-				'type' => 'checkbox',
-				'desc' => __( 'Enable the WYSIWYG editor.', $this->textdomain ),
-				'wrap' => html( 'p id="fee-rich"', scbForms::TOKEN )
-			),
-
-			array(
-				'name' => 'group_post',
-				'type' => 'checkbox',
-				'desc' => __( 'Edit all post fields at once.', $this->textdomain ),
-				'wrap' => html( 'p id="fee-group-post"', scbForms::TOKEN )
-			),
-
-			array(
-				'name' => 'group_post_button',
-				'type' => 'checkbox',
-				'desc' => __( 'Begin editing using existing edit link (experimental).', $this->textdomain ),
-				'wrap' => html( 'p id="fee-group-post-button"', scbForms::TOKEN )
-			),
-
-			array(
-				'name' => 'taxonomy_ui',
-				'type' => 'radio',
-				'values' => array(
-					'termselect' => __( 'dropdown', $this->textdomain ),
-					'terminput' => __( 'text field', $this->textdomain ),
-				),
-				'desc' => __( 'To edit categories, use a:', $this->textdomain ),
-				'desc_pos' => 'before',
-				'wrap' => html( 'p id="fee-taxonomy-ui"', scbForms::TOKEN )
-			)
-		);
-
-		$out = implode( ' ', array_map( array( $this, 'input' ), $fields ) );
+		$out = implode( ' ', array_map( array( $this, 'input' ), $this->settings_fields ) );
 
 		echo $this->form_wrap( $out, '', 'save_settings' );
 	}
