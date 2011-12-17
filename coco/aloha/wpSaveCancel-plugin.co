@@ -48,9 +48,8 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 			@cancel()
 
 		cancel: ->
-			FrontEndEditor.current_field.form.mahalo()
-
-			FloatingMenu.refreshShadow()
-
 			FrontEndEditor.current_field.remove_form()
+
+			# hotfix for bug in .mahalo()
+			FloatingMenu.refreshShadow()
 	})
