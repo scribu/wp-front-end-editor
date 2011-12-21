@@ -38,10 +38,6 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 				4
 			)
 
-			# hotfix for floating menu being hidden after calling .mahalo()
-			Aloha.bind 'aloha-editable-created', (event, editable) ->
-				FloatingMenu.obj.show()
-
 		save: ->
 			FrontEndEditor.current_field.ajax_set()
 
@@ -49,7 +45,4 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 
 		cancel: ->
 			FrontEndEditor.current_field.remove_form()
-
-			# hotfix for bug in .mahalo()
-			FloatingMenu.refreshShadow()
 	})

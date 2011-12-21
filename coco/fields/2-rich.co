@@ -5,6 +5,9 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 	create_input: jQuery.noop
 
+	create_form: ->
+		@form = Aloha.jQuery '<div class="fee-form fee-type-rich">'
+
 	remove_form: ->
 		@form.mahalo()
 

@@ -111,7 +111,6 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 var Aloha = {};
 Aloha.settings = {
 	logLevels: { 'error': true, 'warn': true, 'info': true, 'debug': false, 'deprecated': true },
-	jQuery: jQuery,
 	bundles: {
 		fee: '../../../aloha-plugins'
 	},
