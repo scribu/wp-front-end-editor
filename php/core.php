@@ -255,7 +255,7 @@ Aloha.settings = {
 			}
 
 			if ( isset( $_POST['createPost'] ) ) {
-				$post_id = $data[0]['post_id'];
+				$post_id = $_POST['commonData']['post_id'];
 				wp_publish_post( $post_id );
 				$r = array( 'permalink' => get_permalink( $post_id ) );
 			}
