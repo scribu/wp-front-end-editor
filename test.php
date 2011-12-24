@@ -1,64 +1,60 @@
 <?php
+// Template Name: FEE Debug
 
-// Acceptance test. Just drop this file into your mu-plugins folder.
+get_header();
 
-class FEE_Tests {
+function fee_test_input_types() {
+	echo '<strong>Input post meta:</strong><br>';
+	echo html( 'div', editable_post_meta(get_the_ID(), 'price', 'input', false ) );
 
-	function init() {
-		if ( !function_exists( 'editable_image' ) )
-			return;
+	echo '<strong>Rich post meta:</strong><br>';
+	echo wpautop( editable_post_meta(get_the_ID(), 'degrees', 'rich', false ) );
 
-		add_action( 'loop_start', array( __CLASS__, 'input_types' ) );
-		add_action( 'template_redirect', array( __CLASS__, 'create_post' ) );
-	}
+	echo '<strong>Dropdown post meta:</strong><br>';
+	echo html( 'div', editable_post_meta( get_the_ID(), 'my_key', array(
+		'type' => 'select',
+		'values' => array(
+			'val_1' => 'Title 1',
+			'val_2' => 'Title 2'
+		),
+		false
+	) ) );
 
-	function input_types( $wp_query ) {
-		if ( $wp_query !== $GLOBALS['wp_the_query'] )
-			return;
+	echo '<strong>Input option:</strong><br>';
+	echo html( 'div', editable_option( array(
+		'key' => 'price',
+		'type' => 'input',
+		'echo' => false
+	) ) );
 
-		echo '<strong>Input post meta:</strong><br>';
-		echo html( 'div', editable_post_meta(get_the_ID(), 'price', 'input', false ) );
+	echo '<strong>Post excerpt:</strong><br>';
+	the_excerpt();
 
-		echo '<strong>Rich post meta:</strong><br>';
-		echo wpautop( editable_post_meta(get_the_ID(), 'degrees', 'rich', false ) );
+	echo '<div style="overflow:hidden">';
+	echo '<strong>Editable image:</strong><br>';
+	editable_image( 'test', 'http://wp.dev/wp-content/themes/twentyeleven/images/headers/wheel-thumbnail.jpg' );
+	echo '</div>';
 
-		echo '<strong>Dropdown post meta:</strong><br>';
-		echo html( 'div', editable_post_meta( get_the_ID(), 'my_key', array(
-			'type' => 'select',
-			'values' => array(
-				'val_1' => 'Title 1',
-				'val_2' => 'Title 2'
-			),
-			false
-		) ) );
-
-		echo '<strong>Input option:</strong><br>';
-		echo html( 'div', editable_option( array(
-			'key' => 'price',
-			'type' => 'input',
-			'echo' => false
-		) ) );
-
-		echo '<strong>Post excerpt:</strong><br>';
-		the_excerpt();
-
-		echo '<div style="overflow:hidden">';
-		echo '<strong>Editable image:</strong><br>';
-		editable_image( 'test', 'http://wp.dev/wp-content/themes/twentyeleven/images/headers/wheel-thumbnail.jpg' );
-		echo '</div>';
-
-		if ( function_exists( 'get_the_post_thumbnail' ) ) {
-			echo '<strong>Post thumbnail:</strong><br>';
-			echo get_the_post_thumbnail( get_the_ID() );
-		}
-	}
-
-	function create_post() {
-		if ( is_page('create-post') ) {
-			fee_inject_dummy_post();
-		}
+	if ( function_exists( 'get_the_post_thumbnail' ) ) {
+		echo '<strong>Post thumbnail:</strong><br>';
+		echo get_the_post_thumbnail( get_the_ID() );
 	}
 }
 
-add_action( 'init', array( 'FEE_Tests', 'init' ) );
+fee_inject_dummy_post();
+?>
+		<div id="primary">
+			<div id="content" role="main">
 
+				<?php while ( have_posts() ) : the_post(); ?>
+
+					<?php get_template_part( 'content', 'page' ); ?>
+
+					<?php fee_test_input_types(); ?>
+
+				<?php endwhile; // end of the loop. ?>
+
+			</div><!-- #content -->
+		</div><!-- #primary -->
+
+<?php get_footer(); ?>
