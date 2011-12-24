@@ -68,6 +68,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 * prevent warnings caused by faulty widgets
 * update to Aloha 0.20
 * switch to Coco
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-2-2.html)
 
 = 2.1.3 =
 * fix widget warning
