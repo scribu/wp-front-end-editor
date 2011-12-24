@@ -38,10 +38,6 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 2. See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
 3. Check for JavaScript errors. [Firebug](http://getfirebug.com/) is a great tool for this.
 
-= Can you add the ability to create posts, instead of just editing? =
-
-No, because there are [several plugins](http://wordpress.org/support/topic/front-end-custom-form-to-post?replies=5#post-1584286) for that already.
-
 = Can you change the wysiwyg editor to TinyMCE? =
 
 No, because TinyMCE is anything but tiny and would take a long time to load.
