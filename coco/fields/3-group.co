@@ -2,7 +2,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 	(@el, @editors) ->
 		@has_aloha = false
 
-		if Aloha
+		if Aloha?
 			for editor of @editors
 				if 'rich' == editor.get_type()
 					@has_aloha = true
