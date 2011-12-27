@@ -26,7 +26,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-define( 'FEE_VERSION', '2.2' );
+define( 'FEE_VERSION', '2.2.1-alpha' );
 define( 'ALOHA_VERSION', '0.20.0-RC9' );
 
 define( 'FEE_MAIN_FILE', __FILE__ );
