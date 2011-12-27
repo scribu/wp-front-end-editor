@@ -1,7 +1,12 @@
 class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 	content_from_input: ->
-		@cleanup Aloha.getEditableById(@form.attr('id')).getContents()
+		content = Aloha.getEditableById(@form.attr('id')).getContents()
+
+		if FrontEndEditor.data.rich_clean
+			@cleanup content
+		else
+			content
 
 	create_input: jQuery.noop
 
