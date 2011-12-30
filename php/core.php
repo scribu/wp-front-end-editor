@@ -44,7 +44,6 @@ abstract class FEE_Core {
 			'save_text' => __( 'Save', 'front-end-editor' ),
 			'cancel_text' => __( 'Cancel', 'front-end-editor' ),
 
-			'rich_clean' => apply_filters( 'fee_rich_clean', true ),
 			'add_buttons' => current_theme_supports( 'fee-automatic-buttons' ),
 
 			'spinner' => admin_url( 'images/loading.gif' ),
