@@ -1,6 +1,7 @@
 === Front-end Editor ===
 Contributors: scribu, Jotschi
 Tags: inline, editor, edit-in-place, visual, wysiwyg
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WB35NBVGWMS3E&item_name=Front-end%20Editor
 Requires at least: 3.2
 Tested up to: 3.3
 Stable tag: 2.2
@@ -22,6 +23,10 @@ You can edit posts, pages, custom post types, comments, widgets and many [more e
 Links: [**Documentation**](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 
 Additional icons by [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/).
+
+== Installation ==
+
+See http://codex.wordpress.org/Managing_Plugins#Installing_Plugins
 
 == Frequently Asked Questions ==
 
