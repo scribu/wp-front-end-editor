@@ -271,11 +271,11 @@ Aloha.settings = {
 
 		// Is the current field defined?
 		if ( !$instance = self::$instances[ $filter ] )
-			die( -1 );
+			return array( 'error' => __( 'Undefined field', 'front-end-editor' ) );
 
 		// Does the user have the right to do this?
 		if ( !$instance->check( $data ) || !$instance->allow( $data ) )
-			die( -1 );
+			return array( 'error' => __( 'Insufficient permissions', 'front-end-editor' ) );
 
 		$args = self::get_args( $filter );
 
