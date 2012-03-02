@@ -3,6 +3,7 @@ lib/aloha-editor/test/
 lib/aloha-editor/build.txt
 lib/mustache/examples
 lib/mustache/test
+lib/mustache/bin
 lib/less
 coco
 js
