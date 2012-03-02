@@ -130,6 +130,7 @@ Aloha.settings = {
 <?php
 	$plugins = array(
 		'common/format',
+		'common/align',
 		'common/list',
 		'common/link',
 		'common/table',
