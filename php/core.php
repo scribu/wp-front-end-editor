@@ -137,6 +137,7 @@ Aloha.settings = {
 		'common/undo',
 		'common/paste',
 		'common/block',
+		'common/highlighteditables',
 		'extra/cite',
 		'fee/wpImage',
 		'fee/wpSaveCancel',
