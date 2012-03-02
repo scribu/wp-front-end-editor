@@ -63,11 +63,17 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 == Changelog ==
 
+= 2.2.1 =
+* update to Aloha 0.20.6
+* enable align buttons in Aloha
+* enable highlighting of elements editable by Aloha
+* add 'fee_rich_clean' filter
+
 = 2.2 =
 * introduce groups of editable elements
 * introduced fee_insert_dummy_post() for creating posts
 * prevent warnings caused by faulty widgets
-* update to Aloha 0.20
+* update to Aloha 0.20.0
 * switch to Coco
 * [more info](http://scribu.net/wordpress/front-end-editor/fee-2-2.html)
 
