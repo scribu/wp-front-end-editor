@@ -20,9 +20,12 @@ Front-end Editor is a plugin that lets you make changes to your content *directl
 
 You can edit posts, pages, custom post types, comments, widgets and many [more elements](http://github.com/scribu/wp-front-end-editor/wiki/List-of-editable-elements).
 
-Links: [**Documentation**](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
+Credits:
 
-Additional icons by [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/).
+* [Aloha Editor](http://alohae-ditor.org) for the fantastic WYSIWYG editing component
+* [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for additional icons
+
+Links: [**Documentation**](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 
 == Installation ==
 
