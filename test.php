@@ -27,6 +27,18 @@ function fee_test_input_types() {
 		'echo' => false
 	) ) );
 
+	echo '<strong>Dropdown option:</strong><br>';
+	echo html( 'div', editable_option( array(
+		'key' => 'country',
+		'type' => 'select',
+		'values' => array(
+			'fr' => 'France',
+			'it' => 'Italy',
+			'ch' => 'China',
+		),
+		'echo' => false
+	) ) );
+
 	echo '<strong>Post excerpt:</strong><br>';
 	the_excerpt();
 
