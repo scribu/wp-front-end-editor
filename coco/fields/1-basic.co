@@ -140,7 +140,7 @@ class FrontEndEditor.fieldTypes.select extends FrontEndEditor.fieldTypes.input
 			@input.append(jQuery('<option>',
 				value: value
 				html: title
-				selected: if content === value then 'selected' else ''
+				selected: content === value
 			))
 
 	content_from_input: ->
