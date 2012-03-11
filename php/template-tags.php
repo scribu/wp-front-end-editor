@@ -33,21 +33,22 @@ function get_editable_post_meta( $post_id, $key, $ui = 'input', $single = false 
  * - 'key' (string) The option key
  * - 'theme_option' (bool) Wether it's arbitrary theme text, or a core site option like 'description' or 'time_format'
  * - 'default' (mixed) The default value
- * - 'ui' (string|array) The type of UI.
+ * - 'type' (string|array) The type of UI.
  * - 'echo' (bool) Wether to echo or return the result
  */
 function editable_option( $args ) {
 	if ( !is_array( $args ) ) {
 		_deprecated_argument( __FUNCTION__, '1.9.5', 'Passing individual arguments is deprecated. Use an associative array of arguments instead.' );
 		$argv = func_get_args();
-		$args = scbUtil::numeric_to_assoc( $argv, array( 'key', 'theme_option', 'ui', 'echo' ) );
+		$args = scbUtil::numeric_to_assoc( $argv, array( 'key', 'theme_option', 'type', 'echo' ) );
 	}
 
 	extract( wp_parse_args( $args, array(
 		'key' => '',
 		'theme_option' => true,
 		'default' => false,
-		'ui' => 'input',
+		'type' => 'input',
+		'values' => array(),
 		'echo' => true
 	) ) );
 
@@ -57,7 +58,7 @@ function editable_option( $args ) {
 	if ( $theme_option )
 		$key = "editable_option_$key";
 
-	$output = apply_filters( 'editable_option', get_option( $key, $default ), $key, $ui );
+	$output = apply_filters( 'editable_option', get_option( $key, $default ), $key, compact( 'type', 'values' ) );
 
 	if ( $echo )
 		echo $output;
