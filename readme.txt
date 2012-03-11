@@ -71,6 +71,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 * enable align buttons in Aloha
 * enable highlighting of elements editable by Aloha
 * add 'fee_rich_clean' filter
+* fix 'type' parameter for editable_option()
 
 = 2.2 =
 * introduce groups of editable elements
