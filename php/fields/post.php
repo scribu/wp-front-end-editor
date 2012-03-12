@@ -79,18 +79,6 @@ abstract class FEE_Field_Post extends FEE_Field_Base {
 			$this->field => $content
 		);
 
-		// reset slug
-		if ( $this->field == 'post_title' ) {
-			$current_slug = get_post_field( 'post_name', $post_id );
-			$current_title = get_post_field( 'post_title', $post_id );
-
-			// update only if not explicitly set
-			if ( empty( $current_slug ) || $current_slug == sanitize_title_with_dashes( $current_title ) ) {
-				$new_slug = sanitize_title_with_dashes( $content );
-				$postdata['post_name'] = $new_slug;
-			}
-		}
-
 		wp_update_post( (object) $postdata );
 	}
 
