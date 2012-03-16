@@ -1,0 +1,196 @@
+# Copyright (C) 2012 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
+"POT-Creation-Date: 2012-03-11 23:34:37+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2012-03-16 18:35+0100\n"
+"Last-Translator: Klemen Tušar <techouse@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: admin/admin.php:9
+msgid "Front-end Editor"
+msgstr "Front-end urejevalnik"
+
+#: admin/admin.php:14
+msgid "Fields"
+msgstr "Polja"
+
+#: admin/admin.php:15
+#: lib/scb/AdminPage.php:360
+msgid "Settings"
+msgstr "Nastavitve"
+
+#: admin/admin.php:22
+msgid "Enable the WYSIWYG editor."
+msgstr "Omogoči WYSIWYG urejevalnik"
+
+#: admin/admin.php:29
+msgid "Edit all post fields at once."
+msgstr "Uredi vsa polja hkrati"
+
+#: admin/admin.php:36
+msgid "Begin editing using existing edit link (experimental)."
+msgstr "Začni urejati s pomočjo obsoječe povezave za urejanje (eksperimentalno)."
+
+#: admin/admin.php:44
+msgid "dropdown"
+msgstr "supstno polje (dropdown)"
+
+#: admin/admin.php:45
+msgid "text field"
+msgstr "tekstovno polje"
+
+#: admin/admin.php:47
+msgid "To edit categories, use a:"
+msgstr "Za urejanje kategorij uporabi:"
+
+#: admin/admin.php:82
+msgid "Enable or disable editable fields:"
+msgstr "Omogoči ali onemogoči možnost urejanja polj:"
+
+#: admin/admin.php:84
+msgid "Post fields"
+msgstr "Polja v prispevku"
+
+#: admin/admin.php:85
+msgid "Other fields"
+msgstr "Ostala polja"
+
+#: front-end-editor.php:75
+msgid "Title"
+msgstr "Naslov"
+
+#: front-end-editor.php:82
+msgid "Content"
+msgstr "Vsebina"
+
+#: front-end-editor.php:88
+msgid "Excerpt"
+msgstr "Izvleček"
+
+#: front-end-editor.php:94
+msgid "Custom fields"
+msgstr "Polja po meri"
+
+#: front-end-editor.php:100
+msgid "Thumbnail"
+msgstr "Sličica (thumbnail)"
+
+#: front-end-editor.php:108
+msgid "Categories"
+msgstr "Kategorije"
+
+#: front-end-editor.php:114
+msgid "Tags"
+msgstr "Oznake"
+
+#: front-end-editor.php:120
+msgid "Terms"
+msgstr "Izrazi (terms)"
+
+#: front-end-editor.php:127
+msgid "Text widget title"
+msgstr "Naslov tekstovnega gradnika (widget)"
+
+#: front-end-editor.php:134
+msgid "Text widget content"
+msgstr "Vsebina tekstovnega gradnika (widget)"
+
+#: front-end-editor.php:141
+msgid "Other widgets"
+msgstr "Ostali gradniki"
+
+#: front-end-editor.php:148
+msgid "Comment text"
+msgstr "Besedilo komentarja"
+
+#: front-end-editor.php:154
+msgid "Category title"
+msgstr "Naslov kategorije"
+
+#: front-end-editor.php:159
+msgid "Tag title"
+msgstr "Naslov oznake"
+
+#: front-end-editor.php:164
+msgid "Term title"
+msgstr "Naslov izraza (term)"
+
+#: front-end-editor.php:169
+msgid "Term description"
+msgstr "Opis izraza (term)"
+
+#: front-end-editor.php:176
+msgid "Author description"
+msgstr "Opis avtorja"
+
+#: front-end-editor.php:183
+msgid "Site title and description"
+msgstr "Naslov in opis strani"
+
+#: front-end-editor.php:189
+msgid "Site options"
+msgstr "Možnosti strani"
+
+#: front-end-editor.php:195
+msgid "Theme images"
+msgstr "Slike teme"
+
+#: lib/scb/AdminPage.php:172
+msgid "Settings <strong>saved</strong>."
+msgstr "Nastavitve <strong>shranjene</strong>."
+
+#: lib/scb/AdminPage.php:185
+#: lib/scb/AdminPage.php:196
+msgid "Save Changes"
+msgstr "Shrani spremembe"
+
+#: php/core.php:43
+msgid "Edit"
+msgstr "Uredi"
+
+#: php/core.php:44
+msgid "Save"
+msgstr "Shrani"
+
+#: php/core.php:45
+msgid "Cancel"
+msgstr "Prekliči"
+
+#: php/core.php:70
+msgid "Change Image"
+msgstr "Zamenjaj sliko"
+
+#: php/core.php:71
+msgid "Insert Image"
+msgstr "Vstavi sliko"
+
+#: php/core.php:72
+msgid "Clear"
+msgstr "Počisti"
+
+#: php/core.php:276
+msgid "Undefined field"
+msgstr "Nedefinirano polje"
+
+#: php/core.php:280
+msgid "Insufficient permissions"
+msgstr "Nezadostna dovoljenja"
+
+#: php/fields/base.php:138
+msgid "empty"
+msgstr "prazno"
+
+#: php/fields/post.php:116
+msgid "Error: %s is currently editing this."
+msgstr "Napaka: %s trenutno ureja ta predmet."
+
+#: php/fields/post.php:244
+msgid "&mdash; None &mdash;"
+msgstr "&mdash; Brez &mdash;"
+
