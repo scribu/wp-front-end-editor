@@ -81,7 +81,7 @@ FrontEndEditor <<<
 			$elements = $container.find('.fee-field').removeClass('fee-field')
 
 			if !$elements.length
-				return
+				continue
 
 			editors =
 				for el of $elements
