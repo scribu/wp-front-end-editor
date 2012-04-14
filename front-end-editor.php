@@ -27,7 +27,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
 define( 'FEE_VERSION', '2.2.2-alpha' );
-define( 'ALOHA_VERSION', '0.20.6' );
+define( 'ALOHA_VERSION', '0.20.8' );
 
 define( 'FEE_MAIN_FILE', __FILE__ );
 
