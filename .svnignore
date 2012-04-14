@@ -5,7 +5,7 @@ lib/mustache/examples
 lib/mustache/test
 lib/mustache/bin
 lib/less
-coco
+coffee
 js
 less
 css
