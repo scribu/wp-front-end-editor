@@ -11,10 +11,10 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 	remove_form: ->
 		@form.mahalo()
 
-		super ...
+		super
 
 	start_editing: (ev) ->
-		super ...
+		super
 
 		FrontEndEditor.current_field = this
 

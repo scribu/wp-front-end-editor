@@ -1,6 +1,6 @@
 class FrontEndEditor.fieldTypes.terminput extends FrontEndEditor.fieldTypes.input
 	content_to_input: (content) ->
-		super ...
+		super
 
 		@input.suggest FrontEndEditor.data.ajax_url + '?action=ajax-tag-search&tax=' + @data.taxonomy, {
 			multiple     : true

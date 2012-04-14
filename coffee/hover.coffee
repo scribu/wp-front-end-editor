@@ -1,13 +1,12 @@
 FrontEndEditor.hover_init = do ->
-	get_dims = ($el) ->
-		return
-			'width': $el.width()
-			'height': $el.height()
+	get_dims = ($el) -> {
+		'width': $el.width()
+		'height': $el.height()
+	}
 
 	HOVER_BORDER = 2
 	HOVER_PADDING = 2
-	hover_lock = false
-	hover_timeout = void
+	hover = { lock: false, timeout: null }
 
 	# Init hover border
 	hover_border = jQuery('<div>')
@@ -20,9 +19,9 @@ FrontEndEditor.hover_init = do ->
 		'class': 'fee-hover-edit'
 		'html': FrontEndEditor.data.edit_text
 		'mouseover': ->
-			hover_lock := true
+			hover.lock = true
 		'mouseout': ->
-			hover_lock := false
+			hover.lock = false
 			hover_hide()
 	).hide().appendTo('body')
 
@@ -35,12 +34,12 @@ FrontEndEditor.hover_init = do ->
 		hover_border.hide()
 
 	hover_hide = ->
-		hover_timeout := setTimeout(->
-			if hover_lock
+		hover.timeout = setTimeout ->
+			if hover.lock
 				return
 
 			hover_hide_immediately()
-		, 300)
+		, 300
 
 	hover_show = (callback) ->
 		$self = jQuery(this)
@@ -52,7 +51,7 @@ FrontEndEditor.hover_init = do ->
 			$self.css('display', 'block')
 			dims = get_dims($self)
 
-		clearTimeout(hover_timeout)
+		clearTimeout(hover.timeout)
 
 		hover_box.unbind('click')
 

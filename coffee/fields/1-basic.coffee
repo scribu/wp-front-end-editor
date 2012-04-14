@@ -15,13 +15,13 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@save_button = jQuery('<button>',
 			'class': 'fee-form-save'
 			'text' : FrontEndEditor.data.save_text
-			'click': this.~submit_form
+			'click': jQuery.proxy(this, 'submit_form')
 		)
 
 		@cancel_button = jQuery('<button>',
 			'class': 'fee-form-cancel'
 			'text' : FrontEndEditor.data.cancel_text
-			'click': this.~remove_form
+			'click': jQuery(this, 'remove_form')
 		)
 
 		@form
@@ -35,7 +35,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			.addClass('fee-form')
 			.addClass('fee-type-' + @get_type())
 
-		@form.keypress(this.~keypress)
+		@form.keypress(jQuery(this, 'keypress'))
 
 	remove_form: ->
 		@form.remove()
@@ -52,12 +52,12 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 	keypress: (ev) ->
 		keys = {ENTER: 13, ESCAPE: 27}
-		code = ev.keyCode || ev.which || ev.charCode || 0
+		code = ev.keyCode or ev.which or ev.charCode or 0
 
-		if code === keys.ENTER && 'input' === @get_type()
+		if code is keys.ENTER and 'input' is @get_type()
 			@save_button.click()
 
-		if code === keys.ESCAPE
+		if code is keys.ESCAPE
 			@cancel_button.click()
 
 	create_input: ->
@@ -79,12 +79,12 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 	ajax_get: ->
 		FrontEndEditor.overlay.cover(@el)
-		super ...
+		super
 
 	ajax_set_args: (contentData) ->
 		FrontEndEditor.overlay.cover(@form)
 
-		if 0 == arguments.length
+		if 0 is arguments.length
 			contentData = @content_from_input()
 
 		super contentData
@@ -140,7 +140,7 @@ class FrontEndEditor.fieldTypes.select extends FrontEndEditor.fieldTypes.input
 			@input.append(jQuery('<option>',
 				value: value
 				html: title
-				selected: content === value
+				selected: content is value
 			))
 
 	content_from_input: ->

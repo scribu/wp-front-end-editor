@@ -1,10 +1,10 @@
 class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
-	(@el, @editors) ->
+	constructor: (@el, @editors) ->
 		@has_aloha = false
 
 		if Aloha?
-			for editor of @editors
-				if 'rich' == editor.get_type()
+			for editor in @editors
+				if 'rich' is editor.get_type()
 					@has_aloha = true
 					return
 
@@ -21,54 +21,54 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 		false
 
 	create_form: ->
-		for editor of @editors
+		for editor in @editors
 			editor.create_form()
 			editor.create_input()
 
-		super ...
+		super
 
 		@el.append @form
 
 	remove_form: (ev) ->
-		for editor of @editors
+		for editor in @editors
 			editor.remove_form()
 
-		super ...
+		super
 
 	content_from_input: ->
-		(editor.content_from_input() for editor of @editors)
+		(editor.content_from_input() for editor in @editors)
 
 	keypress: jQuery.noop
 
 	ajax_set: ->
-		super ...
+		super
 
 		FrontEndEditor.overlay.cover @el
 
 	ajax_args: ->
-		args = super ...
+		args = super
 
 		args.group = true
 
-		dataArr = (editor.data for editor of @editors)
+		dataArr = (editor.data for editor in @editors)
 
-		if dataArr.length == 1
+		if dataArr.length is 1
 			args.data = dataArr
 		else
 			# copy all properties from first field
-			commonData = {...dataArr[0]}
+			commonData = jQuery.extend {}, dataArr[0]
 
 			# keep only common props
-			for i from 1 to dataArr.length-1
-				for own key, value in commonData
-					if value !== dataArr[i][key]
+			for i in [1...dataArr.length-1]
+				for own key, value of commonData
+					if value isnt dataArr[i][key]
 						delete commonData[key]
 
 			# construct new dataArr with only the distinct props
 			args.data =
-				for data of dataArr
+				for data in dataArr
 					item = {}
-					for own key in data
+					for own key of data
 						if key not in commonData
 							item[key] = data[key]
 					item
@@ -78,13 +78,13 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 		args
 
 	ajax_get_handler: (response) ->
-		for editor, i of @editors
+		for editor, i in @editors
 			editor.ajax_get_handler response[i]
 
 		@editors[0].input?.focus()
 
 	ajax_set_handler: (response) ->
-		for editor, i of @editors
+		for editor, i in @editors
 			editor.ajax_set_handler response[i]
 
 		@remove_form()

@@ -2,21 +2,21 @@
 extract_data_attr = (el) ->
 	data = {}
 
-	for attr of el.attributes
-		if attr.specified && 0 === attr.name.indexOf('data-')
+	for attr in el.attributes
+		if attr.specified and attr.name.indexOf('data-') is 0
 			value = attr.value
 
 			try
 				value = jQuery.parseJSON(value)
 
-			if null === value
+			if value is null
 				value = ''
 
 			data[ attr.name.substr(5) ] = value
 
 	return data
 
-FrontEndEditor <<<
+jQuery.extend(FrontEndEditor, {
 	fieldTypes: {}
 
 	# Editing
@@ -38,11 +38,11 @@ FrontEndEditor <<<
 			.hide()
 			.prependTo(jQuery('body'))
 
-		return
+		return {
 			cover: ($el) ->
-				for parent of $el.parents()
+				for parent in $el.parents()
 					bgcolor = jQuery(parent).css('background-color')
-					if 'transparent' !== bgcolor
+					if bgcolor isnt 'transparent'
 						break
 
 				$cover
@@ -56,6 +56,7 @@ FrontEndEditor <<<
 
 			hide: ->
 				$cover.hide()
+		}
 
 	get_group_button: ($container) ->
 		$button = $container.find '.fee-edit-button'
@@ -76,7 +77,7 @@ FrontEndEditor <<<
 
 	init_fields: ->
 		# Create group instances
-		for el of jQuery('.fee-group').not('.fee-initialized')
+		for el in jQuery('.fee-group').not('.fee-initialized')
 			$container = jQuery(el)
 			$elements = $container.find('.fee-field').removeClass('fee-field')
 
@@ -84,7 +85,7 @@ FrontEndEditor <<<
 				continue
 
 			editors =
-				for el of $elements
+				for el in $elements
 					editor = FrontEndEditor.make_editable(el)
 					editor.part_of_group = true
 					editor
@@ -96,7 +97,7 @@ FrontEndEditor <<<
 			$button = FrontEndEditor.get_group_button $container
 
 			if $button
-				$button.click editor.~start_editing
+				$button.click jQuery.proxy(editor, 'start_editing')
 
 				$container.bind {
 					edit_start: (ev) ->
@@ -108,12 +109,12 @@ FrontEndEditor <<<
 						ev.stopPropagation()
 				}
 			else
-				FrontEndEditor.hover_init $container, editor.~start_editing
+				FrontEndEditor.hover_init $container, jQuery.proxy(editor, 'start_editing')
 
 			$container.data 'fee-editor', editor
 
 		# Create field instances
-		for el of jQuery('.fee-field').not('.fee-initialized')
+		for el in jQuery('.fee-field').not('.fee-initialized')
 			FrontEndEditor.make_editable el, true
 
 	make_editable: (el, single) ->
@@ -130,12 +131,12 @@ FrontEndEditor <<<
 
 		editor = new fieldType
 
-		editor <<<
-			el: $el
-			data: data
+		editor.el = $el
+		editor.data = data
 
 		if single
-			FrontEndEditor.hover_init $el, editor.~start_editing
+			FrontEndEditor.hover_init $el, jQuery.proxy(editor, 'start_editing')
 			$el.data 'fee-editor', editor
 
 		return editor
+})

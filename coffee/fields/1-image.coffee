@@ -7,32 +7,32 @@ class FrontEndEditor.fieldTypes.image_base extends FrontEndEditor.fieldTypes.bas
 
 		jQuery('#TB_closeWindowButton img').attr('src', FrontEndEditor.data.image.tb_close)
 
-		jQuery('#TB_iframeContent').load (ev) ~>
+		jQuery('#TB_iframeContent').load (ev) =>
 			iframe = ev.currentTarget.contentWindow
 			$thickbox = iframe.jQuery(iframe.document)
 
 			@thickbox_load($thickbox)
 
-			if jQuery.noop !== @media_item_manipulation
+			if jQuery.noop isnt @media_item_manipulation
 				# existing items
-				$thickbox.find('.media-item').each (i, el) ~>
+				$thickbox.find('.media-item').each (i, el) =>
 					@media_item_manipulation iframe.jQuery(el)
 
 				# newly uploaded items
-				$thickbox.ajaxComplete (event, request) ~>
+				$thickbox.ajaxComplete (event, request) =>
 					item_id = jQuery(request.responseText).find('.media-item-info').attr('id')
 					@media_item_manipulation $thickbox.find('#' + item_id).closest('.media-item')
 
 	thickbox_load: ($thickbox) ->
 		# Submit the form to our own ajax handler, to get back the HTML
-		$thickbox.delegate('.media-item :submit', 'click', (ev) ~>
+		$thickbox.delegate('.media-item :submit', 'click', (ev) =>
 			$button = jQuery(ev.currentTarget)
 			data = $button.closest('form').serializeArray()
 
 			data.push({name: $button.attr('name'), value: $button.attr('name')})
 			data.push({name: 'action', value: 'fee_image_insert'})
 
-			jQuery.post(FrontEndEditor.data.ajax_url, data, this.~image_html_handler)
+			jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery(this, 'image_html_handler'))
 
 			return false
 		)
@@ -45,12 +45,12 @@ class FrontEndEditor.fieldTypes.image_base extends FrontEndEditor.fieldTypes.bas
 class FrontEndEditor.fieldTypes.image extends FrontEndEditor.fieldTypes.image_base
 
 	start_editing: ->
-		super ...
+		super
 
 		# Add a Revert button to the thickbox chrome
 		jQuery('<a id="fee-img-revert" href="#">')
 			.text(FrontEndEditor.data.image.revert)
-			.click( (ev) ~>
+			.click( (ev) =>
 				@ajax_set(-1)
 				return false
 			)
@@ -58,7 +58,7 @@ class FrontEndEditor.fieldTypes.image extends FrontEndEditor.fieldTypes.image_ba
 
 	media_item_manipulation: ($item) ->
 		$item.find('tbody tr').not('.image-size, .submit').hide()
-		super ...
+		super
 
 	image_html_handler: (html) ->
 		$html = jQuery(html)
@@ -70,7 +70,7 @@ class FrontEndEditor.fieldTypes.image extends FrontEndEditor.fieldTypes.image_ba
 	ajax_set_handler: (response) ->
 		url = response.content
 
-		if '-1' === url
+		if '-1' is url
 			location.reload(true)
 		else
 			@el.find('img').attr('src', url)
@@ -83,7 +83,7 @@ class FrontEndEditor.fieldTypes.thumbnail extends FrontEndEditor.fieldTypes.imag
 
 		$thickbox.find('#tab-type_url').remove()
 
-		$thickbox.delegate('.media-item :submit', 'click', (ev) ~>
+		$thickbox.delegate('.media-item :submit', 'click', (ev) =>
 			$item = jQuery(ev.currentTarget).closest('.media-item')
 			attachment_id = $item.attr('id').replace('media-item-', '')
 
@@ -94,7 +94,7 @@ class FrontEndEditor.fieldTypes.thumbnail extends FrontEndEditor.fieldTypes.imag
 
 	media_item_manipulation: ($item) ->
 		$item.find('tbody tr').not('.submit').remove()
-		super ...
+		super
 
 
 Aloha?.require( ['aloha/selection'], (Selection) ->
@@ -104,7 +104,7 @@ Aloha?.require( ['aloha/selection'], (Selection) ->
 
 		start_editing: ->
 			jQuery('.aloha-floatingmenu, #aloha-floatingmenu-shadow').hide()
-			super ...
+			super
 
 		media_item_manipulation: jQuery.noop
 

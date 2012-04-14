@@ -1,7 +1,7 @@
 jQuery(document).ready ->
 
 	# Text widget fields hack
-	for el of jQuery('[data-filter="widget_title"], [data-filter="widget_text"]')
+	for el in jQuery('[data-filter="widget_title"], [data-filter="widget_text"]')
 		$el = jQuery(el)
 		$widget = $el.closest('.widget_text')
 
