@@ -12,7 +12,7 @@ class FrontEndEditor.fieldTypes.widget extends FrontEndEditor.fieldTypes.textare
 
 		for {name, value} in @form.find(':input').serializeArray()
 			args[name] =
-				if args[name] is null
+				if args[name] is undefined
 					value
 				else if jQuery.isArray( args[name] )
 						args[name].concat(value)
