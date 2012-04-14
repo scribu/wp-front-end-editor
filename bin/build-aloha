@@ -9,4 +9,4 @@ dir=aloha-plugins/$plugin/lib/
 
 mkdir -p $dir
 
-coco -b $2 -o $dir/ coco/aloha/$plugin-plugin
+coffee -b $2 -o $dir/ coffee/aloha/$plugin-plugin

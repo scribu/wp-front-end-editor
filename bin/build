@@ -7,8 +7,8 @@ mkdir -p css
 sqwish css/editor.css -o build/editor.css > /dev/null
 
 # main editor code
-cd 'coco'
-cat core.co hover.co init.co fields/*.co | coco -cs > '../build/editor.js'
+cd 'coffee'
+cat core.coffee hover.coffee init.coffee fields/*.coffee | coffee -cs > '../build/editor.js'
 
 # aloha plugins
 cd ..
