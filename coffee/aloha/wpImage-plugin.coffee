@@ -10,7 +10,7 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 				'name' : 'wpImage',
 				'iconClass' : 'ImageWP',
 				'size' : 'small',
-				'onclick' : jQuery(this, 'insert'),
+				'onclick' : jQuery.proxy(this, 'insert'),
 				'tooltip' : FrontEndEditor.data.image.insert
 			})
 

@@ -10,7 +10,7 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 				'name' : 'wpSave',
 				'iconClass' : 'SaveFEE',
 				'size' : 'small',
-				'onclick' : jQuery(this, 'save'),
+				'onclick' : jQuery.proxy(this, 'save'),
 				'label' : FrontEndEditor.data.save_text
 			)
 
@@ -19,7 +19,7 @@ define [ 'aloha/plugin', 'aloha/floatingmenu', 'i18n!aloha/nls/i18n' ], (Plugin,
 				'name' : 'wpCancel',
 				'iconClass' : 'CancelFEE',
 				'size' : 'small',
-				'onclick' : jQuery(this, 'cancel'),
+				'onclick' : jQuery.proxy(this, 'cancel'),
 				'label' : FrontEndEditor.data.cancel_text
 			)
 

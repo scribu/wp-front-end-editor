@@ -32,7 +32,7 @@ class FrontEndEditor.fieldTypes.image_base extends FrontEndEditor.fieldTypes.bas
 			data.push({name: $button.attr('name'), value: $button.attr('name')})
 			data.push({name: 'action', value: 'fee_image_insert'})
 
-			jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery(this, 'image_html_handler'))
+			jQuery.post(FrontEndEditor.data.ajax_url, data, jQuery.proxy(this, 'image_html_handler'))
 
 			return false
 		)

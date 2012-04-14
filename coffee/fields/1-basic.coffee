@@ -21,7 +21,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@cancel_button = jQuery('<button>',
 			'class': 'fee-form-cancel'
 			'text' : FrontEndEditor.data.cancel_text
-			'click': jQuery(this, 'remove_form')
+			'click': jQuery.proxy(this, 'remove_form')
 		)
 
 		@form
@@ -35,7 +35,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			.addClass('fee-form')
 			.addClass('fee-type-' + @get_type())
 
-		@form.keypress(jQuery(this, 'keypress'))
+		@form.keypress(jQuery.proxy(this, 'keypress'))
 
 	remove_form: ->
 		@form.remove()
