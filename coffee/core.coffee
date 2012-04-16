@@ -109,7 +109,7 @@ jQuery.extend(FrontEndEditor, {
 						ev.stopPropagation()
 				}
 			else
-				FrontEndEditor.hover_init $container, jQuery.proxy(editor, 'start_editing')
+				new FrontEndEditor.hover $container, jQuery.proxy(editor, 'start_editing')
 
 			$container.data 'fee-editor', editor
 
@@ -135,7 +135,7 @@ jQuery.extend(FrontEndEditor, {
 		editor.data = data
 
 		if single
-			FrontEndEditor.hover_init $el, jQuery.proxy(editor, 'start_editing')
+			new FrontEndEditor.hover $el, jQuery.proxy(editor, 'start_editing')
 			$el.data 'fee-editor', editor
 
 		return editor
