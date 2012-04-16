@@ -59,7 +59,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 			commonData = jQuery.extend {}, dataArr[0]
 
 			# keep only common props
-			for i in [1...dataArr.length-1]
+			for i in [1...dataArr.length]
 				for own key, value of commonData
 					if value isnt dataArr[i][key]
 						delete commonData[key]
