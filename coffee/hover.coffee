@@ -6,15 +6,16 @@ class FrontEndEditor.hover
 	lock: false,
 	timeout: null,
 
-	constructor: ($el, callback) ->
-		@border = jQuery('<div>')
-			.addClass('fee-hover-border')
-			.css('width', @HOVER_BORDER)
-			.hide().appendTo('body')
+	constructor: ($el, $content) ->
+		@border = jQuery('<div>',
+			'class': 'fee-hover-border',
+			'css': { width: @HOVER_BORDER }
+		).hide().appendTo('body')
 
 		@box = jQuery('<div>',
-			'class': 'fee-hover-edit'
-			'html': FrontEndEditor.data.edit_text
+			'class': 'fee-hover-container'
+			'html': $content
+			'click': jQuery.proxy(this, 'hide_immediately')
 			'mouseover': =>
 				@lock = true
 			'mouseout': =>
@@ -24,11 +25,12 @@ class FrontEndEditor.hover
 
 		$el.bind {
 			'mouseover': (ev) =>
-				if FrontEndEditor.is_editing()
-					return
+				# TODO: no longer works
+				# if FrontEndEditor.is_editing()
+				# 	return
 
 				@position_vert(ev.pageY)
-				@show($el, callback)
+				@show($el)
 
 			'mousemove': (ev) =>
 				@position_vert(ev.pageY)
@@ -58,31 +60,26 @@ class FrontEndEditor.hover
 			@hide_immediately()
 		, 300
 
-	show: (el, callback) ->
+	show: (el) ->
 		$self = jQuery(el)
 		offset = $self.offset()
 		dims = @get_dims $self
 
 		# Webkit really doesn't like block elements inside inline elements
+		# TODO: only do once
 		if dims.width > $self.parent().width()
 			$self.css('display', 'block')
 			dims = @get_dims($self)
 
 		clearTimeout @timeout
 
-		@box.unbind 'click'
-
-		@box.click =>
-			@hide_immediately()
-			callback()
-
 		# Position 'Edit' box
-		@box.css 'left', (offset.left - @box.outerWidth() - @HOVER_PADDING) + 'px'
+		@box.css 'left', (offset.left - @box.outerWidth() - @HOVER_PADDING - 2) + 'px'
 		@box.show()
 
 		# Position hover border
 		@border.css(
-			'left'  : (offset.left - @HOVER_PADDING - @HOVER_BORDER) + 'px'
+			'left'  : (offset.left - @HOVER_PADDING - 2) + 'px'
 			'top'   : (offset.top  - @HOVER_PADDING - @HOVER_BORDER) + 'px'
 			'height': (dims.height + @HOVER_PADDING * 2) + 'px'
 		).show()

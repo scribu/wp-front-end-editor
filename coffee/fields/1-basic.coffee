@@ -24,9 +24,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			'click': jQuery.proxy(this, 'remove_form')
 		)
 
-		@form
-			.append(@save_button)
-			.append(@cancel_button)
+		new FrontEndEditor.hover @form, @save_button.add(@cancel_button)
 
 	create_form: ->
 		@form = if @el.is('span') then jQuery('<span>') else jQuery('<div>')

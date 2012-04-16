@@ -63,44 +63,29 @@ textarea.fee-form-content {
 	margin-top: -2px;
 }
 
+/* Hover */
+.fee-hover-border,
+.fee-hover-container {
+	background-color: #aaa;
+	position: absolute;
+	z-index: 999;
+	color: #fff;
+}
+
 /* Buttons */
-.fee-form button {
+.fee-hover-container button {
 	text-decoration: none !important;
 	line-height: 14px !important;
 	font-size: 11px !important;
 	vertical-align: middle !important;
 	padding: 2px 8px !important;
 	cursor: pointer !important;
-	margin-left: 5px;
-	@border-radius(11px);
 }
 
-div.fee-form button {
-	margin-top: 5px;
-	margin-bottom: 5px;
+button.fee-form-save {
 }
 
-button {
-	&.fee-form-save {
-		background-color: #23779f;
-		color: #fff;
-		border: 1px solid #1c5e7f;
-		font-weight: 700;
-
-		&:hover {
-			border: 1px solid #000 !important;
-		}
-	}
-
-	&.fee-form-cancel {
-		background-color: #fcfcfc;
-		color: #808080;
-		border: 1px solid #ddd;
-
-		&:hover {
-			border: 1px solid #666 !important;
-		}
-	}
+button.fee-form-cancel {
 }
 
 /* Select */
@@ -180,30 +165,6 @@ span.fee-form select {
 
 	&:hover {
 		color: #D54E21 !important;
-	}
-}
-
-/* Hover */
-.fee-hover-border,
-.fee-hover-edit {
-	background-color: #aaa;
-	position: absolute;
-	z-index: 999;
-}
-
-.fee-hover-edit {
-	color: #fff;
-	cursor: pointer;
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 12px;
-	font-weight: 300;
-	line-height: 18px;
-	padding: 2px 4px;
-	z-index: 1000;
-	@border-radius(2px);
-
-	&:hover {
-		background-color: #777;
 	}
 }
 
