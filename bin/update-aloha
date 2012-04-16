@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "usage: $(basename $0) 1.2.3"
+	exit
+fi
+
+version=$1
+
+wget https://github.com/downloads/alohaeditor/Aloha-Editor/alohaeditor-$version.zip -O /tmp/aloha.zip
+
+rm -rf /tmp/aloha-package
+mkdir /tmp/aloha-package
+
+cd /tmp/aloha-package
+unzip /tmp/aloha.zip
+cd -
+
+rm lib/aloha-editor -rf
+mv /tmp/aloha-package/aloha lib/aloha-editor
