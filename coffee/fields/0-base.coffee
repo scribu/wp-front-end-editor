@@ -1,7 +1,7 @@
 class FrontEndEditor.fieldTypes.base
 
 	get_type: ->
-		@constructor.displayName
+		@constructor.name
 
 	start_editing: null
 
