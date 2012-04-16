@@ -5,6 +5,9 @@ class FrontEndEditor.fieldTypes.base
 
 	start_editing: null
 
+	init_hover: ($container) ->
+		@hover = new FrontEndEditor.hover $container, jQuery.proxy(this, 'start_editing')
+
 	ajax_get: ->
 		FrontEndEditor.edit_lock @el
 
