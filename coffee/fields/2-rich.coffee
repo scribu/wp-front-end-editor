@@ -13,11 +13,6 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 		super
 
-	start_editing: (ev) ->
-		super
-
-		FrontEndEditor.current_field = this
-
 	ajax_get_handler: (response) ->
 		$el = @error_handler(response)
 

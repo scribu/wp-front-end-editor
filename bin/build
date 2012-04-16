@@ -12,7 +12,7 @@ cat core.coffee hover.coffee init.coffee fields/*.coffee | coffee -cs > '../buil
 
 # aloha plugins
 cd ..
-for plugin in 'wpSaveCancel' 'wpImage'; do
+for plugin in 'wpImage'; do
 	./bin/build-aloha $plugin
 done
 

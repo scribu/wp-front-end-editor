@@ -23,7 +23,6 @@ You can edit posts, pages, custom post types, comments, widgets and many [more e
 Credits:
 
 * [Aloha Editor](http://aloha-editor.org) for the fantastic WYSIWYG editing component
-* [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/) for additional icons
 
 Links: [**Documentation**](http://github.com/scribu/wp-front-end-editor/wiki) | [Plugin News](http://scribu.net/wordpress/front-end-editor) | [Author's Site](http://scribu.net)
 

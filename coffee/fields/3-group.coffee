@@ -8,17 +8,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 					@has_aloha = true
 					return
 
-	start_editing: (ev) ->
-		@create_form()
-
-		if @has_aloha
-			FrontEndEditor.current_field = this
-		else
-			@create_buttons()
-
-		@ajax_get()
-
-		false
+	create_input: jQuery.noop
 
 	create_form: ->
 		for editor in @editors

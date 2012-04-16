@@ -115,7 +115,7 @@ Aloha.settings = {
 		fee: '../../../aloha-plugins'
 	},
 	floatingmenu: {
-		width: 475
+		width: 410
 	},
 	sidebar: {
 		disabled: true
@@ -140,7 +140,6 @@ Aloha.settings = {
 		'common/highlighteditables',
 		'extra/cite',
 		'fee/wpImage',
-		'fee/wpSaveCancel',
 	);
 
 	echo html( 'script', array(
