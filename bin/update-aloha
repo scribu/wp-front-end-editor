@@ -5,15 +5,15 @@ if [ $# -lt 1 ]; then
 	exit
 fi
 
-version=$1
+zip_name=alohaeditor-$1.zip
 
-wget https://github.com/downloads/alohaeditor/Aloha-Editor/alohaeditor-$version.zip -O /tmp/aloha.zip
+wget https://github.com/downloads/alohaeditor/Aloha-Editor/$zip_name -O /tmp/$zip_name
 
 rm -rf /tmp/aloha-package
 mkdir /tmp/aloha-package
 
 cd /tmp/aloha-package
-unzip /tmp/aloha.zip
+unzip /tmp/$zip_name
 cd -
 
 rm lib/aloha-editor -rf
