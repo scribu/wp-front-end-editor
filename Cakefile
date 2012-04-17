@@ -20,7 +20,7 @@ compress_js = (input, cb) ->
 	ast = pro.ast_squeeze(ast)
 	cb pro.gen_code(ast)
 
-compile_less = (input, cb) ->
+compile_less = (input, cb, compress = true) ->
 	less = require('less')
 
 	parser = new less.Parser
@@ -30,7 +30,10 @@ compile_less = (input, cb) ->
 			console.error(err)
 			process.exit(1)
 
-		cb tree.toCSS( compress: true )
+		cb tree.toCSS({compress})
+
+compile_less_dev = (input, cb) ->
+	compile_less input, cb, false
 
 task 'dev:css', 'Watch the .less file for changes', (options) ->
 	less = require('less')
@@ -42,13 +45,13 @@ task 'dev:css', 'Watch the .less file for changes', (options) ->
 			return
 
 		console.log 'File changed. Recompiling...'
-		io compile_less, 'less/core.less', 'css/core.css'
+		io compile_less_dev, 'less/core.less', 'css/core.css'
 
 task 'build:css', 'Generate compressed CSS', (options) ->
 	io compile_less, 'less/core.less', 'build/editor.css'
 
 task 'build:js', 'Generate compressed JS', (options) ->
-	{exec} = require 'child_process'
+	{exec} = require('child_process')
 
 	exec 'cd coffee; cat core.coffee hover.coffee init.coffee fields/*.coffee | coffee -cs > ../build/editor.js', (err, stdout, stderr) ->
 		throw err if err
