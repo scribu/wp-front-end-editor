@@ -65,6 +65,11 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 == Changelog ==
 
+= 2.3 =
+* make Save/Cancel buttons hover in place of the Edit button
+* allow ediing multiple elements simultaneously again
+* update to Aloha 0.20.9
+
 = 2.2.1 =
 * update to Aloha 0.20.6
 * enable align buttons in Aloha
