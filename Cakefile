@@ -60,7 +60,15 @@ task 'build:js', 'Generate compressed JS', (options) ->
 	io compress_js, 'build/editor.js', 'build/editor.min.js'
 
 task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
-	# TODO
+	{exec} = require('child_process')
+
+	plugin = 'wpImage'
+
+	dir = "aloha-plugins/#{plugin}/lib/"
+	mkdirp.sync dir
+
+	exec "coffee -b $2 -o #{dir}/ coffee/aloha/#{plugin}-plugin", (err, stdout, stderr) ->
+		throw err if err
 
 task 'build', 'Generate a build for wp.org', (options) ->
 	invoke 'build:css'
