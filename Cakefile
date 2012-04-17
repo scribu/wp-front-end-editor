@@ -1,10 +1,10 @@
-fs = require('fs')
-path = require('path')
-mkdirp = require('mkdirp')
+fs = require 'fs'
+path = require 'path'
+mkdirp = require 'mkdirp'
 {spawn, exec} = require 'child_process'
 
 io = (callback, inputPath, outputPath) ->
-	mkdirp.sync path.dirname(outputPath)
+	mkdirp.sync path.dirname outputPath
 
 	input = fs.readFileSync inputPath, 'utf8'
 	callback input, (output) ->
@@ -14,13 +14,13 @@ compress_js = (input, cb) ->
 	jsp = require('uglify-js').parser
 	pro = require('uglify-js').uglify
 
-	ast = jsp.parse(input)
-	ast = pro.ast_squeeze(ast)
+	ast = jsp.parse input
+	ast = pro.ast_squeeze ast
 
 	cb pro.gen_code(ast)
 
 compile_less = (input, cb, compress = true) ->
-	less = require('less')
+	less = require 'less'
 
 	parser = new less.Parser
 
