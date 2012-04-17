@@ -40,8 +40,13 @@ launch = (cmd, options=[], callback) ->
 	app.stderr.pipe(process.stderr)
 	app.on 'exit', (status) -> callback?() if status is 0
 
+coffee_invoke = (watch) ->
+	options = ['-c', '-b', '-o', 'js', 'coffee']
+	options.unshift '-w' if watch
+	launch 'coffee', options
+
 task 'watch', 'Watch coffee/ directory and compile into js/', (options) ->
-	launch 'coffee', ['-w', '-c', '-b', '-o', 'js', 'coffee']
+	coffee_invoke true
 
 task 'watch:less', 'Watch the .less file for changes', (options) ->
 	less = require('less')
@@ -54,6 +59,9 @@ task 'watch:less', 'Watch the .less file for changes', (options) ->
 
 		console.log 'File changed. Recompiling...'
 		io compile_less_dev, 'less/core.less', 'css/core.css'
+
+task 'dev:js', 'Generate separate JS files', (options) ->
+	coffee_invoke false
 
 task 'dev:css', 'Generate uncompressed CSS', (options) ->
 	io compile_less_dev, 'less/core.less', 'css/core.css'
