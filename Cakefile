@@ -1,6 +1,10 @@
 fs = require('fs')
+path = require('path')
+mkdirp = require('mkdirp')
 
 io = (callback, inputPath, outputPath) ->
+	mkdirp.sync path.dirname(outputPath)
+
 	input = fs.readFileSync inputPath, 'utf8'
 	callback input, (output) ->
 		fs.writeFileSync outputPath, output, 'utf8'
@@ -11,6 +15,7 @@ compress_js = (input, cb) ->
 
 	ast = jsp.parse(input)
 	ast = pro.ast_squeeze(ast)
+
 	cb pro.gen_code(ast)
 
 compile_less = (input, cb, compress = true) ->
@@ -28,7 +33,7 @@ compile_less = (input, cb, compress = true) ->
 compile_less_dev = (input, cb) ->
 	compile_less input, cb, false
 
-task 'dev:css', 'Watch the .less file for changes', (options) ->
+task 'watch:less', 'Watch the .less file for changes', (options) ->
 	less = require('less')
 
 	console.log 'Watching less/core.less...'
@@ -39,6 +44,9 @@ task 'dev:css', 'Watch the .less file for changes', (options) ->
 
 		console.log 'File changed. Recompiling...'
 		io compile_less_dev, 'less/core.less', 'css/core.css'
+
+task 'dev:css', 'Generate uncompressed CSS', (options) ->
+	io compile_less_dev, 'less/core.less', 'css/core.css'
 
 task 'build:css', 'Generate compressed CSS', (options) ->
 	io compile_less, 'less/core.less', 'build/editor.css'
