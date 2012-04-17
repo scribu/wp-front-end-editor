@@ -1,5 +1,0 @@
-#!/bin/bash
-
-mkdir css 2> /dev/null
-
-./lib/less/plessc -w less/core.less css/core.css
