@@ -1,6 +1,7 @@
 fs = require('fs')
 path = require('path')
 mkdirp = require('mkdirp')
+{spawn, exec} = require 'child_process'
 
 io = (callback, inputPath, outputPath) ->
 	mkdirp.sync path.dirname(outputPath)
@@ -33,6 +34,15 @@ compile_less = (input, cb, compress = true) ->
 compile_less_dev = (input, cb) ->
 	compile_less input, cb, false
 
+launch = (cmd, options=[], callback) ->
+	app = spawn cmd, options
+	app.stdout.pipe(process.stdout)
+	app.stderr.pipe(process.stderr)
+	app.on 'exit', (status) -> callback?() if status is 0
+
+task 'watch', 'Watch coffee/ directory and compile into js/', (options) ->
+	launch 'coffee', ['-w', '-c', '-b', '-o', 'js', 'coffee']
+
 task 'watch:less', 'Watch the .less file for changes', (options) ->
 	less = require('less')
 
@@ -52,16 +62,12 @@ task 'build:css', 'Generate compressed CSS', (options) ->
 	io compile_less, 'less/core.less', 'build/editor.css'
 
 task 'build:js', 'Generate compressed JS', (options) ->
-	{exec} = require('child_process')
-
 	exec 'cd coffee; cat core.coffee hover.coffee init.coffee fields/*.coffee | coffee -cs > ../build/editor.js', (err, stdout, stderr) ->
 		throw err if err
 
 	io compress_js, 'build/editor.js', 'build/editor.min.js'
 
 task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
-	{exec} = require('child_process')
-
 	plugin = 'wpImage'
 
 	dir = "aloha-plugins/#{plugin}/lib/"

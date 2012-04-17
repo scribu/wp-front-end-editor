@@ -1,3 +1,0 @@
-#!/bin/bash
-
-coffee --watch --output js --compile coffee
