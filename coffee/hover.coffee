@@ -25,6 +25,10 @@ class FrontEndEditor.hover
 				@hide()
 		).hide().appendTo('body')
 
+		# Webkit really doesn't like block elements inside inline elements
+		if $el.width() > $el.parent().width()
+			$el.css('display', 'block')
+
 		$el.bind {
 			'mouseover': (ev) =>
 				# TODO: no longer works
@@ -39,11 +43,6 @@ class FrontEndEditor.hover
 
 			'mouseout': jQuery.proxy(this, 'hide')
 		}
-
-	get_dims: ($el) -> {
-		'width': $el.width()
-		'height': $el.height()
-	}
 
 	position_vert: (mouse_vert_pos) ->
 		normal_height = mouse_vert_pos - @box.outerHeight()/2
@@ -62,16 +61,8 @@ class FrontEndEditor.hover
 			@hide_immediately()
 		, 300
 
-	show: (el) ->
-		$self = jQuery(el)
-		offset = $self.offset()
-		dims = @get_dims $self
-
-		# Webkit really doesn't like block elements inside inline elements
-		# TODO: only do once
-		if dims.width > $self.parent().width()
-			$self.css('display', 'block')
-			dims = @get_dims($self)
+	show: ($el) ->
+		offset = $el.offset()
 
 		clearTimeout @timeout
 
@@ -83,5 +74,5 @@ class FrontEndEditor.hover
 		@border.css(
 			'left'  : (offset.left - @HOVER_PADDING - 2) + 'px'
 			'top'   : (offset.top  - @HOVER_PADDING - @HOVER_BORDER) + 'px'
-			'height': (dims.height + @HOVER_PADDING * 2) + 'px'
+			'height': ($el.height() + @HOVER_PADDING * 2) + 'px'
 		).show()
