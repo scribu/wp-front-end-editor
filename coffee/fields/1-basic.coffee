@@ -1,10 +1,5 @@
 class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
-	constructor: ->
-		@editing_buttons = @create_buttons()
-
-		super
-
 	input_tag: '<input type="text">'
 
 	start_editing: (ev) ->
@@ -104,7 +99,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@input.focus()
 
 		if not @part_of_group
-			new FrontEndEditor.hover @form, @editing_buttons
+			new FrontEndEditor.hover @form, @create_buttons()
 
 	ajax_set_handler: (response) ->
 		$el = @error_handler(response)

@@ -16,7 +16,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 		for editor in @editors
 			editor.remove_form()
 
-		@hover.container.html @pre_edit_button
+		@hover.container.html @pre_edit_button()
 
 		null
 
@@ -68,7 +68,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		@editors[0].input?.focus()
 
-		@hover.container.html @editing_buttons
+		@hover.container.html @create_buttons()
 
 	ajax_set_handler: (response) ->
 		for editor, i in @editors
