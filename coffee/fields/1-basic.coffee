@@ -4,7 +4,6 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 	start_editing: (ev) ->
 		@create_form()
-		@create_buttons()
 		@create_input()
 
 		@ajax_get()
@@ -94,6 +93,8 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@el.hide()
 
 		$el.after(@form)
+
+		@create_buttons()
 
 		@content_to_input(response.content)
 
