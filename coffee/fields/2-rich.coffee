@@ -28,9 +28,9 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 
 		@form.aloha()
 
-		@create_buttons()
-
 		if not @part_of_group
+			new FrontEndEditor.hover @form, @editing_buttons
+
 			# hack to get the floating menu to show up immediately
 			@form.focus()
 			@form.dblclick()

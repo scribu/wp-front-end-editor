@@ -12,7 +12,7 @@ class FrontEndEditor.hover
 			'css': { width: @HOVER_BORDER }
 		).hide().appendTo('body')
 
-		@box = jQuery('<div>',
+		@container = jQuery('<div>',
 			'class': 'fee-hover-container'
 			'html': $content
 			'click': (ev) =>
@@ -45,12 +45,12 @@ class FrontEndEditor.hover
 		}
 
 	position_vert: (mouse_vert_pos) ->
-		normal_height = mouse_vert_pos - @box.outerHeight()/2
+		normal_height = mouse_vert_pos - @container.outerHeight()/2
 
-		@box.css('top', (normal_height - @HOVER_BORDER) + 'px')
+		@container.css('top', (normal_height - @HOVER_BORDER) + 'px')
 
 	hide_immediately: ->
-		@box.hide()
+		@container.hide()
 		@border.hide()
 
 	hide: ->
@@ -66,11 +66,11 @@ class FrontEndEditor.hover
 
 		clearTimeout @timeout
 
-		# Position 'Edit' box
-		@box.css 'left', (offset.left - @box.outerWidth() - @HOVER_PADDING - 2) + 'px'
-		@box.show()
+		# Position container
+		@container.css 'left', (offset.left - @container.outerWidth() - @HOVER_PADDING - 2) + 'px'
+		@container.show()
 
-		# Position hover border
+		# Position border
 		@border.css(
 			'left'  : (offset.left - @HOVER_PADDING - 2) + 'px'
 			'top'   : (offset.top  - @HOVER_PADDING - @HOVER_BORDER) + 'px'

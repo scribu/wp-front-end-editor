@@ -1,12 +1,7 @@
 class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
-	constructor: (@el, @editors) ->
-		@has_aloha = false
 
-		if Aloha?
-			for editor in @editors
-				if 'rich' is editor.get_type()
-					@has_aloha = true
-					return
+	constructor: (@el, @editors) ->
+		super
 
 	create_input: jQuery.noop
 
@@ -15,15 +10,15 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 			editor.create_form()
 			editor.create_input()
 
-		super
-
-		@el.append @form
+		@form = @el
 
 	remove_form: (ev) ->
 		for editor in @editors
 			editor.remove_form()
 
-		super
+		@hover.container.html @pre_edit_button
+
+		null
 
 	content_from_input: ->
 		(editor.content_from_input() for editor in @editors)
@@ -72,6 +67,8 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 			editor.ajax_get_handler response[i]
 
 		@editors[0].input?.focus()
+
+		@hover.container.html @editing_buttons
 
 	ajax_set_handler: (response) ->
 		for editor, i in @editors

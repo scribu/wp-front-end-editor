@@ -1,5 +1,10 @@
 class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
+	constructor: ->
+		@editing_buttons = @create_buttons()
+
+		super
+
 	input_tag: '<input type="text">'
 
 	start_editing: (ev) ->
@@ -23,7 +28,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			'click': jQuery.proxy(this, 'remove_form')
 		)
 
-		new FrontEndEditor.hover @form, @save_button.add(@cancel_button)
+		return @save_button.add(@cancel_button)
 
 	create_form: ->
 		@form = jQuery(if @el.is('span') then '<span>' else '<div>')
@@ -94,11 +99,12 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 		$el.after(@form)
 
-		@create_buttons()
-
 		@content_to_input(response.content)
 
 		@input.focus()
+
+		if not @part_of_group
+			new FrontEndEditor.hover @form, @editing_buttons
 
 	ajax_set_handler: (response) ->
 		$el = @error_handler(response)

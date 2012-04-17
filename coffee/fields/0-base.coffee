@@ -5,14 +5,17 @@ class FrontEndEditor.fieldTypes.base
 	get_type: ->
 		@constructor.name
 
-	start_editing: null
-
-	init_hover: ($container) ->
-		new FrontEndEditor.hover $container, jQuery('<button>',
+	constructor: ->
+		@pre_edit_button = jQuery('<button>',
 			'class': 'fee-hover-edit'
 			'html': FrontEndEditor.data.edit_text
 			'click': jQuery.proxy(this, 'start_editing')
 		)
+
+	start_editing: null
+
+	init_hover: ($container) ->
+		@hover = new FrontEndEditor.hover $container, @pre_edit_button
 
 	ajax_get: ->
 		FrontEndEditor.edit_lock @el
