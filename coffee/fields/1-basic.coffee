@@ -2,14 +2,14 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 	input_tag: '<input type="text">'
 
-	start_editing: ->
+	start_editing: (ev) ->
 		@create_form()
 		@create_buttons()
 		@create_input()
 
 		@ajax_get()
 
-		false
+		null
 
 	create_buttons: ->
 		@save_button = jQuery('<button>',
@@ -35,18 +35,18 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 		@form.keypress(jQuery.proxy(this, 'keypress'))
 
-	remove_form: ->
+	remove_form: (ev) ->
 		@form.remove()
 		@el.show()
 
 		FrontEndEditor.edit_unlock(@el)
 
-		return false
+		null
 
 	submit_form: (ev) ->
 		@ajax_set()
 
-		return false
+		null
 
 	keypress: (ev) ->
 		keys = {ENTER: 13, ESCAPE: 27}

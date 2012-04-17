@@ -15,7 +15,9 @@ class FrontEndEditor.hover
 		@box = jQuery('<div>',
 			'class': 'fee-hover-container'
 			'html': $content
-			'click': jQuery.proxy(this, 'hide_immediately')
+			'click': (ev) =>
+				ev.preventDefault()
+				@hide_immediately()
 			'mouseover': =>
 				@lock = true
 			'mouseout': =>
