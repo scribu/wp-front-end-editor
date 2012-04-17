@@ -31,10 +31,6 @@ class FrontEndEditor.hover
 
 		$el.bind {
 			'mouseover': (ev) =>
-				# TODO: no longer works
-				# if FrontEndEditor.is_editing()
-				# 	return
-
 				@position_vert(ev.pageY)
 				@show($el)
 

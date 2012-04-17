@@ -36,7 +36,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@form.remove()
 		@el.show()
 
-		FrontEndEditor.edit_unlock(@el)
+		@el.trigger('edit_stop')
 
 		null
 

@@ -18,7 +18,7 @@ class FrontEndEditor.fieldTypes.base
 		@hover = new FrontEndEditor.hover $container, @pre_edit_button()
 
 	ajax_get: ->
-		FrontEndEditor.edit_lock @el
+		@el.trigger('edit_start')
 
 		@_ajax_request {
 			data: @ajax_get_args arguments...

@@ -19,19 +19,6 @@ extract_data_attr = (el) ->
 jQuery.extend(FrontEndEditor, {
 	fieldTypes: {}
 
-	# Editing
-	edit_lock: ($el) ->
-		FrontEndEditor._editing = true
-		$el.trigger('edit_start')
-
-	edit_unlock: ($el) ->
-		FrontEndEditor._editing = false
-		$el.trigger('edit_stop')
-
-	is_editing: ->
-		return FrontEndEditor._editing
-
-	# Misc
 	overlay: do ->
 		$cover = jQuery('<div>', 'class': 'fee-loading')
 			.css('background-image', 'url(' + FrontEndEditor.data.spinner + ')')
