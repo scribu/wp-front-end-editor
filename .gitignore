@@ -1,9 +1,11 @@
 /lib/aloha-editor/demo/
 /lib/aloha-editor/test/
 /lib/aloha-editor/build.txt
-/build/
+
 /js/
 /css/
-/.project
 
+/build/
 /aloha-plugins/
+
+/node_modules/
