@@ -27,13 +27,11 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		new FrontEndEditor.hover @form, @save_button.add(@cancel_button)
 
 	create_form: ->
-		@form = if @el.is('span') then jQuery('<span>') else jQuery('<div>')
-
-		@form
+		@form = jQuery(if @el.is('span') then '<span>' else '<div>')
 			.addClass('fee-form')
 			.addClass('fee-type-' + @get_type())
 
-		@form.keypress(jQuery.proxy(this, 'keypress'))
+		@form.keypress jQuery.proxy(this, 'keypress')
 
 	remove_form: (ev) ->
 		@form.remove()
