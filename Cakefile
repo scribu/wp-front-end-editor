@@ -1,16 +1,9 @@
 fs = require('fs')
 
 io = (callback, inputPath, outputPath) ->
-	fs.readFile inputPath, 'utf8', (err, data) ->
-		if err
-			console.error("Could not read from file: %s", err)
-			process.exit(1)
-
-		callback data, (output) ->
-			fs.writeFile outputPath, output, (err) ->
-				if err
-					console.error("Could not write to file: %s", err)
-					process.exit(1)
+	input = fs.readFileSync inputPath, 'utf8'
+	callback input, (output) ->
+		fs.writeFileSync outputPath, output, 'utf8'
 
 compress_js = (input, cb) ->
 	jsp = require('uglify-js').parser
