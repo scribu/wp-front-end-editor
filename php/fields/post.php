@@ -13,9 +13,6 @@ abstract class FEE_Field_Post extends FEE_Field_Base {
 
 		if ( FEE_Core::$options->group_post ) {
 			add_action( 'post_class', array( __CLASS__, 'post_class' ) );
-
-			if ( FEE_Core::$options->group_post_button )
-				add_filter( 'edit_post_link', array( __CLASS__, 'edit_post_link' ) );
 		}
 	}
 

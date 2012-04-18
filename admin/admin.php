@@ -31,13 +31,6 @@ class FEE_Admin extends scbBoxesPage {
 			),
 
 			array(
-				'name' => 'group_post_button',
-				'type' => 'checkbox',
-				'desc' => __( 'Begin editing using existing edit link (experimental).', $this->textdomain ),
-				'wrap' => html( 'p id="fee-group-post-button"', scbForms::TOKEN )
-			),
-
-			array(
 				'name' => 'taxonomy_ui',
 				'type' => 'radio',
 				'values' => array(
@@ -53,7 +46,6 @@ class FEE_Admin extends scbBoxesPage {
 
 	function page_head() {
 		wp_enqueue_style( 'fee-admin', $this->plugin_url . 'admin/admin.css', array(), FEE_VERSION );
-		wp_enqueue_script( 'fee-admin', $this->plugin_url . 'admin/admin.js', array( 'jquery' ), FEE_VERSION, true );
 	}
 
 	function fields_handler() {
@@ -121,9 +113,6 @@ class FEE_Admin extends scbBoxesPage {
 			return;
 
 		$to_update = scbForms::validate_post_data( $this->settings_fields );
-
-		if ( !$to_update['group_post'] )
-			$to_update['group_post_button'] = false;
 
 		$this->options->update( $to_update );
 

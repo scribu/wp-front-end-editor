@@ -50,7 +50,6 @@ function _fee_init() {
 		'disabled' => array('bloginfo'),
 		'rich' => true,
 		'group_post' => false,
-		'group_post_button' => false,
 		'taxonomy_ui' => 'termselect'
 	) );
 

@@ -45,23 +45,6 @@ jQuery.extend(FrontEndEditor, {
 				$cover.hide()
 		}
 
-	get_group_button: ($container) ->
-		$button = $container.find '.fee-edit-button'
-		if $button.length
-			return $button
-
-		if FrontEndEditor.data.add_buttons
-			$button = jQuery '<span>', {
-				class: 'fee-edit-button'
-				text: FrontEndEditor.data.edit_text
-			}
-
-			$button.appendTo $container
-
-			return $button
-
-		return false
-
 	init_fields: ->
 		# Create group instances
 		for el in jQuery('.fee-group').not('.fee-initialized')
@@ -81,22 +64,7 @@ jQuery.extend(FrontEndEditor, {
 
 			editor = new FrontEndEditor.fieldTypes[fieldType] $container, editors
 
-			$button = FrontEndEditor.get_group_button $container
-
-			if $button
-				$button.click jQuery.proxy(editor, 'start_editing')
-
-				$container.bind {
-					edit_start: (ev) ->
-						$button.addClass 'fee-disabled'
-						ev.stopPropagation()
-
-					edit_stop: (ev) ->
-						$button.removeClass 'fee-disabled'
-						ev.stopPropagation()
-				}
-			else
-				editor.init_hover $container
+			editor.init_hover $container
 
 			$container.data 'fee-editor', editor
 
