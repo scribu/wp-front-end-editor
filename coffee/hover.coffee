@@ -8,6 +8,10 @@ class FrontEndEditor.hover
 	timeout: null,
 
 	constructor: ($el, $content) ->
+		# Webkit really doesn't like block elements inside inline elements
+		if $el.width() > $el.parent().width()
+			$el.css('display', 'block')
+
 		@border = jQuery('<div>',
 			'class': 'fee-hover-border',
 			'css': { width: HOVER_BORDER }
@@ -16,21 +20,20 @@ class FrontEndEditor.hover
 		@container = jQuery('<div>',
 			'class': 'fee-hover-container'
 			'html': $content
+
 			'click': (ev) =>
 				ev.preventDefault()
 				@hide_immediately()
+
 			'mouseover': =>
 				@lock = true
+
 			'mouseout': =>
 				@lock = false
 				@hide()
 		).hide().appendTo('body')
 
-		# Webkit really doesn't like block elements inside inline elements
-		if $el.width() > $el.parent().width()
-			$el.css('display', 'block')
-
-		$el.bind {
+		$el.bind(
 			'mouseover': (ev) =>
 				@position_vert(ev.pageY)
 				@show($el)
@@ -40,7 +43,7 @@ class FrontEndEditor.hover
 
 			'mouseout': (ev) =>
 				@hide()
-		}
+		)
 
 	position_vert: (mouse_vert_pos) ->
 		normal_height = mouse_vert_pos - @container.outerHeight()/2
