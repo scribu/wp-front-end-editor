@@ -38,7 +38,8 @@ class FrontEndEditor.hover
 			'mousemove': (ev) =>
 				@position_vert(ev.pageY)
 
-			'mouseout': jQuery.proxy(this, 'hide')
+			'mouseout': (ev) =>
+				@hide()
 		}
 
 	position_vert: (mouse_vert_pos) ->
