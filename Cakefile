@@ -70,14 +70,14 @@ task 'dev:js', 'Generate separate JS files', (options) ->
 task 'dev:css', 'Generate uncompressed CSS', (options) ->
 	io compile_less_dev, 'less/core.less', 'css/core.css'
 
-task 'build:css', 'Generate compressed CSS', (options) ->
-	io compile_less, 'less/core.less', 'build/editor.css'
-
 task 'build:js', 'Generate compressed JS', (options) ->
 	exec 'cd coffee; cat core.coffee hover.coffee init.coffee fields/*.coffee | coffee -cs > ../build/editor.js', (err, stdout, stderr) ->
 		throw err if err
 
 		io compress_js, 'build/editor.js', 'build/editor.min.js'
+
+task 'build:css', 'Generate compressed CSS', (options) ->
+	io compile_less, 'less/core.less', 'build/editor.css'
 
 task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
 	plugin = 'wpImage'
