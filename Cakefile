@@ -17,7 +17,7 @@ compress_js = (input, cb) ->
 	ast = jsp.parse input
 	ast = pro.ast_squeeze ast
 
-	cb pro.gen_code(ast)
+	cb pro.gen_code ast
 
 compile_less = (input, cb, compress = true) ->
 	less = require 'less'
@@ -73,7 +73,7 @@ task 'build:js', 'Generate compressed JS', (options) ->
 	exec 'cd coffee; cat core.coffee hover.coffee init.coffee fields/*.coffee | coffee -cs > ../build/editor.js', (err, stdout, stderr) ->
 		throw err if err
 
-	io compress_js, 'build/editor.js', 'build/editor.min.js'
+		io compress_js, 'build/editor.js', 'build/editor.min.js'
 
 task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
 	plugin = 'wpImage'
