@@ -18,17 +18,23 @@ class FrontEndEditor.fieldTypes.base
 		@hover = new FrontEndEditor.hover $container, @pre_edit_button()
 
 	ajax_get: ->
-		@el.trigger('edit_start')
+		@el.trigger 'edit_start'
 
 		@_ajax_request {
 			data: @ajax_get_args arguments...
-			success: jQuery.proxy(this, 'ajax_get_handler'),
+			success: =>
+				@ajax_get_handler arguments...
+				@el.trigger 'edit_started'
 		}
 
 	ajax_set: ->
+		@el.trigger 'edit_save'
+
 		@_ajax_request {
 			data: @ajax_set_args arguments...
-			success: jQuery.proxy(this, 'ajax_set_handler'),
+			success: =>
+				@ajax_set_handler arguments...
+				@el.trigger 'edit_saved'
 		}
 
 	_ajax_request: (args) ->
