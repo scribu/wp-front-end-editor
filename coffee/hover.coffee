@@ -1,7 +1,8 @@
 class FrontEndEditor.hover
 
 	HOVER_BORDER: 2
-	HOVER_PADDING: 2
+	HORIZONTAL_PADDING: 4
+	VERTICAL_PADDING: 2
 
 	lock: false,
 	timeout: null,
@@ -63,12 +64,12 @@ class FrontEndEditor.hover
 		clearTimeout @timeout
 
 		# Position container
-		@container.css 'left', (offset.left - @container.outerWidth() - @HOVER_PADDING - 2) + 'px'
+		@container.css 'left', (offset.left - @container.outerWidth() - @HORIZONTAL_PADDING) + 'px'
 		@container.show()
 
 		# Position border
 		@border.css(
-			'left'  : (offset.left - @HOVER_PADDING - 2) + 'px'
-			'top'   : (offset.top  - @HOVER_PADDING - @HOVER_BORDER) + 'px'
-			'height': ($el.height() + @HOVER_PADDING * 2) + 'px'
+			'left'  : (offset.left - @HORIZONTAL_PADDING) + 'px'
+			'top'   : (offset.top  - @VERTICAL_PADDING - @HOVER_BORDER) + 'px'
+			'height': ($el.height() + @VERTICAL_PADDING*2) + 'px'
 		).show()
