@@ -1,8 +1,8 @@
-class FrontEndEditor.hover
+HOVER_BORDER = 2
+HORIZONTAL_PADDING = 4
+VERTICAL_PADDING = 2
 
-	HOVER_BORDER: 2
-	HORIZONTAL_PADDING: 4
-	VERTICAL_PADDING: 2
+class FrontEndEditor.hover
 
 	lock: false,
 	timeout: null,
@@ -10,7 +10,7 @@ class FrontEndEditor.hover
 	constructor: ($el, $content) ->
 		@border = jQuery('<div>',
 			'class': 'fee-hover-border',
-			'css': { width: @HOVER_BORDER }
+			'css': { width: HOVER_BORDER }
 		).hide().appendTo('body')
 
 		@container = jQuery('<div>',
@@ -44,7 +44,7 @@ class FrontEndEditor.hover
 	position_vert: (mouse_vert_pos) ->
 		normal_height = mouse_vert_pos - @container.outerHeight()/2
 
-		@container.css('top', (normal_height - @HOVER_BORDER) + 'px')
+		@container.css('top', (normal_height - HOVER_BORDER) + 'px')
 
 	hide_immediately: ->
 		@container.hide()
@@ -64,12 +64,12 @@ class FrontEndEditor.hover
 		clearTimeout @timeout
 
 		# Position container
-		@container.css 'left', (offset.left - @container.outerWidth() - @HORIZONTAL_PADDING) + 'px'
+		@container.css 'left', (offset.left - @container.outerWidth() - HORIZONTAL_PADDING) + 'px'
 		@container.show()
 
 		# Position border
 		@border.css(
-			'left'  : (offset.left - @HORIZONTAL_PADDING) + 'px'
-			'top'   : (offset.top  - @VERTICAL_PADDING - @HOVER_BORDER) + 'px'
-			'height': ($el.height() + @VERTICAL_PADDING*2) + 'px'
+			'left'  : (offset.left - HORIZONTAL_PADDING) + 'px'
+			'top'   : (offset.top  - VERTICAL_PADDING - HOVER_BORDER) + 'px'
+			'height': ($el.height() + VERTICAL_PADDING * 2) + 'px'
 		).show()
