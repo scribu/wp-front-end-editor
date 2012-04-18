@@ -4,9 +4,11 @@ mkdirp = require 'mkdirp'
 {spawn, exec} = require 'child_process'
 
 io = (callback, inputPath, outputPath) ->
-	mkdirp.sync path.dirname outputPath
-
 	input = fs.readFileSync inputPath, 'utf8'
+
+	if input is ''
+		console.warn "Empty file: #{inputPath}"
+
 	callback input, (output) ->
 		fs.writeFileSync outputPath, output, 'utf8'
 
