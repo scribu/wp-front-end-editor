@@ -2,25 +2,23 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 
 	input_tag: '<input type="text">'
 
-	start_editing: (ev) ->
+	start_editing: ->
 		@create_form()
 		@create_input()
 
 		@ajax_get()
 
-		null
-
 	create_buttons: ->
 		@save_button = jQuery('<button>',
 			'class': 'fee-form-save'
 			'text' : FrontEndEditor.data.save_text
-			'click': jQuery.proxy(this, 'submit_form')
+			'click': => @ajax_set()
 		)
 
 		@cancel_button = jQuery('<button>',
 			'class': 'fee-form-cancel'
 			'text' : FrontEndEditor.data.cancel_text
-			'click': jQuery.proxy(this, 'remove_form')
+			'click': => @remove_form()
 		)
 
 		return @save_button.add(@cancel_button)
@@ -30,22 +28,14 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			.addClass('fee-form')
 			.addClass('fee-type-' + @get_type())
 
-		@form.keypress jQuery.proxy(this, 'keypress')
+		@form.keypress (ev) => @keypress(ev.keyCode or ev.which or ev.charCode or 0)
 
-	remove_form: (ev) ->
+	remove_form: ->
 		@form.remove()
 		@el.show()
 
-		null
-
-	submit_form: (ev) ->
-		@ajax_set()
-
-		null
-
-	keypress: (ev) ->
+	keypress: (code) ->
 		keys = {ENTER: 13, ESCAPE: 27}
-		code = ev.keyCode or ev.which or ev.charCode or 0
 
 		if code is keys.ENTER and 'input' is @get_type()
 			@save_button.click()

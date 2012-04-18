@@ -9,7 +9,7 @@ class FrontEndEditor.fieldTypes.base
 		jQuery('<button>',
 			'class': 'fee-hover-edit'
 			'html': FrontEndEditor.data.edit_text
-			'click': jQuery.proxy(this, 'start_editing')
+			'click': => @start_editing()
 		)
 
 	start_editing: null

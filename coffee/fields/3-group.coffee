@@ -12,13 +12,11 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		@form = @el
 
-	remove_form: (ev) ->
+	remove_form: ->
 		for editor in @editors
 			editor.remove_form()
 
 		@hover.container.html @pre_edit_button()
-
-		null
 
 	content_from_input: ->
 		(editor.content_from_input() for editor in @editors)
