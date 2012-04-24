@@ -34,6 +34,7 @@ abstract class FEE_Core {
 	static function scripts() {
 		$wrapped = array_keys( FEE_Field_Base::get_wrapped() );
 
+		// No point loading all that JavaScript if there aren't any editable elements
 		if ( empty( $wrapped ) ) {
 			return;
 		}
