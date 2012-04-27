@@ -7,7 +7,7 @@ class FrontEndEditor.hover
 	lock: false,
 	timeout: null,
 
-	constructor: ($el, $content) ->
+	constructor: ($el, $content, autohide = true) ->
 		# Webkit really doesn't like block elements inside inline elements
 		if $el.width() > $el.parent().width()
 			$el.css('display', 'block')
@@ -24,26 +24,25 @@ class FrontEndEditor.hover
 			'click': (ev) =>
 				ev.preventDefault()
 				@hide_immediately()
-
-			'mouseover': =>
-				@lock = true
-
-			'mouseout': =>
-				@lock = false
-				@hide()
 		).hide().appendTo('body')
 
-		$el.bind(
-			'mouseover': (ev) =>
-				@position_vert(ev.pageY)
-				@show($el)
+		$el.mousemove (ev) =>
+			@position_vert(ev.pageY)
 
-			'mousemove': (ev) =>
-				@position_vert(ev.pageY)
+		$el.mouseover (ev) =>
+			@position_vert(ev.pageY)
+			@show($el)
 
-			'mouseout': (ev) =>
+		if autohide
+			$el.mouseout (ev) =>
 				@hide()
-		)
+
+			@container.mouseover =>
+				@lock = true
+
+			@container.mouseout =>
+				@lock = false
+				@hide()
 
 	position_vert: (mouse_vert_pos) ->
 		normal_height = mouse_vert_pos - @container.outerHeight()/2

@@ -19,8 +19,6 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 		if !$el
 			return
 
-		@create_form()
-
 		@form.html(response.content)
 
 		@el.hide()
@@ -29,7 +27,7 @@ class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
 		@form.aloha()
 
 		if not @part_of_group
-			new FrontEndEditor.hover @form, @create_buttons()
+			new FrontEndEditor.hover @form, @create_buttons(), false
 
 			# hack to get the floating menu to show up immediately
 			@form.focus()
