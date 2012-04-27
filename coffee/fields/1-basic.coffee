@@ -86,7 +86,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		@input.focus()
 
 		if not @part_of_group
-			new FrontEndEditor.hover @form, @create_buttons(), false
+			new FrontEndEditor.hover @form, @create_buttons()
 
 	ajax_set_handler: (response) ->
 		$el = @error_handler(response)

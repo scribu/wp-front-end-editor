@@ -7,10 +7,10 @@ class FrontEndEditor.hover
 	lock: false,
 	timeout: null,
 
-	constructor: ($el, $content, autohide = true) ->
+	constructor: (@target, $content) ->
 		# Webkit really doesn't like block elements inside inline elements
-		if $el.width() > $el.parent().width()
-			$el.css('display', 'block')
+		if @target.width() > @target.parent().width()
+			@target.css('display', 'block')
 
 		@border = jQuery('<div>',
 			'class': 'fee-hover-border',
@@ -20,29 +20,33 @@ class FrontEndEditor.hover
 		@container = jQuery('<div>',
 			'class': 'fee-hover-container'
 			'html': $content
-
-			'click': (ev) =>
-				ev.preventDefault()
-				@hide_immediately()
 		).hide().appendTo('body')
 
-		$el.mousemove (ev) =>
+		@container.click (ev) =>
+			ev.preventDefault()
+			@hide_immediately()
+
+		@target.mousemove (ev) =>
 			@position_vert(ev.pageY)
 
-		$el.mouseover (ev) =>
+		@target.mouseover (ev) =>
 			@position_vert(ev.pageY)
-			@show($el)
+			@show()
 
-		if autohide
-			$el.mouseout (ev) =>
-				@hide()
+	bind_autohide: ->
+		@target.bind 'mouseout.autohide', (ev) =>
+			@hide()
 
-			@container.mouseover =>
-				@lock = true
+		@container.bind 'mouseover.autohide', =>
+			@lock = true
 
-			@container.mouseout =>
-				@lock = false
-				@hide()
+		@container.bind 'mouseout.autohide', =>
+			@lock = false
+			@hide()
+
+	unbind_autohide: ->
+		@target.unbind '.autohide'
+		@container.unbind '.autohide'
 
 	position_vert: (mouse_vert_pos) ->
 		normal_height = mouse_vert_pos - @container.outerHeight()/2
@@ -61,8 +65,8 @@ class FrontEndEditor.hover
 			@hide_immediately()
 		, 300
 
-	show: ($el) ->
-		offset = $el.offset()
+	show: ->
+		offset = @target.offset()
 
 		clearTimeout @timeout
 
@@ -74,5 +78,5 @@ class FrontEndEditor.hover
 		@border.css(
 			'left'  : (offset.left - HORIZONTAL_PADDING) + 'px'
 			'top'   : (offset.top  - VERTICAL_PADDING - HOVER_BORDER) + 'px'
-			'height': ($el.height() + VERTICAL_PADDING * 2) + 'px'
+			'height': (@target.height() + VERTICAL_PADDING * 2) + 'px'
 		).show()

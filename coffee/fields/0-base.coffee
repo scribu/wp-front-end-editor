@@ -16,6 +16,7 @@ class FrontEndEditor.fieldTypes.base
 
 	init_hover: ($container) ->
 		@hover = new FrontEndEditor.hover $container, @pre_edit_button()
+		@hover.bind_autohide()
 
 	ajax_get: ->
 		@el.trigger 'edit_start'
