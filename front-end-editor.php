@@ -8,8 +8,6 @@ Author URI: http://scribu.net/
 Plugin URI: http://scribu.net/wordpress/front-end-editor
 Text Domain: front-end-editor
 Domain Path: /lang
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 */
 
 define( 'FEE_VERSION', '2.3-alpha3' );

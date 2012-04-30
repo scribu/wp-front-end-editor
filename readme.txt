@@ -5,6 +5,8 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Requires at least: 3.2
 Tested up to: 3.3
 Stable tag: 2.2.1
+License: GPLv3 or later
+License URI: http://www.gnu.org/licenses/gpl.html
 
 Edit content inline, without going to the admin area.
 
