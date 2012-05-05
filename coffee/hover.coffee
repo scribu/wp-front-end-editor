@@ -72,12 +72,12 @@ class FrontEndEditor.hover
 		clearTimeout @timeout
 
 		# Position container
-		@container.css 'left', (offset.left - @container.outerWidth() - HORIZONTAL_PADDING) + 'px'
+		@container.css 'left', (offset.left - @container.outerWidth() - HORIZONTAL_PADDING - HOVER_BORDER) + 'px'
 		@container.show()
 
 		# Position border
 		@border.css(
-			'left'  : (offset.left - HORIZONTAL_PADDING) + 'px'
+			'left'  : (offset.left - HORIZONTAL_PADDING - HOVER_BORDER) + 'px'
 			'top'   : (offset.top  - VERTICAL_PADDING - HOVER_BORDER) + 'px'
 			'height': (@target.height() + VERTICAL_PADDING * 2) + 'px'
 		).show()
