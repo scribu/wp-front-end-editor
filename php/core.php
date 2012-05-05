@@ -86,17 +86,13 @@ abstract class FEE_Core {
 				$file = basename( $file );
 				self::register_script( "fee-fields-$file", "js/fields/$file", array( 'fee-core' ) );
 			}
-
-			$css_path = 'css/core.css';
 		} else {
 			$min = defined('SCRIPT_DEBUG') ? '' : '.min';
 			self::register_script( 'fee-editor', "build/editor$min.js" );
-
-			$css_path = 'build/editor.css';
 		}
 
 		// Core style
-		wp_register_style( 'fee-editor', plugins_url( $css_path, FEE_MAIN_FILE ), $css_dependencies, FEE_VERSION );
+		wp_register_style( 'fee-editor', plugins_url( 'css/core.css', FEE_MAIN_FILE ), $css_dependencies, FEE_VERSION );
 		scbUtil::do_styles( 'fee-editor' );
 
 ?>

@@ -128,11 +128,9 @@ span.fee-form select {
 }
 
 /* Widget */
-.fee-form.fee-type-widget {
-	input.widefat, textarea.widefat {
-		display: block;
-		width: 100%;
-	}
+.widget_text.fee-group .fee-form-content {
+	display: block;
+	width: 100%;
 }
 
 /* Image */
@@ -146,16 +144,16 @@ span.fee-form select {
 	display: block;
 	float: left;
 	padding: 6px 10px 0;
+}
 
-	&:link,
-	&:active,
-	&:visited {
-		color: #21759B !important;
-	}
+#fee-img-revert:link,
+#fee-img-revert:active,
+#fee-img-revert:visited {
+	color: #21759B !important;
+}
 
-	&:hover {
-		color: #D54E21 !important;
-	}
+#fee-img-revert:hover {
+	color: #D54E21 !important;
 }
 
 /* Aloha Editor */
