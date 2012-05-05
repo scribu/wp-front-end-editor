@@ -61,10 +61,9 @@ textarea.fee-form-content {
 /* Hover */
 .fee-hover-border,
 .fee-hover-container {
-	background-color: #aaa;
+	background-color: #777;
 	position: absolute;
 	z-index: 999;
-	color: #fff;
 }
 
 /* Buttons */
@@ -72,9 +71,21 @@ textarea.fee-form-content {
 	display: block;
 	float: left;
 	cursor: pointer;
+	background-color: transparent;
+	border: 0;
+	color: #fff;
+	font-size: 14px;
+	line-height: 16px;
+	padding: 2px 3px 3px;
+}
+
+.fee-hover-container button:hover {
+	color: #21759B;
+	background-color: #e4e4e4;
 }
 
 button.fee-form-save {
+	font-weight: bold;
 }
 
 button.fee-form-cancel {
