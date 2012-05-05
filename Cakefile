@@ -1,10 +1,10 @@
-fs = require 'fs'
-path = require 'path'
-mkdirp = require 'mkdirp'
-{spawn, exec} = require 'child_process'
+fs = require('fs')
+path = require('path')
+mkdirp = require('mkdirp').sync
+{spawn, exec} = require('child_process')
 
 io = (callback, inputPath, outputPath) ->
-	mkdirp.sync path.dirname outputPath
+	mkdirp path.dirname outputPath
 
 	input = fs.readFileSync inputPath, 'utf8'
 
@@ -53,12 +53,13 @@ task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
 	plugin = 'wpImage'
 
 	dir = "aloha-plugins/#{plugin}/lib/"
-	mkdirp.sync dir
+
+	mkdirp dir
 
 	exec "coffee -b $2 -o #{dir}/ coffee/aloha/#{plugin}-plugin", (err, stdout, stderr) ->
 		throw err if err
 
 task 'build', 'Generate a build for wp.org', (options) ->
-	mkdirp.sync 'build'
+	mkdirp 'build'
 	invoke 'build:js'
 	invoke 'build:aloha'
