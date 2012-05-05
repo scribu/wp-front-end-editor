@@ -5,13 +5,9 @@ lib/aloha-editor/build.txt
 lib/mustache/examples
 lib/mustache/test
 lib/mustache/bin
-lib/less
 
 coffee
-less
-
 js
-css
 
 bin
 
