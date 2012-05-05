@@ -15,13 +15,12 @@ io = (callback, inputPath, outputPath) ->
 		fs.writeFileSync outputPath, output, 'utf8'
 
 compress_js = (input, cb) ->
-	jsp = require('uglify-js').parser
-	pro = require('uglify-js').uglify
+	{parser, uglify} = require('uglify-js')
 
-	ast = jsp.parse input
-	ast = pro.ast_squeeze ast
+	ast = parser.parse input
+	ast = uglify.ast_squeeze ast
 
-	cb pro.gen_code ast
+	cb uglify.gen_code ast
 
 launch = (cmd, options=[], callback) ->
 	app = spawn cmd, options
