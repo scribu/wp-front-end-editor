@@ -25,17 +25,17 @@ class FrontEndEditor.fieldTypes.image_base extends FrontEndEditor.fieldTypes.bas
 
 	thickbox_load: ($thickbox) ->
 		# Submit the form to our own ajax handler, to get back the HTML
-		$thickbox.delegate('.media-item :submit', 'click', (ev) =>
+		$thickbox.delegate '.media-item :submit', 'click', (ev) =>
 			$button = jQuery(ev.currentTarget)
 			data = $button.closest('form').serializeArray()
 
-			data.push({name: $button.attr('name'), value: $button.attr('name')})
-			data.push({name: 'action', value: 'fee_image_insert'})
+			data.push {name: $button.attr('name'), value: $button.attr('name')}
+			data.push {name: 'action', value: 'fee_image_insert'}
 
-			jQuery.post(FrontEndEditor.data.ajax_url, data, => @image_html_handler())
+			jQuery.post FrontEndEditor.data.ajax_url, data, (html) =>
+				@image_html_handler(html)
 
 			return false
-		)
 
 	media_item_manipulation: ($item) ->
 		$item.find('#go_button').remove()
