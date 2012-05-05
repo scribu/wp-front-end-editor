@@ -59,5 +59,6 @@ task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
 		throw err if err
 
 task 'build', 'Generate a build for wp.org', (options) ->
+	mkdirp.sync 'build'
 	invoke 'build:js'
 	invoke 'build:aloha'
