@@ -30,8 +30,7 @@ class FrontEndEditor.hover
 			@position_vert(ev.pageY)
 
 		@target.mouseover (ev) =>
-			@position_vert(ev.pageY)
-			@show()
+			@show(ev.pageY)
 
 	bind_autohide: ->
 		@target.bind 'mouseout.autohide', (ev) =>
@@ -48,11 +47,6 @@ class FrontEndEditor.hover
 		@target.unbind '.autohide'
 		@container.unbind '.autohide'
 
-	position_vert: (mouse_vert_pos) ->
-		normal_height = mouse_vert_pos - @container.outerHeight()/2
-
-		@container.css('top', (normal_height - HOVER_BORDER) + 'px')
-
 	hide_immediately: ->
 		@container.hide()
 		@border.hide()
@@ -65,7 +59,14 @@ class FrontEndEditor.hover
 			@hide_immediately()
 		, 300
 
-	show: ->
+	position_vert: (vert_pos) ->
+		normal_height = vert_pos - @container.outerHeight()/2
+
+		@container.css('top', (normal_height - HOVER_BORDER) + 'px')
+
+	show: (vert_pos) ->
+		@position_vert(vert_pos)
+
 		offset = @target.offset()
 
 		clearTimeout @timeout
