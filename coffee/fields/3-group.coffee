@@ -69,6 +69,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		@hover.container.html @create_buttons()
 		@hover.unbind_autohide()
+		@hover.show(@last_mouse_pos)
 
 	ajax_set_handler: (response) ->
 		for editor, i in @editors
