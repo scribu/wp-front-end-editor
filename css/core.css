@@ -23,12 +23,14 @@
 }
 
 div.fee-form,
+.widget_text.fee-group input,
 textarea.fee-form-content {
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	clear: both !important;
+	display: block !important;
 	width: 100% !important;
 }
 
@@ -125,12 +127,6 @@ span.fee-form select {
 
 .fee-suggest-over {
 	background-color: #f0f0b8;
-}
-
-/* Widget */
-.widget_text.fee-group .fee-form-content {
-	display: block;
-	width: 100%;
 }
 
 /* Image */
