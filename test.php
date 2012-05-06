@@ -49,7 +49,7 @@ function fee_test_input_types() {
 
 	if ( function_exists( 'get_the_post_thumbnail' ) ) {
 		echo '<strong>Post thumbnail:</strong><br>';
-		echo get_the_post_thumbnail( get_the_ID() );
+		echo get_the_post_thumbnail( get_queried_object_id() );
 	}
 }
 
