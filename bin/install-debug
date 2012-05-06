@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# install the debug template in the current theme. requires wp-cli
+
+if [ $# -lt 1 ]; then
+	echo "usage: $(basename $0) /path/to/wp"
+	exit
+fi
+
+theme_path=$(wp --path=$1 eval 'echo get_stylesheet_directory();')
+
+template_path=$(pwd -P)/test.php
+
+ln -s $template_path $theme_path/fee-debug.php
