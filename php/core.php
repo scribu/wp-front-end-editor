@@ -6,7 +6,6 @@ abstract class FEE_Core {
 	static $options;
 
 	private static $fields;
-	private static $active_fields;
 	private static $instances = array();
 
 	private static $plugin_url;
@@ -189,24 +188,24 @@ Aloha.settings = {
 	private static function make_instances() {
 		$disabled = (array) self::$options->disabled;
 
-		self::$active_fields = array();
+		$active_fields = array();
 
 		foreach ( self::get_fields() as $filter => $args ) {
 			if ( in_array( $filter, $disabled ) )
 				continue;
 
-			self::$active_fields[ $filter ] = $args;
+			$active_fields[ $filter ] = $args;
 
 			extract( $args );
 
 			self::$instances[ $filter ] = new $class( $filter, $type );
 		}
+
+		return $active_fields;
 	}
 
 	static function add_filters() {
-		self::make_instances();
-
-		foreach ( self::$active_fields as $filter => $args ) {
+		foreach ( self::make_instances() as $filter => $args ) {
 			extract( $args );
 
 			if ( empty( $title ) )
