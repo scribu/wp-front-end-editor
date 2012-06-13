@@ -1,6 +1,15 @@
 <?php
 // Template Name: FEE Debug
 
+add_action( 'wp_head', function() { ?>
+<style>
+#fee-option-test {
+	border: 1px solid gray;
+	padding: 5px;
+}
+</style>
+<?php });
+
 get_header();
 
 fee_inject_dummy_post();
@@ -28,22 +37,26 @@ the_post();
 ) );
 ?></div>
 
-<strong>Input option:</strong><br>
-<div><?php editable_option( array(
-	'key' => 'price',
-	'type' => 'input',
-) ); ?></div>
+<div id="fee-option-test" class="fee-group">
+	<div class="fee-buttons"></div>
 
-<strong>Dropdown option:</strong><br>
-<div><?php editable_option( array(
-	'key' => 'country',
-	'type' => 'select',
-	'values' => array(
-		'fr' => 'France',
-		'it' => 'Italy',
-		'ch' => 'China',
-	),
-) ); ?></div>
+	<strong>Input option:</strong><br>
+	<div><?php editable_option( array(
+		'key' => 'price',
+		'type' => 'input',
+	) ); ?></div>
+
+	<strong>Dropdown option:</strong><br>
+	<div><?php editable_option( array(
+		'key' => 'country',
+		'type' => 'select',
+		'values' => array(
+			'fr' => 'France',
+			'it' => 'Italy',
+			'ch' => 'China',
+		),
+	) ); ?></div>
+</div>
 
 <strong>Post excerpt:</strong><br>
 <?php the_excerpt(); ?>
