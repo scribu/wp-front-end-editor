@@ -125,12 +125,13 @@ class FrontEndEditor.fieldTypes.select extends FrontEndEditor.fieldTypes.input
 	input_tag: '<select>'
 
 	content_to_input: (content) ->
-		for value, title in @data.values
+		for own value, title of @data.values
 			@input.append(jQuery('<option>',
 				value: value
 				html: title
 				selected: content is value
 			))
+		false
 
 	content_from_input: ->
 		return @input.find(':selected').val()
