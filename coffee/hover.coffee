@@ -79,5 +79,5 @@ class FrontEndEditor.hover
 		@border.css(
 			'left'  : (offset.left - HORIZONTAL_PADDING - HOVER_BORDER) + 'px'
 			'top'   : (offset.top  - VERTICAL_PADDING - HOVER_BORDER) + 'px'
-			'height': (@target.height() + VERTICAL_PADDING * 2) + 'px'
+			'height': (@target.outerHeight() + VERTICAL_PADDING * 2) + 'px'
 		).show()
