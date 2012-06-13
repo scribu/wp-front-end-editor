@@ -7,11 +7,12 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 	init_hover: ($container) ->
 		$button_area = $container.find('.fee-buttons')
+
 		if not $button_area.length
 			super
-
-		@hover = new FrontEndEditor.controls $button_area
-		@hover.not_editing @pre_edit_button()
+		else
+			@hover = new FrontEndEditor.controls $button_area
+			@hover.not_editing @pre_edit_button()
 
 	create_form: ->
 		for editor in @editors
