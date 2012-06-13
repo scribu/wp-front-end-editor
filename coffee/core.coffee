@@ -34,8 +34,8 @@ jQuery.extend(FrontEndEditor, {
 
 				$cover
 					.css(
-						'width': $el.width()
-						'height': $el.height()
+						'width': $el.outerWidth()
+						'height': $el.outerHeight()
 						'background-color': bgcolor
 					)
 					.css($el.offset())
