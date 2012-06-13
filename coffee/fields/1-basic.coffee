@@ -21,7 +21,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			'click': => @remove_form()
 		)
 
-		return @save_button.add(@cancel_button)
+		return @save_button.add @cancel_button
 
 	create_form: ->
 		@form = jQuery(if @el.is('span') then '<span>' else '<div>')
@@ -89,8 +89,8 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 			@show_control_buttons()
 
 	show_control_buttons: ->
-		hover = new FrontEndEditor.hover @form, @create_buttons()
-		hover.show(@last_mouse_pos)
+		hover = new FrontEndEditor.hover @form
+		hover.editing @create_buttons(), @last_mouse_pos
 
 	ajax_set_handler: (response) ->
 		$el = @error_handler(response)
