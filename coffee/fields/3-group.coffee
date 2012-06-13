@@ -5,6 +5,14 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 	create_input: jQuery.noop
 
+	init_hover: ($container) ->
+		$button_area = $container.find('.fee-buttons')
+		if not $button_area.length
+			super
+
+		@hover = new FrontEndEditor.controls $button_area
+		@hover.not_editing @pre_edit_button()
+
 	create_form: ->
 		for editor in @editors
 			editor.create_form()
@@ -16,8 +24,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 		for editor in @editors
 			editor.remove_form()
 
-		@hover.container.html @pre_edit_button()
-		@hover.bind_autohide()
+		@hover.not_editing @pre_edit_button()
 
 	content_from_input: ->
 		(editor.content_from_input() for editor in @editors)
@@ -67,9 +74,7 @@ class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
 
 		@editors[0].input?.focus()
 
-		@hover.container.html @create_buttons()
-		@hover.unbind_autohide()
-		@hover.show(@last_mouse_pos)
+		@hover.editing @create_buttons(), @last_mouse_pos
 
 	ajax_set_handler: (response) ->
 		for editor, i in @editors

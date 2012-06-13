@@ -2,12 +2,27 @@ HOVER_BORDER = 2
 HORIZONTAL_PADDING = 4
 VERTICAL_PADDING = 2
 
+
+# Static controls handler
+class FrontEndEditor.controls
+
+	constructor: (@container) ->
+		false
+
+	not_editing: ($content) ->
+		@container.html $content
+
+	editing: ($content, vert_pos) ->
+		@container.html $content
+
+
+# Hovering controls handler
 class FrontEndEditor.hover
 
 	lock: false,
 	timeout: null,
 
-	constructor: (@target, $content) ->
+	constructor: (@target) ->
 		# Webkit really doesn't like block elements inside inline elements
 		if @target.width() > @target.parent().width()
 			@target.css('display', 'block')
@@ -19,7 +34,6 @@ class FrontEndEditor.hover
 
 		@container = jQuery('<div>',
 			'class': 'fee-hover-container'
-			'html': $content
 		).hide().appendTo('body')
 
 		@container.click (ev) =>
@@ -32,9 +46,8 @@ class FrontEndEditor.hover
 		@target.mouseover (ev) =>
 			@show(ev.pageY)
 
-	bind_autohide: ->
-		@target.bind 'mouseout.autohide', (ev) =>
-			@hide()
+	not_editing: ($content) ->
+		@container.html($content)
 
 		@container.bind 'mouseover.autohide', =>
 			@lock = true
@@ -43,9 +56,16 @@ class FrontEndEditor.hover
 			@lock = false
 			@hide()
 
-	unbind_autohide: ->
+		@target.bind 'mouseout.autohide', (ev) =>
+			@hide()
+
+	editing: ($content, vert_pos) ->
+		@container.html $content
+
 		@target.unbind '.autohide'
 		@container.unbind '.autohide'
+
+		@show vert_pos
 
 	hide_immediately: ->
 		@container.hide()
