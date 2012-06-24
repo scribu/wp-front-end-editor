@@ -96,13 +96,38 @@ function editable_image( $key, $default_url, $extra_attr = '', $echo = true ) {
 function fee_inject_dummy_post( $post_type = 'post', $replace_first = true ) {
 	global $wp_query;
 
-	require_once( ABSPATH . '/wp-admin/includes/post.php' );
-
-	$post = get_default_post_to_edit( $post_type, true );
+	$post = _fee_get_draft_post( $post_type );
 
 	if ( $replace_first )
 		$wp_query->posts[0] = $post;
 	else
 		array_unshift( $wp_query->posts, $post );
+}
+
+/**
+ * Utility to create an auto-draft post, to be used on front-end forms.
+ *
+ * @param string $post_type
+ * @return object
+ */
+function _fee_get_draft_post( $post_type ) {
+	$key = 'draft_' . $post_type . '_id';
+
+	$draft_post_id = (int) get_user_option( $key );
+
+	if ( $draft_post_id ) {
+		$draft = get_post( $draft_post_id );
+
+		if ( !empty( $draft ) && $draft->post_status == 'auto-draft' )
+			return $draft;
+	}
+
+	require_once ABSPATH . '/wp-admin/includes/post.php';
+
+	$draft = get_default_post_to_edit( $post_type, true );
+
+	update_user_option( get_current_user_id(), $key, $draft->ID );
+
+	return $draft;
 }
 
