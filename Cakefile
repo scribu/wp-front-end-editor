@@ -36,7 +36,7 @@ coffee_invoke = (watch) ->
 task 'watch', 'Watch coffee/ directory and compile into js/', (options) ->
 	coffee_invoke true
 
-task 'watch:coffee', 'Watch coffee/ directory and compile into js/ (using Jitter)', (options) ->
+task 'watch:j', 'Watch coffee/ directory and compile into js/ (using Jitter)', (options) ->
 	launch 'jitter', ['coffee/', 'js/']
 
 task 'dev:js', 'Generate separate JS files', (options) ->
