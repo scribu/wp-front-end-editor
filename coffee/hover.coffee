@@ -80,9 +80,12 @@ class FrontEndEditor.hover
 		, 300
 
 	position_vert: (vert_pos) ->
-		normal_height = vert_pos - @container.outerHeight()/2
+		if vert_pos?
+			normal_height = vert_pos - @container.outerHeight()/2 - HOVER_BORDER
+		else
+			normal_height = @target.offset().top - HOVER_BORDER*2
 
-		@container.css('top', (normal_height - HOVER_BORDER) + 'px')
+		@container.css('top', normal_height + 'px')
 
 	show: (vert_pos) ->
 		@position_vert(vert_pos)
