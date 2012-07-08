@@ -71,7 +71,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 * make Save/Cancel buttons hover in place of the Edit button
 * allow editing multiple elements simultaneously again
 * enhanced JavaScript API
-* update to Aloha 0.20.15
+* update to Aloha 0.20.16
 
 = 2.2.1 =
 * update to Aloha 0.20.6

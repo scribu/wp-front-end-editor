@@ -11,7 +11,7 @@ Domain Path: /lang
 */
 
 define( 'FEE_VERSION', '2.3-beta2' );
-define( 'ALOHA_VERSION', '0.20.15' );
+define( 'ALOHA_VERSION', '0.20.16' );
 
 define( 'FEE_MAIN_FILE', __FILE__ );
 
