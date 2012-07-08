@@ -18,3 +18,5 @@ cd -
 
 rm lib/aloha-editor -rf
 mv /tmp/aloha-package/aloha lib/aloha-editor
+
+find lib/aloha-editor -name '*.php' -delete
