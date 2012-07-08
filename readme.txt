@@ -69,6 +69,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 = 2.2.2 =
 * fix security exploit caused by Aloha demo file
 * update to Aloha 0.20.16
+* update scbFramework
 
 = 2.2.1 =
 * update to Aloha 0.20.6
