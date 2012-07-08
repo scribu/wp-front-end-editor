@@ -3,8 +3,8 @@ Contributors: scribu, Jotschi
 Tags: inline, editor, edit-in-place, visual, wysiwyg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WB35NBVGWMS3E&item_name=Front-end%20Editor
 Requires at least: 3.2
-Tested up to: 3.3
-Stable tag: 2.2.2
+Tested up to: 3.4
+Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
@@ -71,11 +71,8 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 * make Save/Cancel buttons hover in place of the Edit button
 * allow editing multiple elements simultaneously again
 * enhanced JavaScript API
-
-= 2.2.2 =
-* fix security exploit caused by Aloha demo file
-* update to Aloha 0.20.16
-* update scbFramework
+* switch from Coco to CoffeeScript
+* fix security exploit caused by Aloha demo file and update to Aloha 0.20.16
 
 = 2.2.1 =
 * update to Aloha 0.20.6
