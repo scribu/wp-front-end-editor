@@ -20,3 +20,4 @@ rm lib/aloha-editor -rf
 mv /tmp/aloha-package/aloha lib/aloha-editor
 
 find lib/aloha-editor -name '*.php' -delete
+find lib/aloha-editor -path '*/demo' | xargs rm -rf
