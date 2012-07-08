@@ -7,8 +7,18 @@ if [ $# -lt 1 ]; then
 	exit
 fi
 
-theme_path=$(wp --path=$1 eval 'echo get_stylesheet_directory();')
+wp="wp --path=$1"
+
+theme_path=$($wp eval 'echo get_stylesheet_directory();')
 
 template_path=$(pwd -P)/test.php
 
-ln -s $template_path $theme_path/fee-debug.php
+ln -s $template_path $theme_path/wpn-debug.php
+
+page_id=$($wp post create \
+	--post_type='page' \
+	--post_status='publish' \
+	--post_title='FEE Debug' \
+	--porcelain)
+
+$wp post-meta set $page_id '_wp_page_template' 'fee-debug.php' --silent
