@@ -29,6 +29,9 @@ div.aloha-floatingmenu, div.aloha-shadow {
 	margin:0;
 	padding:0;
 }
+.ext-shim {
+	display: none !important;
+}
 .aloha-floatingmenu {
   
 }
@@ -7183,6 +7186,9 @@ button.aloha-button-u {
 	background-position: -32px 0px !important;
 }
 button.aloha-button-del {
+	background-position: -48px 0px !important;
+}
+button.aloha-button-s {
 	background-position: -48px 0px !important;
 }
 button.aloha-button-sub {
