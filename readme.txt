@@ -73,6 +73,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 * enhanced JavaScript API
 * switch from Coco to CoffeeScript
 * fix security exploit caused by Aloha demo file and update to Aloha 0.20.16
+* [more info](http://scribu.net/wordpress/front-end-editor/fee-2-3.html)
 
 = 2.2.1 =
 * update to Aloha 0.20.6
