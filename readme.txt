@@ -61,6 +61,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 1. The tooltip
 2. Editing the post title and content
+3. Editing the categories widget
 4. Changing a theme image
 5. The settings page
 
