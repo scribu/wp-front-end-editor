@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Front-end Editor v0.8\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
-"POT-Creation-Date: 2011-12-24 12:47:11+00:00\n"
-"PO-Revision-Date: 2011-12-28 09:33+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-11 23:16+0100\n"
+"PO-Revision-Date: 2012-07-11 23:16+0100\n"
 "Last-Translator: Li-An <lian00@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,103 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 # @ front-end-editor
+#: front-end-editor.php:58
+msgid "Title"
+msgstr "Titre"
+
+# @ front-end-editor
+#: front-end-editor.php:65
+msgid "Content"
+msgstr "Contenu"
+
+# @ front-end-editor
+#: front-end-editor.php:71
+msgid "Excerpt"
+msgstr "Extrait"
+
+# @ front-end-editor
+#: front-end-editor.php:77
+msgid "Custom fields"
+msgstr "Champs personnalisés"
+
+# @ front-end-editor
+#: front-end-editor.php:83
+msgid "Thumbnail"
+msgstr "Miniature"
+
+# @ front-end-editor
+#: front-end-editor.php:91
+msgid "Categories"
+msgstr "Catégorie"
+
+#: front-end-editor.php:97
+msgid "Tags"
+msgstr "Mots-clef"
+
+#: front-end-editor.php:103
+msgid "Terms"
+msgstr "Termes"
+
+# @ front-end-editor
+#: front-end-editor.php:110
+msgid "Text widget title"
+msgstr "Titre de widget texte"
+
+#: front-end-editor.php:117
+msgid "Text widget content"
+msgstr "Contenu de widget texte"
+
+# @ front-end-editor
+#: front-end-editor.php:124
+msgid "Other widgets"
+msgstr "Autres widgets"
+
+# @ front-end-editor
+#: front-end-editor.php:131
+msgid "Comment text"
+msgstr "Commentaires"
+
+# @ front-end-editor
+#: front-end-editor.php:137
+msgid "Category title"
+msgstr "Titre de catégorie"
+
+# @ front-end-editor
+#: front-end-editor.php:142
+msgid "Tag title"
+msgstr "Titre de tag"
+
+# @ front-end-editor
+#: front-end-editor.php:147
+msgid "Term title"
+msgstr "Titre de terme"
+
+# @ front-end-editor
+#: front-end-editor.php:152
+msgid "Term description"
+msgstr "Description de terme"
+
+# @ front-end-editor
+#: front-end-editor.php:159
+msgid "Author description"
+msgstr "Description de l'auteur"
+
+# @ front-end-editor
+#: front-end-editor.php:166
+msgid "Site title and description"
+msgstr "Titre du site et description"
+
+# @ front-end-editor
+#: front-end-editor.php:172
+msgid "Site options"
+msgstr "Options du site"
+
+# @ front-end-editor
+#: front-end-editor.php:178
+msgid "Theme images"
+msgstr "Images du thème"
+
+# @ front-end-editor
 #: admin/admin.php:9
 msgid "Front-end Editor"
 msgstr "Front-end Editor"
@@ -30,7 +127,7 @@ msgstr "Champs"
 
 # @ front-end-editor
 #: admin/admin.php:15
-#: lib/scb/AdminPage.php:351
+#: lib/scb/AdminPage.php:346
 msgid "Settings"
 msgstr "Réglages"
 
@@ -43,144 +140,43 @@ msgstr "Activer l'éditeur WYSIWYG (visuel)."
 msgid "Edit all post fields at once."
 msgstr "Éditer tous les champs de billet en une fois."
 
-#: admin/admin.php:36
-msgid "Begin editing using existing edit link (experimental)."
-msgstr "Commencer à éditer en utilisant les liens d'édition (expérimental)."
-
-#: admin/admin.php:44
+#: admin/admin.php:37
 msgid "dropdown"
 msgstr "menu déroulant"
 
 # @ front-end-editor
-#: admin/admin.php:45
+#: admin/admin.php:38
 msgid "text field"
 msgstr "champ de texte"
 
 # @ front-end-editor
-#: admin/admin.php:47
+#: admin/admin.php:40
 msgid "To edit categories, use a:"
 msgstr "Pour éditer les catégories, utiliser un:"
 
 # @ front-end-editor
-#: admin/admin.php:82
+#: admin/admin.php:74
 msgid "Enable or disable editable fields:"
 msgstr "Activer ou désactiver les champs d'édition:"
 
 # @ front-end-editor
-#: admin/admin.php:84
+#: admin/admin.php:76
 msgid "Post fields"
 msgstr "Champs des billets"
 
 # @ front-end-editor
-#: admin/admin.php:85
+#: admin/admin.php:77
 msgid "Other fields"
 msgstr "Autres champs"
 
 # @ front-end-editor
-#: front-end-editor.php:75
-msgid "Title"
-msgstr "Titre"
-
-# @ front-end-editor
-#: front-end-editor.php:82
-msgid "Content"
-msgstr "Contenu"
-
-# @ front-end-editor
-#: front-end-editor.php:88
-msgid "Excerpt"
-msgstr "Extrait"
-
-# @ front-end-editor
-#: front-end-editor.php:94
-msgid "Custom fields"
-msgstr "Champs personnalisés"
-
-# @ front-end-editor
-#: front-end-editor.php:100
-msgid "Thumbnail"
-msgstr "Miniature"
-
-# @ front-end-editor
-#: front-end-editor.php:108
-msgid "Categories"
-msgstr "Catégorie"
-
-#: front-end-editor.php:114
-msgid "Tags"
-msgstr "Mots-clef"
-
-#: front-end-editor.php:120
-msgid "Terms"
-msgstr "Termes"
-
-# @ front-end-editor
-#: front-end-editor.php:127
-msgid "Text widget title"
-msgstr "Titre de widget texte"
-
-#: front-end-editor.php:134
-msgid "Text widget content"
-msgstr "Contenu de widget texte"
-
-# @ front-end-editor
-#: front-end-editor.php:141
-msgid "Other widgets"
-msgstr "Autres widgets"
-
-# @ front-end-editor
-#: front-end-editor.php:148
-msgid "Comment text"
-msgstr "Commentaires"
-
-# @ front-end-editor
-#: front-end-editor.php:154
-msgid "Category title"
-msgstr "Titre de catégorie"
-
-# @ front-end-editor
-#: front-end-editor.php:159
-msgid "Tag title"
-msgstr "Titre de tag"
-
-# @ front-end-editor
-#: front-end-editor.php:164
-msgid "Term title"
-msgstr "Titre de terme"
-
-# @ front-end-editor
-#: front-end-editor.php:169
-msgid "Term description"
-msgstr "Description de terme"
-
-# @ front-end-editor
-#: front-end-editor.php:176
-msgid "Author description"
-msgstr "Description de l'auteur"
-
-# @ front-end-editor
-#: front-end-editor.php:183
-msgid "Site title and description"
-msgstr "Titre du site et description"
-
-# @ front-end-editor
-#: front-end-editor.php:189
-msgid "Site options"
-msgstr "Options du site"
-
-# @ front-end-editor
-#: front-end-editor.php:195
-msgid "Theme images"
-msgstr "Images du thème"
-
-# @ front-end-editor
-#: lib/scb/AdminPage.php:165
+#: lib/scb/AdminPage.php:172
 msgid "Settings <strong>saved</strong>."
 msgstr "Réglages <strong>sauvegardés</strong>."
 
 # @ front-end-editor
-#: lib/scb/AdminPage.php:178
-#: lib/scb/AdminPage.php:189
+#: lib/scb/AdminPage.php:185
+#: lib/scb/AdminPage.php:196
 msgid "Save Changes"
 msgstr "Sauvegarder les modifications"
 
@@ -200,19 +196,27 @@ msgid "Cancel"
 msgstr "Annuler"
 
 # @ front-end-editor
-#: php/core.php:70
+#: php/core.php:68
 msgid "Change Image"
 msgstr "Changer d'image"
 
 # @ front-end-editor
-#: php/core.php:71
+#: php/core.php:69
 msgid "Insert Image"
 msgstr "Insérer une image"
 
 # @ front-end-editor
-#: php/core.php:72
+#: php/core.php:70
 msgid "Clear"
 msgstr "Nettoyer"
+
+#: php/core.php:268
+msgid "Undefined field"
+msgstr "Champ non défini"
+
+#: php/core.php:272
+msgid "Insufficient permissions"
+msgstr "Permissions insuffisantes"
 
 # @ front-end-editor
 #: php/fields/base.php:138
@@ -220,12 +224,10 @@ msgid "empty"
 msgstr "vide"
 
 # @ front-end-editor
-#: php/fields/post.php:116
+#: php/fields/post.php:101
+#, php-format
 msgid "Error: %s is currently editing this."
 msgstr "Erreur: %s est en train d'éditer ceci."
 
-# @ front-end-editor
-#: php/fields/post.php:244
-msgid "&mdash; None &mdash;"
-msgstr "&mdash; Aucun &mdash;"
-
+#~ msgid "Begin editing using existing edit link (experimental)."
+#~ msgstr "Commencer à éditer en utilisant les liens d'édition (expérimental)."
