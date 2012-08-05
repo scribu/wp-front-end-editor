@@ -45,7 +45,7 @@ abstract class FEE_Core {
 			'cancel_text' => __( 'Cancel', 'front-end-editor' ),
 
 			'spinner' => admin_url( 'images/loading.gif' ),
-			'ajax_url' => admin_url( 'admin-ajax.php' ),
+			'ajax_url' => self::get_ajax_url(),
 			'nonce' => wp_create_nonce( self::NONCE ),
 		);
 
@@ -144,6 +144,10 @@ Aloha.settings = {
 		scbUtil::do_scripts( self::$js_dependencies );
 
 		do_action( 'front_end_editor_loaded', $wrapped );
+	}
+
+	private static function get_ajax_url() {
+		return admin_url( 'admin-ajax.php', 'relative' );
 	}
 
 	private static function register_script( $handle, $src, $dependencies = array() ) {
