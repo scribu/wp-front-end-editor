@@ -1,77 +1,185 @@
+# Copyright (C) 2012 
+# This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor v0.8.4\n"
-"PO-Revision-Date: 2009-04-10 23:37+0200\n"
-"Last-Translator: admin <ron@fr-fanatic.com>\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
+"POT-Creation-Date: 2012-07-11 21:53:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-Language: Dutch\n"
-"X-Poedit-Country: NETHERLANDS\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;__ngettext_noop:1,2;_c\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-SearchPath-0: ."
+"PO-Revision-Date: 2012-09-10 14:16+0100\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: admin.php:27
-msgid "Settings saved"
-msgstr "Instellingen opgeslagen"
+#: admin/admin.php:9
+msgid "Front-end Editor"
+msgstr "Front-end bewerker"
 
-#: admin.php:33
-msgid "Enable or disable editable fields"
-msgstr "Inschakelen of uitschakelen bewerkbare velden"
+#: admin/admin.php:14
+msgid "Fields"
+msgstr "Velden"
 
-#: admin.php:39
-msgid "Field name"
-msgstr "Veldnaam"
-
-#: admin.php:56
-#: admin.php:69
-msgid "Save changes"
-msgstr "Sla de wijzigingen op"
-
-#: admin.php:61
-msgid "Rich text editor"
-msgstr "Rich text editor"
-
-#: admin.php:62
-msgid "Enable the WYSIWYG editor"
-msgstr "Schakel de WYSIWYG-editor in"
-
-#: admin.php:68
+#: admin/admin.php:15 lib/scb/AdminPage.php:346
 msgid "Settings"
 msgstr "Instellingen"
 
-#: fields.php:176
-msgid "Post/page title"
-msgstr "Artikel/pagina titel"
+#: admin/admin.php:22
+msgid "Enable the WYSIWYG editor."
+msgstr "Schakel de WYSIWYG-editor in"
 
-#: fields.php:181
-msgid "Post/page content"
-msgstr "Artikel/pagina inhoud"
+#: admin/admin.php:29
+msgid "Edit all post fields at once."
+msgstr "Bewerk alle berichtvelden tegelijk"
 
-#: fields.php:186
-msgid "Post tags"
-msgstr "Artikel tags"
+#: admin/admin.php:37
+msgid "dropdown"
+msgstr "keuzelijst"
 
-#: fields.php:191
-msgid "Comment text"
-msgstr "Commentaar tekst"
+#: admin/admin.php:38
+msgid "text field"
+msgstr "tekstveld"
 
-#: fields.php:196
-msgid "Text widget content"
-msgstr "Tekst widget inhoud"
+#: admin/admin.php:40
+msgid "To edit categories, use a:"
+msgstr "Om categorieën te bewerken gebruik:"
 
-#: fields.php:200
+#: admin/admin.php:74
+msgid "Enable or disable editable fields:"
+msgstr "Inschakelen of uitschakelen bewerkbare velden"
+
+#: admin/admin.php:76
+msgid "Post fields"
+msgstr "Berichten velden"
+
+#: admin/admin.php:77
+msgid "Other fields"
+msgstr "Andere velden"
+
+#: front-end-editor.php:58
+msgid "Title"
+msgstr "Titel"
+
+#: front-end-editor.php:65
+msgid "Content"
+msgstr "Inhoud"
+
+#: front-end-editor.php:71
+msgid "Excerpt"
+msgstr "Samenvatting"
+
+#: front-end-editor.php:77
+msgid "Custom fields"
+msgstr "Eigen velden"
+
+#: front-end-editor.php:83
+msgid "Thumbnail"
+msgstr "Miniatuur"
+
+#: front-end-editor.php:91
+msgid "Categories"
+msgstr "Categorie"
+
+#: front-end-editor.php:97
+msgid "Tags"
+msgstr "Tags"
+
+#: front-end-editor.php:103
+msgid "Terms"
+msgstr "Voorwaarden"
+
+#: front-end-editor.php:110
 msgid "Text widget title"
 msgstr "Tekst widget titel"
 
-#: front-end-editor.php:111
+#: front-end-editor.php:117
+msgid "Text widget content"
+msgstr "Tekst widget inhoud"
+
+#: front-end-editor.php:124
+msgid "Other widgets"
+msgstr "Andere widgets"
+
+#: front-end-editor.php:131
+msgid "Comment text"
+msgstr "Commentaar tekst"
+
+#: front-end-editor.php:137
+msgid "Category title"
+msgstr "Categorie titel"
+
+#: front-end-editor.php:142
+msgid "Tag title"
+msgstr "Tag titel"
+
+#: front-end-editor.php:147
+msgid "Term title"
+msgstr "Voorwaarde titel"
+
+#: front-end-editor.php:152
+msgid "Term description"
+msgstr "Voorwaarde beschrijving"
+
+#: front-end-editor.php:159
+msgid "Author description"
+msgstr "Auteur beschrijving"
+
+#: front-end-editor.php:166
+msgid "Site title and description"
+msgstr "Site titel en beschrijving"
+
+#: front-end-editor.php:172
+msgid "Site options"
+msgstr "Site opties"
+
+#: front-end-editor.php:178
+msgid "Theme images"
+msgstr "Thema afbeeldingen"
+
+#: lib/scb/AdminPage.php:172
+msgid "Settings <strong>saved</strong>."
+msgstr "Instellingen <strong>opgeslagen</strong>."
+
+#: lib/scb/AdminPage.php:185 lib/scb/AdminPage.php:196
+msgid "Save Changes"
+msgstr "Bewaar wijzigingen"
+
+#: php/core.php:43
+msgid "Edit"
+msgstr "Bewerk"
+
+#: php/core.php:44
 msgid "Save"
 msgstr "Bewaar"
 
-#: front-end-editor.php:112
+#: php/core.php:45
 msgid "Cancel"
-msgstr "Annuleren"
+msgstr "Annuleer"
 
+#: php/core.php:68
+msgid "Change Image"
+msgstr "Wijzig afbeelding"
+
+#: php/core.php:69
+msgid "Insert Image"
+msgstr "Invoegen afbeelding"
+
+#: php/core.php:70
+msgid "Clear"
+msgstr "Wissen"
+
+#: php/core.php:268
+msgid "Undefined field"
+msgstr "Ongedeinieerd veld"
+
+#: php/core.php:272
+msgid "Insufficient permissions"
+msgstr "Onvoldoende rechten"
+
+#: php/fields/base.php:138
+msgid "empty"
+msgstr "leeg"
+
+#: php/fields/post.php:101
+msgid "Error: %s is currently editing this."
+msgstr "Fout: %s is deze pagina aan het bewerken."
