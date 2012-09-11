@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
 "POT-Creation-Date: 2009-08-25 19:18+0300\n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: scribu <mail@scribu.net>\n"
 "Language-Team: BoreS <BoreSer@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -115,7 +115,7 @@ msgstr "Zapisz zmiany"
 
 #. Plugin URI of an extension
 msgid "http://scribu.net/wordpress/front-end-editor"
-msgstr "http://www.expromo.pl"
+msgstr "http://scribu.net/wordpress/front-end-editor"
 
 #. Description of an extension
 msgid "Allows you to edit your posts without going through the admin interface"
@@ -123,9 +123,9 @@ msgstr "Pozwala na edycję stron i wpisów bez przechodzenia do panelu administr
 
 #. Author of an extension
 msgid "scribu"
-msgstr "expromo"
+msgstr "scribu"
 
 #. Author URI of an extension
 msgid "http://scribu.net/"
-msgstr "http://www.expromo.pl"
+msgstr "http://scribu.net/"
 
