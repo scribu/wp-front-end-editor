@@ -2,12 +2,16 @@
 
 # install the debug template in the current theme. requires wp-cli
 
-if [ $# -lt 1 ]; then
+if [[ $# -gt 0 ]]; then
+	WP_CORE_DIR=$1
+fi
+
+if [[ '' = $WP_CORE_DIR ]]; then
 	echo "usage: $(basename $0) /path/to/wp"
 	exit
 fi
 
-wp="wp --path=$1"
+wp="wp --path=$WP_CORE_DIR"
 
 theme_path=$($wp eval 'echo get_stylesheet_directory();')
 
