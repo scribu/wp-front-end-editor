@@ -17,7 +17,7 @@ theme_path=$($wp eval 'echo get_stylesheet_directory();')
 
 template_path=$(pwd -P)/test.php
 
-ln -s $template_path $theme_path/wpn-debug.php
+ln -s $template_path $theme_path/fee-debug.php
 
 page_id=$($wp post create \
 	--post_type='page' \
