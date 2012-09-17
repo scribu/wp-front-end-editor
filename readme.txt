@@ -4,7 +4,7 @@ Tags: inline, editor, edit-in-place, visual, wysiwyg
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WB35NBVGWMS3E&item_name=Front-end%20Editor
 Requires at least: 3.2
 Tested up to: 3.4
-Stable tag: trunk
+Stable tag: 2.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl.html
 
