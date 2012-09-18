@@ -67,6 +67,10 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 == Changelog ==
 
+= 2.3.1 =
+* add placeholder for post thumbnails
+* fix changing thumbnails to a newly uploaded image. props adrichey
+
 = 2.3 =
 * make Save/Cancel buttons hover in place of the Edit button
 * allow editing multiple elements simultaneously again
