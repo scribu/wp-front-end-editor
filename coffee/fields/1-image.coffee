@@ -84,8 +84,8 @@ class FrontEndEditor.fieldTypes.thumbnail extends FrontEndEditor.fieldTypes.imag
 		$thickbox.find('#tab-type_url').remove()
 
 		$thickbox.delegate('.media-item :submit', 'click', (ev) =>
-			$item = jQuery(ev.currentTarget).closest('.media-item')
-			attachment_id = $item.attr('id').replace('media-item-', '')
+			$item = jQuery(ev.currentTarget).closest('.media-item').find('.media-item-info')
+			attachment_id = $item.attr('id').replace('media-head-', '')
 
 			@ajax_set(attachment_id)
 
