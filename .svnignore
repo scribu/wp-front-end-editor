@@ -14,3 +14,4 @@ bin
 package.json
 node_modules
 Cakefile
+tags
