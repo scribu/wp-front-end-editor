@@ -39,7 +39,7 @@ If that doesn't work well, there's an alternative, which requires the [Jitter](h
 
 ```bash
 npm install -g jitter
-cake watch:coffee
+cake watch:j
 ```
 
 If you're working on the Aloha plugins, you will have to call:
