@@ -301,7 +301,7 @@ class FEE_Field_Post_Thumbnail extends FEE_Field_Post {
 			return $html;
 		}
 
-		return FEE_Field_Base::wrap( $html, compact( 'post_id', 'size' ) );
+		return FEE_Field_Base::wrap( $this->placehold( $html ), compact( 'post_id', 'size' ) );
 	}
 
 	function get( $data ) {
