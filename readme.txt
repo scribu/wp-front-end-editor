@@ -41,7 +41,7 @@ Make sure your host is running PHP 5. The only foolproof way to do this is to ad
 `var_dump(PHP_VERSION);`
 <br>
 
-= Nothing happens after activating it =
+= I can't see the edit buttons =
 
 1. Make sure you're logged in and have the appropriate capabilities.
 2. See [Common Mistakes in Themes](http://scribu.net/wordpress/front-end-editor/common-mistakes-in-themes.html).
