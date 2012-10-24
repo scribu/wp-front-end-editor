@@ -51,6 +51,8 @@ abstract class FEE_Core {
 
 		$css_dependencies = array();
 
+		self::$js_dependencies[] = 'jquery';
+
 		// Autosuggest
 		if ( in_array( 'terminput', $wrapped ) ) {
 			self::$js_dependencies[] = 'suggest';
