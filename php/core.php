@@ -138,7 +138,7 @@ Aloha.settings = {
 	);
 
 	echo html( 'script', array(
-		'src' => plugins_url( 'lib/aloha-editor/lib/aloha.js', FEE_MAIN_FILE ),
+		'src' => plugins_url( 'lib/aloha-editor/lib/aloha-full.js', FEE_MAIN_FILE ),
 		'data-aloha-plugins' => implode( ',', $plugins )
 	) ) . "\n";
 }
