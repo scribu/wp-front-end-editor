@@ -5,19 +5,18 @@ if [ $# -lt 1 ]; then
 	exit
 fi
 
-zip_name=alohaeditor-$1.zip
+version=$1
+zip_name=alohaeditor-$version.zip
 
-wget https://github.com/downloads/alohaeditor/Aloha-Editor/$zip_name -O /tmp/$zip_name
+wget http://aloha-editor.org/builds/stable/$zip_name -O /tmp/$zip_name
 
-rm -rf /tmp/aloha-package
-mkdir /tmp/aloha-package
-
-cd /tmp/aloha-package
-unzip /tmp/$zip_name
+cd /tmp/
+rm -rf alohaeditor-$version
+unzip $zip_name
 cd -
 
 rm lib/aloha-editor -rf
-mv /tmp/aloha-package/aloha lib/aloha-editor
+mv /tmp/alohaeditor-$version/aloha lib/aloha-editor
 
 find lib/aloha-editor -name '*.php' -delete
 find lib/aloha-editor -path '*/demo' | xargs rm -rf
