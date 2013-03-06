@@ -14,13 +14,15 @@ Edit content inline, without going to the admin area.
 
 Front-end Editor is a plugin that lets you make changes to your content *directly* from your site. No need to load the admin backend just to correct a typo.
 
+It makes the same [capability](http://codex.wordpress.org/Roles_and_Capabilities) checks, so that if a user isn't allowed to edit a page in wp-admin, they aren't allowed to edit it in the front-end either.
+
+You can edit posts, pages, custom post types, comments, widgets and many [more elements](http://github.com/scribu/wp-front-end-editor/wiki/List-of-editable-elements).
+
 **Goals:**
 
 * save as many trips to the backend as possible
 * compatible with any theme, out of the box
 * light and fast
-
-You can edit posts, pages, custom post types, comments, widgets and many [more elements](http://github.com/scribu/wp-front-end-editor/wiki/List-of-editable-elements).
 
 Credits:
 
