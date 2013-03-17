@@ -1,131 +1,272 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Front-end Editor\n"
+"Project-Id-Version: Front-end Editor v2.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/front-end-editor\n"
 "POT-Creation-Date: 2009-08-25 19:18+0300\n"
-"PO-Revision-Date: \n"
-"Last-Translator: scribu <mail@scribu.net>\n"
+"PO-Revision-Date: 2013-03-17 19:25:40+0000\n"
+"Last-Translator: Bartosz Romanowski <br@wpzen.pl>\n"
 "Language-Team: BoreS <BoreSer@gmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: CSL v1.x\n"
 "X-Poedit-Language: Russian\n"
 "X-Poedit-Country: RUSSIAN FEDERATION\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
 
-#. #-#-#-#-#  front-end-editor.pot (Front-end Editor 1.2b)  #-#-#-#-#
-#. Plugin Name of an extension
-#: admin.php:9
+#. translators: plugin header field 'Name'
+#: admin/admin.php:9
+#: front-end-editor.php:0
+#@ front-end-editor
 msgid "Front-end Editor"
 msgstr "Edytor bezpośredni"
 
-#: admin.php:12
+#: admin/admin.php:14
+#@ front-end-editor
 msgid "Fields"
 msgstr "Pola"
 
-#: admin.php:13
-#: scb/AdminPage.php:338
+#: admin/admin.php:15
+#: lib/scb/AdminPage.php:346
+#@ front-end-editor
 msgid "Settings"
 msgstr "Ustawienia"
 
-#: admin.php:43
-#: admin.php:87
-#: scb/AdminPage.php:105
+#: lib/scb/AdminPage.php:172
+#@ front-end-editor
 msgid "Settings <strong>saved</strong>."
 msgstr "Ustawienia <strong>zapisane</strong>."
 
-#: admin.php:49
-msgid "Enable or disable editable fields"
-msgstr "Włącz lub wyłącz edytowalne pola"
-
-#: admin.php:55
-msgid "Field name"
-msgstr "Nazw apola"
-
-#: admin.php:94
-msgid "Rich text editor"
-msgstr "Pełny edytor tekstowy"
-
-#: admin.php:95
-msgid "Enable the WYSIWYG editor"
-msgstr "Włącz edytor WYSIWYG"
-
-#: admin.php:101
-msgid "Edit paragraphs"
-msgstr "Edytuj paragrafy"
-
-#: admin.php:102
-msgid "Edit one paragraph at a time, instead of an entire post"
-msgstr "Jednorazowo edytuj jeden paragraf zamiast całego wpisu"
-
-#: core.php:109
+#: php/core.php:44
+#@ front-end-editor
 msgid "Save"
 msgstr "Zapisz"
 
-#: core.php:110
+#: php/core.php:45
+#@ front-end-editor
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: core.php:235
+#: php/fields/base.php:138
+#@ front-end-editor
 msgid "empty"
 msgstr "pusty"
 
-#: fields.php:453
-msgid "Post/page title"
-msgstr "Tytuł strony/wpisu"
-
-#: fields.php:459
-msgid "Post/page content"
-msgstr "Treść strony/wpisu"
-
-#: fields.php:465
-msgid "Post/page excerpt"
-msgstr "Opis skrócony strony/wpisu"
-
-#: fields.php:471
-msgid "Post tags"
-msgstr "Tagi wpisu"
-
-#: fields.php:477
-msgid "Post terms"
-msgstr "Regulamin wpisu"
-
-#: fields.php:483
-msgid "Post/page custom fields"
-msgstr "Dodatkowe pola wpisu/strony"
-
-#: fields.php:489
+#: front-end-editor.php:131
+#@ front-end-editor
 msgid "Comment text"
 msgstr "Treść komentarzy"
 
-#: fields.php:495
+#: front-end-editor.php:159
+#@ front-end-editor
 msgid "Author description"
 msgstr "Opis autora"
 
-#: fields.php:502
+#: front-end-editor.php:117
+#@ front-end-editor
 msgid "Text widget content"
 msgstr "Treść widgetów tekstowych"
 
-#: fields.php:508
+#: front-end-editor.php:110
+#@ front-end-editor
 msgid "Text widget title"
 msgstr "Tytuł widgetów tekstowych"
 
-#: scb/AdminPage.php:163
+#: lib/scb/AdminPage.php:185
+#: lib/scb/AdminPage.php:196
+#@ front-end-editor
 msgid "Save Changes"
 msgstr "Zapisz zmiany"
 
-#. Plugin URI of an extension
+#. translators: plugin header field 'PluginURI'
+#: front-end-editor.php:0
+#@ front-end-editor
 msgid "http://scribu.net/wordpress/front-end-editor"
 msgstr "http://scribu.net/wordpress/front-end-editor"
 
-#. Description of an extension
+#. translators: plugin header field 'Description'
+#: front-end-editor.php:0
+#@ front-end-editor
 msgid "Allows you to edit your posts without going through the admin interface"
-msgstr "Pozwala na edycję stron i wpisów bez przechodzenia do panelu administracji."
+msgstr "Pozwala na edycję stron i wpisów bez przechodzenia do panelu administracyjnego"
 
-#. Author of an extension
+#. translators: plugin header field 'Author'
+#: front-end-editor.php:0
+#@ front-end-editor
 msgid "scribu"
 msgstr "scribu"
 
-#. Author URI of an extension
+#. translators: plugin header field 'AuthorURI'
+#: front-end-editor.php:0
+#@ front-end-editor
 msgid "http://scribu.net/"
 msgstr "http://scribu.net/"
+
+#: admin/admin.php:22
+#@ front-end-editor
+msgid "Enable the WYSIWYG editor."
+msgstr "Włącz edytor wizualny."
+
+#: admin/admin.php:29
+#@ front-end-editor
+msgid "Edit all post fields at once."
+msgstr "Edytor wszystkie pola wpisu naraz."
+
+#: admin/admin.php:37
+#@ front-end-editor
+msgid "dropdown"
+msgstr "lista rozwijana"
+
+#: admin/admin.php:38
+#@ front-end-editor
+msgid "text field"
+msgstr "pole tekstowe"
+
+#: admin/admin.php:40
+#@ front-end-editor
+msgid "To edit categories, use a:"
+msgstr "Do edycji kategorii używaj:"
+
+#: admin/admin.php:74
+#@ front-end-editor
+msgid "Enable or disable editable fields:"
+msgstr "Włącz lub wyłącz edytowalne pola:"
+
+#: admin/admin.php:76
+#@ front-end-editor
+msgid "Post fields"
+msgstr "Pola wpisu"
+
+#: admin/admin.php:77
+#@ front-end-editor
+msgid "Other fields"
+msgstr "Inne pola"
+
+#. translators: plugin header field 'Version'
+#: front-end-editor.php:0
+#@ front-end-editor
+msgid "2.3"
+msgstr "2.3"
+
+#: front-end-editor.php:58
+#@ front-end-editor
+msgid "Title"
+msgstr "Tytuł"
+
+#: front-end-editor.php:65
+#@ front-end-editor
+msgid "Content"
+msgstr "Treść"
+
+#: front-end-editor.php:71
+#@ front-end-editor
+msgid "Excerpt"
+msgstr "Wypis"
+
+#: front-end-editor.php:77
+#@ front-end-editor
+msgid "Custom fields"
+msgstr "Własne pola"
+
+#: front-end-editor.php:83
+#@ front-end-editor
+msgid "Thumbnail"
+msgstr "Ikona"
+
+#: front-end-editor.php:91
+#@ front-end-editor
+msgid "Categories"
+msgstr "Kategorie"
+
+#: front-end-editor.php:97
+#@ front-end-editor
+msgid "Tags"
+msgstr "Tagi"
+
+#: front-end-editor.php:103
+#@ front-end-editor
+msgid "Terms"
+msgstr ""
+
+#: front-end-editor.php:124
+#@ front-end-editor
+msgid "Other widgets"
+msgstr "Inne widgety"
+
+#: front-end-editor.php:137
+#@ front-end-editor
+msgid "Category title"
+msgstr "Tytuł kategorii"
+
+#: front-end-editor.php:142
+#@ front-end-editor
+msgid "Tag title"
+msgstr "Tytuł tagu"
+
+#: front-end-editor.php:147
+#@ front-end-editor
+msgid "Term title"
+msgstr ""
+
+#: front-end-editor.php:152
+#@ front-end-editor
+msgid "Term description"
+msgstr ""
+
+#: front-end-editor.php:166
+#@ front-end-editor
+msgid "Site title and description"
+msgstr "Tytuł i opis strony"
+
+#: front-end-editor.php:172
+#@ front-end-editor
+msgid "Site options"
+msgstr "Opcje strony"
+
+#: front-end-editor.php:178
+#@ front-end-editor
+msgid "Theme images"
+msgstr "Obrazy szablonu"
+
+#: php/core.php:43
+#@ front-end-editor
+msgid "Edit"
+msgstr "Edytuj"
+
+#: php/core.php:68
+#@ front-end-editor
+msgid "Change Image"
+msgstr "Zmień obraz"
+
+#: php/core.php:69
+#@ front-end-editor
+msgid "Insert Image"
+msgstr "Wstaw obraz"
+
+#: php/core.php:70
+#@ front-end-editor
+msgid "Clear"
+msgstr "Wyczyść"
+
+#: php/core.php:272
+#@ front-end-editor
+msgid "Undefined field"
+msgstr "Niezdefiniowane pole"
+
+#: php/core.php:276
+#@ front-end-editor
+msgid "Insufficient permissions"
+msgstr "Niewystarczające uprawnienia"
+
+#: php/fields/post.php:101
+#, php-format
+#@ front-end-editor
+msgid "Error: %s is currently editing this."
+msgstr "Błąd: %s aktualnie to edytuje."
 
