@@ -1,4 +1,6 @@
-class FrontEndEditor.fieldTypes.group extends FrontEndEditor.fieldTypes.input
+input = require('./fields/basic.coffee')
+
+class FrontEndEditor.fieldTypes.group extends basic.input
 
 	constructor: (@el, @editors) ->
 		super

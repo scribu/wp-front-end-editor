@@ -1,4 +1,4 @@
-class FrontEndEditor.fieldTypes.base
+class module.exports
 
 	el: null,
 

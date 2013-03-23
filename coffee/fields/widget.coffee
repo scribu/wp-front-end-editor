@@ -1,4 +1,6 @@
-class FrontEndEditor.fieldTypes.widget extends FrontEndEditor.fieldTypes.textarea
+{textarea} = require('./fields/basic.coffee')
+
+class module.exports extends textarea
 
 	create_input: jQuery.noop
 

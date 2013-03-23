@@ -1,4 +1,6 @@
-class FrontEndEditor.fieldTypes.image_base extends FrontEndEditor.fieldTypes.base
+base = require('./fields/base.coffee')
+
+class image_base extends base
 
 	button_text: FrontEndEditor.data.image?.change
 
@@ -42,7 +44,7 @@ class FrontEndEditor.fieldTypes.image_base extends FrontEndEditor.fieldTypes.bas
 		$item.find(':submit').val(@button_text)
 
 
-class FrontEndEditor.fieldTypes.image extends FrontEndEditor.fieldTypes.image_base
+class module.exports.image extends image_base
 
 	start_editing: ->
 		super
@@ -77,7 +79,7 @@ class FrontEndEditor.fieldTypes.image extends FrontEndEditor.fieldTypes.image_ba
 			tb_remove()
 
 
-class FrontEndEditor.fieldTypes.thumbnail extends FrontEndEditor.fieldTypes.image
+class module.exports.thumbnail extends image
 
 	thickbox_load: ($thickbox) ->
 
@@ -98,7 +100,7 @@ class FrontEndEditor.fieldTypes.thumbnail extends FrontEndEditor.fieldTypes.imag
 
 
 Aloha?.require( ['aloha/selection'], (Selection) ->
-	class FrontEndEditor.fieldTypes.image_rich extends FrontEndEditor.fieldTypes.image_base
+	class module.exports.image_rich extends image_base
 
 		button_text: FrontEndEditor.data.image?.insert
 

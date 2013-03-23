@@ -1,4 +1,6 @@
-class FrontEndEditor.fieldTypes.terminput extends FrontEndEditor.fieldTypes.input
+{input} = require('./fields/basic.coffee')
+
+class terminput extends input
 	content_to_input: (content) ->
 		super
 
@@ -9,9 +11,14 @@ class FrontEndEditor.fieldTypes.terminput extends FrontEndEditor.fieldTypes.inpu
 			matchClass   : 'fee-suggest-match'
 		}
 
-class FrontEndEditor.fieldTypes.termselect extends FrontEndEditor.fieldTypes.select
+class termselect extends select
 	content_to_input: (content) ->
 		$dropdown = jQuery(content)
 
 		@input.replaceWith($dropdown)
 		@input = $dropdown
+
+module.exports = {
+	terminput
+	termselect
+}
