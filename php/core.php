@@ -77,7 +77,7 @@ abstract class FEE_Core {
 
 		// Core script
 		$min = defined('SCRIPT_DEBUG') ? '' : '.min';
-		self::register_script( 'fee-editor', "build/editor$min.js" );
+		self::register_script( 'fee-editor', "js/editor$min.js" );
 
 		// Core style
 		wp_register_style( 'fee-editor', plugins_url( 'css/core.css', FEE_MAIN_FILE ), $css_dependencies, FEE_VERSION );

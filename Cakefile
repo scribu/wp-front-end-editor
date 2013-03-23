@@ -18,11 +18,13 @@ task 'watch', 'Watch coffee/ directory and compile into js/', (options) ->
 	# TODO
 
 task 'build:js', 'Generate compressed JS', (options) ->
-	browserify "coffee/init.coffee", "build/editor.js", ->
-		result = UglifyJS.minify('build/editor.js')
-		fs.writeFileSync 'build/editor.min.js', result.code, 'utf8'
+	mkdirp 'js'
 
-		console.log "Generated build/editor.min.js"
+	browserify "coffee/init.coffee", "js/editor.js", ->
+		result = UglifyJS.minify('js/editor.js')
+		fs.writeFileSync 'js/editor.min.js', result.code, 'utf8'
+
+		console.log "Generated js/editor.min.js"
 
 task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
 	plugin = 'wpImage-plugin'
@@ -34,6 +36,5 @@ task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
 	browserify "coffee/aloha/#{plugin}.coffee", "#{dir}/#{plugin}.js"
 
 task 'build', 'Generate a build for wp.org', (options) ->
-	mkdirp 'build'
 	invoke 'build:js'
 	invoke 'build:aloha'
