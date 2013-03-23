@@ -25,8 +25,6 @@ cd front-end-editor
 npm install
 ```
 
-- Add `define('FEE_DEBUG', true);` to your wp-config.php file.
-
 ### Hacking
 
 While working on CoffeeScript files (.coffee), you can set up automatic recompilation, like so:
