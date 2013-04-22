@@ -1,8 +1,8 @@
 This guide is meant for developers wanting to work on the plugin code.
 
-The JavaScript files in the [wp.org repository](http://wordpress.org/extend/plugins/front-end-editor/) are generated from CoffeeScript files in this github repository.
+The JavaScript files in the [wp.org repository](http://wordpress.org/extend/plugins/front-end-editor/) are generated from [CoffeeScript](http://coffeescript.org) files in this github repository.
 
-### Initial setup
+### Initial Setup
 
 * First, make a fork of this repo and clone it:
 
@@ -12,7 +12,7 @@ git clone --recurse-submodules git@github.com:{YOUR GITHUB USERNAME}/wp-front-en
 
 - [Install node.js](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager) and [npm](http://npmjs.org/).
 
-- Install [CoffeeScript](http://coffeescript.org):
+- Install CoffeeScript globally, which will also install the `cake` utility:
 
 ```bash
 npm install -g coffee-script
