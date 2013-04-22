@@ -23,7 +23,13 @@ You can edit posts, pages, custom post types, comments, widgets and many [more e
 * compatible with any theme, out of the box
 * light and fast
 
-Credits:
+**Support:**
+
+I do not offer support for this plugin, either free or paid.
+
+Also: [plugin help wanted](http://scribu.net/wordpress/plugin-help-wanted.html).
+
+**Credits:**
 
 * [Aloha Editor](http://aloha-editor.org) for the fantastic WYSIWYG editing component
 
