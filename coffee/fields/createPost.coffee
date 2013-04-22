@@ -1,4 +1,6 @@
-class FrontEndEditor.fieldTypes.createPost extends FrontEndEditor.fieldTypes.group
+group = require('./fields/group.coffee')
+
+class FrontEndEditor.fieldTypes.createPost extends group
 	ajax_set_args: ->
 		args = super
 

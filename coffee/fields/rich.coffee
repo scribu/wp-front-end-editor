@@ -1,4 +1,6 @@
-class FrontEndEditor.fieldTypes.rich extends FrontEndEditor.fieldTypes.textarea
+{textarea} = require('./fields/basic.coffee')
+
+class module.exports extends textarea
 
 	content_from_input: ->
 		Aloha.getEditableById(@form.attr('id')).getContents()

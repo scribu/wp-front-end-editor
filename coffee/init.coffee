@@ -1,3 +1,6 @@
+require('./hover.coffee')
+require('./core.coffee')
+
 jQuery(document).ready ->
 
 	# Text widget fields hack

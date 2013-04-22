@@ -1,8 +1,10 @@
 {
-	"name": "front-end-editor",
-	"version": "0.0.0",
-	"dependencies": {
-		"uglify-js" : ">=1.2.0",
-		"mkdirp"    : ">=0.3.0"
-	}
+  "name": "front-end-editor",
+  "version": "0.0.0",
+  "dependencies": {
+    "uglify-js": "~2.2.5",
+    "coffeeify": "~0.3.0",
+    "browserify": "~2.7.2",
+    "mkdirp": "~0.3.5"
+  }
 }

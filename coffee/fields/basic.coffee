@@ -1,4 +1,6 @@
-class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
+base = require('./fields/base.coffee')
+
+class input extends base
 
 	input_tag: '<input type="text">'
 
@@ -121,7 +123,7 @@ class FrontEndEditor.fieldTypes.input extends FrontEndEditor.fieldTypes.base
 		return $el
 
 
-class FrontEndEditor.fieldTypes.select extends FrontEndEditor.fieldTypes.input
+class select extends input
 	input_tag: '<select>'
 
 	content_to_input: (content) ->
@@ -137,5 +139,12 @@ class FrontEndEditor.fieldTypes.select extends FrontEndEditor.fieldTypes.input
 		return @input.find(':selected').val()
 
 
-class FrontEndEditor.fieldTypes.textarea extends FrontEndEditor.fieldTypes.input
+class textarea extends input
 	input_tag: '<textarea rows="10">'
+
+
+module.exports = {
+	input
+	select
+	textarea
+}
