@@ -49,7 +49,7 @@ task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
 
 	mkdirp dir
 
-	exec "coffee -b $2 -o #{dir}/ coffee/aloha/#{plugin}-plugin", (err, stdout, stderr) ->
+	exec "coffee -b $2 -o #{dir}/ coffee/aloha/#{plugin}-plugin.coffee", (err, stdout, stderr) ->
 		throw err if err
 
 task 'build', 'Generate a build for wp.org', (options) ->
