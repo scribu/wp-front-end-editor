@@ -2,6 +2,7 @@ fs = require('fs')
 path = require('path')
 mkdirp = require('mkdirp').sync
 {spawn, exec} = require('child_process')
+UglifyJS = require('uglify-js')
 
 io = (callback, inputPath, outputPath) ->
 	mkdirp path.dirname outputPath
@@ -13,14 +14,6 @@ io = (callback, inputPath, outputPath) ->
 
 	callback input, (output) ->
 		fs.writeFileSync outputPath, output, 'utf8'
-
-compress_js = (input, cb) ->
-	{parser, uglify} = require('uglify-js')
-
-	ast = parser.parse input
-	ast = uglify.ast_squeeze ast
-
-	cb uglify.gen_code ast
 
 launch = (cmd, options=[], callback) ->
 	app = spawn cmd, options
@@ -46,7 +39,8 @@ task 'build:js', 'Generate compressed JS', (options) ->
 	exec 'cd coffee; cat core.coffee hover.coffee init.coffee fields/*.coffee | coffee -cs > ../build/editor.js', (err, stdout, stderr) ->
 		throw err if err
 
-		io compress_js, 'build/editor.js', 'build/editor.min.js'
+		result = UglifyJS.minify('build/editor.js')
+		fs.writeFileSync 'build/editor.min.js', result.code, 'utf8'
 
 task 'build:aloha', 'Generate Aloha plugin(s)', (options) ->
 	plugin = 'wpImage'
