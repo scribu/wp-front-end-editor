@@ -77,6 +77,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 ### 2.3.1
 * add placeholder for post thumbnails
 * fix changing thumbnails to a newly uploaded image. props adrichey
+* update translations: Polish (props toszcze) and Estonian (props petskratt).
 
 ### 2.3
 * make Save/Cancel buttons hover in place of the Edit button
