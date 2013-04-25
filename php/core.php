@@ -51,6 +51,8 @@ abstract class FEE_Core {
 
 		$css_dependencies = array();
 
+		self::$js_dependencies[] = 'jquery';
+
 		// Autosuggest
 		if ( in_array( 'terminput', $wrapped ) ) {
 			self::$js_dependencies[] = 'suggest';
@@ -99,8 +101,18 @@ abstract class FEE_Core {
 var FrontEndEditor = {};
 FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 </script>
+<?php
+		if ( in_array( 'rich', $wrapped ) ) {
+			self::print_aloha();
+		}
 
-<?php if ( in_array( 'rich', $wrapped ) ) { ?>
+		scbUtil::do_scripts( self::$js_dependencies );
+
+		do_action( 'front_end_editor_loaded', $wrapped );
+	}
+
+	private static function print_aloha() {
+?>
 <script type='text/javascript'>
 var Aloha = {};
 Aloha.settings = {
@@ -135,15 +147,10 @@ Aloha.settings = {
 		'fee/wpImage',
 	);
 
-	echo html( 'script', array(
-		'src' => plugins_url( 'lib/aloha-editor/lib/aloha.js', FEE_MAIN_FILE ),
-		'data-aloha-plugins' => implode( ',', $plugins )
-	) ) . "\n";
-}
-
-		scbUtil::do_scripts( self::$js_dependencies );
-
-		do_action( 'front_end_editor_loaded', $wrapped );
+		echo html( 'script', array(
+			'src' => plugins_url( 'lib/aloha-editor/lib/aloha-full.js', FEE_MAIN_FILE ),
+			'data-aloha-plugins' => implode( ',', $plugins )
+		) ) . "\n";
 	}
 
 	private static function get_ajax_url() {
