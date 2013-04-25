@@ -8,14 +8,14 @@ fi
 version=$1
 zip_name=alohaeditor-$version.zip
 
-wget http://aloha-editor.org/builds/stable/$zip_name -O /tmp/$zip_name
+curl http://aloha-editor.org/builds/stable/$zip_name > /tmp/$zip_name
 
 cd /tmp/
 rm -rf alohaeditor-$version
 unzip $zip_name
 cd -
 
-rm lib/aloha-editor -rf
+rm -rf lib/aloha-editor
 mv /tmp/alohaeditor-$version/aloha lib/aloha-editor
 
 find lib/aloha-editor -name '*.php' -delete
