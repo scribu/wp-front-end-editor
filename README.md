@@ -23,11 +23,11 @@ You can edit posts, pages, custom post types, comments, widgets and many [more e
 * compatible with any theme, out of the box
 * light and fast
 
-**Support:**
+**Support and development:**
 
-I do _not_ offer support for this plugin, either free or paid.
+[Support](http://wordpress.org/support/plugin/front-end-editor) is handled by the lovely [designsimply](http://wordpress.org/support/profile/designsimply).
 
-Also: [plugin help wanted](http://scribu.net/wordpress/plugin-help-wanted.html).
+I am not developing the plugin anymore; only applying the patches that other people send via [Github](https://github.com/scribu/wp-front-end-editor/).
 
 **Credits:**
 
