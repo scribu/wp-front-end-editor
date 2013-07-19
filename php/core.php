@@ -118,6 +118,20 @@ Aloha.settings = {
 		format: {
 			config: ['b', 'i', 'del', 'sub', 'sup', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'removeFormat'],
 		}
+	},
+	toolbar: {
+		tabs: [
+			{
+				label: "tab.insert.label",
+				showOn: { scope: 'Aloha.continuoustext' },
+				components: [
+					["createTable", "characterPicker", "insertLink",
+					  "insertImage", "insertAbbr", "insertToc",
+					  "insertHorizontalRule", "insertTag"],
+					['wpImage']
+				]
+			}
+		]
 	}
 };
 </script>
