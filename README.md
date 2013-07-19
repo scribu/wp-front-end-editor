@@ -75,6 +75,7 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 ## Changelog
 
 ### 2.3.1
+* update to Aloha 0.23.12
 * add placeholder for post thumbnails
 * fix changing thumbnails to a newly uploaded image. props adrichey
 * update translations: Polish (props toszcze) and Estonian (props petskratt).
