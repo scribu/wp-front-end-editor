@@ -21,13 +21,9 @@ Image Plugin for enabling basic images manipulations in Aloha Editor
 				'max_height': '50px',
 				//Image manipulation options - ONLY in default config section
 				'ui': {
-					'align': true,       // Menu elements to show/hide in menu
-					'resize': true,		 //resize buttons
-					'meta': true,
-					'margin': true,
-					'crop':true,
+					'meta': true, // If imageResizeWidth and imageResizeHeight are displayed, then you will want to set this to true, so that the width and height text fields are updated automatically.
+					'crop':true, // If imageCropButton is displayed, then you have to enable this.
 					'resizable': true,   //resizable ui-drag image
-					'aspectRatio': true
 				},
 				/**
 				 * crop callback is triggered after the user clicked accept to accept his crop
@@ -46,6 +42,8 @@ Image Plugin for enabling basic images manipulations in Aloha Editor
 				'onReset': function (image) { return false; }
 			}
 		}
+
+To show or hide specific Image plug-in buttons, please configure @Aloha.settings.toolbar@, look at the "Image tab" example in @src/plugins/common/ui/lib/settings.js@.
 
 ## TODO
 
@@ -66,18 +64,3 @@ Contributors :
 * [Clemens Prerovsky](https://github.com/cprerovsky) (base of crop and resize feature is a borrow from cropnresize plugin)
 * [Norbert Pomaroli](https://github.com/npomaroli) (for his patience explaining Selection and Range)
 * [Kirk Austin](http://www.kirkaustin.com/) who gave the impulsion to dive into html5 canvas	
-
-Licensed under the terms of http://www.aloha-editor.org/license.html
-
-Aloha Editor is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.*
-
-Aloha Editor is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
