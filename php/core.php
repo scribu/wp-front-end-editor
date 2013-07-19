@@ -148,7 +148,8 @@ Aloha.settings = {
 		'common/paste',
 		'common/block',
 		'extra/cite',
-		'fee/wpImage'
+		'common/image',
+	#	'fee/wpImage',
 	);
 
 	// add require.js which is a prerequisite for Aloha Editor
