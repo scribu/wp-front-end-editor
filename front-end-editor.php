@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Front-end Editor
-Version: 2.3.1-alpha
+Version: 2.3.1-alpha2
 Description: Allows you to edit your posts without going through the admin interface
 Author: scribu
 Author URI: http://scribu.net/
@@ -10,7 +10,7 @@ Text Domain: front-end-editor
 Domain Path: /lang
 */
 
-define( 'FEE_VERSION', '2.3.1-alpha' );
+define( 'FEE_VERSION', '2.3.1-alpha2' );
 define( 'ALOHA_VERSION', '0.23.12' );
 
 define( 'FEE_MAIN_FILE', __FILE__ );
