@@ -1,0 +1,1505 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: zh_CN\n"
+"POT-Creation-Date: 2013-07-21 08:00+0800\n"
+"PO-Revision-Date: \n"
+"Last-Translator: 倡萌@WordPress大学 <admin@cmhello.com>\n"
+"Language-Team: 倡萌@WordPress大学 <admin@cmhello.com>\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.5\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../front-end-editor.php:58
+msgid "Title"
+msgstr "标题"
+
+#: ../front-end-editor.php:65
+msgid "Content"
+msgstr "正文"
+
+#: ../front-end-editor.php:71
+msgid "Excerpt"
+msgstr "摘要"
+
+#: ../front-end-editor.php:77
+msgid "Custom fields"
+msgstr "自定义字段"
+
+#: ../front-end-editor.php:83
+msgid "Thumbnail"
+msgstr "缩略图"
+
+#: ../front-end-editor.php:91
+msgid "Categories"
+msgstr "分类"
+
+#: ../front-end-editor.php:97
+msgid "Tags"
+msgstr "标签"
+
+#: ../front-end-editor.php:103
+msgid "Terms"
+msgstr "项目（Terms）"
+
+#: ../front-end-editor.php:110
+msgid "Text widget title"
+msgstr "文本小工具标题"
+
+#: ../front-end-editor.php:117
+msgid "Text widget content"
+msgstr "文本小工具内容"
+
+#: ../front-end-editor.php:124
+msgid "Other widgets"
+msgstr "其他小工具"
+
+#: ../front-end-editor.php:131
+msgid "Comment text"
+msgstr "评论内容"
+
+#: ../front-end-editor.php:137
+msgid "Category title"
+msgstr "分类标题"
+
+#: ../front-end-editor.php:142
+msgid "Tag title"
+msgstr "标签标题"
+
+#: ../front-end-editor.php:147
+msgid "Term title"
+msgstr "项目（Terms）标题"
+
+#: ../front-end-editor.php:152
+msgid "Term description"
+msgstr "项目（Terms）描述"
+
+#: ../front-end-editor.php:159
+msgid "Author description"
+msgstr "作者描述"
+
+#: ../front-end-editor.php:166
+msgid "Site title and description"
+msgstr "网站标题和描述"
+
+#: ../front-end-editor.php:172
+msgid "Site options"
+msgstr "网站选项"
+
+#: ../front-end-editor.php:178
+msgid "Theme images"
+msgstr "主题图片"
+
+#: ../admin/admin.php:9
+msgid "Front-end Editor"
+msgstr "前端编辑器"
+
+#: ../admin/admin.php:14
+msgid "Fields"
+msgstr "字段"
+
+#: ../admin/admin.php:15 ../lib/scb/AdminPage.php:346
+msgid "Settings"
+msgstr "设置"
+
+#: ../admin/admin.php:22
+msgid "Enable the WYSIWYG editor."
+msgstr "启用可视化编辑器"
+
+#: ../admin/admin.php:29
+msgid "Edit all post fields at once."
+msgstr "一次编辑所有文章字段"
+
+#: ../admin/admin.php:37
+msgid "dropdown"
+msgstr "下拉"
+
+#: ../admin/admin.php:38
+msgid "text field"
+msgstr "文本字段"
+
+#: ../admin/admin.php:40
+msgid "To edit categories, use a:"
+msgstr "编辑分类时，使用一个："
+
+#: ../admin/admin.php:74
+msgid "Enable or disable editable fields:"
+msgstr ""
+"由 <a href=\"http://www.wpdaxue.com\" target=\"_blank\" >倡萌@WordPress大学</"
+"a> 提供简体中文支持<br /><br />启用或禁用可编辑字段："
+
+#: ../admin/admin.php:76
+msgid "Post fields"
+msgstr "文章字段"
+
+#: ../admin/admin.php:77
+msgid "Other fields"
+msgstr "其他字段"
+
+#: ../lib/scb/AdminPage.php:172
+msgid "Settings <strong>saved</strong>."
+msgstr "设置<strong>已保存</strong>"
+
+#: ../lib/scb/AdminPage.php:185 ../lib/scb/AdminPage.php:196
+msgid "Save Changes"
+msgstr "保存更改"
+
+#: ../php/core.php:43
+msgid "Edit"
+msgstr "编辑"
+
+#: ../php/core.php:44
+msgid "Save"
+msgstr "保存"
+
+#: ../php/core.php:45
+msgid "Cancel"
+msgstr "取消"
+
+#: ../php/core.php:68
+msgid "Change Image"
+msgstr "更改图片"
+
+#: ../php/core.php:69
+msgid "Insert Image"
+msgstr "插入图片"
+
+#: ../php/core.php:70
+msgid "Clear"
+msgstr "清除"
+
+#: ../php/core.php:272
+msgid "Undefined field"
+msgstr "未定义的字段"
+
+#: ../php/core.php:276
+msgid "Insufficient permissions"
+msgstr "没有足够的权限"
+
+#: ../php/fields/base.php:138
+msgid "empty"
+msgstr "清空"
+
+#: ../php/fields/post.php:101
+#, php-format
+msgid "Error: %s is currently editing this."
+msgstr "错误：%s 正杂编辑这个。"
+
+#~ msgid "Post deleted successfully"
+#~ msgstr "所选文章已删除！"
+
+#~ msgid "Post unpublished"
+#~ msgstr "文章已取消发布！"
+
+#~ msgid "BuddyBlog"
+#~ msgstr "成员博客"
+
+#~ msgid "Search Posts..."
+#~ msgstr "搜索文章…"
+
+#~ msgid "Blog "
+#~ msgstr "文章"
+
+#~ msgid "My Posts"
+#~ msgstr "我的文章"
+
+#~ msgid "%s' Posts"
+#~ msgstr "%s 的文章"
+
+#~ msgid "New Post"
+#~ msgstr "发布文章"
+
+#~ msgid "Profile picture of %s"
+#~ msgstr "%s 的档案图片"
+
+#~ msgid ""
+#~ "<a href=\"%1$s\" rel=\"nofollow\">%2$s</a> said on <a href=\"%3$s\"><span "
+#~ "class=\"time-since\">%4$s</span></a>"
+#~ msgstr ""
+#~ "<a href=\"%1$s\" rel=\"nofollow\">%2$s</a> 说于 <a href=\"%3$s\"><span "
+#~ "class=\"time-since\">%4$s</span></a>"
+
+#~ msgid "Your comment is awaiting moderation."
+#~ msgstr "你的评论正在等待审核。"
+
+#~ msgid "BuddyBlog Settings"
+#~ msgstr "BuddyBlog设置"
+
+#~ msgid "General Options"
+#~ msgstr "常规选项"
+
+#~ msgid "Settings updated successfully."
+#~ msgstr "设置已保存！"
+
+#~ msgid ""
+#~ "Please Install <a href=\"http://buddydev.com/plugins/bp-simple-front-end-"
+#~ "post/\"> BP Simple Front End Post Plugin to make the editing "
+#~ "functionality work."
+#~ msgstr ""
+#~ "请安装 <a href=\"http://buddydev.com/plugins/bp-simple-front-end-post/\"> "
+#~ "BP Simple Front End Post 插件来激活这个功能。"
+
+#~ msgid "Permanent Link to"
+#~ msgstr "访问"
+
+#~ msgid "Published"
+#~ msgstr "已发布"
+
+#~ msgid "delete"
+#~ msgstr "删除"
+
+#~ msgid "Pedding"
+#~ msgstr "待审核…"
+
+#~ msgid "Edit this post"
+#~ msgstr "编辑文章"
+
+#~ msgid "<span class=\"time\"><i class=\"icon-time\"></i>%1$s</span>"
+#~ msgstr "<span class=\"time\"><i class=\"icon-time\"></i>%1$s</span>"
+
+#~ msgid "Postend on %1$s"
+#~ msgstr "Postend on %1$s"
+
+#~ msgctxt "Post written by..."
+#~ msgid "by %s"
+#~ msgstr "由 %s"
+
+#~ msgctxt "Sticky post"
+#~ msgid "Featured"
+#~ msgstr "置顶"
+
+#~ msgid "%1$s <span>in %2$s</span>"
+#~ msgstr "%1$s <span>在 %2$s</span>"
+
+#~ msgid "Read the rest of this entry &rarr;"
+#~ msgstr "阅读全文&rarr;"
+
+#~ msgid "Pages: "
+#~ msgstr "页面："
+
+#~ msgid "No Comments &#187;"
+#~ msgstr "没有评论 &#187;"
+
+#~ msgid "1 Comment &#187;"
+#~ msgstr "1 条评论 &#187;"
+
+#~ msgid "% Comments &#187;"
+#~ msgstr "% 条评论 &#187;"
+
+#~ msgid ""
+#~ "There are no posts by this user at the moment. Please check back later"
+#~ msgstr "当前用户还没有发布文章，请稍后再看看"
+
+#~ msgid "You haven't posted anything yet. "
+#~ msgstr "你目前还没有发布任何文章。"
+
+#~ msgid "The Security check failed!"
+#~ msgstr "安全检查失败！"
+
+#~ msgid "You are not authorized for the action!"
+#~ msgstr "你没有操作权限！"
+
+#~ msgid "Please make sure to fill the required fields"
+#~ msgstr "请务必填写所需的字段"
+
+#~ msgid "%s Saved as %s successfully."
+#~ msgstr "%s 成功保存为 %s"
+
+#~ msgid "There was a problem saving your %s. Please try again later."
+#~ msgstr "保存 %s 出错了，请稍后再试。"
+
+#~ msgid "Select %s"
+#~ msgstr "选择 %s"
+
+#~ msgid "Post:"
+#~ msgstr "内容："
+
+#~ msgid "Uploads"
+#~ msgstr "上传"
+
+#~ msgid "Extra Info"
+#~ msgstr "额外信息"
+
+#~ msgid "WP Security"
+#~ msgstr "WP安全"
+
+#~ msgid "Dashboard"
+#~ msgstr "仪表盘"
+
+#, fuzzy
+#~ msgid "User Accounts"
+#~ msgstr "借记用户帐户"
+
+#, fuzzy
+#~ msgid "User Login"
+#~ msgstr "用户是"
+
+#~ msgid "Database Security"
+#~ msgstr "数据库安全"
+
+#~ msgid "Filesystem Security"
+#~ msgstr "文件系统安全"
+
+#~ msgid "WHOIS Lookup"
+#~ msgstr "WHOIS查询"
+
+#~ msgid "Blacklist Manager"
+#~ msgstr "黑名单管理"
+
+#~ msgid "Firewall"
+#~ msgstr "防火墙"
+
+#~ msgid "Maintenance"
+#~ msgstr "维护模式"
+
+#~ msgid "Nonce check failed for save blacklist settings!"
+#~ msgstr ""
+#~ "保存黑名单时杜撰检查失败（Nonce check failed for save blacklist "
+#~ "settings!）"
+
+#~ msgid ""
+#~ "The plugin was unable to write to the .htaccess file. Please edit file "
+#~ "manually."
+#~ msgstr "插件无法写入  .htaccess 文件，请自己手动修改。"
+
+#~ msgid "Ban IPs or User Agents"
+#~ msgstr "禁止IP或用户代理"
+
+#~ msgid ""
+#~ "The All In One WP Security Blacklist feature gives you the option of "
+#~ "banning certain host IP addresses or ranges and also user agents."
+#~ msgstr ""
+#~ "黑名单功能，可以让您选择禁止某些主机的IP地址、IP段范围和用户代理（User "
+#~ "Agent ）。"
+
+#~ msgid ""
+#~ "This feature will deny total site access for users which have IP "
+#~ "addresses or user agents matching those which you have configured in the "
+#~ "settings below."
+#~ msgstr "所有在黑名单中的 IP 或 用户代理 都无法访问你的网站"
+
+#~ msgid ""
+#~ "The plugin achieves this by making appropriate modifications to your ."
+#~ "htaccess file."
+#~ msgstr "该插件通过适当修改你的 .htaccess 来实现黑名单限制。"
+
+#~ msgid ""
+#~ "By blocking people via the .htaccess file your are using the most secure "
+#~ "first line of defence which denies all access to blacklisted visitors as "
+#~ "soon as they hit your hosting server."
+#~ msgstr ""
+#~ "通过 .htaccess 限制访问是使用的最多网站安全防护手段，也是阻止所有黑名单访"
+#~ "客攻击你的网站托管服务器的第一道防线。"
+
+#~ msgid "IP Hosts and User Agent Blacklist Settings"
+#~ msgstr "IP主机和用户代理黑名单设置"
+
+#~ msgid "Enable IP or User Agent Blacklisting"
+#~ msgstr "启用IP或用户代理黑名单"
+
+#~ msgid ""
+#~ "Check this if you want to enable the banning (or blacklisting) of "
+#~ "selected IP addresses and/or user agents specified in the settings below"
+#~ msgstr ""
+#~ "如果你要启用“禁止（或黑名单）所选定的IP地址和/或用户代理”，请选择此项"
+
+#~ msgid "Enter IP Addresses:"
+#~ msgstr "输入 IP 地址："
+
+#~ msgid "Enter one or more IP addresses or IP ranges."
+#~ msgstr "输入一个或多个 IP 地址 或 IP 段"
+
+#~ msgid "Each IP address must be on a new line."
+#~ msgstr "每行一个 IP 地址"
+
+#~ msgid ""
+#~ "To specify an IP range use a wildcard \"*\" character. Acceptable ways to "
+#~ "use wildcards is shown in the examples below:"
+#~ msgstr "请使用一个通配符\"*\"来指定一个IP段，下面是一些有效的例子："
+
+#~ msgid "Example 1: 195.47.89.*"
+#~ msgstr "例1： 195.47.89.*"
+
+#~ msgid "Example 2: 195.47.*.*"
+#~ msgstr "例2：195.47.*.*"
+
+#~ msgid "Example 3: 195.*.*.*"
+#~ msgstr "例3：195.*.*.*"
+
+#, fuzzy
+#~ msgid "Enter User Agents:"
+#~ msgstr "编辑用户信息"
+
+#~ msgid "Enter one or more user agent strings."
+#~ msgstr "输入一个或多个用户代理："
+
+#~ msgid "Each user agent string must be on a new line."
+#~ msgstr "每行一个用户代理"
+
+#~ msgid "Example 1 - A single user agent string to block:"
+#~ msgstr "例1 - 禁止单个用户代理："
+
+#~ msgid "Example 2 - A list of more than 1 user agent strings to block"
+#~ msgstr "例2 - 禁止多个用户代理："
+
+#~ msgid "Nonce check failed for list SPAM comment IPs!"
+#~ msgstr "Nonce check failed for list SPAM comment IPs!"
+
+#, fuzzy
+#~ msgid "Attention!"
+#~ msgstr "信息"
+
+#, fuzzy
+#~ msgid "Admin Username"
+#~ msgstr "用户名"
+
+#, fuzzy
+#~ msgid "Plugin URL"
+#~ msgstr "链接URL"
+
+#, fuzzy
+#~ msgid "Enter an email address"
+#~ msgstr "PayPal 邮箱地址"
+
+#, fuzzy
+#~ msgid "Recommended Action"
+#~ msgstr "添加信息"
+
+#, fuzzy
+#~ msgid "Save Setting"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Firewall Settings"
+#~ msgstr "好友设置"
+
+#, fuzzy
+#~ msgid "Basic Firewall Settings"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Bad Query Strings"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Save 5G Firewall Settings"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Save Feature Settings"
+#~ msgstr "横幅设置"
+
+#, fuzzy
+#~ msgid "Site lockout feature settings saved!"
+#~ msgstr "联盟设置已保存"
+
+#, fuzzy
+#~ msgid "Enter a Message:"
+#~ msgstr "编辑用户信息"
+
+#, fuzzy
+#~ msgid "New Admin Username"
+#~ msgstr "用户名"
+
+#, fuzzy
+#~ msgid "Username "
+#~ msgstr "用户名"
+
+#, fuzzy
+#~ msgid "No items found."
+#~ msgstr "没有相关内容"
+
+#, fuzzy
+#~ msgid "Bulk Actions"
+#~ msgstr "信息"
+
+#~ msgid "Apply"
+#~ msgstr "应用"
+
+#, fuzzy
+#~ msgid "List View"
+#~ msgstr "列表"
+
+#, fuzzy
+#~ msgid "%s pending"
+#~ msgstr "审核中"
+
+#, fuzzy
+#~ msgid "<strong>ERROR</strong>: The username field is empty."
+#~ msgstr "<strong>头像</strong> - 用户的头像"
+
+#, fuzzy
+#~ msgid "Site Lockout Notification"
+#~ msgstr "好友通知"
+
+#, fuzzy
+#~ msgid "Username: "
+#~ msgstr "用户名"
+
+#, fuzzy
+#~ msgid "Please log back in to continue."
+#~ msgstr "请选择要取消暂停的信息"
+
+#~ msgid "Messages"
+#~ msgstr "信息"
+
+#~ msgid "User added to Automessage queue."
+#~ msgstr "添加到自动信息队列的用户"
+
+#~ msgid "User could not be added to Automessage queue."
+#~ msgstr "无法添加用户到自动信息队列"
+
+#~ msgid "Blog admin added to Automessage queue."
+#~ msgstr "添加到自动信息队列的博客管理员"
+
+#~ msgid "Blog admin could not be added to Automessage queue."
+#~ msgstr "无法添加博客管理员到自动信息队列"
+
+#~ msgid "Add user to Automessage queue"
+#~ msgstr "添加用户到自动信息队列"
+
+#~ msgid "Queue"
+#~ msgstr "队列"
+
+#~ msgid "Add blog to Automessage queue"
+#~ msgstr "添加博客到自动信息队列"
+
+#~ msgid "Automessage"
+#~ msgstr "自动信息"
+
+#~ msgid "Edit Blog Messages"
+#~ msgstr "编辑博客信息"
+
+#~ msgid "Blog Level Messages"
+#~ msgstr "博客级别信息"
+
+#~ msgid "User Level Messages"
+#~ msgstr "用户级别信息"
+
+#~ msgid "Your action has been added to the schedule."
+#~ msgstr "你的信息已经被添加到计划中"
+
+#~ msgid "Your action could not be added."
+#~ msgstr "你的信息无法添加"
+
+#~ msgid "The scheduled action has been paused"
+#~ msgstr "计划的信息已被暂停"
+
+#~ msgid "The scheduled action has been unpaused"
+#~ msgstr "计划的信息已取消暂停"
+
+#~ msgid "Please select an action to delete"
+#~ msgstr "请选择要删除的信息"
+
+#~ msgid "The scheduled actions have been paused"
+#~ msgstr "计划的信息已被暂停"
+
+#~ msgid "Please select an action to pause"
+#~ msgstr "请选择要暂停的信息"
+
+#~ msgid "The scheduled actions have been unpaused"
+#~ msgstr "计划的信息已被取消暂停"
+
+#~ msgid "The scheduled actions have been processed"
+#~ msgstr "计划的信息已被处理"
+
+#~ msgid "Please select an action to process"
+#~ msgstr "请选择要处理的信息"
+
+#~ msgid "The scheduled action has been deleted"
+#~ msgstr "计划的信息已被删除"
+
+#~ msgid "The scheduled action has been updated"
+#~ msgstr "计划的信息已更新"
+
+#~ msgid "The scheduled action has been processed"
+#~ msgstr "计划的信息已处理"
+
+#~ msgid "Create new blog"
+#~ msgstr "新建博客"
+
+#~ msgid "Create new user"
+#~ msgstr "新建用户"
+
+#~ msgid "Message delay"
+#~ msgstr "信息延时"
+
+#~ msgid "Send immediately"
+#~ msgstr "立即发送"
+
+#~ msgid "1 day"
+#~ msgstr "1 天"
+
+#~ msgid "%d days"
+#~ msgstr "%d 天"
+
+#~ msgid "Message Subject"
+#~ msgstr "信息主题"
+
+#~ msgid "Message subject"
+#~ msgstr "信息主题"
+
+#~ msgid "Message"
+#~ msgstr "信息"
+
+#~ msgid ""
+#~ "You can use the following constants within the message body to embed "
+#~ "database information."
+#~ msgstr "可以使用下面的常量在邮件正文中嵌入数据库信息。"
+
+#~ msgid "Update action"
+#~ msgstr "更新信息"
+
+#~ msgid "Add action"
+#~ msgstr "添加信息"
+
+#~ msgid "Time delay"
+#~ msgstr "延时"
+
+#~ msgid "Subject"
+#~ msgstr "主题"
+
+#~ msgid "Queued"
+#~ msgstr "排队"
+
+#~ msgid "[Paused] "
+#~ msgstr "[暂停]"
+
+#~ msgid "Pause this message"
+#~ msgstr "暂停此信息"
+
+#~ msgid "Pause"
+#~ msgstr "暂停"
+
+#~ msgid "Unpause this message"
+#~ msgstr "取消暂停此信息"
+
+#~ msgid "Unpause"
+#~ msgstr "取消暂停"
+
+#~ msgid "Process this message"
+#~ msgstr "处理此信息"
+
+#~ msgid "Process"
+#~ msgstr "处理"
+
+#~ msgid "Delete this message"
+#~ msgstr "删除此信息"
+
+#~ msgid "Immediate"
+#~ msgstr "即时"
+
+#~ msgid "%d %s"
+#~ msgstr "%d %s"
+
+#~ msgid "%d %ss"
+#~ msgstr "%d %s"
+
+#~ msgid "No actions set for this level."
+#~ msgstr "还没有为此级别添加信息"
+
+#~ msgid "You are running Automessage version "
+#~ msgstr "你所用的自动信息插件版本为 "
+
+#~ msgid "Debug mode is "
+#~ msgstr "调试模式 "
+
+#~ msgid "Enabled"
+#~ msgstr "已启用"
+
+#~ msgid "Disabled"
+#~ msgstr "已禁用"
+
+#~ msgid "Automessage dashboard"
+#~ msgstr "自动信息仪表盘"
+
+#~ msgid "Add New"
+#~ msgstr "添加新信息"
+
+#~ msgid "Notice: Processing stopped due to %d second timeout."
+#~ msgstr "注意：超时 %d 秒后停止处理"
+
+#~ msgid ""
+#~ "To stop receiving messages from %sitename% click on the following link: "
+#~ "%siteurl%/unsubscribe/"
+#~ msgstr ""
+#~ "如果不想再接收来自 %sitename% 的信息，请点击下面的链接：%siteurl%/"
+#~ "unsubscribe/"
+
+#~ msgid "Unsubscribe request processed"
+#~ msgstr "取消订阅的请求已处理"
+
+#~ msgid ""
+#~ "Your unsubscribe request has been processed and you have been removed "
+#~ "from our mailing list.\n"
+#~ "\n"
+#~ "Thank you\n"
+#~ "\n"
+#~ msgstr ""
+#~ "你的取消订阅的请求已被处理，已将你从邮件列表中删除\n"
+#~ "\n"
+#~ "谢谢\n"
+#~ "\n"
+
+#~ msgid "Data migration"
+#~ msgstr "数据迁移"
+
+#~ msgid ""
+#~ "You have a previous install of Automessage on this server to migrate from."
+#~ msgstr "你在此服务器上有一个以前安装的自动信息可迁移。"
+
+#~ msgid ""
+#~ "Click on the button below to start a migration. This may take some time."
+#~ msgstr "点击下面的按钮开始迁移。这可能需要一些时间。"
+
+#~ msgid "Migrating data."
+#~ msgstr "迁移数据"
+
+#~ msgid "Please wait whilst we migrate your data."
+#~ msgstr "数据正在迁移，请稍等。"
+
+#~ msgid "Moving blog level messages..."
+#~ msgstr "移动博客级别信息..."
+
+#~ msgid "Moving user level messages..."
+#~ msgstr "移动用户级别信息..."
+
+#~ msgid "Migration complete."
+#~ msgstr "迁移完成。"
+
+#~ msgid ""
+#~ "You have not got a previous install of Automessage on this server to "
+#~ "migrate from."
+#~ msgstr "你在此服务器上没有一个以前安装的自动信息可迁移。"
+
+#~ msgid "Affiliate Debug : "
+#~ msgstr "联盟调试："
+
+#~ msgid "I have recorded a cookie from <strong>"
+#~ msgstr "我已经记录了一个 cookie 来自 <strong>"
+
+#~ msgid ""
+#~ "</strong>. Any purchases will be assigned to that account for <strong>"
+#~ msgstr "</strong>。在点击链接 <strong>"
+
+#~ msgid "</strong> days after the click."
+#~ msgstr "天内的任何购买，将分配到该账户。"
+
+#~ msgid ""
+#~ "The <strong>Not via an Affiliate</strong> cookie has been set. I am "
+#~ "ignoring any future affiliate clicks for this browser session."
+#~ msgstr ""
+#~ "<strong>Not via an Affiliate</strong> cookie 已经设置。我将忽略这个浏览器"
+#~ "会话中的联盟点击。"
+
+#~ msgid "No cookies are currently set - I am looking for cookies at : "
+#~ msgstr "目前没有设置任何 cookies - 我在寻在cookies："
+
+#~ msgid "Affiliate Settings"
+#~ msgstr "联盟设置"
+
+#~ msgid ""
+#~ "You can set the global commision amount paid to affiliates for referred "
+#~ "purchases below. Set it to 0 for no payments."
+#~ msgstr ""
+#~ "你可以设置用来支付给联盟推介购买的全局佣金金额。设为 0 将不支付佣金。"
+
+#~ msgid "Set percentage to be paid to affiliates"
+#~ msgstr "设置联盟佣金百分比"
+
+#~ msgid "%"
+#~ msgstr "%"
+
+#~ msgid "Affiliate settings"
+#~ msgstr "联盟设置"
+
+#~ msgid "Affiliate payment credited for a signup on this subscription"
+#~ msgstr "通过这个订阅地址注册所支付的联盟佣金"
+
+#~ msgid "Supporter payments settings"
+#~ msgstr "支持者付款设置"
+
+#~ msgid "1 Month payment"
+#~ msgstr "1个月付款"
+
+#~ msgid "Affiliate payment for one month."
+#~ msgstr "1个月联盟付款"
+
+#~ msgid "3 Month payment"
+#~ msgstr "3个月付款"
+
+#~ msgid "Affiliate payment for three months."
+#~ msgstr "3个月联盟付款"
+
+#~ msgid "12 Month payment"
+#~ msgstr "12个月付款"
+
+#~ msgid "Affiliate payment for twelve months."
+#~ msgstr "12个月联盟付款"
+
+#~ msgid "Unique Clicks"
+#~ msgstr "点击数"
+
+#~ msgid "Sign ups"
+#~ msgstr "注册数"
+
+#~ msgid "Paid members"
+#~ msgstr "付费数"
+
+#~ msgid "Affiliates"
+#~ msgstr "联盟"
+
+#~ msgid "Manage Affiliates"
+#~ msgstr "管理联盟"
+
+#~ msgid "Add-ons"
+#~ msgstr "扩展"
+
+#~ msgid "Affiliate Reports"
+#~ msgstr "联盟报告"
+
+#~ msgid "Affiliate Earnings Report"
+#~ msgstr "联盟收入报告"
+
+#~ msgid "Affiliate Referrals"
+#~ msgstr "联盟推荐"
+
+#~ msgid "Affiliate Banners"
+#~ msgstr "联盟广告"
+
+#~ msgid "Debits"
+#~ msgstr "借记"
+
+#~ msgid "Credits"
+#~ msgstr "信用"
+
+#~ msgid "Payments"
+#~ msgstr "付款"
+
+#~ msgid "This URL is already in use."
+#~ msgstr "这个链接已使用"
+
+#~ msgid "Validated"
+#~ msgstr "已验证"
+
+#~ msgid "Not validated"
+#~ msgstr "未验证"
+
+#~ msgid "Affiliate Referral Report"
+#~ msgstr "联盟推荐报告"
+
+#~ msgid ""
+#~ "Hello, Thank you for supporting us</strong>, to view or change any of "
+#~ "your affiliate settings click on the edit link."
+#~ msgstr ""
+#~ "你好，非常感谢支持我们</strong>，你可以点击右边的“编辑”链接查看或修改你的"
+#~ "联盟设置"
+
+#~ msgid "edit"
+#~ msgstr "编辑"
+
+#~ msgid ""
+#~ "<p>We love it when people talk about us, and even more so when they "
+#~ "recommend us to their friends.</p>\n"
+#~ "\t\t\t<p>As a thank you we would like to offer something back, which is "
+#~ "why we have set up this affiliate program.</p>\n"
+#~ "\t\t\t<p>To get started simply enable the links for your account and "
+#~ "enter your PayPal email address below, for more details on our affiliate "
+#~ "program please visit our main site.</p>"
+#~ msgstr ""
+#~ "<p>我们很乐意别人谈论我们，甚至推荐我们给他们的朋友。</p>\n"
+#~ "\t\t\t<p>作为感谢，我们希望给你们一些回馈，这就是为什么我们要安装这个联盟"
+#~ "系统。</p>\n"
+#~ "\t\t\t<p>你只需要为你的账户设置一个链接，然后在下面输入 PayPal 邮箱地址。"
+#~ "要了解联盟计划的更多详情，请访问我们的主网站。</p>"
+
+#~ msgid "Enable Affiliate links"
+#~ msgstr "启用联盟链接"
+
+#~ msgid "Yes please"
+#~ msgstr "是"
+
+#~ msgid "No thanks"
+#~ msgstr "否"
+
+#~ msgid "Affiliate Advanced Settings"
+#~ msgstr "联盟高级设置"
+
+#~ msgid ""
+#~ "<p>There are times when you would rather hide your affiliate link, or "
+#~ "simply not have to bother remembering the affiliate reference to put on "
+#~ "the end of our URL.</p>\n"
+#~ "\t\t\t\t\t<p>If this is the case, then you can enter the main URL of the "
+#~ "site you will be sending requests from below, and we will sort out the "
+#~ "tricky bits for you.</p>"
+#~ msgstr ""
+#~ "<p>有时候，你宁愿隐藏你的联盟链接，或者干脆不必费心记住添加到我们网址链接"
+#~ "后面的联盟参数。</p>\n"
+#~ "\t\t\t\t\t<p>如果是这样的话，你可以在下面输入你网站的链接URL，我们将为你去"
+#~ "掉后面的联盟参数。</p>"
+
+#~ msgid "Your URL"
+#~ msgstr "你的链接"
+
+#~ msgid ""
+#~ "You need to validate this URL by uploading a file to the root of the site "
+#~ "above with the following name : "
+#~ msgstr "你需要上传一个文件到你的网站根目录，以便验证这个链接，该文件名为："
+
+#~ msgid "Filename : "
+#~ msgstr "文件名："
+
+#~ msgid "[click here to check if the file exists]"
+#~ msgstr "[ 点击这里验证文件是否存在 ]"
+
+#~ msgid "Validate"
+#~ msgstr "验证"
+
+#~ msgid "<h3>Affiliate Details</h3>"
+#~ msgstr "<h3>联盟详情</h3>"
+
+#~ msgid ""
+#~ "In order for us to track your referrals, you should use the following URL "
+#~ "to link to our site:"
+#~ msgstr "为了让我们统计你的推荐，你应该使用下面的URL链接到我们的网站。"
+
+#~ msgid "<strong>%s?ref=%s</strong>"
+#~ msgstr "<strong>%s?ref=%s</strong>"
+
+#~ msgid ""
+#~ "Alternatively you can just link directly to the URL below from the site "
+#~ "you entered in the advanced settings above:"
+#~ msgstr "此外，你可以从上面高级设置中所输入的网站，直接链接到下面的URL："
+
+#~ msgid ""
+#~ "If you would rather use a banner or button then we have a wide selection "
+#~ "of sizes <a href=\"%s\">here</a>."
+#~ msgstr ""
+#~ "如果你宁愿使用横幅或按钮，那么我们有多种尺寸可供选择，你可以在 <a href="
+#~ "\"%s\">这里</a> 进行选择。"
+
+#~ msgid ""
+#~ "<strong>You can check on your referral totals by viewing the details on "
+#~ "this page</strong>"
+#~ msgstr "<strong>你可以在这个页面查看你所有推荐详情</strong>"
+
+#~ msgid "Hello, why not consider becoming an affiliate?"
+#~ msgstr "你好，为什么不考虑成为一个联盟会员呢？"
+
+#~ msgid "Date"
+#~ msgstr "日期"
+
+#~ msgid "Top referrers for "
+#~ msgstr "热门推荐"
+
+#~ msgid "Visits"
+#~ msgstr "访问"
+
+#~ msgid ""
+#~ "<tr><td colspan=\"2\">You have no referred visits this month.</td></tr>"
+#~ msgstr "<tr><td colspan=\"2\">你这个月没有任何推荐访问</td></tr>"
+
+#~ msgid "Top referrers over past 18 months"
+#~ msgstr "过去 18 个月的热门推荐"
+
+#~ msgid "<tr><td colspan=\"2\">You have no overall referred visits.</td></tr>"
+#~ msgstr "<tr><td colspan=\"2\">你没有整体推荐访问</td></tr>"
+
+#~ msgid ""
+#~ "So, you want something more exciting than a straight forward text link?"
+#~ msgstr "所以，你想要比直接的文本链接更吸引人的东西？"
+
+#~ msgid ""
+#~ "Not to worry, we've got banners and buttons galore. To use them simply "
+#~ "copy and paste the HTML underneath the graphic that you want to use."
+#~ msgstr ""
+#~ "不必担心，我们已经准备了漂亮的横幅和按钮供你选择。你只需要复制下面的HTML代"
+#~ "码，然后粘贴到你的网站即可。"
+
+#~ msgid "Affiliate payment for"
+#~ msgstr "联盟付款给"
+
+#~ msgid "Affiliate payment for "
+#~ msgstr "联盟付款给"
+
+#~ msgid "Affiliate Link URL"
+#~ msgstr "联盟链接URL"
+
+#~ msgid "Column Settings"
+#~ msgstr "列表设置"
+
+#~ msgid "Profile page text"
+#~ msgstr "个人资料页文本"
+
+#~ msgid ""
+#~ "<p>We love it when people talk about us, and even more so when they "
+#~ "recommend us to their friends.</p>\n"
+#~ "<p>As a thank you we would like to offer something back, which is why we "
+#~ "have set up this affiliate program.</p>\n"
+#~ "<p>To get started simply enable the links for your account and enter your "
+#~ "PayPal email address below, for more details on our affiliate program "
+#~ "please visit our main site.</p>"
+#~ msgstr ""
+#~ "<p>我们很乐意别人谈论我们，甚至推荐我们给他们的朋友。</p>\n"
+#~ "<p>作为感谢，我们希望给你们一些回馈，这就是为什么我们要安装这个联盟系统。"
+#~ "</p>\n"
+#~ "<p>你只需要为你的账户设置一个链接，然后在下面输入 PayPal 邮箱地址。要了解"
+#~ "联盟计划的更多详情，请访问我们的主网站。</p>"
+
+#~ msgid "Affiliate settings profile text"
+#~ msgstr "联盟设置个人资料文本"
+
+#~ msgid ""
+#~ "<p>There are times when you would rather hide your affiliate link, or "
+#~ "simply not have to bother remembering the affiliate reference to put on "
+#~ "the end of our URL.</p>\n"
+#~ "<p>If this is the case, then you can enter the main URL of the site you "
+#~ "will be sending requests from below, and we will sort out the tricky bits "
+#~ "for you.</p>"
+#~ msgstr ""
+#~ "<p>有时候，你宁愿隐藏你的联盟链接，或者干脆不必费心记住添加到我们网址链接"
+#~ "后面的联盟参数。</p>\n"
+#~ "<p>如果是这样的话，你可以输入网站的主链接，从下面的网址发送请求，我们将为"
+#~ "你理清棘手的位。</p>"
+
+#~ msgid "Affiliate advanced settings profile text"
+#~ msgstr "联盟高级设置个人资料文本"
+
+#~ msgid "Enable Banners"
+#~ msgstr "启用横幅广告"
+
+#~ msgid "Banner Image URLs (one per line)"
+#~ msgstr "横幅图片链接（每行一个）"
+
+#~ msgid "Approval Settings"
+#~ msgstr "批准设置"
+
+#~ msgid ""
+#~ "If you want to delay payouts to affiliates until they have been manually "
+#~ "approved then set this option below. "
+#~ msgstr "如果你想手动批准后再进行联盟支付，请设置下面的选项。"
+
+#~ msgid ""
+#~ "Affiliates will still be able to generate leads, whilst they are waiting "
+#~ "to be approved."
+#~ msgstr "联盟即使还在等待批准，仍可以正常生成引导"
+
+#~ msgid "Pay only approved affiliates"
+#~ msgstr "只支付批准的联盟"
+
+#~ msgid "Debit has been assigned correctly."
+#~ msgstr "借记已分配正确"
+
+#~ msgid "Credit has been assigned correctly."
+#~ msgstr "信用已分配正确"
+
+#~ msgid "Payment has been assigned correctly."
+#~ msgstr "付款已正确分配"
+
+#~ msgid "Details for user : "
+#~ msgstr "用户的详情："
+
+#~ msgid "linked to "
+#~ msgstr "链接到"
+
+#~ msgid "Approve user account"
+#~ msgstr "批准用户帐户"
+
+#~ msgid "not approved"
+#~ msgstr "未批准"
+
+#~ msgid "approved"
+#~ msgstr "已批准"
+
+#~ msgid " to receive affiliate payments."
+#~ msgstr "接收联盟付款。"
+
+#~ msgid "Update"
+#~ msgstr "更新"
+
+#~ msgid "Period : "
+#~ msgstr "时间："
+
+#~ msgid "Value : "
+#~ msgstr "价值："
+
+#~ msgid "Credit user account"
+#~ msgstr "信用卡用户帐户"
+
+#~ msgid "Add Credit"
+#~ msgstr "添加信用卡"
+
+#~ msgid "Set Payment on account"
+#~ msgstr "设置帐户的付款"
+
+#~ msgid "Add Payment"
+#~ msgstr "添加付款"
+
+#~ msgid "Find user with username"
+#~ msgstr "通过用户名查找用户"
+
+#~ msgid "Search"
+#~ msgstr "搜索"
+
+#~ msgid "Manage Affiliate"
+#~ msgstr "管理联盟"
+
+#~ msgid "There are no users matching the search criteria."
+#~ msgstr "没有符合搜索条件的用户"
+
+#~ msgid "Affiliate reports"
+#~ msgstr "联盟报告"
+
+#~ msgid "Manage affiliates"
+#~ msgstr "管理联盟"
+
+#~ msgid "Manage add-ons"
+#~ msgstr "管理扩展"
+
+#~ msgid "Affiliate System Administration"
+#~ msgstr "联盟系统管理"
+
+#~ msgid "Payments has been assigned correctly."
+#~ msgstr "付款已分配正确"
+
+#~ msgid "Show report for"
+#~ msgstr "显示报告给"
+
+#~ msgid "Refresh"
+#~ msgstr "刷新"
+
+#~ msgid "Export Payments"
+#~ msgstr "导出付款"
+
+#~ msgid "Mark as Paid"
+#~ msgstr "标记为已支付"
+
+#~ msgid "There are no results for the selected month."
+#~ msgstr "所选月份没有任何结果"
+
+#~ msgid "Referred by"
+#~ msgstr "推荐人："
+
+#~ msgid "Addon updated."
+#~ msgstr "扩展已更新"
+
+#~ msgid "Addon not updated."
+#~ msgstr "扩展未更新"
+
+#~ msgid "Addon not activated."
+#~ msgstr "扩展未启用"
+
+#~ msgid "Addon deactivated."
+#~ msgstr "扩展已停用"
+
+#~ msgid "Addon not deactivated."
+#~ msgstr "扩展未停用"
+
+#~ msgid "Addon activation toggled."
+#~ msgstr "扩展状态已切换"
+
+#~ msgid "Toggle activation"
+#~ msgstr "切换状态"
+
+#~ msgid "Addon Name"
+#~ msgstr "扩展名称"
+
+#~ msgid "Active"
+#~ msgstr "状态"
+
+#~ msgid "Deactivate"
+#~ msgstr "停用"
+
+#~ msgid "Network Activate"
+#~ msgstr "网络启用"
+
+#~ msgid "Activate"
+#~ msgstr "启用"
+
+#~ msgid "Inactive"
+#~ msgstr "未启用"
+
+#~ msgid "Referred"
+#~ msgstr "推荐"
+
+#~ msgid "Affiliate Report"
+#~ msgstr "联盟报告"
+
+#~ msgid ""
+#~ "You are not currently logged in. Please %s to see your affiliate "
+#~ "information."
+#~ msgstr "你目前还没有登录，请 %s 后查看联盟信息。"
+
+#~ msgid "login"
+#~ msgstr "登录"
+
+#~ msgid ""
+#~ "<p>We love it when people talk about us, and even more so when they "
+#~ "recommend us to their friends.</p><p>As a thank you we would like to "
+#~ "offer something back, which is why we have set up this affiliate program."
+#~ "</p><p>To get started simply enable the links for your account and enter "
+#~ "your PayPal email address below, for more details on our affiliate "
+#~ "program please visit our main site.</p>"
+#~ msgstr ""
+#~ "<p>我们很乐意别人谈论我们，甚至推荐我们给他们的朋友。</p><p>作为感谢，我们"
+#~ "希望给你们一些回馈，这就是为什么我们要安装这个联盟系统。</p><p>你只需要为"
+#~ "你的账户设置一个链接，然后在下面输入 PayPal 邮箱地址。要了解联盟计划的更多"
+#~ "详情，请访问我们的主网站。</p>"
+
+#~ msgid ""
+#~ "<p>We love it when people talk about us, and even more so when they "
+#~ "recommend us to their friends.</p>\n"
+#~ "\t\t<p>As a thank you we would like to offer something back, which is why "
+#~ "we have set up this affiliate program.</p>\n"
+#~ "\t\t<p>To get started simply enable the links for your account and enter "
+#~ "your PayPal email address below, for more details on our affiliate "
+#~ "program please visit our main site.</p>"
+#~ msgstr ""
+#~ "<p>我们很乐意别人谈论我们，甚至推荐我们给他们的朋友。</p>\n"
+#~ "\t\t\t<p>作为感谢，我们希望给你们一些回馈，这就是为什么我们要安装这个联盟"
+#~ "系统。</p>\n"
+#~ "\t\t\t<p>你只需要为你的账户设置一个链接，然后在下面输入 PayPal 邮箱地址。"
+#~ "要了解联盟计划的更多详情，请访问我们的主网站。</p>"
+
+#~ msgid "Email Notification"
+#~ msgstr "邮件通知"
+
+#~ msgid "Yes"
+#~ msgstr "Yes"
+
+#~ msgid "No"
+#~ msgstr "No"
+
+#~ msgid "Receive an email when someone adds you as a friend"
+#~ msgstr "当有人添加你为好友，发送邮件通知"
+
+#~ msgid "Friends"
+#~ msgstr "好友"
+
+#~ msgid "Find Friends"
+#~ msgstr "找好友"
+
+#~ msgid "Friend Requests"
+#~ msgstr "好友请求"
+
+#~ msgid "Cheatin&#8217; uh?"
+#~ msgstr "不忠&#8217; 呃？"
+
+#~ msgid "Friend Removed"
+#~ msgstr "删除好友"
+
+#~ msgid "Friend will be added pending approval."
+#~ msgstr "好友将在审核同意后添加"
+
+#~ msgid "Friend Request Rejected"
+#~ msgstr "好友请求被拒绝"
+
+#~ msgid "Quick Message Success."
+#~ msgstr "信息发送成功"
+
+#~ msgid "Quick Message Failed."
+#~ msgstr "信息发送失败"
+
+#~ msgid "Email Request Template"
+#~ msgstr "邮件请求模板"
+
+#~ msgid "Email Approval Template"
+#~ msgstr "邮件同意模板"
+
+#~ msgid "Email Rejection Template"
+#~ msgstr "邮件拒绝模板"
+
+#~ msgid ""
+#~ "The Friends plugin lets users connect with other users within the "
+#~ "WordPress Multisite environment. Once connected friends can send message "
+#~ "to each other. Also available is a handy widget to display a user's "
+#~ "friends listing"
+#~ msgstr ""
+#~ "这个好友插件可以让多站点之间的用户相互联系。一旦成为好友，就可以相互间发送"
+#~ "信息。当然，也包含一个不错的小工具，用来显示用户的好友列表。"
+
+#~ msgid ""
+#~ "The Friends listing page will show all user your have connections with. "
+#~ "From the listing you can send messages to users. Also you can remove "
+#~ "users who may have become unfriendly."
+#~ msgstr ""
+#~ "好友列表页面将显示你所添加的所有好友，你可以通过这个页面给好友发送信息，你"
+#~ "还可以删除那些不友好的用户。"
+
+#~ msgid "<strong>Friend</strong> - This is the user's display name."
+#~ msgstr "<strong>好友</strong> - 用户的昵称"
+
+#~ msgid ""
+#~ "<strong>Send Message</strong> - Once you are connected to other friends "
+#~ "you can send them messages."
+#~ msgstr ""
+#~ "<strong>发送信息</strong> - 一旦你成功添加对方为好友，就可以给他们发送信息"
+
+#~ msgid "<strong>View Blog</strong> - View the user's blog"
+#~ msgstr "<strong>查看博客</strong> - 查看用户博客"
+
+#~ msgid "<strong>Remove</strong> - Allows you to remove the user as a friend."
+#~ msgstr "<strong>移除</strong> - 允许你删除好友"
+
+#~ msgid ""
+#~ "Using the search on this page you can search for other users within this "
+#~ "Multisite system. You can locate other user by searching for Name, Login "
+#~ "or Email. Click the Search button and all matching users will be listed. "
+#~ "Beside each user will be an Add link which will create a request to the "
+#~ "user. The user will need to accept the request to complete the friend "
+#~ "connection. Within the list if you see Pending instead of Add this means "
+#~ "the friend request has already been sent to this user."
+#~ msgstr ""
+#~ "通过这个页面搜索，你可以找到这个多站点网络中的其他用户。输入用户姓名、登录"
+#~ "名或电子邮件，点击“搜索”按钮，就可以显示符合条件的用户。每个用户都有一"
+#~ "个“加为好友”的链接，你可以快速提交好友申请，对方审核通过后就可以了。如果在"
+#~ "列表显示“审核中”，而不是“加为好友”，意味着你已经给该用户发送了好友请求。"
+
+#~ msgid ""
+#~ "When another user requests you to be their friend they will be listed on "
+#~ "this page. To complete the friend connection you must approve the "
+#~ "request. You may also opt to reject the request."
+#~ msgstr ""
+#~ "当其他用户求情加你为好友时，他们会显示在这个页面。你可以审核同意或者拒绝请"
+#~ "求。"
+
+#~ msgid ""
+#~ "This page contains various metaboxes to let you control the email "
+#~ "templates used during the friend connection processing."
+#~ msgstr ""
+#~ "该页面包含各种 Meta 模块，你可以通过它们设计邮件模板，以便在好友链接管理中"
+#~ "使用。"
+
+#~ msgid ""
+#~ "<strong>Email Request Template</strong> - This template contains the "
+#~ "Subject and Content used when one user requests to be friend's with "
+#~ "another user. "
+#~ msgstr ""
+#~ "<strong>邮件请求模板</strong> - 这个模板是给用户发送好友请求时用的，可以定"
+#~ "义邮件主题和内容。"
+
+#~ msgid ""
+#~ "<strong>Email Approval Template</strong> - This template contains the "
+#~ "Subject and Content used when one user approves a friend request from "
+#~ "another user. "
+#~ msgstr ""
+#~ "<strong>邮件同意模板</strong> - 这个模板是给用户同意好友请求时用的，可以定"
+#~ "义邮件主题和内容。"
+
+#~ msgid ""
+#~ "<strong>Email Rejection Template</strong> - This template contains the "
+#~ "Subject and Content used when one user rejects a friend request from "
+#~ "another user. "
+#~ msgstr ""
+#~ "<strong>邮件拒绝模板</strong> - 这个模板是给用户拒绝好友请求时用的，可以定"
+#~ "义邮件主题和内容。"
+
+#~ msgid "Overview"
+#~ msgstr "预览"
+
+#~ msgid "Friend Request"
+#~ msgstr "好友请求"
+
+#~ msgid "Previous Page"
+#~ msgstr "上一页"
+
+#~ msgid "Next Page"
+#~ msgstr "下一页"
+
+#~ msgid "Friend"
+#~ msgstr "好友"
+
+#~ msgid "Avatar"
+#~ msgstr "头像"
+
+#~ msgid "View Blog"
+#~ msgstr "查看博客"
+
+#~ msgid "Remove"
+#~ msgstr "删除"
+
+#~ msgid "Your friends list is currently empty"
+#~ msgstr "你的好友列表目前是空的"
+
+#~ msgid "Send Message To"
+#~ msgstr "发送信息给"
+
+#~ msgid "Quick Message"
+#~ msgstr "快捷信息"
+
+#~ msgid "Send"
+#~ msgstr "发送"
+
+#~ msgid "Search by friends display name, username or email address"
+#~ msgstr "通过好友的姓名、用户名或邮箱进行搜索"
+
+#~ msgid "Show existing friends"
+#~ msgstr "显示已有好友"
+
+#~ msgid "Add"
+#~ msgstr "加为好友"
+
+#~ msgid "ID"
+#~ msgstr "ID"
+
+#~ msgid "No pending Friend requests"
+#~ msgstr "没有待审的好友请求"
+
+#~ msgctxt "Friends Plugin Page Title"
+#~ msgid "Friends Settings"
+#~ msgstr "好友设置"
+
+#~ msgid ""
+#~ "This Email template is used when one user requests to be friends with "
+#~ "another user."
+#~ msgstr "这个邮件模板是用来给用户发送好友请求时用的"
+
+#~ msgid "Reset to Default"
+#~ msgstr "恢复默认"
+
+#~ msgid ""
+#~ "This Email template is used when a user receives a request from another "
+#~ "user to become friends. And the user approves the friend request."
+#~ msgstr ""
+#~ "这个邮件模板是当一个用户接收到其他用户的好友请求，用户同意请求时用的。"
+
+#~ msgid ""
+#~ "This Email template is used when a user receives a request from another "
+#~ "user to become friends. And the user reject the friend request."
+#~ msgstr ""
+#~ "这个邮件模板是当一个用户接收到其他用户的好友请求，用户拒绝请求时用的。"
+
+#~ msgid ""
+#~ "Instructions: Use the following replaceable tokens in your message. These "
+#~ "will be replaced with the real information for user, site, content, etc.. "
+#~ "Note all tokens are wrapped in square brackets."
+#~ msgstr ""
+#~ "说明：在信息中使用以下可用变量，它们将在邮件中被替换为真正的用户、网站、内"
+#~ "容 等。注意：所有的变量都要放在方括号[ ]中。"
+
+#~ msgid "The name of the sender's primary site"
+#~ msgstr "发件人的主站点的名称"
+
+#~ msgid "The URL of the sender's primary site"
+#~ msgstr "发件人的主站点的URL"
+
+#~ msgid "The user name requesting friendship."
+#~ msgstr "好友请求的用户名"
+
+#~ msgid "The user name being friended."
+#~ msgstr "好友的用户名"
+
+#~ msgid "The TO_USER primary site admin page for the Friend Request."
+#~ msgstr "好友请求的TO_USER主站点的管理页面"
+
+#~ msgid "Display"
+#~ msgstr "显示"
+
+#~ msgid "Mosaic"
+#~ msgstr "嵌套"
