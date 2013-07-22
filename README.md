@@ -2,8 +2,8 @@
 Contributors: scribu, Jotschi  
 Tags: inline, editor, edit-in-place, visual, wysiwyg  
 Requires at least: 3.2  
-Tested up to: 3.4  
-Stable tag: 2.3  
+Tested up to: 3.6  
+Stable tag: 2.3.1  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl.html  
 
