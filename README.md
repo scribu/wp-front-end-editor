@@ -74,6 +74,9 @@ To avoid problems with WP Super Cache or W3 Total Cache, I recommend disabling c
 
 ## Changelog
 
+### 2.3.2
+* Aloha: make the Format tab appear before the Insert tab again
+
 ### 2.3.1
 * update to Aloha 0.23.12
 * add placeholder for post thumbnails

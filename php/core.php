@@ -105,9 +105,6 @@ FrontEndEditor.data = <?php echo json_encode( $data ) ?>;
 var Aloha = {};
 Aloha.settings = {
 	logLevels: { 'error': true, 'warn': true, 'info': true, 'debug': false, 'deprecated': true },
-	bundles: {
-		fee: '../../../aloha-plugins'
-	},
 	floatingmenu: {
 		width: 410
 	},
@@ -118,20 +115,6 @@ Aloha.settings = {
 		format: {
 			config: ['b', 'i', 'del', 'sub', 'sup', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre', 'removeFormat'],
 		}
-	},
-	toolbar: {
-		tabs: [
-			{
-				label: "tab.insert.label",
-				showOn: { scope: 'Aloha.continuoustext' },
-				components: [
-					["createTable", "characterPicker", "insertLink",
-					  "insertImage", "insertAbbr", "insertToc",
-					  "insertHorizontalRule", "insertTag"],
-					['wpImage']
-				]
-			}
-		]
 	}
 };
 </script>
