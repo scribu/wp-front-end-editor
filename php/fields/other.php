@@ -34,9 +34,10 @@ class FEE_Field_Comment extends FEE_Field_Base {
 	}
 
 	function get_filtered( $data ) {
-		extract( $data );
 
-		return wpautop( get_comment( $comment_id )->comment_content );
+		ob_start();
+		comment_text( $data['comment_id'] );
+		return ob_get_clean();
 	}
 
 	function check( $data = 0 ) {
