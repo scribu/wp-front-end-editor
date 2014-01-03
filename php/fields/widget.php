@@ -7,7 +7,7 @@ class FEE_Field_Widget extends FEE_Field_Base {
 		return 'widget';
 	}
 
-	function wrap( $params ) {
+	function wrap( $content = null, $data = null, $params = null ) {
 		if ( !$this->check() )
 			return $params;
 
@@ -104,7 +104,7 @@ class FEE_Field_Widget_Text extends FEE_Field_Widget {
 		$this->field = str_replace( 'widget_', '', $this->filter );
 	}
 
-	function wrap( $content, $instance = null, $id_base = null ) {
+	function wrap( $content = null, $data = null, $instance = null, $id_base = null ) {
 		// Only target text widgets
 		if ( 'title' == $this->field && ( !$id_base || 'text' != $id_base ) )
 			return $content;
