@@ -1,0 +1,229 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Front-end Editor v0.8\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/fee\n"
+"POT-Creation-Date: 2012-07-11 21:53:22+00:00\n"
+"PO-Revision-Date: 2014-07-31 22:56+0200\n"
+"Last-Translator: Roee Yossef <roeeyossef@gmail.com>\n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 1.6.7\n"
+"X-Language: en_US\n"
+"X-Source-Language: C\n"
+"X-Poedit-SearchPath-0: .\n"
+
+# @ front-end-editor
+#: admin/admin.php:9
+msgid "Front-end Editor"
+msgstr "עורך צד לקוח"
+
+# @ front-end-editor
+#: admin/admin.php:14
+msgid "Fields"
+msgstr "שדות"
+
+# @ front-end-editor
+#: admin/admin.php:15 lib/scb/AdminPage.php:346
+msgid "Settings"
+msgstr "אפשרויות"
+
+# @ front-end-editor
+#: admin/admin.php:22
+msgid "Enable the WYSIWYG editor."
+msgstr "אפשר עורך WYSIWYG"
+
+#: admin/admin.php:29
+msgid "Edit all post fields at once."
+msgstr "ערוך את תוכן כל השדות במקביל"
+
+#: admin/admin.php:37
+msgid "dropdown"
+msgstr "תפריט נשלף"
+
+# @ front-end-editor
+#: admin/admin.php:38
+msgid "text field"
+msgstr "שדה טקסט"
+
+# @ front-end-editor
+#: admin/admin.php:40
+msgid "To edit categories, use a:"
+msgstr "לעריכת קטגוריות השתמש ב:"
+
+# @ front-end-editor
+#: admin/admin.php:74
+msgid "Enable or disable editable fields:"
+msgstr "אפשא או בטל שדות עריכים"
+
+# @ front-end-editor
+#: admin/admin.php:76
+msgid "Post fields"
+msgstr "שדות פוסט"
+
+# @ front-end-editor
+#: admin/admin.php:77
+msgid "Other fields"
+msgstr "שדות אחרים"
+
+# @ front-end-editor
+#: front-end-editor.php:58
+msgid "Title"
+msgstr "כותרת"
+
+# @ front-end-editor
+#: front-end-editor.php:65
+msgid "Content"
+msgstr "תוכן"
+
+# @ front-end-editor
+#: front-end-editor.php:71
+msgid "Excerpt"
+msgstr "תקציר"
+
+# @ front-end-editor
+#: front-end-editor.php:77
+msgid "Custom fields"
+msgstr "שדות מיוחדים"
+
+# @ front-end-editor
+#: front-end-editor.php:83
+msgid "Thumbnail"
+msgstr "תמונה ממוזערת"
+
+# @ front-end-editor
+#: front-end-editor.php:91
+msgid "Categories"
+msgstr "קטגוריות"
+
+#: front-end-editor.php:97
+msgid "Tags"
+msgstr "תגיות"
+
+#: front-end-editor.php:103
+msgid "Terms"
+msgstr "מונחים"
+
+# @ front-end-editor
+#: front-end-editor.php:110
+msgid "Text widget title"
+msgstr "כותרת ווידג׳ט"
+
+#: front-end-editor.php:117
+msgid "Text widget content"
+msgstr "תוכן ווידג׳ט"
+
+# @ front-end-editor
+#: front-end-editor.php:124
+msgid "Other widgets"
+msgstr "ווידג׳טים אחרים"
+
+# @ front-end-editor
+#: front-end-editor.php:131
+msgid "Comment text"
+msgstr "טקסט תגובה"
+
+# @ front-end-editor
+#: front-end-editor.php:137
+msgid "Category title"
+msgstr "כותרת קטגוריה"
+
+# @ front-end-editor
+#: front-end-editor.php:142
+msgid "Tag title"
+msgstr "כותרת תגית"
+
+# @ front-end-editor
+#: front-end-editor.php:147
+msgid "Term title"
+msgstr "כותרת מונח"
+
+# @ front-end-editor
+#: front-end-editor.php:152
+msgid "Term description"
+msgstr "תיאור מונח"
+
+# @ front-end-editor
+#: front-end-editor.php:159
+msgid "Author description"
+msgstr "תיאור מחבר"
+
+# @ front-end-editor
+#: front-end-editor.php:166
+msgid "Site title and description"
+msgstr "כותרת האתר ותיאור"
+
+# @ front-end-editor
+#: front-end-editor.php:172
+msgid "Site options"
+msgstr "אפשריות אתר"
+
+# @ front-end-editor
+#: front-end-editor.php:178
+msgid "Theme images"
+msgstr "תמונות תבנית"
+
+# @ front-end-editor
+#: lib/scb/AdminPage.php:172
+msgid "Settings <strong>saved</strong>."
+msgstr "אפשרויות <strong>נשמרו</strong>."
+
+#: lib/scb/AdminPage.php:185 lib/scb/AdminPage.php:196
+msgid "Save Changes"
+msgstr ""
+
+# @ front-end-editor
+#: php/core.php:43
+msgid "Edit"
+msgstr "ערוך"
+
+# @ front-end-editor
+#: php/core.php:44
+msgid "Save"
+msgstr "שמור"
+
+# @ front-end-editor
+#: php/core.php:45
+msgid "Cancel"
+msgstr "בטל"
+
+# @ front-end-editor
+#: php/core.php:68
+msgid "Change Image"
+msgstr "שנה תמונה"
+
+# @ front-end-editor
+#: php/core.php:69
+msgid "Insert Image"
+msgstr "הכנס תמונה"
+
+# @ front-end-editor
+#: php/core.php:70
+msgid "Clear"
+msgstr "נקה"
+
+#: php/core.php:268
+msgid "Undefined field"
+msgstr "שדה לא מוגדר"
+
+#: php/core.php:272
+msgid "Insufficient permissions"
+msgstr "אין הרשאות"
+
+# @ front-end-editor
+#: php/fields/base.php:138
+msgid "empty"
+msgstr "ריק"
+
+# @ front-end-editor
+#: php/fields/post.php:101
+msgid "Error: %s is currently editing this."
+msgstr "שגיאה: %s עורך כרגע את הפוסט"
