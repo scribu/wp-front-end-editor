@@ -33,7 +33,7 @@ abstract class FEE_Field_Base {
 	 *
 	 * @return string
 	 */
-	abstract public static function get_object_type();
+	public static function get_object_type() {}
 
 	/**
 	 * Optional actions to be done once per field type.
@@ -50,7 +50,7 @@ abstract class FEE_Field_Base {
 	 *
 	 * @return string Wrapped content
 	 */
-	public function wrap( $content, $data ) {
+	public function wrap( $content = null, $data = null ) {
 		if ( !$this->allow( $data ) )
 			return $content;
 

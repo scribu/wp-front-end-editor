@@ -26,7 +26,7 @@ abstract class FEE_Field_Post extends FEE_Field_Base {
 		return str_replace( '"post-edit-link', '"post-edit-link fee-edit-button', $link );
 	}
 
-	function wrap( $content, $post_id = 0 ) {
+	function wrap( $content = null, $data = null, $post_id = 0 ) {
 		if ( !$post_id = $this->_get_id( $post_id ) ) {
 			return $content;
 		}
@@ -179,7 +179,7 @@ class FEE_Field_Post_Excerpt extends FEE_Field_Post {
 // Handles the_terms field
 class FEE_Field_Terms extends FEE_Field_Post {
 
-	function wrap( $content, $taxonomy, $before, $sep, $after ) {
+	function wrap( $content = null, $data = null, $taxonomy = null, $before = null, $sep = null, $after = null ) {
 		global $post;
 
 		if ( !in_the_loop() ) {
@@ -278,7 +278,7 @@ class FEE_Field_Terms extends FEE_Field_Post {
 // Handles the_tags field
 class FEE_Field_Tags extends FEE_Field_Terms {
 
-	function wrap( $content, $before, $sep, $after ) {
+	function wrap( $content = null, $data = null, $taxonomy = null, $before = null, $sep = null, $after = null ) {
 		return parent::wrap( $content, 'post_tag', $before, $sep, $after );
 	}
 }
@@ -287,8 +287,8 @@ class FEE_Field_Tags extends FEE_Field_Terms {
 // Handles the_category field
 class FEE_Field_Category extends FEE_Field_Terms {
 
-	function wrap( $content, $sep, $parents ) {
-		return parent::wrap( $content, 'category', '', $sep, '' );
+	function wrap( $content = null, $data = null, $before = null, $sep = null, $after = null, $parents = null ) {
+		return parent::wrap( $content, 'category', '', $sep, $after, '' );
 	}
 }
 
@@ -296,12 +296,12 @@ class FEE_Field_Category extends FEE_Field_Terms {
 // Handles the post thumbnail
 class FEE_Field_Post_Thumbnail extends FEE_Field_Post {
 
-	function wrap( $html, $post_id, $post_thumbnail_id, $size ) {
+	function wrap( $content = null, $data = null, $html = null, $post_id = null, $post_thumbnail_id = null, $size = null ) {
 		if ( !$post_id = $this->_get_id( $post_id, false ) ) {
 			return $html;
 		}
 
-		return FEE_Field_Base::wrap( $this->placehold( $html ), compact( 'post_id', 'size' ) );
+		return FEE_Field_Base::wrap( $content, $data, $this->placehold( $html ), compact( 'post_id', 'size' ) );
 	}
 
 	function get( $data ) {
@@ -349,7 +349,7 @@ class FEE_Field_Post_Meta extends FEE_Field_Post {
 		return $data;
 	}
 
-	function wrap( $data, $post_id, $key, $ui, $single ) {
+	function wrap( $content = null, $data = null, $post_id = null, $key = null, $ui = null, $single = null ) {
 		if ( $this->check( $post_id ) ) {
 			if ( $single ) {
 				$data = array( $this->placehold( $data ) );
@@ -357,7 +357,7 @@ class FEE_Field_Post_Meta extends FEE_Field_Post {
 
 			$r = array();
 			foreach ( $data as $i => $val ) {
-				$r[$i] = FEE_Field_Base::wrap( $val, compact( 'post_id', 'key', 'ui', 'i' ) );
+				$r[$i] = FEE_Field_Base::wrap( $content, $data, compact( 'post_id', 'key', 'ui', 'i' ) );
 			}
 		}
 		else {

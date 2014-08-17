@@ -7,7 +7,7 @@ class FEE_Field_Comment extends FEE_Field_Base {
 		return 'comment';
 	}
 
-	function wrap( $content ) {
+	function wrap( $content = null, $data = null ) {
 		global $comment;
 
 		$data = array( 'comment_id' => $comment->comment_ID );
@@ -68,7 +68,7 @@ class FEE_Field_Term_Field extends FEE_Field_Base {
 		$this->field = str_replace( 'term_', '', $this->filter );
 	}
 
-	function wrap( $content, $term_id, $taxonomy ) {
+	function wrap( $content = null, $data = null, $term_id = null, $taxonomy = null ) {
 		$data = compact( 'term_id', 'taxonomy' );
 
 		if ( !$this->check( $data ) )
@@ -113,7 +113,7 @@ class FEE_Field_Single_Title extends FEE_Field_Term_Field {
 		remove_filter( $this->filter, 'strip_tags' );
 	}
 
-	function wrap( $title ) {
+	function wrap( $content = null, $data = null, $term_id = null, $taxonomy = null, $title = null ) {
 		$term = get_queried_object();
 
 		return parent::wrap( $title, $term->term_id, $term->taxonomy );
@@ -128,7 +128,7 @@ class FEE_Field_Author_Desc extends FEE_Field_Base {
 		return 'user';
 	}
 
-	function wrap( $content, $author_id = '' ) {
+	function wrap( $content = null, $data = null, $author_id = '' ) {
 
 		if ( !$author_id )
 			$author_id = $GLOBALS['authordata']->ID;
@@ -177,7 +177,7 @@ class FEE_Field_Bloginfo extends FEE_Field_Base {
 		return 'option';
 	}
 
-	function wrap( $content, $show ) {
+	function wrap( $content = null, $data = null, $show = '' ) {
 		if ( !$this->check() )
 			return $content;
 
@@ -229,7 +229,7 @@ class FEE_Field_Option extends FEE_Field_Base {
 		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'editable!_option!_%' ESCAPE '!'" );
 	}
 
-	function wrap( $content, $key, $ui ) {
+	function wrap( $content = null, $data = null, $key = null, $ui = null ) {
 		$data = compact( 'key', 'ui' );
 
 		if ( !$this->check( $data ) )
@@ -295,7 +295,7 @@ class FEE_Field_Image extends FEE_Field_Base {
 		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'editable!_image!_%' ESCAPE '!'" );
 	}
 
-	function wrap( $img, $key ) {
+	function wrap( $content = null, $data = null, $img = null, $key = null ) {
 		if ( !$this->check() )
 			return $img;
 
